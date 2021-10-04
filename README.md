@@ -17,6 +17,8 @@ The scripts works only under Python 3 but I've included the stubs inside the git
 
 ## Usage
 
+Stubs file are included with the package, but it also possible to generated them:
+
 ```bash
 alias nukepy='path/to/nuke13/interpreter'
 nukepy nuke_stubs_generator.py -h
@@ -28,7 +30,7 @@ The script will also include the internal modules found inside the application f
 
 ## Type guess
 
-The script tries to guess the data type of the function arguments and return statements and for the most part it seems to be pretty accurate with a very few exceptions. 
+The script tries to guess the data type of the function arguments and return statements and for the most part it seems to be pretty accurate with very few exceptions. 
 
 When the keyword `Any` is used, it means more: **it could be any we don't know** and not: **any type is valid**.
 
