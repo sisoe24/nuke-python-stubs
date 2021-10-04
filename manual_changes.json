@@ -1,0 +1,26 @@
+{
+    "nuke_stubs/nuke/nuke_classes/Node.py": {
+        "mod1": {
+            "line": 101,
+            "changes": "def knob(self, p:Union[str, int], follow_link=None):"
+        },
+        "mod2": {
+            "line": 608,
+            "changes": "def dependencies(self, what=None):"
+        },
+        "mod3": {
+            "line": 627,
+            "changes": "def dependent(self, what=None, forceEvaluate:bool=None):"
+        }
+    },
+    "nuke_stubs/nuke/__init__.py": {
+        "mod1": {
+            "line": 1094,
+            "changes": "return str()"
+        },
+        "mod2": {
+            "line": 587,
+            "changes": "def createNode(node:str, args:str=None, inpanel:bool=None):"
+        }
+    }
+}

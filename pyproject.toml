@@ -1,0 +1,14 @@
+[tool.poetry]
+name = "stubs_files"
+version = "0.1.0"
+description = "Create Nuke Python Stubs"
+authors = ["virgilsisoe <sisoe24@gmail.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.7"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
