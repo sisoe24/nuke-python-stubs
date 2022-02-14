@@ -622,7 +622,7 @@ class Node(object):
         @param what: Or'ed constant of nuke.EXPRESSIONS, nuke.INPUTS and nuke.HIDDEN_INPUTS to select the types of dependencies. The default is to look for all types of connections.
         @return: List of nodes.
         """
-        return list()
+        return [Node]
 
     def dependent(self, what=None, forceEvaluate:bool=None):
         """
@@ -645,7 +645,7 @@ class Node(object):
         @param forceEvaluate: Specifies whether a full tree evaluation will take place. Defaults to True.
         @return: List of nodes.
         """
-        return list()
+        return [Node]
 
     def fileDependencies(self, start:Number, end:Number):
         """

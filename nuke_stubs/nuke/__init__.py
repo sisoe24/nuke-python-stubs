@@ -199,7 +199,7 @@ def allNodes(filter:str=None, group=None):
     @param recurseGroups: Optional. If True, will also return all child nodes within any group nodes. This is done recursively and defaults to False.
     @return: List
     """
-    return list()
+    return [Node]
 
 def animation(object, *commands):
     """
@@ -947,7 +947,7 @@ def formats():
 
     @return: List of all available formats.
     """
-    return list()
+    return [Format]
 
 def frame(f:Number=None):
     """
@@ -1345,7 +1345,7 @@ def layers(node=None):
     @param node: Optional node parameter.
     @return: A list of layer names.
     """
-    return list()
+    return [str]
 
 def licenseInfo():
     """
@@ -2030,7 +2030,7 @@ def selectedNodes(filter:str=None):
     @param filter: Optional class of Node. Instructs the algorithm to apply only to a specific class of nodes.
     @return: The list of selected nodes.
     """
-    return list()
+    return [Node]
 
 def setPreset(nodeClassName:str, presetName:str, knobValues:dict):
     """

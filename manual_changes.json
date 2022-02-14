@@ -11,6 +11,14 @@
         "mod3": {
             "line": 627,
             "changes": "def dependent(self, what=None, forceEvaluate:bool=None):"
+        },
+        "mod4": {
+            "line": 625,
+            "changes": "return [Node]"
+        },
+        "mod5": {
+            "line": 648,
+            "changes": "return [Node]"
         }
     },
     "nuke_stubs/nuke/__init__.py": {
@@ -21,6 +29,22 @@
         "mod2": {
             "line": 587,
             "changes": "def createNode(node:str, args:str=None, inpanel:bool=None):"
+        },
+        "mod3": {
+            "line": 202,
+            "changes": "return [Node]"
+        },
+        "mod4": {
+            "line": 2033,
+            "changes": "return [Node]"
+        },
+        "mod5": {
+            "line": 950,
+            "changes": "return [Format]"
+        },
+        "mod6": {
+            "line": 1348,
+            "changes": "return [str]"
         }
     }
 }
