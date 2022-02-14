@@ -69,6 +69,6 @@ optional arguments:
 
 ## Screenshot
 
-Visual Studio Code after adding the stubs to path.
+[Nuke Tools](https://marketplace.visualstudio.com/items?itemName=virgilsisoe.nuke-tools) for Visual Studio Code, will includem them by default.
 
 ![auto_complete_vscode](/images/auto_complete.gif)
