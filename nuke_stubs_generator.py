@@ -412,7 +412,10 @@ class ReturnExtractor:
                 return self._guess_type(_return)
             return 'None'
 
-        if is_valid_object(_return):
+        # a list of object that should not be valid even if nuke this that are
+        not_valid = ['name']
+
+        if is_valid_object(_return) and _return not in not_valid:
             return _return
 
         if ARGS.no_type_guess:
