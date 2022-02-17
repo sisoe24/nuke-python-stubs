@@ -22,15 +22,18 @@ Usage:
 Author:
     Virgil Sisoe - virgilsisoe@gmail.com - 09.27.2021
 """
-import argparse
-import inspect
-import json
-import logging
 import os
 import re
+import json
+import pathlib
+import inspect
+import logging
+import argparse
 from distutils.dir_util import copy_tree
 from textwrap import dedent, indent
+
 from typing import Match, Optional, Union
+
 
 # XXX: module nuke is imported inside main function
 
@@ -48,7 +51,7 @@ def get_docs(obj: object) -> str:
 def is_valid_object(obj):
     """Check if is a valid object.
 
-    At first method will try to check if object is callbale, if it fails will 
+    At first method will try to check if object is callbale, if it fails will
     try to evaluate  if is simple object.
     """
     try:
@@ -549,7 +552,6 @@ def parse_modules():
 
         from .nuke_classes import *
         from .nuke_internal import *
-        from .nukescripts import *
 
         # Constants
         {}
@@ -639,6 +641,19 @@ def get_included_modules():
     although they will be copied at first, they will be overwritten when the loop
     goes to the last plugins path that are usually the one from the system.
     """
+    def _clean_nukescripts():
+        """Import the correct module for nukescripts."""
+        path = PATH.parent.joinpath('nukescripts')
+
+        for file in path.glob('*.py'):
+            with open(file, 'r+') as f:
+                content = f.read()
+                sub = re.sub('import nuke_internal as nuke',
+                             'import nuke', content)
+                f.seek(0)
+                f.write(sub)
+                f.truncate()
+
     def _clean_init():
         """Clean nuke_internal __init__."""
         nuke_internal_init = os.path.join(PATH, 'nuke_internal', '__init__.py')
@@ -658,9 +673,12 @@ def get_included_modules():
             src = os.path.join(path, module)
             if os.path.exists(src):
                 LOGGER.info('Internal module copied: %s', module)
-                copy_tree(src, os.path.join(PATH, module))
+
+                _path = PATH.parent if module == 'nukescripts' else PATH
+                copy_tree(src, os.path.join(_path, module))
 
     _clean_init()
+    _clean_nukescripts()
 
 
 def setup_argparser():
@@ -713,8 +731,11 @@ def main():
     import nuke
 
     # create folders if missing
-    for modules in ['nukescripts', 'nuke_classes', 'nuke_internal']:
+    for modules in ['nuke_classes', 'nuke_internal']:
         os.makedirs(os.path.join(PATH, modules), exist_ok=True)
+
+    nukescripts_path = os.path.join(PATH.parent, 'nukescripts')
+    os.makedirs(nukescripts_path, exist_ok=True)
 
     parse_modules()
     if not ARGS.exclude_internals:
@@ -728,6 +749,7 @@ LOGGER = setup_logger('main', 'log.log')
 LOG_UNGUESSED = setup_logger('unguessed', 'unguessed.log', '')
 
 ARGS = setup_argparser()
-PATH = ARGS.output or os.path.join(os.getcwd(), 'nuke_stubs', 'nuke')
+PATH = ARGS.output or pathlib.Path(
+    os.path.join(os.getcwd(), 'nuke_stubs', 'nuke'))
 
 main()
