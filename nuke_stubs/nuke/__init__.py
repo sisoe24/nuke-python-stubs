@@ -4,7 +4,6 @@ from typing import *
 
 from .nuke_classes import *
 from .nuke_internal import *
-from .nukescripts import *
 
 # Constants
 ADD_VIEWS = 0
@@ -199,8 +198,8 @@ def allNodes(filter:str=None, group=None):
     @param recurseGroups: Optional. If True, will also return all child nodes within any group nodes. This is done recursively and defaults to False.
     @return: List
     """
-    return [Node]
-
+    return list()
+return [Node]
 def animation(object, *commands):
     """
     animation(object, *commands) -> None
@@ -584,8 +583,8 @@ def createLiveInput():
     """
     return Node()
 
+def createNode(node:str, args:list=None, inpanel:bool=None):
 def createNode(node:str, args:str=None, inpanel:bool=None):
-    """
     createNode(node, args, inpanel) -> Node.
 
     Creates a node of the specified type and adds it to the DAG.
@@ -947,8 +946,8 @@ def formats():
 
     @return: List of all available formats.
     """
-    return [Format]
-
+    return list()
+return [Format]
 def frame(f:Number=None):
     """
     frame(f) -> Current frame.
@@ -1091,8 +1090,8 @@ def getNodeClassName():
     gets the class name for the currently selected node
     @return: a string containing the name.
     """
-    return str()
-
+    return None
+return str()
 def getNodePresetExcludePaths():
     """
     getNodePresetExcludePaths() -> string list
@@ -1345,8 +1344,8 @@ def layers(node=None):
     @param node: Optional node parameter.
     @return: A list of layer names.
     """
-    return [str]
-
+    return list()
+return [str]
 def licenseInfo():
     """
     licenseInfo() -> Shows information about licenses used by nuke.
@@ -2030,8 +2029,8 @@ def selectedNodes(filter:str=None):
     @param filter: Optional class of Node. Instructs the algorithm to apply only to a specific class of nodes.
     @return: The list of selected nodes.
     """
-    return [Node]
-
+    return list()
+return [Node]
 def setPreset(nodeClassName:str, presetName:str, knobValues:dict):
     """
     setPreset(nodeClassName, presetName, knobValues) -> None
