@@ -23,27 +23,27 @@
     },
     "nuke_stubs/nuke/__init__.py": {
         "mod1": {
-            "line": 1094,
+            "line": 1093,
             "changes": "return str()"
         },
         "mod2": {
-            "line": 587,
+            "line": 586,
             "changes": "def createNode(node:str, args:str=None, inpanel:bool=None):"
         },
         "mod3": {
-            "line": 202,
+            "line": 201,
             "changes": "return [Node]"
         },
         "mod4": {
-            "line": 2033,
+            "line": 2032,
             "changes": "return [Node]"
         },
         "mod5": {
-            "line": 950,
+            "line": 949,
             "changes": "return [Format]"
         },
         "mod6": {
-            "line": 1348,
+            "line": 1347,
             "changes": "return [str]"
         }
     }
