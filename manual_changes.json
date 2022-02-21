@@ -1,50 +1,65 @@
 {
-    "nuke_stubs/nuke/nuke_classes/Node.py": {
-        "mod1": {
-            "line": 101,
-            "changes": "def knob(self, p:Union[str, int], follow_link=None):"
-        },
-        "mod2": {
-            "line": 608,
-            "changes": "def dependencies(self, what=None):"
-        },
-        "mod3": {
-            "line": 627,
-            "changes": "def dependent(self, what=None, forceEvaluate:bool=None):"
-        },
-        "mod4": {
-            "line": 625,
-            "changes": "return [Node]"
-        },
-        "mod5": {
-            "line": 648,
-            "changes": "return [Node]"
-        }
+    "__init__": {
+        "headers": [
+            {
+                "original_header": "def createNode(node:str, args:list=None, inpanel:bool=None):",
+                "new_header": "def createNode(node:str, args:str=None, inpanel:bool=None):"
+            }
+        ],
+        "returns": [
+            {
+                "function_name": "getNodeClassName",
+                "original_return": "return None",
+                "new_return": "return str()"
+            },
+            {
+                "function_name": "allNodes",
+                "original_return": "return list()",
+                "new_return": "return [Node]"
+            },
+            {
+                "function_name": "formats",
+                "original_return": "return list()",
+                "new_return": "return [Format]"
+            },
+            {
+                "function_name": "layers",
+                "original_return": "return list()",
+                "new_return": "return [str]"
+            },
+            {
+                "function_name": "selectedNodes",
+                "original_return": "return list()",
+                "new_return": "return [Node]"
+            }
+        ]
     },
-    "nuke_stubs/nuke/__init__.py": {
-        "mod1": {
-            "line": 1093,
-            "changes": "return str()"
-        },
-        "mod2": {
-            "line": 586,
-            "changes": "def createNode(node:str, args:str=None, inpanel:bool=None):"
-        },
-        "mod3": {
-            "line": 201,
-            "changes": "return [Node]"
-        },
-        "mod4": {
-            "line": 2032,
-            "changes": "return [Node]"
-        },
-        "mod5": {
-            "line": 949,
-            "changes": "return [Format]"
-        },
-        "mod6": {
-            "line": 1347,
-            "changes": "return [str]"
-        }
+    "Node": {
+        "headers": [
+            {
+                "original_header": "def knob(self, p:int, follow_link=None):",
+                "new_header": "def knob(self, p:Union[str, int], follow_link=None):"
+            },
+            {
+                "original_header": "def dependencies(self, what):",
+                "new_header": "def dependencies(self, what=None):"
+            },
+            {
+                "original_header": "def dependent(self, what, forceEvaluate:bool):",
+                "new_header": "def dependent(self, what=None, forceEvaluate:bool=None):"
+            }
+        ],
+        "returns": [
+            {
+                "function_name": "dependencies",
+                "original_return": "return list()",
+                "new_return": "return [Node]"
+            },
+            {
+                "function_name": "dependent",
+                "original_return": "return list()",
+                "new_return": "return [Node]"
+            }
+        ]
     }
 }

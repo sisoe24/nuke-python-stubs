@@ -135,7 +135,6 @@ class GuessType:
         Method will try to check if is a valid object. If that will fail will try
         guessing with the internal method.
         """
-        # TODO: make union more versatile?
         match1 = is_valid_object(match.group(1))
         match2 = is_valid_object(match.group(2))
 
@@ -448,7 +447,11 @@ class ReturnExtractor:
         return indent(f'return {_return}', ' ' * 4)
 
 
-def func_constructor(header_obj: FunctionObject) -> str:
+def manual_modifications():
+    """Check for manual adjustments made later by hand."""
+
+
+def func_constructor(header_obj: FunctionObject, _id) -> str:
     """Construct the function body.
 
     Args:
@@ -462,7 +465,32 @@ def func_constructor(header_obj: FunctionObject) -> str:
     func_doc = indented_docs(header_obj.obj)
     func_return = header_obj.return_
 
+    func_header, func_return = after_mods(_id, func_header, func_return)
+
     return f'{func_header}\n{func_doc}\n{func_return}\n\n'
+
+
+def after_mods(_id, func_header, func_return):
+    try:
+        with open('manual_changes.json') as file:
+            contents = json.load(file)
+    except FileNotFoundError:
+        LOGGER.warning(
+            'No manual_changes.json file. Please download the example from the git repo.')
+    else:
+        for file, modifications in contents.items():
+            if _id == file:
+                headers = modifications['headers']
+                for header in headers:
+                    if func_header == header['original_header']:
+                        func_header = header['new_header']
+
+                returns = modifications['returns']
+                for _return in returns:
+                    if _return['function_name'] in func_header:
+                        func_return = indent(_return["new_return"], ' ' * 4)
+
+    return func_header, func_return
 
 
 class ClassExtractor:
@@ -533,7 +561,7 @@ class ClassExtractor:
                 continue
 
             class_body += func_constructor(FunctionObject(
-                obj=obj, fallback_name=member, is_class=True)
+                obj=obj, fallback_name=member, is_class=True), self.class_name
             )
 
         return indent(class_body, ' ' * 4)
@@ -586,7 +614,8 @@ def parse_modules():
             ClassExtractor(obj).init()
 
         elif inspect.isbuiltin(obj):
-            builtin += func_constructor(FunctionObject(obj, attr, False))
+            builtin += func_constructor(FunctionObject(obj, attr, False),
+                                        '__init__')
             LOGGER.debug('Built-in method: %s', attr)
 
         elif attr.isupper():
@@ -599,39 +628,6 @@ def parse_modules():
     write_init(constants, builtin)
     write_class_imports(class_imports)
     LOGGER.info('Extraction completed.')
-
-
-def manual_modifications():
-    """Check for manual adjustments made later by hand.
-
-    This method could brake if the line number shifts (eg. new documentation)
-    """
-    try:
-        with open('manual_changes.json') as file:
-            contents = json.load(file)
-
-    except FileNotFoundError as err:
-        LOGGER.warning(
-            'No manual_changes.json file. Please download the example from the git repo.')
-        return
-
-    for file, modifications in contents.items():
-
-        with open(file, 'r+') as f:
-            lines = f.readlines()
-
-        for changes in modifications.values():
-            for index, line in enumerate(lines, 1):
-                if index == changes['line']:
-                    try:
-                        start_space = re.search(r'^\s+(?=\w)', line).group()
-                    except AttributeError:
-                        start_space = ''
-
-                    lines[index - 1] = start_space + changes['changes'] + '\n'
-
-        with open(file, 'w') as f:
-            f.writelines(lines)
 
 
 def get_included_modules():
