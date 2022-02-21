@@ -465,12 +465,76 @@ def func_constructor(header_obj: FunctionObject, _id) -> str:
     func_doc = indented_docs(header_obj.obj)
     func_return = header_obj.return_
 
-    func_header, func_return = after_mods(_id, func_header, func_return)
+    func_header, func_return = manual_mods(_id, func_header, func_return)
 
     return f'{func_header}\n{func_doc}\n{func_return}\n\n'
 
 
-def after_mods(_id, func_header, func_return):
+def manual_mods(filename, func_header, func_return):
+    """Make manual modifications to header and returns.
+
+    Certain headers and returns are wrong, because of the docs or because the
+    parser failed. Instead of writing a condition for each case, the file
+    `manual_changes.json` can be used to create a list of modifications to make
+    at each function generated.
+
+    Args:
+        filename (str): the filename to check for modifications
+        func_header (str): the function header.
+        func_return (str): the function return.
+
+    Returns:
+        (str): the function header.
+        (str): the function return.
+    """
+    def _debug(old, new):
+        LOGGER.info('Modifying: %s -> %s', old, new)
+
+    def header_mod(func_header, headers):
+        """Modify the header of the function.
+
+        Args:
+            func_header (str): the current function header.
+            headers (list): the list of modification to make.
+
+        Returns:
+            str: the header function
+        """
+        for header in headers:
+            if func_header == header['original_header']:
+
+                new_header = header['new_header']
+                _debug(func_header, new_header)
+                func_header = new_header
+
+        return func_header
+
+    def return_mod(func_header, func_return, returns):
+        """Modify the return of the function.
+
+        The header is checked before, to be sure that the modification
+        is for the right function.
+
+        Args:
+            func_header (str): the current function header.
+            func_return (str): the current function header.
+            returns (list): the list of modification to make.
+
+        Returns:
+            str: the header function
+        """
+        for _return in returns:
+            # I am checking `in` because some functions could be indented so
+            # `x` does not match `    x`.
+            if (_return['function_name'] in func_header and
+                    _return['original_return'] in func_return):
+
+                new_return = _return["new_return"]
+                _debug(func_return, new_return)
+                func_return = indent(new_return, ' ' * 4)
+
+        return func_return
+
     try:
         with open('manual_changes.json') as file:
             contents = json.load(file)
@@ -479,16 +543,10 @@ def after_mods(_id, func_header, func_return):
             'No manual_changes.json file. Please download the example from the git repo.')
     else:
         for file, modifications in contents.items():
-            if _id == file:
-                headers = modifications['headers']
-                for header in headers:
-                    if func_header == header['original_header']:
-                        func_header = header['new_header']
-
-                returns = modifications['returns']
-                for _return in returns:
-                    if _return['function_name'] in func_header:
-                        func_return = indent(_return["new_return"], ' ' * 4)
+            if filename == file:
+                func_header = header_mod(func_header, modifications['headers'])
+                func_return = return_mod(func_header, func_return,
+                                         modifications['returns'])
 
     return func_header, func_return
 
