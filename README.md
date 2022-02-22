@@ -1,21 +1,28 @@
-# Nuke python stubs file
+# 1. Nuke python stubs file
 
-Create Nuke python file stubs to aid auto complete in text editors.
+A quick and dirty script to create Nuke Python file stubs to aid auto complete in text editors.
 
-## Description
+- [1. Nuke python stubs file](#1-nuke-python-stubs-file)
+  - [1.1. Description](#11-description)
+  - [1.2. Usage](#12-usage)
+  - [1.3. Type guess](#13-type-guess)
+    - [1.3.1. Unguessed/Wrong types](#131-unguessedwrong-types)
+    - [1.3.2. Workaround to wrong/unguessed types](#132-workaround-to-wrongunguessed-types)
+  - [1.4. CLI Options](#14-cli-options)
+  - [1.5. Acknowledgement](#15-acknowledgement)
+  - [1.6. Screenshot](#16-screenshot)
 
-This method is inspired by PyCharm stub generator. Although less sophisticated, is tries to be more accurate on certain data types like returns and arguments types.
+## 1.1. Description
 
-The stubs will include:
-* Classes
-* Built-in methods
-* Constants
-* Arguments types
-* Return statements
+A stubs file generator for Nuke13/Python3. Files will include:
 
-The scripts works only under Python 3 but I've included the stubs inside the git repo if one does not have access to Nuke13.
+- Classes.
+- Built-in methods.
+- Constant.
+- Arguments types.
+- Return statements.
 
-## Usage
+## 1.2. Usage
 
 Stubs file are included with the package, but it also possible to generated them:
 
@@ -26,33 +33,35 @@ nukepy nuke_stubs_generator.py
 nukepy nuke_stubs_generator.py -o path/to/dir
 ```
 
-The script will also include the internal modules found inside the application folder. You can ignore them by supplying the `--exclude-internals` argument.
+The script will also include the internal modules found inside the application folder. They can ignored by supplying the `--exclude-internals` argument.
 
-## Type guess
+## 1.3. Type guess
 
-The script tries to guess the data type of the function arguments and return statements and for the most part it seems to be pretty accurate with very few exceptions. 
+The script tries to guess the data type of the function arguments and return statements and for the most part it seems to be pretty accurate with very few exceptions:
 
-When the keyword `Any` is used, it means more: **it could be any we don't know** and not: **any type is valid**.
+- When the keyword `Any` is used for arguments, it means: **it could be any we don't know** and not: **any type is valid**.
+- When the keyword `Number` is used, it means: **it could be a float or an int** and not: **any number type is valid**.
+- Optional arguments are denoted by: `x:type=None`. If the type was not guessed: `x=None`.
+- Return statements are denoted similar to arguments. If the parses wasn't able to guess the return, will return `Any` as **it could be any**.
 
-When the keyword `Number` is used, it means more: **it could be a float or an int** and not: **any number type is valid**.
+> If arguments has no type annotation, it probably means that wasn't possible to parse the documentation. Also please note that some of the documentations is not accurate.
 
-### Arguments
+### 1.3.1. Unguessed/Wrong types
 
-If arguments have no type annotation it probably means that wasn't possible to parse the documentation. Also please note that some of the documentations are not accurate.
+The script tries, for the most part, to stay away from writing single case conditions, so some types/returns are wrong or unguessed.
+The wrong types are likely due the parser identifying some keywords in the documentation and making a guess based on that.
 
-Optional arguments are denoted by: `x:type = None`. If the type was not guessed: `x=None`.
+Example:
 
-### Return statements
+If documentation returns: `-> switch to next view in settings Views list`, the parser will search for potential keywords and is going to assume that `list` is a match.
 
-Return statements are denoted similar to arguments. If it wasn't possible the guess the return statement after parsing the documentation will return `Any` as "it could be any".
+> The script generated a `unguessed_log.log` file with what wasn't able to correctly guess.
 
-### Left-over types
+### 1.3.2. Workaround to wrong/unguessed types
 
-The script tries, for the most part, to stay away from writing single case conditions so some of the types/returns are still wrong or unguessed. The script generated a unguessed_log.log file with what wasn't able to correctly guess.
+The `manual_changes.json` file, allows to create some manual modifications that are going to be applied when the stubs are generated. A file example is provided.
 
-If later, one would like to adjust those statements by hand manually, it could save them into the file _manual\_changes.json_. This will ensure that after each compile, the stubs modifications are kept intact. The file has already an example on how to add information. This would also encourage the reuse of this project repo instead of generating new ones.
-
-## Options
+## 1.4. CLI Options
 
 ```bash
 usage: nuke_stubs_generator.py [-h] [-v] [--exclude-internals]
@@ -67,8 +76,12 @@ optional arguments:
                         Output to specific directory
 ```
 
-## Screenshot
+## 1.5. Acknowledgement
 
-[Nuke Tools](https://marketplace.visualstudio.com/items?itemName=virgilsisoe.nuke-tools) for Visual Studio Code, will includem them by default.
+This method is inspired by PyCharm stub generator.
+
+## 1.6. Screenshot
+
+[Nuke Tools](https://marketplace.visualstudio.com/items?itemName=virgilsisoe.nuke-tools) for Visual Studio Code, will include the files by default.
 
 ![auto_complete_vscode](/images/auto_complete.gif)
