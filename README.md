@@ -42,7 +42,7 @@ The script tries to guess the data type of the function arguments and return sta
 - When the keyword `Any` is used for arguments, it means: **it could be any we don't know** and not: **any type is valid**.
 - When the keyword `Number` is used, it means: **it could be a float or an int** and not: **any number type is valid**.
 - Optional arguments are denoted by: `x:type=None`. If the type was not guessed: `x=None`.
-- Return statements are denoted similar to arguments. If the parses wasn't able to guess the return, will return `Any` as **it could be any**.
+- Return statements are denoted similar to arguments. If the parser wasn't able to properly guess, will return `Any` as **it could be any**.
 
 > If arguments has no type annotation, it probably means that wasn't possible to parse the documentation. Also please note that some of the documentations is not accurate.
 
