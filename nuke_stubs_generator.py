@@ -729,10 +729,20 @@ def get_included_modules():
                 LOGGER.info('Internal module copied: %s', module)
 
                 _path = PATH.parent if module == 'nukescripts' else PATH
-                copy_tree(src, _path / module)
+                copy_tree(src, str(_path / module))
 
     _clean_init()
     _clean_nukescripts()
+
+
+def get_hiero():
+    # Hack: add Hiero api
+    import PySide2
+    site_packages = pathlib.Path(PySide2.__file__).parent.parent
+    hiero = site_packages / 'hiero'
+    if hiero.exists():
+        LOGGER.info('Hiero module copied')
+        copy_tree(str(hiero), str(PATH.parent / 'hiero'))
 
 
 def setup_argparser():
@@ -794,6 +804,7 @@ def main():
     parse_modules()
     if not ARGS.exclude_internals:
         get_included_modules()
+        get_hiero()
 
     manual_modifications()
     logging.info('Done')
