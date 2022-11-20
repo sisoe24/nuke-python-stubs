@@ -565,7 +565,7 @@ class ClassExtractor:
 
     def _write_class_file(self):
         """Create class file"""
-        path = os.path.join(PATH, 'nuke_classes', f'{self.class_name}.py')
+        path = PATH / 'nuke_classes' / f'{self.class_name}.py'
         with open(path, 'w') as file:
             file.write(self.class_file)
 
@@ -647,7 +647,7 @@ def parse_modules():
         """).format(constants, builtin).strip()
         LOGGER.info('Generating __init__.py')
 
-        path = os.path.join(PATH, '__init__.py')
+        path = PATH / '__init__.py'
         with open(path, 'w') as file:
             file.write(init_file)
 
@@ -655,7 +655,7 @@ def parse_modules():
         """Create a init file with all the classes imports."""
         LOGGER.info('Generating class imports..')
 
-        path = os.path.join(PATH, 'nuke_classes', '__init__.py')
+        path = PATH / 'nuke_classes' / '__init__.py'
         with open(path, 'w') as file:
             file.write(class_imports)
 
@@ -729,7 +729,7 @@ def get_included_modules():
                 LOGGER.info('Internal module copied: %s', module)
 
                 _path = PATH.parent if module == 'nukescripts' else PATH
-                copy_tree(src, os.path.join(_path, module))
+                copy_tree(src, _path / module)
 
     _clean_init()
     _clean_nukescripts()
@@ -786,9 +786,9 @@ def main():
 
     # create folders if missing
     for modules in ['nuke_classes', 'nuke_internal']:
-        os.makedirs(os.path.join(PATH, modules), exist_ok=True)
+        os.makedirs(PATH / modules, exist_ok=True)
 
-    nukescripts_path = os.path.join(PATH.parent, 'nukescripts')
+    nukescripts_path = PATH.parent / 'nukescripts'
     os.makedirs(nukescripts_path, exist_ok=True)
 
     parse_modules()
@@ -803,7 +803,6 @@ LOGGER = setup_logger('main', 'log.log')
 LOG_UNGUESSED = setup_logger('unguessed', 'unguessed.log', '')
 
 ARGS = setup_argparser()
-PATH = ARGS.output or pathlib.Path(
-    os.path.join(os.getcwd(), 'nuke_stubs', 'nuke'))
+PATH = ARGS.output or pathlib.Path(__file__).parent / 'nuke_stubs' / 'nuke'
 
 main()
