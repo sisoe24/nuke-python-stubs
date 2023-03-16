@@ -22,18 +22,16 @@ Usage:
 Author:
     Virgil Sisoe - virgilsisoe@gmail.com - 09.27.2021
 """
-import os
-import re
-import json
-import pathlib
-import inspect
-import logging
 import argparse
+import inspect
+import json
+import logging
+import os
+import pathlib
+import re
 from distutils.dir_util import copy_tree
 from textwrap import dedent, indent
-
 from typing import Match, Optional, Union
-
 
 # XXX: module nuke is imported inside main function
 
@@ -146,7 +144,7 @@ class GuessType:
             # must add match1 to exclude to avoid matching the same type twice
             match2 = self.auto_guess(exclude=['union', match1])
 
-        return f"Union[{match1}, {match2}]"
+        return f'Union[{match1}, {match2}]'
 
     def is_optional(self, match: re.Match) -> str:
         guess_type = self.auto_guess(exclude=['optional'])
@@ -230,7 +228,7 @@ class ArgsParser:
         """Fix/Clean some text from the arguments."""
         def is_arg_valid(arg):
             """Check if is valid argument type"""
-            return is_valid_object(arg.expand(r'\1')) or "None"
+            return is_valid_object(arg.expand(r'\1')) or 'None'
 
         def make_arg_title(arg):
             """Make true and false title case"""
@@ -242,7 +240,7 @@ class ArgsParser:
             r'\.\.\.,?': '',                   # dots
             r'/,?': '',                        # positional syntax
             r'\[,(.+)\]': r',\1=None',         # optionals
-            r'\[.+\]': "*args",                # list args
+            r'\[.+\]': '*args',                # list args
             r'=(?=\s+,|\s+\)|,)': '=None',     # empty args
             r'\\(\w)': r'\\\\\1',              # escape chars
         }
@@ -277,7 +275,7 @@ class ArgsParser:
 
         If _type is optional return `=None` else` :type`
         """
-        return f"={_type}" if _type == 'None' else f":{_type}"
+        return f'={_type}' if _type == 'None' else f':{_type}'
 
     def _guess_args(self, args: list) -> Union[str, None]:
         """Try guessing args data type based on documentation text."""
@@ -354,7 +352,7 @@ class FnHeaderExtractor:
                 )                      # end group
                 ''', re.X)
         try:
-            return f"def {extractor.search(self.obj_docs).group(1)}:"
+            return f'def {extractor.search(self.obj_docs).group(1)}:'
         except AttributeError:
             # if there are no parenthesis, then return a simple header
             return self.simple_header()
@@ -382,7 +380,7 @@ class FnHeaderExtractor:
         except Exception as err:
             return self._unknown_header(err)
 
-    def _unknown_header(self, err: Optional[Exception] = "") -> str:
+    def _unknown_header(self, err: Optional[Exception] = '') -> str:
         # most likely to be some dunder methods that can be safely ignored
         LOGGER.warning(
             'Failed to extract func header for: %s. '
@@ -429,7 +427,7 @@ class ReturnExtractor:
             return guessed_type
 
         log_unguessed('Returns', self.header_obj.obj.__name__, _return)
-        return "Any"
+        return 'Any'
 
     @staticmethod
     def _is_return_callable(_return: str) -> str:
@@ -445,10 +443,6 @@ class ReturnExtractor:
         """Extract function return from documentation."""
         _return = self._is_return_callable(self.get_return())
         return indent(f'return {_return}', ' ' * 4)
-
-
-def manual_modifications():
-    """Check for manual adjustments made later by hand."""
 
 
 def func_constructor(header_obj: FunctionObject, _id) -> str:
@@ -529,7 +523,7 @@ def manual_mods(filename, func_header, func_return):
             if (_return['function_name'] in func_header and
                     _return['original_return'] in func_return):
 
-                new_return = _return["new_return"]
+                new_return = _return['new_return']
                 _debug(func_return, new_return)
                 func_return = indent(new_return, ' ' * 4)
 
@@ -582,7 +576,7 @@ class ClassExtractor:
 
     def _setup_class_content(self) -> str:
         """Setup class file text content: header, docs and body."""
-        class_header = f"class {self.class_name}({self.class_parent}):"
+        class_header = f'class {self.class_name}({self.class_parent}):'
         class_doc = indented_docs(self.obj)
         class_body = self._get_class_methods()
 
@@ -609,13 +603,13 @@ class ClassExtractor:
 
         class_dict = fix_dict(dict(self.obj.__dict__))
 
-        class_body = ""
+        class_body = ''
         for member, obj in class_dict.items():
             LOGGER.debug('\t%s', member)
 
             # check for simple type class attributes
             if type(obj) in (float, int, str, list, tuple, set, dict):
-                class_body += f"{member} = {obj}\n"
+                class_body += f'{member} = {obj}\n'
                 continue
 
             class_body += func_constructor(FunctionObject(
@@ -659,9 +653,9 @@ def parse_modules():
         with open(path, 'w') as file:
             file.write(class_imports)
 
-    builtin = ""
-    constants = ""
-    class_imports = ""
+    builtin = ''
+    constants = ''
+    class_imports = ''
 
     LOGGER.info('Start extraction...')
     for attr in dir(nuke):
@@ -747,9 +741,9 @@ def get_hiero():
 
 def setup_argparser():
     """Command line arguments setup function."""
-    parser = argparse.ArgumentParser(description="Create Nuke Python Stubs")
-    parser.add_argument("-v", "--verbosity", action="store_true",
-                        help="Increase output verbosity")
+    parser = argparse.ArgumentParser(description='Create Nuke Python Stubs')
+    parser.add_argument('-v', '--verbosity', action='store_true',
+                        help='Increase output verbosity')
     parser.add_argument('--exclude-internals', action='store_true',
                         help='Exclude internal modules: nukescripts, nuke_internal')
     parser.add_argument('-x', '--no-type-guess', action='store_true',
@@ -783,7 +777,7 @@ def setup_logger(name,  log_file, _format='%(levelname)s :: %(message)s'):
 
 
 def log_unguessed(_type, obj, result):
-    msg = "[ {:>9} ] {: ^85} :: {}".format(_type, obj, result)
+    msg = '[ {:>9} ] {: ^85} :: {}'.format(_type, obj, result)
     LOG_UNGUESSED.debug(msg)
 
 
@@ -806,7 +800,7 @@ def main():
         get_included_modules()
         get_hiero()
 
-    manual_modifications()
+    manual_mods()
     logging.info('Done')
 
 
