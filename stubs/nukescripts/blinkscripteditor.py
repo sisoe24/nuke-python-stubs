@@ -5,8 +5,8 @@ import traceback
 import rlcompleter
 from io import StringIO
 
-import nuke
 import PySide2
+import nuke_internal as nuke
 
 # Syntax highlighting colour definitions
 kwdsFgColour = PySide2.QtGui.QColor(122, 136, 53)

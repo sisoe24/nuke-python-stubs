@@ -1,6 +1,6 @@
 # Copyright (c) 2009 The Foundry Visionmongers Ltd.  All Rights Reserved.
 
-import nuke
+import nuke_internal as nuke
 
 isHiero = nuke.env['hiero']
 if isHiero:
@@ -42,6 +42,7 @@ else:
     from .autobackdrop import *
     from .importexport import *
     from .nukeprofiler import *
+    from .unrealreader import *
     from .searchreplace import *
     from .scripteditorknob import *
     if nuke.GUI:
@@ -49,6 +50,7 @@ else:
         # Callback for viewsettings preferences
         from . import readviewscheck, localisationprefs, viewsettingsprefs
         from .panels import *
+        from .cattery import *
         from .toolbars import *
         from .toolsets import *
         from .nodepresets import *

@@ -1,10 +1,12 @@
 # Copyright (c) 2009 The Foundry Visionmongers Ltd.  All Rights Reserved.
 
 import os
+import enum
 import os.path
+from enum import IntEnum
 
-import nuke
 import nukescripts
+import nuke_internal as nuke
 
 # Define the tool menus. This file is loaded by menu.py.
 
@@ -22,6 +24,23 @@ def setup_toolbars():
     applicationContext = 1
     dagContext = 2
 
+    # Enumerate possible menu item tags. It defaults to MenuItemTag.NoTag, if not specified.
+    @enum.unique
+    class MenuItemTag(IntEnum):
+        NoTag = 0
+        Beta = 1
+        Classic = 2
+
+    # Enumerate possible menu item tag targets - widgets where the tag should be present.
+    # It defaults to MenuItemTagTargetFlag.All, if not specified.
+    @enum.unique
+    class MenuItemTagTargetFlag(IntEnum):
+        Unknown = 0
+        ToolbarMenu = 1
+        TabMenu = 2
+        ContextMenu = 4
+        All = 7
+
     # Get the top-level toolbar
     toolbar = nuke.menu('Nodes')
     assist = nuke.env['assist']
@@ -37,6 +56,7 @@ def setup_toolbars():
     if not assist:
         m.addCommand('UDIM import', 'nukescripts.udim_import()', 'u',
                      icon='Read.png', shortcutContext=dagContext)
+    m.addCommand('UnrealReader', "nuke.createNode(\"UnrealReader\")", icon='Read.png')
     m.addCommand('Constant', "nuke.createNode(\"Constant\")", icon='Constant.png')
     m.addCommand('CheckerBoard', "nuke.createNode(\"CheckerBoard2\")",
                  icon='CheckerBoard.png')
@@ -140,6 +160,8 @@ def setup_toolbars():
     n.addCommand('OCIO LogConvert', "nuke.createNode(\"OCIOLogConvert\")", icon='OCIO.png')
     n.addCommand('OCIO LookTransform',
                  "nuke.createNode(\"OCIOLookTransform\")", icon='OCIO.png')
+    n.addCommand('OCIO NamedTransform', "nuke.createNode(\"OCIONamedTransform\")",
+                 icon='OCIO.png', tag=MenuItemTag.Beta, nodeClass='OCIONamedTransform')
 
     n = m.addMenu('3D LUT', 'Toolbar3DLUT.png')
     n.addCommand('CMSTestPattern', "nuke.createNode(\"CMSTestPattern\")",
@@ -189,6 +211,7 @@ def setup_toolbars():
     m.addCommand('@;BlurBranch', "nuke.createNode(\"Blur\")",
                  '+b', shortcutContext=dagContext)
     m.addCommand('Bilateral', "nuke.createNode(\"Bilateral2\")", icon='Bilateral.png')
+    m.addCommand('Bokeh', "nuke.createNode(\"Bokeh\")", icon='pgBokeh.png')
     m.addCommand('BumpBoss', "nuke.createNode(\"BumpBoss\")", icon='BumpBoss.png')
     m.addCommand('Convolve', "nuke.createNode(\"Convolve2\")", icon='Convolve.png')
     m.addCommand('Defocus', "nuke.createNode(\"Defocus\")", icon='Defocus.png')
@@ -235,6 +258,8 @@ def setup_toolbars():
                  icon='ChromaKeyer.png')
     m.addCommand('Cryptomatte', "nuke.createNode(\"Cryptomatte\")",
                  icon='Cryptomatte.png')
+    m.addCommand('Encryptomatte', "nuke.createNode(\"Encryptomatte\")",
+                 icon='Encryptomatte.png')
     m.addCommand('Difference', "nuke.createNode(\"Difference\")",
                  icon='DifferenceKeyer.png')
     m.addCommand('HueKeyer', "nuke.createNode(\"HueKeyer\")", icon='HueKeyer.png')
@@ -345,92 +370,238 @@ def setup_toolbars():
     # The "3D" menu
     m = toolbar.addMenu('3D', 'Cube.png')
 
-    m.addCommand('Axis', "nuke.createNode(\"Axis3\")", icon='Axis.png')
+    m3D = m.addMenu('3D', 'GeoCube_3D.png', tag=MenuItemTag.Beta)
 
-    n = m.addMenu('Geometry', 'Geometry.png')
-    n.addCommand('Card', "nuke.createNode(\"Card2\")", icon='Card.png')
-    n.addCommand('Cube', "nuke.createNode(\"Cube\")", icon='Cube.png')
-    n.addCommand('Cylinder', "nuke.createNode(\"Cylinder\")", icon='Cylinder.png')
-    n.addCommand('DepthToPoints', "nuke.createNode(\"DepthToPoints\")",
-                 icon='DepthToPoints.png')
-    # n.addCommand("Modeler", "nuke.createNode(\"Modeler\")", icon="Modeler.png")
-    n.addCommand('ModelBuilder', "nuke.createNode(\"ModelBuilder\")", icon='Modeler.png')
+    n = m3D.addMenu('Create', 'Create_3D.png')
+    n.addCommand('GeoCard', "nuke.createNode(\"GeoCard\")",
+                 icon='GeoCard_3D.png', tag=MenuItemTag.Beta)
+    n.addCommand('GeoCube', "nuke.createNode(\"GeoCube\")",
+                 icon='GeoCube_3D.png', tag=MenuItemTag.Beta)
+    n.addCommand('GeoCylinder', "nuke.createNode(\"GeoCylinder\")",
+                 icon='GeoCylinder_3D.png', tag=MenuItemTag.Beta)
+    n.addCommand('GeoExport', "nuke.createNode(\"GeoExport\")",
+                 icon='GeoExport_3D.png', tag=MenuItemTag.Beta)
+    n.addCommand('GeoImport', "nuke.createNode(\"GeoImport\")",
+                 icon='GeoImport_3D.png', tag=MenuItemTag.Beta)
+    n.addCommand('GeoPoints', "nuke.createNode(\"GeoPoints\")",
+                 icon='GeoPoints_3D.png', tag=MenuItemTag.Beta)
+    n.addCommand('GeoPointsToMesh', "nuke.createNode(\"GeoPointsToMesh\")",
+                 icon='GeoPointsToMesh_3D.png', tag=MenuItemTag.Beta)
+    n.addCommand('GeoReference', "nuke.createNode(\"GeoReference\")",
+                 icon='GeoReference_3D.png', tag=MenuItemTag.Beta)
+    n.addCommand('GeoRevolve', "nuke.createNode(\"GeoRevolve\")",
+                 icon='GeoRevolve_3D.png', tag=MenuItemTag.Beta)
+    n.addCommand('GeoScope', "nuke.createNode(\"GeoScope\")",
+                 icon='GeoScope_3D.png', tag=MenuItemTag.Beta)
+    n.addCommand('GeoSphere', "nuke.createNode(\"GeoSphere\")",
+                 icon='GeoSphere_3D.png', tag=MenuItemTag.Beta)
+
+    n = m3D.addMenu('Lights', 'Lights_3D.png')
+    n.addCommand('DirectLight', "nuke.createNode(\"DirectLight1\")",
+                 icon='DirectLight_3D.png', tag=MenuItemTag.Beta, nodeClass='DirectLight1')
+    n.addCommand('EnvironmentLight', "nuke.createNode(\"EnvironmentLight\")",
+                 icon='EnvironmentLight_3D.png', tag=MenuItemTag.Beta)
+    n.addCommand('PointLight', "nuke.createNode(\"PointLight\")",
+                 icon='Light_3D.png', tag=MenuItemTag.Beta)
+    n.addCommand('SpotLight', "nuke.createNode(\"SpotLight1\")",
+                 icon='SpotLight_3D.png', tag=MenuItemTag.Beta, nodeClass='SpotLight1')
+
+    n = m3D.addMenu('Modify', 'Modify_3D.png')
+    n.addCommand('GeoBindMaterial', "nuke.createNode(\"GeoBindMaterial\")",
+                 icon='GeoBindMaterial_3D.png', tag=MenuItemTag.Beta)
+    n.addCommand('GeoCollection', "nuke.createNode(\"GeoCollection\")",
+                 icon='GeoCollection_3D.png', tag=MenuItemTag.Beta)
+    n.addCommand('GeoDisplace', "nuke.createNode(\"GeoDisplace\")",
+                 icon='GeoDisplace_3D.png', tag=MenuItemTag.Beta)
+    n.addCommand('GeoDrawMode', "nuke.createNode(\"GeoDrawMode\")",
+                 icon='GeoDrawMode_3D.png', tag=MenuItemTag.Beta)
+    n.addCommand('GeoInstance', "nuke.createNode(\"GeoInstance\")",
+                 icon='GeoInstance_3D.png', tag=MenuItemTag.Beta)
+    n.addCommand('GeoMerge', "nuke.createNode(\"GeoMerge\")",
+                 icon='GeoMerge_3D.png', tag=MenuItemTag.Beta)
+    n.addCommand('GeoNoise', "nuke.createNode(\"GeoNoise\")",
+                 icon='GeoNoise_3D.png', tag=MenuItemTag.Beta)
+    n.addCommand('GeoNormals', "nuke.createNode(\"GeoNormals\")",
+                 icon='GeoNormals_3D.png', tag=MenuItemTag.Beta)
+    n.addCommand('GeoPrune', "nuke.createNode(\"GeoPrune\")",
+                 icon='GeoPrune_3D.png', tag=MenuItemTag.Beta)
+    n.addCommand('GeoRadialWarp', "nuke.createNode(\"GeoRadialWarp\")",
+                 icon='GeoRadialWarp_3D.png', tag=MenuItemTag.Beta)
+    n.addCommand('GeoSelector', "nuke.createNode(\"GeoSelector\")",
+                 icon='GeoSelector_3D.png', tag=MenuItemTag.Beta)
+    n.addCommand('GeoTransform', "nuke.createNode(\"GeoTransform\")",
+                 icon='GeoTransform_3D.png', tag=MenuItemTag.Beta)
+    n.addCommand('GeoTrilinearWarp', "nuke.createNode(\"GeoTrilinearWarp\")",
+                 icon='GeoTrilinearWarp_3D.png', tag=MenuItemTag.Beta)
+    n.addCommand('GeoUVProject', "nuke.createNode(\"GeoUVProject\")",
+                 icon='GeoUVProject_3D.png', tag=MenuItemTag.Beta)
+
+    n = m3D.addMenu('Shader', 'Shaders_3D.png')
+    n.addCommand('BasicSurface', "nuke.createNode(\"BasicSurface\")",
+                 icon='Shader_3D.png', tag=MenuItemTag.Beta)
+    n.addCommand('ConstantShader', "nuke.createNode(\"ConstantShader\")",
+                 icon='ConstantShader_3D.png', tag=MenuItemTag.Beta)
+    n.addCommand('FillShader', "nuke.createNode(\"FillShader\")",
+                 icon='Shader_3D.png', tag=MenuItemTag.Beta)
+    n.addCommand('MergeLayerShader', "nuke.createNode(\"MergeLayerShader\")",
+                 icon='MergeLayerShader_3D.png', tag=MenuItemTag.Beta)
+    n.addCommand('PreviewSurface', "nuke.createNode(\"PreviewSurface\")",
+                 icon='Shader_3D.png', tag=MenuItemTag.Beta)
+    n.addCommand('Project3DShader', "nuke.createNode(\"Project3DShader\")",
+                 icon='Project3D_3D.png', tag=MenuItemTag.Beta)
+    n.addCommand('WireframeShader', "nuke.createNode(\"WireframeShader\")",
+                 icon='Shader_3D.png', tag=MenuItemTag.Beta)
+
+    m3D.addCommand('Axis', "nuke.createNode(\"Axis4\")", icon='Axis_3D.png',
+                   tag=MenuItemTag.Beta, nodeClass='Axis4')
+    m3D.addCommand('Camera', "nuke.createNode(\"Camera4\")",
+                   icon='Camera_3D.png', tag=MenuItemTag.Beta, nodeClass='Camera4')
+    m3D.addCommand('CameraTracker', "nuke.createNode(\"CameraTracker\", \"new3D True\")",
+                   icon='CameraTracker_3D.png')
+    m3D.addCommand('DepthGenerator', "nuke.createNode(\"DepthGenerator\", \"new3D True\")",
+                   icon='DepthGenerator_3D.png')
+    m3D.addCommand('DepthToPosition', "nuke.createNode(\"DepthToPosition\")",
+                   icon='DepthToPosition_3D.png')
+    m3D.addCommand('GeoScene', "nuke.createNode(\"GeoScene\")",
+                   icon='GeoScene_3D.png', tag=MenuItemTag.Beta)
+    m3D.addCommand('GeoViewScene', "nuke.createNode(\"GeoViewScene\")",
+                   icon='GeoViewScene_3D.png', tag=MenuItemTag.Beta)
+    m3D.addCommand('PointsGenerator', "nuke.createNode(\"PointsGenerator\")",
+                   icon='PointsGenerator_3D.png', tag=MenuItemTag.Beta)
+    m3D.addCommand('ScanlineRender', "nuke.createNode(\"ScanlineRender2\")",
+                   icon='ScanlineRender_3D.png', tag=MenuItemTag.Beta, nodeClass='ScanlineRender2')
+
+    m3Dclassic = m.addMenu('3D Classic', 'Cube.png')
+
+    m3Dclassic.addCommand('Axis', "nuke.createNode(\"Axis3\")", icon='Axis.png',
+                          tag=MenuItemTag.Classic, nodeClass='Axis3', tagTarget=MenuItemTagTargetFlag.TabMenu)
+
+    n = m3Dclassic.addMenu('Geometry', 'Geometry.png')
+    n.addCommand('Card', "nuke.createNode(\"Card2\")", icon='Card.png',
+                 tag=MenuItemTag.Classic, nodeClass='Card2', tagTarget=MenuItemTagTargetFlag.TabMenu)
+    n.addCommand('Cube', "nuke.createNode(\"Cube\")", icon='Cube.png',
+                 tag=MenuItemTag.Classic, tagTarget=MenuItemTagTargetFlag.TabMenu)
+    n.addCommand('Cylinder', "nuke.createNode(\"Cylinder\")", icon='Cylinder.png',
+                 tag=MenuItemTag.Classic, tagTarget=MenuItemTagTargetFlag.TabMenu)
+    n.addCommand('DepthToPoints', "nuke.createNode(\"DepthToPoints\")", icon='DepthToPoints.png',
+                 tag=MenuItemTag.Classic, tagTarget=MenuItemTagTargetFlag.TabMenu)
+    n.addCommand('ModelBuilder', "nuke.createNode(\"ModelBuilder\")", icon='Modeler.png',
+                 tag=MenuItemTag.Classic, tagTarget=MenuItemTagTargetFlag.TabMenu)
     n.addCommand('PointCloudGenerator', "nuke.createNode(\"PointCloudGenerator\")",
-                 icon='PointCloudGenerator.png')
-    n.addCommand('PositionToPoints', "nuke.createNode(\"PositionToPoints2\")",
-                 icon='PositionToPoints.png')
-    n.addCommand('PoissonMesh', "nuke.createNode(\"PoissonMesh\")",
-                 icon='PoissonMesh.png')
-    n.addCommand('Sphere', "nuke.createNode(\"Sphere\")", icon='Sphere.png')
-    n.addCommand('ReadGeo', "nuke.createNode(\"ReadGeo2\")", icon='ReadGeo.png')
-    n.addCommand('WriteGeo', "nuke.createNode(\"WriteGeo\")", icon='WriteGeo.png')
+                 icon='PointCloudGenerator.png', tag=MenuItemTag.Classic, tagTarget=MenuItemTagTargetFlag.TabMenu)
+    n.addCommand('PositionToPoints', "nuke.createNode(\"PositionToPoints2\")", icon='PositionToPoints.png',
+                 tag=MenuItemTag.Classic, nodeClass='PositionsToPoints2', tagTarget=MenuItemTagTargetFlag.TabMenu)
+    n.addCommand('PoissonMesh', "nuke.createNode(\"PoissonMesh\")", icon='GeoPointsToMesh.png',
+                 tag=MenuItemTag.Classic, tagTarget=MenuItemTagTargetFlag.TabMenu)
+    n.addCommand('Sphere', "nuke.createNode(\"Sphere\")", icon='Sphere.png',
+                 tag=MenuItemTag.Classic, tagTarget=MenuItemTagTargetFlag.TabMenu)
+    n.addCommand('ReadGeo', "nuke.createNode(\"ReadGeo2\")", icon='ReadGeo.png',
+                 tag=MenuItemTag.Classic, nodeClass='ReadGeo2', tagTarget=MenuItemTagTargetFlag.TabMenu)
+    n.addCommand('WriteGeo', "nuke.createNode(\"WriteGeo\")", icon='WriteGeo.png',
+                 tag=MenuItemTag.Classic, tagTarget=MenuItemTagTargetFlag.TabMenu)
 
-    n = m.addMenu('Lights', 'Toolbar3DLights.png')
-    n.addCommand('Light', "nuke.createNode(\"Light3\")", icon='PointLight.png')
-    n.addCommand('Point', "nuke.createNode(\"Light\")", icon='PointLight.png')
-    n.addCommand('Direct', "nuke.createNode(\"DirectLight\")", icon='DirectLight.png')
-    n.addCommand('Spot', "nuke.createNode(\"Spotlight\")", icon='SpotLight.png')
-    n.addCommand('Environment', "nuke.createNode(\"Environment\")",
-                 icon='Environment.png')
-    n.addCommand('Relight', "nuke.createNode(\"ReLight\")", icon='ReLight.png')
+    n = m3Dclassic.addMenu('Lights', 'Toolbar3DLights.png')
+    n.addCommand('Light', "nuke.createNode(\"Light3\")", icon='PointLight.png',
+                 tag=MenuItemTag.Classic, nodeClass='Light3', tagTarget=MenuItemTagTargetFlag.TabMenu)
+    n.addCommand('Point', "nuke.createNode(\"Light\")", icon='PointLight.png',
+                 tag=MenuItemTag.Classic, nodeClass='Light', tagTarget=MenuItemTagTargetFlag.TabMenu)
+    n.addCommand('Direct', "nuke.createNode(\"DirectLight\")", icon='DirectLight.png',
+                 tag=MenuItemTag.Classic, nodeClass='DirectLight', tagTarget=MenuItemTagTargetFlag.TabMenu)
+    n.addCommand('Spot', "nuke.createNode(\"Spotlight\")", icon='SpotLight.png',
+                 tag=MenuItemTag.Classic, nodeClass='SpotLight', tagTarget=MenuItemTagTargetFlag.TabMenu)
+    n.addCommand('Environment', "nuke.createNode(\"Environment\")", icon='Environment.png',
+                 tag=MenuItemTag.Classic, tagTarget=MenuItemTagTargetFlag.TabMenu)
+    n.addCommand('Relight', "nuke.createNode(\"ReLight\")", icon='ReLight.png',
+                 tag=MenuItemTag.Classic, nodeClass='ReLight', tagTarget=MenuItemTagTargetFlag.TabMenu)
 
-    n = m.addMenu('Modify', 'Modify.png')
-    n.addCommand('TransformGeo', "nuke.createNode(\"TransformGeo\")", icon='Modify.png')
-    n.addCommand('MergeGeo', "nuke.createNode(\"MergeGeo\")", icon='Modify.png')
-    n.addCommand('CrosstalkGeo', "nuke.createNode(\"CrosstalkGeo\")", icon='Modify.png')
-    # n.addCommand("Connect Points", "nuke.createNode(\"ConnectPointsGeo\")", icon="Modify.png")
-    n.addCommand('DisplaceGeo', "nuke.createNode(\"DisplaceGeo\")", icon='Modify.png')
-    n.addCommand('EditGeo', "nuke.createNode(\"EditGeo\")", icon='Modify.png')
-    n.addCommand('GeoSelect', """nuke.createNode("GeoSelect")""", icon='Modify.png')
-    n.addCommand('LookupGeo', "nuke.createNode(\"LookupGeo\")", icon='Modify.png')
-    n.addCommand('LogGeo', "nuke.createNode(\"LogGeo\")", icon='Modify.png')
-    n.addCommand('Normals', "nuke.createNode(\"Normals\")", icon='Modify.png')
-    n.addCommand('ProceduralNoise', "nuke.createNode(\"ProcGeo\")", icon='Modify.png')
-    n.addCommand('RadialDistort', "nuke.createNode(\"RadialDistort\")", icon='Modify.png')
-    n.addCommand('Trilinear', "nuke.createNode(\"Trilinear\")", icon='Modify.png')
-    n.addCommand('UVProject', "nuke.createNode(\"UVProject\")", icon='Modify.png')
-    # n.addCommand("VectorfieldGeo", "nuke.createNode(\"VectorfieldGeo\")", icon="Modify.png")
-    # n.addCommand("Vectorfield Create", "nuke.createNode(\"VectorfieldCreateGeo\")", icon="Modify.png")
+    n = m3Dclassic.addMenu('Modify', 'Modify.png')
+    n.addCommand('TransformGeo', "nuke.createNode(\"TransformGeo\")", icon='Modify.png',
+                 tag=MenuItemTag.Classic, tagTarget=MenuItemTagTargetFlag.TabMenu)
+    n.addCommand('MergeGeo', "nuke.createNode(\"MergeGeo\")", icon='Modify.png',
+                 tag=MenuItemTag.Classic, tagTarget=MenuItemTagTargetFlag.TabMenu)
+    n.addCommand('CrosstalkGeo', "nuke.createNode(\"CrosstalkGeo\")", icon='Modify.png',
+                 tag=MenuItemTag.Classic, tagTarget=MenuItemTagTargetFlag.TabMenu)
+    n.addCommand('DisplaceGeo', "nuke.createNode(\"DisplaceGeo\")", icon='Modify.png',
+                 tag=MenuItemTag.Classic, tagTarget=MenuItemTagTargetFlag.TabMenu)
+    n.addCommand('EditGeo', "nuke.createNode(\"EditGeo\")", icon='Modify.png',
+                 tag=MenuItemTag.Classic, tagTarget=MenuItemTagTargetFlag.TabMenu)
+    n.addCommand('GeoSelect', """nuke.createNode("GeoSelect")""", icon='Modify.png',
+                 tag=MenuItemTag.Classic, tagTarget=MenuItemTagTargetFlag.TabMenu)
+    n.addCommand('LookupGeo', "nuke.createNode(\"LookupGeo\")", icon='Modify.png',
+                 tag=MenuItemTag.Classic, tagTarget=MenuItemTagTargetFlag.TabMenu)
+    n.addCommand('LogGeo', "nuke.createNode(\"LogGeo\")", icon='Modify.png',
+                 tag=MenuItemTag.Classic, tagTarget=MenuItemTagTargetFlag.TabMenu)
+    n.addCommand('Normals', "nuke.createNode(\"Normals\")", icon='Modify.png',
+                 tag=MenuItemTag.Classic, tagTarget=MenuItemTagTargetFlag.TabMenu)
+    n.addCommand('ProceduralNoise', "nuke.createNode(\"ProcGeo\")", icon='Modify.png',
+                 tag=MenuItemTag.Classic, nodeClass='ProcGeo', tagTarget=MenuItemTagTargetFlag.TabMenu)
+    n.addCommand('RadialDistort', "nuke.createNode(\"RadialDistort\")", icon='Modify.png',
+                 tag=MenuItemTag.Classic, tagTarget=MenuItemTagTargetFlag.TabMenu)
+    n.addCommand('Trilinear', "nuke.createNode(\"Trilinear\")", icon='Modify.png',
+                 tag=MenuItemTag.Classic, tagTarget=MenuItemTagTargetFlag.TabMenu)
+    n.addCommand('UVProject', "nuke.createNode(\"UVProject\")", icon='Modify.png',
+                 tag=MenuItemTag.Classic, tagTarget=MenuItemTagTargetFlag.TabMenu)
     n = n.addMenu('RenderMan', 'Modify.png')
-    n.addCommand('ModifyRIB', "nuke.createNode(\"ModifyRIB\")", icon='Modify.png')
+    n.addCommand('ModifyRIB', "nuke.createNode(\"ModifyRIB\")", icon='Modify.png',
+                 tag=MenuItemTag.Classic, tagTarget=MenuItemTagTargetFlag.TabMenu)
 
-    n = m.addMenu('Shader', 'Shaders.png')
-    n.addCommand('AmbientOcclusion',
-                 "nuke.createNode(\"AmbientOcclusion\")", icon='Shader.png')
-    n.addCommand('ApplyMaterial', "nuke.createNode(\"ApplyMaterial\")", icon='Shader.png')
-    n.addCommand('BasicMaterial', "nuke.createNode(\"BasicMaterial\")", icon='Shader.png')
-    n.addCommand('FillMat', "nuke.createNode(\"FillMat\")", icon='Shader.png')
-    n.addCommand('MergeMat', "nuke.createNode(\"MergeMat\")", icon='Shader.png')
-    n.addCommand('BlendMat', "nuke.createNode(\"BlendMat\")", icon='Shader.png')
-    n.addCommand('Project3D', "nuke.createNode(\"Project3D2\")", icon='Shader.png')
-    n.addCommand('Diffuse', "nuke.createNode(\"Diffuse\")", icon='Shader.png')
-    n.addCommand('Emission', "nuke.createNode(\"Emission\")", icon='Shader.png')
-    n.addCommand('Phong', "nuke.createNode(\"Phong\")", icon='Shader.png')
-    n.addCommand('Specular', "nuke.createNode(\"Specular\")", icon='Shader.png')
-    n.addCommand('Displacement', "nuke.createNode(\"Displacement\")", icon='Shader.png')
+    n = m3Dclassic.addMenu('Shader', 'Shaders.png')
+    n.addCommand('AmbientOcclusion', "nuke.createNode(\"AmbientOcclusion\")",
+                 icon='Shader.png', tag=MenuItemTag.Classic, tagTarget=MenuItemTagTargetFlag.TabMenu)
+    n.addCommand('ApplyMaterial', "nuke.createNode(\"ApplyMaterial\")", icon='Shader.png',
+                 tag=MenuItemTag.Classic, tagTarget=MenuItemTagTargetFlag.TabMenu)
+    n.addCommand('BasicMaterial', "nuke.createNode(\"BasicMaterial\")", icon='Shader.png',
+                 tag=MenuItemTag.Classic, tagTarget=MenuItemTagTargetFlag.TabMenu)
+    n.addCommand('FillMat', "nuke.createNode(\"FillMat\")", icon='Shader.png',
+                 tag=MenuItemTag.Classic, tagTarget=MenuItemTagTargetFlag.TabMenu)
+    n.addCommand('MergeMat', "nuke.createNode(\"MergeMat\")", icon='Shader.png',
+                 tag=MenuItemTag.Classic, tagTarget=MenuItemTagTargetFlag.TabMenu)
+    n.addCommand('BlendMat', "nuke.createNode(\"BlendMat\")", icon='Shader.png',
+                 tag=MenuItemTag.Classic, tagTarget=MenuItemTagTargetFlag.TabMenu)
+    n.addCommand('Project3D', "nuke.createNode(\"Project3D2\")", icon='Shader.png',
+                 tag=MenuItemTag.Classic, nodeClass='Project3D2', tagTarget=MenuItemTagTargetFlag.TabMenu)
+    n.addCommand('Diffuse', "nuke.createNode(\"Diffuse\")", icon='Shader.png',
+                 tag=MenuItemTag.Classic, tagTarget=MenuItemTagTargetFlag.TabMenu)
+    n.addCommand('Emission', "nuke.createNode(\"Emission\")", icon='Shader.png',
+                 tag=MenuItemTag.Classic, tagTarget=MenuItemTagTargetFlag.TabMenu)
+    n.addCommand('Phong', "nuke.createNode(\"Phong\")", icon='Shader.png',
+                 tag=MenuItemTag.Classic, tagTarget=MenuItemTagTargetFlag.TabMenu)
+    n.addCommand('Specular', "nuke.createNode(\"Specular\")", icon='Shader.png',
+                 tag=MenuItemTag.Classic, tagTarget=MenuItemTagTargetFlag.TabMenu)
+    n.addCommand('Displacement', "nuke.createNode(\"Displacement\")", icon='Shader.png',
+                 tag=MenuItemTag.Classic, tagTarget=MenuItemTagTargetFlag.TabMenu)
     if not assist:
-        n.addCommand('UVTile', 'nukescripts.createUVTile()', icon='Shader.png')
-    n.addCommand('Wireframe', "nuke.createNode(\"Wireframe\")", icon='Shader.png')
-    n.addCommand('Transmission', "nuke.createNode(\"Transmission\")", icon='Shader.png')
+        n.addCommand('UVTile', 'nukescripts.createUVTile()', icon='Shader.png',
+                     tag=MenuItemTag.Classic, nodeClass='UVTile2', tagTarget=MenuItemTagTargetFlag.TabMenu)
+    n.addCommand('Wireframe', "nuke.createNode(\"Wireframe\")", icon='Shader.png',
+                 tag=MenuItemTag.Classic, tagTarget=MenuItemTagTargetFlag.TabMenu)
+    n.addCommand('Transmission', "nuke.createNode(\"Transmission\")", icon='Shader.png',
+                 tag=MenuItemTag.Classic, tagTarget=MenuItemTagTargetFlag.TabMenu)
     n = n.addMenu('RenderMan', 'Shaders.png')
-    n.addCommand('Reflection', "nuke.createNode(\"Reflection\")", icon='Shader.png')
-    n.addCommand('Refraction', "nuke.createNode(\"Refraction\")", icon='Shader.png')
+    n.addCommand('Reflection', "nuke.createNode(\"Reflection\")", icon='Shader.png',
+                 tag=MenuItemTag.Classic, tagTarget=MenuItemTagTargetFlag.TabMenu)
+    n.addCommand('Refraction', "nuke.createNode(\"Refraction\")", icon='Shader.png',
+                 tag=MenuItemTag.Classic, tagTarget=MenuItemTagTargetFlag.TabMenu)
 
-    m.addCommand('Camera', "nuke.createNode(\"Camera3\")", icon='Camera.png')
-    m.addCommand('CameraTracker', "nuke.createNode(\"CameraTracker\")",
-                 icon='CameraTracker.png')
-    m.addCommand('DepthGenerator', "nuke.createNode(\"DepthGenerator\")",
-                 icon='DepthGenerator.png')
-    m.addCommand('DepthToPosition', "nuke.createNode(\"DepthToPosition\")",
-                 icon='DepthToPosition.png')
-    m.addCommand('Scene', "nuke.createNode(\"Scene\")", icon='Scene.png')
-    m.addCommand('ScanlineRender', "nuke.createNode(\"ScanlineRender\")",
-                 icon='Render.png')
-    m.addCommand('RayRender', "nuke.createNode(\"RayRender\")", icon='Render.png')
+    m3Dclassic.addCommand('Camera', "nuke.createNode(\"Camera3\")", icon='Camera.png',
+                          tag=MenuItemTag.Classic, nodeClass='Camera3', tagTarget=MenuItemTagTargetFlag.TabMenu)
+    m3Dclassic.addCommand('CameraTracker', "nuke.createNode(\"CameraTracker\")",
+                          icon='CameraTracker.png', tag=MenuItemTag.Classic, tagTarget=MenuItemTagTargetFlag.TabMenu)
+    m3Dclassic.addCommand('DepthGenerator', "nuke.createNode(\"DepthGenerator\")",
+                          icon='DepthGenerator.png', tag=MenuItemTag.Classic, tagTarget=MenuItemTagTargetFlag.TabMenu)
+    m3Dclassic.addCommand(
+        'DepthToPosition', "nuke.createNode(\"DepthToPosition\")", icon='DepthToPosition.png')
+    m3Dclassic.addCommand('Scene', "nuke.createNode(\"Scene\")", icon='Scene.png',
+                          tag=MenuItemTag.Classic, tagTarget=MenuItemTagTargetFlag.TabMenu)
+    m3Dclassic.addCommand('ScanlineRender', "nuke.createNode(\"ScanlineRender\")",
+                          icon='Render.png', tag=MenuItemTag.Classic, tagTarget=MenuItemTagTargetFlag.TabMenu)
+    m3Dclassic.addCommand('RayRender', "nuke.createNode(\"RayRender\")", icon='Render.png',
+                          tag=MenuItemTag.Classic, tagTarget=MenuItemTagTargetFlag.TabMenu)
 
     if not assist:
-        m = m.addMenu('RenderMan', 'Toolbar3D.png')
-        m.addCommand('PrmanRender', 'nukescripts.createPrmanRender()', icon='Render.png')
+        n = m3Dclassic.addMenu('RenderMan', 'Toolbar3D.png')
+        n.addCommand('PrmanRender', 'nukescripts.createPrmanRender()', icon='Render.png',
+                     tag=MenuItemTag.Classic, tagTarget=MenuItemTagTargetFlag.TabMenu)
 
     # particles menu
     m = toolbar.addMenu('Particles', 'ToolbarParticles.png')
@@ -565,7 +736,7 @@ def setup_toolbars():
 
     # Have to remove some of the furnace core nodes that get added automatically in nuke.ofxMenu()
     m = toolbar.menu('FurnaceCore')
-    if (m != None):
+    if m:
         m.removeItem('F_DeGrain')
         m.removeItem('F_DeNoise')
         m.removeItem('F_Kronos')
@@ -575,20 +746,20 @@ def setup_toolbars():
 
     # Denoise2 needs to be added after the OFX plugins menus
     m = toolbar.menu('Filter')
-    if m == None or not hasattr(m, 'addCommand'):
+    if not m:
         # If the Filter menu is empty, eg no whitelisted filter plugins in Nuke Assist,
         # we must create the menu afresh, as it will not exist
         m = toolbar.addMenu('Filter', 'ToolbarFilter.png')
-    if m != None and hasattr(m, 'addCommand'):
+    if m:
         m.addCommand('Denoise', "nuke.createNode(\"Denoise2\")", icon='denoise.png')
 
     # OFlow needs to be added after the OFX plugins menus
     m = toolbar.menu('Time')
-    if m == None or not hasattr(m, 'addCommand'):
+    if not m:
         # If the Filter menu is empty, eg no whitelisted filter plugins in Nuke Assist,
         # we must create the menu afresh, as it will not exist
         m = toolbar.addMenu('Time', 'ToolbarTime.png')
-    if m != None and hasattr(m, 'addCommand'):
+    if m:
         m.addCommand('OFlow', 'nukescripts.createOFlow()', icon='Oflow.png')
 
     # AIR plugins menu
@@ -597,6 +768,11 @@ def setup_toolbars():
     m.addCommand('Inference', "nuke.createNode(\"Inference\")", icon='Inference.png')
     m.addCommand('Deblur', "nuke.createNode(\"Deblur\")", icon='Deblur.png')
     m.addCommand('Upscale', "nuke.createNode(\"Upscale\")", icon='Upscale.png')
+    m.addCommand('CatFileCreator', "nuke.createNode(\"CatFileCreator\")",
+                 icon='CatFileCreator.png')
+
+    import nukescripts.cattery
+    nukescripts.cattery.create_menu()  # create cattery menu
 
     m = None
     n = None
@@ -672,7 +848,7 @@ def createUVTile():
     uvtile_node = nuke.createNode('UVTile2')
     n = uvtile_node.input(0)
 
-    if n != None and n.Class() == 'Read':
+    if n and n.Class() == 'Read':
         filename = n['file'].getValue()
         udim = nukescripts.parseUdimFile(filename)
         if udim != None:

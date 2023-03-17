@@ -10,7 +10,7 @@ import math
 import random
 import threading
 
-import nuke
+import nuke_internal as nuke
 
 
 class Layer():
@@ -80,7 +80,7 @@ def breakoutLayers(node, sRGB=True):
     dotXfudge = 34
     dotYfudge = 4
 
-    backdropXfudge = -(xspacing/2) + 10
+    backdropXfudge = -(xspacing//2) + 10
     backdropYfudge = -40
 
     spacing = 70
@@ -134,7 +134,7 @@ def breakoutLayers(node, sRGB=True):
         backdrop = nuke.nodes.BackdropNode(tile_color=tileColor, note_font_size=18)
         backdrop.setXYpos(curX + backdropXfudge, curY + backdropYfudge)
 
-        curY += spacing/2
+        curY += spacing//2
 
         dot = nuke.nodes.Dot()
         dot.setInput(0, inputNode)

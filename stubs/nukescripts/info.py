@@ -3,7 +3,7 @@
 import re
 import os.path
 
-import nuke
+import nuke_internal as nuke
 
 
 def getallnodeinfo():

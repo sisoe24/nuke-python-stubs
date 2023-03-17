@@ -6,8 +6,8 @@ import os.path
 import platform
 import subprocess
 
-import nuke
 import nukescripts
+import nuke_internal as nuke
 
 from . import flipbooking
 

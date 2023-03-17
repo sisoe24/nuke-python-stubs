@@ -1,5 +1,5 @@
-import nuke
 import nukescripts
+import nuke_internal as nuke
 
 ##############################################################################
 # A quick-n-dirty storage of "last values" for knobs that we want to appear

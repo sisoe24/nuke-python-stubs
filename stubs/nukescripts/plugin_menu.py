@@ -2,7 +2,7 @@
 
 import os.path
 
-import nuke
+import nuke_internal as nuke
 
 # Warning this relies on nuke replacing matching menu entries so that
 # we don't get duplicates:
@@ -11,11 +11,11 @@ import nuke
 def update_plugin_menu(menuname):
     pluginList = []
     if nuke.env['nc']:
-        plugins = nuke.plugins(nuke.ALL | nuke.NODIR, '*.' +
-                               nuke.PLUGIN_EXT, '*.ofx.bundle', '*.gizmo', '*.gznc')
+        plugins = nuke.plugins(nuke.ALL | nuke.NODIR | nuke.REGISTERED | nuke.NOREADERWRITER,
+                               '*.'+nuke.PLUGIN_EXT, '*.ofx.bundle', '*.gizmo', '*.gznc')
     else:
-        plugins = nuke.plugins(nuke.ALL | nuke.NODIR, '*.' +
-                               nuke.PLUGIN_EXT, '*.ofx.bundle', '*.gizmo')
+        plugins = nuke.plugins(nuke.ALL | nuke.NODIR | nuke.REGISTERED |
+                               nuke.NOREADERWRITER, '*.'+nuke.PLUGIN_EXT, '*.ofx.bundle', '*.gizmo')
     for i in plugins:
         (root, ext) = os.path.splitext(i)
         (root, ext) = os.path.splitext(root)
@@ -28,14 +28,7 @@ def update_plugin_menu(menuname):
     n = nuke.menu('Nodes').addMenu('Other/'+menuname)
     pluginList.sort()
 
-    def addToCommands(plugin):
+    for plugin in pluginList:
         s = plugin.upper()
         p = n.addMenu(s[0])
         p.addCommand(plugin, "nuke.createNode('"+plugin+"')")
-
-    # BUG TP #415155
-    internalDependencies = {'Shuffle2': ['Shuffle', 'ShuffleCopy']}
-    for plugin in pluginList:
-        if plugin in internalDependencies:
-            map(addToCommands, internalDependencies[plugin])
-        addToCommands(plugin)

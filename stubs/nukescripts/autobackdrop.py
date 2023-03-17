@@ -2,7 +2,7 @@
 
 import random
 
-import nuke
+import nuke_internal as nuke
 
 
 def nodeIsInside(node, backdropNode):
@@ -31,7 +31,7 @@ def autoBackdrop():
     '''
     selNodes = nuke.selectedNodes()
     if not selNodes:
-        return nuke.nodes.BackdropNode()
+        return nuke.createNode('BackdropNode')
 
     # Calculate bounds for the backdrop node.
     bdX = min([node.xpos() for node in selNodes])

@@ -5,7 +5,7 @@ import sys
 import math
 import time
 
-import nuke
+import nuke_internal as nuke
 from nukescripts import panels, execute_panel
 
 

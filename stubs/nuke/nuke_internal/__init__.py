@@ -3,6 +3,7 @@
 from _nuke import *
 
 from .utils import *
+# import _geo as geo
 from .scripts import scriptSaveAndClear
 from .callbacks import *
 from .overrides import *

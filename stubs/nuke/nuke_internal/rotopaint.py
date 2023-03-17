@@ -60,7 +60,7 @@ def convertToNuke7(fromScript, toScript, overwrite=False):
     _convert(fromScript, toScript, overwrite)
 
 
-def convertDirectoryToNuke6(fromDir, toDir, matchPattern='.*\.nk', overwrite=False):
+def convertDirectoryToNuke6(fromDir, toDir, matchPattern='.*\\.nk', overwrite=False):
     """Convert a directory containing NUKE 7 roto scripts in one containing the old format.
        Note that the pattern is a regular expression."""
     import os
@@ -72,7 +72,7 @@ def convertDirectoryToNuke6(fromDir, toDir, matchPattern='.*\.nk', overwrite=Fal
     os.environ.pop('NUKE_CURVE_LONG_FORMAT')
 
 
-def convertDirectoryToNuke7(fromDir, toDir, matchPattern='.*\.nk', overwrite=False):
+def convertDirectoryToNuke7(fromDir, toDir, matchPattern='.*\\.nk', overwrite=False):
     """Convert a directory containing NUKE 6 roto scripts in one containing the new format.
        Note that the pattern is a regular expression."""
     import os

@@ -4,7 +4,7 @@ import sys
 import queue
 import threading
 
-import nuke
+import nuke_internal as nuke
 
 
 class pyAppHelper(object):

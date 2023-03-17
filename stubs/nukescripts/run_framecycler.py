@@ -12,7 +12,7 @@ import os.path
 import platform
 import subprocess
 
-import nuke
+import nuke_internal as nuke
 
 
 def framecycler_stereo_available():

@@ -1,9 +1,10 @@
 # Copyright (c) 2010 The Foundry Visionmongers Ltd.  All Rights Reserved.
 
+import sys
 import math
 
-import nuke
 import _nukemath
+import nuke_internal as nuke
 
 #
 # Predefined snapping functions.
@@ -65,6 +66,46 @@ def translateRotateScaleToPoints(nodeToSnap):
     '''
     return translateRotateScaleSelectionToPoints(nodeToSnap, getSelection())
 
+
+def translatePivotToPoints(nodeToSnap):
+    '''
+    Translate the specified node's Pivot Point to the average position of the
+    current vertex selection in the active viewer. The nodeToSnap must contain
+    'translate', 'rotate' and 'pivot_translate' knobs, the transform order must
+    be 'SRT' and the rotation order must be 'ZXY'.
+
+    @type nodeToSnap:   nuke.Node
+    @param nodeToSnap:  Node to translate its Pivot Point
+    '''
+    return translatePivotSelectionToPoints(nodeToSnap, getSelection())
+
+
+def rotatePivotToPoints(nodeToSnap):
+    '''
+    Rotate the specified node's Pivot Point to the average of the current vertex
+    selection normals in the active viewer. The nodeToSnap must contain
+    'translate', 'rotate', 'pivot_translate' and 'pivot_rotate' knobs, the
+    transform order must be 'SRT' and the rotation order must be 'ZXY'.
+
+    @type nodeToSnap:   nuke.Node
+    @param nodeToSnap:  Node to translate its Pivot Point
+    '''
+    return rotatePivotSelectionToPoints(nodeToSnap, getSelection())
+
+
+def translateRotatePivotToPoints(nodeToSnap):
+    '''
+    Translate the specified node's Pivot Point to the average position of the
+    current vertex selection and rotate the pivot to align Z to match the average
+    normals in the active viewer. The nodeToSnap must contain 'translate',
+    'rotate', 'pivot_translate', 'pivot_rotate' and 'pivot_translate' knobs,
+    the transform order must be 'SRT' and the rotation order must be 'ZXY'.
+
+    @type nodeToSnap:   nuke.Node
+    @param nodeToSnap:  Node to translate its Pivot Point
+    '''
+    return translateRotatePivotSelectionToPoints(nodeToSnap, getSelection())
+
 # Verification wrappers
 
 
@@ -73,6 +114,16 @@ def translateSelectionToPoints(nodeToSnap, vertexSelection):
         verifyNodeToSnap(nodeToSnap, ['translate', 'xform_order', 'rot_order'])
         verifyVertexSelection(vertexSelection, 1)
         translateToPointsVerified(nodeToSnap, vertexSelection)
+    except ValueError as e:
+        nuke.message(str(e))
+
+
+def rotatePivotSelectionToPoints(nodeToSnap, vertexSelection):
+    try:
+        verifyNodeToSnap(nodeToSnap, ['translate', 'rotate', 'pivot_translate',
+                                      'pivot_rotate', 'xform_order', 'rot_order'])
+        verifyVertexSelection(vertexSelection, 1)
+        rotatePivotToPointsVerified(nodeToSnap, vertexSelection)
     except ValueError as e:
         nuke.message(str(e))
 
@@ -99,6 +150,27 @@ def translateRotateScaleSelectionToPoints(nodeToSnap, vertexSelection):
 def verifyVertexSelection(vertexSelection, minLen):
     if len(vertexSelection) < minLen:
         raise ValueError('Selection must be at least %d points' % minLen)
+
+
+def translatePivotSelectionToPoints(nodeToSnap, vertexSelection):
+    try:
+        verifyNodeToSnap(nodeToSnap, ['pivot_translate',
+                         'translate', 'rotate', 'xform_order', 'rot_order'])
+        verifyVertexSelection(vertexSelection, 1)
+        translatePivotToPointsVerified(nodeToSnap, vertexSelection)
+    except ValueError as e:
+        nuke.message(str(e))
+
+
+def translateRotatePivotSelectionToPoints(nodeToSnap, vertexSelection):
+    try:
+        verifyNodeToSnap(nodeToSnap, ['pivot_rotate', 'pivot_translate',
+                                      'translate', 'rotate', 'xform_order',
+                                      'rot_order'])
+        verifyVertexSelection(vertexSelection, 1)
+        translateRotatePivotToPointsVerified(nodeToSnap, vertexSelection)
+    except ValueError as e:
+        nuke.message(str(e))
 
 # Verification functions
 
@@ -127,11 +199,29 @@ def verifyNodeOrder(node, knobName, orderName):
 
 
 class VertexInfo:
-    def __init__(self, objnum, index, value, position):
+    def __init__(self, objnum, index, value, position, normal):
         self.objnum = objnum
         self.index = index
         self.value = value
         self.position = position  # This is updated on applying a transform
+        self.normal = normal
+
+    def __lt__(self, other):
+        '''
+        The implementation of the Less Than operator serves the purpose of
+        proper sorting of class instances, where the Object ID, followed by
+        the Point Index are predominant over the actual position value of
+        the selected point.
+        This allows keeping the order of sorted points over changing location
+        of the points.
+        '''
+        if (self.objnum != other.objnum):
+            return self.objnum < other.objnum
+        if (self.index != other.index):
+            return self.index < other.index
+        return (self.position.x - other.position.x +
+                self.position.y - other.position.y +
+                self.position.z - other.position.z) < 0
 
 # Selection container
 
@@ -139,10 +229,9 @@ class VertexInfo:
 class VertexSelection:
     def __init__(self):
         self.vertexInfoSet = set()
-        self.length = 0
 
     def __len__(self):
-        return self.length
+        return len(self.vertexInfoSet)
 
     # Convenience function to allow direct iteration
     def __iter__(self):
@@ -153,7 +242,6 @@ class VertexSelection:
 
     def add(self, vertexInfo):
         self.vertexInfoSet.add(vertexInfo)
-        self.length += 1
 
     def points(self):
         # Generate an iterable list of the positions
@@ -161,6 +249,17 @@ class VertexSelection:
         for info in self.vertexInfoSet:
             points += [info.position]
         return points
+
+    def uniquePositionsSorted(self):
+        # The python bindings for Vector3 do not provide __hash()__ implementation,
+        # because of that we can't use set() and sorted() directly.
+        positionToInfoMap = {}
+        for info in self.vertexInfoSet:
+            positionToInfoMap[(info.position.x, info.position.y, info.position.z)] = info
+        uniquePoints = []
+        for info in sorted(positionToInfoMap.values()):
+            uniquePoints += [info.position]
+        return uniquePoints
 
     def indices(self):
         # Generate a searchable dictionary of the positions
@@ -173,7 +272,7 @@ class VertexSelection:
 
     def translate(self, vector):
         for info in self.vertexInfoSet:
-            info.position += vector
+            info.position = fuzzyVector3Add(info.position, vector)
 
     def inverseRotate(self, vector, order):
         # nuke.tprint(vector)
@@ -212,9 +311,39 @@ class VertexSelection:
             info.position[1] *= vector[1]
             info.position[2] *= vector[2]
 
+
+def leastSignificantAxis(vector):
+    '''
+    Given a Vector3, returns the least significant axis position, being x, y and
+    z 0, 1 and 2 respectively.
+    @type vector: _nukemath.Vector3
+    @param vector: a Vector3
+    @return the position of the least significant component of the vector.
+    '''
+    least = 0 if vector.x < vector.y else 1
+    return 2 if vector.z < vector[least] else least
+
+
+def fuzzyIsZero(value):
+    '''
+    Returns true if a value is very close to zero.
+    '''
+    return math.isclose(value, 0.0, abs_tol=0.0001)
+
+
+def fuzzyVector3Add(v1, v2):
+    '''
+    Adds two vectors ensuring the coordinates are actually 0.0 if they are 0.0001
+    of zero.
+    '''
+    v1 += v2
+    v1.x = 0.0 if fuzzyIsZero(v1.x) else v1.x
+    v1.y = 0.0 if fuzzyIsZero(v1.y) else v1.y
+    v1.z = 0.0 if fuzzyIsZero(v1.z) else v1.z
+    return v1
+
+
 # Helper function since Matrix3 has no transpose operation
-
-
 def transpose(m):
     t = m[0+3*1]
     m[0+3*1] = m[1+3*0]
@@ -266,6 +395,53 @@ def rotateToPointsVerified(nodeToSnap, vertexSelection):
     vertexSelection.inverseRotate(rotationVec, 'YXZ')
 
 
+def rotatePivotToPointsVerified(nodeToSnap, vertexSelection):
+    # The following translation is required to match the behaviour of Geo Match
+    # to selection. The function translatePivotToPointsVerified is finished with
+    # this exact operation and the Geo rotations are applied with this offset to
+    # all vertices, without this, pivot rotation diverges on behaviour from Geo.
+    # This can be done at the end of translatePivotToPointsVerified because
+    # unlike Geo options, pivot have rotation only.
+    vertexSelection.translate(-calcAveragePosition(vertexSelection))
+
+    globalNormal = averageNormal(vertexSelection)
+    pivotRotate = calcRotationVector(vertexSelection, globalNormal)
+
+    # Calc rotation vector returns a global rotation vector, in order to transfer
+    # it to object space as pivot rotation should be we need to remove the object
+    # rotation from it and then extract the rotation in XYZ order.
+    R = rotateMatrixZXY(radians(nodeToSnap['rotate'].getValue()))
+    pivotRotate = extractRotationXYZ((R.inverse() * rotateMatrixZXY(pivotRotate)))
+
+    pt = nodeToSnap['pivot_translate'].getValue()
+    pivotTranslate = _nukemath.Vector3(pt[0], pt[1], pt[2])
+    (geoTranslate, geoRotate) = translateRotatePivot(nodeToSnap, pivotTranslate,
+                                                     pivotRotate)
+    pivotRotationDegrees = _nukemath.Vector3(math.degrees(pivotRotate[0]),
+                                             math.degrees(pivotRotate[1]),
+                                             math.degrees(pivotRotate[2]))
+    nodeToSnap['pivot_rotate'].setValue(pivotRotationDegrees)
+    nodeToSnap['rotate'].setValue(geoRotate)
+    nodeToSnap['translate'].setValue(geoTranslate)
+
+
+def translateRotatePivotToPointsVerified(nodeToSnap, vertexSelection):
+    translatePivotToPointsVerified(nodeToSnap, vertexSelection)
+    rotatePivotToPointsVerified(nodeToSnap, vertexSelection)
+
+
+def translatePivotToPointsVerified(nodeToSnap, vertexSelection):
+    globalPosition = calcAveragePosition(vertexSelection)
+    transformations = transformMatrix(nodeToSnap)
+    localPosition = transformations.inverse().transform(globalPosition)
+    pivotRotate = radians(nodeToSnap['pivot_rotate'].getValue())
+    (geoTranslate, geoRotate) = translateRotatePivot(nodeToSnap, localPosition,
+                                                     pivotRotate)
+    nodeToSnap['translate'].setValue(geoTranslate)
+    nodeToSnap['rotate'].setValue(geoRotate)
+    nodeToSnap['pivot_translate'].setValue(localPosition)
+
+
 def translateRotateToPointsVerified(nodeToSnap, vertexSelection):
     # Note that the vertexSelection positions are updated as we go
     translateToPointsVerified(nodeToSnap, vertexSelection)
@@ -277,58 +453,92 @@ def translateRotateScaleToPointsVerified(nodeToSnap, vertexSelection):
     translateRotateToPointsVerified(nodeToSnap, vertexSelection)
     scaleToPointsVerified(nodeToSnap, vertexSelection)
 
+
+def checkAllPointCollinear(points):
+    '''
+    Iterates through the points the point and checks if all of them are collinear.
+    The points must contain more than two points.
+
+    @type nodeToSnap:   Iterable of Vector3
+    @param nodeToSnap:  Points to check
+    '''
+    firstPoint = points[0]
+    secondPoint = points[1]
+    dirFirstToSecond = secondPoint - firstPoint
+    dirFirstToSecond.normalize()
+    for i in range(2, len(points)):
+        nextPoint = points[i]
+        dirSecondToNext = nextPoint - secondPoint
+        dirSecondToNext.normalize()
+        d = dirFirstToSecond.dot(dirSecondToNext)
+        if abs(d) < 0.999:
+            return False
+    return True
+
 # Get the rotation vector
 
 
 def calcRotationVector(vertexSelection, norm):
     # Collate a point set from the vertex selection
-    points = vertexSelection.points()
+    points = vertexSelection.uniquePositionsSorted()
+    if len(points) == 0:
+        return
 
-    # Find a best fit plane with three or more points
-    if len(vertexSelection) >= 3:
+    # Find a best fit plane with three or more non-collinear points
+    if len(points) > 2 and not checkAllPointCollinear(points):
         planeTri = nuke.geo.bestFitPlane(*points)
 
-        rotationVec = planeRotation(planeTri, norm)
-    elif len(vertexSelection) == 2:
-        # Choose the axes dependent on the line direction
-        u = points[1] - points[0]
-        u.normalize()
+        return planeRotation(planeTri, norm)
 
-        w = norm
-        v = w.cross(u)
-        v.normalize()
-        # Update w
-        w = v.cross(u)
+    w = norm
+    w.normalize()
+    if len(points) > 1:
+        direction = points[1] - points[0]
+        direction.normalize()
 
-        # Fabricate a tri (tuple)
-        planeTri = (_nukemath.Vector3(0.0, 0.0, 0.0), u, v)
+        # If normal is zero, we would not be able to properly define a triangle
+        # for the plane alignment using only the direction. We invent a normal that
+        # is aligned to the least  significant axis of the direction.
+        if fuzzyIsZero(w.x) and fuzzyIsZero(w.y) and fuzzyIsZero(w.z):
+            w = _nukemath.Vector3()
+            w[leastSignificantAxis(direction)] = 1
 
-        rotationVec = planeRotation(planeTri, norm)
-    elif len(vertexSelection) == 1:
-        # Choose the axes dependent on the normal direction
-        w = norm
-        w.normalize()
+        if abs(w.dot(direction)) < 1.0:
+            # Choose the axes dependent on the line direction
+            u = direction
 
-        if abs(w.x) < abs(w.y):
-            v = _nukemath.Vector3(0.0, 1.0, 0.0)
-            u = w.cross(v)
-            u.normalize()
-            # Update v
-            v = w.cross(u)
-        else:
-            u = _nukemath.Vector3(1.0, 0.0, 0.0)
             v = w.cross(u)
             v.normalize()
-            # Update v
-            u = w.cross(v)
+            # Update w
+            w = v.cross(u)
 
-        # Fabricate a tri (tuple)
-        planeTri = (_nukemath.Vector3(0.0, 0.0, 0.0), u, v)
+            # Fabricate a tri (tuple)
+            planeTri = (_nukemath.Vector3(0.0, 0.0, 0.0), u, v)
 
-        rotationVec = planeRotation(planeTri, norm)
+            return planeRotation(planeTri, norm)
 
-        # In fact this only handles ZXY (see planeRotation)
-        rotationVec.z = 0
+    y = _nukemath.Vector3(0.0, 1.0, 0.0)
+
+    if abs(w.dot(y)) < 0.5:
+        v = y
+        u = w.cross(v)
+        u.normalize()
+        # Update v
+        v = w.cross(u)
+    else:
+        u = _nukemath.Vector3(1.0, 0.0, 0.0)
+        v = w.cross(u)
+        v.normalize()
+        # Update v
+        u = w.cross(v)
+
+    # Fabricate a tri (tuple)
+    planeTri = (_nukemath.Vector3(0.0, 0.0, 0.0), u, v)
+
+    rotationVec = planeRotation(planeTri, norm)
+
+    # In fact this only handles ZXY (see planeRotation)
+    rotationVec.z = 0
 
     return rotationVec
 
@@ -428,11 +638,42 @@ def planeRotation(tri, norm=None):
 
     return _nukemath.Vector3(rx, ry, rz)
 
+
+def extractRotationXYZ(matrix):
+    '''
+    Extract XYZ rotation since Matrix4::rotationsXYZ() is buggy for some cases.
+    This function can be removed in favor of the new math API being included for
+    Nuke14. This function is a translation of their implementation for XYZ
+    rotations extraction.
+
+
+    @type matrix:  _nukemath.Matrix4
+    @param matrix: the matrix we will extract the rotations from.
+    @return: _nukemath.Vector3 with XYZ rotations.
+
+    '''
+    u = matrix.xAxis()
+    v = matrix.yAxis()
+    w = matrix.zAxis()
+
+    u.normalize()
+    v.normalize()
+    w.normalize()
+
+    ang0 = u.x * u.x + u.y * u.y
+    ry = math.atan2(-u.z, math.sqrt(ang0))
+    if abs(ang0) <= sys.float_info.epsilon:
+        rx = math.atan2(-w.y, v.y)
+        rz = 0.0
+    else:
+        rx = math.atan2(v.z, w.z)
+        rz = math.atan2(u.y, u.x)
+    return _nukemath.Vector3(rx, ry, rz)
+
+
 #
 # Helper functions
 #
-
-
 def averageNormal(vertexSelection):
     '''
     averageNormal(selectionThreshold -> _nukemath.Vector3
@@ -441,41 +682,9 @@ def averageNormal(vertexSelection):
 
     if not nuke.activeViewer():
         return None
-
-    # Put the indices in a dictionary for fast searching
-    fastIndices = vertexSelection.indices()
-
-    found = False
     norm = _nukemath.Vector3(0.0, 0.0, 0.0)
-
-    for theNode in allNodesWithGeoSelectKnob():
-        geoSelectKnob = theNode['geo_select']
-        sel = geoSelectKnob.getSelection()
-        objs = geoSelectKnob.getGeometry()
-
-        for o in range(len(sel)):
-            objPrimitives = objs[o].primitives()
-            objTransform = objs[o].transform()
-
-            # Use a dictionary for fast searching
-            visitedPrimitives = {}
-            for prim in objPrimitives:
-                # This will be slow!
-                if prim not in visitedPrimitives:
-                    for pt in prim.points():
-                        # This will be slow!
-                        if pt in fastIndices:
-                            found = True
-                            n = prim.normal()
-                            n = _nukemath.Vector3(n[0], n[1], n[2])
-                            n = objTransform.vtransform(n)
-                            norm += n
-                            visitedPrimitives[prim] = pt
-                            break
-
-    if found == False:
-        return None
-
+    for v in vertexSelection:
+        norm += v.normal
     norm.normalize()
     return norm
 
@@ -556,9 +765,15 @@ def selectedVertexInfos(selectionThreshold=0.5):
             for p in range(len(objSelection)):
                 value = objSelection[p]
                 if value >= selectionThreshold:
+                    for prim in objs[o].primitives():
+                        for pt in prim.points():
+                            if pt == p:
+                                n = prim.normal()
+                                n = _nukemath.Vector3(n[0], n[1], n[2])
+                                normal = objTransform.vtransform(n)
                     pos = objPoints[p]
                     tPos = objTransform * _nukemath.Vector4(pos.x, pos.y, pos.z, 1.0)
-                    yield VertexInfo(o, p, value, _nukemath.Vector3(tPos.x, tPos.y, tPos.z))
+                    yield VertexInfo(o, p, value, _nukemath.Vector3(tPos.x, tPos.y, tPos.z), normal)
 
 
 def anySelectedVertexInfo(selectionThreshold=0.5):
@@ -586,9 +801,15 @@ def anySelectedVertexInfo(selectionThreshold=0.5):
             for p in range(len(objSelection)):
                 value = objSelection[p]
                 if value >= selectionThreshold:
+                    for prim in objs[o].primitives():
+                        for pt in prim.points():
+                            if pt == p:
+                                n = prim.normal()
+                                n = _nukemath.Vector3(n[0], n[1], n[2])
+                                normal = objTransform.vtransform(n)
                     pos = objPoints[p]
                     tPos = objTransform * _nukemath.Vector4(pos.x, pos.y, pos.z, 1.0)
-                    return VertexInfo(o, p, value, _nukemath.Vector3(tPos.x, tPos.y, tPos.z))
+                    return VertexInfo(o, p, value, _nukemath.Vector3(tPos.x, tPos.y, tPos.z), normal)
     return None
 
 
@@ -787,3 +1008,120 @@ def callSnapFunc(nodeToSnap=None):
 
     snapFunc = dict(snapFuncs)[nodeToSnap['snapFunc'].value()]
     snapFunc(nodeToSnap)
+
+
+def radians(vector) -> list:
+    return [math.radians(x) for x in vector]
+
+
+def degrees(vector) -> list:
+    return [math.degrees(x) for x in vector]
+
+
+def scalingMatrix(scalings) -> _nukemath.Matrix4:
+    '''
+    Generates a scaling matrix from the input vector.
+
+    @type scalings:  _nukemath.Vector3
+    @param scalings: Vector that will be used generate the scaling matrix.
+    @return:         The scaling matrix.
+    '''
+    m = _nukemath.Matrix4()
+    m.makeIdentity()
+    m.scaling(scalings[0], scalings[1], scalings[2])
+    return m
+
+
+def translateMatrix(translations) -> _nukemath.Matrix4:
+    '''
+    Generates a translation matrix from the input vector.
+
+    @type translations:   _nukemath.Vector3
+    @param translations:  Vector that will be used generate the translation
+    matrix.
+    @return:              The translate matrix.
+    '''
+    m = _nukemath.Matrix4()
+    m.makeIdentity()
+    m.translation(translations[0], translations[1], translations[2])
+    return m
+
+
+def rotateMatrixXYZ(rotations) -> _nukemath.Matrix4:
+    '''
+    Generates a rotation XYZ matrix from the input vector.
+
+    @type rotations:  _nukemath.Vector3
+    @param rotations: Vector that will be used generate the rotate matrix.
+    @return:          The rotate matrix.
+    '''
+    m = _nukemath.Matrix4()
+    m.makeIdentity()
+    m.rotateZ(rotations[2])
+    m.rotateY(rotations[1])
+    m.rotateX(rotations[0])
+    return m
+
+
+def rotateMatrixZXY(rotations) -> _nukemath.Matrix4:
+    '''
+    Generates a rotation ZXY matrix from the input vector.
+
+    @type rotations:  _nukemath.Vector3
+    @param rotations: Vector that will be used generate the rotate matrix.
+    @return:          The rotate matrix.
+    '''
+    m = _nukemath.Matrix4()
+    m.makeIdentity()
+    m.rotateY(rotations[1])
+    m.rotateX(rotations[0])
+    m.rotateZ(rotations[2])
+    return m
+
+
+def transformMatrix(nodeToSnap) -> _nukemath.Matrix4:
+    '''
+    Generates the transformation matrix for a given node based on its knob
+    values.
+
+    @type nodeToSnap:  nuke.Node
+    @param nodeToSnap: Node from which the data will be extracted to generate
+                       its transformation matrix.
+    @return:           The matrix containg all node transformations.
+    '''
+    T = translateMatrix(nodeToSnap['translate'].getValue())
+    R = rotateMatrixZXY(radians(nodeToSnap['rotate'].getValue()))
+    S = scalingMatrix(nodeToSnap['scaling'].getValue())
+    pT = translateMatrix(nodeToSnap['pivot_translate'].getValue())
+    pR = rotateMatrixXYZ(radians(nodeToSnap['pivot_rotate'].getValue()))
+    pTi = pT.inverse()
+    pRi = pR.inverse()
+    return pT * pR * T * R * S * pRi * pTi
+
+
+def translateRotatePivot(nodeToSnap, translate, rotate) -> tuple:
+    '''
+    Pivot translation and rotation must keep the object stationary and in
+    order to do that compensation values must be placed in the geometry translate
+    and rotate.
+
+    @type nodeToSnap:   nuke.Node
+    @param nodeToSnap:  Node to translate and rotate
+    @type translate:    _nukemath.Vector3
+    @param translate:   Target position for the pivot point.
+    @type rotate:       _nukemath.Vector3
+    @param rotate:      Target rotation for the pivot point.
+    @return:            A tuple with the new geometry translation and rotation
+                        respectively (_nukemath.Vector3, _nukemath.Vector3).
+    '''
+    pT = translateMatrix(translate)
+    pTi = pT.inverse()
+    pR = rotateMatrixXYZ(rotate)
+    pRi = pR.inverse()
+    S = scalingMatrix(nodeToSnap['scaling'].getValue())
+    Si = S.inverse()
+    M = transformMatrix(nodeToSnap)
+    compensatedM = pRi * pTi * M * pT * pR * Si
+    geoTranslate = compensatedM.translation()
+    geoRotate = degrees(compensatedM.rotationsZXY())
+    return (geoTranslate, geoRotate)

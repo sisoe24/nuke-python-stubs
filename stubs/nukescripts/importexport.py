@@ -3,7 +3,7 @@
 
 import os
 
-import nuke
+import nuke_internal as nuke
 
 
 def import_boujou():

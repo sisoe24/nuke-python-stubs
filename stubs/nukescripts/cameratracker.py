@@ -2,8 +2,8 @@
 
 import os
 
-import nuke
 import nukescripts
+import nuke_internal as nuke
 
 from . import camerapresets
 
@@ -11,7 +11,36 @@ from . import camerapresets
 # Initialisation
 #
 
-CAMERA_CLASS = 'Camera3'
+
+def new3D(solver):
+    """Checks if the node is using the new 3D system."""
+    new3DKnob = solver.knob('new3D')
+    return new3DKnob and bool(new3DKnob.getValue())
+
+
+def cameraClass(solver):
+    """Returns the correct camera class for the 3D system in use."""
+    return 'Camera4' if new3D(solver) else 'Camera3'
+
+
+def sceneClass(solver):
+    """Returns the correct scene class for the 3D system in use."""
+    return 'GeoScene' if new3D(solver) else 'Scene'
+
+
+def cardClass(solver):
+    """Returns the correct card class for the 3D system in use."""
+    return 'GeoCard' if new3D(solver) else 'Card'
+
+
+def pointCloudClass(solver):
+    """Returns the correct point cloud class for the 3D system in use."""
+    return 'GeoCameraTrackerPoints' if new3D(solver) else 'CameraTrackerPointCloud'
+
+
+def scanlineRenderClass(solver):
+    """Returns the correct point cloud class for the 3D system in use."""
+    return 'ScanlineRender2' if new3D(solver) else 'ScanlineRender'
 
 
 def populateExportMenu(cameraTracker):
@@ -82,7 +111,7 @@ def createCamera(solver):
     if linkKnob:
         link = bool(linkKnob.getValue())
 
-    camera = nuke.createNode(CAMERA_CLASS, '', False)
+    camera = nuke.createNode(cameraClass(solver), '', False)
     camera.setInput(0, None)
     camera.setXYpos(m - int(camera.screenWidth()/2), y + w)
     if link:
@@ -133,7 +162,7 @@ def createCameraRig(solver):
 
     for i in range(numviews):
         viewStr = nuke.views()[i]
-        camera = nuke.nodes.Camera3()
+        camera = nuke.nodes.Camera()
         camera.setInput(0, None)
         if link:
             camera.knob('focal').setExpression(solver.name() + '.focalLength.' + viewStr)
@@ -233,7 +262,7 @@ def createCameraSet(solver):
     group.setName('Cameras')
     group.setXYpos(m + w, y + w)
     if numCameras > 0:
-        scene = nuke.createNode('Scene', '', False)
+        scene = nuke.createNode(sceneClass(solver), '', False)
         sw = scene.screenWidth()
         sh = scene.screenHeight()
         inImg = nuke.createNode('Input', '', False)
@@ -245,7 +274,7 @@ def createCameraSet(solver):
         scene.setXYpos(m + int(w*(numCameras-1)/2) - int(sw/2), y + 3*w)
     for i in range(numCameras):
         frame = solver.knob('camTranslate').getKeyTime(i)
-        camera = nuke.createNode(CAMERA_CLASS, '', False)
+        camera = nuke.createNode(cameraClass(solver), '', False)
         camera.setSelected(False)
         camera.setInput(0, inImg)
         camera.setXYpos(m + w*i - int(sw/2), y + 2*w)
@@ -285,9 +314,9 @@ def createCameraSet(solver):
 
 def createScene(cameraTracker):
     """Create a Scene with a Camera and PointCloud for the camera solve."""
-    scene = nuke.createNode('Scene', '', False)
-    camera = nuke.createNode(CAMERA_CLASS, '', False)
-    pointCloud = nuke.createNode('CameraTrackerPointCloud', '', False)
+    scene = nuke.createNode(sceneClass(cameraTracker), '', False)
+    camera = nuke.createNode(cameraClass(cameraTracker), '', False)
+    pointCloud = nuke.createNode(pointCloudClass(cameraTracker), '', False)
     sw = scene.screenWidth()
     sh = scene.screenHeight()
     x = cameraTracker.xpos()
@@ -337,10 +366,10 @@ def createEverything(cameraTracker):
     """Create a Scene with a Camera, PointCloud, ScanlineRender, and LensDistortion (Undistort) node."""
     [scene, camera, pointCloud] = createScene(cameraTracker)
     lensDistort = createUndistortion(cameraTracker)
-    scanline = nuke.createNode('ScanlineRender', '', False)
+    scanline = nuke.createNode(scanlineRenderClass(cameraTracker), '', False)
     # need to create a dummy camera here, as there seems to be a bug where calling
     # .screenWidth() on the scene or camera objects always returns 0.
-    dummyCamera = nuke.createNode(CAMERA_CLASS, '', False)
+    dummyCamera = nuke.createNode(cameraClass(cameraTracker), '', False)
     # creating our 4 dots
     cameraToSceneDot = nuke.createNode('Dot', '', False)
     cameraToScanlineRenderDot = nuke.createNode('Dot', '', False)
@@ -396,7 +425,7 @@ def createPointCloud(cameraTracker):
     """Create a CameraTrackerPointCloud node."""
     _clearSelection()
     cameraTracker.setSelected(True)
-    pointCloud = nuke.createNode('CameraTrackerPointCloud', '', False)
+    pointCloud = nuke.createNode(pointCloudClass(cameraTracker), '', False)
 
 
 def createLensDistortion(cameraTracker):
@@ -471,7 +500,7 @@ def createCards(solver):
     group.setName('Cards')
     group.setXYpos(m + w, y + w)
     if numCameras > 0:
-        scene = nuke.createNode('Scene', '', False)
+        scene = nuke.createNode(sceneClass(solver), '', False)
         sw = scene.screenWidth()
         sh = scene.screenHeight()
         inImg = nuke.createNode('Input', '', False)
@@ -493,7 +522,7 @@ def createCards(solver):
         hold.setInput(0, inImg)
         hold.knob('first_frame').setValue(frame)
         hold.setXYpos(m + w*i - int(w/2), y + w)
-        camera = nuke.createNode(CAMERA_CLASS, '', False)
+        camera = nuke.createNode(cameraClass(solver), '', False)
         camera.setInput(0, None)
         if link:
             camera.knob('focal').setExpression(
@@ -524,14 +553,14 @@ def createCards(solver):
                 solver.knob('camTranslate').getValueAt(frame))
             camera.knob('rotate').setValue(solver.knob('camRotate').getValueAt(frame))
         camera.setXYpos(m + w*i - int(sw/2), y + 3*w)
-        card = nuke.createNode('Card', '', False)
+        card = nuke.createNode(cardClass(solver), '', False)
         card.setSelected(False)
         card.knob('lens_in_focal').setExpression(camera.name() + '.focal')
         card.knob('lens_in_haperture').setExpression(camera.name() + '.haperture')
         card.knob('translate').setExpression(camera.name() + '.translate')
         card.knob('rotate').setExpression(camera.name() + '.rotate')
         card.knob('z').setExpression('parent.z')
-        card.setInput(0, hold)
+        card.setInput(1 if new3D(solver) else 0, hold)
         card.setXYpos(m + w*i - int(w/2), y + 2*w)
         scene.setInput(i*2, camera)
         scene.setInput(i*2+1, card)

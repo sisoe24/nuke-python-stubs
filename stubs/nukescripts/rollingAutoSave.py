@@ -2,7 +2,7 @@ import os
 import glob
 import time
 
-import nuke
+import nuke_internal as nuke
 
 # Example that implements a rolling autosave using the autoSaveFilter callbacks
 ###

@@ -1,4 +1,4 @@
-import nuke
+import nuke_internal as nuke
 from PySide2.QtCore import Qt
 from PySide2.QtWidgets import QWidget, QSplitter, QVBoxLayout
 
@@ -7,14 +7,10 @@ from .blinkscripteditor import *
 
 class ScriptEditor(QWidget):
 
-    doNotUpdate = False
-
     def __init__(self, knob, parent=None):
         super(ScriptEditor, self).__init__(parent)
 
         self.knob = knob
-        # doNotUpdate is used to prevent circular updates when a user enters text.
-        self.doNotUpdate = False
 
         # Set title
         self.setWindowTitle('BlinkScript Editor')
@@ -42,16 +38,14 @@ class ScriptEditor(QWidget):
         return data
 
     def storeTextOnKnob(self):
-        self.doNotUpdate = True
         self.knob.setText(self.myTextWindow.toPlainText())
 
     def updateValue(self):
-        # Update the UI text from the knob
-        if not self.doNotUpdate:
-            self.myTextWindow.setPlainText(self.knob.getText())
-        self.doNotUpdate = False
-        # knob value changed
-        pass
+        # Update the UI text from the knob if contents differ
+        # (avoids scroll position jumping on focus out after typing)
+        knobText = self.knob.getText()
+        if knobText != self.myTextWindow.toPlainText():
+            self.myTextWindow.setPlainText(knobText)
 
 
 class ScriptEditorWidgetKnob():

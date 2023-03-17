@@ -2,7 +2,7 @@
 
 import re
 
-import nuke
+import nuke_internal as nuke
 
 
 def goto_frame():

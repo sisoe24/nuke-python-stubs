@@ -2,7 +2,7 @@ import socket
 import datetime
 import platform
 
-import nuke
+import nuke_internal as nuke
 
 from . import hardwareinfo
 

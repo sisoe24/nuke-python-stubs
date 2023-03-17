@@ -1,7 +1,7 @@
 import os
 
-import nuke
 import ocionuke
+import nuke_internal as nuke
 
 
 def _setOCIOConfig(configPath):

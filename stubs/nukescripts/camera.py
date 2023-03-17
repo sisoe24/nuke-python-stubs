@@ -2,8 +2,8 @@
 
 import math
 
-import nuke
 import nukescripts
+import nuke_internal as nuke
 
 
 def camera_up():

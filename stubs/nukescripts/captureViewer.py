@@ -8,7 +8,7 @@ This module contains classes for performing a capture of the viewer.
 import os
 import string
 
-import nuke
+import nuke_internal as nuke
 
 
 class CaptureViewer(object):

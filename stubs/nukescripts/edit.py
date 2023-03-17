@@ -3,8 +3,8 @@
 # cut the current node and then paste a copy after every other node.
 # This was a throb invention, not sure how useful it is.
 
-import nuke
 import nukescripts
+import nuke_internal as nuke
 
 # Edit menu
 

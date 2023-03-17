@@ -3,7 +3,7 @@
 import re
 import os.path
 
-import nuke
+import nuke_internal as nuke
 
 __NODES_FOR_VERSION = ('Read',
                        'Write',
@@ -13,9 +13,9 @@ __NODES_FOR_VERSION = ('Read',
                        'LiveGroup',
                        'ReadGeo2',
                        'WriteGeo',
-                       'Camera3',
-                       'Axis3',
-                       'Light3',
+                       'Camera',
+                       'Axis',
+                       'Light',
                        )
 
 

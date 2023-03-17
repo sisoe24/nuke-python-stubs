@@ -1,6 +1,6 @@
 # Copyright (c) 2009 The Foundry Visionmongers Ltd.  All Rights Reserved.
 
-import nuke
+import nuke_internal as nuke
 
 # List of libraries which may be in the plugins directory that are dependencies,
 # not plugins themselves

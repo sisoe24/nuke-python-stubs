@@ -3,7 +3,7 @@
 import socket
 import threading
 
-import nuke
+import nuke_internal as nuke
 from nukescripts import utils
 
 HOST = 'localhost'

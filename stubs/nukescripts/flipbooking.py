@@ -1,7 +1,7 @@
 # Copyright (c) 2010 The Foundry Visionmongers Ltd.  All Rights Reserved.
 ###############################################################################
 
-import nuke
+import nuke_internal as nuke
 
 
 class FlipbookApplication(object):

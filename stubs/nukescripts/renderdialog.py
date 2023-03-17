@@ -7,8 +7,9 @@ import string
 import subprocess
 from threading import Thread
 
-import nuke
 import nukescripts
+import nuke_internal as nuke
+from nuke import memory2 as memory
 from nukescripts import os, sys, utils, pyAppUtils, captureViewer
 
 from . import flipbooking
@@ -291,7 +292,7 @@ class RenderDialog(ExecuteDialog):
         self.addKnob(self._numThreads)
         self._maxMem = nuke.String_Knob('max_memory', 'Memory limit')
         self._state.setKnob(self._maxMem, str(
-            max(int(nuke.memory('max_usage') / 2097152), 16)) + 'M')
+            max(int(memory.maxUsage() / 2097152), 16)) + 'M')
         self._maxMem.setVisible(self.isBackgrounded())
         self.addKnob(self._maxMem)
         if self.isBackgrounded():

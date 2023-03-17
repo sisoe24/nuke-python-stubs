@@ -4,8 +4,8 @@ import os
 import random
 import textwrap
 
-import nuke
 import nukescripts
+import nuke_internal as nuke
 
 
 def copy_knobs(args):
@@ -58,10 +58,13 @@ def connect_selected_to_viewer(inputIndex):
 
 def toggle_monitor_out():
     """Toggles monitor out (switches it on if it's off, or vice versa) for the currently active viewer."""
-    viewer = nuke.activeViewer()
-    if viewer is not None:
-        enableKnob = nuke.toNode('MonitorOutNode').knob('enable')
-        enableKnob.setValue(not enableKnob.value())
+
+    viewerWindow = nuke.activeViewer()
+    if viewerWindow is not None:
+        viewerNode = viewerWindow.node()
+        monitorOutEnableKnob = viewerNode['monitorOutEnable']
+        enabled = monitorOutEnableKnob.value()
+        monitorOutEnableKnob.setValue(not enabled)
 
 
 def clear_selection_recursive(group=nuke.root()):

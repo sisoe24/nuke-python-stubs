@@ -1,6 +1,6 @@
 """Functions used by the ApplyMaterial node"""
 
-import nuke
+import nuke_internal as nuke
 import nukescripts.panels
 
 

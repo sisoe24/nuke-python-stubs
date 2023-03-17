@@ -1,7 +1,7 @@
 import string
 from os import unlink as unlink
 
-import nuke
+import nuke_internal as nuke
 from foundry.ui import executeInMainThread
 from foundry.frameserver.nuke.bases import RenderQueueObserverMixin
 

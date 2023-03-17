@@ -2,8 +2,8 @@
 
 import re
 
-import nuke
 import nukescripts
+import nuke_internal as nuke
 
 
 def render_panel(_list, exceptOnError=True, allowFrameServer=True):
@@ -15,8 +15,8 @@ def cache_particles_panel(particleCacheNode):
     try:
         nuke.Undo().disable()
         rootNode = nuke.root()
-        firstFrame = rootNode['first_frame'].getValue()
-        lastFrame = rootNode['last_frame'].getValue()
+        firstFrame = int(rootNode['first_frame'].getValue())
+        lastFrame = int(rootNode['last_frame'].getValue())
         # Extra frames added for motion blur
         padding = int(particleCacheNode['particle_cache_padding'].getValue())
         nuke.executeMultiple((particleCacheNode,),

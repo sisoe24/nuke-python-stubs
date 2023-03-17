@@ -1,10 +1,9 @@
 import os
-import imp
 import errno
 import fileinput
 
-import nuke
 import nukescripts
+import nuke_internal as nuke
 
 
 def getNukeUserFolder():
@@ -223,7 +222,7 @@ def processPresetFile(location):
 
     if os.path.exists(fulName):
         try:
-            module = imp.load_source('user_presets', fulName)
+            module = nuke.loadModuleFromPath('user_presets', fulName)
             module.nodePresetsStartup()
         except:
             pass
@@ -246,7 +245,7 @@ def createNodePresetsMenu():
 
         for pyFile in userFiles:
             try:
-                module = imp.load_source('user_presets', pyFile)
+                module = nuke.loadModuleFromPath('user_presets', pyFile)
                 module.nodePresetsStartup()
             except:
                 pass

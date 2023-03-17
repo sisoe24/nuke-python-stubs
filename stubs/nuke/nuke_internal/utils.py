@@ -1,6 +1,7 @@
 # Copyright (c) 2009 The Foundry Visionmongers Ltd.  All Rights Reserved.
 
 import os.path
+import importlib
 
 import nuke_internal as nuke
 
@@ -29,3 +30,11 @@ def script_directory():
         return ''
 
     return os.path.dirname(scriptFilePath)
+
+
+def loadModuleFromPath(name, path):
+    """ Load a Python file and return the module object """
+    spec = importlib.util.spec_from_file_location(name, path)
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    return mod

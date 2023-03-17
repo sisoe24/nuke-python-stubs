@@ -2,8 +2,8 @@
 
 import re
 
-import nuke
 import nukescripts
+import nuke_internal as nuke
 
 
 def execute_panel(_list, exceptOnError=True):

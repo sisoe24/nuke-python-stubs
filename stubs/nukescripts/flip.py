@@ -3,8 +3,8 @@
 import re
 import os.path
 
-import nuke
 import nukescripts
+import nuke_internal as nuke
 
 prev_inrange = ''
 prev_userrange = ''

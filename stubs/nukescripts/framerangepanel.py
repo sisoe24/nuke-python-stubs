@@ -1,6 +1,6 @@
 # Copyright (c) 2009 The Foundry Visionmongers Ltd.  All Rights Reserved.
-import nuke
 import nukescripts
+import nuke_internal as nuke
 
 
 class FrameRangePanel(nukescripts.PythonPanel):

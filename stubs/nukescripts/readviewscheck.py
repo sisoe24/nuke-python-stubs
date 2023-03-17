@@ -9,7 +9,7 @@ is changed.  If there are multiple views, and they do not exist on the
 root node, the user is asked if they should be created.
 """
 
-import nuke
+import nuke_internal as nuke
 from PySide2.QtCore import QTimer
 from PySide2.QtWidgets import QMessageBox, QApplication
 

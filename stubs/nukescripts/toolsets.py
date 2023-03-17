@@ -1,7 +1,7 @@
 import os
 
-import nuke
 import nukescripts
+import nuke_internal as nuke
 
 
 class CreateToolsetsPanel(nukescripts.PythonPanel):

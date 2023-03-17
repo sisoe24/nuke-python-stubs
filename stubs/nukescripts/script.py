@@ -3,8 +3,8 @@
 import re
 import os.path
 
-import nuke
 import nukescripts
+import nuke_internal as nuke
 from PySide2 import QtGui, QtCore, QtWidgets
 
 kCommandField = 'Command:'

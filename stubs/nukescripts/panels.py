@@ -2,8 +2,8 @@
 
 import sys
 
-import nuke
 import pyui
+import nuke_internal as nuke
 
 __panels = dict()
 

@@ -3,7 +3,7 @@ Code for handling changes in the localization default in the preferences
 and applying that as knob defaults on Read nodes.
 """
 
-import nuke
+import nuke_internal as nuke
 from PySide2.QtCore import QTimer
 
 # Name of the localisation policy prefs knob

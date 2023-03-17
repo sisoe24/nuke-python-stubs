@@ -1,7 +1,7 @@
 """Functions used by the ModelBuilder node"""
 
-import nuke
 import nukescripts
+import nuke_internal as nuke
 
 #
 # Initialisation
