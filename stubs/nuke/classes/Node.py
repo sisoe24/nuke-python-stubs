@@ -17,9 +17,51 @@ class Node(object):
         """
         return None
 
+    def __hash__(self, ):
+        """
+        Return hash(self).
+        """
+        return None
+
     def __str__(self, ):
         """
         Return str(self).
+        """
+        return None
+
+    def __lt__(self, value, ):
+        """
+        Return self<value.
+        """
+        return None
+
+    def __le__(self, value, ):
+        """
+        Return self<=value.
+        """
+        return None
+
+    def __eq__(self, value, ):
+        """
+        Return self==value.
+        """
+        return None
+
+    def __ne__(self, value, ):
+        """
+        Return self!=value.
+        """
+        return None
+
+    def __gt__(self, value, ):
+        """
+        Return self>value.
+        """
+        return None
+
+    def __ge__(self, value, ):
+        """
+        Return self>=value.
         """
         return None
 
@@ -825,6 +867,12 @@ class Node(object):
         self.executeCallback(string) -> Executes the callback, if exists related to the specified event.
         """
         return Any
+
+    def getStage(self, *args):
+        """
+        self.getStage([OutputContext]) -> Runs the graph and returns the composed stage for geometry nodes. Returns None for other node types.
+        """
+        return None
 
     def __init__(self,  *args, **kwargs):
         """
