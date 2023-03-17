@@ -6,9 +6,9 @@ import nuke
 from . import *
 
 
-class EvalString_Knob(String_Knob):
+class Path_Knob(EvalString_Knob):
     """
-    A string-valued knob which evaluates its value as a TCL expression.
+    A string-valued knob for entering stage paths.
     """
 
     def __hash__(self, ):

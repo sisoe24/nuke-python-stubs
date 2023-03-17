@@ -41,10 +41,12 @@ class SceneView_Knob(Unsigned_Knob):
 
     def setImportedItems(self, items: list):
         """
-        self.setImportedItems(items) -> None
+        self.setImportedItems(items) -> None\n
 
-        Sets a list of strings containing all items imported into the knob. This will overwrite the current imported items list.@param items: List of imported items.
-        @return: None.
+        Sets a list of strings containing all items imported into the knob. This will overwrite the current imported items list.
+
+        :param items: List of imported items.
+        :return: None.
         """
         return None
 
@@ -62,9 +64,10 @@ class SceneView_Knob(Unsigned_Knob):
 
         Sets a list of strings containing all items that the knob can import.
         After calling this function, only items from this list can be imported into the nosde.
-        @param items: List of imported items.
-        @param autoSelect: If True, all items are automatically set as imported and selected.
-        @return: None.
+
+        :param items: List of imported items.
+        :param autoSelect: If True, all items are automatically set as imported and selected.
+        :return: None.
         """
         return None
 

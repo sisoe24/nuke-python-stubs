@@ -351,3 +351,28 @@ class Knob(object):
         @return: True if the knob is visible, False if it's hidden.
         """
         return bool()
+
+    def getAuthorModes(self,):
+        """
+        self.getAuthorModes() -> List.
+        Returns the names of the authoring modes of the knob if the knob is an authoring knob, otherwise an empty list.
+        @return: The names of the authoring modes of the knob if the knob is an authoring knob, otherwise an empty list. This is a list of strings.
+        """
+        return List()
+
+    def getAuthorMode(self,):
+        """
+        self.getAuthorMode() -> Integer.
+        Returns the authoring mode currently set on the knob. This is a unique string identifier of the option, which is also used for serialisation and deserialisation. It is not meant to change,thus one can rely on it.
+        @return: The string identifier of the current authoring mode set.
+        """
+        return int()
+
+    def setAuthorMode(self, authorMode: int):
+        """
+        self.setAuthorMode(authorMode) -> None.
+        Sets the authoring mode on the knob. This accepts both the unique string identifier, which is also used for serialisation and deserialisation, or index of the option for convenience. These values are not meant to change, thus one can rely on them.
+        @param authorMode: The string identifier or index of the authoring mode.
+        @return: None.
+        """
+        return None

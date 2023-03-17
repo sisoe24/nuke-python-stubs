@@ -43,19 +43,23 @@ class SceneGraph_Knob(Unsigned_Knob):
         """
         self.setItems([(name1, type1), (name2, type2), ...], autoSelect=false) -> None
 
-        Sets the list of items that can be selected on the knob.@param items: sequence of string tuples (name, type) .
-        @param autoSelect: If True, all items are automatically set as imported and selected.
-        @return: None.
+        Sets the list of items that can be selected on the knob.
+
+        :param items: sequence of string tuples (name, type) .
+        :param autoSelect: If True, all items are automatically set as imported and selected.
+        :return: None.
         """
         return None
 
     def addItems(self, *args, autoSelect=False):
         """
-        self.addItems([(name1, type1), (name2, type2), ...], autoSelect=false) -> None
+        self.addItems([(name1, type1), (name2, type2), ...], autoSelect=false) -> None\n
 
-        Adds to the existing list of items that can be selected on the knob.@param items: sequence of string tuples (name, type) .
-        @param autoSelect: If True, all items are automatically set as selected.
-        @return: None.
+        Adds to the existing list of items that can be selected on the knob.
+
+        :param items: sequence of string tuples (name, type) .
+        :param autoSelect: If True, all items are automatically set as selected.
+        :return: None.
         """
         return None
 
@@ -71,7 +75,7 @@ class SceneGraph_Knob(Unsigned_Knob):
         """
         self.getSelectedItems() -> list
 
-        @return: list of strings containing all currently selected items in the knob.
+        :return: list of strings containing all currently selected items in the knob.
         """
         return list()
 
@@ -79,8 +83,7 @@ class SceneGraph_Knob(Unsigned_Knob):
         """
         self.setSelectedItems([name1, name2, ...]) -> None
 
-        @param items: sequence of strings - names of the items in the list .
-        @return: None.
-        .
+        :param items: sequence of strings - names of the items in the list .
+        :return: None.
         """
         return None

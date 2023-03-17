@@ -98,6 +98,8 @@ class KnobType(object):
     eColorspaceKnob = 86
     eParticleChannelsKnob = 87
     eSceneGraphKnob = 88
+    ePathExpressionKnob = 89
+    ePathKnob = 90
 
     def __init__(self,  *args, **kwargs):
         """

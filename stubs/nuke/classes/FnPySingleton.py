@@ -26,7 +26,8 @@ class FnPySingleton(object):
                      ...
 
         It can be called either on the class (e.g. C.f()) or on an instance
-        (e.g. C().f()).  The instance is ignored except for its class.
+        (e.g. C().f()). Both the class and the instance are ignored, and
+        neither is passed implicitly as the first argument to the method.
 
         Static methods in Python are similar to those found in Java or C++.
         For a more advanced concept, see the classmethod builtin.

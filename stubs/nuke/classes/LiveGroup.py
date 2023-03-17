@@ -67,12 +67,12 @@ class LiveGroup(Precomp):
     def publishLiveGroup(self, file: str = None):
         """
         publishLiveGroup(file) -> bool
+
         Writes a LiveGroup to a file.
-        @param file: (optional) The path to which we want to publish this LiveGroup.
-        If None then write to the path currently defined by the file knob.
-        If the file specified by this param already exists, Nuke will attempt to over write it without a warning.
-        Otherwise a new file will be created.
-        @return: bool. True if successful, else, False.
+
+        :param file: (optional) The path to which we want to publish this LiveGroup. If None then write to the path currently defined by the file knob. If the file specified by this param already exists, Nuke will attempt to over write it without a warning. Otherwise a new file will be created.
+
+        :return: bool. True if successful, else, False.
         """
         return bool()
 

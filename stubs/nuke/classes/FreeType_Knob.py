@@ -31,22 +31,25 @@ class FreeType_Knob(Knob):
 
     def getValue(self,):
         """
-        self.getValue() -> [String, String].
+        self.getValue() -> [String, String]
+
         Returns the font family/style on this knob.
-        @return: [String, String].
+
+        :return: [String, String].
         """
         return str()
 
     def setValue(self, family: str, style: str):
         """
         self.setValue(family,style) -> None.
-        self.setValue(filename,index) -> None.
+
         Change font family/style with a new one.
-        It raises an exception if the font is not available.
-        @param family: String of the font family name.
-        @param style: String of the font style name.
-        @param filename: Font filename.
-        @param index: Face index.
-        @return: None.
+
+        :param family: String of the font family name.
+        :param style: String of the font style name.
+        :param filename: Font filename.
+        :param index: Face index.
+        :raises: It raises an exception if the font is not available.
+        :return: None.
         """
         return None

@@ -35,6 +35,7 @@ from .Help_Knob import Help_Knob
 from .Link_Knob import Link_Knob
 from .LiveGroup import LiveGroup
 from .PanelNode import PanelNode
+from .Path_Knob import Path_Knob
 from .Text_Knob import Text_Knob
 from .Array_Knob import Array_Knob
 from .Color_Knob import Color_Knob
@@ -92,6 +93,7 @@ from .Transform2d_Knob import Transform2d_Knob
 from .LookupCurves_Knob import LookupCurves_Knob
 from .BeginTabGroup_Knob import BeginTabGroup_Knob
 from .GlobalsEnvironment import GlobalsEnvironment
+from .PathExpression_Knob import PathExpression_Knob
 from .ColorspaceLookupError import ColorspaceLookupError
 from .ParticleChannels_Knob import ParticleChannels_Knob
 from .EditableEnumeration_Knob import EditableEnumeration_Knob
