@@ -6,15 +6,19 @@ import hiero.core
 C = hiero.core.conformer()
 
 # This is a list of common formats which we know we never want to import media from or conform against
-excludeFormatList = ['*.txt','*.pdf','*.html','*.doc','*.zip''*.db','*.fbx','*.obj','*.lxo','*.xml', '*.nk', '*.abc','*.ma','*.mb','*.hrox','*.nk','*.katana','*.3dl','*.ocio']
+excludeFormatList = ['*.txt', '*.pdf', '*.html', '*.doc', '*.zip''*.db', '*.fbx', '*.obj', '*.lxo',
+                     '*.xml', '*.nk', '*.abc', '*.ma', '*.mb', '*.hrox', '*.nk', '*.katana', '*.3dl', '*.ocio']
 
 # Set the exclude Pattern to reject trying to conform against the excluded list
 C.setExcludePatterns(excludeFormatList)
 
 # You can specify to always only include certain patterns file formats
-C.setIncludePatterns(['*.dpx','*.exr','*.mov','*.ari','*.jpg'])
+C.setIncludePatterns(['*.dpx', '*.exr', '*.mov', '*.ari', '*.jpg'])
 
 # When Matching media you can also set default options on the Conform dialog
-C.setUseBestTimecodeMatch(True) # Sets option for 'Accept Best timecode shots that already have media'
-C.setExcludeNonOverlappingTimecode(False) # Sets option for 'Ignore Clips with non-overlapping timecode'
-C.setIncludeAlreadyMatched(True) # Sets option for 'Conform shots that already have media'
+# Sets option for 'Accept Best timecode shots that already have media'
+C.setUseBestTimecodeMatch(True)
+# Sets option for 'Ignore Clips with non-overlapping timecode'
+C.setExcludeNonOverlappingTimecode(False)
+# Sets option for 'Conform shots that already have media'
+C.setIncludeAlreadyMatched(True)

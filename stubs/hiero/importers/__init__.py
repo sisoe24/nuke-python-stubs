@@ -1,8 +1,10 @@
-import hiero.core.log
-hiero.core.log.info( "Loading Python hiero.importers package" )
-
 import FnCyclone
+import hiero.core.log
+
 from . import FnEdlImporter
 
-#Register importers
+hiero.core.log.info('Loading Python hiero.importers package')
+
+
+# Register importers
 FnCyclone.registerImporter(importer=FnEdlImporter.EdlImporter())

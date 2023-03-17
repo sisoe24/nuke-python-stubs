@@ -16,7 +16,7 @@ Group {
  addUserKnob {1 burnIn_topMiddle l "Top Middle"}
  burnIn_topMiddle burnIn_topMiddle_value
  addUserKnob {1 burnIn_topRight l "Top Right"}
- burnIn_topRight burnIn_topRight_value 
+ burnIn_topRight burnIn_topRight_value
  addUserKnob {1 burnIn_bottomLeft l "Bottom Left"}
  burnIn_bottomLeft burnIn_bottomLeft_value
  addUserKnob {1 burnIn_bottomMiddle l "Bottom Middle"}

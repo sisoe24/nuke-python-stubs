@@ -1,5 +1,5 @@
-from numbers import Number
 from typing import *
+from numbers import Number
 
 import nuke
 

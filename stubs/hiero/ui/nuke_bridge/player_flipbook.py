@@ -1,17 +1,16 @@
 import json
-import hiero.core
+import subprocess
+
 import hiero.ui
+import hiero.core
 import nuke_internal as nuke
 import nukescripts.flipbooking as flipbooking
-import subprocess
-from .flipbook_common import (getColorspaceFromNode,
-                             getIsUsingNukeColorspaces,
-                             mapViewerLUTString,
-                             getRawViewerLUT,
-                             getOCIOConfigPath,
-                             kNukeFlipbookCapabilities)
-from PySide2.QtCore import QDateTime
-from PySide2.QtCore import QCoreApplication
+from PySide2.QtCore import QDateTime, QCoreApplication
+
+from .flipbook_common import (getRawViewerLUT, getOCIOConfigPath,
+                              mapViewerLUTString, getColorspaceFromNode,
+                              getIsUsingNukeColorspaces,
+                              kNukeFlipbookCapabilities)
 
 """
 Code for managing the HieroPlayer flipbook functionality.
@@ -20,40 +19,42 @@ to the Python code by the application.
 """
 
 # Keys for data stored in the json dict
-kFilepathKey = "filepath"
-kFrameRangeKey = "framerange"
-kOcioConfigKey = "ocioconfig"
-kViewerLutKey = "viewerlut"
-kCompNameKey = "compname"
-kNodeNameKey = "nodename"
-kAudioNameKey = "audioname"
-kViewsKey = "views"
-kColorspaceKey = "colorspace"
-kAudioPathKey = "audiopath"
+kFilepathKey = 'filepath'
+kFrameRangeKey = 'framerange'
+kOcioConfigKey = 'ocioconfig'
+kViewerLutKey = 'viewerlut'
+kCompNameKey = 'compname'
+kNodeNameKey = 'nodename'
+kAudioNameKey = 'audioname'
+kViewsKey = 'views'
+kColorspaceKey = 'colorspace'
+kAudioPathKey = 'audiopath'
 # Used when flipbooking from a Read node with 'frame_mode' set to 'start at'
-kStartAtKey = "startat"
+kStartAtKey = 'startat'
 
 
 class PlayerFlipbookApplication(flipbooking.FlipbookApplication):
     """ Class which handles launching the flipbook in Hiero Player from Nuke """
+
     def __init__(self):
         super(PlayerFlipbookApplication, self).__init__()
 
     def name(self):
-        return "Hiero Player"
+        return 'Hiero Player'
 
     def path(self):
         return nuke.env['ExecutablePath']
 
     def cacheDir(self):
-        return nuke.value("preferences.DiskCachePath")
+        return nuke.value('preferences.DiskCachePath')
 
     def run(self, path, frameRanges, views, options):
         ocioConfig = getOCIOConfigPath()
-        frameRange = "{}-{}".format(frameRanges.minFrame(), frameRanges.maxFrame())
+        frameRange = '{}-{}'.format(frameRanges.minFrame(), frameRanges.maxFrame())
 
-        burnIn = options.get("burnIn",False)
-        viewerLut = mapViewerLUTString(options.get("viewerlut", "")) if not burnIn else getRawViewerLUT()
+        burnIn = options.get('burnIn', False)
+        viewerLut = mapViewerLUTString(options.get(
+            'viewerlut', '')) if not burnIn else getRawViewerLUT()
 
         params = {}
         params[kFilepathKey] = path
@@ -69,14 +70,14 @@ class PlayerFlipbookApplication(flipbooking.FlipbookApplication):
                 params[k] = v
 
         params[kViewsKey] = views
-        colorspace = options.get("colorspace")
+        colorspace = options.get('colorspace')
         if colorspace:
             params[kColorspaceKey] = colorspace
         startAt = options.get(kStartAtKey)
         if startAt:
             params[kStartAtKey] = startAt
 
-        audioPath = options.get("audio")
+        audioPath = options.get('audio')
         if audioPath:
             params[kAudioPathKey] = audioPath
 
@@ -85,7 +86,7 @@ class PlayerFlipbookApplication(flipbooking.FlipbookApplication):
 
     def _openFlipbookProcess(self, paramsJson):
         """ Run a Player process with the flipbook data """
-        args = [self.path(), "-q", "--player", "--flipbook", paramsJson]
+        args = [self.path(), '-q', '--player', '--flipbook', paramsJson]
         subprocess.Popen(args, shell=False)
 
     def capabilities(self):
@@ -112,37 +113,39 @@ class PlayerFlipbookApplication(flipbooking.FlipbookApplication):
         if audioNodeName and nuke.toNode(audioNodeName):
             options[kAudioNameKey] = audioNodeName
 
-
     def getExtraOptions(self, flipbookDialog, nodeToFlipbook):
         options = {}
 
         burnInLUT = flipbookDialog._burnInLUT.value()
-        options["burnInLUT"] = burnInLUT
+        options['burnInLUT'] = burnInLUT
 
         self._determineFlipbookNames(flipbookDialog, nodeToFlipbook, options)
 
         if not burnInLUT:
             # Store the input colorspace and LUT. The default implementation stores
             # these under one key, but there's really no need for this
-            inputColourspace = getColorspaceFromNode( flipbookDialog._node )
-            options["colorspace"] = inputColourspace
+            inputColourspace = getColorspaceFromNode(flipbookDialog._node)
+            options['colorspace'] = inputColourspace
 
             # Check our output
             outputColourspace = flipbookDialog._getLUT()
-            options["viewerlut"] = outputColourspace
+            options['viewerlut'] = outputColourspace
 
         # get start at frame number
-        if flipbookDialog._node.Class() == "Read":
+        if flipbookDialog._node.Class() == 'Read':
             try:
-                hasStartAtDefined = flipbookDialog._node['frame_mode'].value() == "start at"
+                hasStartAtDefined = flipbookDialog._node['frame_mode'].value(
+                ) == 'start at'
                 if hasStartAtDefined:
                     # 'frame_mode' knob is a string knob, so '20.0' will raise an exception
                     # if converted directly to integer
-                    options[kStartAtKey] = int( float( flipbookDialog._node['frame'].value() ) )
+                    options[kStartAtKey] = int(
+                        float(flipbookDialog._node['frame'].value()))
             except:
                 pass
 
         return options
+
 
 # Try to register the flipbook. This will only work if running Nuke/Studio
 try:
@@ -154,6 +157,7 @@ except:
 class FlipbookNamer(object):
     """ Helper class to generate names for flipbook objects in the bin. If naming
     information wasn't provided the methods will return None """
+
     def __init__(self, compName, nodeName, audioName):
         self._compName = compName
         self._nodeName = nodeName
@@ -173,22 +177,23 @@ class FlipbookNamer(object):
         return self._formatString('{}_{}_{}', self._compName, self._audioName, self._dateString)
 
     def sequenceName(self):
-        return self.videoName() # Match the video clip name
+        return self.videoName()  # Match the video clip name
 
     def binName(self):
         return (self._formatString('{}_AudioAndVideo_{}', self._compName, self._dateString)
-                  or 'Flipbook_{}'.format(self._dateString))
+                or 'Flipbook_{}'.format(self._dateString))
 
 
 class PlayerFlipbookManager(object):
     """ Manage flipbooking on the Hiero Player side. Receives flipbook commands
     from Nuke through the command line and creates projects/clips etc.
     """
+
     def __init__(self):
         self._flipbookProjects = []
         self._flipbookProjectCounter = 1
         hiero.core.events.registerInterest('kBeforeProjectClose',
-                                            self._onProjectClosed)
+                                           self._onProjectClosed)
 
     def _onProjectClosed(self, event):
         """ Callback when a project is closed. Remove it from the list. """
@@ -221,13 +226,15 @@ class PlayerFlipbookManager(object):
         def _normaliseOcioConfig(config):
             return 'nuke-default' if (not config or 'nuke-default' in config) else config
         newConfigName = _normaliseOcioConfig(ocioConfig)
+
         def _configMatches(config):
             return newConfigName == _normaliseOcioConfig(config)
-        proj = next((p for p in self._flipbookProjects if _configMatches(p.ocioConfigPath())), None)
+        proj = next(
+            (p for p in self._flipbookProjects if _configMatches(p.ocioConfigPath())), None)
         if proj:
             self._configureProjectViews(proj, views, False)
         else:
-            projName = "Nuke Flipbook {}".format(self._flipbookProjectCounter)
+            projName = 'Nuke Flipbook {}'.format(self._flipbookProjectCounter)
             self._flipbookProjectCounter += 1
             proj = hiero.core.newProject(projName)
             QCoreApplication.processEvents()
@@ -288,7 +295,7 @@ class PlayerFlipbookManager(object):
         return self._createClip(bin, filepath, frameRange, namer.videoName(), colorspace)
 
     def _createFlipbookVideoAudio(self, project, filepath, frameRange, startAt, namer, colorspace,
-                                    audioPath):
+                                  audioPath):
         """ Creates a flipbook with audio and video. This constructs a clip for
         each then adds them to a sequence which is returned. All the objects are
         placed in a bin folder.
@@ -302,7 +309,8 @@ class PlayerFlipbookManager(object):
         # Calculate the clip frame range, and the position of the clips on the sequence
         if frameRange:
             if startAt is not None:
-                clipFrameRange = nuke.FrameRange(frameRange.first() - startAt, frameRange.last() - startAt, 1)
+                clipFrameRange = nuke.FrameRange(
+                    frameRange.first() - startAt, frameRange.last() - startAt, 1)
                 timelineIn = startAt
             else:
                 clipFrameRange = frameRange
@@ -310,7 +318,8 @@ class PlayerFlipbookManager(object):
         else:
             clipFrameRange = None
             timelineIn = 0
-        videoClip = self._createClip(bin, filepath, clipFrameRange, namer.videoName(), colorspace)
+        videoClip = self._createClip(
+            bin, filepath, clipFrameRange, namer.videoName(), colorspace)
         audioClip = self._createClip(bin, audioPath, None, namer.audioName(), None)
         seq = hiero.core.Sequence(namer.sequenceName())
         seq.setFormat(videoClip.format())
@@ -323,16 +332,16 @@ class PlayerFlipbookManager(object):
         return seq
 
     def openFlipbook(self, filepath, frameRange, startAt, ocioConfig, viewerLUT,
-                    namer, views, colorspace, audioPath):
+                     namer, views, colorspace, audioPath):
         """ Open a flipbook, creating clips, projects etc as needed """
         proj = self._getFlipbookProject(ocioConfig, views)
-        with proj.beginUndo("Flipbook"):
+        with proj.beginUndo('Flipbook'):
             if audioPath:
                 flipbookSeq = self._createFlipbookVideoAudio(
-                  proj, filepath, frameRange, startAt, namer, colorspace, audioPath)
+                    proj, filepath, frameRange, startAt, namer, colorspace, audioPath)
             else:
                 flipbookSeq = self._createFlipbookVideoOnly(
-                  proj, filepath, frameRange, startAt, namer, colorspace)
+                    proj, filepath, frameRange, startAt, namer, colorspace)
         self._openViewer(flipbookSeq, viewerLUT, views)
 
 
@@ -349,7 +358,7 @@ def _loadJson(data):
             data = json.load(f)
 
     try:
-        data["framerange"] = nuke.FrameRange(data["framerange"])
+        data['framerange'] = nuke.FrameRange(data['framerange'])
     except KeyError:
         pass
     return data
@@ -367,15 +376,15 @@ def openFlipbook(data):
                               data.get(kAudioNameKey))
 
         flipbookManager.openFlipbook(data[kFilepathKey],
-                                    data.get(kFrameRangeKey),
-                                    data.get(kStartAtKey),
-                                    data.get(kOcioConfigKey),
-                                    data.get(kViewerLutKey),
-                                    namer,
-                                    data.get(kViewsKey),
-                                    data.get(kColorspaceKey),
-                                    data.get(kAudioPathKey),
-                                    )
+                                     data.get(kFrameRangeKey),
+                                     data.get(kStartAtKey),
+                                     data.get(kOcioConfigKey),
+                                     data.get(kViewerLutKey),
+                                     namer,
+                                     data.get(kViewsKey),
+                                     data.get(kColorspaceKey),
+                                     data.get(kAudioPathKey),
+                                     )
     except:
         import traceback
         traceback.print_exc()

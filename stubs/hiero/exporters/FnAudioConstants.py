@@ -7,7 +7,7 @@ from collections import OrderedDict
 kMonoLayout = 'mono'
 kStereoLayout = 'stereo'
 kFivePointOneLayout = '5.1 (L R C LFE Ls Rs)'
-kSevenPointOneLayout ='7.1 (L R C LFE Ls Rs Bsl Bsr)'
+kSevenPointOneLayout = '7.1 (L R C LFE Ls Rs Bsl Bsr)'
 
 # Codec keys
 kPCMCodec = 'linear PCM (wav)'
@@ -31,11 +31,11 @@ k256kbpsKey = '256 kbp/s'
 k320kbpsKey = '320 kbp/s'
 
 # Preset keys
-kNumChannelsKey = "numChannels"
-kCodecKey = "codec"
-kSampleRateKey = "sampleRate"
-kBitDepthKey = "bitDepth"
-kBitRateKey = "bitRate"
+kNumChannelsKey = 'numChannels'
+kCodecKey = 'codec'
+kSampleRateKey = 'sampleRate'
+kBitDepthKey = 'bitDepth'
+kBitRateKey = 'bitRate'
 
 # Defaults
 kDefaultChannels = kStereoLayout
@@ -46,12 +46,15 @@ kDefaultBitDepth = k24bitKey
 kDefaultBitRate = k320kbpsKey
 
 # Dictionaries
-kChannels = OrderedDict ([(kMonoLayout, 1), (kStereoLayout, 2), (kFivePointOneLayout, 6), (kSevenPointOneLayout, 8)])
+kChannels = OrderedDict([(kMonoLayout, 1), (kStereoLayout, 2),
+                        (kFivePointOneLayout, 6), (kSevenPointOneLayout, 8)])
 # Note: the compressed codecs have been left commented out for the time being. When TP 420613 and TP 410681 are resolved,
 # the additional codecs here should be uncommented.
-kCodecs = OrderedDict ([(kPCMCodec, '.wav')])#, (kAACCodec, '.m4a') #, (kMP2Codec, '.mp2'), (kAC3Codec, '.ac3')])
-kSampleRates = OrderedDict ([(k44100Key, 44100), (k48khzKey, 48000), (k96khzKey, 96000)])
+# , (kAACCodec, '.m4a') #, (kMP2Codec, '.mp2'), (kAC3Codec, '.ac3')])
+kCodecs = OrderedDict([(kPCMCodec, '.wav')])
+kSampleRates = OrderedDict([(k44100Key, 44100), (k48khzKey, 48000), (k96khzKey, 96000)])
 # 96k not supported by mp2/ac3
-kCompressedSampleRates = OrderedDict ([(k44100Key, 44100), (k48khzKey, 48000)])
-kBitDepths = OrderedDict ([(k16bitKey, 16), (k24bitKey, 24), (k32bitKey, 32)])
-kBitRates = OrderedDict ([(k192kbpsKey, 192000), (k256kbpsKey, 256000), (k320kbpsKey, 320000)])
+kCompressedSampleRates = OrderedDict([(k44100Key, 44100), (k48khzKey, 48000)])
+kBitDepths = OrderedDict([(k16bitKey, 16), (k24bitKey, 24), (k32bitKey, 32)])
+kBitRates = OrderedDict(
+    [(k192kbpsKey, 192000), (k256kbpsKey, 256000), (k320kbpsKey, 320000)])

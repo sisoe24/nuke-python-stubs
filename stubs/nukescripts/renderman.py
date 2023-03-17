@@ -1,6 +1,7 @@
 import os
-import subprocess
 import shlex
+import subprocess
+
 # filter a RIB file
 
 # The function should take the input RIB filename
@@ -13,22 +14,17 @@ import shlex
 # the default version tries to call catrib to filter the RIB
 
 
-def filterRIB( in_RIB_file, out_RIB_file, argsStr ):
+def filterRIB(in_RIB_file, out_RIB_file, argsStr):
 
-  catRibPath = os.environ['RMANTREE'] + '/bin/catrib'
-  args = [ catRibPath ]
-  args.extend( shlex.split(argsStr) )
-  args.append( "-o" )
-  args.append( out_RIB_file)
-  args.append( in_RIB_file)
+    catRibPath = os.environ['RMANTREE'] + '/bin/catrib'
+    args = [catRibPath]
+    args.extend(shlex.split(argsStr))
+    args.append('-o')
+    args.append(out_RIB_file)
+    args.append(in_RIB_file)
 
-  process = subprocess.Popen( args, shell=False, stdout=subprocess.PIPE)
-  output = process.communicate()
+    process = subprocess.Popen(args, shell=False, stdout=subprocess.PIPE)
+    output = process.communicate()
 
-  if process.returncode != 0:
-    raise Exception( "Error running RIB filter (" + str(process.returncode) + ")" )
-
-
-
-
-
+    if process.returncode != 0:
+        raise Exception('Error running RIB filter (' + str(process.returncode) + ')')

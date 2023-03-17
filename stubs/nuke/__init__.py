@@ -1,6 +1,6 @@
 '''Stubs generated automatically from Nuke's internal interpreter.'''
-from numbers import Number
 from typing import *
+from numbers import Number
 
 from .nuke_classes import *
 from .nuke_internal import *
@@ -95,9 +95,12 @@ VIEW_NAMES = 'input/view_names'
 WRITE_ALL = 8
 WRITE_NON_DEFAULT_ONLY = 16
 WRITE_USER_KNOB_DEFS = 4
-env = {'64bit': '', 'ExecutablePath': '', 'ExternalPython': '', 'LINUX': '', 'MACOS': '', 'NukeLibraryPath': '', 'NukeVersionDate': '', 'NukeVersionMajor': '', 'NukeVersionMinor': '', 'NukeVersionPhase': '', 'NukeVersionPhaseNumber': '', 'NukeVersionRelease': '', 'NukeVersionString': '', 'PluginExtension': '', 'PluginsVerbose': '', 'WIN32': '', 'assist': '', 'gui': '', 'hiero': '', 'hieroNuke': '', 'hieroStudio': '', 'indie': '', 'interactive': '', 'nc': '', 'nukex': '', 'numCPUs': '', 'ple': '', 'studio': '', 'threads': ''}
+env = {'64bit': '', 'ExecutablePath': '', 'ExternalPython': '', 'LINUX': '', 'MACOS': '', 'NukeLibraryPath': '', 'NukeVersionDate': '', 'NukeVersionMajor': '', 'NukeVersionMinor': '', 'NukeVersionPhase': '', 'NukeVersionPhaseNumber': '', 'NukeVersionRelease': '',
+       'NukeVersionString': '', 'PluginExtension': '', 'PluginsVerbose': '', 'WIN32': '', 'assist': '', 'gui': '', 'hiero': '', 'hieroNuke': '', 'hieroStudio': '', 'indie': '', 'interactive': '', 'nc': '', 'nukex': '', 'numCPUs': '', 'ple': '', 'studio': '', 'threads': ''}
 
 # Built-in methods
+
+
 def activeViewer():
     """
     activeViewer() -> ViewerWindow
@@ -109,7 +112,8 @@ def activeViewer():
     """
     return ViewerWindow()
 
-def addFavoriteDir(name:str, directory:str, type:str=None, icon:str=None, tooltip:str=None, key:str=None):
+
+def addFavoriteDir(name: str, directory: str, type: str = None, icon: str = None, tooltip: str = None, key: str = None):
     """
     addFavoriteDir(name, directory, type, icon, tooltip, key) -> None.
 
@@ -125,7 +129,8 @@ def addFavoriteDir(name:str, directory:str, type:str=None, icon:str=None, toolti
     """
     return None
 
-def addFormat(s:str):
+
+def addFormat(s: str):
     """
     addFormat(s) -> Format or None.
 
@@ -136,7 +141,8 @@ def addFormat(s:str):
     """
     return Union[Format, None]
 
-def addNodePresetExcludePaths(paths:Iterable):
+
+def addNodePresetExcludePaths(paths: Iterable):
     """
     addNodePresetExcludePaths( paths ) -> None
     @param paths Sequence of paths to exclude
@@ -145,7 +151,8 @@ def addNodePresetExcludePaths(paths:Iterable):
     """
     return None
 
-def addSequenceFileExtension(fileExtension:str):
+
+def addSequenceFileExtension(fileExtension: str):
     """
     addSequenceFileExtension( fileExtension )
     Adds the input file extension to the list of extensions that will get displayed as sequences in the file browser.
@@ -153,7 +160,8 @@ def addSequenceFileExtension(fileExtension:str):
     """
     return None
 
-def addToolsetExcludePaths(paths:Iterable):
+
+def addToolsetExcludePaths(paths: Iterable):
     """
     addToolsetExcludePaths( paths ) -> None
     @param paths Sequence of paths to exclude
@@ -162,7 +170,8 @@ def addToolsetExcludePaths(paths:Iterable):
     """
     return None
 
-def addView(s:str):
+
+def addView(s: str):
     """
     addView(s) -> None
 
@@ -175,7 +184,8 @@ def addView(s:str):
     """
     return None
 
-def alert(prompt:str):
+
+def alert(prompt: str):
     """
     alert(prompt) -> None
 
@@ -186,7 +196,8 @@ def alert(prompt:str):
     """
     return None
 
-def allNodes(filter:str=None, group=None):
+
+def allNodes(filter: str = None, group=None):
     """
     allNodes(filter, group) -> List.
     List of all nodes in a group. If you need to get all the nodes in the script
@@ -199,6 +210,7 @@ def allNodes(filter:str=None, group=None):
     @return: List
     """
     return [Node]
+
 
 def animation(object, *commands):
     """
@@ -241,6 +253,7 @@ def animation(object, *commands):
     """
     return None
 
+
 def animationEnd():
     """
     animationEnd() -> float.
@@ -250,6 +263,7 @@ def animationEnd():
     @return: The end frame.
     """
     return float()
+
 
 def animationIncrement():
     """
@@ -261,6 +275,7 @@ def animationIncrement():
     """
     return float()
 
+
 def animationStart():
     """
     animationStart() -> float
@@ -270,6 +285,7 @@ def animationStart():
     @return: The start frame.
     """
     return float()
+
 
 def animations():
     """
@@ -293,7 +309,8 @@ def animations():
     """
     return tuple()
 
-def applyPreset(nodeName:str, presetName:str):
+
+def applyPreset(nodeName: str, presetName: str):
     """
     applyPreset(nodeName, presetName) -> None
     Applies a given preset to the current node.
@@ -304,7 +321,8 @@ def applyPreset(nodeName:str, presetName:str):
     """
     return None
 
-def applyUserPreset(nodeName:str, presetName:str):
+
+def applyUserPreset(nodeName: str, presetName: str):
     """
     applyUserPreset(nodeName, presetName) -> None
     Applies a given user preset to the current node.
@@ -315,7 +333,8 @@ def applyUserPreset(nodeName:str, presetName:str):
     """
     return None
 
-def ask(prompt:str):
+
+def ask(prompt: str):
     """
     ask(prompt) -> bool
 
@@ -325,6 +344,7 @@ def ask(prompt:str):
     @return: True if Yes, False otherwise.
     """
     return bool()
+
 
 def askWithCancel(prompt):
     """
@@ -337,7 +357,8 @@ def askWithCancel(prompt):
     """
     return bool()
 
-def autoplace(n:Node):
+
+def autoplace(n: Node):
     """
     autoplace(n) -> None.
 
@@ -350,7 +371,8 @@ def autoplace(n:Node):
     """
     return None
 
-def autoplaceSnap(n:Node):
+
+def autoplaceSnap(n: Node):
     """
     autoplaceSnap(n) -> None
 
@@ -360,6 +382,7 @@ def autoplaceSnap(n:Node):
     @return: None
     """
     return None
+
 
 def autoplace_all():
     """
@@ -371,6 +394,7 @@ def autoplace_all():
     """
     return None
 
+
 def autoplace_snap_all():
     """
     autoplace_snap_all() -> None.
@@ -380,6 +404,7 @@ def autoplace_snap_all():
     @return: None. May return exception it top context group has subgraph locked.
     """
     return None
+
 
 def autoplace_snap_selected():
     """
@@ -391,6 +416,7 @@ def autoplace_snap_selected():
     """
     return None
 
+
 def cacheUsage():
     """
     cacheUsage() -> int
@@ -401,7 +427,8 @@ def cacheUsage():
     """
     return int()
 
-def canCreateNode(name:str):
+
+def canCreateNode(name: str):
     """
     canCreateNode(name) -> True if the node can be created, or False if not.
 
@@ -411,6 +438,7 @@ def canCreateNode(name:str):
     """
     return bool()
 
+
 def cancel():
     """
     cancel() -> None
@@ -419,6 +447,7 @@ def cancel():
     @return: None
     """
     return None
+
 
 def center():
     """
@@ -435,9 +464,10 @@ def center():
     """
     return list()
 
+
 def channels(n=None):
     """
-    channels(n=None) -> (string) 
+    channels(n=None) -> (string)
 
     Deprecated. Use Node.channels.
 
@@ -448,7 +478,8 @@ def channels(n=None):
     """
     return str()
 
-def choice(title:str, prompt:str, options:list, default = 0):
+
+def choice(title: str, prompt: str, options: list, default=0):
     """
     choice(title, prompt, options, default = 0) -> index
 
@@ -462,6 +493,7 @@ def choice(title:str, prompt:str, options:list, default = 0):
     """
     return int()
 
+
 def clearBlinkCache():
     """
     clearBlinkCache() -> None
@@ -469,6 +501,7 @@ def clearBlinkCache():
     Clear the Blink cache for all devices.
     """
     return None
+
 
 def clearDiskCache():
     """
@@ -478,6 +511,7 @@ def clearDiskCache():
     """
     return None
 
+
 def clearRAMCache():
     """
     clearRAMCache() -> None
@@ -485,6 +519,7 @@ def clearRAMCache():
     Clear the RAM cache of all files.
     """
     return None
+
 
 def clearTabMenuFavorites():
     """
@@ -494,6 +529,7 @@ def clearTabMenuFavorites():
     """
     return None
 
+
 def clearTabMenuWeighting():
     """
     clearTabMenuWeighting() -> None
@@ -502,7 +538,8 @@ def clearTabMenuWeighting():
     """
     return None
 
-def clone(n:Node, args:Number=None, inpanel:bool=None):
+
+def clone(n: Node, args: Number = None, inpanel: bool = None):
     """
     clone(n, args, inpanel) -> Node
 
@@ -517,6 +554,7 @@ def clone(n:Node, args:Number=None, inpanel:bool=None):
     """
     return Node()
 
+
 def cloneSelected(action=None):
     """
     cloneSelected(action) -> bool
@@ -527,6 +565,7 @@ def cloneSelected(action=None):
     @return: True if succeeded, False otherwise.
     """
     return bool()
+
 
 def collapseToGroup(show=True):
     """
@@ -539,6 +578,7 @@ def collapseToGroup(show=True):
     """
     return Group()
 
+
 def collapseToLiveGroup(show=True):
     """
     collapseToLiveGroup(show=True) -> Group
@@ -550,6 +590,7 @@ def collapseToLiveGroup(show=True):
     """
     return Group()
 
+
 def connectNodes():
     """
     connectNodes() -> None
@@ -560,7 +601,8 @@ def connectNodes():
     """
     return None
 
-def connectViewer(inputNum:Number, node:Node):
+
+def connectViewer(inputNum: Number, node: Node):
     """
     connectViewer(inputNum, node) -> None
 
@@ -573,6 +615,7 @@ def connectViewer(inputNum:Number, node:Node):
     """
     return None
 
+
 def createLiveInput():
     """
     createLiveInput() -> Node
@@ -583,7 +626,8 @@ def createLiveInput():
     """
     return Node()
 
-def createNode(node:str, args:str=None, inpanel:bool=None):
+
+def createNode(node: str, args: str = None, inpanel: bool = None):
     """
     createNode(node, args, inpanel) -> Node.
 
@@ -596,34 +640,37 @@ def createNode(node:str, args:str=None, inpanel:bool=None):
     """
     return Node()
 
-def createScenefileBrowser(fileName:str, nodeName:str):
+
+def createScenefileBrowser(fileName: str, nodeName: str):
     """
     createScenefileBrowser( fileName, nodeName ) -> None
 
-    Pops up a scene browser dialog box. 
+    Pops up a scene browser dialog box.
     Receives the path to an Alembic (abc) or Universal Scene Description (usd/usda/usdc/usdz) file,
     and displays a hierarchical tree of the nodes within the file.
     The user can select which nodes they are interested in, and nodes of the appropriate type will automatically.
     be created.
-    If a valid scene file nodeName is specified, this node will be populated with the selected tree. 
+    If a valid scene file nodeName is specified, this node will be populated with the selected tree.
 
     @param fileName: Path and filename for an alembic or usd/usda/usdc/usdz file.
     @param nodeName: name of a valid scene file node to populate. If the node is invalid, new nodes will be automatically created
     """
     return None
 
-def createToolset(filename=None, overwrite=-1, rootPath = None):
+
+def createToolset(filename=None, overwrite=-1, rootPath=None):
     """
     createToolset(filename=None, overwrite=-1, rootPath = None) -> None
 
-    Creates a tool preset based on the currently selected nodes. 
+    Creates a tool preset based on the currently selected nodes.
 
     @param filename: Saves the preset as a script with the given file name.
      @param overwrite: If 1 (true) always overwrite; if 0 (false) never overwrite; @param rootPath: If specified, use this as the root path to save the Toolset to. If not specified, save to the user's .nuke/Toolsets folder.  otherwise, in GUI mode ask the user, in terminal do same as False. Default  is -1, meaning 'ask the user'.
     """
     return None
 
-def critical(message:str):
+
+def critical(message: str):
     """
     critical(message)-> None
 
@@ -634,7 +681,8 @@ def critical(message:str):
     """
     return None
 
-def debug(message:str):
+
+def debug(message: str):
     """
     debug(message)-> None
 
@@ -644,6 +692,7 @@ def debug(message:str):
     @return: None.
     """
     return None
+
 
 def defaultFontPathname():
     """
@@ -655,7 +704,8 @@ def defaultFontPathname():
     """
     return str()
 
-def defaultNodeColor(s:str):
+
+def defaultNodeColor(s: str):
     """
     defaultNodeColor(s) -> int
 
@@ -666,7 +716,8 @@ def defaultNodeColor(s:str):
     """
     return int()
 
-def delete(n:Node):
+
+def delete(n: Node):
     """
     delete(n) -> None
 
@@ -677,7 +728,8 @@ def delete(n:Node):
     """
     return None
 
-def deletePreset(nodeClassName:str, presetName:str):
+
+def deletePreset(nodeClassName: str, presetName: str):
     """
     deletePreset(nodeClassName, presetName) -> None
     Deletes a pre-created node preset
@@ -687,7 +739,8 @@ def deletePreset(nodeClassName:str, presetName:str):
     """
     return None
 
-def deleteUserPreset(nodeClassName:str, presetName:str):
+
+def deleteUserPreset(nodeClassName: str, presetName: str):
     """
     deleteUserPreset(nodeClassName, presetName) -> None
     Deletes a pre-created user node preset
@@ -697,7 +750,8 @@ def deleteUserPreset(nodeClassName:str, presetName:str):
     """
     return None
 
-def deleteView(s:str):
+
+def deleteView(s: str):
     """
     deleteView(s) -> None
 
@@ -710,7 +764,8 @@ def deleteView(s:str):
     """
     return None
 
-def display(s:str, node:Node, title:str=None, width:Number=None):
+
+def display(s: str, node: Node, title: str = None, width: Number = None):
     """
     display(s, node, title, width) -> None.
 
@@ -728,6 +783,7 @@ def display(s:str, node:Node, title:str=None, width:Number=None):
     """
     return None
 
+
 def duplicateSelectedNodes():
     """
     duplicateSelectedNodes() -> None.
@@ -736,6 +792,7 @@ def duplicateSelectedNodes():
     @return None. May return exception it top context group has subgraph locked.
     """
     return None
+
 
 def endGroup():
     """
@@ -749,7 +806,8 @@ def endGroup():
     """
     return None
 
-def error(message:str):
+
+def error(message: str):
     """
     error(message)-> None
 
@@ -760,7 +818,8 @@ def error(message:str):
     """
     return None
 
-def execute(nameOrNode:str, start:Number=None, end:Number=None, incr:int=None, views:list=None, continueOnError = False):
+
+def execute(nameOrNode: str, start: Number = None, end: Number = None, incr: int = None, views: list = None, continueOnError=False):
     """
     execute(nameOrNode, start, end, incr, views, continueOnError = False) -> None.
     execute(nameOrNode, frameRangeSet, views, continueOnError = False) -> None.
@@ -781,7 +840,8 @@ def execute(nameOrNode:str, start:Number=None, end:Number=None, incr:int=None, v
     """
     return None
 
-def executeBackgroundNuke(exe_path:str, nodes:list, frameRange, views:list, limits:dict, continueOnError = False, flipbookToRun =None, flipbookOptions = {}):
+
+def executeBackgroundNuke(exe_path: str, nodes: list, frameRange, views: list, limits: dict, continueOnError=False, flipbookToRun=None, flipbookOptions={}):
     """
     executeBackgroundNuke(exe_path, nodes, frameRange, views, limits, continueOnError = False, flipbookToRun = , flipbookOptions = {}) -> None
     Run an instance of Nuke as a monitored sub process. Returns an integer that's used as unique id for the started task. If it failed to launch this will be -1.
@@ -796,7 +856,8 @@ def executeBackgroundNuke(exe_path:str, nodes:list, frameRange, views:list, limi
     """
     return None
 
-def executeMultiple(nodes:list, ranges:Number=None, views:list=None, continueOnError=False):
+
+def executeMultiple(nodes: list, ranges: Number = None, views: list = None, continueOnError=False):
     """
     executeMultiple(nodes, ranges, views, continueOnError=False) -> None
 
@@ -814,6 +875,7 @@ def executeMultiple(nodes:list, ranges:Number=None, views:list=None, continueOnE
     """
     return None
 
+
 def executing():
     """
     executing() -> Bool.
@@ -824,7 +886,8 @@ def executing():
     """
     return bool()
 
-def exists(s:str):
+
+def exists(s: str):
     """
     exists(s) -> bool
 
@@ -836,6 +899,7 @@ def exists(s:str):
     """
     return bool()
 
+
 def expandSelectedGroup():
     """
     expandSelectedGroup() -> None
@@ -846,7 +910,8 @@ def expandSelectedGroup():
     """
     return None
 
-def expression(s:str):
+
+def expression(s: str):
     """
     expression(s) -> float
 
@@ -864,7 +929,8 @@ def expression(s:str):
     """
     return float()
 
-def expression(s:str):
+
+def expression(s: str):
     """
     expression(s) -> float
 
@@ -881,6 +947,7 @@ def expression(s:str):
     @return: The result.
     """
     return float()
+
 
 def extractSelected():
     """
@@ -892,7 +959,8 @@ def extractSelected():
     """
     return None
 
-def filename(node=None, i:Iterable=None):
+
+def filename(node=None, i: Iterable = None):
     """
     filename(node, i) -> str
 
@@ -915,6 +983,7 @@ def filename(node=None, i:Iterable=None):
     """
     return str()
 
+
 def forceClone():
     """
     forceClone() -> bool
@@ -922,6 +991,7 @@ def forceClone():
     @return: True if succeeded, False otherwise.
     """
     return bool()
+
 
 def forceLoad(n=None):
     """
@@ -934,11 +1004,13 @@ def forceLoad(n=None):
     """
     return None
 
+
 def fork(*args, **kwargs):
     """
     Forks a new instance of Nuke optionally with the contents of the named file.
     """
     return None
+
 
 def formats():
     """
@@ -948,7 +1020,8 @@ def formats():
     """
     return [Format]
 
-def frame(f:Number=None):
+
+def frame(f: Number = None):
     """
     frame(f) -> Current frame.
 
@@ -963,7 +1036,8 @@ def frame(f:Number=None):
     """
     return Number()
 
-def fromNode(n:Node):
+
+def fromNode(n: Node):
     """
     fromNode(n) -> String.
 
@@ -975,6 +1049,7 @@ def fromNode(n:Node):
     """
     return str()
 
+
 def getAllUserPresets():
     """
     getAllUserPresets() -> None
@@ -983,7 +1058,8 @@ def getAllUserPresets():
     """
     return None
 
-def getClipname(prompt:str, pattern=None, default=None, multiple=False):
+
+def getClipname(prompt: str, pattern=None, default=None, multiple=False):
     """
     getClipname(prompt, pattern=None, default=None, multiple=False) -> list of strings or string
 
@@ -999,7 +1075,8 @@ def getClipname(prompt:str, pattern=None, default=None, multiple=False):
     """
     return list()
 
-def getColor(initial:int=None):
+
+def getColor(initial: int = None):
     """
     getColor(initial) -> int
 
@@ -1012,6 +1089,7 @@ def getColor(initial:int=None):
     """
     return int()
 
+
 def getDeletedPresets():
     """
     getDeletedPresets() -> None
@@ -1020,7 +1098,8 @@ def getDeletedPresets():
     """
     return None
 
-def getFileNameList(dir:Iterable, splitSequences = False, extraInformation = False, returnDirs=True, returnHidden=False):
+
+def getFileNameList(dir: Iterable, splitSequences=False, extraInformation=False, returnDirs=True, returnHidden=False):
     """
     getFileNameList( dir, splitSequences = False, extraInformation = False, returnDirs=True, returnHidden=False ) -> str
     @param dir the directory to get sequences from
@@ -1033,7 +1112,8 @@ def getFileNameList(dir:Iterable, splitSequences = False, extraInformation = Fal
     """
     return str()
 
-def getFilename(message:str, pattern=None, default=None, favorites=None, type=None, multiple=False):
+
+def getFilename(message: str, pattern=None, default=None, favorites=None, type=None, multiple=False):
     """
     getFilename(message, pattern=None, default=None, favorites=None, type=None, multiple=False) -> list of strings or single string
 
@@ -1044,22 +1124,24 @@ def getFilename(message:str, pattern=None, default=None, favorites=None, type=No
     @param default: Optional default filename and path.
     @param favorites: Optional. Restrict favorites to this set. Must be one of  'image', 'script', or 'font'.
     @param type: Optional the type of browser, to define task-specific behaviors;  currently only 'save' is recognised.
-    @param multiple: Optional boolean convertible object to allow for multiple  selection. If this is True, the return value will be a list of strings; if  not, it will be a single string. The default is 
+    @param multiple: Optional boolean convertible object to allow for multiple  selection. If this is True, the return value will be a list of strings; if  not, it will be a single string. The default is
     @return: If multiple is True, the user input is returned as a list of  strings, otherwise as a single string. If the dialog was cancelled, the  return value will be None.
     """
     return list()
+
 
 def getFonts():
     """
     getFonts() -> list of font  families and styl.
 
-    Return a list of all available font families and styles 
+    Return a list of all available font families and styles
 
     @return: List of font families and style.
     """
     return list()
 
-def getFramesAndViews(label:str, default=None, maxviews=0):
+
+def getFramesAndViews(label: str, default=None, maxviews=0):
     """
     getFramesAndViews(label, default=None, maxviews=0) -> (ranges, views)
 
@@ -1072,7 +1154,8 @@ def getFramesAndViews(label:str, default=None, maxviews=0):
     """
     return Iterable()
 
-def getInput(prompt:str, default:str):
+
+def getInput(prompt: str, default: str):
     """
     getInput(prompt, default) -> str
 
@@ -1084,6 +1167,7 @@ def getInput(prompt:str, default:str):
     """
     return str()
 
+
 def getNodeClassName():
     """
     getNodeClassName() -> None
@@ -1091,6 +1175,7 @@ def getNodeClassName():
     @return: a string containing the name.
     """
     return str()
+
 
 def getNodePresetExcludePaths():
     """
@@ -1102,6 +1187,7 @@ def getNodePresetExcludePaths():
     """
     return list()
 
+
 def getNodePresetID():
     """
     getNodePresetID() -> None
@@ -1110,6 +1196,7 @@ def getNodePresetID():
     """
     return None
 
+
 def getOcioColorSpaces():
     """
     getOcioColorSpaces() -> returns the list of OCIO colorspaces.
@@ -1117,7 +1204,8 @@ def getOcioColorSpaces():
     """
     return list()
 
-def getPaneFor( panelName ):
+
+def getPaneFor(panelName):
     """
     getPaneFor( panelName ) -> Dock
 
@@ -1129,6 +1217,7 @@ def getPaneFor( panelName ):
     """
     return Any
 
+
 def getPresetKnobValues():
     """
     getPresetKnobValues() -> None
@@ -1139,6 +1228,7 @@ def getPresetKnobValues():
     """
     return None
 
+
 def getPresets():
     """
     getPresets() -> None
@@ -1146,6 +1236,7 @@ def getPresets():
     @return: a pyList containing all nodename/presetname pairs.
     """
     return None
+
 
 def getPresetsMenu(Node):
     """
@@ -1155,7 +1246,8 @@ def getPresetsMenu(Node):
     """
     return Union[Menu, None]
 
-def getReadFileKnob(node:Node):
+
+def getReadFileKnob(node: Node):
     """
     getReadFileKnob(node) -> knob
 
@@ -1167,12 +1259,14 @@ def getReadFileKnob(node:Node):
     """
     return knob()
 
+
 def getRenderProgress():
     """
     getRenderProgress() -> Returns the progress of the render of a frame from 0 - 100 % complete.
     @return: The progress of the render.  Can be 0 if there is no progress to report.
     """
     return int()
+
 
 def getToolsetExcludePaths():
     """
@@ -1184,6 +1278,7 @@ def getToolsetExcludePaths():
     """
     return list()
 
+
 def getUserPresetKnobValues():
     """
     getUserPresetKnobValues() -> None
@@ -1194,6 +1289,7 @@ def getUserPresetKnobValues():
     """
     return None
 
+
 def getUserPresets(Node):
     """
     getUserPresets(Node) -> None
@@ -1201,6 +1297,7 @@ def getUserPresets(Node):
     @return: a pyList containing all nodename/presetname pairs.
     """
     return None
+
 
 def hotkeys():
     """
@@ -1212,7 +1309,8 @@ def hotkeys():
     """
     return str()
 
-def inputs(n:Node, i:Number=None):
+
+def inputs(n: Node, i: Number = None):
     """
     inputs(n, i) -> int
 
@@ -1228,6 +1326,7 @@ def inputs(n:Node, i:Number=None):
     """
     return int()
 
+
 def invertSelection():
     """
     invertSelection() -> None
@@ -1238,7 +1337,8 @@ def invertSelection():
     """
     return None
 
-def knob(name:str, value:Any=None, getType:int=None, getClass:str=None):
+
+def knob(name: str, value: Any = None, getType: int = None, getClass: str = None):
     """
     knob(name, value, getType, getClass) -> None
 
@@ -1291,7 +1391,8 @@ def knob(name:str, value:Any=None, getType:int=None, getClass:str=None):
     """
     return None
 
-def knobDefault(classknob:str, value:str=None):
+
+def knobDefault(classknob: str, value: str = None):
     """
     knobDefault(classknob, value) -> str
 
@@ -1302,9 +1403,9 @@ def knobDefault(classknob:str, value:str=None):
     If several values are supplied, the first value which is valid will be
     used as the default.
     knobDefault can be used to specify file format specific knobs.
-    These are knobs that are added to Read, Write and other file format 
-    dependent nodes when the file name changes. To specify defaults, use 
-    the class name, followed by the file format extension, followed by the knob name, 
+    These are knobs that are added to Read, Write and other file format
+    dependent nodes when the file name changes. To specify defaults, use
+    the class name, followed by the file format extension, followed by the knob name,
     all separated by periods. An example is shown below.
 
     Example:
@@ -1319,7 +1420,8 @@ def knobDefault(classknob:str, value:str=None):
     """
     return str()
 
-def knobTooltip(classknob:str, value:str):
+
+def knobTooltip(classknob: str, value: str):
     """
     knobTooltip(classknob, value) -> None
 
@@ -1335,6 +1437,7 @@ def knobTooltip(classknob:str, value:str):
     """
     return None
 
+
 def layers(node=None):
     """
     layers(node=None) -> string list.
@@ -1346,6 +1449,7 @@ def layers(node=None):
     """
     return [str]
 
+
 def licenseInfo():
     """
     licenseInfo() -> Shows information about licenses used by nuke.
@@ -1353,7 +1457,8 @@ def licenseInfo():
     """
     return Any
 
-def load(s:str):
+
+def load(s: str):
     """
     load(s) -> None
 
@@ -1369,16 +1474,18 @@ def load(s:str):
     """
     return None
 
+
 def loadToolset(filename=None, overwrite=-1):
     """
     loadToolset(filename=None, overwrite=-1) -> None
 
-    Loads the tool preset with the given file name. 
+    Loads the tool preset with the given file name.
 
     @param filename: name of preset script file to load
- 
+
     """
     return None
+
 
 def localisationEnabled(knob):
     """
@@ -1394,12 +1501,14 @@ def localisationEnabled(knob):
     """
     return bool()
 
+
 def localiseFiles(readKnobs):
     """
     localiseFiles(readKnobs) -> This functionality has been removed, please check the documentation
     @return: None.
     """
     return Any
+
 
 def localizationEnabled(knob):
     """
@@ -1413,6 +1522,7 @@ def localizationEnabled(knob):
     """
     return bool()
 
+
 def makeGroup(show=True):
     """
     makeGroup(show=True) -> Group
@@ -1424,6 +1534,7 @@ def makeGroup(show=True):
     """
     return Group()
 
+
 def maxPerformanceInfo(*args, **kwargs):
     """
     maxPerformanceInfo -> Get the max performance info for this session.
@@ -1431,6 +1542,7 @@ def maxPerformanceInfo(*args, **kwargs):
     Returns a struct containing the max performance info if performance timers are in use, otherwise returns None.
     """
     return Number()
+
 
 def memory(cmd, value):
     """
@@ -1453,7 +1565,8 @@ def memory(cmd, value):
     """
     return str or int()
 
-def menu(name:str):
+
+def menu(name: str):
     """
     menu(name) -> Menu
 
@@ -1474,7 +1587,8 @@ def menu(name:str):
     """
     return Menu()
 
-def message(prompt:str):
+
+def message(prompt: str):
     """
     message(prompt) -> None
 
@@ -1485,7 +1599,8 @@ def message(prompt:str):
     """
     return None
 
-def modified(status:bool=None):
+
+def modified(status: bool = None):
     """
     modified(status) -> True if modified, False otherwise.
 
@@ -1498,7 +1613,8 @@ def modified(status:bool=None):
     """
     return bool()
 
-def nodeCopy(s:str):
+
+def nodeCopy(s: str):
     """
     nodeCopy(s) -> bool
 
@@ -1509,6 +1625,7 @@ def nodeCopy(s:str):
     """
     return bool()
 
+
 def nodeDelete(s):
     """
     nodeDelete(s) -> True if any nodes were deleted, False otherwise.
@@ -1518,6 +1635,7 @@ def nodeDelete(s):
     @return: True if all nodes were deleted, False if at least one wasn't.
     """
     return bool()
+
 
 def nodePaste(s):
     """
@@ -1532,6 +1650,7 @@ def nodePaste(s):
     """
     return Node()
 
+
 def nodeTypes(force_plugin_load=False):
     """
     nodeTypes(force_plugin_load=False) -> List
@@ -1540,15 +1659,17 @@ def nodeTypes(force_plugin_load=False):
     """
     return list()
 
+
 def nodesSelected():
     """
     nodesSelected() -> None
 
-    returns true if any nodes are currently selected 
+    returns true if any nodes are currently selected
     """
     return None
 
-def numvalue(knob:Knob, default=None):
+
+def numvalue(knob: Knob, default=None):
     """
     numvalue(knob, default=infinity) -> float
 
@@ -1561,6 +1682,7 @@ def numvalue(knob:Knob, default=None):
     """
     return float()
 
+
 def oculaPresent():
     """
     oculaPresent() -> bool
@@ -1571,7 +1693,8 @@ def oculaPresent():
     """
     return bool()
 
-def ofxAddPluginAliasExclusion(fullOfxEffectName:list):
+
+def ofxAddPluginAliasExclusion(fullOfxEffectName: list):
     """
     ofxAddPluginAliasExclusion(fullOfxEffectName) -> None
     Adds the ofx effect name to a list of exclusions that will not get tcl aliases automatically created for them.
@@ -1585,6 +1708,7 @@ def ofxAddPluginAliasExclusion(fullOfxEffectName:list):
     """
     return None
 
+
 def ofxMenu():
     """
     ofxMenu() -> bool
@@ -1597,6 +1721,7 @@ def ofxMenu():
     """
     return bool()
 
+
 def ofxPluginPath():
     """
     nuke.ofxPluginPath() -> String list
@@ -1607,7 +1732,8 @@ def ofxPluginPath():
     """
     return list()
 
-def ofxRemovePluginAliasExclusion(fullOfxEffectName:list):
+
+def ofxRemovePluginAliasExclusion(fullOfxEffectName: list):
     """
     ofxRemovePluginAliasExclusion(fullOfxEffectName) -> None
     Remove an ofx plugin alias exclusion that was previously added with .
@@ -1617,6 +1743,7 @@ def ofxRemovePluginAliasExclusion(fullOfxEffectName:list):
     """
     return None
 
+
 def nodesSelected():
     """
     nodesSelected() -> List
@@ -1624,6 +1751,7 @@ def nodesSelected():
     returns a list of Nodes which have panels open.The last item in the list is the currently active Node panel.
     """
     return list()
+
 
 def pan():
     """
@@ -1640,6 +1768,7 @@ def pan():
     """
     return list()
 
+
 def performanceProfileFilename():
     """
     performanceProfileFilename() -> File to write performance profile to for this session.
@@ -1648,7 +1777,8 @@ def performanceProfileFilename():
     """
     return str()
 
-def pluginExists(name:str):
+
+def pluginExists(name: str):
     """
     pluginExists(name) -> True if found, or False if not.
 
@@ -1663,6 +1793,7 @@ def pluginExists(name:str):
     """
     return bool()
 
+
 def pluginInstallLocation():
     """
     pluginInstallLocation() -> string list
@@ -1672,6 +1803,7 @@ def pluginInstallLocation():
     @return: List of paths.
     """
     return list()
+
 
 def pluginPath():
     """
@@ -1684,6 +1816,7 @@ def pluginPath():
     @return: List of paths.
     """
     return list()
+
 
 def plugins(switches=0, *pattern):
     """
@@ -1710,7 +1843,8 @@ def plugins(switches=0, *pattern):
     """
     return list()
 
-def recentFile(index:list):
+
+def recentFile(index: list):
     """
     recentFile(index) -> str
 
@@ -1723,6 +1857,7 @@ def recentFile(index:list):
     """
     return str()
 
+
 def redo():
     """
     redo() -> None
@@ -1733,7 +1868,8 @@ def redo():
     """
     return None
 
-def registerFlipbook(s:str):
+
+def registerFlipbook(s: str):
     """
     registerFlipbook(s) -> None
 
@@ -1743,7 +1879,8 @@ def registerFlipbook(s:str):
     """
     return None
 
-def removeFavoriteDir(name:str, type:str=None):
+
+def removeFavoriteDir(name: str, type: str = None):
     """
     removeFavoriteDir(name, type) -> None.
 
@@ -1755,7 +1892,8 @@ def removeFavoriteDir(name:str, type:str=None):
     """
     return None
 
-def execute(nameOrNode:str, start:Number=None, end:Number=None, incr:int=None, views:list=None, continueOnError = False):
+
+def execute(nameOrNode: str, start: Number = None, end: Number = None, incr: int = None, views: list = None, continueOnError=False):
     """
     execute(nameOrNode, start, end, incr, views, continueOnError = False) -> None.
     execute(nameOrNode, frameRangeSet, views, continueOnError = False) -> None.
@@ -1776,6 +1914,7 @@ def execute(nameOrNode:str, start:Number=None, end:Number=None, incr:int=None, v
     """
     return None
 
+
 def rescanFontFolders():
     """
     rescanFontFolders() -> None
@@ -1786,6 +1925,7 @@ def rescanFontFolders():
     """
     return None
 
+
 def resetPerformanceTimers():
     """
     resetPerformanceTimers() -> None
@@ -1794,7 +1934,8 @@ def resetPerformanceTimers():
     """
     return None
 
-def restoreWindowLayout(i:Number):
+
+def restoreWindowLayout(i: Number):
     """
     restoreWindowLayout(i) -> None.
     Restores a saved window layout.
@@ -1802,6 +1943,7 @@ def restoreWindowLayout(i:Number):
     @return: None
     """
     return None
+
 
 def resumePathProcessing():
     """
@@ -1812,9 +1954,10 @@ def resumePathProcessing():
     """
     return None
 
+
 def root():
     """
-    root() -> node 
+    root() -> node
 
     Get the DAG's root node. Always succeeds.
 
@@ -1822,7 +1965,8 @@ def root():
     """
     return Node()
 
-def runIn(object:str, cmd):
+
+def runIn(object: str, cmd):
     """
     runIn(object, cmd) -> bool
 
@@ -1835,7 +1979,8 @@ def runIn(object:str, cmd):
     """
     return bool()
 
-def sample(n:Node, c:str, x:Number, y:Number, dx:Number=None, dy:Number=None):
+
+def sample(n: Node, c: str, x: Number, y: Number, dx: Number = None, dy: Number = None):
     """
     sample(n, c, x, y, dx, dy) -> float.
 
@@ -1853,7 +1998,8 @@ def sample(n:Node, c:str, x:Number, y:Number, dx:Number=None, dy:Number=None):
     """
     return float()
 
-def saveEventGraphTimers(filePath:str):
+
+def saveEventGraphTimers(filePath: str):
     """
     saveEventGraphTimers(filePath) -> None
 
@@ -1861,6 +2007,7 @@ def saveEventGraphTimers(filePath:str):
     @param filePath: specify the file path where the event graph profiling data should be saved to.
     """
     return None
+
 
 def saveToScript(filename, fileContent):
     """
@@ -1870,7 +2017,8 @@ def saveToScript(filename, fileContent):
     """
     return None
 
-def saveUserPreset(node, presetName:str):
+
+def saveUserPreset(node, presetName: str):
     """
     saveUserPreset(node, presetName) -> None
     Saves a node's current knob values as a user preset.
@@ -1878,6 +2026,7 @@ def saveUserPreset(node, presetName:str):
     @return: bool.
     """
     return None
+
 
 def saveWindowLayout(i=-1):
     """
@@ -1890,11 +2039,13 @@ def saveWindowLayout(i=-1):
     """
     return None
 
+
 def scriptClear(*args, **kwargs):
     """
     Clears a Nuke script and resets all the root knobs to user defined knob defaults. To reset to compiled in defaults only pass in resetToCompiledDefaults=True.
     """
     return None
+
 
 def scriptClose(*args, **kwargs):
     """
@@ -1902,11 +2053,13 @@ def scriptClose(*args, **kwargs):
     """
     return None
 
+
 def scriptExit(*args, **kwargs):
     """
     Exit Nuke.
     """
     return None
+
 
 def scriptName():
     """
@@ -1916,11 +2069,13 @@ def scriptName():
     """
     return str()
 
+
 def scriptNew(*args, **kwargs):
     """
     Start a new script. Returns True if successful.
     """
     return None
+
 
 def scriptOpen(*args, **kwargs):
     """
@@ -1928,17 +2083,20 @@ def scriptOpen(*args, **kwargs):
     """
     return None
 
+
 def scriptReadFile(*args, **kwargs):
     """
     Read nodes from a file.
     """
     return None
 
+
 def scriptReadText(*args, **kwargs):
     """
     Read nodes from a string.
     """
     return None
+
 
 def scriptSave(filename=None):
     """
@@ -1951,6 +2109,7 @@ def scriptSave(filename=None):
     """
     return bool()
 
+
 def scriptSaveAs(filename=None, overwrite=-1):
     """
     scriptSaveAs(filename=None, overwrite=-1) -> None
@@ -1962,6 +2121,7 @@ def scriptSaveAs(filename=None, overwrite=-1):
     """
     return None
 
+
 def scriptSaveToTemp(string):
     """
     scriptSaveToTemp(string) -> string
@@ -1970,11 +2130,13 @@ def scriptSaveToTemp(string):
     """
     return str()
 
+
 def scriptSource(*args, **kwargs):
     """
     Same as scriptReadFile().
     """
     return None
+
 
 def selectAll():
     """
@@ -1986,6 +2148,7 @@ def selectAll():
     """
     return None
 
+
 def selectPattern():
     """
     selectPattern() -> None
@@ -1995,6 +2158,7 @@ def selectPattern():
     @return: None
     """
     return None
+
 
 def selectSimilar(matchType):
     """
@@ -2006,6 +2170,7 @@ def selectSimilar(matchType):
     @return: None.
     """
     return None
+
 
 def selectedNode():
     """
@@ -2020,7 +2185,8 @@ def selectedNode():
     """
     return Node()
 
-def selectedNodes(filter:str=None):
+
+def selectedNodes(filter: str = None):
     """
     selectedNodes(filter) -> List.
 
@@ -2031,7 +2197,8 @@ def selectedNodes(filter:str=None):
     """
     return [Node]
 
-def setPreset(nodeClassName:str, presetName:str, knobValues:dict):
+
+def setPreset(nodeClassName: str, presetName: str, knobValues: dict):
     """
     setPreset(nodeClassName, presetName, knobValues) -> None
     Create a node preset for the given node using the supplied knob values
@@ -2042,6 +2209,7 @@ def setPreset(nodeClassName:str, presetName:str, knobValues:dict):
     """
     return None
 
+
 def setReadOnlyPresets(readOnly):
     """
     setReadOnlyPresets(readOnly) -> None
@@ -2050,7 +2218,8 @@ def setReadOnlyPresets(readOnly):
     """
     return None
 
-def setUserPreset(nodeClassName:str, presetName:str, knobValues:dict):
+
+def setUserPreset(nodeClassName: str, presetName: str, knobValues: dict):
     """
     setUserPreset(nodeClassName, presetName, knobValues) -> None
     Create a node preset for the given node using the supplied knob values
@@ -2061,7 +2230,8 @@ def setUserPreset(nodeClassName:str, presetName:str, knobValues:dict):
     """
     return None
 
-def show(n=None, forceFloat:bool=None):
+
+def show(n=None, forceFloat: bool = None):
     """
     show(n, forceFloat) -> None
 
@@ -2074,6 +2244,7 @@ def show(n=None, forceFloat:bool=None):
     """
     return None
 
+
 def showBookmarkChooser(n):
     """
     showBookmarkChooser(n) -> None
@@ -2084,7 +2255,8 @@ def showBookmarkChooser(n):
     """
     return None
 
-def showCreateViewsDialog(views:list):
+
+def showCreateViewsDialog(views: list):
     """
     showCreateViewsDialog(views) -> void
 
@@ -2094,6 +2266,7 @@ def showCreateViewsDialog(views:list):
     @return: An integer value representing the choice the user selected: nuke.ADD_VIEWS, nuke.REPLACE_VIEWS or nuke.DONT_CREATE_VIEWS
     """
     return Any
+
 
 def showDag(n=None):
     """
@@ -2105,6 +2278,7 @@ def showDag(n=None):
     @return: None
     """
     return None
+
 
 def showInfo(n=None):
     """
@@ -2119,6 +2293,7 @@ def showInfo(n=None):
     """
     return str()
 
+
 def showSettings():
     """
     showSettings() -> None
@@ -2128,6 +2303,7 @@ def showSettings():
     @return: None
     """
     return None
+
 
 def splayNodes():
     """
@@ -2139,6 +2315,7 @@ def splayNodes():
     """
     return None
 
+
 def startEventGraphTimers():
     """
     startEventGraphTimers() -> None
@@ -2146,6 +2323,7 @@ def startEventGraphTimers():
     Start keeping track of events in the event graph.
     """
     return None
+
 
 def startPerformanceTimers():
     """
@@ -2155,6 +2333,7 @@ def startPerformanceTimers():
     """
     return None
 
+
 def stopEventGraphTimers():
     """
     stopEventGraphTimers() -> None
@@ -2163,6 +2342,7 @@ def stopEventGraphTimers():
     """
     return None
 
+
 def stopPerformanceTimers():
     """
     stopPerformanceTimers() -> None
@@ -2170,6 +2350,7 @@ def stopPerformanceTimers():
     Stop keeping track of accumulated time on the performance timers, and cease displaying the accumulated time in the DAG.
     """
     return None
+
 
 def stripFrameRange(clipname):
     """
@@ -2182,6 +2363,7 @@ def stripFrameRange(clipname):
     """
     return str()
 
+
 def suspendPathProcessing():
     """
     suspendPathProcessing() -> None
@@ -2191,11 +2373,13 @@ def suspendPathProcessing():
     """
     return None
 
+
 def tabClose(*args, **kwargs):
     """
     Close the active dock tab. Returns True if successful.
     """
     return None
+
 
 def tabNext(*args, **kwargs):
     """
@@ -2203,7 +2387,8 @@ def tabNext(*args, **kwargs):
     """
     return None
 
-def tcl(s:str, *args):
+
+def tcl(s: str, *args):
     """
     tcl(s, *args) -> str.
 
@@ -2215,6 +2400,7 @@ def tcl(s:str, *args):
     """
     return str()
 
+
 def thisClass():
     """
     thisClass() -> None
@@ -2224,6 +2410,7 @@ def thisClass():
     @return: The class name for the current node.
     """
     return None
+
 
 def thisGroup():
     """
@@ -2235,6 +2422,7 @@ def thisGroup():
     """
     return Group()
 
+
 def thisKnob():
     """
     thisKnob() -> Knob
@@ -2244,6 +2432,7 @@ def thisKnob():
     @return: Knob or None
     """
     return Knob()
+
 
 def thisNode():
     """
@@ -2255,6 +2444,7 @@ def thisNode():
     """
     return Node()
 
+
 def thisPane():
     """
     thisPane() -> the active pane.
@@ -2264,6 +2454,7 @@ def thisPane():
     @return: The active pane.
     """
     return Any
+
 
 def thisParent():
     """
@@ -2275,6 +2466,7 @@ def thisParent():
     """
     return Node()
 
+
 def thisRoot():
     """
     thisRoot() -> Root
@@ -2285,6 +2477,7 @@ def thisRoot():
     """
     return Root()
 
+
 def thisView():
     """
     thisView() -> str
@@ -2293,7 +2486,8 @@ def thisView():
     """
     return str()
 
-def toNode(s:str):
+
+def toNode(s: str):
     """
     toNode(s) -> Node
 
@@ -2303,6 +2497,7 @@ def toNode(s:str):
     @return: Node or None if it does not exist.
     """
     return Node()
+
 
 def toggleFullscreen():
     """
@@ -2314,6 +2509,7 @@ def toggleFullscreen():
     """
     return None
 
+
 def toggleViewers():
     """
     toggleViewers() -> None
@@ -2324,7 +2520,8 @@ def toggleViewers():
     """
     return None
 
-def toolbar(name:str, create=True):
+
+def toolbar(name: str, create=True):
     """
     toolbar(name, create=True)-> ToolBar
 
@@ -2336,6 +2533,7 @@ def toolbar(name:str, create=True):
     @param create: Optional parameter. True (the default value) will mean that a new  toolbar gets created if one with the given name couldn't be found; False will  mean that no new toolbar will be created.@return: The toolbar, or None if no toolbar was found and 'create' was False.
     """
     return ToolBar()
+
 
 def tprint(value, sep=' ', end='\n', file=sys.stdout):
     """
@@ -2351,6 +2549,7 @@ def tprint(value, sep=' ', end='\n', file=sys.stdout):
     """
     return None
 
+
 def undo():
     """
     undo() -> None
@@ -2361,12 +2560,14 @@ def undo():
     """
     return None
 
+
 def usingOCIO():
     """
     usingOCIO() -> returns true if using OCIO instead of Nuke LUTs.
     @return: bool
     """
     return bool()
+
 
 def usingPerformanceTimers():
     """
@@ -2376,6 +2577,7 @@ def usingPerformanceTimers():
     """
     return bool()
 
+
 def value(knob, default):
     """
     value(knob, default) -> string.
@@ -2383,6 +2585,7 @@ def value(knob, default):
     The value function returns the current value of a knob. The knob argument is a string referring to a knob and default is an optional default value to be returned in case of an error. Unlike knob(), this will evaluate animation at the current frame, and expand brackets and dollar signs in string knobs.
     """
     return str()
+
 
 def views():
     """
@@ -2394,6 +2597,7 @@ def views():
     """
     return list()
 
+
 def waitForThreadsToFinish():
     """
     waitForThreadsToFinish() -> str
@@ -2402,7 +2606,8 @@ def waitForThreadsToFinish():
     """
     return str()
 
-def warning(message:str):
+
+def warning(message: str):
     """
     warning(message)-> None
 
@@ -2413,7 +2618,8 @@ def warning(message:str):
     """
     return None
 
-def zoom(scale, center:int=None, group=None):
+
+def zoom(scale, center: int = None, group=None):
     """
     zoom(scale, center, group) -> float
 
@@ -2433,6 +2639,7 @@ def zoom(scale, center:int=None, group=None):
     @return: Current zoom factor or None if not in a GUI context.
     """
     return float()
+
 
 def zoomToFitSelected():
     """

@@ -3,7 +3,7 @@
 Use help('_splinewarp') to get detailed help on the classes exposed here.
 """
 
-from .curveknob import *
-
 import _splinewarp
 from _splinewarp import SplineKnob
+
+from .curveknob import *

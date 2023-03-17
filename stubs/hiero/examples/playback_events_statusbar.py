@@ -3,10 +3,12 @@
 import hiero.ui
 import hiero.core.events
 
+
 def updateStatusBarMessage(event):
-  bar = hiero.ui.mainWindow().statusBar()
-  bar.showMessage('Playback Event: ' + str(event.type), timeout = 3000)
+    bar = hiero.ui.mainWindow().statusBar()
+    bar.showMessage('Playback Event: ' + str(event.type), timeout=3000)
+
 
 # Register the kPlaybackStarted / kPlaybackStopped events
-hiero.core.events.registerInterest('kPlaybackStarted',updateStatusBarMessage)
-hiero.core.events.registerInterest('kPlaybackStopped',updateStatusBarMessage)
+hiero.core.events.registerInterest('kPlaybackStarted', updateStatusBarMessage)
+hiero.core.events.registerInterest('kPlaybackStopped', updateStatusBarMessage)

@@ -4,11 +4,11 @@ import nuke
 
 
 def start(url):
-  '''Open a URL or file.'''
-  nuke.tcl('start', url)
+    '''Open a URL or file.'''
+    nuke.tcl('start', url)
 
 
-#proc start {url} {
+# proc start {url} {
 #  if [catch {set command [getenv BROWSER]}] {
 #    global WIN32
 #    global MACOS
@@ -28,5 +28,4 @@ def start(url):
 #    unsetenv BROWSER
 #    message "$msg\nSet the environment variable \$BROWSER to fix this"
 #  }
-#}
-
+# }
