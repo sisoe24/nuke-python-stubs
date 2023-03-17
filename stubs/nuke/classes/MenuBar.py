@@ -17,9 +17,9 @@ class MenuBar(object):
         """
         return None
 
-    def addCommand(self, name: str, command: str = None, shortcut: str = None, icon: str = None, tooltip: str = None, index: Number = None, readonly: bool = None):
+    def addCommand(self, name: str, command: str = None, shortcut: str = None, icon: str = None, tooltip: str = None, index: Number = None, readonly: bool = None, shortcutContext: int = None, tag: int = None, tagTarget: int = None, node):
         """
-        self.addCommand(name, command, shortcut, icon, tooltip, index, readonly) -> The menu/toolbar item that was added to hold the command.
+        self.addCommand(name, command, shortcut, icon, tooltip, index, readonly, shortcutContext, tag, tagTarget, node) -> The menu/toolbar item that was added to hold the command.
         Add a new command to this menu/toolbar. Note that when invoked, the command is automatically enclosed in an undo group, so that undo/redo functionality works. Optional arguments can be specified by name.
         Note that if the command argument is not specified, then the command will be auto-created as a "nuke.createNode()" using the name argument as the node to create.
 
@@ -36,7 +36,9 @@ class MenuBar(object):
         @param index: Optional. The position to insert the new item in, in the menu/toolbar. This defaults to last in the menu/toolbar.
         @param readonly: Optional. True/False for whether the item should be available when the menu is invoked in a read-only context.
         @param shortcutContext: Optional. Sets the shortcut context (0==Window, 1=Application, 2=DAG).
-        @return: The menu/toolbar item that was added to hold the command.
+        @param tag: Optional. Sets the tag icon that is displayed on the menu/toolbar item (0==None, 1=Beta, 2=Classic).
+        @param tagTarget: Optional. Determines which type of the menu/toolbar should display the specified tag (0==Unknown, 1=Beta, 2=TabMenu, 3=ContextMenu, 7=All).
+        @param nodeClass: The NodeClass the tag should apply to.@return: The menu/toolbar item that was added to hold the command.
         """
         return Any
 
@@ -49,6 +51,7 @@ class MenuBar(object):
                         icon      An icon for the menu. Loaded from the nuke search path.
                         tooltip   The tooltip text.
                         index     The position to insert the menu in. Use -1 to add to the end of the menu.
+                        tag       Optional. Sets the tag icon that is displayed on the menu/toolbar item (0==None, 1=Beta, 2=Classic).
         @return: The submenu that was added.
         """
         return Any
