@@ -12,6 +12,7 @@ from . import (FnNukeHelpers, FnOnProjectLoad, FnAddClipToSequence,
 from .find_items import (findItems, findItemByGuid, findItemsInBin,
                          findItemsByGuid, findProjectTags, findItemsInProject)
 from .nuke.Script import getBundledNukePath, getBundledPythonPath
+from .FnResolveTable import ResolveTable
 from .localisation_helpers import *
 
 
@@ -220,7 +221,7 @@ QuickTimeExtensions = ['.mov', '.m4v', '.mp4', '.m4a',
 
 # List of extensions for all video media formats which Nuke must read at frame 1 or later (not frame zero)
 # TODO This list is duplicated in hrox_convert.py and the C++ code. Should be cleaned up
-NonZeroStartFrameMovieFileExtensions = QuickTimeExtensions + ['.mxf']
+NonZeroStartFrameMovieFileExtensions = QuickTimeExtensions + ['.mxf', '.braw']
 
 # List of extensions for all video media formats, not image sequences
 VideoFileExtensions = NonZeroStartFrameMovieFileExtensions + ['.r3d']
@@ -266,6 +267,8 @@ def _Project_extractSettings(self):
         'lutSettingLog': _projectSetting(self, self.lutSettingLog),
         'lutSettingFloat': _projectSetting(self, self.lutSettingFloat),
         'lutSettingWorkingSpace': _projectSetting(self, self.lutSettingWorkingSpace),
+        'lutSettingMonitorOut': _projectSetting(self, self.lutSettingMonitorOut),
+        'lutSettingThumbnail': _projectSetting(self, self.lutSettingThumbnail),
         'lutUseOCIOForExport': _projectSetting(self, self.lutUseOCIOForExport),
         'ocioConfigPath': _projectSetting(self, self.ocioConfigPath),
         'ocioConfigName': _projectSetting(self, self.ocioConfigName),
@@ -630,12 +633,12 @@ BinItem.createClipVersion = __createClip_wrapper(BinItem.createClipVersion)
 
 # Application logic run after a project is loaded
 
+
 # the following are Hiero/Studio only things, check if the exports feature is enabled
 if 'exports' in env['Features']:
     from .FnProcessor import ProcessorBase, ProcessorPreset
     from .FnExporterBase import (TaskBase, TaskData, TaskGroup, FolderTask,
                                  TaskPreset, TaskPresetBase, FolderTaskPreset,
                                  RenderTaskPreset)
-    from .FnResolveTable import ResolveTable
     from .FnExportRegistry import TaskRegistry, taskRegistry
     from .FnExportStructure import ExportStructure2, ExportStructureElement

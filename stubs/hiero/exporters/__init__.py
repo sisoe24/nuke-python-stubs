@@ -21,16 +21,16 @@ try:
     # Processors
     # Task UI
     from . import (FnEDLExportUI, FnXMLExportUI, FnBinProcessor,
-                   FnCopyExporter, FnShotExporter, FnAudioExportUI,
-                   FnEDLExportTask, FnFrameExporter, FnShotProcessor,
-                   FnXMLExportTask, FnBinProcessorUI, FnCopyExporterUI,
-                   FnExternalRender, FnAudioExportTask, FnLocalNukeRender,
-                   FnShotProcessorUI, FnSymLinkExporter, FnExternalRenderUI,
-                   FnNukeShotExporter, FnSymLinkExporterUI,
-                   FnTimelineProcessor, FnTranscodeExporter,
-                   FnNukeShotExporterUI, FnTimelineProcessorUI,
-                   FnTranscodeExporterUI, FnNukeAnnotationsExporter,
-                   FnNukeAnnotationsExporterUI)
+                   FnCopyExporter, FnOTIOExportUI, FnShotExporter,
+                   FnAudioExportUI, FnEDLExportTask, FnFrameExporter,
+                   FnShotProcessor, FnXMLExportTask, FnBinProcessorUI,
+                   FnCopyExporterUI, FnExternalRender, FnOTIOExportTask,
+                   FnAudioExportTask, FnLocalNukeRender, FnShotProcessorUI,
+                   FnSymLinkExporter, FnExternalRenderUI, FnNukeShotExporter,
+                   FnSymLinkExporterUI, FnTimelineProcessor,
+                   FnTranscodeExporter, FnNukeShotExporterUI,
+                   FnTimelineProcessorUI, FnTranscodeExporterUI,
+                   FnNukeAnnotationsExporter, FnNukeAnnotationsExporterUI)
     from .FnSubmission import Submission
 
 except NotImplementedError:
@@ -238,6 +238,8 @@ def AddDefaultPresets(overwrite):
                        FnEDLExportTask.EDLExportPreset('', {})),)
         xmltemplate = (('{sequence}/{sequence}.xml',
                        FnXMLExportTask.XMLExportPreset('', {})),)
+        otiotemplate = (('{sequence}/{sequence}.otio',
+                        FnOTIOExportTask.OTIOExportPreset('', {})),)
 
     clipstemplate = (('{binpath}/{clip}.####.{ext}',
                      registry.copyPreset(dpxTranscodePreset)), )
@@ -275,6 +277,8 @@ def AddDefaultPresets(overwrite):
                                             'exportTemplate': edltemplate})
         processorPresets['Final Cut Pro 7 XML'] = (FnTimelineProcessor.TimelineProcessorPreset, {
                                                    'exportTemplate': xmltemplate})
+        processorPresets['OTIO (Beta)'] = (FnTimelineProcessor.TimelineProcessorPreset, {
+            'exportTemplate': otiotemplate})
 
     localpresets = [preset.name() for preset in registry.localPresets()]
     for name, preset in processorPresets.items():

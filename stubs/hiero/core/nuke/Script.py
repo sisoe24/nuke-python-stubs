@@ -379,9 +379,6 @@ def useNukeXForInteractive():
 
 
 def getInteractiveNukeExecutablePath():
-    settings = hiero.core.ApplicationSettings()
-
-    # otherwise, use the one specified by setting
     nukePath = _getNukeExecutable()
 
     if not util.filesystem.exists(nukePath):
@@ -516,11 +513,11 @@ def executeNukeScript(path, logfile, executeOnSingleSocket=False):
 
 def launchNuke(path=None, *extraArgs):
     """
-    Launches the version of Nuke specified in Hiero's Nuke/Hiero Preferences, optionally with a Nuke Script, specfied by 'path'.
+    Launches a Nuke edition subprocess of this executable, optionally with a Nuke Script specified by 'path'.
 
     Extra arguments may also be used by specifying a tuple/list of arguments in 'extraArgs'.
 
-    launchNuke automatically checks your Hiero Preference for 'Launch as Nuke X', and also adds a '-q' switch, to stop the Nuke splash screen from appearing.
+    launchNuke automatically checks your Preference for 'Open In > New Nuke Session launches Nuke X', and also adds a '-q' switch, to stop the Nuke splash screen from appearing.
 
     @param path - (optional) path to a Nuke Script (.nk) file to open.
     @param extraArgs - (optional) list/tuple of additional command line arguments.

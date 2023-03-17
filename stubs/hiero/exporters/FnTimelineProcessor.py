@@ -3,7 +3,6 @@
 import time
 
 import hiero.core
-from hiero.core.FnNukeHelpers import offsetNodeAnimationFrames
 
 from .FnEffectHelpers import ensureEffectsNodesCreated
 from .FnCompRenderTask import createCompRenderTasks
@@ -351,6 +350,7 @@ class TimelineProcessorPreset(hiero.core.ProcessorPreset):
         # setup defaults
         self._excludedTrackIDs = []
         self.nonPersistentProperties()['excludedTracks'] = []
+        self.nonPersistentProperties()['hiddenTracks'] = ['Annotations']
         self.properties()['versionIndex'] = 1
         self.properties()['versionPadding'] = 2
         self.properties()['exportTemplate'] = ()

@@ -224,9 +224,6 @@ class ShotProcessor(hiero.core.ProcessorBase):
         path = self._exportTemplate.exportRootPath()
         versionIndex = self._preset.properties()['versionIndex']
         versionPadding = self._preset.properties()['versionPadding']
-        retime = self._preset.properties()['includeRetimes']
-
-        cutHandles = None
         startFrame = None
 
         if self._preset.properties()['startFrameSource'] == ShotProcessor.kStartFrameCustom:
@@ -239,6 +236,11 @@ class ShotProcessor(hiero.core.ProcessorBase):
                 cutHandles = int(self._preset.properties()['cutHandles'])
             else:
                 cutHandles = 0
+            retime = self._preset.properties()['includeRetimes']
+        else:
+            # Exporting full clip length, this is unfortunately represented by setting cutHandles to None
+            cutHandles = None
+            retime = False  # Applying retimes is disabled when exporting clip length
 
         # Create a resolver from the preset (specific to this type of processor)
         resolver = self._preset.createResolver()
@@ -457,6 +459,7 @@ class ShotProcessorPreset(hiero.core.ProcessorPreset):
         # setup defaults
         self._excludedTrackIDs = []
         self.nonPersistentProperties()['excludedTracks'] = []
+        self.nonPersistentProperties()['hiddenTracks'] = ['Annotations']
         self.properties()['excludeTags'] = []
         self.properties()['includeTags'] = []
         self.properties()['versionIndex'] = 1

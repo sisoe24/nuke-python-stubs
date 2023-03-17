@@ -193,7 +193,7 @@ class CascadingEnumerationComboBox(QtWidgets.QComboBox):
         QtWidgets.QComboBox.__init__(self)
 
         # Build the menu structure
-        rootMenu = QtWidgets.QMenu()
+        rootMenu = QtWidgets.QMenu(self)
         rootMenu.triggered.connect(self.onActionTriggered)
         self._rootMenu = rootMenu
         subMenuMap = dict()

@@ -1,3 +1,4 @@
+import os
 import json
 import subprocess
 
@@ -220,17 +221,26 @@ class PlayerFlipbookManager(object):
         """ Get a project configured with a given ocio config and views. If a
         suitable project doesn't already exist, will create a new one.
         """
-        # Try to find an existing project with a matching OCIO config. If the
-        # config for a comp or project is set to 'nuke-default' you may get
+        # If the OCIO environment variable is set, this will override the config
+        # so keep reusing the same project.
+        # Otherwise, try to find an existing project with a matching OCIO config.
+        # If the config for a comp or project is set to 'nuke-default' you may get
         # an empty name or a full path. Make sure these compare equal
-        def _normaliseOcioConfig(config):
-            return 'nuke-default' if (not config or 'nuke-default' in config) else config
-        newConfigName = _normaliseOcioConfig(ocioConfig)
+        proj = None
+        if self._flipbookProjects:
+            ocioEnvSet = 'OCIO' in os.environ
+            if ocioEnvSet:
+                proj = self._flipbookProjects[0]
+            else:
+                def _normaliseOcioConfig(config):
+                    return 'nuke-default' if (not config or 'nuke-default' in config) else config
+                newConfigName = _normaliseOcioConfig(ocioConfig)
 
-        def _configMatches(config):
-            return newConfigName == _normaliseOcioConfig(config)
-        proj = next(
-            (p for p in self._flipbookProjects if _configMatches(p.ocioConfigPath())), None)
+                def _configMatches(config):
+                    return newConfigName == _normaliseOcioConfig(config)
+                proj = next(
+                    (p for p in self._flipbookProjects if _configMatches(p.ocioConfigPath())), None)
+
         if proj:
             self._configureProjectViews(proj, views, False)
         else:

@@ -2,6 +2,7 @@ import traceback
 
 from PySide2.QtCore import Qt, Signal, QObject
 
+from . import messages
 from .log import logMessage, logException
 
 
@@ -10,11 +11,14 @@ class MessageDispatcher(QObject):
     callbacks. Also allows for sending messages back.
     """
 
+    messageSend = Signal(messages.Message)
+
     def __init__(self, messageClient):
         super(MessageDispatcher, self).__init__()
         self._messageClient = messageClient
         self._messageClient.messageReceived.connect(
             self._onMessageReceived, Qt.QueuedConnection)
+        self.messageSend.connect(self._messageClient.sendMessage, Qt.QueuedConnection)
         self._incomingMessages = []
         self._handlingIncomingMessages = False
         self._messageCallbacks = {}
@@ -51,7 +55,7 @@ class MessageDispatcher(QObject):
     def sendMessage(self, msg):
         """ Send a message back to the connected session """
         logMessage('MessageDispatcher.sendMessage: {}'.format(msg))
-        self._messageClient.sendMessage(msg)
+        self.messageSend.emit(msg)
 
     def shutdown(self):
         self._messageCallbacks.clear()

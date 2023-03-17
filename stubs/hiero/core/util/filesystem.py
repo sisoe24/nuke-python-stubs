@@ -41,9 +41,9 @@ def access(path, mode):
     return os.access(asUnicode(path), mode)
 
 
-def openFile(path, *args):
+def openFile(path, *args, encoding=None):
     """ Wrapper around open. """
-    return open(asUnicode(path), *args)
+    return open(asUnicode(path), *args, encoding=encoding)
 
 
 def remove(path):

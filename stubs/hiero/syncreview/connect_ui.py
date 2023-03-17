@@ -225,7 +225,7 @@ class MenuBuilder(QObject):
         if (not nuke.env.get('hiero')):
             for action in syncSessionActions:
                 hiero.ui.insertMenuAction(
-                    action, fileMenu.menu(), after='foundry.project.importSequence')
+                    action, fileMenu.menu(), after='foundry.project.importOtio')
             fileMenu.menu().insertSeparator(self.hostSessionAction)
         else:
             hiero.ui.insertMenuAction(self.hostSessionAction,

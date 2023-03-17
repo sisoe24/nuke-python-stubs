@@ -10,6 +10,7 @@ __all__ = ['setLocalisationPolicyOnTrack', 'setLocalisationPolicyOnTrackItem', '
 
 def setLocalisationPolicyOnTrackItem(trackItem, policy):
     """Sets localisation policy for the source Clip of a TrackItem
+
       @param: track - a  hiero.core.TrackItem object
       @param: policy - the localisation policy from hiero.core.Clip. Options: kOnLocalize, kAutoLocalize, kOnDemandLocalize, kOffLocalize
       """
@@ -23,6 +24,7 @@ def setLocalisationPolicyOnTrackItem(trackItem, policy):
 
 def setLocalisationPolicyOnTrack(track, policy):
     """Sets localisation policy for all Clips used by TrackItems in a Track with a given policy.
+
     @param: track - a hiero.core.Track object
     @param: policy - the localisation policy from hiero.core.Clip. Options: kOnLocalize, kAutoLocalize, kOnDemandLocalize, kOffLocalize
     """
@@ -36,6 +38,7 @@ def setLocalisationPolicyOnTrack(track, policy):
 
 def setLocalisationPolicyOnSequence(sequence, policy):
     """Sets localisation policy for all Clips used by TrackItems in a Sequence with a given policy.
+
     @param: sequence - a hiero.core.Sequence object
     @param: policy - the localisation policy from hiero.core.Clip. Options: kOnLocalize, kAutoLocalize, kOnDemandLocalize, kOffLocalize
     """
@@ -50,6 +53,7 @@ def setLocalisationPolicyOnSequence(sequence, policy):
 
 def setLocalisationPolicyOnBin(bin, policy, recursive=True):
     """Sets localisation policy for all Clips found in a Bin and recursively found in all Sub-Bins
+
     @param: clipList - a list of hiero.core.Clip objects
     @param: policy - the localisation policy from hiero.core.Clip. Options: kOnLocalize, kAutoLocalize, kOnDemandLocalize, kOffLocalize
     @param: recursive (optional, default = True) - localises all Clips found recursively in a Bin Structure
@@ -74,7 +78,8 @@ def setLocalisationPolicyOnBin(bin, policy, recursive=True):
 
 def setLocalisationForAllVersionsInProject(proj, policy):
     """Sets localisation policy for all Versions of All Clips in a project
-    @param proj : hiero.core.Project
+
+    @param proj: hiero.core.Project
     @param: policy - the localisation policy from hiero.core.Clip. Options: kOnLocalize, kAutoLocalize, kOnDemandLocalize, kOffLocalize
     """
 

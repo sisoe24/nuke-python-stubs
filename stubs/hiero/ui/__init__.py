@@ -8,11 +8,11 @@ import _nuke
 import hiero.core
 from ui import *
 from PySide2 import QtGui, QtCore, QtWidgets
-from _fnpython import (menuBar, activeView, mainWindow, setWorkspace,
-                       saveWorkspace, activeSequence, registerAction,
-                       currentWorkspace, getTimelineEditor, registeredActions,
-                       findRegisteredAction, findRegisteredActions,
-                       resetCurrentWorkspace)
+from _fnpython import (TimelineEditorCreationFlag, menuBar, activeView,
+                       mainWindow, setWorkspace, saveWorkspace, activeSequence,
+                       registerAction, currentWorkspace, getTimelineEditor,
+                       registeredActions, findRegisteredAction,
+                       findRegisteredActions, resetCurrentWorkspace)
 
 from . import (CopyCuts, TagsMenu, SendToNuke, FnPosterFrameUI,
                ScanForVersions, FnReExportAction, LocalisationMenu,
@@ -74,6 +74,7 @@ def createMenuAction(name, method, icon=None, path=None):
     """
     Creates a menu action (QAction) for use in context menus or Main menubar.
     The 'name' parameter specifies the title of the action.
+
     @param: name - the title of the menu action
     @param: method - the Python method which this action triggers
     @param: icon (optional) - provides an icon for the action. This can be an absolute path ('/var/tmp/myIcon.png'), or relative path ('icons:myIcon.png')

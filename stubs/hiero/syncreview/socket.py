@@ -57,11 +57,11 @@ class Socket(QObject):
 
         # Create the socket notifier
         fd = self._socket.getsockopt(zmq.FD)
-        self._readNotifier = QSocketNotifier(fd, QSocketNotifier.Read)
+        self._readNotifier = QSocketNotifier(fd, QSocketNotifier.Read, self)
         self._readNotifier.activated.connect(self._onReadActivated)
 
         # Create a timer for polling the socket
-        self._pollTimer = QTimer()
+        self._pollTimer = QTimer(self)
         self._pollTimer.setObjectName('SyncSocket.{}'.format(type_))
         self._pollTimer.setInterval(config.SOCKET_POLL_INTERVAL)
         self._pollTimer.timeout.connect(self._pollSocket)

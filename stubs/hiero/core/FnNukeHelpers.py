@@ -481,25 +481,27 @@ def _Clip_addToNukeScript(self,
                     [('hiero/reel', reel), ('dpx/input_device', reel), ('quicktime/reel', reel)])
 
         # Add Tags to metadata
-        metadataNode.addMetadataFromTags(self.tags())
+        metadataNode.addMetadataFromTags(self.tags(), 'clip/tags/')
+
+    # Offset that should be used for per frame metadata and for mapping effects frame range into the correct range
+    effectOrMetadataOffset = startFrame
+    if firstFrame is not None:
+        effectOrMetadataOffset = firstFrame + startFrame - start
 
     if includeEffects:
         # Add clip internal soft effects
-        # We need to offset the frame range of the effects from clip time into the output time.
-        if firstFrame is not None:
-            effectOffset = firstFrame + startFrame - start
-        else:
-            effectOffset = startFrame
-
         effects = [item for item in itertools.chain(
             *itertools.chain(*self.subTrackItems())) if isinstance(item, EffectTrackItem)]
         hiero.core.log.info('Clip.addToNukeScript effects %s %s' %
                             (effects, self.subTrackItems()))
         for effect in effects:
             added_nodes.extend(effect.addToNukeScript(
-                script, effectOffset, addLifetime=addEffectsLifetime))
+                script, effectOrMetadataOffset, addLifetime=addEffectsLifetime))
 
     postReadNodes = []
+    if includeMetadataNode:
+        nuke.appendMetadataNodesForPerFrameTagsToList(
+            self.tags(), 'clip/tags/', postReadNodes, effectOrMetadataOffset)
     if callable(additionalNodesCallback):
         postReadNodes.extend(additionalNodesCallback(self))
 
@@ -578,6 +580,7 @@ def _TrackItem_addToNukeScript(self,
         self.name(), str(startHandle), str(endHandle), str(firstFrame)))
 
     added_nodes = []
+    sequencePerFrameMetadataNodes = []
 
     retimeRate = 1.0
     if includeRetimes:
@@ -682,15 +685,20 @@ def _TrackItem_addToNukeScript(self,
                                   ])
 
     # Add Tags to metadata
-    metadataNode.addMetadataFromTags(self.tags())
+    metadataNode.addMetadataFromTags(self.tags(), 'shot/tags/')
 
     # Add Track and Sequence here as these metadata nodes are going to be added per clip/track item. Not per sequence or track.
     if self.parent():
         metadataNode.addMetadata([('hiero/track', self.parent().name()),
                                  ('hiero/track_guid', _guidFromCopyTag(self.parent()))])
+        metadataNode.addMetadataFromTags(self.parent().tags(), 'track/tags/')
         if self.parentSequence():
             metadataNode.addMetadata([('hiero/sequence', self.parentSequence().name()),
                                      ('hiero/sequence_guid', _guidFromCopyTag(self.parentSequence()))])
+            metadataNode.addMetadataFromTags(
+                self.parentSequence().tags(), 'sequence/tags/')
+            nuke.appendMetadataNodesForPerFrameTagsToList(
+                self.parentSequence().tags(), 'sequence/tags/', sequencePerFrameMetadataNodes)
 
             # If we have clip and we're in a sequence then we output the reformat settings as another reformat node.
             reformat = self.reformatState()
@@ -741,6 +749,13 @@ def _TrackItem_addToNukeScript(self,
     if reformatNode is not None:
         added_nodes.append(reformatNode)
         script.addNode(reformatNode)
+
+    # Add sequence per frame metadata nodes
+    for node in sequencePerFrameMetadataNodes:
+        if not self.isEnabled():
+            node.setKnob('disable', True)
+        added_nodes.append(node)
+        script.addNode(node)
 
     # Add metadata node
     added_nodes.append(metadataNode)
@@ -856,14 +871,12 @@ def _TrackItem_addToNukeScript(self,
         script.addNode(toSequenceFormatNode)
         added_nodes.append(toSequenceFormatNode)
 
-    # Write out the linked effects, setting the cliptype knob to 'bbox' if necessary
-    effectClipType = 'bbox' if not itemSetToSequenceFormat else None
+    # Write out the linked effects.
     for effect in linkedEffects:
         added_nodes.extend(effect.addToNukeScript(script,
                                                   effectOffset,
                                                   startHandle=inHandle,
                                                   endHandle=outHandle,
-                                                  cliptype=effectClipType,
                                                   addLifetime=False
                                                   ))
 
@@ -926,7 +939,7 @@ def createAnnotationsGroup(script, annotations, offset, inputs, cliptype=None):
     return [annotationsGroup]
 
 
-def _addTrackSubTrackItems(itemFilter, track, script, offset, inputs, cliptype):
+def _addTrackSubTrackItems(itemFilter, track, script, offset, inputs):
     """ Write out the sub-track items of type itemType for a track. """
 
     # Build a list of effects across all the sub-tracks
@@ -936,21 +949,21 @@ def _addTrackSubTrackItems(itemFilter, track, script, offset, inputs, cliptype):
     # there might not be any inputs, after the first item is added set inputs to 1.
     added_nodes = []
     for item in items:
-        itemNodes = item.addToNukeScript(script, offset, inputs, cliptype)
+        itemNodes = item.addToNukeScript(script, offset, inputs)
         added_nodes.extend(itemNodes)
         inputs = 1
 
     return added_nodes
 
 
-def _addEffectsAnnotationsForTrack(track, includeEffects, includeAnnotations, script, offset, inputs=1, cliptype=None):
+def _addEffectsAnnotationsForTrack(track, includeEffects, includeAnnotations, script, offset, inputs=1):
     """ Write the soft effects and annotations for a given track. """
 
     added_nodes = []
 
     if includeAnnotations:
-        annotationNodes = _addTrackSubTrackItems(lambda x: isinstance(
-            x, Annotation), track, script, offset, inputs, cliptype)
+        annotationNodes = _addTrackSubTrackItems(
+            lambda x: isinstance(x, Annotation), track, script, offset, inputs)
         if annotationNodes:
             added_nodes.extend(annotationNodes)
             inputs = 1
@@ -980,7 +993,7 @@ def _addEffectsAnnotationsForTrack(track, includeEffects, includeAnnotations, sc
 
         # Add track level effects, not including ones linked to a track item.  Those are added in TrackItem.addToNukeScript
         added_nodes.extend(_addTrackSubTrackItems(lambda x: isinstance(
-            x, EffectTrackItem) and not x.linkedItems(), track, script, offset, inputs, cliptype))
+            x, EffectTrackItem) and not x.linkedItems(), track, script, offset, inputs))
 
     return added_nodes
 
@@ -1265,10 +1278,6 @@ def _Sequence_addToNukeScript(self,
     #   Merge track 3 over track 2
     #   Write
 
-    # If there is an output format specified, to make sure effects and annotations appear in the right place,
-    # they should have their 'cliptype' knob set to 'bbox'.
-    effectsClipType = 'bbox' if outputToFormat else None
-
     tracksWithVideo = set()
 
     # If layout is disconnected, only the 'master' track is connected to the Write node, any others
@@ -1309,7 +1318,7 @@ def _Sequence_addToNukeScript(self,
             added_nodes = added_nodes + track_nodes
 
             added_nodes.extend(_addEffectsAnnotationsForTrack(
-                track, includeEffects, includeAnnotations, script, offset, cliptype=effectsClipType))
+                track, includeEffects, includeAnnotations, script, offset))
 
             tracksWithVideo.add(track)
 
@@ -1324,7 +1333,7 @@ def _Sequence_addToNukeScript(self,
 
         elif trackDisconnected:
             added_nodes.extend(_addEffectsAnnotationsForTrack(
-                track, includeEffects, includeAnnotations, script, offset, inputs=0, cliptype=effectsClipType))
+                track, includeEffects, includeAnnotations, script, offset, inputs=0))
 
         # Store the last node added to this track
         if added_nodes:
@@ -1386,7 +1395,7 @@ def _Sequence_addToNukeScript(self,
             # If there were no clips on the track, write the effects and annotations after the merge so they get applied to the tracks below
             else:
                 added_nodes.extend(_addEffectsAnnotationsForTrack(
-                    track, includeEffects, includeAnnotations, script, offset, cliptype=effectsClipType))
+                    track, includeEffects, includeAnnotations, script, offset))
 
         script.popLayoutContext()
 
@@ -1580,6 +1589,21 @@ def _AnnotationStrokes_addToNukeScript(strokes, script, **knobs):
     return [rotoNode]
 
 
+class NodeAnimationOffsetter:
+    """ Context manager for temporarily offsetting the animation on a node in a with block. """
+
+    def __init__(self, node, offset):
+        self.node = node
+        self.offset = offset
+        offsetNodeAnimationFrames(self.node, self.offset)
+
+    def __enter__(self):
+        pass
+
+    def __exit__(self, exc_type, exc_value, traceback):
+        offsetNodeAnimationFrames(self.node, -self.offset)
+
+
 def offsetNodeAnimationFrames(node, offset):
     """ Iterate over all the knobs in a Nuke node, offsetting the key frame numbers. """
 
@@ -1608,13 +1632,13 @@ def offsetNodeAnimationFrames(node, offset):
             pass
 
 
-def _EffectTrackItem_addToNukeScript(self, script, offset=0, inputs=1, cliptype=None, startHandle=0, endHandle=0, addLifetime=True):
+def _EffectTrackItem_addToNukeScript(self, script, offset=0, inputs=1, startHandle=0, endHandle=0, addLifetime=True):
     # Write an EffectTrackItem to the script.  We can access the Nuke node, so we just need
     # to write that out, plus any additional knobs that need to be added.
 
     node = self.node()
 
-    # Apply the offset to all the Node's animations
+    # Apply the offset to all the Node's animations. These keys may have been adjusted earlier in NukeShotExporter::_buildCollatedSequence.
     offsetNodeAnimationFrames(node, offset)
 
     # Any additional knobs we want in the script.  These are added as raw lines of text
@@ -1635,11 +1659,6 @@ def _EffectTrackItem_addToNukeScript(self, script, offset=0, inputs=1, cliptype=
     # Set disabled knob if the effect is disabled on the timeline
     if not self.isEnabled():
         additionalKnobs.append('disable true')
-
-    # If cliptype is specified and the node has a cliptype knob, set its value
-    cliptypeKnob = node.knob('cliptype')
-    if cliptype and cliptypeKnob:
-        cliptypeKnob.setValue(cliptype)
 
     nodeStr = node.Class() + ' {\n' + node.writeKnobs(_nuke.TO_SCRIPT) + \
         '\n' + '\n'.join(additionalKnobs) + '\n}'

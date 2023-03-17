@@ -265,7 +265,7 @@ class CustomSpreadsheetColumns(QtCore.QObject):
                 imageView = QtGui.QImage('icons:AudioOnly.png')
                 painter.fillRect(r, QtGui.QColor(45, 59, 45))
 
-            if option.state & QtGui.QStyle.State_Selected:
+            if option.state & QtWidgets.QStyle.State_Selected:
                 painter.fillRect(option.rect, option.palette.highlight())
 
             tags = item.tags()

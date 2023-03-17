@@ -73,6 +73,7 @@ class MainStatusBar(object):
 
         global gEnableResourceMonitoring
         self.enableResourceMonitoring = gEnableResourceMonitoring
+        self.isHieroPlayer = hiero.core.isHieroPlayer()
 
         # Get the status bar. Due to PySide issues we can't always rely on mainWindow()
         # returning a QMainWindow object, so find the status bar by searching the widget's
@@ -118,14 +119,16 @@ class MainStatusBar(object):
 
     def _handleServerUnreachable(self):
         """This is called when the server becomes unreachable"""
-        log.debug('[WARNING]: Nuke Frame Server was not reachable.')
-        self.frameserverStatusLabel.setPixmap(QPixmap('icons:Offline.png'))
 
-        for i, arg in enumerate(hiero.core.rawArgs):
-            if arg == '--disable-nuke-frameserver':
-                return
+        if not self.isHieroPlayer:
+            log.debug('[WARNING]: Nuke Frame Server was not reachable.')
+            self.frameserverStatusLabel.setPixmap(QPixmap('icons:Offline.png'))
 
-        self.restartServerButton.setHidden(False)
+            for i, arg in enumerate(hiero.core.rawArgs):
+                if arg == '--disable-nuke-frameserver':
+                    return
+
+            self.restartServerButton.setHidden(False)
 
     def _setResourcesLabelColour(self, memRatio, cpuUsage):
         """Sets the Resources label to be red if the memory usage gets too high"""
@@ -221,12 +224,12 @@ class MainStatusBar(object):
         # Status label
         self.frameserverStatusLabel = QLabel('')
         self.bar.addPermanentWidget(self.frameserverStatusLabel)
+        self.frameserverStatusLabel.setHidden(self.isHieroPlayer)
 
         # Button for restarting the frame server. Only shown when we detect it's not
         # responding
         self.restartServerButton = QPushButton(
             QPixmap('icons:TransformRotateRight.png').scaledToHeight(h, Qt.SmoothTransformation), '')
-        self.restartServerButton.setFixedHeight(h)
         self.restartServerButton.clicked.connect(self.restartServer)
         self.restartServerButton.setHidden(True)
         self.restartServerButton.setFlat(True)
@@ -249,7 +252,10 @@ class MainStatusBar(object):
         self.localizationModeLabel.setText('Localization Mode: {}'.format(modeStr))
 
         try:
-            isRunning = self.frameServerInstance.isRunning(0.25)
+
+            isRunning = False
+            if not self.isHieroPlayer:
+                isRunning = self.frameServerInstance.isRunning(0.25)
 
             if isRunning and not self.rendersExistInQueue():
                 self._updateUIForServerIsRunning()

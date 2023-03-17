@@ -44,8 +44,8 @@ class SymLinkExporter(FnFrameExporter.FrameExporter):
 
             # we're on a variant of windows, so use mklink
             # the following assumes we're running on Windows Vista or higher (http://www.howtogeek.com/howto/windows-vista/using-symlinks-in-windows-vista/)
-            result = subprocess.Popen(
-                ('cmd', '/c', 'mklink', '/H', dstPath, srcPath), stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            result = subprocess.Popen(('cmd', '/c', 'mklink', '/H', dstPath, srcPath),
+                                      stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
             stdout, stderr = result.communicate()
 
             if stdout is None or 'Hardlink created' not in stdout:

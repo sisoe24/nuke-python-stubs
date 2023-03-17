@@ -29,7 +29,7 @@ _kCurrentVersionString = '11.1v1'
 # List of extensions for all video media formats which Nuke must read at frame 1 or later (not frame zero)
 # TODO This list is duplicated in hiero.core.__init__.py and the C++ code. Should be cleaned up
 _kNonZeroStartFrameMovieFileExtensions = (
-    '.mov', '.m4v', '.mp4', '.m4a', '.m4p', '.m4b', '.m4r', '.mpg', '.mpeg', '.avi', '.mxf')
+    '.mov', '.m4v', '.mp4', '.m4a', '.m4p', '.m4b', '.m4r', '.mpg', '.mpeg', '.avi', '.mxf', '.braw')
 
 # Lookup tables for the R3D enumerated parameters. These are stored as ints in the
 # hrox, and the values do not necessarily correspond to the int values used in the

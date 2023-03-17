@@ -1,3 +1,4 @@
+import os
 import logging
 
 # Logging functions for Hiero
@@ -75,3 +76,25 @@ def error(message, *args):
 def exception(message, *args):
     """ The same as error(), but also prints a stack trace.  Only call from an exception handler. """
     _logger.exception(_formatMessage(message, *args))
+
+
+_fileLoggers = {}
+_logDir = os.path.join(os.environ['NUKE_TEMP_DIR'], 'logs')
+
+
+def getFileLogger(name):
+    """ Get a logger which writes to a file in the user's NUKE_TEMP_DIR """
+    try:
+        return _fileLoggers[name]
+    except KeyError:
+        fileLogger = _logger.getChild(name)
+        _fileLoggers[name] = fileLogger
+        fileLogger.propagate = False
+        logPath = os.path.join(_logDir, '{}.log'.format(name))
+        fileHandler = logging.FileHandler(logPath, mode='w')
+        fileLogFormat = '%(levelname)s %(asctime)s.%(msecs)03d: %(filename)s:%(lineno)d %(funcName)s(): %(message)s'
+        fileHandler.setFormatter(logging.Formatter(fileLogFormat))
+        fileHandler.setLevel(logging.DEBUG)
+        fileLogger.setLevel(logging.DEBUG)
+        fileLogger.addHandler(fileHandler)
+        return fileLogger

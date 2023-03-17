@@ -77,7 +77,7 @@ class RenameShotsDialog(QtWidgets.QDialog):
                                 '{sequence}', '{event}', '{fps}', '{filename}']
 
         # Keyword resolver for using {tokens} in the rename dialog
-        self._resolver = hiero.core.FnResolveTable.ResolveTable()
+        self._resolver = hiero.core.ResolveTable()
         self._resolver.addResolver(
             '{shot}', 'Name of the TrackItem being processed', lambda keyword, task: task.name())
         self._resolver.addResolver(

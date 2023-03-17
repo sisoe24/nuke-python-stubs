@@ -105,7 +105,7 @@ class TranscodeExporter(FnExternalRender.NukeRenderTask):
 
             # Pass the frame range through to the submission.  This is useful for rendering through the frame
             # server, otherwise it would have to evaluate the script to determine it.
-            start, end = self.outputRange()
+            start, end = self.outputRange(clampToSource=False)
             submissionDict = copy.copy(initDict)
             submissionDict['startFrame'] = start
             submissionDict['endFrame'] = end
@@ -134,7 +134,7 @@ class TranscodeExporter(FnExternalRender.NukeRenderTask):
         if self._preset.properties()['keepNukeScript']:
             tag.metadata().setValue('tag.script', self._scriptfile)
 
-        start, end = self.outputRange()
+        start, end = self.outputRange(clampToSource=False)
         tag.metadata().setValue('tag.startframe', str(start))
         tag.metadata().setValue('tag.duration', str(end-start+1))
 
@@ -194,7 +194,7 @@ class TranscodeExporter(FnExternalRender.NukeRenderTask):
                 self.setAudioExportSettings()
 
                 if isinstance(self._item, hiero.core.Sequence):
-                    start, end = self.outputRange()
+                    start, end = self.outputRange(clampToSource=False)
                     self._item.writeAudioToFile(self._audioFile,
                                                 start,
                                                 end,
@@ -363,9 +363,6 @@ class TranscodeExporter(FnExternalRender.NukeRenderTask):
         metadataNode = nuke.MetadataNode(metadatavalues=[(
             'hiero/project', self._projectName), ('hiero/project_guid', self._project.guid())])
 
-        # Add sequence Tags to metadata
-        metadataNode.addMetadataFromTags(self._sequence.tags())
-
         # Apply timeline offset to nuke output
         script.addNode(nuke.AddTimeCodeNode(timecodeStart=self._sequence.timecodeStart(
         ), fps=framerate, dropFrames=dropFrames, frame=0 if self._startFrame is None else self._startFrame))
@@ -429,7 +426,7 @@ class TranscodeExporter(FnExternalRender.NukeRenderTask):
         unclampedStart = start
         log.debug('rootNode range is %s %s', start, end)
 
-        firstFrame, lastFrame = start, end
+        firstFrame = start
         if self._startFrame is not None:
             firstFrame = self._startFrame
 
@@ -516,9 +513,6 @@ class TranscodeExporter(FnExternalRender.NukeRenderTask):
 
         metadataNode = nuke.MetadataNode(metadatavalues=[(
             'hiero/project', self._projectName), ('hiero/project_guid', self._project.guid())])
-
-        # Add sequence Tags to metadata
-        metadataNode.addMetadataFromTags(self._clip.tags())
 
         # Need a framerate inorder to create a timecode
         if framerate:

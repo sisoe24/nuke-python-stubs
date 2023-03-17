@@ -74,14 +74,16 @@ def findEffectsAnnotationsForTrackItems(trackItems):
 
 
 def ensureEffectsNodesCreated(sequence):
-    """ Find all the EffectTrackItems on a sequence or clip, and force creation of
-    their nodes. The node creation is done lazily, but it must happen on the main
-    thread, so for exports this can be called to force it to be done at a point
-    when we know the code is running on the main thread. This also calls isValid()
-    to make sure that the linking of effects and track items is correct.
+    """ Find all the EffectTrackItems and Transitions on a sequence or clip, and
+    force creation of their nodes. The node creation is done lazily, but it must
+    happen on the main thread, so for exports this can be called to force it to be
+    done at a point when we know the code is running on the main thread. This also
+    calls isValid() to make sure that the linking of effects and track items is correct.
     """
     if isinstance(sequence, hiero.core.Sequence):
         for track in sequence.videoTracks():
+            for transition in track.transitions():
+                transition.dissolveNode()
             for subTrackItem in itertools.chain(*track.subTrackItems()):
                 if isinstance(subTrackItem, hiero.core.EffectTrackItem):
                     subTrackItem.node()

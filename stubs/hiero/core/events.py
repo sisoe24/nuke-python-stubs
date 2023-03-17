@@ -33,6 +33,11 @@ class Event:
     def setAccepted(self, accepted):
         self._accepted = accepted
 
+    def __str__(self):
+        attrs = ' '.join([f'{k}={v}' for k, v in self.__dict__.items()
+                         if not k.startswith('_') and k not in ('type', 'subtype')])
+        return f'Event(type={self.type} subtype={self.subtype} {attrs})'
+
 # Enum of connection types
 
 
@@ -41,7 +46,7 @@ class Connection:
     kAny = 1
     """ Execute callback only if event is triggered through sendEvent (or signalEvent). Execution is synchronous (blocking) """
     kDirect = 2
-    """ Execute callback only if event is triggered through postEvent (or signalEvent). Execution is asynchronous (add to event queue, non-blocking) """
+    """ [DEPRECATION WARNING]: Use kAny or kDirect instead """
     kQueued = 4
 
 # Represents an event handler
@@ -163,6 +168,8 @@ registerEventType('kBeforeNewProjectCreated')  # triggered before a new Project 
 registerEventType('kAfterNewProjectCreated')  # triggered after a new Project is created
 registerEventType('kBeforeProjectLoad')  # triggered before a Project starts loading
 registerEventType('kAfterProjectLoad')  # triggered after a Project has finished loading
+# triggered after a Project started by the user has finished loading.
+registerEventType('kAfterUserProjectLoad')
 registerEventType('kBeforeProjectSave')  # triggered before a Project is saved
 registerEventType('kAfterProjectSave')  # triggered after a Project has been saved
 registerEventType('kBeforeProjectClose')  # triggered before a Project has closed
@@ -186,6 +193,8 @@ registerEventType('kShowContextMenu')
 registerEventType('kSelectionChanged')
 registerEventType('kDrop')  # triggered when something is dropped into the view
 registerEventType('kDoubleClick')  # Not intended for external use.
+# triggered when a paste action occurs in the bin or timeline view
+registerEventType('kPaste')
 
 # Event subtypes (for use in conjunction with View EventTypes)
 registerEventType('kTimeline')

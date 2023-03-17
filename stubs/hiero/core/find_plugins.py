@@ -8,12 +8,12 @@
 
 import os
 import re
-import imp
 import sys
 import types
 
 import hiero
 import hiero.core
+import nuke_internal
 from hiero.core.log import info, exception
 
 verbosePlugins = True
@@ -31,7 +31,7 @@ def loadPluginsFromFolder(path):
         sys.path.append(path)
 
         # Don't load files starting with "."
-        test = re.compile('.*\.py$', re.IGNORECASE)
+        test = re.compile('.*\\.py$', re.IGNORECASE)
         files = os.listdir(path)
         files.sort()
         for f in files:
@@ -42,7 +42,7 @@ def loadPluginsFromFolder(path):
                     if verbosePlugins:
                         info('    - Loading module ' + moduleName)
                     try:
-                        module = imp.load_source(moduleName, p)
+                        module = nuke_internal.loadModuleFromPath(moduleName, p)
                         setattr(hiero.plugins, moduleName, module)
                     except Exception as detail:
                         exception('Plugin %s could not be loaded: %s' % (p, str(detail)))

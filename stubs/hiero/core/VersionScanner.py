@@ -8,9 +8,13 @@ import os.path
 
 import hiero.core
 from hiero.core import Clip, Version, MediaSource, log
-from hiero.core.log import *
 from PySide2.QtCore import QDir
 from hiero.core.util import findViewInPath
+
+
+def VersionScanLogger():
+    return log.getFileLogger('versionscanner')
+
 
 # WARNING: Modifying these regexes for "equivalent" ones might break code that depends on the grouping
 #          (parentheses) in them for obtaining bits of data. Be extra-careful if you do so.
@@ -60,26 +64,28 @@ class VersionScanner():
 
         foundVersions = self.findNewVersions(version)
 
-        debug('ScanForVersions - Versions found for %s (before sorting/filtering): %s',
-              version, foundVersions)
+        VersionScanLogger().info(
+            'files found for {} (before sorting/filtering):\n{}'.format(version, '\n'.join(foundVersions)))
 
         # Filter versions according to filterVersion
         foundVersions = [v for v in foundVersions if self.filterVersion(binitem, v)]
         # Sort versions according to sortVersions (uses versionLessThan)
         foundVersions = self.sortVersions(foundVersions)
 
+        VersionScanLogger().info(
+            'files found for {} (after sorting/filtering):\n{}'.format(version, '\n'.join(foundVersions)))
+
         return foundVersions
 
     # Wrapping up the scanning process for purposes of testing
     def doScan(self, version):
         foundVersionFiles = self.findVersionFiles(version)
-#    log.info("ScanForVersions - foundVersionFiles found for %s: %s", version, foundVersionFiles)
 
         binitem = version.parent()
 
         # Add versions to binitem, respecting the sorting
         newVersions = self.insertVersions(binitem, foundVersionFiles)
-        log.info('ScanForVersions - Versions found for %s: %s', version, newVersions)
+        VersionScanLogger().info('ScanForVersions - Versions found for %s: %s', version, newVersions)
 
         return newVersions
 
@@ -104,6 +110,9 @@ class VersionScanner():
         foundFiles = [foundFile for foundFile in glob.iglob(globex)]
         foundFiles.sort()
 
+        VersionScanLogger().info('initial file={} glob={} found {} files'
+                                 .format(filename, globex, len(foundFiles)))
+
         # If the original path was multi-view, ensure any matched versions also are
         # and contain the configured view names. In this case convert the matched
         # files back to %v form.
@@ -120,6 +129,7 @@ class VersionScanner():
         for foundFile in foundFiles:
             foundFile = re.sub('\\\\', '/', foundFile)
             if self.checkNewVersion(filename, foundFile):
+                VersionScanLogger().info('Found new version for file {}'.format(foundFile))
                 files.add(foundFile)
 
         # Clear cache (it is only valid per Version object and needs clearing)
@@ -236,8 +246,7 @@ class VersionScanner():
         if len(originalVersionMatches) > 0:
             originalVersionString = originalVersionMatches[-1].group(2)
             if not originalVersionString.isdigit():
-                log.debug(
-                    'checkNewVersion: originalVersionString is not digit %s', originalFile)
+                VersionScanLogger().debug('checkNewVersion: originalVersionString is not digit %s', originalFile)
                 return False
             originalVersionIndex = int(originalVersionString)
 
@@ -248,14 +257,14 @@ class VersionScanner():
             # If several matches, just look at the last one. Also check that we are looking at the right one
             # (same number of matches for original and new versions)
             if len(newVersionMatches) != len(originalVersionMatches):
-                log.debug(
+                VersionScanLogger().debug(
                     'checkNewVersion: number of originalVersionString strings differ for original and new files %s, %s', originalFile, newFile)
                 return False
 
             # Obtain new version index
             newVersionString = newVersionMatches[-1].group(2)
             if not newVersionString.isdigit():
-                log.debug('checkNewVersion: new version is not digit %s', originalFile)
+                VersionScanLogger().debug('checkNewVersion: new version is not digit %s', originalFile)
                 return False
             newVersionIndex = int(newVersionString)
 
@@ -264,8 +273,7 @@ class VersionScanner():
                 originalVersionIter = originalVersionMatches[i].group(2)
                 newVersionIter = newVersionMatches[i].group(2)
                 if not (originalVersionIter.isdigit() and newVersionIter.isdigit()):
-                    log.debug('checkNewVersion: version is not digit %s, %s',
-                              originalFile, newFile)
+                    VersionScanLogger().debug('checkNewVersion: version is not digit %s, %s', originalFile, newFile)
                     return False
                 originalVersionIndexIter = int(originalVersionIter)
                 newVersionIndexIter = int(newVersionIter)
@@ -274,15 +282,15 @@ class VersionScanner():
                 # but otherwise, the string should be the same since the globex replacement did not change it
                 if originalVersionIndexIter == originalVersionIndex:
                     if newVersionIndexIter != newVersionIndex:
-                        log.debug(
+                        VersionScanLogger().debug(
                             'checkNewVersion: found version string not updated to new version number %s, %s', originalFile, newFile)
                         return False
 
             self.markVisitedClip(newFile)
             return True
 
-        log.debug('checkNewVersion: No version found for original file %s, %s',
-                  originalFile, newFile)
+        VersionScanLogger().debug(
+            'checkNewVersion: No version found for original file %s, %s', originalFile, newFile)
         return False
 
     # Optimisation: When we get the glob results, we use regex to compare the original filename with the found files.
@@ -304,7 +312,7 @@ class VersionScanner():
     def isVisitedClip(self, filename):
         filehead = self.getFileHead(filename)
 
-#    log.debug("isVisitedClip: %s is %d for %s", filename, (filehead in self._visitedClips), self._visitedClips)
+#    VersionScanLogger().debug("isVisitedClip: %s is %d for %s", filename, (filehead in self._visitedClips), self._visitedClips)
 
         return filehead in self._visitedClips
 
@@ -392,20 +400,20 @@ class VersionScanner():
             if versionString1.isdigit():
                 versionIndex1 = int(versionString1)
             else:
-                log.debug('versionLessThan: version is not digit %s', filename1)
+                VersionScanLogger().debug('versionLessThan: version is not digit %s', filename1)
                 versionIndex1 = -1
 
             versionString2 = newVersionMatches2[-1].group(2)
             if versionString2.isdigit():
                 versionIndex2 = int(versionString2)
             else:
-                log.debug('versionLessThan: version is not digit %s', filename2)
+                VersionScanLogger().debug('versionLessThan: version is not digit %s', filename2)
                 versionIndex2 = -1
 
             if versionIndex1 != versionIndex2:
                 return versionIndex1 < versionIndex2
         else:
-            log.debug(
+            VersionScanLogger().debug(
                 'versionLessThan: could not find version indices in versions %s, %s', filename1, filename2)
 
         ext1 = os.path.splitext(filename1)[1]
@@ -423,10 +431,12 @@ class VersionScanner():
             version = list(binitem.items())[destinationIndex]
             if version and version.item() is not None and version.item().mediaSource() is not None:
                 if self.versionLessThan(newFilename, version.item().mediaSource().firstpath()):
+                    VersionScanLogger().info('{} was less than version {} {}'.format(
+                        newFilename, version, version.item().mediaSource().firstpath()))
                     break
             else:
-                log.debug('insertVersions() - Problem found with version at position',
-                          destinationIndex, 'of object', binitem)
+                VersionScanLogger().debug(
+                    'Problem found with version at position {} of object {}'.format(destinationIndex, binitem))
             destinationIndex += 1
         return destinationIndex
 
@@ -454,8 +464,11 @@ class VersionScanner():
         destinationIndex = self.determineVersionIndex(binitem, newFilename)
         try:
             newVersion = binitem.createClipVersion(destinationIndex, newFilename)
+            VersionScanLogger().info('creating new version index={} file={}'.format(destinationIndex, newFilename))
             return newVersion
-        except:
+        except RuntimeError as e:
+            VersionScanLogger().error("failed to create version index={} file={} '{}'".format(
+                destinationIndex, newFilename, e))
             return None
 
     def getVersionIndicesForPath(self, path):

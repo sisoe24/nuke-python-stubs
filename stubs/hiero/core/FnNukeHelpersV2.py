@@ -10,6 +10,7 @@ import os
 import re
 import copy
 import math
+import time
 
 import hiero.core
 import hiero.core.nuke as nuke
@@ -33,6 +34,20 @@ def makeJumpNameForTrack(track):
     gJumpCount += 1
     ret = re.sub('[^0-9a-zA-Z_]+', '_', track.name()) + countSuffix
     return ret
+
+
+def generateUniqueSetNodeId():
+    return ''.join(str(time.time()).split('.'))
+
+
+def addSetAndPushNode(script, added_nodes_list):
+    dissolveSetCommandId = generateUniqueSetNodeId()
+    dissolveSetCommand = nuke.SetNode(dissolveSetCommandId, 0)
+    script.addNode(dissolveSetCommand)
+    added_nodes_list.append(dissolveSetCommand)
+    dissolvePushCommand = nuke.PushNode(dissolveSetCommandId)
+    script.addNode(dissolvePushCommand)
+    added_nodes_list.append(dissolvePushCommand)
 
 
 class ScriptWriteParameters(object):
@@ -92,7 +107,22 @@ class ScriptWriteParameters(object):
 
 
 class TrackItemScriptWriter(object):
-    """ Class for writing TrackItems to a Nuke script. """
+    """
+    Class for writing TrackItems to a Nuke script. There are two somewhat different
+    cases for this:
+
+    1) Writing as part of a sequence, using the TrackItem's timeline in/out etc, with
+    an optional offset from those times.
+    This will extend the range to cover dissolves.
+    It will also include any retimes applied to the TrackItem.
+
+    2) Writing as a single shot. In this case a firstFrame value is usually given.
+    This will be the first frame of the script being written and is inclusive of any
+    handles, which will come from any dissolves, and also from custom handles
+    specified by the user.
+    Retimes may or may not be included in the export, which affects all the range
+    calculations.
+    """
 
     def __init__(self,
                  trackItem,
@@ -102,16 +132,15 @@ class TrackItemScriptWriter(object):
                  endHandle=0,
                  offset=0):
         """
-        @param firstFrame: optional frame for the Read node to start at
+        @param firstFrame: optional frame for the Read node to start at, including
+                           handles if there are any
         @param startHandle: the number of frames of handles to include at the start
         @param endHandle: the number of frames of handles to include at the end
-        @param offset: global frame offset applied across whole script
+        @param offset: global frame offset applied across whole script, note this
+                       is mutually exclusive with firstFrame
         """
         self._trackItem = trackItem
         self._params = params
-
-        self._startHandle = startHandle
-        self._offset = offset
 
         self._retimeRate = 1.0
         if self._params.includeRetimes():
@@ -138,23 +167,28 @@ class TrackItemScriptWriter(object):
         start = min(self._trackItem.sourceIn(), self._trackItem.sourceOut())
         end = max(self._trackItem.sourceIn(), self._trackItem.sourceOut())
 
+        # Extend the output handles to cover the transitions
         self._outputStartHandle = startHandle + self._inTransitionHandle
         self._outputEndHandle = endHandle + self._outTransitionHandle
 
-        # Extend handles to incorporate transitions
-        # If clip is reversed, handles are swapped
+        # Calculate the input handles, this includes any dissolves and also multiplies
+        # by the retime rate
         if self._retimeRate >= 0.0:
-            readStartHandle = startHandle + self._inTransitionHandle
-            readEndHandle = endHandle + self._outTransitionHandle
+            unclampedReadStartHandle = startHandle + self._inTransitionHandle
+            unclampedReadEndHandle = endHandle + self._outTransitionHandle
         else:
-            readStartHandle = startHandle + self._outTransitionHandle
-            readEndHandle = endHandle + self._inTransitionHandle
+            unclampedReadStartHandle = startHandle + self._outTransitionHandle
+            unclampedReadEndHandle = endHandle + self._inTransitionHandle
 
-        clip = self._trackItem.source()
+        unclampedReadStartHandle = math.ceil(
+            unclampedReadStartHandle * abs(self._retimeRate))
+        unclampedReadEndHandle *= math.ceil(unclampedReadEndHandle *
+                                            abs(self._retimeRate))
+
         # Recalculate handles clamping to available media range
-        readStartHandle = min(start, math.ceil(readStartHandle * abs(self._retimeRate)))
-        readEndHandle = min((clip.duration() - 1) - end,
-                            math.ceil(readEndHandle * abs(self._retimeRate)))
+        clip = self._trackItem.source()
+        readStartHandle = min(start, unclampedReadStartHandle)
+        readEndHandle = min((clip.duration() - 1) - end, unclampedReadEndHandle)
 
         # Add handles to source range
         start -= readStartHandle
@@ -162,37 +196,44 @@ class TrackItemScriptWriter(object):
 
         # Read node frame range
         self._readStart, self._readEnd = start, end
-        # First frame identifies the starting frame of the output. Defaults to timeline in time
-        self._readNodeFirstFrame = firstFrame
-        if self._readNodeFirstFrame is None:
+
+        # If no first frame is given, things will be written according the TrackItem's
+        # position on it's sequence, plus any offset
+        if firstFrame is None:
             self._readNodeFirstFrame = self._trackItem.timelineIn(
             ) - min(min(self._trackItem.sourceIn(), self._trackItem.sourceOut()), readStartHandle)
-        else:
-            # If we have trimmed the handles, bump the start frame up by the difference
-            self._readNodeFirstFrame += round(readStartHandle *
-                                              abs(self._retimeRate)) - readStartHandle
+            self._readNodeFirstFrame += offset
 
-        # Apply global offset
-        self._readNodeFirstFrame += offset
+            self._last_frame = self._trackItem.timelineIn() + (self._trackItem.duration() - 1) + \
+                (endHandle + self._outTransitionHandle)
+            self._last_frame += offset
+            self._first_frame = (self._trackItem.timelineIn() -
+                                 (startHandle + self._inTransitionHandle))
+            self._first_frame += offset
+
+            self._keyFrameOffset = offset
+        # Otherwise things need to be mapped from the sequence times
+        else:
+            assert offset == 0, 'Cannot specify firstFrame and offset'
+            # If we have trimmed the handles, bump the start frame up by the difference
+            # TODO Not sure if this is correct
+            self._readNodeFirstFrame = firstFrame + \
+                round(readStartHandle * abs(self._retimeRate)) - readStartHandle
+
+            self._last_frame = firstFrame + (startHandle + self._inTransitionHandle) + (
+                self._trackItem.duration() - 1) + (endHandle + self._outTransitionHandle)
+            self._first_frame = firstFrame
+
+            # Calculate the offset for keys on effects/transitions. These start relative to the
+            # sequence the item was on, but need to be mapped into the frame range used in the script
+            self._keyFrameOffset = self._first_frame - self._trackItem.timelineIn() + readStartHandle
 
         # To support the TimeWarp effect, we now set the full clip's frame range in the Read node, with the desired.
         # frames selected by the FrameRange node.  This shifts the Read nodes 'start at' frame to compensate.
         self._readNodeFirstFrame -= self._readStart
 
-        # Calculate the frame range, != read range as read range may be clamped to available media range
-        self._first_frame = start
-        self._last_frame = end
-        if firstFrame is not None:
-            # if firstFrame is specified
-            self._last_frame = firstFrame + (startHandle + self._inTransitionHandle) + (
-                self._trackItem.duration() - 1) + (endHandle + self._outTransitionHandle)
-            self._first_frame = firstFrame
-        else:
-            # if firstFrame not specified, use timeline time
-            self._last_frame = self._trackItem.timelineIn() + (self._trackItem.duration() - 1) + \
-                (endHandle + self._outTransitionHandle)
-            self._first_frame = (self._trackItem.timelineIn() -
-                                 (startHandle + self._inTransitionHandle))
+        # Floor the first frame value as the knob this sets on the Read node is treated as an int
+        self._readNodeFirstFrame = math.floor(self._readNodeFirstFrame)
 
     def getReadNodeInfo(self):
         """
@@ -263,6 +304,7 @@ class TrackItemScriptWriter(object):
         @param pendingNodesScript Certain nodes must not be added to the script immediately. They are stored here.
         """
         added_nodes = []
+        sequencePerFrameMetadataNodes = []
 
         clip = self._trackItem.source()
 
@@ -288,15 +330,23 @@ class TrackItemScriptWriter(object):
                                       ])
 
         # Add Tags to metadata
-        metadataNode.addMetadataFromTags(self._trackItem.tags())
+        metadataNode.addMetadataFromTags(self._trackItem.tags(), 'shot/tags/')
 
         # Add Track and Sequence here as these metadata nodes are going to be added per clip/track item. Not per sequence or track.
         if self._trackItem.parent():
             metadataNode.addMetadata([('hiero/track', self._trackItem.parent().name()),
                                      ('hiero/track_guid', FnNukeHelpers._guidFromCopyTag(self._trackItem.parent()))])
+            metadataNode.addMetadataFromTags(
+                self._trackItem.parent().tags(), 'track/tags/')
             if self._trackItem.parentSequence():
                 metadataNode.addMetadata([('hiero/sequence', self._trackItem.parentSequence().name(
                 )), ('hiero/sequence_guid', FnNukeHelpers._guidFromCopyTag(self._trackItem.parentSequence()))])
+                metadataNode.addMetadataFromTags(
+                    self._trackItem.parentSequence().tags(), 'sequence/tags/')
+                # if addTimeClip is True, it is assumed we are exporting the whole sequence, otherwise when exporting shots the offset is only related to self._trackItem.timelineIn()
+                sequencePerFrameTagOffset = 0 if addTimeClip else 0 - self._trackItem.timelineIn()
+                nuke.appendMetadataNodesForPerFrameTagsToList(self._trackItem.parentSequence().tags(
+                ), 'sequence/tags/', sequencePerFrameMetadataNodes, sequencePerFrameTagOffset)
 
         colourTransform = self.getClipColorTransform(projectSettings, clip)
 
@@ -364,13 +414,16 @@ class TrackItemScriptWriter(object):
         for node in clip_nodes[lastReadAssociatedNode + 1:]:
             script.addNode(node)
 
+        # Add sequence per frame metadata nodes
+        for node in sequencePerFrameMetadataNodes:
+            if not self._trackItem.isEnabled():
+                node.setKnob('disable', True)
+            added_nodes.append(node)
+            script.addNode(node)
+
         # Add metadata node
         added_nodes.append(metadataNode)
         script.addNode(metadataNode)
-
-        # This parameter allow the whole nuke script to be shifted by a number of frames
-        self._first_frame += self._offset
-        self._last_frame += self._offset
 
         # Add Additional nodes.
         postReadNodes = self._params.doAdditionalNodesCallback(self._trackItem)
@@ -406,8 +459,8 @@ class TrackItemScriptWriter(object):
 
             # Offset keyFrames, so that they match the input range (source times) and produce expected output range (timeline times)
             # timeline values must start at first_frame
-            tOffset = (self._first_frame + self._startHandle +
-                       self._inTransitionHandle) - self._trackItem.timelineIn()
+            tOffset = (self._first_frame + self._outputStartHandle) - \
+                self._trackItem.timelineIn()
             tIn += tOffset
             tOut += tOffset
             sOffset = self._readNodeFirstFrame
@@ -427,9 +480,8 @@ class TrackItemScriptWriter(object):
         added_nodes.extend(self.writeReformatAndEffects(
             script, additionalEffects, pendingNodesScript))
 
-        # TimeClip is used to correct the range from OFlow. This isn't necessary
-        # when exporting a single shot, and was causing problems with retimes, so only
-        # add it if requested
+        self.writeFadeInAndOutTransitions(script, added_nodes)
+
         if addTimeClip:
             timeClipNode = nuke.TimeClipNode(
                 self._first_frame, self._last_frame, clip.sourceIn(), clip.sourceOut(), self._first_frame)
@@ -447,6 +499,57 @@ class TrackItemScriptWriter(object):
                 node.setKnob('disable', 'true')
 
         return added_nodes
+
+    # Add the TrackItem's fade ins and fade outs
+
+    def writeFadeInAndOutTransitions(self, script, added_nodes):
+        # Fade in/out. Create Dissolve and Constant nodes for these, placed in Groups
+        inTransition, outTransition = FnNukeHelpers._TrackItem_getTransitions(
+            self._trackItem)
+
+        if inTransition and inTransition.alignment() == Transition.kFadeIn:
+            fadeInGroup = nuke.GroupNode('FadeIn')
+            fadeInGroup.addNode(nuke.Node('Input'))
+
+            # Add set and push nodes to create the correct node graph structure
+            addSetAndPushNode(fadeInGroup, added_nodes)
+
+            fadeInGroup.addNode(nuke.ConstantNode(
+                self._first_frame, self._last_frame, channels='rgb'))
+            with FnNukeHelpers.NodeAnimationOffsetter(inTransition.dissolveNode(), self._keyFrameOffset):
+                fadeInGroup.addNode(nuke.Node('Dissolve', inputs=2, which=inTransition.dissolveNode()[
+                                    'which'].toScript(True), metainput=1))
+
+            fadeInWhichExpression = '{{curve K x0 0 x%d 1}}' % (
+                inTransition.timelineOut() + self._keyFrameOffset)
+            fadeInGroup.addNode(nuke.Node('Switch', inputs=2,
+                                which=fadeInWhichExpression))
+
+            fadeInGroup.addNode(nuke.Node('Output'))
+            added_nodes.append(fadeInGroup)
+            script.addNode(fadeInGroup)
+
+        if outTransition and outTransition.alignment() == Transition.kFadeOut:
+            fadeOutGroup = nuke.GroupNode('FadeOut')
+            fadeOutGroup.addNode(nuke.Node('Input'))
+
+            # Add set and push nodes to create the correct node graph structure
+            addSetAndPushNode(fadeOutGroup, added_nodes)
+
+            fadeOutGroup.addNode(nuke.ConstantNode(
+                self._first_frame, self._last_frame, channels='rgb'))
+            with FnNukeHelpers.NodeAnimationOffsetter(outTransition.dissolveNode(), self._keyFrameOffset):
+                fadeOutGroup.addNode(nuke.Node('Dissolve', inputs=2, which=outTransition.dissolveNode()[
+                                     'which'].toScript(True), metainput=1))
+
+            fadeOutWhichExpression = ('{{curve K x0 1 x%d 0 }}' % (
+                outTransition.timelineIn() + self._keyFrameOffset))
+            fadeOutGroup.addNode(nuke.Node('Switch', inputs=2,
+                                 which=fadeOutWhichExpression))
+
+            fadeOutGroup.addNode(nuke.Node('Output'))
+            added_nodes.append(fadeOutGroup)
+            script.addNode(fadeOutGroup)
 
     def writeReformatAndEffects(self, script, additionalEffects, pendingNodesScript):
         """ Write the nodes for reformat and effects, if needed. When outputting to
@@ -469,10 +572,9 @@ class TrackItemScriptWriter(object):
         # Add effects
         effectNodes = []
         if self._params.includeEffects():
-            effectOffset = self._first_frame - self._trackItem.timelineIn() + self._outputStartHandle
             transformToClipFormat = not outputToSequenceFormat
             effectNodes = self.writeEffects(
-                script, effectOffset, additionalEffects, transformToClipFormat, pendingNodesScript)
+                script, self._keyFrameOffset, additionalEffects, transformToClipFormat, pendingNodesScript)
             added_nodes.extend(effectNodes)
 
         # If not outputting to sequence format, add the reformat after the effects
@@ -505,7 +607,6 @@ class TrackItemScriptWriter(object):
         seqFormat = self._trackItem.parentSequence().format()
         clipFormat = self._trackItem.source().format()
         reformatState = self._trackItem.reformatState()
-        effectClipType = 'format'
         formatChange = FormatChange(clipFormat, seqFormat, clipFormat, reformatState)
         invertFormatChange = FormatChange(
             seqFormat, clipFormat, clipFormat, reformatState)
@@ -519,7 +620,6 @@ class TrackItemScriptWriter(object):
             effectScript = pendingNodesScript if addLater else script
             effectNodes = effect.addToNukeScript(effectScript,
                                                  effectOffset,
-                                                 cliptype=effectClipType,
                                                  addLifetime=False)
             # apply the invert soft effect transformation or else, the soft effect
             # transformation will be carried over to the following track items
@@ -534,7 +634,6 @@ class TrackItemScriptWriter(object):
                 transformNodeToFormatChange(effect.node(), formatChange, lambda x: None)
             effectNodes = effect.addToNukeScript(script,
                                                  effectOffset,
-                                                 cliptype=effectClipType,
                                                  addLifetime=True)
             if transformToClipFormat:
                 transformNodeToFormatChange(
@@ -675,6 +774,7 @@ class VideoTrackScriptWriter(object):
 
         # Work backwards so that the Merge nodes hook up the right way around.
         for trackItem in reversed(list(self._track.items())):
+            dissolveSwitch = None
             source = trackItem.source().mediaSource()
 
             # Check if the source is in the mediaToSkip list
@@ -714,9 +814,41 @@ class VideoTrackScriptWriter(object):
 
                 # For dissolves create a Dissolve node rather than Merge
                 if outTransition and outTransition.alignment() == Transition.kDissolve:
-                    merge = nuke.DissolveNode()
-                    merge.setWhichKeys((outTransition.timelineIn()+offset, 0),
-                                       (outTransition.timelineOut()+offset, 1))
+                    dissolveSwitchGroup = nuke.GroupNode('DissolveGroup', inputs=2)
+                    dissolveSwitchGroup.addNode(nuke.Node('Input', number=1))
+
+                    addSetAndPushNode(dissolveSwitchGroup, added_nodes)
+
+                    dissolveSwitchGroup.addNode(nuke.Node('Input'))
+                    input2SetCommandId = generateUniqueSetNodeId()
+                    input2SetCommand = nuke.SetNode(input2SetCommandId, 0)
+                    added_nodes.append(input2SetCommand)
+                    dissolveSwitchGroup.addNode(input2SetCommand)
+
+                    dissolveNode = nuke.DissolveNode()
+                    with FnNukeHelpers.NodeAnimationOffsetter(outTransition.dissolveNode(), offset):
+                        dissolveNode.setKnob('which', outTransition.dissolveNode()[
+                                             'which'].toScript(True))
+
+                    # Switch the metadata to input 1 at the cut point
+                    metaInputExpression = '{{curve K x%d 0 x%d 1}}' % (trackItem.timelineIn() + offset,
+                                                                       trackItem.timelineOut() + 1 + offset)
+                    dissolveNode.setKnob('metainput', metaInputExpression)
+                    added_nodes.append(dissolveNode)
+                    dissolveSwitchGroup.addNode(dissolveNode)
+
+                    input2PushCommand = nuke.PushNode(input2SetCommandId)
+                    added_nodes.append(input2PushCommand)
+                    dissolveSwitchGroup.addNode(input2PushCommand)
+
+                    whichExpression = '{{curve K x0 0 x%d 1 x%d 2}}' % (outTransition.timelineIn() + offset,
+                                                                        outTransition.timelineOut() + offset)
+                    dissolveSwitch = nuke.Node('Switch', inputs=3, which=whichExpression)
+                    added_nodes.append(dissolveSwitch)
+                    dissolveSwitchGroup.addNode(dissolveSwitch)
+
+                    dissolveSwitchGroup.addNode(nuke.Node('Output'))
+                    merge = dissolveSwitchGroup
 
                 else:
                     if useSwitch:
@@ -725,7 +857,7 @@ class VideoTrackScriptWriter(object):
                         # non-intersecting frame ranges, and the switch should be more efficient
                         # because it only generates upstream ops for the active input
                         whichExpression = '{{curve K x%d 0 x%d 1}}' % (trackItem.timelineIn() + offset,
-                                                                       lastTrackItem.timelineIn()+offset)
+                                                                       lastTrackItem.timelineIn() + offset)
                         merge = nuke.Node('Switch', inputs=2, which=whichExpression)
                     else:
                         merge = nuke.MergeNode()
@@ -755,26 +887,6 @@ class VideoTrackScriptWriter(object):
 
             lastDot = dot
             lastTrackItemDisabled = not trackItem.isEnabled()
-
-            # Handle fade in and out.  Use the TimeClip node's fade controls for this.
-            fadeIn = inTransition and inTransition.alignment() == Transition.kFadeIn
-            fadeOut = outTransition and outTransition.alignment() == Transition.kFadeOut
-
-            if fadeIn or fadeOut:
-
-                # Find the TimeClip node created by the track item so we can set the fades
-                trackItemTimeClipNode = next(
-                    n for n in trackitem_nodes if isinstance(n, nuke.TimeClipNode))
-
-                if fadeIn:
-                    fadeInValue = inTransition.timelineOut() - inTransition.timelineIn()
-                    trackItemTimeClipNode.setKnob('fadeIn', fadeInValue)
-                    trackItemTimeClipNode.setKnob('fadeInType', 'linear')
-
-                if fadeOut:
-                    fadeOutValue = outTransition.timelineOut() - outTransition.timelineIn()
-                    trackItemTimeClipNode.setKnob('fadeOut', fadeOutValue)
-                    trackItemTimeClipNode.setKnob('fadeOutType', 'linear')
 
             lastTrackItem = trackItem
             lastInTime = lastTrackItem.timelineIn()
@@ -910,10 +1022,6 @@ class SequenceScriptWriter(object):
         #   Merge track 3 over track 2
         #   Write
 
-        # If there is an output format specified, to make sure effects and annotations appear in the right place,
-        # they should have their 'cliptype' knob set to 'bbox'.
-        effectsClipType = 'bbox'
-
         # Keep track of the jump set for whatever node the track's output should be. This
         # is returned and used for joining views
         outputJumpName = None
@@ -948,9 +1056,10 @@ class SequenceScriptWriter(object):
         for track in tracks:
             trackItems = list(track.items())
             subTrackItems = track.subTrackItems()
-            if len(trackItems) is 0 and len(subTrackItems) > 0:
+            if len(trackItems) == 0 and len(subTrackItems) > 0:
                 # Soft effect tracks if track only contains sub track items
                 hasSoftEffectTracks = True
+                break
 
         # First write out the tracks and their annotations in reverse order, as described above
         for track in reversed(tracks):
@@ -968,7 +1077,6 @@ class SequenceScriptWriter(object):
                 trackWriter = VideoTrackScriptWriter(track, self._params)
 
                 self._trackWriters.append(trackWriter)
-
                 track_nodes = trackWriter.writeToScript(script,
                                                         offset=offset,
                                                         skipOffline=skipOffline,
@@ -1005,8 +1113,7 @@ class SequenceScriptWriter(object):
                                                                                        self._params.includeEffects(),
                                                                                        self._params.includeAnnotations(),
                                                                                        script,
-                                                                                       offset,
-                                                                                       cliptype=effectsClipType)
+                                                                                       offset)
                 added_nodes.extend(effectsAnnotationsNodes)
 
                 # Check whether every track item is disabled on this track
@@ -1107,8 +1214,7 @@ class SequenceScriptWriter(object):
                                                                                 self._params.includeAnnotations(),
                                                                                 script,
                                                                                 offset,
-                                                                                inputs=0,
-                                                                                cliptype=effectsClipType))
+                                                                                inputs=0))
                 script.popLayoutContext()
 
             # Store the last node added to this track
@@ -1233,8 +1339,7 @@ class SequenceScriptWriter(object):
                                                                                  self._params.includeAnnotations(),
                                                                                  script,
                                                                                  offset,
-                                                                                 inputs=effectInputs,
-                                                                                 cliptype=effectsClipType)
+                                                                                 inputs=effectInputs)
 
                     if extendedNodes:
                         added_nodes.extend(extendedNodes)

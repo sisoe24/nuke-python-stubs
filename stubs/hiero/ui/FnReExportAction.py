@@ -1,11 +1,15 @@
 import itertools
+import threading
 import traceback
 
 import hiero.ui
 import hiero.core
+from PySide2 import QtCore
 from hiero.core import ItemWrapper
 from PySide2.QtWidgets import QMenu, QAction, QMessageBox
+from hiero.ui.nuke_bridge import FnNsFrameServer as postProcessor
 from hiero.core.VersionScanner import VersionScanner
+from hiero.core.FnCompSourceInfo import CompSourceInfo
 
 
 def findTrackItemByUID(sequence, uid):
@@ -107,6 +111,18 @@ def findTrackItemsIntersecting(intersectTrackItem, excludeTracks=[]):
     return intersectingItems
 
 
+def compScriptPath(item):
+    """ If the item is a comp, return the script path else return None. """
+    try:
+        compInfo = CompSourceInfo(item)
+        if compInfo.isComp():
+            return compInfo.nkPath
+    except:
+        pass
+
+    return None
+
+
 class ReExportAction(QAction):
     """ Action for re-exporting track items. """
 
@@ -123,24 +139,34 @@ class ReExportAction(QAction):
             trackItems = []
             tags = []
             versions = []
+            builtItems = []
+            postProcessScripts = []
 
             for (builtItem, item, tag) in self.reExportItemsTags:
                 excludeTracks.add(builtItem.parentTrack())
+                builtItems.append(builtItem)
                 trackItems.append(item)
                 tags.append(tag)
                 newVersion = findNewVersionIndex(tag.metadata()['tag.script'])
                 versions.append(newVersion)
 
             # Re-export all the tagged track items we were given.
-            for item, tag, version in zip(trackItems, tags, versions):
+            for item, tag, version, builtItem in zip(trackItems, tags, versions, builtItems):
                 intersectingItems = findTrackItemsIntersecting(item, excludeTracks)
+                scriptPath = compScriptPath(builtItem)
+                enableAnnotations = False if scriptPath is None else True
+                self.reExportItem(item, tag, version, trackItems +
+                                  intersectingItems, enableAnnotations)
 
-                self.reExportItem(item, tag, version, trackItems + intersectingItems)
+                if scriptPath:
+                    postProcessScripts.append(scriptPath)
+
+            self.postProcess(postProcessScripts)
 
         except:
             hiero.core.log.exception('ReExportAction error')
 
-    def reExportItem(self, item, tag, newVersionIndex, allTrackItems):
+    def reExportItem(self, item, tag, newVersionIndex, allTrackItems, enableAnnotations):
         project = item.project()
 
         # Send all the items we were given to the exporter.  Every item other than the one we're currently exporting is set to ignore=True.
@@ -152,11 +178,32 @@ class ReExportAction(QAction):
         preset = hiero.core.taskRegistry.copyPreset(preset)
         preset.properties()['versionIndex'] = newVersionIndex
 
-        # Disable annotation tasks
-        setEnabledTasks(preset, enableShots=True, enableAnnotations=False)
-
+        setEnabledTasks(preset, enableShots=True, enableAnnotations=enableAnnotations)
         hiero.core.taskRegistry.createAndExecuteProcessor(
             preset, exportItems, synchronous=True)
+
+    def postProcess(self, postProcessScripts):
+        """ After re-exporting tagged track items, finish by performing
+            post processing for items that are comps. """
+
+        # Post process the scripts in another thread to prevent locking the UI
+        if postProcessScripts:
+            asyncPostProcessThread = threading.Thread(
+                target=self.postProcessScripts, args=(postProcessScripts,))
+            asyncPostProcessThread.start()
+
+            while asyncPostProcessThread.is_alive():
+                QtCore.QCoreApplication.processEvents()
+
+    def postProcessScripts(self, nkScriptPaths):
+        """ Post process each nkScript path. """
+        for scriptPath in nkScriptPaths:
+            # get the nk script path and find versions in that path
+            versionScanner = VersionScanner()
+            versionFiles = [v for v in versionScanner.findNewVersionsInPath(scriptPath)]
+            # Sort the versions so that the last file in the list is the recently re-exported one
+            versionFiles = versionScanner.sortVersions(versionFiles)
+            postProcessor.postProcessScript(versionFiles[-1])
 
 
 class ReExportAnnotationsAction(QAction):

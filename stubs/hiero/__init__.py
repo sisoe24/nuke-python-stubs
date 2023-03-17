@@ -1,4 +1,3 @@
-'''Stubs generated automatically from Nuke's internal interpreter.'''
 # Redirect output to both console and script editor
 # Import any fixes for Python bugs
 from . import FnRedirect, FnPythonFixes, ui, core

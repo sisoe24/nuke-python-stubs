@@ -773,7 +773,7 @@ class BuildTrackActionBase(QtWidgets.QAction):
                 files += globbed
 
             # No existing files found, return the original paths
-            if len(files) is 0:
+            if len(files) == 0:
                 hiero.core.log.info('No files found; adding paths in. %s' % str(paths))
                 files = paths
             else:

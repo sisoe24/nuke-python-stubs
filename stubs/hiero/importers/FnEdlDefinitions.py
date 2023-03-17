@@ -395,7 +395,7 @@ def dump(p):
 
 
 def ParseEDL(filename):
-    with open(filename, 'r') as file:
+    with open(filename, 'r', encoding='utf-8') as file:
         edl = file.read()
     tokens = []
     success = True

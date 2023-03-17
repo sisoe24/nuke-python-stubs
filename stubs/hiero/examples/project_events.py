@@ -28,6 +28,10 @@ def afterProjectLoad(event):
     print('kAfterProjectLoad happened : Project was:' + str(event.project))
 
 
+def afterUserProjectLoad(event):
+    print('kAfterUserProjectLoad happened : Project was:' + str(event.project))
+
+
 def beforeProjectClosed(event):
     print('kBeforeProjectClose happened : Project was:' + str(event.project))
 
@@ -44,13 +48,14 @@ def afterProjectSaved(event):
     print('kAfterProjectSave happened : Project was:' + str(event.project))
 
 
-print('Registering events for: kBeforeNewProjectCreated, kAfterNewProjectCreated, kBeforeProjectLoad, kAfterProjectLoad, kBeforeProjectSave, kAfterProjectSave, kBeforeProjectClose, kAfterProjectClose, kShutdown, kStartup')
+print('Registering events for: kBeforeNewProjectCreated, kAfterNewProjectCreated, kBeforeProjectLoad, kAfterProjectLoad, kAfterUserProjectLoad, kBeforeProjectSave, kAfterProjectSave, kBeforeProjectClose, kAfterProjectClose, kShutdown, kStartup')
 
 hiero.core.events.registerInterest('kBeforeNewProjectCreated', beforeNewProjectCreated)
 hiero.core.events.registerInterest('kAfterNewProjectCreated', afterNewProjectCreated)
 
 hiero.core.events.registerInterest('kBeforeProjectLoad', beforeProjectLoad)
 hiero.core.events.registerInterest('kAfterProjectLoad', afterProjectLoad)
+hiero.core.events.registerInterest('kAfterUserProjectLoad', afterUserProjectLoad)
 
 hiero.core.events.registerInterest('kBeforeProjectSave', beforeProjectSaved)
 hiero.core.events.registerInterest('kAfterProjectSave', afterProjectSaved)

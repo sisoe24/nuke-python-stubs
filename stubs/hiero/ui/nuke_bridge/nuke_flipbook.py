@@ -688,7 +688,7 @@ def _getIntermediatePath(self):
     # exr files can be written as stereo exrs so only write to
     # separate files if we are not writting to exr
     fileType = self._getIntermediateFileType()
-    if len(self._selectedViews()) > 1 and fileType is not 'exr':
+    if len(self._selectedViews()) > 1 and fileType != 'exr':
         flipbookFileNameTemp = 'nuke_tmp_flip.%04d.%V.' + fileType
     else:
         # Here, we're replacing the 'nuke_tmp_flip' string which is used by FrameCycler. We want unique render names.

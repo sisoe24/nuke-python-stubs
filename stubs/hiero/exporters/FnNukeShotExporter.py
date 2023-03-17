@@ -13,7 +13,7 @@ import hiero.ui
 import hiero.core
 import hiero.core.nuke as nuke
 import hiero.core.util
-from hiero.core import EffectTrackItem, FnNukeHelpersV2
+from hiero.core import Transition, EffectTrackItem, FnNukeHelpersV2
 from hiero.ui.nuke_bridge import FnNsFrameServer as postProcessor
 from hiero.core.FnNukeHelpers import offsetNodeAnimationFrames
 from hiero.core.FnEffectHelpers import (FormatChange,
@@ -402,6 +402,8 @@ class NukeShotExporter(FnShotExporter.ShotTask):
                 transitionCopy.setTimelineIn(
                     transitionCopy.timelineIn() + headRoomOffset + offset)
                 newTrack.addTransition(transitionCopy)
+                offsetNodeAnimationFrames(
+                    transitionCopy.dissolveNode(), headRoomOffset + offset)
 
             def copySubTrackItems(subTrackItems):
                 """ Helper function to copy sub-track items and add them to the new
@@ -1141,7 +1143,7 @@ class NukeShotExporter(FnShotExporter.ShotTask):
             'hiero/project', self._projectName), ('hiero/project_guid', self._project.guid())])
 
         # Add sequence Tags to metadata
-        metadataNode.addMetadataFromTags(self._sequence.tags())
+        metadataNode.addMetadataFromTags(self._sequence.tags(), 'sequence/tags/')
 
         # Apply timeline offset to nuke output
         if isinstance(self._item, hiero.core.TrackItem):
@@ -1212,7 +1214,8 @@ class NukeShotExporter(FnShotExporter.ShotTask):
             as well as individual items. """
         startH, endH = self.outputRange(
             ignoreHandles=False, ignoreRetimes=ignoreRetimes, clampToSource=False)
-        start, end = self.outputRange(ignoreHandles=True, ignoreRetimes=ignoreRetimes)
+        start, end = self.outputRange(
+            ignoreHandles=True, ignoreRetimes=ignoreRetimes, clampToSource=False)
         return int(round(start - startH)), int(round(endH - end))
 
     def outputRangeForCollatedSequence(self, ignoreHandles):

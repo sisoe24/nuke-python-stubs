@@ -6,6 +6,13 @@ from .socket import ClientSocket
 from .connectionstate import ConnectionState
 
 
+def allowClientTimeout(clientId):
+    """ Check if the client should time out, this does not happen for the client
+    object used by the host.
+    """
+    return clientId != config.HOST_ID
+
+
 class Client(QObject):
     """
     Class representing a client in the sync. Maintains a connection to the server
@@ -22,17 +29,12 @@ class Client(QObject):
     # and an id which is used to identify this client across connections
     def __init__(self, connectionState, clientId):
         super(Client, self).__init__()
-        self._clientId = clientId
-        self._socket = ClientSocket()
-        self._socket.dataReceived.connect(self._onDataReceived)
-        self._heartbeatSendTimer = QTimer()
-        self._heartbeatSendTimer.setInterval(config.HEARTBEAT_INTERVAL)
-        self._heartbeatSendTimer.timeout.connect(self._onHeartbeatSendTimeout)
-        self._heartbeatTimeoutTimer = QTimer()
-        self._heartbeatTimeoutTimer.setSingleShot(True)
-        self._heartbeatTimeoutTimer.setInterval(config.HEARTBEAT_TIMEOUT)
-        self._heartbeatTimeoutTimer.timeout.connect(self._onServerTimeout)
         self._connectionState = connectionState
+        self._clientId = clientId
+        self._allowTimeout = allowClientTimeout(clientId)
+        self._socket = None
+        self._heartbeatSendTimer = None
+        self._heartbeatTimeoutTimer = None
 
     def connectionState(self):
         """ Get the client's connection state """
@@ -46,9 +48,11 @@ class Client(QObject):
         """ Try to connect on the given host and port. May raise an exception if the
         host isn't valid.
         """
+        logMessage("Client.connectToHost host: '{}' port: {}".format(host, port))
         try:
-            logMessage("Client.connectToHost host: '{}' port: {}".format(host, port))
             self._connectionState.setState(ConnectionState.CLIENT_CONNECTING)
+            self._socket = ClientSocket(self)
+            self._socket.dataReceived.connect(self._onDataReceived)
             self._socket.connectToHost('tcp://{}:{}'.format(host, port))
             message = messages.Connect(protocolVersion=config.PROTOCOL_VERSION,
                                        applicationVersion=config.APPLICATION_VERSION,
@@ -57,11 +61,22 @@ class Client(QObject):
                        'clientId: {} socketId: {} message: {}'.format(
                            self._clientId, self.socketId(), message))
             self.sendMessage(message)
-            self._heartbeatTimeoutTimer.start()
-        except Exception as e:
-            logException()
+            if self._allowTimeout:
+                self._createHeartbeatTimers()
+                self._heartbeatTimeoutTimer.start()
+        except:
             self._connectionState.setError(ConnectionState.ERROR_CONNECT_INVALID_HOST)
             raise
+
+    def _createHeartbeatTimers(self):
+        if self._allowTimeout:
+            self._heartbeatSendTimer = QTimer(self)
+            self._heartbeatSendTimer.setInterval(config.HEARTBEAT_INTERVAL)
+            self._heartbeatSendTimer.timeout.connect(self._onHeartbeatSendTimeout)
+            self._heartbeatTimeoutTimer = QTimer(self)
+            self._heartbeatTimeoutTimer.setSingleShot(True)
+            self._heartbeatTimeoutTimer.setInterval(config.HEARTBEAT_TIMEOUT)
+            self._heartbeatTimeoutTimer.timeout.connect(self._onServerTimeout)
 
     def disconnectFromHost(self):
         """ Close the connection. If a connection had been successfully established
@@ -75,12 +90,14 @@ class Client(QObject):
 
     def _disconnected(self):
         self._connectionState.setState(ConnectionState.DISCONNECTED)
-        self._heartbeatTimeoutTimer.stop()
-        self._heartbeatSendTimer.stop()
         self._socket.close()
+        if self._allowTimeout:
+            self._heartbeatTimeoutTimer.stop()
+            self._heartbeatSendTimer.stop()
 
     def _onDataReceived(self, data):
-        self._heartbeatTimeoutTimer.start()
+        if self._allowTimeout:
+            self._heartbeatTimeoutTimer.start()
 
         # data may contain multiple messages. deserialize then apply filters before
         # handling them
@@ -105,13 +122,13 @@ class Client(QObject):
     def _handleConnectResponse(self, msg):
         if msg.result == ConnectionState.ERROR_NONE:
             self._connectionState.setState(ConnectionState.CLIENT_CONNECTED)
-            self._heartbeatSendTimer.start()
+            if self._allowTimeout:
+                self._heartbeatSendTimer.start()
         else:
             self._connectionState.setError(msg.result, msg.responseText)
 
     def sendMessage(self, msg):
-        logDebug('Client.sendMessage {} {}'.format(
-            type(msg), self._heartbeatSendTimer.isActive()))
+        logDebug('Client.sendMessage {}'.format(type(msg)))
         msg.sender = self._clientId
         self._socket.send(msg.serialize())
 

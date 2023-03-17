@@ -759,6 +759,14 @@ class ReformatNode(Node):
             raise ValueError("unknown reformat to_type '%s'" % (to_type,))
 
 
+def tagAppliesToWhole(tag):
+    """ Return true if tag applies to whole sequence. """
+    meta = tag.metadata()
+    if not meta.hasKey('tag.applieswhole') or int(meta.value('tag.applieswhole')) == 1:
+        return True
+    return False
+
+
 class MetadataNode (Node):
     """ Class which corresponds to the Nuke ModifyMetaData node. """
 
@@ -790,18 +798,39 @@ class MetadataNode (Node):
         self.setKnob('metadata', '{%s}' % ' '.join(["{set %s \"%s\"}" % (self.escape(
             key), self.escape(value)) for key, value in self._metadataValues.items()]))
 
-    def addMetadataFromTags(self, tags):
+    def addMetadataFromTag(self, tag, prefix):
+        """ Add metadata from a single tag. """
+        unwantedKeys = ['tag.applieswhole', 'tag.guid',
+                        'tag.label', 'tag.note', 'tag.start', 'tag.length']
+        name = tag.name()
+        meta = tag.metadata()
+        # Don't add "Copy" tag; because it is auto added by ProcessBase._addCopyTag() during export
+        if name == 'Copy' and meta.hasKey('tag.guid'):
+            return
+        self.addMetadata([('"hiero/' + prefix + name + '"', name)])
+        self.addMetadata([('"hiero/' + prefix + name + '/note"', tag.note())])
+        self.addMetadata([('"hiero/' + prefix + name + '/'+key[4:]+'"', meta.value(key))
+                         for key in list(meta.keys()) if key not in unwantedKeys])
+
+    def addMetadataFromTags(self, tags, prefix):
         """ Add metadata from a list of tags. """
-        unwantedKeys = ['tag.applieswhole', 'tag.guid', 'tag.label', 'tag.note']
-        self.addMetadata([('"hiero/tags/' + tag.name() + '"', tag.name())
-                         for tag in tags])
-        self.addMetadata([('"hiero/tags/' + tag.name() + '/note"', tag.note())
-                         for tag in tags])
         for tag in tags:
-            name = tag.name()
+            if tagAppliesToWhole(tag):
+                self.addMetadataFromTag(tag, prefix)
+
+
+def appendMetadataNodesForPerFrameTagsToList(tags, prefix, addedNodes, offset=0):
+    for tag in tags:
+        if not tagAppliesToWhole(tag):
             meta = tag.metadata()
-            self.addMetadata([('"hiero/tags/' + name + '/'+key[4:]+'"', meta.value(key))
-                             for key in list(tag.metadata().keys()) if key not in unwantedKeys])
+            startTime = int(meta.value('tag.start')) + offset
+            endTime = startTime + int(meta.value('tag.length')) - 1
+            perFrameMetadataNode = MetadataNode()
+            perFrameMetadataNode.addMetadataFromTag(tag, prefix)
+            perFrameMetadataNode.setKnob('lifetimeStart', startTime)
+            perFrameMetadataNode.setKnob('lifetimeEnd', endTime)
+            perFrameMetadataNode.setKnob('useLifetime', 'true')
+            addedNodes.append(perFrameMetadataNode)
 
 
 class RootNode(Node):
@@ -847,11 +876,11 @@ else:
                               text='Timeline Write Node',
                               tooltip='The name of the Write node which should be used when showing the comp on the timeline.')
 
-    def _setLUTKnob(self, key, lut, converRawToLinear):
+    def _setLUTKnob(self, key, lut, convertRawToLinear):
         # don't filter out or error on non nuke built-in luts; doing so would make it so that
         # clients couldn't have their own custom luts in Hiero and Nuke.
 
-        if converRawToLinear and lut in ('raw', 'None'):
+        if convertRawToLinear and lut in ('raw', 'None'):
             lut = 'linear'
 
         # If no lut is set, skip this knob
@@ -861,7 +890,7 @@ else:
     def addProjectSettings(self, projectSettings):
         """ Add knobs related to the color management options to the node. """
 
-        converRawToLinear = False
+        convertRawToLinear = False
 
         # Get the OCIO config path
         ocioConfig = projectSettings['ocioConfigPath']
@@ -884,18 +913,20 @@ else:
         else:
             self.setKnob('colorManagement', 'Nuke')
             # nuke builtin luts don't have raw, only linear
-            converRawToLinear = True
+            convertRawToLinear = True
 
         self._setLUTKnob('workingSpaceLUT',
-                         projectSettings['lutSettingWorkingSpace'], converRawToLinear)
+                         projectSettings['lutSettingWorkingSpace'], convertRawToLinear)
+        self._setLUTKnob('monitorOutLUT', hiero.core.ViewerProcessNameFromDisplayTransformName(
+            projectSettings['lutSettingMonitorOut']), convertRawToLinear)
+        self._setLUTKnob('monitorLut', hiero.core.ViewerProcessNameFromDisplayTransformName(
+            projectSettings['lutSettingViewer']), convertRawToLinear)
+        self._setLUTKnob('int8Lut', projectSettings['lutSetting8Bit'], convertRawToLinear)
         self._setLUTKnob(
-            'monitorLut', projectSettings['lutSettingViewer'], converRawToLinear)
-        self._setLUTKnob('int8Lut', projectSettings['lutSetting8Bit'], converRawToLinear)
+            'int16Lut', projectSettings['lutSetting16Bit'], convertRawToLinear)
+        self._setLUTKnob('logLut', projectSettings['lutSettingLog'], convertRawToLinear)
         self._setLUTKnob(
-            'int16Lut', projectSettings['lutSetting16Bit'], converRawToLinear)
-        self._setLUTKnob('logLut', projectSettings['lutSettingLog'], converRawToLinear)
-        self._setLUTKnob(
-            'floatLut', projectSettings['lutSettingFloat'], converRawToLinear)
+            'floatLut', projectSettings['lutSettingFloat'], convertRawToLinear)
 
     def setViewsConfiguration(self, viewsColors, heroView=None, showColors=None):
         """ Set the view related knobs on the Root node """

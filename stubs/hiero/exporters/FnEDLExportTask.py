@@ -417,7 +417,7 @@ class EDLFileWriter:
             # check export root exists
             dir = os.path.dirname(filePath)
             util.filesystem.makeDirs(dir)
-            file = util.filesystem.openFile(filePath, 'w')
+            file = util.filesystem.openFile(filePath, 'w', encoding='utf-8')
             file.write(edlString)
             file.close()
         except IOError:

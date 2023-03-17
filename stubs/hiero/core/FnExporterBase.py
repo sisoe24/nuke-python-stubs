@@ -147,7 +147,7 @@ class TaskBase(ITask):
         """__init__(self, initDictionary)
         Initialise TaskBase Class
 
-        @param initDictionary : a TaskData dictionary which seeds the task with all initialization data
+        @param initDictionary: a TaskData dictionary which seeds the task with all initialization data
         """
 
         ITask.__init__(self)
@@ -482,8 +482,10 @@ class TaskBase(ITask):
     def _outputHandles(self, ignoreRetimes):
         """ Internal _outputHandles() method.  Should be reimplemented by sub-classes
             rather than outputHandles(). """
-        startH, endH = self.inputRange(False, ignoreRetimes)
-        start, end = self.inputRange(True, ignoreRetimes)
+        startH, endH = self.inputRange(
+            ignoreHandles=False, ignoreRetimes=ignoreRetimes, clampToSource=False)
+        start, end = self.inputRange(
+            ignoreHandles=True, ignoreRetimes=ignoreRetimes, clampToSource=False)
 
         return int(start - startH), int(endH - end)
 
@@ -493,7 +495,8 @@ class TaskBase(ITask):
         Handles may be cropped such as to prevent negative frame indexes.
         Note that both handles are positive, i.e. if 12 frames of handles are specified, this will return (12, 12)
         Sub-classes should reimplement _outputHandles() rather than this method.
-        @return : (in_handle, out_handle) tuple
+
+        @return: (in_handle, out_handle) tuple
         """
         startHandle, endHandle = self._outputHandles(ignoreRetimes)
 
@@ -514,6 +517,7 @@ class TaskBase(ITask):
     def inputRange(self, ignoreHandles=False, ignoreRetimes=False, clampToSource=True):
         """inputRange()
         Returns the input frame range (as a tuple) for this task if applicable
+
         @param: ignoreHandles - If True calculate Input Range excluding export handles
         @param: ignoreRetimes - If True calculate Input Range without taking retimes into account
         @param: clampToSource - If True the input range will be clamped to the available media range"""
@@ -759,7 +763,7 @@ class TaskBase(ITask):
 
     def supportedType(self, item):
         """Interface for defining what type of items a Task Supports.
-        Return True to indicate @param item is of supported type"""
+        Return True to indicate item is of supported type"""
         # Derived classes must override to specify what types they support.
         # Typically this is Sequence or TrackItem.
         if type(self) is TaskBase:
@@ -833,8 +837,9 @@ class TaskPresetBase(ITaskPreset):
 
     def __init__(self, parentType, presetName):
         """Initialise Exporter Preset Base Class
-        @param parentType : Task type to which this preset object corresponds
-        @param presetName : Name of preset"""
+
+        @param parentType: Task type to which this preset object corresponds
+        @param presetName: Name of preset"""
         ITaskPreset.__init__(self)
         self._name = presetName
         self._properties = {}
@@ -973,7 +978,8 @@ class TaskPresetBase(ITaskPreset):
     def properties(self):
         """properties()
         Return the dictionary which is used to persist data within this preset.
-        @return dict
+
+        @return: dict
         """
         return self._properties
 
@@ -981,7 +987,8 @@ class TaskPresetBase(ITaskPreset):
         """nonPersistentProperties()
         Return the dictionary which contains properties not persisted within the preset.
         Properties which are only relevant during a single session.
-        @return dict
+
+        @return: dict
         """
         return self._nonPersistentProperties
 
@@ -993,13 +1000,15 @@ class TaskPresetBase(ITaskPreset):
     def parentType(self):
         """parentType(self)
         Returns a the parent Task type for this TaskPreset.
-        @return TaskPreet class type"""
+
+        @return: TaskPreet class type"""
         return self._parentType
 
     def addDefaultResolveEntries(self, resolver):
         """addDefaultResolveEntries(self, resolver)
         Create resolve entries for default resolve tokens shared by all task types.
-        @param resolver : ResolveTable object"""
+
+        @param resolver: ResolveTable object"""
 
         resolver.addResolver('{version}', "Version string 'v#', defined by the number (#) set in the Version section of the export dialog",
                              lambda keyword, task: task.versionString())
@@ -1046,7 +1055,7 @@ class TaskPresetBase(ITaskPreset):
         """addCustomResolveEntries(self, resolver)
         Impliment this function on custom export tasks to add resolve entries specific to that class.
 
-        @param resolver : ResolveTable object"""
+        @param resolver: ResolveTable object"""
         pass
 
     def addUserResolveEntries(self, resolver):
@@ -1055,7 +1064,7 @@ class TaskPresetBase(ITaskPreset):
         When adding task specific tokens in derrived classes use TaskBase.addCustomResolveEntries().
         This is reserved for users to extend the available tokens.
 
-        @param resolver : ResolveTable object"""
+        @param resolver: ResolveTable object"""
         pass
 
     def createResolver(self):
@@ -1131,13 +1140,15 @@ class TaskPresetBase(ITaskPreset):
     def skipOffline(self):
         """skipOffline()
         Returns True if flag has been set to skip any offline TrackItems
-        @return bool"""
+
+        @return: bool"""
         return self._skipOffline
 
     def setSkipOffline(self, skip):
         """skipOffline(bool)
         Set flag to skip offline TrackItems during export.
-        @param bool"""
+
+        @param bool:"""
         self._skipOffline = skip
 
     def setCompsToRender(self, comps):
@@ -1352,8 +1363,9 @@ class RenderTaskPreset(TaskPresetBase):
 
     def addCustomResolveEntries(self, resolver):
         """addCustomResolveEntries(self, resolver)
-        RenderTaskPreset adds specialized tokens specific to this type of export, such as {ext} which returns the output format extnesion.
-        @param resolver : ResolveTable object"""
+        RenderTaskPreset adds specialized tokens specific to this type of export, such as {ext} which returns the output format extension.
+
+        @param resolver: ResolveTable object"""
         # resolver.addResolver("{height}", "Height component of output format", lambda keyword, task: self.height())
         # resolver.addResolver("{width}", "Width component of output format", lambda keyword, task: self.width())
         # resolver.addResolver("{pixelaspect}", "Pixel Aspect of output format", lambda keyword, task: self.pixelAspect())

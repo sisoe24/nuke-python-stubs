@@ -43,7 +43,7 @@ def getPathUrl(source):
 
     path = mediaSourceExportReadPath(source, True)
 
-    if path.find('/') is not -1:
+    if path.find('/') != -1:
         prefix = 'file://localhost' if path.startswith('/') else 'file://localhost/'
 
     return prefix + encodeUrl(path)

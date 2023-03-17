@@ -114,7 +114,8 @@ class ExportStructureElement (IExportStructureElement):
 
     def setPresetType(self, identifier):
         """setPresetType(self, identifier)
-        @param identifier : Unique identifier from the Task which is used to associate the preset type"""
+
+        @param identifier: Unique identifier from the Task which is used to associate the preset type"""
         newPreset = None
         data = self._preset.properties() if self._preset else {}
         if identifier:

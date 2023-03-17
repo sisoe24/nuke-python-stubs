@@ -108,13 +108,12 @@ class EdlImporter:
 
     def isValidFile(self, fileName):
         """Return true if file is of correct type"""
-        debug('isFileValid (' + fileName + ')')
+        debug('isValidFile (' + fileName + ')')
 
-        if os.path.isfile(fileName):
-            basename, extension = os.path.splitext(fileName)
-            if extension.lower() == '.edl':
-                return True
-        return False
+        if not os.path.isfile(fileName):
+            return False
+        _, extension = os.path.splitext(fileName)
+        return extension.lower() == '.edl'
 
     # Calculate the speed and duration for a track item based on the EDL data and
     # the options set.

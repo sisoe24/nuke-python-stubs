@@ -1,5 +1,4 @@
-import hiero.core
-from PySide2.QtCore import Signal, QObject
+from PySide2.QtCore import Signal, QObject, QThread
 
 from . import log, config, messages
 from .client import Client
@@ -13,6 +12,7 @@ from .projectsync import (ProjectPushTool, HostProjectSyncTool,
                           ProjectSyncProgressTool)
 from .versionsync import SyncVersionsTool
 from .editorialsync import SyncSequenceEditsTool
+from .threadhelpers import callInObjectsThread
 from .annotationsync import SyncAnnotationsTool
 from .effectitemsync import SyncEffectItemKnobsTool
 from .itemstatussync import SyncItemStatusTool
@@ -25,13 +25,20 @@ class Session(QObject):
         super(Session, self).__init__()
         self._clientDataProvider = None
 
+        # Thread for running the socket communications
+        self._thread = QThread()
+        self._thread.start()
+
     def clientDataProvider(self):
         """ Holds data about the current participants of a sync review session. """
         return self._clientDataProvider
 
-    def stop(self):
-        """ Clean up all session data. """
-        pass
+    def _stopThread(self):
+        """ Stop the socket communication thread """
+        if self._thread:
+            self._thread.quit()
+            self._thread.wait()
+            self._thread = None
 
 
 class ServerSession(Session):
@@ -43,52 +50,60 @@ class ServerSession(Session):
     def __init__(self, port, clientData, project):
         super(ServerSession, self).__init__()
 
-        # Create the server object and bind to the port
-        self.server = Server()
-        self.server.bind(port)
+        try:
+            # Create the server object and bind to the port
+            self.server = Server()
+            self.server.moveToThread(self._thread)
+            callInObjectsThread(self.server, self.server.bind, port)
 
-        # Create the internal client object with a special id
-        self.client = Client(ConnectionState(), config.HOST_ID)
-        self.messageDispatcher = MessageDispatcher(self.client)
+            # Create the internal client object with a special id
+            self.client = Client(ConnectionState(), config.HOST_ID)
+            self.client.moveToThread(self._thread)
+            self.messageDispatcher = MessageDispatcher(self.client)
 
-        # ClientSyncHost needs to receive the messages.Connect that will be sent when
-        # self.client.connectToHost is called.
-        self._clientDataProvider = ClientSyncHost(self.messageDispatcher)
+            # ClientSyncHost needs to receive the messages.Connect that will be sent when
+            # self.client.connectToHost is called.
+            self._clientDataProvider = ClientSyncHost(self.messageDispatcher)
 
-        viewerSyncTool = SyncViewerTool(self.messageDispatcher)
+            viewerSyncTool = SyncViewerTool(self.messageDispatcher)
 
-        # Create the project push tool and add the projects to sync
-        self.projectPushTool = ProjectPushTool(
-            self.messageDispatcher, viewerSyncTool, clientData)
-        self.projectPushTool.addProjects(project)
+            # Create the project push tool and add the projects to sync
+            self.projectPushTool = ProjectPushTool(
+                self.messageDispatcher, viewerSyncTool, clientData)
+            self.projectPushTool.addProjects(project)
 
-        # Connect the client object to the local server.
-        self.client.connectToHost('localhost', port, clientData)
+            # Connect the client object to the local server.
+            callInObjectsThread(self.client, self.client.connectToHost,
+                                'localhost', port, clientData)
 
-        self._clientDataProvider.addGuest(config.HOST_ID, clientData)
+            self._clientDataProvider.addGuest(config.HOST_ID, clientData)
 
-        self.syncTools = [
-            self._clientDataProvider,
-            self.projectPushTool,
-            HostProjectSyncTool(self.messageDispatcher, self.projectPushTool),
-            ProjectSyncProgressTool(self.messageDispatcher),
-            viewerSyncTool,
-            SyncClientCursor(self.messageDispatcher, self._clientDataProvider),
-            SyncAnnotationsTool(self.messageDispatcher),
-            SyncVersionsTool(self.messageDispatcher),
-            SyncInOutTool(self.messageDispatcher),
-            SyncItemStatusTool(self.messageDispatcher),
-            SyncEffectItemKnobsTool(self.messageDispatcher),
-            SyncSequenceEditsTool(self.messageDispatcher, viewerSyncTool),
-            SyncBinItemTool(self.messageDispatcher),
-        ]
+            self.syncTools = [
+                self._clientDataProvider,
+                self.projectPushTool,
+                HostProjectSyncTool(self.messageDispatcher, self.projectPushTool),
+                ProjectSyncProgressTool(self.messageDispatcher),
+                viewerSyncTool,
+                SyncClientCursor(self.messageDispatcher, self._clientDataProvider),
+                SyncAnnotationsTool(self.messageDispatcher),
+                SyncVersionsTool(self.messageDispatcher),
+                SyncInOutTool(self.messageDispatcher),
+                SyncItemStatusTool(self.messageDispatcher),
+                SyncEffectItemKnobsTool(self.messageDispatcher),
+                SyncSequenceEditsTool(self.messageDispatcher, viewerSyncTool),
+                SyncBinItemTool(self.messageDispatcher),
+            ]
+        except:
+            self._stopThread()
+            raise
 
     def stop(self):
         for tool in self.syncTools:
             tool.shutdown()
         self.messageDispatcher.shutdown()
-        self.client.disconnectFromHost()
-        self.server.shutdown()
+        callInObjectsThread(self.client, self.client.disconnectFromHost)
+        callInObjectsThread(self.server, self.server.shutdown)
+        self._stopThread()
 
 
 class ClientSession(Session):
@@ -99,38 +114,44 @@ class ClientSession(Session):
     def __init__(self, hostname, port, connectionState, clientData):
         super(ClientSession, self).__init__()
 
-        self.client = Client(connectionState, config.MACHINE_ID)
+        try:
+            self.client = Client(connectionState, config.MACHINE_ID)
+            self.client.moveToThread(self._thread)
+            callInObjectsThread(self.client, self.client.connectToHost,
+                                hostname, port, clientData)
 
-        self.client.connectToHost(hostname, port, clientData)
+            self.messageDispatcher = MessageDispatcher(self.client)
 
-        self.messageDispatcher = MessageDispatcher(self.client)
+            viewerSyncTool = SyncViewerTool(self.messageDispatcher)
 
-        viewerSyncTool = SyncViewerTool(self.messageDispatcher)
+            self.projectPushTool = ProjectPushTool(
+                self.messageDispatcher, viewerSyncTool, clientData)
+            self._clientDataProvider = ClientSyncGuest(self.messageDispatcher)
 
-        self.projectPushTool = ProjectPushTool(
-            self.messageDispatcher, viewerSyncTool, clientData)
-        self._clientDataProvider = ClientSyncGuest(self.messageDispatcher)
-
-        self.syncTools = [
-            self.projectPushTool,
-            ProjectSyncProgressTool(self.messageDispatcher),
-            viewerSyncTool,
-            self._clientDataProvider,
-            SyncClientCursor(self.messageDispatcher, self._clientDataProvider),
-            SyncAnnotationsTool(self.messageDispatcher),
-            SyncVersionsTool(self.messageDispatcher),
-            SyncInOutTool(self.messageDispatcher),
-            SyncItemStatusTool(self.messageDispatcher),
-            SyncEffectItemKnobsTool(self.messageDispatcher),
-            SyncSequenceEditsTool(self.messageDispatcher, viewerSyncTool),
-            SyncBinItemTool(self.messageDispatcher),
-        ]
+            self.syncTools = [
+                self.projectPushTool,
+                ProjectSyncProgressTool(self.messageDispatcher),
+                viewerSyncTool,
+                self._clientDataProvider,
+                SyncClientCursor(self.messageDispatcher, self._clientDataProvider),
+                SyncAnnotationsTool(self.messageDispatcher),
+                SyncVersionsTool(self.messageDispatcher),
+                SyncInOutTool(self.messageDispatcher),
+                SyncItemStatusTool(self.messageDispatcher),
+                SyncEffectItemKnobsTool(self.messageDispatcher),
+                SyncSequenceEditsTool(self.messageDispatcher, viewerSyncTool),
+                SyncBinItemTool(self.messageDispatcher),
+            ]
+        except:
+            self._stopThread()
+            raise
 
     def stop(self):
         for tool in self.syncTools:
             tool.shutdown()
         self.messageDispatcher.shutdown()
-        self.client.disconnectFromHost()
+        callInObjectsThread(self.client, self.client.disconnectFromHost)
+        self._stopThread()
 
 
 class ConnectionManager(QObject):
@@ -170,6 +191,7 @@ class ConnectionManager(QObject):
             self.session.client.numberOfClientsChanged.connect(
                 self._onNumberOfClientsChanged)
         except:
+            log.logException()
             self.connectionState.setError(ConnectionState.ERROR_BIND_FAILURE)
 
     def stopServer(self):
@@ -194,7 +216,7 @@ class ConnectionManager(QObject):
             self.session.client.numberOfClientsChanged.connect(
                 self._onNumberOfClientsChanged)
         except:
-            pass
+            log.logException()
 
     def disconnectClient(self):
         """ Disconnect the client """

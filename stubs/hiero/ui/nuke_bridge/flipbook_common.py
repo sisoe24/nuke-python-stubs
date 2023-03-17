@@ -117,7 +117,7 @@ def getOCIOConfigPath():
     root = nuke.root()
     useDefaultLUTs = root['defaultViewerLUT'].value() == 'Nuke Root LUTs'
     if not useDefaultLUTs:
-        useCustomOCIO = root['OCIO_config'].value() is 'custom'
+        useCustomOCIO = root['OCIO_config'].value() == 'custom'
         if useCustomOCIO:
             OCIOConfigPath = root['customOCIOConfigPath'].value()
         else:

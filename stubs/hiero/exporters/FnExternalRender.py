@@ -244,7 +244,7 @@ def createWriteNode(ctx, path, preset, nodeName=None, inputNode=None, framerate=
         writeNode.setKnob('channels', properties['channels'])
 
     # Set quicktime flag to write timecode track. Ignores if no timecode present.
-    if fileType is 'mov':
+    if fileType == 'mov':
         # have to special case framerate
         if framerate != None:
 

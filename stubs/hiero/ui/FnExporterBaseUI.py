@@ -333,7 +333,13 @@ class RenderTaskUIBase(TaskUIBase):
         self._channelsCombo = uiProperty._widget
 
     def createColourSpaceWidget(self, layout):
-        colourspaceToolTip = """The colour transform (LUT) applied to rendered images.\n 'default' uses the default LUT determined by the output image file type."""
+        colourspaceToolTip = ('Color transfom (LUT) used to convert from the internal '
+                              'values used by Nuke to the values written to the file.\n\n'
+                              'Default means it is determined from the type of file '
+                              'and the size and type of data written to it.\n\n'
+                              'Warning\n'
+                              'The label for this knob has been changed - however the knob name is the same as in 13.0'
+                              ' - in a future major release the knob name will also be changed.')
 
         def colourspaceWidgetHandler(widget, layout, value):
             lutIcon = QtGui.QIcon('icons:LUT.png')
@@ -344,7 +350,7 @@ class RenderTaskUIBase(TaskUIBase):
         uiProperty = CascadingEnumerationProperty(key=key,
                                                   value=value,
                                                   dictionary=self._preset._properties,
-                                                  label='Colourspace',
+                                                  label='Output Transform',
                                                   tooltip=colourspaceToolTip,
                                                   addWidgetHandler=colourspaceWidgetHandler)
         self._uiProperties.append(uiProperty)

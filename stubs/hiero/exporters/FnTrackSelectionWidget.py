@@ -37,7 +37,7 @@ class TrackSelectionWidget(QtWidgets.QWidget):
         be used for different sequences, but means things can get a bit confused if there are multiple
         tracks with the same name. """
 
-    def __init__(self, sequences, excludedTrackNames, excludedTrackIDs, parent=None):
+    def __init__(self, sequences, hiddenTrackNames, excludedTrackNames, excludedTrackIDs, parent=None):
         QtWidgets.QWidget.__init__(self, parent)
 
         # Build the UI
@@ -86,6 +86,11 @@ class TrackSelectionWidget(QtWidgets.QWidget):
                 sequence.videoTracks(), sequence.audioTracks()) if track.name() in excludedTrackNames])
 
         for track in self._tracks:
+            # Don't add any hidden tracks to the model. Hidden tracks will be included in the export
+            # unless specified elsewhere. For example the annotations track, which can be included
+            # or excluded via a checkbox in the Content panel.
+            if track.name() in hiddenTrackNames:
+                continue
             item = QtGui.QStandardItem(track.name())
             item.setData(track.guid())
             item.setIcon(self.getIconForTrack(track))

@@ -140,6 +140,13 @@ class TrackItemExportScriptWriter(object):
             self.writeToScript_old(script)
             return
 
+        # If the number of frames at the start of the clip is less than the requested
+        # handles, need to shift the first frame to compensate for that
+        firstFrame = self._firstFrame
+        hasRetimes = self._includeRetimes and self._trackItem.playbackSpeed() != 1.0
+        if not hasRetimes and self._trackItem.sourceIn() < self._startHandle:
+            firstFrame += self._startHandle - self._trackItem.sourceIn()
+
         retimeMethod = self._retimeMethod if self._includeRetimes else None
         scriptParameters = FnNukeHelpersV2.ScriptWriteParameters(includeAnnotations=self._writeAnnotations,
                                                                  includeEffects=self._writeEffects,
@@ -149,7 +156,7 @@ class TrackItemExportScriptWriter(object):
         additionalEffects = self._sequenceEffects if self._writeEffects else []
         writer = FnNukeHelpersV2.TrackItemScriptWriter(self._trackItem,
                                                        scriptParameters,
-                                                       firstFrame=self._firstFrame,
+                                                       firstFrame=firstFrame,
                                                        startHandle=self._startHandle,
                                                        endHandle=self._endHandle)
         writer.writeToScript(script,
@@ -203,8 +210,6 @@ class TrackItemExportScriptWriter(object):
         # Calculate the offset for effect key frames and lifetimes
         effectOffset = self._firstFrame - self._trackItem.timelineIn() + self._startHandle
 
-        cliptype = 'bbox' if formatForSequenceEffects else None
-
         # Write out any sequence level effects
         if writeSequenceEffects:
             # first add metadata node so the sequence time is correct in case of retimes on the clips
@@ -212,14 +217,13 @@ class TrackItemExportScriptWriter(object):
 
             # Add all the effects
             for effect in self._sequenceEffects:
-                effect.addToNukeScript(script, offset=effectOffset, cliptype=cliptype)
+                effect.addToNukeScript(script, offset=effectOffset)
 
         if writeSequenceAnnotations:
             hiero.core.FnNukeHelpers.createAnnotationsGroup(script,
                                                             self._sequenceAnnotations,
                                                             offset=effectOffset,
-                                                            inputs=1,
-                                                            cliptype=cliptype
+                                                            inputs=1
                                                             )
 
         if formatForSequenceEffects:

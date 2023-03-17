@@ -554,7 +554,7 @@ class CreateCompActionBase(BuildTrackFromExportTagAction):
             target=self._layoutScripts, args=(trackItemData,))
         layoutNodesThread.start()
 
-        while layoutNodesThread.isAlive():
+        while layoutNodesThread.is_alive():
             QtCore.QCoreApplication.processEvents()
 
         # Check if the user has cancelled

@@ -10,16 +10,15 @@ from hiero.ui import findMenuAction, findRegisteredAction
 from hiero.core import util
 from hiero.core.FnCompSourceInfo import isNukeScript
 
-from . import hiero_state
+from . import add_effect, hiero_state
 
 isPlayer = hiero.core.isHieroPlayer()
+
+add_effect.createEffectActions()
 
 if not isPlayer:
     from hiero.exporters import FnFrameServerRender
     from hiero.ui.nuke_bridge import initFrameServer
-
-    from . import add_effect
-    add_effect.createEffectActions()
     nukescripts.createNodePresetsMenu()
 
 

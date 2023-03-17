@@ -41,7 +41,7 @@ def findStartupProjects():
     startupDir = hiero.core.env['ProductName']
 
     # For NukeStudio, for the time being we want to load Hiero startup projects
-    if startupDir == 'NukeStudio':
+    if startupDir == 'NukeStudio' or startupDir == 'NukeIndie':
         startupDir = 'Hiero'
 
     for path in paths:

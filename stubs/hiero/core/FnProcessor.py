@@ -164,8 +164,9 @@ class ProcessorPreset (TaskPresetBase):
 
     def __init__(self, parentType, presetName):
         """Initialise Exporter Preset Base Class
-        @param parentType : Processor type to which this preset object corresponds
-        @param presetName : Name of preset"""
+
+        @param parentType: Processor type to which this preset object corresponds
+        @param presetName: Name of preset"""
         TaskPresetBase.__init__(self, parentType, presetName)
 
     def __eq__(self, other):
