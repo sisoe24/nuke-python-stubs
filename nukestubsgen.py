@@ -181,7 +181,8 @@ def get_included_modules():
     """
     def clean_nukescripts():
         """Import the correct module for nukescripts."""
-        for file in NUKESCRIPTS_STUBS.glob('*.py'):
+        nukescripts_path = Options.path / 'nukescripts'
+        for file in nukescripts_path.glob('*.py'):
             with open(file, 'r+', encoding='utf-8') as f:
                 content = f.read()
                 sub = re.sub('import nuke_internal as nuke',
@@ -217,6 +218,7 @@ def get_included_modules():
 
 def log_unguessed(name, arg, guarg):
     pass
+
     # print("➡ name :", name, arg, guarg)
 
 
@@ -789,6 +791,7 @@ def generate_nuke_stubs():
     Options.class_path.mkdir(exist_ok=True)
 
     parse_modules()
+    get_included_modules()
 
 
 def generate_hiero_stubs():
@@ -801,3 +804,4 @@ def generate_hiero_stubs():
 
 
 generate_nuke_stubs()
+# generate_hiero_stubs()
