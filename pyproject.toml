@@ -4,6 +4,12 @@ version = "0.2.0"
 description = "Create Nuke Python Stubs"
 authors = ["virgilsisoe <sisoe24@gmail.com>"]
 
+[tool.isort]
+length_sort = true
+
+[tool.autopep8]
+max_line_length = 90
+
 [tool.poetry.dependencies]
 python = "~3.7"
 
