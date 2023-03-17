@@ -4,7 +4,7 @@ import inspect
 import logging
 import pathlib
 from shutil import copytree
-from typing import Match, Union, Optional
+from typing import Match, Tuple, Union, Optional
 from textwrap import dedent, indent
 
 import nuke
@@ -666,7 +666,7 @@ class ClassExtractor:
 
     def _write_class_file(self):
         """Create class file"""
-        with open(Options.class_path / f'{self.class_name}.py', 'w') as file:
+        with open(Options.path / 'classes' / f'{self.class_name}.py', 'w') as file:
             file.write(self.class_file)
 
     def _setup_class_file(self):
@@ -751,7 +751,7 @@ def parse_modules():
     def write_class_imports(class_imports):
         """Create a init file with all the classes imports."""
         print('Generating class imports.')
-        with open(Options.class_path / '__init__.py', 'w') as file:
+        with open(Options.path / 'classes' / '__init__.py', 'w') as file:
             file.write(class_imports)
 
     builtin = ''
@@ -785,23 +785,37 @@ def parse_modules():
 
 
 def generate_nuke_stubs():
+    path = STUBS_PATH / 'nuke'
+
     Options.module = nuke
-    Options.path = STUBS_PATH / 'nuke'
-    Options.class_path = STUBS_PATH / 'nuke' / 'classes'
-    Options.class_path.mkdir(exist_ok=True)
+    Options.path = path
+    os.makedirs(path / 'classes', exist_ok=True)
 
     parse_modules()
     get_included_modules()
 
 
-def generate_hiero_stubs():
-    Options.module = hiero.core
-    Options.path = STUBS_PATH / 'hiero'
-    Options.class_path = STUBS_PATH / 'hiero' / 'classes'
-    Options.class_path.mkdir(exist_ok=True)
+def get_hiero():
+    # Hack: add Hiero api
+    import PySide2
+    site_packages = pathlib.Path(PySide2.__file__).parent.parent
+    hiero = site_packages / 'hiero'
+    if hiero.exists():
+        print('Hiero module copied')
+        copytree(str(hiero), str(Options.path.parent), dirs_exist_ok=True)
 
+
+def todo_generate_hiero_stubs():
+    # TODO: Not ready yet
+    path = STUBS_PATH / 'hiero' / 'core'
+
+    Options.module = hiero.core
+    Options.path = path
+    os.makedirs(path / 'classes', exist_ok=True)
+
+    get_hiero()
     parse_modules()
 
 
 generate_nuke_stubs()
-# generate_hiero_stubs()
+# todo_generate_hiero_stubs()
