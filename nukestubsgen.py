@@ -1,26 +1,19 @@
 import os
 import re
-import sys
-import json
 import inspect
 import logging
 import pathlib
 from shutil import copytree
 from typing import Match, Union, Optional
 from textwrap import dedent, indent
-from distutils.dir_util import copy_tree
 
 import nuke
 import hiero
 
 PATH = pathlib.Path(__file__).parent / 'nuke-python-stubs'
-PATH.mkdir(exist_ok=True)
 
 STUBS_PATH = PATH / 'stubs'
 STUBS_PATH.mkdir(exist_ok=True)
-
-HIERO_STUBS = STUBS_PATH / 'hiero'
-HIERO_STUBS.mkdir(exist_ok=True)
 
 
 class Options:
@@ -28,6 +21,198 @@ class Options:
     path = ''
     class_path = None
     guess_type = True
+
+
+MANUAL_CHANGES = {
+    '__init__': {
+        'headers': [
+            {
+                'original_header': 'def createNode(node:str, args:list=None, inpanel:bool=None):',
+                'new_header': 'def createNode(node:str, args:str=None, inpanel:bool=None):'
+            },
+            {
+                'original_header': "def tprint(value, sep=' ', end='\\', file=sys.stdout):",
+                'new_header': "def tprint(value, sep=' ', end='\\n', file=sys.stdout):"
+            },
+            {
+                'original_header': "def executeBackgroundNuke(exe_path:str, nodes:list, frameRange, views:list, limits:dict, continueOnError = False, flipbookToRun = \", flipbookOptions = {}):",
+                'new_header': "def executeBackgroundNuke(exe_path:str, nodes:list, frameRange, views:list, limits:dict, continueOnError = False, flipbookToRun = '', flipbookOptions = {}):"
+            }
+        ],
+        'returns': [
+            {
+                'function_name': 'getNodeClassName',
+                'original_return': 'return None',
+                'new_return': 'return str()'
+            },
+            {
+                'function_name': 'allNodes',
+                'original_return': 'return list()',
+                'new_return': 'return [Node]'
+            },
+            {
+                'function_name': 'formats',
+                'original_return': 'return list()',
+                'new_return': 'return [Format]'
+            },
+            {
+                'function_name': 'layers',
+                'original_return': 'return list()',
+                'new_return': 'return [str]'
+            },
+            {
+                'function_name': 'selectedNodes',
+                'original_return': 'return list()',
+                'new_return': 'return [Node]'
+            }
+        ]
+    },
+    'Node': {
+        'headers': [
+            {
+                'original_header': 'def knob(self, p:int, follow_link=None):',
+                'new_header': 'def knob(self, p:Union[str, int], follow_link=None):'
+            },
+            {
+                'original_header': 'def dependencies(self, what):',
+                'new_header': 'def dependencies(self, what=None):'
+            },
+            {
+                'original_header': 'def dependent(self, what, forceEvaluate:bool):',
+                'new_header': 'def dependent(self, what=None, forceEvaluate:bool=None):'
+            }
+        ],
+        'returns': [
+            {
+                'function_name': 'dependencies',
+                'original_return': 'return list()',
+                'new_return': 'return [Node]'
+            },
+            {
+                'function_name': 'dependent',
+                'original_return': 'return list()',
+                'new_return': 'return [Node]'
+            }
+        ]
+    }
+}
+
+
+def manual_mods(filename, func_header, func_return):
+    """Make manual modifications to header and returns.
+
+    Certain headers and returns are wrong, because of the docs or because the
+    parser failed. Instead of writing a condition for each case, the file
+    `manual_changes.json` can be used to create a list of modifications to make
+    at each function generated.
+
+    Args:
+        filename (str): the filename to check for modifications
+        func_header (str): the function header.
+        func_return (str): the function return.
+
+    Returns:
+        (str): the function header.
+        (str): the function return.
+    """
+    def _debug(old, new):
+        logging.debug('Modifying: %s -> %s', old, new)
+
+    def header_mod(func_header, headers):
+        """Modify the header of the function.
+
+        Args:
+            func_header (str): the current function header.
+            headers (list): the list of modification to make.
+
+        Returns:
+            str: the header function
+        """
+        for header in headers:
+            if func_header == header['original_header']:
+
+                new_header = header['new_header']
+                _debug(func_header, new_header)
+                func_header = new_header
+
+        return func_header
+
+    def return_mod(func_header, func_return, returns):
+        """Modify the return of the function.
+
+        The header is checked before, to be sure that the modification
+        is for the right function.
+
+        Args:
+            func_header (str): the current function header.
+            func_return (str): the current function header.
+            returns (list): the list of modification to make.
+
+        Returns:
+            str: the header function
+        """
+        for _return in returns:
+            # I am checking `in` because some functions could be indented so
+            # `x` does not match `    x`.
+            if (_return['function_name'] in func_header and
+                    _return['original_return'] in func_return):
+
+                new_return = _return['new_return']
+                _debug(func_return, new_return)
+                func_return = indent(new_return, ' ' * 4)
+
+        return func_return
+
+    for file, modifications in MANUAL_CHANGES.items():
+        if filename == file:
+            func_header = header_mod(func_header, modifications['headers'])
+            func_return = return_mod(func_header, func_return,
+                                     modifications['returns'])
+
+    return func_header, func_return
+
+
+def get_included_modules():
+    """Get included modules inside plugins path.
+
+    - nukescripts
+    - nuke_internal
+    - ocionuke
+    """
+    def clean_nukescripts():
+        """Import the correct module for nukescripts."""
+        for file in NUKESCRIPTS_STUBS.glob('*.py'):
+            with open(file, 'r+', encoding='utf-8') as f:
+                content = f.read()
+                sub = re.sub('import nuke_internal as nuke',
+                             'import nuke', content)
+                f.seek(0)
+                f.write(sub)
+                f.truncate()
+
+    def clean_init():
+        """Clean nuke_internal __init__."""
+        nuke_internal_init = os.path.join(
+            Options.path, 'nuke_internal', '__init__.py')
+
+        with open(nuke_internal_init, 'r') as file:
+            contents = re.finditer(r'(^(from|#).+)', file.read(), re.M)
+
+        with open(nuke_internal_init, 'w') as file:
+            file.seek(0)
+            for i in contents:
+                file.write(i.group(1) + '\n')
+
+    for path in nuke.pluginPath():
+        for module in ('nuke_internal', 'nukescripts', 'ocionuke'):
+            src = os.path.join(path, module)
+            if os.path.exists(src):
+                print(f'Internal module copied: {module}')
+                destination = Options.path / module if module == 'nuke_internal' else STUBS_PATH / module
+                copytree(src, str(destination), dirs_exist_ok=True)
+
+    clean_init()
+    clean_nukescripts()
 
 
 def log_unguessed(name, arg, guarg):
@@ -117,7 +302,7 @@ class GuessType:
 
                 return _type
 
-        return 'Any'
+        return None
 
     def is_type(self, _type: str) -> Union[str, None]:
         """Check if string matches argument.
@@ -133,8 +318,8 @@ class GuessType:
         Method will try to check if is a valid object. If that will fail will try
         guessing with the internal method.
         """
-        match1 = is_valid_object(match.group(1))
-        match2 = is_valid_object(match.group(2))
+        match1 = is_valid_object(match[1])
+        match2 = is_valid_object(match[2])
 
         # try second guess
         if not match1:
@@ -410,7 +595,7 @@ class ReturnExtractor:
             # doc had no -> return annotation so try guessing based on doc arg
             _return = self.header_obj.return_argument
             if _return:
-                return _return
+                return self._guess_type(_return)
             return 'None'
 
         # a list of object that should not be valid even if nuke this that are
@@ -460,7 +645,7 @@ def func_constructor(header_obj: FunctionObject, _id) -> str:
     func_doc = indented_docs(header_obj.obj)
     func_return = header_obj.return_
 
-    # func_header, func_return = manual_mods(_id, func_header, func_return)
+    func_header, func_return = manual_mods(_id, func_header, func_return)
 
     return f'{func_header}\n{func_doc}\n{func_return}\n\n'
 
@@ -523,25 +708,22 @@ class ClassExtractor:
         class_dict = fix_dict(dict(self.obj.__dict__))
 
         class_body = ''
-        try:
-            for member, obj in class_dict.items():
-                # logging.debug('\t%s', member)
+        for member, obj in class_dict.items():
+            # logging.debug('\t%s', member)
 
-                # check for simple type class attributes
-                if type(obj) in (float, int, str, list, tuple, set, dict, bool, frozenset):
-                    class_body += f'{member} = {obj}\n'
-                    continue
+            # check for simple type class attributes
+            if type(obj) in (float, int, str, list, tuple, set, dict, bool, frozenset):
+                class_body += f'{member} = {obj}\n'
+                continue
 
-                class_body += func_constructor(FunctionObject(
-                    obj=obj, fallback_name=member, is_class=True), self.class_name
-                )
-        except Exception as err:
-            print('➡ err :', self.class_name, err)
+            class_body += func_constructor(FunctionObject(
+                obj=obj, fallback_name=member, is_class=True), self.class_name
+            )
 
         return indent(class_body, ' ' * 4)
 
 
-def parse_modules(module):
+def parse_modules():
     """Parse the nuke object from Nuke python interpret."""
     def write_init(constants: str, builtin: str):
         """Create a init file will all the constants and built in methods."""
@@ -575,8 +757,8 @@ def parse_modules(module):
     class_imports = ''
 
     print('Start extraction...')
-    for attr in dir(module):
-        obj = getattr(module, attr)
+    for attr in dir(Options.module):
+        obj = getattr(Options.module, attr)
 
         if inspect.isclass(obj):
             class_imports += f'from .{attr} import {attr}\n'
@@ -601,21 +783,21 @@ def parse_modules(module):
 
 
 def generate_nuke_stubs():
-    Options.module = hiero.core
+    Options.module = nuke
     Options.path = STUBS_PATH / 'nuke'
     Options.class_path = STUBS_PATH / 'nuke' / 'classes'
     Options.class_path.mkdir(exist_ok=True)
 
-    parse_modules(nuke)
+    parse_modules()
 
 
 def generate_hiero_stubs():
     Options.module = hiero.core
-    Options.path = HIERO_STUBS
-    Options.class_path = HIERO_STUBS / 'classes'
+    Options.path = STUBS_PATH / 'hiero'
+    Options.class_path = STUBS_PATH / 'hiero' / 'classes'
     Options.class_path.mkdir(exist_ok=True)
 
-    parse_modules(hiero.core)
+    parse_modules()
 
 
 generate_nuke_stubs()
