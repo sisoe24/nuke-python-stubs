@@ -61,7 +61,7 @@ class Link_Knob(Knob):
         """
         getLinkedKnob() -> knob
         """
-        return Knob()
+        return knob()
 
     def getLink(self,):
         """
