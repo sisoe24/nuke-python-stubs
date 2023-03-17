@@ -62,7 +62,7 @@ class ViewerProcess(object):
 
         :return: List.
         """
-        return List()
+        return list()
 
     def storeSelectionBeforeReload(self,):
         """

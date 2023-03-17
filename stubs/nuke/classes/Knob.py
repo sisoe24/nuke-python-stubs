@@ -358,7 +358,7 @@ class Knob(object):
         Returns the names of the authoring modes of the knob if the knob is an authoring knob, otherwise an empty list.
         @return: The names of the authoring modes of the knob if the knob is an authoring knob, otherwise an empty list. This is a list of strings.
         """
-        return List()
+        return list()
 
     def getAuthorMode(self,):
         """
