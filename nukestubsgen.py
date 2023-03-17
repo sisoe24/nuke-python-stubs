@@ -1,19 +1,19 @@
-import inspect
-import json
-import logging
 import os
-import pathlib
 import re
 import sys
-from distutils.dir_util import copy_tree
+import json
+import inspect
+import logging
+import pathlib
 from shutil import copytree
+from typing import Match, Union, Optional
 from textwrap import dedent, indent
-from typing import Match, Optional, Union
+from distutils.dir_util import copy_tree
 
-import hiero
 import nuke
+import hiero
 
-PATH = pathlib.Path(__file__).parent / 'nukestubsgen'
+PATH = pathlib.Path(__file__).parent / 'nuke-python-stubs'
 PATH.mkdir(exist_ok=True)
 
 STUBS_PATH = PATH / 'stubs'
