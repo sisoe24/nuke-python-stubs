@@ -431,7 +431,7 @@ class Array_Knob(Knob):
         """
         return Union[AnimationCurve, None]
 
-    def deleteAnimation(self, curve: Any):
+    def deleteAnimation(self, curve: AnimationCurve):
         """
         self.deleteAnimation(curve) -> None. Raises ValueError if not found.
         Deletes the AnimationCurve.
@@ -440,7 +440,7 @@ class Array_Knob(Knob):
         """
         return Any
 
-    def copyAnimation(self, channel: int, curve: Any, view: Any = None):
+    def copyAnimation(self, channel: int, curve: AnimationCurve, view: Any = None):
         """
         self.copyAnimation(channel, curve, view) -> None.
         Copies the i'th channel of the AnimationCurve curve to this object. The view is optional and defaults to the current view.

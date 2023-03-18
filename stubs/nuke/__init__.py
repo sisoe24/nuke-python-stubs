@@ -2340,7 +2340,7 @@ def pluginPath():
     return list()
 
 
-def showDag(n: Any = None):
+def showDag(n: Group = None):
     """
     showDag(n) -> None
 
@@ -2706,7 +2706,7 @@ def warning(message: str):
     return None
 
 
-def zoom(scale: Any, center: int = None, group: Any = None):
+def zoom(scale: Any, center: int = None, group: Group = None):
     """
     zoom(scale, center, group) -> float
 

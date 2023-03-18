@@ -60,14 +60,14 @@ class Group(Node):
         """
         return str()
 
-    def run(self, callable: Any):
+    def run(self, callable: Callable):
         """
         self.run(callable) -> Result of callable.
         Execute in the context of node. All names are evaluated relative to this object.
         @param callable: callable to execute.
         @return: Result of callable.
         """
-        return Any
+        return Callable()
 
     def begin(self,):
         """
