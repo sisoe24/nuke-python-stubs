@@ -208,7 +208,7 @@ def alert(prompt: str):
     return None
 
 
-def allNodes(filter: str = None, group=None):
+def allNodes(filter: str = None, group: Any = None):
     """
     allNodes(filter, group) -> List.
 
@@ -224,7 +224,7 @@ def allNodes(filter: str = None, group=None):
     return [Node]
 
 
-def animation(object, *commands):
+def animation(object: Any, *commands):
     """
     animation(object, *commands) -> None
 
@@ -362,7 +362,7 @@ def ask(prompt: str):
     return bool()
 
 
-def askWithCancel(prompt):
+def askWithCancel(prompt: Any):
     """
     askWithCancel(prompt) -> bool
 
@@ -577,7 +577,7 @@ def clone(n: Node, args: Number = None, inpanel: bool = None):
     return Node()
 
 
-def cloneSelected(action=None):
+def cloneSelected(action: Any = None):
     """
     cloneSelected(action) -> bool
 
@@ -1007,7 +1007,7 @@ def extractSelected():
     return None
 
 
-def filename(node=None, i: Iterable = None):
+def filename(node: Any = None, i: Iterable = None):
     """
     filename(node, i) -> str
 
@@ -1040,7 +1040,7 @@ def forceClone():
     return bool()
 
 
-def forceLoad(n=None):
+def forceLoad(n: Any = None):
     """
     forceLoad(n) -> None
 
@@ -1579,7 +1579,7 @@ def localiseFiles(readKnobs):
     return None
 
 
-def localizationEnabled(knob):
+def localizationEnabled(knob: Any):
     """
     localizationEnabled(knob) -> bool
 
@@ -1687,7 +1687,7 @@ def nodeDelete(s):
     return bool()
 
 
-def nodePaste(s):
+def nodePaste(s: Any):
     """
     nodePaste(s) -> Node
 
@@ -2044,7 +2044,7 @@ def root():
     return node()
 
 
-def runIn(object: str, cmd):
+def runIn(object: str, cmd: Any):
     """
     runIn(object, cmd) -> bool
 
@@ -2221,7 +2221,7 @@ def selectPattern():
     return None
 
 
-def selectSimilar(matchType):
+def selectSimilar(matchType: Any):
     """
     selectSimilar(matchType) -> None
 
@@ -2298,7 +2298,7 @@ def setUserPreset(nodeClassName: str, presetName: str, knobValues: dict):
     return None
 
 
-def show(n=None, forceFloat: bool = None):
+def show(n: Any = None, forceFloat: bool = None):
     """
     show(n, forceFloat) -> None
 
@@ -2340,7 +2340,7 @@ def pluginPath():
     return list()
 
 
-def showDag(n=None):
+def showDag(n: Any = None):
     """
     showDag(n) -> None
 
@@ -2352,7 +2352,7 @@ def showDag(n=None):
     return None
 
 
-def showInfo(n=None):
+def showInfo(n: Any = None):
     """
     showInfo(n) -> str
 
@@ -2424,7 +2424,7 @@ def stopPerformanceTimers():
     return None
 
 
-def stripFrameRange(clipname):
+def stripFrameRange(clipname: Any):
     """
     stripFrameRange(clipname) -> string
 
@@ -2706,7 +2706,7 @@ def warning(message: str):
     return None
 
 
-def zoom(scale, center: int = None, group=None):
+def zoom(scale: Any, center: int = None, group: Any = None):
     """
     zoom(scale, center, group) -> float
 
