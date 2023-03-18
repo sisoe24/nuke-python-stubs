@@ -22,6 +22,7 @@ class Settings:
     path = ''
     class_path = None
     guess_type = True
+    log = False
 
 
 # the first key is the name of the file,
@@ -119,7 +120,8 @@ def manual_mods(filename, func_header, func_return):
         (str): the function return.
     """
     def _debug(old, new):
-        print(f'Modifying: {old} -> {new}')
+        pass
+        # print(f'Modifying: {old} -> {new}')
 
     def header_mod(func_header, headers):
         """Modify the header of the function.
@@ -209,16 +211,12 @@ def get_included_modules():
         for module in ('nuke_internal', 'nukescripts', 'ocionuke'):
             src = os.path.join(path, module)
             if os.path.exists(src):
-                print(f'Internal module copied: {module}')
+                # print(f'Internal module copied: {module}')
                 destination = Settings.path / module if module == 'nuke_internal' else STUBS_PATH / module
                 copytree(src, str(destination), dirs_exist_ok=True)
 
     clean_init()
     clean_nukescripts()
-
-
-def unknown(_type, name, value):
-    print(f'\tUnknown type. Type: {_type} - Name: {name} - Value: {value}')
 
 
 def indented_docs(obj: object) -> str:
@@ -743,17 +741,17 @@ def parse_modules():
         obj = getattr(Settings.module, attr)
 
         if inspect.isclass(obj):
-            print('Class:', attr)
+            log('Class:', attr)
             class_imports += f'from .{attr} import {attr}\n'
             ClassExtractor(obj).write()
 
         elif inspect.isbuiltin(obj):
-            print('Built-in method:', attr)
+            log('Built-in method:', attr)
             builtin += func_constructor(FunctionObject(obj, attr, False),
                                         '__init__')
 
         elif attr.isupper():
-            print('Constants:', attr)
+            log('Constants:', attr)
             constants += f'{attr} = {repr(obj)}\n'
 
         elif attr == 'env':
@@ -762,6 +760,15 @@ def parse_modules():
     write_init(constants, builtin)
     write_class_imports(class_imports)
     print('Extraction completed.')
+
+
+def unknown(_type, name, value):
+    log(f'\tUnknown type. Type: {_type} - Name: {name} - Value: {value}')
+
+
+def log(*args, **kwargs):
+    if Settings.log:
+        print(*args, **kwargs)
 
 
 def generate_nuke_stubs():
