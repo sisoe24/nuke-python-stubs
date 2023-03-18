@@ -35,7 +35,7 @@ MANUAL_CHANGES = {
                 'new': 'def createNode(node:str, args:str=None, inpanel:bool=None):'
             },
             {
-                'initial': "def tprint(value, sep=' ', end='\\', file=sys.stdout):",
+                'initial': "def tprint(value:Any, sep=' ', end='\\', file=sys.stdout):",
                 'new': "def tprint(value, sep=' ', end='\\n', file=sys.stdout):"
             },
             {
@@ -78,12 +78,12 @@ MANUAL_CHANGES = {
                 'new': 'def knob(self, p:Union[str, int], follow_link=None):'
             },
             {
-                'initial': 'def dependencies(self, what):',
-                'new': 'def dependencies(self, what=None):'
+                'initial': 'def dependencies(self, what:Any):',
+                'new': 'def dependencies(self, what: Any=None):'
             },
             {
-                'initial': 'def dependent(self, what, forceEvaluate:bool):',
-                'new': 'def dependent(self, what=None, forceEvaluate:bool=None):'
+                'initial': 'def dependent(self, what:Any, forceEvaluate:bool):',
+                'new': 'def dependent(self, what: Any=None, forceEvaluate:bool=None):'
             }
         ],
         'returns': [
@@ -301,7 +301,7 @@ class GuessType:
 
                 return _type
 
-        return None
+        return 'Any'
 
     def is_type(self, _type: str) -> Union[str, None]:
         """Check if string matches argument.
@@ -431,50 +431,47 @@ class ReturnExtractor:
         self.header_obj = header_obj
 
     @staticmethod
-    def _guess_type(_return):
-        return GuessType(_return).auto_guess(exclude='optional')
+    def _guess_type(text):
+        return GuessType(text).auto_guess(exclude='optional')
 
-    def get_return(self) -> str:
+    def _get_return(self) -> str:
         """Parse the return value from the docs if any."""
-        try:
-            # search for everything after `->` if any
-            _return = re.search(r'(?<=> ).+', self.header_obj.docs).group()
-
-            # clean the extra last dot
-            _return = re.sub(r'\.$', '',  _return)
-        except AttributeError:
-            # doc had no -> return annotation so try guessing based on doc arg
-            _return = self.header_obj.return_argument
-            return self._guess_type(_return) if _return else 'None'
-
-        # a list of object that should not be valid even if nuke this that are
-        not_valid = ['name']
-
-        if is_valid_object(_return) and _return not in not_valid:
-            return _return
-
         if not Settings.guess_type:
             return 'Any'
 
-        guessed_type = self._guess_type(_return)
+        try:
+            # search for everything after `->` if any
+            return_value = re.search(r'(?<=> ).+', self.header_obj.docs).group()
 
-        if guessed_type:
-            return guessed_type
+            # clean the extra last dot
+            return_value = re.sub(r'\.$', '',  return_value)
+        except AttributeError:
+            # doc had no -> return annotation so try guessing based on doc arg
+            return_value = self.header_obj.return_argument
+            return self._guess_type(return_value) if return_value else 'None'
+        else:
 
-        unknown('Returns', self.header_obj.obj.__name__, _return)
-        return 'Any'
+            # a list of object that should not be valid even if nuke this that are
+            not_valid = ['name']
+
+            if is_valid_object(return_value) and return_value not in not_valid:
+                return return_value
+
+            unknown('Returns', self.header_obj.obj.__name__, return_value)
+            return self._guess_type(return_value)
 
     @staticmethod
-    def _is_return_callable(_return: str) -> str:
-        """Check if return is not Any, None, True, or has a ].
+    def _make_callable(text: str) -> str:
+        """Make a return callable to propagate the offer auto complete for this obj.
 
-        If return match is made then the return will have a parenthesis: type()
+        Values that should not have a parenthesis call like: Any, None,
+        True/False and so on are excluded.
         """
-        return _return if re.search(r'(Any|None|True|])', _return) else f'{_return}()'
+        return text if re.search(r'(Any|None|True|])', text) else f'{text}()'
 
     def extract(self) -> str:
         """Extract function return from documentation."""
-        return indent(f'return {self._is_return_callable(self.get_return())}', ' ' * 4)
+        return indent(f'return {self._make_callable(self._get_return())}', ' ' * 4)
 
 
 class FunctionObject:
@@ -617,9 +614,9 @@ class FnHeaderExtractor:
 
     def _unknown_header(self, err: Optional[Exception] = '') -> str:
         # most likely to be some dunder methods that can be safely ignored
-        logging.warning(
-            'Failed to extract func header for: %s. '
-            'Fallback on object name. Traceback: %s', self.obj_name, err
+        print(
+            f'Failed to extract func header for {self.obj_name}. '
+            f'Fallback on object name. Traceback: {err}'
         )
         return self.simple_header()
 
@@ -798,6 +795,7 @@ def todo_generate_hiero_stubs():
     path = STUBS_PATH / 'hiero' / 'core'
 
     Settings.module = hiero.core
+    Settings.log = True
     Settings.path = path
     os.makedirs(path / 'classes', exist_ok=True)
 
