@@ -650,7 +650,7 @@ class Node(object):
         """
         return list()
 
-    def dependencies(self, what: Any):
+    def dependencies(self, what: Any = None):
         """
         self.dependencies(what) -> List of nodes.
 
@@ -669,7 +669,7 @@ class Node(object):
         """
         return [Node]
 
-    def dependent(self, what: Any, forceEvaluate: bool):
+    def dependent(self, what: Any = None, forceEvaluate: bool = None):
         """
         self.dependent(what, forceEvaluate) -> List of nodes.
 
