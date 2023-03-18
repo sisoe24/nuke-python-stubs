@@ -217,8 +217,8 @@ def get_included_modules():
     clean_nukescripts()
 
 
-def log_unguessed(_type, name, value):
-    print(f'\tUngussed data. Type: {_type} - Name: {name} - Value: {value}')
+def unknown(_type, name, value):
+    print(f'\tUnknown type. Type: {_type} - Name: {name} - Value: {value}')
 
 
 def indented_docs(obj: object) -> str:
@@ -339,7 +339,7 @@ class GuessType:
             # return f'Optional[{guess_type}]=""'
             return f'{guess_type}=None'
 
-        log_unguessed('Optionals', match.group(), guess_type)
+        unknown('Optionals', match.group(), guess_type)
         return 'None'
 
 
@@ -416,7 +416,7 @@ class ArgsParser:
                 guessed_type = GuessType(docs_args[arg]).auto_guess()
 
                 if not guessed_type:
-                    log_unguessed('Args', arg, docs_args[arg])
+                    unknown('Args', arg, docs_args[arg])
                     continue
 
                 index = args.index(arg)
@@ -463,7 +463,7 @@ class ReturnExtractor:
         if guessed_type:
             return guessed_type
 
-        log_unguessed('Returns', self.header_obj.obj.__name__, _return)
+        unknown('Returns', self.header_obj.obj.__name__, _return)
         return 'Any'
 
     @staticmethod
