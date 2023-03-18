@@ -10,88 +10,91 @@ from textwrap import dedent, indent
 import nuke
 import hiero
 
+# TODO: fix path
 PATH = pathlib.Path(__file__).parent / 'nuke-python-stubs'
 
 STUBS_PATH = PATH / 'stubs'
 STUBS_PATH.mkdir(exist_ok=True)
 
 
-class Options:
+class Settings:
     module = None
     path = ''
     class_path = None
     guess_type = True
 
 
+# the first key is the name of the file,
+# for each file you can change the function header or the function return
 MANUAL_CHANGES = {
     '__init__': {
         'headers': [
             {
-                'original_header': 'def createNode(node:str, args:list=None, inpanel:bool=None):',
-                'new_header': 'def createNode(node:str, args:str=None, inpanel:bool=None):'
+                'initial': 'def createNode(node:str, args:list=None, inpanel:bool=None):',
+                'new': 'def createNode(node:str, args:str=None, inpanel:bool=None):'
             },
             {
-                'original_header': "def tprint(value, sep=' ', end='\\', file=sys.stdout):",
-                'new_header': "def tprint(value, sep=' ', end='\\n', file=sys.stdout):"
+                'initial': "def tprint(value, sep=' ', end='\\', file=sys.stdout):",
+                'new': "def tprint(value, sep=' ', end='\\n', file=sys.stdout):"
             },
             {
-                'original_header': "def executeBackgroundNuke(exe_path:str, nodes:list, frameRange, views:list, limits:dict, continueOnError = False, flipbookToRun = \", flipbookOptions = {}):",
-                'new_header': "def executeBackgroundNuke(exe_path:str, nodes:list, frameRange, views:list, limits:dict, continueOnError = False, flipbookToRun = '', flipbookOptions = {}):"
+                'initial': "def executeBackgroundNuke(exe_path:str, nodes:list, frameRange, views:list, limits:dict, continueOnError = False, flipbookToRun = \", flipbookOptions = {}):",
+                'new': "def executeBackgroundNuke(exe_path:str, nodes:list, frameRange, views:list, limits:dict, continueOnError = False, flipbookToRun = '', flipbookOptions = {}):"
             }
         ],
         'returns': [
             {
-                'function_name': 'getNodeClassName',
-                'original_return': 'return None',
-                'new_return': 'return str()'
+                'function': 'getNodeClassName',
+                'initial': 'return None',
+                'new': 'return str()'
             },
             {
-                'function_name': 'allNodes',
-                'original_return': 'return list()',
-                'new_return': 'return [Node]'
+                'function': 'allNodes',
+                'initial': 'return list()',
+                'new': 'return [Node]'
             },
             {
-                'function_name': 'formats',
-                'original_return': 'return list()',
-                'new_return': 'return [Format]'
+                'function': 'formats',
+                'initial': 'return list()',
+                'new': 'return [Format]'
             },
             {
-                'function_name': 'layers',
-                'original_return': 'return list()',
-                'new_return': 'return [str]'
+                'function': 'layers',
+                'initial': 'return list()',
+                'new': 'return [str]'
             },
             {
-                'function_name': 'selectedNodes',
-                'original_return': 'return list()',
-                'new_return': 'return [Node]'
+                'function': 'selectedNodes',
+                'initial': 'return list()',
+                'new': 'return [Node]'
             }
         ]
     },
     'Node': {
         'headers': [
             {
-                'original_header': 'def knob(self, p:int, follow_link=None):',
-                'new_header': 'def knob(self, p:Union[str, int], follow_link=None):'
+                'initial': 'def knob(self, p:int, follow_link=None):',
+                'new': 'def knob(self, p:Union[str, int], follow_link=None):'
             },
             {
-                'original_header': 'def dependencies(self, what):',
-                'new_header': 'def dependencies(self, what=None):'
+                'initial': 'def dependencies(self, what):',
+                'new': 'def dependencies(self, what=None):'
             },
             {
-                'original_header': 'def dependent(self, what, forceEvaluate:bool):',
-                'new_header': 'def dependent(self, what=None, forceEvaluate:bool=None):'
+                'initial': 'def dependent(self, what, forceEvaluate:bool):',
+                'new': 'def dependent(self, what=None, forceEvaluate:bool=None):'
             }
         ],
         'returns': [
             {
-                'function_name': 'dependencies',
-                'original_return': 'return list()',
-                'new_return': 'return [Node]'
+                'function': 'dependencies',
+                'initial': 'return list()',
+                'new': 'return [Node]'
             },
             {
-                'function_name': 'dependent',
-                'original_return': 'return list()',
-                'new_return': 'return [Node]'
+                'function': 'dependent',
+                'initial': 'return list()',
+                'new': 'return [Node]'
             }
         ]
     }
@@ -102,9 +105,9 @@ def manual_mods(filename, func_header, func_return):
     """Make manual modifications to header and returns.
 
     Certain headers and returns are wrong, because of the docs or because the
-    parser failed. Instead of writing a condition for each case, the file
-    `manual_changes.json` can be used to create a list of modifications to make
-    at each function generated.
+    parser failed. Instead of writing a condition for each case, we can use
+    `MANUAL_CHANGES` dict to create a list of modifications to are applied
+    when a function is generated.
 
     Args:
         filename (str): the filename to check for modifications
@@ -116,7 +119,7 @@ def manual_mods(filename, func_header, func_return):
         (str): the function return.
     """
     def _debug(old, new):
-        logging.debug('Modifying: %s -> %s', old, new)
+        print(f'Modifying: {old} -> {new}')
 
     def header_mod(func_header, headers):
         """Modify the header of the function.
@@ -129,11 +132,11 @@ def manual_mods(filename, func_header, func_return):
             str: the header function
         """
         for header in headers:
-            if func_header == header['original_header']:
+            if func_header == header['initial']:
 
-                new_header = header['new_header']
-                _debug(func_header, new_header)
-                func_header = new_header
+                new = header['new']
+                _debug(func_header, new)
+                func_header = new
 
         return func_header
 
@@ -154,12 +157,10 @@ def manual_mods(filename, func_header, func_return):
         for _return in returns:
             # I am checking `in` because some functions could be indented so
             # `x` does not match `    x`.
-            if (_return['function_name'] in func_header and
-                    _return['original_return'] in func_return):
-
-                new_return = _return['new_return']
-                _debug(func_return, new_return)
-                func_return = indent(new_return, ' ' * 4)
+            if _return['function'] in func_header and _return['initial'] in func_return:
+                new = _return['new']
+                _debug(func_return, new)
+                func_return = indent(new, ' ' * 4)
 
         return func_return
 
@@ -181,7 +182,7 @@ def get_included_modules():
     """
     def clean_nukescripts():
         """Import the correct module for nukescripts."""
-        nukescripts_path = Options.path / 'nukescripts'
+        nukescripts_path = Settings.path / 'nukescripts'
         for file in nukescripts_path.glob('*.py'):
             with open(file, 'r+', encoding='utf-8') as f:
                 content = f.read()
@@ -194,7 +195,7 @@ def get_included_modules():
     def clean_init():
         """Clean nuke_internal __init__."""
         nuke_internal_init = os.path.join(
-            Options.path, 'nuke_internal', '__init__.py')
+            Settings.path, 'nuke_internal', '__init__.py')
 
         with open(nuke_internal_init, 'r') as file:
             contents = re.finditer(r'(^(from|#).+)', file.read(), re.M)
@@ -209,17 +210,15 @@ def get_included_modules():
             src = os.path.join(path, module)
             if os.path.exists(src):
                 print(f'Internal module copied: {module}')
-                destination = Options.path / module if module == 'nuke_internal' else STUBS_PATH / module
+                destination = Settings.path / module if module == 'nuke_internal' else STUBS_PATH / module
                 copytree(src, str(destination), dirs_exist_ok=True)
 
     clean_init()
     clean_nukescripts()
 
 
-def log_unguessed(name, arg, guarg):
-    pass
-
-    # print("➡ name :", name, arg, guarg)
+def log_unguessed(_type, name, value):
+    print(f'\tUngussed data. Type: {_type} - Name: {name} - Value: {value}')
 
 
 def indented_docs(obj: object) -> str:
@@ -240,7 +239,7 @@ def is_valid_object(obj):
     """
     try:
         # check if return could be a callable object eg. a class
-        callable(getattr(Options.module, obj))
+        callable(getattr(Settings.module, obj))
     except AttributeError as err:
         # if is not then check if is a valid object
         try:
@@ -429,6 +428,57 @@ class ArgsParser:
         return ', '.join(args)
 
 
+class ReturnExtractor:
+    def __init__(self, header_obj):
+        self.header_obj = header_obj
+
+    @staticmethod
+    def _guess_type(_return):
+        return GuessType(_return).auto_guess(exclude='optional')
+
+    def get_return(self) -> str:
+        """Parse the return value from the docs if any."""
+        try:
+            # search for everything after `->` if any
+            _return = re.search(r'(?<=> ).+', self.header_obj.docs).group()
+
+            # clean the extra last dot
+            _return = re.sub(r'\.$', '',  _return)
+        except AttributeError:
+            # doc had no -> return annotation so try guessing based on doc arg
+            _return = self.header_obj.return_argument
+            return self._guess_type(_return) if _return else 'None'
+
+        # a list of object that should not be valid even if nuke this that are
+        not_valid = ['name']
+
+        if is_valid_object(_return) and _return not in not_valid:
+            return _return
+
+        if not Settings.guess_type:
+            return 'Any'
+
+        guessed_type = self._guess_type(_return)
+
+        if guessed_type:
+            return guessed_type
+
+        log_unguessed('Returns', self.header_obj.obj.__name__, _return)
+        return 'Any'
+
+    @staticmethod
+    def _is_return_callable(_return: str) -> str:
+        """Check if return is not Any, None, True, or has a ].
+
+        If return match is made then the return will have a parenthesis: type()
+        """
+        return _return if re.search(r'(Any|None|True|])', _return) else f'{_return}()'
+
+    def extract(self) -> str:
+        """Extract function return from documentation."""
+        return indent(f'return {self._is_return_callable(self.get_return())}', ' ' * 4)
+
+
 class FunctionObject:
     def __init__(self, obj, fallback_name, is_class):
         """Init method of the FunctionObject.
@@ -480,10 +530,11 @@ class FunctionObject:
         args_parser = ArgsParser(fn_header, self.docs_arguments)
         args_parser.fix_args()
 
-        if not Options.guess_type:
-            return args_parser.fn_header
-
-        return args_parser.guess_data_type()
+        return (
+            args_parser.guess_data_type()
+            if Settings.guess_type
+            else args_parser.fn_header
+        )
 
     @property
     def return_(self):
@@ -491,20 +542,6 @@ class FunctionObject:
 
 
 class FnHeaderExtractor:
-    """Extract the function header.
-
-    The method will try to get the function signature by calling inspect.
-    If it fails will fallback on parsing the documentation for a line `xyz()`.
-    If it fails again will create a simple function header msg(*args, **kwargs).
-
-    If `is_class` is True, then will insert the argument `self`.
-
-    Args:
-        obj (object): object to be parsed from the inspect module.
-
-    Returns:
-        str: stringified function definition header: "def xyz():"
-    """
 
     def __init__(self, header_obj: FunctionObject):
         self.header_obj = header_obj
@@ -514,8 +551,6 @@ class FnHeaderExtractor:
 
         self.obj_docs = header_obj.docs
         self.is_class = header_obj.is_class
-
-        self.header = None
 
     def extract(self) -> str:
         """Extract function header from initial object."""
@@ -546,6 +581,20 @@ class FnHeaderExtractor:
             return self.simple_header()
 
     def _header_constructor(self):
+        """Extract the function header.
+
+        The method will try to get the function signature by calling inspect.
+        If it fails will fallback on parsing the documentation for a line `xyz()`.
+        If it fails again will create a simple function header msg(*args, **kwargs).
+
+        If `is_class` is True, then will insert the argument `self`.
+
+        Args:
+            obj (object): object to be parsed from the inspect module.
+
+        Returns:
+            str: stringified function definition header: "def xyz():"
+        """
         try:
             # Built in methods will always fail
             return f'def {self.obj_name}{inspect.signature(self.obj)}:'
@@ -577,62 +626,6 @@ class FnHeaderExtractor:
         return self.simple_header()
 
 
-class ReturnExtractor:
-    def __init__(self, header_obj: FunctionObject):
-        self.header_obj = header_obj
-
-    @staticmethod
-    def _guess_type(_return):
-        return GuessType(_return).auto_guess(exclude='optional')
-
-    def get_return(self) -> str:
-        """Parse the return value from the docs if any."""
-        try:
-            # search for everything after `->` if any
-            _return = re.search(r'(?<=> ).+', self.header_obj.docs).group()
-
-            # clean the extra last dot
-            _return = re.sub(r'\.$', '',  _return)
-        except AttributeError:
-            # doc had no -> return annotation so try guessing based on doc arg
-            _return = self.header_obj.return_argument
-            if _return:
-                return self._guess_type(_return)
-            return 'None'
-
-        # a list of object that should not be valid even if nuke this that are
-        not_valid = ['name']
-
-        if is_valid_object(_return) and _return not in not_valid:
-            return _return
-
-        if not Options.guess_type:
-            return 'Any'
-
-        guessed_type = self._guess_type(_return)
-
-        if guessed_type:
-            return guessed_type
-
-        log_unguessed('Returns', self.header_obj.obj.__name__, _return)
-        return 'Any'
-
-    @staticmethod
-    def _is_return_callable(_return: str) -> str:
-        """Check if return is not Any, None, True, or has a ].
-
-        If return match is made then the return will have a parenthesis: type()
-        """
-        if re.search(r'(Any|None|True|])', _return):
-            return _return
-        return f'{_return}()'
-
-    def extract(self) -> str:
-        """Extract function return from documentation."""
-        _return = self._is_return_callable(self.get_return())
-        return indent(f'return {_return}', ' ' * 4)
-
-
 def func_constructor(header_obj: FunctionObject, _id) -> str:
     """Construct the function body.
 
@@ -643,13 +636,9 @@ def func_constructor(header_obj: FunctionObject, _id) -> str:
         [type]: string representation of the function body.
     """
 
-    func_header = header_obj.header
-    func_doc = indented_docs(header_obj.obj)
-    func_return = header_obj.return_
+    func_header, func_return = manual_mods(_id, header_obj.header, header_obj.return_)
 
-    func_header, func_return = manual_mods(_id, func_header, func_return)
-
-    return f'{func_header}\n{func_doc}\n{func_return}\n\n'
+    return f'{func_header}\n{indented_docs(header_obj.obj)}\n{func_return}\n\n'
 
 
 class ClassExtractor:
@@ -659,7 +648,7 @@ class ClassExtractor:
         self.class_parent = self.obj.__base__.__name__
 
     def write(self):
-        with open(Options.path / 'classes' / f'{self.class_name}.py', 'w') as file:
+        with open(Settings.path / 'classes' / f'{self.class_name}.py', 'w') as file:
             file.write(self._class_file())
 
     def _class_file(self):
@@ -736,13 +725,13 @@ def parse_modules():
         {}
         """).format(constants, builtin).strip()
         print('Generating __init__.py')
-        with open(Options.path / '__init__.py', 'w') as file:
+        with open(Settings.path / '__init__.py', 'w') as file:
             file.write(init_file)
 
     def write_class_imports(class_imports):
         """Create an init file with all the classes imports."""
         print('Generating class imports.')
-        with open(Options.path / 'classes' / '__init__.py', 'w') as file:
+        with open(Settings.path / 'classes' / '__init__.py', 'w') as file:
             file.write(class_imports)
 
     builtin = ''
@@ -750,18 +739,18 @@ def parse_modules():
     class_imports = ''
 
     print('Start extraction...')
-    for attr in dir(Options.module):
-        obj = getattr(Options.module, attr)
+    for attr in dir(Settings.module):
+        obj = getattr(Settings.module, attr)
 
         if inspect.isclass(obj):
+            print('Class:', attr)
             class_imports += f'from .{attr} import {attr}\n'
             ClassExtractor(obj).write()
-            print('Class:', attr)
 
         elif inspect.isbuiltin(obj):
+            print('Built-in method:', attr)
             builtin += func_constructor(FunctionObject(obj, attr, False),
                                         '__init__')
-            print('Built-in method:', attr)
 
         elif attr.isupper():
             print('Constants:', attr)
@@ -779,8 +768,8 @@ def generate_nuke_stubs():
     """Generate stubs for the `nuke` module."""
     path = STUBS_PATH / 'nuke'
 
-    Options.module = nuke
-    Options.path = path
+    Settings.module = nuke
+    Settings.path = path
     os.makedirs(path / 'classes', exist_ok=True)
 
     parse_modules()
@@ -794,15 +783,15 @@ def get_hiero():
     hiero = site_packages / 'hiero'
     if hiero.exists():
         print('Hiero module copied')
-        copytree(str(hiero), str(Options.path.parent), dirs_exist_ok=True)
+        copytree(str(hiero), str(Settings.path.parent), dirs_exist_ok=True)
 
 
 def todo_generate_hiero_stubs():
     # TODO: Not ready yet
     path = STUBS_PATH / 'hiero' / 'core'
 
-    Options.module = hiero.core
-    Options.path = path
+    Settings.module = hiero.core
+    Settings.path = path
     os.makedirs(path / 'classes', exist_ok=True)
 
     get_hiero()
