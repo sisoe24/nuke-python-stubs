@@ -124,7 +124,7 @@ class Knob(object):
         """
         return None
 
-    def setFlag(self, f):
+    def setFlag(self, f: Any):
         """
         self.setFlag(f) -> None.
         Logical OR of the argument and existing knob flags.
@@ -133,7 +133,7 @@ class Knob(object):
         """
         return None
 
-    def getFlag(self, f):
+    def getFlag(self, f: Any):
         """
         self.getFlag(f) -> Bool.
         Returns whether the input flag is set.
@@ -142,7 +142,7 @@ class Knob(object):
         """
         return bool()
 
-    def clearFlag(self, f):
+    def clearFlag(self, f: Any):
         """
         self.clearFlag(f) -> None.
         Clear flag.

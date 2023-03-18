@@ -60,7 +60,7 @@ class Group(Node):
         """
         return str()
 
-    def run(self, callable):
+    def run(self, callable: Any):
         """
         self.run(callable) -> Result of callable.
         Execute in the context of node. All names are evaluated relative to this object.

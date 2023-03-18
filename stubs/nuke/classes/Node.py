@@ -187,7 +187,7 @@ class Node(object):
         """
         return Number()
 
-    def metadata(self, key: str = None, time: Number = None, view=None):
+    def metadata(self, key: str = None, time: Number = None, view: Any = None):
         """
         self.metadata(key, time, view) -> value or dict
         Return the metadata item for key on this node at current output context, or at optional time and view.
@@ -339,7 +339,7 @@ class Node(object):
         """
         return Number()
 
-    def setCustomIcon(self, image: str, scale: Number = None, offsetX=None, offsetY=None):
+    def setCustomIcon(self, image: str, scale: Number = None, offsetX: Any = None, offsetY: Any = None):
         """
         self.setCustomIcon(image, scale, offsetX, offsetY) -> bool.
         Set a custom icon for the node.
@@ -650,7 +650,7 @@ class Node(object):
         """
         return list()
 
-    def dependencies(self, what=None):
+    def dependencies(self, what: Any):
         """
         self.dependencies(what) -> List of nodes.
 
@@ -669,7 +669,7 @@ class Node(object):
         """
         return [Node]
 
-    def dependent(self, what=None, forceEvaluate: bool = None):
+    def dependent(self, what: Any, forceEvaluate: bool):
         """
         self.dependent(what, forceEvaluate) -> List of nodes.
 

@@ -17,7 +17,7 @@ class ViewerProcess(object):
         """
         return None
 
-    def register(self, name: str, call, args, kwargs=None):
+    def register(self, name: str, call: Any, args: Any, kwargs: Any = None):
         """
         nuke.ViewerProcess.register(name, call, args, kwargs) -> None.
 

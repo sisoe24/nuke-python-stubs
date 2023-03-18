@@ -38,7 +38,7 @@ class Keyer_Knob(Array_Knob):
         """
         return str()
 
-    def value(self, outputCtx, n: int):
+    def value(self, outputCtx: Any, n: int):
         """
         self.value(outputCtx, n) -> float
 

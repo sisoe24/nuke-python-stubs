@@ -29,7 +29,7 @@ class String_Knob(Knob):
         """
         return None
 
-    def getText(self, oc=None):
+    def getText(self, oc: Any = None):
         """
         self.getText(oc) -> string
 
@@ -50,7 +50,7 @@ class String_Knob(Knob):
         """
         return None
 
-    def value(self, oc=None):
+    def value(self, oc: Any = None):
         """
         self.value(oc) -> str
 
@@ -60,7 +60,7 @@ class String_Knob(Knob):
         """
         return str()
 
-    def value(self, oc=None):
+    def value(self, oc: Any = None):
         """
         self.value(oc) -> str
 
@@ -81,7 +81,7 @@ class String_Knob(Knob):
         """
         return None
 
-    def splitView(self, view=None):
+    def splitView(self, view: Any = None):
         """
         self.splitView(view) -> None.
         Split the view away from the current knob value.
@@ -90,7 +90,7 @@ class String_Knob(Knob):
         """
         return None
 
-    def unsplitView(self, view=None):
+    def unsplitView(self, view: Any = None):
         """
         self.unsplitView(view) -> None.
         Unsplit the view so that it shares a value with other views.

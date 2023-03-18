@@ -181,7 +181,7 @@ class AnimationCurve(object):
         """
         return str()
 
-    def changeInterpolation(self, keys: Iterable, type):
+    def changeInterpolation(self, keys: Iterable, type: Any):
         """
         self.changeInterpolation(keys, type) -> None.
         Change interpolation (and extrapolation) type for the keys.
