@@ -656,32 +656,6 @@ class ClassExtractor:
 
 def parse_modules():
     """Parse the nuke object from Nuke python interpret."""
-    def write_init(constants: str, builtin: str):
-        """Create an init file with all the constants and built in methods."""
-
-        init_file = dedent("""
-        '''Stubs generated automatically from Nuke's internal interpreter.'''
-        from numbers import Number
-        from typing import *
-
-        from .classes import *
-        from .nuke_internal import *
-
-        # Constants
-        {}
-
-        # Built-in methods
-        {}
-        """).format(constants, builtin).strip()
-        print('Generating __init__.py')
-        with open(Settings.path / '__init__.py', 'w') as file:
-            file.write(init_file)
-
-    def write_class_imports(class_imports):
-        """Create an init file with all the classes imports."""
-        print('Generating class imports.')
-        with open(Settings.path / 'classes' / '__init__.py', 'w') as file:
-            file.write(class_imports)
 
     builtin = ''
     constants = ''
@@ -708,9 +682,8 @@ def parse_modules():
         elif attr == 'env':
             constants += f"env = {repr({k: '' for k, _ in obj.items()})}"
 
-    write_init(constants, builtin)
-    write_class_imports(class_imports)
     print('Extraction completed.')
+    return builtin, constants, class_imports
 
 
 def unknown(_type, name, value):
@@ -774,8 +747,31 @@ def generate_nuke_stubs():
     Settings.path = path
     os.makedirs(path / 'classes', exist_ok=True)
 
-    parse_modules()
     get_included_modules()
+
+    builtin, constants, class_imports = parse_modules()
+
+    init_file = dedent("""
+    '''Stubs generated automatically from Nuke's internal interpreter.'''
+    from numbers import Number
+    from typing import *
+
+    from .classes import *
+    from .nuke_internal import *
+
+    # Constants
+    {}
+
+    # Built-in methods
+    {}
+    """).format(constants, builtin).strip()
+    print('Generating __init__.py')
+    with open(Settings.path / '__init__.py', 'w') as file:
+        file.write(init_file)
+
+    print('Generating class imports.')
+    with open(Settings.path / 'classes' / '__init__.py', 'w') as file:
+        file.write(class_imports)
 
 
 def get_hiero():
