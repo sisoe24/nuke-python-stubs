@@ -658,19 +658,12 @@ class ClassExtractor:
         self.class_name = self.obj.__name__
         self.class_parent = self.obj.__base__.__name__
 
-        self.class_file = None
-
-    def init(self):
-        self._setup_class_file()
-        self._write_class_file()
-
-    def _write_class_file(self):
-        """Create class file"""
+    def write(self):
         with open(Options.path / 'classes' / f'{self.class_name}.py', 'w') as file:
-            file.write(self.class_file)
+            file.write(self._class_file())
 
-    def _setup_class_file(self):
-        self.class_file = dedent("""
+    def _class_file(self):
+        return dedent("""
         from numbers import Number
         from typing import *
 
@@ -678,15 +671,13 @@ class ClassExtractor:
         from . import *
 
         {}
-        """).format(self._setup_class_content()).strip()
-
-    def _setup_class_content(self) -> str:
-        """Setup class file text content: header, docs and body."""
-        class_header = f'class {self.class_name}({self.class_parent}):'
-        class_doc = indented_docs(self.obj)
-        class_body = self._get_class_methods()
-
-        return f'{class_header}\n{class_doc}\n{class_body}'
+        {}
+        {}
+        """).format(
+            f'class {self.class_name}({self.class_parent}):',
+            indented_docs(self.obj),
+            self._get_class_methods()
+        ).strip()
 
     def _get_class_methods(self) -> str:
         """Extract class methods."""
@@ -728,7 +719,7 @@ class ClassExtractor:
 def parse_modules():
     """Parse the nuke object from Nuke python interpret."""
     def write_init(constants: str, builtin: str):
-        """Create a init file will all the constants and built in methods."""
+        """Create an init file with all the constants and built in methods."""
 
         init_file = dedent("""
         '''Stubs generated automatically from Nuke's internal interpreter.'''
@@ -749,7 +740,7 @@ def parse_modules():
             file.write(init_file)
 
     def write_class_imports(class_imports):
-        """Create a init file with all the classes imports."""
+        """Create an init file with all the classes imports."""
         print('Generating class imports.')
         with open(Options.path / 'classes' / '__init__.py', 'w') as file:
             file.write(class_imports)
@@ -764,7 +755,7 @@ def parse_modules():
 
         if inspect.isclass(obj):
             class_imports += f'from .{attr} import {attr}\n'
-            ClassExtractor(obj).init()
+            ClassExtractor(obj).write()
             print('Class:', attr)
 
         elif inspect.isbuiltin(obj):
@@ -785,6 +776,7 @@ def parse_modules():
 
 
 def generate_nuke_stubs():
+    """Generate stubs for the `nuke` module."""
     path = STUBS_PATH / 'nuke'
 
     Options.module = nuke
