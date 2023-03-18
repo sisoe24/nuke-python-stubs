@@ -25,6 +25,8 @@ class Settings:
     log = False
 
 
+CLASSES = [f.replace('.py', '') for f in os.listdir('stubs/nuke/classes')]
+
 # the first key is the name of the file,
 # for each file you can change the function header or the function return
 MANUAL_CHANGES = {
@@ -175,50 +177,6 @@ def manual_mods(filename, func_header, func_return):
     return func_header, func_return
 
 
-def get_included_modules():
-    """Get included modules inside plugins path.
-
-    - nukescripts
-    - nuke_internal
-    - ocionuke
-    """
-    def clean_nukescripts():
-        """Import the correct module for nukescripts."""
-        nukescripts_path = Settings.path / 'nukescripts'
-        for file in nukescripts_path.glob('*.py'):
-            with open(file, 'r+', encoding='utf-8') as f:
-                content = f.read()
-                sub = re.sub('import nuke_internal as nuke',
-                             'import nuke', content)
-                f.seek(0)
-                f.write(sub)
-                f.truncate()
-
-    def clean_init():
-        """Clean nuke_internal __init__."""
-        nuke_internal_init = os.path.join(
-            Settings.path, 'nuke_internal', '__init__.py')
-
-        with open(nuke_internal_init, 'r') as file:
-            contents = re.finditer(r'(^(from|#).+)', file.read(), re.M)
-
-        with open(nuke_internal_init, 'w') as file:
-            file.seek(0)
-            for i in contents:
-                file.write(i.group(1) + '\n')
-
-    for path in nuke.pluginPath():
-        for module in ('nuke_internal', 'nukescripts', 'ocionuke'):
-            src = os.path.join(path, module)
-            if os.path.exists(src):
-                # print(f'Internal module copied: {module}')
-                destination = Settings.path / module if module == 'nuke_internal' else STUBS_PATH / module
-                copytree(src, str(destination), dirs_exist_ok=True)
-
-    clean_init()
-    clean_nukescripts()
-
-
 def indented_docs(obj: object) -> str:
     """Return the indent version of the docs."""
     return indent(f'"""\n{get_docs(obj)}\n"""', ' ' * 4)
@@ -270,6 +228,7 @@ class GuessType:
         'Any': r'value',
         'Node': r'^(?:(a|the)\s)?node',
         'Knob': r'^(?:(a|the)\s)?knob',
+        'Callable': 'callable',
         'None': 'None'
     }
 
@@ -286,30 +245,25 @@ class GuessType:
         Args:
             exclude (list): Optional list to exclude matches.
         """
-        for _type, pattern in self.types_match.items():
-            if exclude and _type in exclude:
+
+        for match_type, pattern in self.types_match.items():
+            if exclude and match_type in exclude:
                 continue
 
             match = self._re_search(pattern)
             if match:
 
-                if _type == 'union':
+                if match_type == 'union':
                     return self.is_union(match)
 
-                if _type == 'optional':
+                if match_type == 'optional':
                     return self.is_optional(match)
 
-                return _type
+                return match_type
 
-        return 'Any'
-
-    def is_type(self, _type: str) -> Union[str, None]:
-        """Check if string matches argument.
-
-        Args:
-            _type (str): type to check for.
-        """
-        return self._re_search(self.types_match[_type])
+        return next(
+            (x for x in CLASSES if re.search(r'\b' + x + r'\b', self.string)), 'Any'
+        )
 
     def is_union(self, match: re.Match) -> str:
         """Deal with Union arguments; int or str.
@@ -766,6 +720,50 @@ def unknown(_type, name, value):
 def log(*args, **kwargs):
     if Settings.log:
         print(*args, **kwargs)
+
+
+def get_included_modules():
+    """Get included modules inside plugins path.
+
+    - nukescripts
+    - nuke_internal
+    - ocionuke
+    """
+    def clean_nukescripts():
+        """Import the correct module for nukescripts."""
+        nukescripts_path = Settings.path / 'nukescripts'
+        for file in nukescripts_path.glob('*.py'):
+            with open(file, 'r+', encoding='utf-8') as f:
+                content = f.read()
+                sub = re.sub('import nuke_internal as nuke',
+                             'import nuke', content)
+                f.seek(0)
+                f.write(sub)
+                f.truncate()
+
+    def clean_init():
+        """Clean nuke_internal __init__."""
+        nuke_internal_init = os.path.join(
+            Settings.path, 'nuke_internal', '__init__.py')
+
+        with open(nuke_internal_init, 'r') as file:
+            contents = re.finditer(r'(^(from|#).+)', file.read(), re.M)
+
+        with open(nuke_internal_init, 'w') as file:
+            file.seek(0)
+            for i in contents:
+                file.write(i.group(1) + '\n')
+
+    for path in nuke.pluginPath():
+        for module in ('nuke_internal', 'nukescripts', 'ocionuke'):
+            src = os.path.join(path, module)
+            if os.path.exists(src):
+                # print(f'Internal module copied: {module}')
+                destination = Settings.path / module if module == 'nuke_internal' else STUBS_PATH / module
+                copytree(src, str(destination), dirs_exist_ok=True)
+
+    clean_init()
+    clean_nukescripts()
 
 
 def generate_nuke_stubs():
