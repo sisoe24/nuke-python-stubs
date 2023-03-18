@@ -6,6 +6,7 @@ import pathlib
 from shutil import copytree
 from typing import Match, Tuple, Union, Optional
 from textwrap import dedent, indent
+from collections import namedtuple
 
 import nuke
 import hiero
@@ -683,7 +684,8 @@ def parse_modules():
             constants += f"env = {repr({k: '' for k, _ in obj.items()})}"
 
     print('Extraction completed.')
-    return builtin, constants, class_imports
+    StubsData = namedtuple('StubsData', ['builtin', 'constants', 'class_imports'])
+    return StubsData(builtin, constants, class_imports)
 
 
 def unknown(_type, name, value):
@@ -749,6 +751,51 @@ def generate_nuke_stubs():
 
     get_included_modules()
 
+    stubs_data = parse_modules()
+
+    init_file = dedent("""
+    '''Stubs generated automatically from Nuke's internal interpreter.'''
+    from numbers import Number
+    from typing import *
+
+    from .classes import *
+    from .nuke_internal import *
+
+    # Constants
+    {}
+
+    # Built-in methods
+    {}
+    """).format(stubs_data.constants, stubs_data.builtin).strip()
+    print('Generating __init__.py')
+    with open(Settings.path / '__init__.py', 'w') as file:
+        file.write(init_file)
+
+    print('Generating class imports.')
+    with open(Settings.path / 'classes' / '__init__.py', 'w') as file:
+        file.write(stubs_data.class_imports)
+
+
+def get_hiero():
+    # Hack: add Hiero api
+    import PySide2
+    site_packages = pathlib.Path(PySide2.__file__).parent.parent
+    hiero = site_packages / 'hiero'
+    if hiero.exists():
+        print('Hiero module copied')
+        copytree(str(hiero), str(Settings.path.parent), dirs_exist_ok=True)
+
+
+def todo_generate_hiero_stubs():
+    # TODO: Not ready yet
+    path = STUBS_PATH / 'hiero' / 'core'
+
+    Settings.module = hiero.core
+    Settings.log = True
+    Settings.path = path
+    os.makedirs(path / 'classes', exist_ok=True)
+
+    get_hiero()
     builtin, constants, class_imports = parse_modules()
 
     init_file = dedent("""
@@ -772,29 +819,6 @@ def generate_nuke_stubs():
     print('Generating class imports.')
     with open(Settings.path / 'classes' / '__init__.py', 'w') as file:
         file.write(class_imports)
-
-
-def get_hiero():
-    # Hack: add Hiero api
-    import PySide2
-    site_packages = pathlib.Path(PySide2.__file__).parent.parent
-    hiero = site_packages / 'hiero'
-    if hiero.exists():
-        print('Hiero module copied')
-        copytree(str(hiero), str(Settings.path.parent), dirs_exist_ok=True)
-
-
-def todo_generate_hiero_stubs():
-    # TODO: Not ready yet
-    path = STUBS_PATH / 'hiero' / 'core'
-
-    Settings.module = hiero.core
-    Settings.log = True
-    Settings.path = path
-    os.makedirs(path / 'classes', exist_ok=True)
-
-    get_hiero()
-    parse_modules()
 
 
 generate_nuke_stubs()
