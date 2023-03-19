@@ -20,7 +20,7 @@ class AudioTrack(TrackBase):
         """
         Return repr(self).
         """
-        return object()
+        return None
 
     def __setattr__(self, name, value, ):
         """
@@ -71,7 +71,7 @@ class AudioTrack(TrackBase):
         @param tag: the hiero.core.Tag to add to the audio track
         @return: hiero.core.Tag object
         """
-        return core.Tag()
+        return Tag()
 
     def addTrackItem(self, *args, **kwargs):
         """
@@ -85,7 +85,7 @@ class AudioTrack(TrackBase):
         @param position: int; insert position. Do not specify if clip is a TrackItem.
         @return: hiero.core.TrackItem object
         """
-        return Number()
+        return TrackItem()
 
     def clone(self, *args, **kwargs):
         """
@@ -104,7 +104,7 @@ class AudioTrack(TrackBase):
 
         @return: hiero.core.AudioTrack object
         """
-        return object()
+        return AudioTrack()
 
     def createTrackItem(self, name: str) -> core.TrackItem:
         """
@@ -113,7 +113,7 @@ class AudioTrack(TrackBase):
         @param name: the name of the new track item
         @return: hiero.core.TrackItem object
         """
-        return core.TrackItem()
+        return TrackItem()
 
     def items(self) -> object:
         """
@@ -121,7 +121,7 @@ class AudioTrack(TrackBase):
 
         @return: tuple of hiero.core.TrackItem objects
         """
-        return object()
+        return tuple()
 
     def parent(self) -> object:
         """
@@ -129,7 +129,7 @@ class AudioTrack(TrackBase):
 
         @return: hiero.core.Sequence object
         """
-        return object()
+        return Iterable()
 
     def removeTag(self, tag: core.Tag) -> None:
         """

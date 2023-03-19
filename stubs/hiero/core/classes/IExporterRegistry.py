@@ -59,7 +59,7 @@ class IExporterRegistry(Object):
         @param: hiero.core.TaskPreset instance for duplication
         @return: new hiero.core.TaskPreset instance
         """
-        return core.ITaskPreset()
+        return TaskPreset()
 
     def copyAndAddProjectPreset(self, preset: core.ITaskPreset, project: core.Project) -> core.ITaskPreset:
         """
@@ -69,7 +69,7 @@ class IExporterRegistry(Object):
         @param: hiero.core.Project to which cloned preset should be assigned
         @return: new hiero.core.TaskPreset instance
         """
-        return core.ITaskPreset()
+        return TaskPreset()
 
     def createAndAddProcessorPreset(self, preset: str, typetemplate: core.ITaskPreset) -> core.ITaskPreset:
         """
@@ -78,7 +78,7 @@ class IExporterRegistry(Object):
         @param: string - Preset name
         @return: hiero.core.TaskPreset instance as type template
         """
-        return core.ITaskPreset()
+        return TaskPreset()
 
     def createAndExecuteProcessor(self, preset: core.ITaskPreset, items: typing.List*args, submissionName: str) -> None:
         """
@@ -137,7 +137,7 @@ class IExporterRegistry(Object):
         @param: string - Preset XML
         @return: hiero.core.TaskPreset instance
         """
-        return core.ITaskPreset()
+        return TaskPreset()
 
     def presetToPrettyXml(self, preset: core.ITaskPreset) -> str:
         """

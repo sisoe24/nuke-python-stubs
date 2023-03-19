@@ -49,13 +49,13 @@ class EffectTrackItem(SubTrackItem):
         """
         self.clone() -> returns a deep copy of this object but, unlike copy(), this clones the underlying Nuke node so that the knobs are shared.
         """
-        return object()
+        return Any
 
     def copy(self) -> object:
         """
         self.copy() -> returns a deep copy of this object.
         """
-        return object()
+        return Any
 
     def declone(self) -> None:
         """
@@ -77,7 +77,7 @@ class EffectTrackItem(SubTrackItem):
 
         @return: The effect node.
         """
-        return object()
+        return Node()
 
     def toString(self) -> str:
         """

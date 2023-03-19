@@ -52,7 +52,7 @@ class RenderTaskPreset(TaskPresetBase):
         """
         return None
 
-    def _getCodecSettingsDefault(self, codecType: Any, codecKey: Any):
+    def _getCodecSettingsDefault(self, codecType, codecKey):
         """
         Search codec settings for a matching codecKey and return a default value.
 

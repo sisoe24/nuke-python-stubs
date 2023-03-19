@@ -20,7 +20,7 @@ class DataCollection(Object):
         """
         Return repr(self).
         """
-        return object()
+        return None
 
     def __init__(self,  *args, **kwargs):
         """
@@ -52,7 +52,7 @@ class DataCollection(Object):
 
         @return: dict
         """
-        return object()
+        return dict()
 
     def hasKey(self, key: str) -> bool:
         """
@@ -61,7 +61,7 @@ class DataCollection(Object):
         @param key: the key to look up
         @return: True or False
         """
-        return bool()
+        return Union[True, False]
 
     def keys(self) -> typing.List*args:
         """
@@ -77,7 +77,7 @@ class DataCollection(Object):
 
         @return: True or False
         """
-        return bool()
+        return Union[True, False]
 
     def setValue(self, key: str, value: str) -> None:
         """

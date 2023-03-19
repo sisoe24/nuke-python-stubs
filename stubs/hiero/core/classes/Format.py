@@ -34,7 +34,7 @@ class Format(Object):
         """
         Return repr(self).
         """
-        return object()
+        return None
 
     def __lt__(self, value, ):
         """
@@ -98,7 +98,7 @@ class Format(Object):
 
         @return: tuple
         """
-        return object()
+        return tuple()
 
     def height(self) -> int:
         """
@@ -114,7 +114,7 @@ class Format(Object):
 
         @return: True or False
         """
-        return bool()
+        return Union[True, False]
 
     def name(self) -> str:
         """
@@ -138,7 +138,7 @@ class Format(Object):
 
         @return: tuple
         """
-        return object()
+        return tuple()
 
     def toString(self) -> str:
         """
@@ -169,4 +169,4 @@ class Format(Object):
         self.addToNukeScript(self, script, to_type) -> adds a Reformat node matching this Format to the specified script and returns the nuke node object.     @param script: Nuke script object to add nodes to, or None to just generate and return the node.   @param resize: Type of resize (use constants from nuke.ReformatNode, default is kResizeWidth).   @parm black_outside: Value for the black_outside knob.   @return: hiero.core.nuke.ReformatNode object
 
         """
-        return Any
+        return None

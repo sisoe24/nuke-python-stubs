@@ -55,7 +55,7 @@ class TrackItem(TrackItemBase):
         @param tag: tag object
         @return: a hiero.core.Tag object
         """
-        return core.Tag()
+        return Tag()
 
     def currentVersion(self) -> core.Version:
         """
@@ -63,7 +63,7 @@ class TrackItem(TrackItemBase):
 
         @return: hiero.core.Version object
         """
-        return core.Version()
+        return Version()
 
     def eventNumber(self) -> int:
         """
@@ -79,7 +79,7 @@ class TrackItem(TrackItemBase):
 
         @return: string
         """
-        return list()
+        return str()
 
     def handleInLength(self) -> int:
         """
@@ -119,7 +119,7 @@ class TrackItem(TrackItemBase):
 
         @return: hiero.core.Transition object
         """
-        return core.Transition()
+        return Transition()
 
     def isMediaPresent(self) -> bool:
         """
@@ -127,7 +127,7 @@ class TrackItem(TrackItemBase):
 
         @return: True or False
         """
-        return bool()
+        return Union[True, False]
 
     def link(self, trackItem: core.TrackItem) -> None:
         """
@@ -144,7 +144,7 @@ class TrackItem(TrackItemBase):
         @param time: time to map
         @return: mapped time
         """
-        return float()
+        return Number()
 
     def mapTimelineToSource(self, time: float) -> float:
         """
@@ -153,7 +153,7 @@ class TrackItem(TrackItemBase):
         @param time: time to map
         @return: mapped time
         """
-        return float()
+        return Number()
 
     def maxVersion(self) -> core.Version:
         """
@@ -161,7 +161,7 @@ class TrackItem(TrackItemBase):
 
         @return: hiero.core.Version object
         """
-        return core.Version()
+        return Version()
 
     def mediaType(self) -> core.TrackItem.MediaType:
         """
@@ -177,7 +177,7 @@ class TrackItem(TrackItemBase):
 
         @return: hiero.core.DataCollection object
         """
-        return core.DataCollection()
+        return DataCollection()
 
     def minVersion(self) -> core.Version:
         """
@@ -185,7 +185,7 @@ class TrackItem(TrackItemBase):
 
         @return: hiero.core.Version object
         """
-        return core.Version()
+        return Version()
 
     def name(self) -> str:
         """
@@ -201,7 +201,7 @@ class TrackItem(TrackItemBase):
 
         @return: hiero.core.Version object
         """
-        return core.Version()
+        return Version()
 
     def numVersions(self) -> int:
         """
@@ -217,7 +217,7 @@ class TrackItem(TrackItemBase):
 
         @return: hiero.core.Transition object
         """
-        return core.Transition()
+        return Transition()
 
     def playbackSpeed(self) -> float:
         """
@@ -233,7 +233,7 @@ class TrackItem(TrackItemBase):
 
         @return: hiero.core.Version object
         """
-        return core.Version()
+        return Version()
 
     def reconnectMedia(self, path: str) -> None:
         """
@@ -249,7 +249,7 @@ class TrackItem(TrackItemBase):
 
         @return: hiero.core.ReformatState object
         """
-        return core.ReformatState()
+        return ReformatState()
 
     def removeTag(self, tag: core.Tag) -> None:
         """
@@ -320,7 +320,7 @@ class TrackItem(TrackItemBase):
         @param trackIndex: optional track index, for instance if you are adding an audio Clip and want to use its second audio track
         @return: the hiero.core.Clip object passed in
         """
-        return TrackItem()
+        return Clip()
 
     def setSourceIn(self, arg__1: float) -> None:
         """
@@ -390,7 +390,7 @@ class TrackItem(TrackItemBase):
 
         @return: a hiero.core.Clip object, a hiero.core.Sequence object or a hiero.core.MediaSource object
         """
-        return object()
+        return Iterable()
 
     def sourceDuration(self) -> float:
         """
@@ -410,7 +410,7 @@ class TrackItem(TrackItemBase):
 
         @return: frame
         """
-        return float()
+        return int()
 
     def sourceMediaColourTransform(self) -> str:
         """
@@ -428,7 +428,7 @@ class TrackItem(TrackItemBase):
 
         @return: frame
         """
-        return float()
+        return int()
 
     def tags(self) -> object:
         """
@@ -436,7 +436,7 @@ class TrackItem(TrackItemBase):
 
         @return: tuple of hiero.core.Tag objects
         """
-        return object()
+        return tuple()
 
     def thumbnail(self, index: int = 0, layer: str = Default(self, Hiero.Python.String)) -> PySide2.QtGui.QImage:
         """

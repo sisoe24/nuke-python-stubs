@@ -20,7 +20,7 @@ class Bin(Object):
         """
         Return repr(self).
         """
-        return object()
+        return None
 
     def __hash__(self, ):
         """
@@ -127,7 +127,7 @@ class Bin(Object):
 
         @return: tuple of hiero.core.Bin objects
         """
-        return object()
+        return tuple()
 
     def clips(self) -> object:
         """
@@ -135,7 +135,7 @@ class Bin(Object):
 
         @return: tuple of hiero.core.BinItem objects
         """
-        return object()
+        return tuple()
 
     def color(self) -> PySide2.QtGui.QColor:
         """
@@ -173,7 +173,7 @@ class Bin(Object):
         """
 
         """
-        return object()
+        return None
 
     def importFolder(self, arg__1: str) -> core.Bin:
         """
@@ -193,7 +193,7 @@ class Bin(Object):
         @param frameRate: optional float argument specifying the frame rate for the created sequence
         @return: hiero.core.Sequence the created sequence
         """
-        return core.Sequence()
+        return Iterable()
 
     def isNull(self) -> bool:
         """
@@ -201,7 +201,7 @@ class Bin(Object):
 
         @return: True or False
         """
-        return bool()
+        return Union[True, False]
 
     def items(self, *args, **kwargs):
         """
@@ -210,7 +210,7 @@ class Bin(Object):
         @param typeFilter: combination of hiero.core.Bin.ItemType flags
         @return: tuple of hiero.core.BinItem objects
         """
-        return Any
+        return tuple()
 
     def moveItem(self, *args, **kwargs):
         """
@@ -224,7 +224,7 @@ class Bin(Object):
 
         @return: True or False
         """
-        return str()
+        return Union[True, False]
 
     def numChildren(self) -> int:
         """
@@ -240,7 +240,7 @@ class Bin(Object):
 
         @return: hiero.core.Bin object
         """
-        return object()
+        return Bin()
 
     def project(self) -> object:
         """
@@ -248,7 +248,7 @@ class Bin(Object):
 
         @return: hiero.core.Project object
         """
-        return object()
+        return Project()
 
     def reconnectMedia(self, path: str) -> None:
         """
@@ -272,7 +272,7 @@ class Bin(Object):
 
         @return: tuple of hiero.core.BinItem objects
         """
-        return object()
+        return tuple()
 
     def serialize(self) -> str:
         """

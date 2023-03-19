@@ -22,7 +22,7 @@ class Project(Object):
         """
         Return repr(self).
         """
-        return object()
+        return None
 
     def __hash__(self, ):
         """
@@ -104,7 +104,7 @@ class Project(Object):
         @param color: optional; string in the format #RGB, #RRGGBB, #RRRGGGBBB, #RRRRGGGGBBBB or a name from the list of colors defined in the list of SVG color keyword names
         @return: True or False
         """
-        return bool()
+        return Union[True, False]
 
     def autosave(self) -> None:
         """
@@ -121,7 +121,7 @@ class Project(Object):
 
         @return: UndoGroup object
         """
-        return core.UndoGroup()
+        return UndoGroup()
 
     def buildTrackName(self) -> str:
         """
@@ -147,7 +147,7 @@ class Project(Object):
 
         @return: hiero.core.Bin object
         """
-        return core.Bin()
+        return Bin()
 
     def close(self) -> None:
         """
@@ -169,7 +169,7 @@ class Project(Object):
 
         @return: True or False
         """
-        return bool()
+        return Union[True, False]
 
     def deleteView(self, name: str) -> bool:
         """
@@ -177,7 +177,7 @@ class Project(Object):
         @param name: string
         @return: True or False
         """
-        return bool()
+        return Union[True, False]
 
     def editable(self) -> bool:
         """
@@ -185,7 +185,7 @@ class Project(Object):
 
         @return: True or False
         """
-        return bool()
+        return Union[True, False]
 
     def endUndo(self) -> None:
         """
@@ -207,13 +207,13 @@ class Project(Object):
 
         @return: TimeBase
         """
-        return core.TimeBase()
+        return Number()
 
     def guid(self) -> object:
         """
 
         """
-        return object()
+        return None
 
     def heroView(self) -> str:
         """
@@ -236,7 +236,7 @@ class Project(Object):
 
         @return: True or False
         """
-        return bool()
+        return Union[True, False]
 
     def isRestricted(self) -> bool:
         """
@@ -244,7 +244,7 @@ class Project(Object):
 
         @return: True or False
         """
-        return bool()
+        return Union[True, False]
 
     def lutSetting16Bit(self) -> str:
         """
@@ -354,7 +354,7 @@ class Project(Object):
 
         @return: Format
         """
-        return core.Format()
+        return Format()
 
     def path(self) -> str:
         """
@@ -369,7 +369,7 @@ class Project(Object):
         posterFrameSettings() -> Get the poster frame settings used for clips added to the project.
         @return: tuple of poster frame setting and custom frame number
         """
-        return int()
+        return tuple()
 
     def projectDirectory(self, expanded: bool) -> str:
         """
@@ -577,7 +577,7 @@ class Project(Object):
 
         @return: Time
         """
-        return int()
+        return Number()
 
     def tagsBin(self) -> core.Bin:
         """
@@ -585,7 +585,7 @@ class Project(Object):
 
         @return: hiero.core.Bin object
         """
-        return core.Bin()
+        return Bin()
 
     def timeDisplayFormat(self) -> core.Timecode.DisplayType:
         """
@@ -664,7 +664,7 @@ class Project(Object):
         viewsAndColors() -> Returns a list of this project's views and corresponding colors.
         @return: list of (str, PySide2.QtGui.QColor) tuples
         """
-        return list()
+        return tuple()
 
     def __copy__(self,) -> None:
         """

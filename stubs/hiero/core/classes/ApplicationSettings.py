@@ -38,7 +38,7 @@ class ApplicationSettings(Object):
         @param defaultValue: the value to return if this setting hasn't been saved before. Does not save the value to the default.
         @return: string
         """
-        return bool()
+        return str()
 
     def setBoolValue(self, key: str, value: bool) -> None:
         """
@@ -49,7 +49,7 @@ class ApplicationSettings(Object):
         """
         return None
 
-    def setValueOverride(self, name, value: Any):
+    def setValueOverride(self, name, value):
         """
         self.setValue(key, value) -> saves the value with the application's settings using the key
 

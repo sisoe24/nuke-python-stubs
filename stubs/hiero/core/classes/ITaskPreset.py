@@ -60,7 +60,7 @@ class ITaskPreset(Object):
 
         @return: True or False
         """
-        return bool()
+        return Union[True, False]
 
     def markedForDeletion(self) -> bool:
         """
@@ -134,7 +134,7 @@ class ITaskPreset(Object):
 
         @return: True or False
         """
-        return bool()
+        return Union[True, False]
 
     ItemTypes: Any = None
     kSequence: Any = None

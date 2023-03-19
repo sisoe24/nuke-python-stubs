@@ -20,7 +20,7 @@ class Transition(TrackItemBase):
         """
         Return repr(self).
         """
-        return object()
+        return None
 
     def __setattr__(self, name, value, ):
         """
@@ -58,7 +58,7 @@ class Transition(TrackItemBase):
 
         @return: alignment type (hiero.core.Transition.Alignments)
         """
-        return core.Transition.Alignments()
+        return Transition()
 
     def createAudioCrossfadeTransition(self, *args, **kwargs):
         """
@@ -204,13 +204,13 @@ class Transition(TrackItemBase):
 
         @return: nuke.Node
         """
-        return object()
+        return Node()
 
     def guid(self) -> object:
         """
 
         """
-        return object()
+        return None
 
     def inTrackItem(self) -> core.TrackItem:
         """
@@ -234,7 +234,7 @@ class Transition(TrackItemBase):
 
         @return: hiero.core.AudioTrack or hiero.core.VideoTrack object
         """
-        return object()
+        return AudioTrack()
 
     def project(self) -> object:
         """
@@ -242,7 +242,7 @@ class Transition(TrackItemBase):
 
         @return: hiero.core.Project object
         """
-        return object()
+        return Project()
 
     def setAlignment(self, alignment: core.Transition.Alignments) -> None:
         """

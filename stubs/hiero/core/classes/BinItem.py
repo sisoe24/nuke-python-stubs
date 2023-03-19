@@ -20,7 +20,7 @@ class BinItem(Object):
         """
         Return repr(self).
         """
-        return object()
+        return None
 
     def __hash__(self, ):
         """
@@ -100,7 +100,7 @@ class BinItem(Object):
 
         @return: hiero.core.Clip or hiero.core.Sequence object
         """
-        return None
+        return Iterable()
 
     def activeVersion(self) -> core.Version:
         """
@@ -108,7 +108,7 @@ class BinItem(Object):
 
         @return: hiero.core.Version object
         """
-        return core.Version()
+        return Version()
 
     def addSnapshot(self, *args, **kwargs):
         """
@@ -119,7 +119,7 @@ class BinItem(Object):
         @param sequence: a hiero.core.Sequence object to create the Snapshot from
         @return: hiero.core.Snapshot object
         """
-        return Any
+        return Snapshot()
 
     def addVersion(self, version: core.Version, position: int = -1) -> core.Version:
         """
@@ -129,7 +129,7 @@ class BinItem(Object):
         @param position: position at which the new Version must be inserted, if -1 then insert at end
         @return: hiero.core.Version object
         """
-        return core.Version()
+        return Version()
 
     def clone(self, *args, **kwargs):
         """
@@ -156,7 +156,7 @@ class BinItem(Object):
 
         @return: hiero.core.BinItem object
         """
-        return object()
+        return BinItem()
 
     def createClipVersion(self, *args, **knobs):
         """
@@ -187,7 +187,7 @@ class BinItem(Object):
         """
 
         """
-        return object()
+        return None
 
     def hasVersion(self, *args, **kwargs):
         """
@@ -196,7 +196,7 @@ class BinItem(Object):
         @param index: index of the version to check for
         @return: True or False
         """
-        return Any
+        return Union[True, False]
 
     def isClipVersion(self, clip: core.Clip) -> bool:
         """
@@ -205,7 +205,7 @@ class BinItem(Object):
         @param clip: Clip to look for
         @return: True or False
         """
-        return bool()
+        return Union[True, False]
 
     def isNull(self) -> bool:
         """
@@ -213,7 +213,7 @@ class BinItem(Object):
 
         @return: True or False
         """
-        return bool()
+        return Union[True, False]
 
     def items(self) -> object:
         """
@@ -221,7 +221,7 @@ class BinItem(Object):
 
         @return: tuple of hiero.core.Version objects
         """
-        return object()
+        return tuple()
 
     def maxVersion(self) -> core.Version:
         """
@@ -229,7 +229,7 @@ class BinItem(Object):
 
         @return: hiero.core.Version object
         """
-        return core.Version()
+        return Version()
 
     def minVersion(self) -> core.Version:
         """
@@ -237,7 +237,7 @@ class BinItem(Object):
 
         @return: hiero.core.Version object
         """
-        return core.Version()
+        return Version()
 
     def name(self) -> str:
         """
@@ -253,7 +253,7 @@ class BinItem(Object):
 
         @return: hiero.core.Version object
         """
-        return core.Version()
+        return Version()
 
     def numSnapshots(self) -> int:
         """
@@ -277,7 +277,7 @@ class BinItem(Object):
 
         @return: hiero.core.Bin object
         """
-        return object()
+        return Bin()
 
     def prevVersion(self) -> core.Version:
         """
@@ -285,7 +285,7 @@ class BinItem(Object):
 
         @return: hiero.core.Version object
         """
-        return core.Version()
+        return Version()
 
     def project(self) -> object:
         """
@@ -293,7 +293,7 @@ class BinItem(Object):
 
         @return: heiro.core.Project object
         """
-        return object()
+        return Project()
 
     def removeVersion(self, version: core.Version) -> None:
         """
@@ -322,7 +322,7 @@ class BinItem(Object):
         self.setActiveVersion(version) -> sets the active version to the version parameter.
         @return: hiero.core.Version object
         """
-        return core.Version()
+        return Version()
 
     def setActiveVersionIndex(self, *args, **kwargs):
         """
@@ -356,7 +356,7 @@ class BinItem(Object):
 
         @return: tuple of hiero.core.Snapshot objects
         """
-        return object()
+        return tuple()
 
     def syncName(self, name: str) -> None:
         """
@@ -379,7 +379,7 @@ class BinItem(Object):
         @param index: index of the version to get
         @return: hiero.core.Version object
         """
-        return int()
+        return Version()
 
     def versionDown(self, *args, **kwargs):
         """

@@ -54,7 +54,7 @@ class AnnotationElement(Object):
 
         @return: tuple of (red, green, blue, alpha)
         """
-        return object()
+        return tuple()
 
     def isNull(self) -> bool:
         """

@@ -21,7 +21,7 @@ class Tag(Object):
         """
         Return repr(self).
         """
-        return object()
+        return None
 
     def __lt__(self, value, ):
         """
@@ -114,7 +114,7 @@ class Tag(Object):
 
         @return: True or False
         """
-        return bool()
+        return Union[True, False]
 
     def metadata(self) -> core.DataCollection:
         """
@@ -122,7 +122,7 @@ class Tag(Object):
 
         @return: hiero.core.DataCollection object
         """
-        return core.DataCollection()
+        return DataCollection()
 
     def name(self) -> str:
         """
@@ -152,7 +152,7 @@ class Tag(Object):
         """
 
         """
-        return object()
+        return None
 
     def project(self) -> object:
         """
@@ -160,7 +160,7 @@ class Tag(Object):
 
         @return: hiero.core.Project object
         """
-        return object()
+        return Project()
 
     def serialize(self) -> str:
         """

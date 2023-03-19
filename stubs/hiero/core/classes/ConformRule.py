@@ -20,7 +20,7 @@ class ConformRule(Object):
         """
         Return repr(self).
         """
-        return object()
+        return None
 
     def __setattr__(self, name, value, ):
         """
@@ -64,7 +64,7 @@ class ConformRule(Object):
 
         @return: True or False; default implementation returns True
         """
-        return bool()
+        return Union[True, False]
 
     def compare(self, media: core.DataCollection, candidateMedia: core.DataCollection) -> bool:
         """

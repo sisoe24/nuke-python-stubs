@@ -671,14 +671,14 @@ def LUTs(*args, **kwargs):
 
     @return: tuple of strings
     """
-    return Any
+    return tuple()
 
 
 def ViewerProcessNameFromDisplayTransformName(arg__1: str) -> object:
     """
 
     """
-    return object()
+    return None
 
 
 def addPathRemap(arg__1: str, arg__2: str, arg__3: str) -> None:
@@ -721,7 +721,7 @@ def conformer() -> object:
 
     @return: a hiero.core.Conformer object
     """
-    return object()
+    return Conformer()
 
 
 def formats() -> object:
@@ -730,21 +730,21 @@ def formats() -> object:
 
     @return: tuple of hiero.core.Format objects
     """
-    return object()
+    return tuple()
 
 
 def getFilenameList(arg__1: str, arg__2: bool, arg__3: bool, arg__4: bool, arg__5: bool) -> object:
     """
     Deprecated. Do not use. Use hiero.core.filenameList() instead
     """
-    return object()
+    return None
 
 
 def getLibraryDirectory(arg__1: str) -> object:
     """
     hiero.core.getLibraryDirectory(subdirectory) -> deprecated; use hiero.core.libraryDirectory() instead.
     """
-    return object()
+    return Any
 
 
 def getPluginPath():
@@ -765,21 +765,21 @@ def isHieroPlayer() -> object:
     """
 
     """
-    return object()
+    return None
 
 
 def isIndie() -> object:
     """
 
     """
-    return object()
+    return None
 
 
 def isNC() -> object:
     """
 
     """
-    return object()
+    return None
 
 
 def libraryDirectory(arg__1: str) -> object:
@@ -789,7 +789,7 @@ def libraryDirectory(arg__1: str) -> object:
     @param subdirectory: path to append to the .nuke directory
     @return: string
     """
-    return object()
+    return str()
 
 
 def newProject(*args, **kwargs):
@@ -798,7 +798,7 @@ def newProject(*args, **kwargs):
 
     @return: hiero.core.Project object
     """
-    return str()
+    return Project()
 
 
 def openProject(path: str, flags: int = 'Hiero.Python.Project.kProjectOpenNoFlags') -> core.Project:
@@ -818,7 +818,7 @@ def pathRemappings() -> object:
 
     @return: a list of path remappings each containing the mapping for (windows, osx, linux)
     """
-    return object()
+    return list()
 
 
 def pluginPath():
@@ -827,7 +827,7 @@ def pluginPath():
 
     @return: tuple of strings
     """
-    return Any
+    return tuple()
 
 
 def project(arg__1: str) -> object:
@@ -836,7 +836,7 @@ def project(arg__1: str) -> object:
 
     @return: hiero.core.Project object
     """
-    return object()
+    return Project()
 
 
 def projects(*args, **kwargs):
@@ -847,7 +847,7 @@ def projects(*args, **kwargs):
 
     @return: tuple of hiero.core.Project objects
     """
-    return Project()
+    return tuple()
 
 
 def quit(*args, **kwargs):
@@ -866,14 +866,14 @@ def redo() -> object:
     """
 
     """
-    return object()
+    return None
 
 
 def redoSize() -> object:
     """
 
     """
-    return object()
+    return None
 
 
 def remapPath(arg__1: str) -> object:
@@ -883,7 +883,7 @@ def remapPath(arg__1: str) -> object:
     @param path: string path to apply the path remapping rules to
     @return: string
     """
-    return object()
+    return str()
 
 
 def stopScriptAndQuit(*args, **kwargs):
@@ -897,11 +897,11 @@ def undo() -> object:
     """
 
     """
-    return object()
+    return None
 
 
 def undoSize() -> object:
     """
 
     """
-    return object()
+    return None

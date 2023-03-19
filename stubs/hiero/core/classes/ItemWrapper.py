@@ -40,7 +40,7 @@ class ItemWrapper(Object):
 
         @return: hiero.core.Bin object
         """
-        return core.Bin()
+        return Bin()
 
     def binItem(self) -> core.BinItem:
         """
@@ -48,7 +48,7 @@ class ItemWrapper(Object):
 
         @return: hiero.core.BinItem object
         """
-        return core.BinItem()
+        return BinItem()
 
     def clip(self) -> core.Clip:
         """
@@ -56,7 +56,7 @@ class ItemWrapper(Object):
 
         @return: hiero.core.Clip object
         """
-        return core.Clip()
+        return Clip()
 
     def ignore(self) -> bool:
         """
@@ -70,7 +70,7 @@ class ItemWrapper(Object):
 
         @return: True or False
         """
-        return bool()
+        return Union[True, False]
 
     def item(self) -> object:
         """
@@ -78,7 +78,7 @@ class ItemWrapper(Object):
 
         @return: hiero.core.Sequence | hiero.core.Clip | hiero.core.TrackItemBase | hiero.core.BinItem
         """
-        return object()
+        return Iterable()
 
     def name(self) -> str:
         """
@@ -94,7 +94,7 @@ class ItemWrapper(Object):
 
         @return: hiero.core.Bin object
         """
-        return core.Bin()
+        return Bin()
 
     def sequence(self) -> core.Sequence:
         """
@@ -102,7 +102,7 @@ class ItemWrapper(Object):
 
         @return: hiero.core.Sequence object
         """
-        return core.Sequence()
+        return Iterable()
 
     def setTrackItemsForViews(self, items: typing.List*args) -> None:
         """
@@ -116,7 +116,7 @@ class ItemWrapper(Object):
 
         @return: hiero.core.TrackItem object
         """
-        return core.TrackItemBase()
+        return TrackItem()
 
     def trackItemsForViews(self) -> typing.List*args:
         """

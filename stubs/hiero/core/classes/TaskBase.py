@@ -239,7 +239,7 @@ class TaskBase(ITask):
 
         @return: (in_handle, out_handle) tuple
         """
-        return Iterable()
+        return tuple()
 
     def availableOutputHandles(self):
         """

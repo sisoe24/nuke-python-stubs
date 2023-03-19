@@ -34,7 +34,7 @@ class FlipbookManager(Object):
 
         @return: hiero.core.Clip
         """
-        return core.Clip()
+        return Clip()
 
     def createEffectItem(self, effectType: bytes, timelineIn: int, timelineOut: int) -> core.EffectTrackItem:
         """
@@ -43,7 +43,7 @@ class FlipbookManager(Object):
 
         @return: hiero.core.EffectTrackItem
         """
-        return core.EffectTrackItem()
+        return EffectTrackItem()
 
     def createSequence(self, frameRate: core.TimeBase, outputFormat: core.Format, views: typing.List*args) -> core.Sequence:
         """
@@ -51,7 +51,7 @@ class FlipbookManager(Object):
 
         @return: hiero.core.Sequence
         """
-        return core.Sequence()
+        return Iterable()
 
     def setWorkingSpace(self, workingSpace: str) -> None:
         """

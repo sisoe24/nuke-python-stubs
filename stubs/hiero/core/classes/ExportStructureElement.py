@@ -34,7 +34,7 @@ class ExportStructureElement(IExportStructureElement):
         """
         return None
 
-    def setPresetType(self, identifier: Any):
+    def setPresetType(self, identifier):
         """
         setPresetType(self, identifier)
 

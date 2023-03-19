@@ -18,7 +18,7 @@ class TaskPresetBase(ITaskPreset):
     and shared between the Task and TaskUI user interface component
     """
 
-    def __init__(self, parentType: Any, presetName: str):
+    def __init__(self, parentType, presetName: str):
         """
         Initialise Exporter Preset Base Class
 

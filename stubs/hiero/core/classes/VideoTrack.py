@@ -20,7 +20,7 @@ class VideoTrack(TrackBase):
         """
         Return repr(self).
         """
-        return object()
+        return None
 
     def __setattr__(self, name, value, ):
         """
@@ -94,7 +94,7 @@ class VideoTrack(TrackBase):
         @param position: int; insert position. Do not specify if clip is a TrackItem.
         @return: hiero.core.TrackItem object
         """
-        return Number()
+        return TrackItem()
 
     def blendMode(self) -> str:
         """
@@ -121,7 +121,7 @@ class VideoTrack(TrackBase):
 
         @return: hiero.core.VideoTrack object
         """
-        return object()
+        return VideoTrack()
 
     def createTrackItem(self, name: str) -> core.TrackItem:
         """
@@ -130,7 +130,7 @@ class VideoTrack(TrackBase):
         @param name: the name of the new track item
         @return: hiero.core.TrackItem object
         """
-        return core.TrackItem()
+        return TrackItem()
 
     def isBlendEnabled(self) -> bool:
         """
@@ -138,7 +138,7 @@ class VideoTrack(TrackBase):
 
         @return: True or False
         """
-        return bool()
+        return Union[True, False]
 
     def isBlendMaskEnabled(self) -> bool:
         """
@@ -146,7 +146,7 @@ class VideoTrack(TrackBase):
 
         @return: True or False
         """
-        return bool()
+        return Union[True, False]
 
     def items(self) -> object:
         """
@@ -154,7 +154,7 @@ class VideoTrack(TrackBase):
 
         @return: tuple of hiero.core.TrackItem objects
         """
-        return object()
+        return tuple()
 
     def parent(self) -> object:
         """
@@ -162,7 +162,7 @@ class VideoTrack(TrackBase):
 
         @return: hiero.core.Sequence object
         """
-        return object()
+        return Iterable()
 
     def removeSubTrackItem(self, subTrackItem: core.SubTrackItem, option: int = 'eRemoveLinkedItems') -> None:
         """
@@ -230,7 +230,7 @@ class VideoTrack(TrackBase):
 
         @return: tuple of hiero.core.SubTrackItem sub-class objects
         """
-        return object()
+        return tuple()
 
     def toString(self) -> str:
         """

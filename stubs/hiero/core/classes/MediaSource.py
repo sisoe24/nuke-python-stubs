@@ -20,7 +20,7 @@ class MediaSource(Object):
         """
         Return repr(self).
         """
-        return object()
+        return None
 
     def __hash__(self, ):
         """
@@ -127,7 +127,7 @@ class MediaSource(Object):
 
         @return: tuple of hiero.core.MediaFileInfo objects
         """
-        return list()
+        return tuple()
 
     def filename(self) -> str:
         """
@@ -190,7 +190,7 @@ class MediaSource(Object):
 
         @return: True or False
         """
-        return bool()
+        return Union[True, False]
 
     def hasVideo(self) -> bool:
         """
@@ -198,7 +198,7 @@ class MediaSource(Object):
 
         @return: True or False
         """
-        return bool()
+        return Union[True, False]
 
     def height(self) -> int:
         """
@@ -214,7 +214,7 @@ class MediaSource(Object):
 
         @return: True or False
         """
-        return bool()
+        return Union[True, False]
 
     def isNull(self) -> bool:
         """
@@ -222,7 +222,7 @@ class MediaSource(Object):
 
         @return: True or False
         """
-        return bool()
+        return Union[True, False]
 
     def isOffline(self) -> bool:
         """
@@ -230,7 +230,7 @@ class MediaSource(Object):
 
         @return: True or False
         """
-        return bool()
+        return Union[True, False]
 
     def metadata(self) -> core.DataCollection:
         """
@@ -275,7 +275,7 @@ class MediaSource(Object):
 
         @return: True or False
         """
-        return bool()
+        return Union[True, False]
 
     def startTime(self) -> int:
         """

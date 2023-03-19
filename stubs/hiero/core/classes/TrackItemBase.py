@@ -20,7 +20,7 @@ class TrackItemBase(Object):
         """
         Return repr(self).
         """
-        return object()
+        return None
 
     def __hash__(self, ):
         """
@@ -109,7 +109,7 @@ class TrackItemBase(Object):
         """
         self.copy() -> returns a deep copy of this object.
         """
-        return object()
+        return Any
 
     def duration(self) -> int:
         """
@@ -123,7 +123,7 @@ class TrackItemBase(Object):
         """
 
         """
-        return object()
+        return None
 
     def isEnabled(self) -> bool:
         """
@@ -131,7 +131,7 @@ class TrackItemBase(Object):
 
         @return: True or False
         """
-        return bool()
+        return Union[True, False]
 
     def isNull(self) -> bool:
         """
@@ -139,7 +139,7 @@ class TrackItemBase(Object):
 
         @return: True or False
         """
-        return bool()
+        return Union[True, False]
 
     def linkedItems(self) -> object:
         """
@@ -147,7 +147,7 @@ class TrackItemBase(Object):
 
         @return: tuple of linked items
         """
-        return object()
+        return tuple()
 
     def move(self, frames: int) -> None:
         """
@@ -186,19 +186,19 @@ class TrackItemBase(Object):
 
         @return: hiero.core.AudioTrack or hiero.core.VideoTrack object
         """
-        return object()
+        return AudioTrack()
 
     def parentSequence(self) -> object:
         """
 
         """
-        return object()
+        return None
 
     def parentTrack(self) -> object:
         """
 
         """
-        return object()
+        return None
 
     def project(self) -> object:
         """
@@ -206,7 +206,7 @@ class TrackItemBase(Object):
 
         @return: hiero.core.Project object
         """
-        return object()
+        return Project()
 
     def sequence(self) -> core.Sequence:
         """
@@ -214,7 +214,7 @@ class TrackItemBase(Object):
 
         @return: hiero.core.Project object
         """
-        return core.Sequence()
+        return Project()
 
     def setEnabled(self, enable: bool) -> None:
         """
@@ -222,7 +222,7 @@ class TrackItemBase(Object):
 
         @return: True or False
         """
-        return None
+        return Union[True, False]
 
     def setTimelineIn(self, time: int) -> None:
         """

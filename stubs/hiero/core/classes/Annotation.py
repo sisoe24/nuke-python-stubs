@@ -23,7 +23,7 @@ class Annotation(SubTrackItem):
         """
         Return repr(self).
         """
-        return object()
+        return None
 
     def __setattr__(self, name, value, ):
         """
@@ -70,7 +70,7 @@ class Annotation(SubTrackItem):
 
         @return: tuple of hiero.core.Element sub-class objects
         """
-        return object()
+        return tuple()
 
     def serialize(self) -> str:
         """

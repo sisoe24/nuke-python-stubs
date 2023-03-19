@@ -26,7 +26,7 @@ class Clip(SequenceBase):
         """
         Return repr(self).
         """
-        return object()
+        return None
 
     def __setattr__(self, name, value, ):
         """
@@ -65,7 +65,7 @@ class Clip(SequenceBase):
         @param tag: the tag object to add
         @return: hiero.core.Tag object
         """
-        return core.Tag()
+        return Tag()
 
     def addTagToRange(self, tag: core.Tag, inTime: int, outTime: int) -> core.Tag:
         """
@@ -76,7 +76,7 @@ class Clip(SequenceBase):
         @param outTime: to - time to add tag
         @return: hiero.core.Tag object
         """
-        return core.Tag()
+        return Tag()
 
     def clone(self, *args, **kwargs):
         """
@@ -95,7 +95,7 @@ class Clip(SequenceBase):
 
         @return: hiero.core.Clip object
         """
-        return object()
+        return Clip()
 
     def entityReference(self) -> str:
         """
@@ -111,13 +111,13 @@ class Clip(SequenceBase):
 
         @return: string
         """
-        return list()
+        return str()
 
     def guid(self) -> object:
         """
 
         """
-        return object()
+        return None
 
     def hasError(self) -> bool:
         """
@@ -155,7 +155,7 @@ class Clip(SequenceBase):
 
         @return: True or False
         """
-        return bool()
+        return Union[True, False]
 
     def localizationPolicy(self) -> core.Clip.LocalizationPolicy:
         """
@@ -187,7 +187,7 @@ class Clip(SequenceBase):
 
         @return: hiero.core.MediaSource object
         """
-        return core.MediaSource()
+        return MediaSource()
 
     def metadata(self) -> core.DataCollection:
         """
@@ -219,7 +219,7 @@ class Clip(SequenceBase):
 
         @return: nuke.Node
         """
-        return object()
+        return Node()
 
     def reconnectMedia(self, path: str) -> None:
         """
@@ -323,7 +323,7 @@ class Clip(SequenceBase):
         """
 
         """
-        return object()
+        return None
 
     def views(self) -> typing.List*args:
         """

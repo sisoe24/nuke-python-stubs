@@ -54,7 +54,7 @@ class AnnotationText(AnnotationElement):
 
         @return: The text box position and size in the form (x, y, width, height)
         """
-        return object()
+        return str()
 
     def fontPath(self) -> str:
         """
@@ -96,7 +96,7 @@ class AnnotationText(AnnotationElement):
 
         @return: The text's rotation angle.
         """
-        return float()
+        return str()
 
     def setBox(self, x: float, y: float, width: float, height: float) -> None:
         """

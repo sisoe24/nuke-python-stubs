@@ -20,7 +20,7 @@ class Snapshot(Object):
         """
         Return repr(self).
         """
-        return object()
+        return None
 
     def __init__(self,  *args, **kwargs):
         """
@@ -54,7 +54,7 @@ class Snapshot(Object):
 
         @return: True or False
         """
-        return bool()
+        return Union[True, False]
 
     def item(self) -> None:
         """
@@ -62,7 +62,7 @@ class Snapshot(Object):
 
         @return: hiero.core.Clip or hiero.core.Sequence object
         """
-        return None
+        return Iterable()
 
     def name(self) -> str:
         """
@@ -79,7 +79,7 @@ class Snapshot(Object):
         @param comment: string to set the comment to
         @return: string
         """
-        return None
+        return str()
 
     def toString(self) -> str:
         """

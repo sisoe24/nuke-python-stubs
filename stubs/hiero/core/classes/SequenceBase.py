@@ -95,7 +95,7 @@ class SequenceBase(Object):
         @param tag: the tag object to add
         @return: hiero.core.Tag object
         """
-        return core.Tag()
+        return Tag()
 
     def addTagToRange(self, tag: core.Tag, inTime: int, outTime: int) -> core.Tag:
         """
@@ -106,7 +106,7 @@ class SequenceBase(Object):
         @param outTime: the last time at which the tag is valid
         @return: hiero.core.Tag object
         """
-        return core.Tag()
+        return Tag()
 
     def binItem(self) -> core.BinItem:
         """
@@ -114,7 +114,7 @@ class SequenceBase(Object):
 
         @return: BinItem
         """
-        return core.BinItem()
+        return BinItem()
 
     def clearInTime(self) -> None:
         """
@@ -185,7 +185,7 @@ class SequenceBase(Object):
 
         @return: hiero.core.Format object
         """
-        return core.Format()
+        return Format()
 
     def framerate(self) -> core.TimeBase:
         """
@@ -193,7 +193,7 @@ class SequenceBase(Object):
 
         @return: hiero.core.TimeBase object
         """
-        return core.TimeBase()
+        return Number()
 
     def getAnnotationsTrack(self) -> core.VideoTrack:
         """
@@ -223,7 +223,7 @@ class SequenceBase(Object):
 
         @return: True or False
         """
-        return bool()
+        return Union[True, False]
 
     def metadata(self) -> core.DataCollection:
         """
@@ -231,7 +231,7 @@ class SequenceBase(Object):
 
         @return: hiero.core.DataCollection object
         """
-        return core.DataCollection()
+        return DataCollection()
 
     def name(self) -> str:
         """
@@ -261,7 +261,7 @@ class SequenceBase(Object):
 
         @return: hiero.core.Project object
         """
-        return object()
+        return Project()
 
     def rawView(self) -> str:
         """
@@ -384,7 +384,7 @@ class SequenceBase(Object):
         @param timecodeValue: string of the format "hh:mm:ss:ff"
         @param hasDropFrames: True if the timecode includes drop frames, False otherwise
         """
-        return Number()
+        return int()
 
     def softTrimsEnabled(self) -> bool:
         """
@@ -392,7 +392,7 @@ class SequenceBase(Object):
 
         @return: True or False
         """
-        return bool()
+        return Union[True, False]
 
     def softTrimsInTime(self) -> int:
         """
@@ -416,7 +416,7 @@ class SequenceBase(Object):
 
         @return: tuple of hiero.core.Tag objects
         """
-        return object()
+        return tuple()
 
     def thumbnail(self, index: int = 0, layer: str = Default(self, Hiero.Python.String)) -> PySide2.QtGui.QImage:
         """

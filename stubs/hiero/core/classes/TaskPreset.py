@@ -16,7 +16,7 @@ class TaskPreset(TaskPresetBase):
     Deprecated - Use TaskPresetBase
     """
 
-    def __init__(self, parentType: Any, presetName: str):
+    def __init__(self, parentType, presetName: str):
         """
         Initialise Exporter Preset Base Class
 

@@ -100,7 +100,7 @@ class TrackBase(Object):
         @param item: the hiero.core.TrackItem to add to this track
         @return: hiero.core.TrackItem object
         """
-        return core.TrackItem()
+        return TrackItem()
 
     def addTag(self, tag: core.Tag) -> core.Tag:
         """
@@ -109,7 +109,7 @@ class TrackBase(Object):
         @param tag: Tag object to apply to the track
         @return: a hiero.core.Tag object
         """
-        return core.Tag()
+        return Tag()
 
     def addTransition(self, transition: core.Transition) -> core.Transition:
         """
@@ -121,7 +121,7 @@ class TrackBase(Object):
         @param transition: the hiero.core.Transition to add to this track
         @return: a hiero.core.Transition object
         """
-        return core.Transition()
+        return Transition()
 
     def clearRange(self, start: int, end: int, ripple: bool) -> None:
         """
@@ -137,7 +137,7 @@ class TrackBase(Object):
         """
 
         """
-        return object()
+        return None
 
     def isEnabled(self) -> bool:
         """
@@ -145,7 +145,7 @@ class TrackBase(Object):
 
         @return: True or False
         """
-        return bool()
+        return Union[True, False]
 
     def isLocked(self) -> bool:
         """
@@ -153,7 +153,7 @@ class TrackBase(Object):
 
         @return: True or False
         """
-        return bool()
+        return Union[True, False]
 
     def isNull(self) -> bool:
         """
@@ -161,7 +161,7 @@ class TrackBase(Object):
 
         @return: True or False
         """
-        return bool()
+        return Union[True, False]
 
     def metadata(self) -> core.DataCollection:
         """
@@ -169,7 +169,7 @@ class TrackBase(Object):
 
         @return: hiero.core.DataCollection object
         """
-        return core.DataCollection()
+        return DataCollection()
 
     def name(self) -> str:
         """
@@ -201,7 +201,7 @@ class TrackBase(Object):
 
         @return: hiero.core.Project object
         """
-        return object()
+        return Project()
 
     def razorAt(self, *args, **kwargs):
         """
@@ -248,7 +248,7 @@ class TrackBase(Object):
 
         @return: True or False
         """
-        return None
+        return Union[True, False]
 
     def setName(self, name: str) -> None:
         """
@@ -264,7 +264,7 @@ class TrackBase(Object):
 
         @return: tuple of hiero.core.Tag objects
         """
-        return object()
+        return tuple()
 
     def toString(self) -> str:
         """
@@ -294,7 +294,7 @@ class TrackBase(Object):
 
         @return: tuple of hiero.core.Transition objects
         """
-        return object()
+        return tuple()
 
     def __copy__(self,) -> None:
         """

@@ -66,7 +66,7 @@ class AnnotationStroke(AnnotationElement):
 
         @return: tuple of 2 component tuples, each of the form (x, y)
         """
-        return object()
+        return tuple()
 
     def setLineWidth(self, lineWidth: float) -> None:
         """
@@ -80,7 +80,7 @@ class AnnotationStroke(AnnotationElement):
         The points must be specified as a list (not tuple) of 2d points, each point being a 2 component tuple of
         floats or integers, e.g. [(100, 200), (123.456, 300)].
         """
-        return None
+        return Any
 
     def toString(self) -> str:
         """

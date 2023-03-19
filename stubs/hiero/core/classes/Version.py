@@ -20,7 +20,7 @@ class Version(Object):
         """
         Return repr(self).
         """
-        return object()
+        return None
 
     def __hash__(self, ):
         """
@@ -86,7 +86,7 @@ class Version(Object):
         """
 
         """
-        return object()
+        return None
 
     def isHidden(self) -> bool:
         """
@@ -100,7 +100,7 @@ class Version(Object):
 
         @return: True or False
         """
-        return bool()
+        return Union[True, False]
 
     def item(self) -> None:
         """
@@ -108,7 +108,7 @@ class Version(Object):
 
         @return: hiero.core.Clip or hiero.core.Sequence object
         """
-        return None
+        return Iterable()
 
     def name(self) -> str:
         """
@@ -124,7 +124,7 @@ class Version(Object):
 
         @return: hiero.core.BinItem object
         """
-        return core.BinItem()
+        return BinItem()
 
     def serialize(self) -> str:
         """

@@ -22,7 +22,7 @@ class TimeBase(Object):
         """
         Return repr(self).
         """
-        return object()
+        return None
 
     def __lt__(self, value, ):
         """
@@ -165,7 +165,7 @@ class TimeBase(Object):
 
         @return: True or False
         """
-        return bool()
+        return Union[True, False]
 
     def isValid(self) -> bool:
         """
@@ -173,7 +173,7 @@ class TimeBase(Object):
 
         @return: True or False
         """
-        return bool()
+        return Union[True, False]
 
     def numerator(self) -> int:
         """
@@ -188,7 +188,7 @@ class TimeBase(Object):
 
         @return: True or False
         """
-        return bool()
+        return Union[True, False]
 
     def toFloat(self) -> float:
         """
@@ -212,7 +212,7 @@ class TimeBase(Object):
 
         @return: tuple of integers
         """
-        return int()
+        return tuple()
 
     def toRationalString(self) -> str:
         """

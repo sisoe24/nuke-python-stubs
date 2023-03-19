@@ -48,7 +48,7 @@ class UndoGroup(Object):
         """
         self.__exit__() -> Calls self.endUndo().  This allows usage in a with block to automatically end the undo.
         """
-        return None
+        return Any
 
     def beginUndo(self) -> None:
         """
