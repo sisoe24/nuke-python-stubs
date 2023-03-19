@@ -1,10 +1,9 @@
 import os
 import re
 import inspect
-import logging
 import pathlib
 from shutil import copytree
-from typing import Match, Tuple, Union, Optional
+from typing import Match, Union, Optional
 from textwrap import dedent, indent
 from collections import namedtuple
 
@@ -19,6 +18,7 @@ STUBS_PATH.mkdir(exist_ok=True)
 
 
 class Settings:
+    import_statement = ''
     module = None
     path = ''
     class_path = None
@@ -601,13 +601,14 @@ class ClassExtractor:
         from numbers import Number
         from typing import *
 
-        import nuke
+        {}
         from . import *
 
         {}
         {}
         {}
         """).format(
+            Settings.import_statement,
             f'class {self.class_name}({self.class_parent}):',
             get_docs(self.obj),
             self._get_class_methods()
@@ -643,10 +644,14 @@ class ClassExtractor:
                 class_body += f'{member} = {obj}\n'
                 continue
 
-            class_body += func_constructor(
-                FunctionObject(obj=obj, fallback_name=member, is_class=True),
-                self.class_name
-            )
+            if inspect.ismethoddescriptor(obj):
+                class_body += func_constructor(
+                    FunctionObject(obj=obj, fallback_name=member, is_class=True),
+                    self.class_name
+                )
+                continue
+
+            class_body += f'{member}: Any = None\n'
 
         return indent(class_body, ' ' * 4)
 
@@ -741,6 +746,7 @@ def generate_nuke_stubs():
     """Generate stubs for the `nuke` module."""
     path = STUBS_PATH / 'nuke'
 
+    Settings.import_statement = 'import nuke'
     Settings.module = nuke
     Settings.path = path
     os.makedirs(path / 'classes', exist_ok=True)
@@ -787,6 +793,7 @@ def todo_generate_hiero_stubs():
     path = STUBS_PATH / 'hiero' / 'core'
 
     Settings.module = hiero.core
+    Settings.import_statement = 'import core'
     # Settings.log = True
     Settings.path = path
     os.makedirs(path / 'classes', exist_ok=True)
