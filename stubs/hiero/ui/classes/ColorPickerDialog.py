@@ -52,7 +52,7 @@ class ColorPickerDialog(QDialog):
         """
         return None
 
-    finished = Signal()
     rejected = Signal()
+    finished = Signal()
     accepted = Signal()
     staticMetaObject: Any = None

@@ -206,11 +206,11 @@ class ExportStructureViewer(QWidget):
     Full: Any = None
     Limited: Any = None
     ReadOnly: Any = None
-    structureModified = Signal()
     selectionChanged = Signal()
-    kAddFolderToolTip = Adds a new directory to your export structure
-    kAddFileToolTip = Adds new file entry to the export structure
-    kRemoveToolTip = Deletes the selected file entry from the export structure
-    kStructurePathToolTip = This structure defines the path into which the exported content will be written. See the tokens listed within the tooltip to build unique paths for each item exported.
-    kStructureContentToolTip = The content written into the structure is defined by the export task selected here.
+    structureModified = Signal()
+    kAddFolderToolTip = 'Adds a new directory to your export structure'
+    kAddFileToolTip = 'Adds new file entry to the export structure'
+    kRemoveToolTip = 'Deletes the selected file entry from the export structure'
+    kStructurePathToolTip = 'This structure defines the path into which the exported content will be written. See the tokens listed within the tooltip to build unique paths for each item exported.'
+    kStructureContentToolTip = 'The content written into the structure is defined by the export task selected here.'
     staticMetaObject: Any = None
