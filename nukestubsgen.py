@@ -179,13 +179,8 @@ def manual_mods(filename, func_header, func_return):
 
 
 def get_docs(obj: object) -> str:
-    """Return object docs or empty string if there are none"""
-    return inspect.getdoc(obj) or ''
-
-
-def indented_docs(obj: object) -> str:
     """Return the indent version of the docs."""
-    return indent(f'"""\n{get_docs(obj)}\n"""', ' ' * 4)
+    return indent(f'"""\n{inspect.getdoc(obj) or ""}\n"""', ' ' * 4)
 
 
 def is_valid_object(obj):
@@ -457,7 +452,7 @@ class FunctionObject:
 
     @property
     def docs(self) -> str:
-        return get_docs(self.obj)
+        return inspect.getdoc(self._obj) or ''
 
     @property
     def docs_arguments(self) -> Union[dict, None]:
@@ -588,7 +583,7 @@ def func_constructor(header_obj: FunctionObject, _id) -> str:
 
     func_header, func_return = manual_mods(_id, header_obj.header, header_obj.return_)
 
-    return f'{func_header}\n{indented_docs(header_obj.obj)}\n{func_return}\n\n'
+    return f'{func_header}\n{get_docs(header_obj.obj)}\n{func_return}\n\n'
 
 
 class ClassExtractor:
@@ -614,7 +609,7 @@ class ClassExtractor:
         {}
         """).format(
             f'class {self.class_name}({self.class_parent}):',
-            indented_docs(self.obj),
+            get_docs(self.obj),
             self._get_class_methods()
         ).strip()
 
