@@ -2617,7 +2617,7 @@ def toolbar(name: str, create=True):
     return bool()
 
 
-def tprint(value, sep=' ', end='\', file=sys.stdout):
+def tprint(value, sep=' ', end='\n', file=sys.stdout):
     """
     tprint(value, ..., sep=' ', end='\', file=sys.stdout) -> None
 
