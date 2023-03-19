@@ -44,7 +44,7 @@ class FormatChooser(QComboBox):
         """
 
         """
-        return object()
+        return None
 
     def setCurrentFormat(self, arg__1: core.Format) -> None:
         """

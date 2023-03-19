@@ -36,7 +36,7 @@ class Player(Object):
 
         @return: True or False
         """
-        return bool()
+        return Union[True, False]
 
     def centerImage(self) -> None:
         """
@@ -50,7 +50,7 @@ class Player(Object):
 
         @return: hiero.ui.Player.Channels object
         """
-        return ui.Player.Channels()
+        return Player()
 
     def displayGain(self) -> float:
         """
@@ -74,7 +74,7 @@ class Player(Object):
 
         @return: sequence of foundry.ui.Drawing
         """
-        return object()
+        return Iterable()
 
     def ignorePixelAspectRatio(self) -> bool:
         """
@@ -82,7 +82,7 @@ class Player(Object):
 
         @return: True or False
         """
-        return bool()
+        return Union[True, False]
 
     def maskOverlay(self) -> object:
         """
@@ -90,7 +90,7 @@ class Player(Object):
 
         @return: foundry.ui.Drawing
         """
-        return object()
+        return Any
 
     def maskOverlayStyle(self) -> ui.Player.MaskOverlayStyle:
         """
@@ -98,7 +98,7 @@ class Player(Object):
 
         @return: hiero.ui.Player.MaskOverlayStyle
         """
-        return ui.Player.MaskOverlayStyle()
+        return Player()
 
     def pan(self, dx: float, dy: float) -> None:
         """
@@ -115,7 +115,7 @@ class Player(Object):
 
         @return: Player.ProxyResolution
         """
-        return ui.Player.ProxyResolution()
+        return Player()
 
     def rect(self) -> PySide2.QtCore.QRect:
         """
@@ -131,7 +131,7 @@ class Player(Object):
 
         @return: hiero.core.Clip object or hiero.core.Sequence object, depending on what is currently playing
         """
-        return Any
+        return Iterable()
 
     def setAlphaIsTransparent(self, alphaIsTransparent: bool) -> None:
         """
@@ -171,7 +171,7 @@ class Player(Object):
 
         @param guideOverlays: sequence of foundry.ui.Drawing
         """
-        return object()
+        return Any
 
     def setIgnorePixelAspectRatio(self, ignorePixelAspectRatio: bool) -> None:
         """
@@ -195,7 +195,7 @@ class Player(Object):
 
         @param aspect: foundry.ui.Drawing
         """
-        return object()
+        return Any
 
     def setMaskOverlayStyle(self, maskOverlayStyle: ui.Player.MaskOverlayStyle) -> None:
         """
@@ -249,7 +249,7 @@ class Player(Object):
 
         @return: float
         """
-        return Any
+        return float()
 
     def warningOverlay(self) -> ui.Player.WarningOverlay:
         """
@@ -257,7 +257,7 @@ class Player(Object):
 
         @return: One of the following enums: eWarningNone, eWarningExposure, eWarningPAL or eWarningNTSC
         """
-        return ui.Player.WarningOverlay()
+        return None
 
     def zoom(self) -> float:
         """

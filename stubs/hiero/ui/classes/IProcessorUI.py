@@ -68,7 +68,7 @@ class IProcessorUI(Object):
 
         @return: hiero.core.ITaskPreset
         """
-        return core.ITaskPreset()
+        return ITaskPreset()
 
     def refreshContent(self) -> None:
         """

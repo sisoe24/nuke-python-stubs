@@ -73,7 +73,7 @@ class ITaskUI(Object):
 
         @return: hiero.core.ITaskPreset
         """
-        return core.ITaskPreset()
+        return ITaskPreset()
 
     def setPreset(self, preset: core.ITaskPreset) -> None:
         """

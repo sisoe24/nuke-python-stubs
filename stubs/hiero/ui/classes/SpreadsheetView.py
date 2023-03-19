@@ -60,13 +60,13 @@ class SpreadsheetView(Object):
         """
 
         """
-        return object()
+        return None
 
     def sequence(self) -> object:
         """
 
         """
-        return object()
+        return None
 
     def setSelection(self, *args, **kwargs):
         """

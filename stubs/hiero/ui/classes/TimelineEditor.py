@@ -46,7 +46,7 @@ class TimelineEditor(Object):
 
         @return: tuple of TrackItem and Transition objects
         """
-        return object()
+        return tuple()
 
     def selectAll(self) -> None:
         """
@@ -70,7 +70,7 @@ class TimelineEditor(Object):
 
         @return: tuple of TrackItem and Transition objects
         """
-        return object()
+        return tuple()
 
     def sequence(self) -> object:
         """
@@ -78,7 +78,7 @@ class TimelineEditor(Object):
 
         @return: Sequence object
         """
-        return object()
+        return Iterable()
 
     def setSelection(self, *args, **kwargs):
         """

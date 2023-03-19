@@ -62,7 +62,7 @@ class Viewer(QObject):
 
         @return: a Viewer clip player's current channels
         """
-        return ui.Player.Channels()
+        return Viewer()
 
     def compareMode(self) -> ui.Viewer.CompareMode:
         """
@@ -70,7 +70,7 @@ class Viewer(QObject):
 
         @return: a Viewer.CompareMode object
         """
-        return ui.Viewer.CompareMode()
+        return Viewer()
 
     def currentLayerName(self) -> str:
         """
@@ -126,7 +126,7 @@ class Viewer(QObject):
 
         @return: the number of frames to skip or nudge
         """
-        return int()
+        return Number()
 
     def gain(self) -> float:
         """
@@ -134,7 +134,7 @@ class Viewer(QObject):
 
         @return: a Viewer clip player's gain value
         """
-        return float()
+        return Viewer()
 
     def gamma(self) -> float:
         """
@@ -142,7 +142,7 @@ class Viewer(QObject):
 
         @return: a Viewer clip player's gamma value
         """
-        return float()
+        return Viewer()
 
     def getAchievedFPS(self) -> float:
         """
@@ -198,7 +198,7 @@ class Viewer(QObject):
 
         @return: a Viewer.LayoutMode object
         """
-        return ui.Viewer.LayoutMode()
+        return Viewer()
 
     def maskOverlayName(self) -> str:
         """
@@ -254,7 +254,7 @@ class Viewer(QObject):
 
         @return: a Viewer.PlaybackMode object
         """
-        return ui.Viewer.PlaybackMode()
+        return Viewer()
 
     def playbackSpeed(self) -> int:
         """
@@ -269,7 +269,7 @@ class Viewer(QObject):
         @param index: integer index of the player to retrieve
         @return: hiero.ui.Player object
         """
-        return ui.Player()
+        return Player()
 
     def resumeCaching(self) -> None:
         """
@@ -495,7 +495,7 @@ class Viewer(QObject):
         @param indexOfPlayer: integer index of the player
         @return: TracksMask instance
         """
-        return ui.TracksMask()
+        return TracksMask()
 
     def view(self, viewIndex: int = 0) -> str:
         """

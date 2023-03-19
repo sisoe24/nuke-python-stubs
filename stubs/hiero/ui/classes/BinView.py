@@ -34,7 +34,7 @@ class BinView(Object):
 
         @return: tuple of hiero.core.BinItem objects
         """
-        return object()
+        return tuple()
 
     def selection(self) -> object:
         """
@@ -42,7 +42,7 @@ class BinView(Object):
 
         @return: tuple of hiero.core.BinItem objects
         """
-        return object()
+        return tuple()
 
     def window(self) -> PySide2.QtWidgets.QWidget:
         """
