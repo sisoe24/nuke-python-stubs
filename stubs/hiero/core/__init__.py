@@ -652,7 +652,6 @@ if 'exports' in env['Features']:
 
 # Constants
 GUI = True
-TYPE_CHECKING = False
 env = {'VersionDate': '', 'VersionMajor': '', 'VersionMinor': '', 'VersionRelease': '', 'VersionString': '',
        'VersionPhaseNumber': '', 'ProductName': '', 'ApplicationName': '', 'HomeDirectory': '', 'SystemMemory': '', 'Features': ''}
 # Built-in methods
