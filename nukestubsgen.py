@@ -8,7 +8,6 @@ from textwrap import dedent, indent
 from collections import namedtuple
 
 import nuke
-import hiero
 from hiero import ui, core
 
 # TODO: fix path
@@ -671,7 +670,7 @@ class ClassExtractor:
                     self.class_name
                 )
             else:
-                class_body += f'{member}: Any = {repr(obj)}\n'
+                class_body += f'{member}: Any = None\n'
 
         return indent(class_body, ' ' * 4)
 
@@ -800,60 +799,61 @@ def generate_nuke_stubs():
         file.write(stubs_data.classes)
 
 
-def get_hiero():
-    # Hack: add Hiero api
+def get_hiero_included_modules(path):
     import PySide2
     site_packages = pathlib.Path(PySide2.__file__).parent.parent
     hiero = site_packages / 'hiero'
     if hiero.exists():
         print('Hiero module copied')
-        copytree(str(hiero), str(StubsRuntimeSettings.path.parent), dirs_exist_ok=True)
+        copytree(str(hiero), str(path), dirs_exist_ok=True)
 
 
-def todo_generate_hiero_stubs():
-    path = STUBS_PATH / 'hiero' / 'ui'
+def generate_hiero_stubs():
 
-    # Settings.log = True
+    def generate_stubs(module, module_name, post_fixes):
+        imports_header = dedent('''
+        import ui
+        import core
+        import typing
+        import PySide2
+        from PySide2.QtWidgets import *
+        from PySide2.QtCore import Signal
+        ''')
+        StubsRuntimeSettings(
+            module=module,
+            path=path / module_name,
+            post_fixes=post_fixes,
+            class_imports_header=imports_header
+        )
 
-    StubsRuntimeSettings.module = ui
-    StubsRuntimeSettings.class_imports_header = dedent('''
-    import ui
-    import core
-    import typing
-    import PySide2
-    from PySide2.QtWidgets import *
-    from PySide2.QtCore import Signal
-    ''')
-    StubsRuntimeSettings.path = path
-    os.makedirs(path / 'classes', exist_ok=True)
+        builtin, constants, class_imports = parse_modules()
 
-    # TODO: get_hiero overwrites core or ui
-    # get_hiero()
-    builtin, constants, class_imports = parse_modules()
+        init_file = dedent("""
+        '''Stubs generated automatically from Nuke's internal interpreter.'''
+        import ui
+        import core
+        from typing import *
+        from numbers import Number
+        from .classes import *
 
-    init_file = dedent("""
-    '''Stubs generated automatically from Nuke's internal interpreter.'''
-    import core
-    import ui
-    from numbers import Number
-    from typing import *
+        # Constants
+        {}
+        # Built-in methods
+        {}
+        """).format(constants, builtin).strip()
+        print('Generating __init__.py')
+        with open(StubsRuntimeSettings.path / '__init__.py', 'a') as file:
+            file.write(init_file)
 
-    from .classes import *
+        print('Generating class imports.')
+        with open(StubsRuntimeSettings.path / 'classes' / '__init__.py', 'w') as file:
+            file.write(class_imports)
 
-    # Constants
-    {}
-
-    # Built-in methods
-    {}
-    """).format(constants, builtin).strip()
-    print('Generating __init__.py')
-    with open(StubsRuntimeSettings.path / '__init__.py', 'a') as file:
-        file.write(init_file)
-
-    print('Generating class imports.')
-    with open(StubsRuntimeSettings.path / 'classes' / '__init__.py', 'w') as file:
-        file.write(class_imports)
+    path = STUBS_PATH / 'hiero'
+    get_hiero_included_modules(path)
+    generate_stubs(core, 'core', {})
+    generate_stubs(ui, 'ui', {})
 
 
-generate_nuke_stubs()
-# todo_generate_hiero_stubs()
+# generate_nuke_stubs()
+generate_hiero_stubs()
