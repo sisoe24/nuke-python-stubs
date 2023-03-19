@@ -21,11 +21,12 @@ NUKE_INTERNAL_MODULES = ('nuke_internal', 'nukescripts', 'ocionuke')
 StubsData = namedtuple('StubsData', ['builtin', 'constants', 'classes'])
 
 
-class RuntimeSettings:
-    def __new__(cls, module, path: str, class_imports_header: str, guess_type=True, log=False):
-        cls.class_imports_header = class_imports_header
-        cls.module = module
+class StubsRuntimeSettings:
+    def __new__(cls, module, path: str, class_imports_header: str, post_fixes: dict, guess_type=True, log=False):
         cls.path = path
+        cls.module = module
+        cls.post_fixes = post_fixes
+        cls.class_imports_header = class_imports_header
         cls.guess_type = guess_type
         cls.log = log
 
@@ -39,8 +40,7 @@ def get_classes_names():
     return files
 
 
-# TODO: make multiple dictionary based on current module
-MANUAL_CHANGES = {
+NUKE_POST_FIXES = {
     '__init__': {
         'headers': [
             {
@@ -115,7 +115,7 @@ MANUAL_CHANGES = {
 }
 
 
-def manual_mods(filename, func_header, func_return):
+def post_fixes(filename, func_header, func_return):
     """Make manual modifications to header and returns.
 
     Certain headers and returns are wrong, because of the docs or because the
@@ -176,7 +176,7 @@ def manual_mods(filename, func_header, func_return):
 
         return func_return
 
-    for file, modifications in MANUAL_CHANGES.items():
+    for file, modifications in StubsRuntimeSettings.post_fixes.items():
         if filename == file:
             func_header = header_mod(func_header, modifications['headers'])
             func_return = return_mod(func_header, func_return,
@@ -198,7 +198,7 @@ def is_valid_object(obj):
     """
     try:
         # check if return could be a callable object eg. a class
-        callable(getattr(RuntimeSettings.module, obj))
+        callable(getattr(StubsRuntimeSettings.module, obj))
     except AttributeError as err:
         # if is not then check if is a valid object
         try:
@@ -395,7 +395,7 @@ class ReturnExtractor:
 
     def _get_return(self) -> str:
         """Parse the return value from the docs if any."""
-        if not RuntimeSettings.guess_type:
+        if not StubsRuntimeSettings.guess_type:
             return 'Any'
 
         try:
@@ -493,7 +493,7 @@ class FunctionObject:
 
         return (
             args_parser.guess_data_type()
-            if RuntimeSettings.guess_type
+            if StubsRuntimeSettings.guess_type
             else args_parser.fn_header
         )
 
@@ -596,7 +596,7 @@ def func_constructor(header_obj: FunctionObject, _id) -> str:
         [type]: string representation of the function body.
     """
 
-    func_header, func_return = manual_mods(_id, header_obj.header, header_obj.return_)
+    func_header, func_return = post_fixes(_id, header_obj.header, header_obj.return_)
 
     return f'{func_header}\n{get_docs(header_obj.obj)}\n{func_return}\n\n'
 
@@ -608,7 +608,7 @@ class ClassExtractor:
         self.class_parent = self.obj.__base__.__name__
 
     def write(self):
-        with open(RuntimeSettings.path / 'classes' / f'{self.class_name}.py', 'w') as file:
+        with open(StubsRuntimeSettings.path / 'classes' / f'{self.class_name}.py', 'w') as file:
             file.write(self._class_file())
 
     def _class_file(self):
@@ -623,7 +623,7 @@ class ClassExtractor:
         {}
         {}
         """).format(
-            RuntimeSettings.class_imports_header,
+            StubsRuntimeSettings.class_imports_header,
             f'class {self.class_name}({self.class_parent}):',
             get_docs(self.obj),
             self._get_class_methods()
@@ -684,8 +684,8 @@ def parse_modules():
     classes = ''
 
     print('Start extraction...')
-    for attr in dir(RuntimeSettings.module):
-        obj = getattr(RuntimeSettings.module, attr)
+    for attr in dir(StubsRuntimeSettings.module):
+        obj = getattr(StubsRuntimeSettings.module, attr)
 
         if inspect.isclass(obj):
             log('Class:', attr)
@@ -713,7 +713,7 @@ def unknown(_type, name, value):
 
 
 def log(*args, **kwargs):
-    if RuntimeSettings.log:
+    if StubsRuntimeSettings.log:
         print(*args, **kwargs)
 
 
@@ -726,7 +726,7 @@ def get_nuke_included_modules():
     """
     def clean_nukescripts():
         """Import the correct module for nukescripts."""
-        nukescripts_path = RuntimeSettings.path / 'nukescripts'
+        nukescripts_path = StubsRuntimeSettings.path / 'nukescripts'
         for file in nukescripts_path.glob('*.py'):
             with open(file, 'r+', encoding='utf-8') as f:
                 content = f.read()
@@ -739,7 +739,7 @@ def get_nuke_included_modules():
     def clean_init():
         """Clean nuke_internal __init__."""
         nuke_internal_init = os.path.join(
-            RuntimeSettings.path, 'nuke_internal', '__init__.py'
+            StubsRuntimeSettings.path, 'nuke_internal', '__init__.py'
         )
 
         with open(nuke_internal_init, 'r') as file:
@@ -756,7 +756,7 @@ def get_nuke_included_modules():
             if os.path.exists(src):
                 log(f'Internal module copied: {module}')
                 destination = (
-                    RuntimeSettings.path / module
+                    StubsRuntimeSettings.path / module
                     if module == 'nuke_internal' else STUBS_PATH / module
                 )
                 copytree(src, str(destination), dirs_exist_ok=True)
@@ -767,10 +767,11 @@ def get_nuke_included_modules():
 
 def generate_nuke_stubs():
     """Generate stubs for the `nuke` module."""
-    RuntimeSettings(
+    StubsRuntimeSettings(
         module=nuke,
         path=STUBS_PATH / 'nuke',
-        class_imports_header='import nuke'
+        class_imports_header='import nuke',
+        post_fixes=NUKE_POST_FIXES
     )
     get_nuke_included_modules()
 
@@ -791,11 +792,11 @@ def generate_nuke_stubs():
     {}
     """).format(stubs_data.constants, stubs_data.builtin).strip()
     print('Generating __init__.py')
-    with open(RuntimeSettings.path / '__init__.py', 'w') as file:
+    with open(StubsRuntimeSettings.path / '__init__.py', 'w') as file:
         file.write(init_file)
 
     print('Generating class imports.')
-    with open(RuntimeSettings.path / 'classes' / '__init__.py', 'w') as file:
+    with open(StubsRuntimeSettings.path / 'classes' / '__init__.py', 'w') as file:
         file.write(stubs_data.classes)
 
 
@@ -806,7 +807,7 @@ def get_hiero():
     hiero = site_packages / 'hiero'
     if hiero.exists():
         print('Hiero module copied')
-        copytree(str(hiero), str(RuntimeSettings.path.parent), dirs_exist_ok=True)
+        copytree(str(hiero), str(StubsRuntimeSettings.path.parent), dirs_exist_ok=True)
 
 
 def todo_generate_hiero_stubs():
@@ -814,8 +815,8 @@ def todo_generate_hiero_stubs():
 
     # Settings.log = True
 
-    RuntimeSettings.module = ui
-    RuntimeSettings.class_imports_header = dedent('''
+    StubsRuntimeSettings.module = ui
+    StubsRuntimeSettings.class_imports_header = dedent('''
     import ui
     import core
     import typing
@@ -823,7 +824,7 @@ def todo_generate_hiero_stubs():
     from PySide2.QtWidgets import *
     from PySide2.QtCore import Signal
     ''')
-    RuntimeSettings.path = path
+    StubsRuntimeSettings.path = path
     os.makedirs(path / 'classes', exist_ok=True)
 
     # TODO: get_hiero overwrites core or ui
@@ -846,11 +847,11 @@ def todo_generate_hiero_stubs():
     {}
     """).format(constants, builtin).strip()
     print('Generating __init__.py')
-    with open(RuntimeSettings.path / '__init__.py', 'a') as file:
+    with open(StubsRuntimeSettings.path / '__init__.py', 'a') as file:
         file.write(init_file)
 
     print('Generating class imports.')
-    with open(RuntimeSettings.path / 'classes' / '__init__.py', 'w') as file:
+    with open(StubsRuntimeSettings.path / 'classes' / '__init__.py', 'w') as file:
         file.write(class_imports)
 
 
