@@ -9,28 +9,36 @@ from collections import namedtuple
 
 import nuke
 import hiero
-from hiero import core
+from hiero import ui, core
 
 # TODO: fix path
 PATH = pathlib.Path(__file__).parent / 'nuke-python-stubs'
-
 STUBS_PATH = PATH / 'stubs'
 STUBS_PATH.mkdir(exist_ok=True)
 
+NUKE_INTERNAL_MODULES = ('nuke_internal', 'nukescripts', 'ocionuke')
 
-class Settings:
-    import_statement = ''
-    module = None
-    path = ''
-    class_path = None
-    guess_type = True
-    log = False
+StubsData = namedtuple('StubsData', ['builtin', 'constants', 'classes'])
 
 
+class RuntimeSettings:
+    def __new__(cls, module, path: str, class_imports_header: str, guess_type=True, log=False):
+        cls.class_imports_header = class_imports_header
+        cls.module = module
+        cls.path = path
+        cls.guess_type = guess_type
+        cls.log = log
+
+        os.makedirs(os.path.join(path, 'classes'), exist_ok=True)
+
+
+# add all hiero.ui and core classes.
+# TODO: fix path
+# TODO: first run there are no classes
 CLASSES = [f.replace('.py', '') for f in os.listdir('stubs/nuke/classes')]
 
-# the first key is the name of the file,
-# for each file you can change the function header or the function return
+# TODO: make multiple dictionary based on current module
+# nuke changes
 MANUAL_CHANGES = {
     '__init__': {
         'headers': [
@@ -124,8 +132,7 @@ def manual_mods(filename, func_header, func_return):
         (str): the function return.
     """
     def _debug(old, new):
-        pass
-        # print(f'Modifying: {old} -> {new}')
+        log(f'Modifying: {old} -> {new}')
 
     def header_mod(func_header, headers):
         """Modify the header of the function.
@@ -161,8 +168,6 @@ def manual_mods(filename, func_header, func_return):
             str: the header function
         """
         for _return in returns:
-            # I am checking `in` because some functions could be indented so
-            # `x` does not match `    x`.
             if _return['function'] in func_header and _return['initial'] in func_return:
                 new = _return['new']
                 _debug(func_return, new)
@@ -192,7 +197,7 @@ def is_valid_object(obj):
     """
     try:
         # check if return could be a callable object eg. a class
-        callable(getattr(Settings.module, obj))
+        callable(getattr(RuntimeSettings.module, obj))
     except AttributeError as err:
         # if is not then check if is a valid object
         try:
@@ -258,6 +263,7 @@ class GuessType:
 
                 return match_type
 
+        # do a last check if any type is a class Name else return 'Any'
         return next(
             (x for x in CLASSES if re.search(r'\b' + x + r'\b', self.string)), 'Any'
         )
@@ -387,7 +393,7 @@ class ReturnExtractor:
 
     def _get_return(self) -> str:
         """Parse the return value from the docs if any."""
-        if not Settings.guess_type:
+        if not RuntimeSettings.guess_type:
             return 'Any'
 
         try:
@@ -446,6 +452,7 @@ class FunctionObject:
 
     @property
     def obj(self) -> object:
+        # TODO: this fails if object has no __dict__ or __name__
         try:
             self._obj.__name__
         except AttributeError:
@@ -484,7 +491,7 @@ class FunctionObject:
 
         return (
             args_parser.guess_data_type()
-            if Settings.guess_type
+            if RuntimeSettings.guess_type
             else args_parser.fn_header
         )
 
@@ -556,11 +563,10 @@ class FnHeaderExtractor:
 
             # properties will not be callable from inspect.signature
             # so fallback on simple header
+            # XXX: this is wrong on some occasions but it shouldnt be a problem.
             if inspect.isdatadescriptor(self.obj):
                 return f'@property\ndef {self.obj_name}(self) -> Any:'
 
-            # the only warning is a staticmethod descriptor but I dont
-            # want to bother making conditions to not add the self arg
             if inspect.ismethoddescriptor(self.obj):
                 return self.simple_header()
 
@@ -570,7 +576,7 @@ class FnHeaderExtractor:
             return self._unknown_header(err)
 
     def _unknown_header(self, err: Optional[Exception] = '') -> str:
-        # most likely to be some dunder methods that can be safely ignored
+        # most likely some dunder methods that can be safely ignored
         print(
             f'Failed to extract func header for {self.obj_name}. '
             f'Fallback on object name. Traceback: {err}'
@@ -600,7 +606,7 @@ class ClassExtractor:
         self.class_parent = self.obj.__base__.__name__
 
     def write(self):
-        with open(Settings.path / 'classes' / f'{self.class_name}.py', 'w') as file:
+        with open(RuntimeSettings.path / 'classes' / f'{self.class_name}.py', 'w') as file:
             file.write(self._class_file())
 
     def _class_file(self):
@@ -615,7 +621,7 @@ class ClassExtractor:
         {}
         {}
         """).format(
-            Settings.import_statement,
+            RuntimeSettings.class_imports_header,
             f'class {self.class_name}({self.class_parent}):',
             get_docs(self.obj),
             self._get_class_methods()
@@ -644,12 +650,14 @@ class ClassExtractor:
 
         class_body = ''
         for member, obj in class_dict.items():
-            # logging.debug('\t%s', member)
 
             # check for simple type class attributes
             if type(obj) in (float, int, str, list, tuple, set, dict, bool, frozenset):
-                class_body += f'{member} = {obj}\n'
+                # TODO: obj sometimes is a string or with broken syntax
+                class_body += f'{member} = {repr(obj)}\n'
 
+            elif obj.__class__.__name__ == 'Signal':
+                class_body += f'{member} = Signal()\n'
             elif (
                 inspect.ismethoddescriptor(obj)
                 or inspect.isfunction(obj)
@@ -661,7 +669,7 @@ class ClassExtractor:
                     self.class_name
                 )
             else:
-                class_body += f'{member}: Any = None\n'
+                class_body += f'{member}: Any = {repr(obj)}\n'
 
         return indent(class_body, ' ' * 4)
 
@@ -671,15 +679,15 @@ def parse_modules():
 
     builtin = ''
     constants = ''
-    class_imports = ''
+    classes = ''
 
     print('Start extraction...')
-    for attr in dir(Settings.module):
-        obj = getattr(Settings.module, attr)
+    for attr in dir(RuntimeSettings.module):
+        obj = getattr(RuntimeSettings.module, attr)
 
         if inspect.isclass(obj):
             log('Class:', attr)
-            class_imports += f'from .{attr} import {attr}\n'
+            classes += f'from .{attr} import {attr}\n'
             ClassExtractor(obj).write()
 
         elif inspect.isbuiltin(obj):
@@ -695,8 +703,7 @@ def parse_modules():
             constants += f"env = {repr({k: '' for k, _ in obj.items()})}"
 
     print('Extraction completed.')
-    StubsData = namedtuple('StubsData', ['builtin', 'constants', 'class_imports'])
-    return StubsData(builtin, constants, class_imports)
+    return StubsData(builtin, constants, classes)
 
 
 def unknown(_type, name, value):
@@ -704,11 +711,11 @@ def unknown(_type, name, value):
 
 
 def log(*args, **kwargs):
-    if Settings.log:
+    if RuntimeSettings.log:
         print(*args, **kwargs)
 
 
-def get_included_modules():
+def get_nuke_included_modules():
     """Get included modules inside plugins path.
 
     - nukescripts
@@ -717,7 +724,7 @@ def get_included_modules():
     """
     def clean_nukescripts():
         """Import the correct module for nukescripts."""
-        nukescripts_path = Settings.path / 'nukescripts'
+        nukescripts_path = RuntimeSettings.path / 'nukescripts'
         for file in nukescripts_path.glob('*.py'):
             with open(file, 'r+', encoding='utf-8') as f:
                 content = f.read()
@@ -730,7 +737,8 @@ def get_included_modules():
     def clean_init():
         """Clean nuke_internal __init__."""
         nuke_internal_init = os.path.join(
-            Settings.path, 'nuke_internal', '__init__.py')
+            RuntimeSettings.path, 'nuke_internal', '__init__.py'
+        )
 
         with open(nuke_internal_init, 'r') as file:
             contents = re.finditer(r'(^(from|#).+)', file.read(), re.M)
@@ -741,11 +749,14 @@ def get_included_modules():
                 file.write(i.group(1) + '\n')
 
     for path in nuke.pluginPath():
-        for module in ('nuke_internal', 'nukescripts', 'ocionuke'):
+        for module in NUKE_INTERNAL_MODULES:
             src = os.path.join(path, module)
             if os.path.exists(src):
-                # print(f'Internal module copied: {module}')
-                destination = Settings.path / module if module == 'nuke_internal' else STUBS_PATH / module
+                log(f'Internal module copied: {module}')
+                destination = (
+                    RuntimeSettings.path / module
+                    if module == 'nuke_internal' else STUBS_PATH / module
+                )
                 copytree(src, str(destination), dirs_exist_ok=True)
 
     clean_init()
@@ -754,14 +765,12 @@ def get_included_modules():
 
 def generate_nuke_stubs():
     """Generate stubs for the `nuke` module."""
-    path = STUBS_PATH / 'nuke'
-
-    Settings.import_statement = 'import nuke'
-    Settings.module = nuke
-    Settings.path = path
-    os.makedirs(path / 'classes', exist_ok=True)
-
-    get_included_modules()
+    RuntimeSettings(
+        module=nuke,
+        path=STUBS_PATH / 'nuke',
+        class_imports_header='import nuke'
+    )
+    get_nuke_included_modules()
 
     stubs_data = parse_modules()
 
@@ -780,12 +789,12 @@ def generate_nuke_stubs():
     {}
     """).format(stubs_data.constants, stubs_data.builtin).strip()
     print('Generating __init__.py')
-    with open(Settings.path / '__init__.py', 'w') as file:
+    with open(RuntimeSettings.path / '__init__.py', 'w') as file:
         file.write(init_file)
 
     print('Generating class imports.')
-    with open(Settings.path / 'classes' / '__init__.py', 'w') as file:
-        file.write(stubs_data.class_imports)
+    with open(RuntimeSettings.path / 'classes' / '__init__.py', 'w') as file:
+        file.write(stubs_data.classes)
 
 
 def get_hiero():
@@ -795,25 +804,34 @@ def get_hiero():
     hiero = site_packages / 'hiero'
     if hiero.exists():
         print('Hiero module copied')
-        copytree(str(hiero), str(Settings.path.parent), dirs_exist_ok=True)
+        copytree(str(hiero), str(RuntimeSettings.path.parent), dirs_exist_ok=True)
 
 
 def todo_generate_hiero_stubs():
-    # TODO: Not ready yet
-    path = STUBS_PATH / 'hiero' / 'core'
+    path = STUBS_PATH / 'hiero' / 'ui'
 
-    Settings.module = core
-    Settings.import_statement = 'import core\nimport PySide2\nimport typing'
     # Settings.log = True
-    Settings.path = path
+
+    RuntimeSettings.module = ui
+    RuntimeSettings.class_imports_header = dedent('''
+    import ui
+    import core
+    import typing
+    import PySide2
+    from PySide2.QtWidgets import *
+    from PySide2.QtCore import Signal
+    ''')
+    RuntimeSettings.path = path
     os.makedirs(path / 'classes', exist_ok=True)
 
-    get_hiero()
+    # TODO: get_hiero overwrites core or ui
+    # get_hiero()
     builtin, constants, class_imports = parse_modules()
 
     init_file = dedent("""
     '''Stubs generated automatically from Nuke's internal interpreter.'''
     import core
+    import ui
     from numbers import Number
     from typing import *
 
@@ -826,13 +844,13 @@ def todo_generate_hiero_stubs():
     {}
     """).format(constants, builtin).strip()
     print('Generating __init__.py')
-    with open(Settings.path / '__init__.py', 'a') as file:
+    with open(RuntimeSettings.path / '__init__.py', 'a') as file:
         file.write(init_file)
 
     print('Generating class imports.')
-    with open(Settings.path / 'classes' / '__init__.py', 'w') as file:
+    with open(RuntimeSettings.path / 'classes' / '__init__.py', 'w') as file:
         file.write(class_imports)
 
 
-# generate_nuke_stubs()
-todo_generate_hiero_stubs()
+generate_nuke_stubs()
+# todo_generate_hiero_stubs()
