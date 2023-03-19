@@ -9,6 +9,7 @@ from collections import namedtuple
 
 import nuke
 import hiero
+from hiero import core
 
 # TODO: fix path
 PATH = pathlib.Path(__file__).parent / 'nuke-python-stubs'
@@ -390,8 +391,14 @@ class ReturnExtractor:
             return 'Any'
 
         try:
+            return_value = str(inspect.signature(self.header_obj.obj))
+        except (TypeError, ValueError):
+            return_value = None
+        try:
+
             # search for everything after `->` if any
-            return_value = re.search(r'(?<=> ).+', self.header_obj.docs).group()
+            return_value = re.search(
+                r'(?<=> ).+', return_value or self.header_obj.docs).group()
 
             # clean the extra last dot
             return_value = re.sub(r'\.$', '',  return_value)
@@ -642,16 +649,19 @@ class ClassExtractor:
             # check for simple type class attributes
             if type(obj) in (float, int, str, list, tuple, set, dict, bool, frozenset):
                 class_body += f'{member} = {obj}\n'
-                continue
 
-            if inspect.ismethoddescriptor(obj):
+            elif (
+                inspect.ismethoddescriptor(obj)
+                or inspect.isfunction(obj)
+                or inspect.isbuiltin(obj)
+                or inspect.isgetsetdescriptor(obj)
+            ):
                 class_body += func_constructor(
                     FunctionObject(obj=obj, fallback_name=member, is_class=True),
                     self.class_name
                 )
-                continue
-
-            class_body += f'{member}: Any = None\n'
+            else:
+                class_body += f'{member}: Any = None\n'
 
         return indent(class_body, ' ' * 4)
 
@@ -792,8 +802,8 @@ def todo_generate_hiero_stubs():
     # TODO: Not ready yet
     path = STUBS_PATH / 'hiero' / 'core'
 
-    Settings.module = hiero.core
-    Settings.import_statement = 'import core'
+    Settings.module = core
+    Settings.import_statement = 'import core\nimport PySide2\nimport typing'
     # Settings.log = True
     Settings.path = path
     os.makedirs(path / 'classes', exist_ok=True)
@@ -803,6 +813,7 @@ def todo_generate_hiero_stubs():
 
     init_file = dedent("""
     '''Stubs generated automatically from Nuke's internal interpreter.'''
+    import core
     from numbers import Number
     from typing import *
 
@@ -823,5 +834,5 @@ def todo_generate_hiero_stubs():
         file.write(class_imports)
 
 
-generate_nuke_stubs()
-# todo_generate_hiero_stubs()
+# generate_nuke_stubs()
+todo_generate_hiero_stubs()

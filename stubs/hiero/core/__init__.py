@@ -4,6 +4,7 @@ import threading
 from typing import *
 from numbers import Number
 
+import core
 import _fnpython
 from core import *
 from _fnpython import pluginPath, getPluginPath
@@ -15,7 +16,6 @@ from .classes import *
 from .find_items import (findItems, findItemByGuid, findItemsInBin,
                          findItemsByGuid, findProjectTags, findItemsInProject)
 from .nuke.Script import getBundledNukePath, getBundledPythonPath
-from .nuke_internal import *
 from .FnResolveTable import ResolveTable
 from .localisation_helpers import *
 
@@ -679,7 +679,7 @@ def ViewerProcessNameFromDisplayTransformName(arg__1: str) -> object:
     """
 
     """
-    return None
+    return object()
 
 
 def addPathRemap(arg__1: str, arg__2: str, arg__3: str) -> None:
@@ -692,7 +692,7 @@ def addPathRemap(arg__1: str, arg__2: str, arg__3: str) -> None:
 
     @return: None
     """
-    return str()
+    return None
 
 
 def addPluginPath(*args, **kwargs):
@@ -722,7 +722,7 @@ def conformer() -> object:
 
     @return: a hiero.core.Conformer object
     """
-    return Number()
+    return object()
 
 
 def formats() -> object:
@@ -731,21 +731,21 @@ def formats() -> object:
 
     @return: tuple of hiero.core.Format objects
     """
-    return Any
+    return object()
 
 
 def getFilenameList(arg__1: str, arg__2: bool, arg__3: bool, arg__4: bool, arg__5: bool) -> object:
     """
     Deprecated. Do not use. Use hiero.core.filenameList() instead
     """
-    return None
+    return object()
 
 
 def getLibraryDirectory(arg__1: str) -> object:
     """
     hiero.core.getLibraryDirectory(subdirectory) -> deprecated; use hiero.core.libraryDirectory() instead.
     """
-    return Any
+    return object()
 
 
 def getPluginPath():
@@ -766,21 +766,21 @@ def isHieroPlayer() -> object:
     """
 
     """
-    return None
+    return object()
 
 
 def isIndie() -> object:
     """
 
     """
-    return None
+    return object()
 
 
 def isNC() -> object:
     """
 
     """
-    return None
+    return object()
 
 
 def libraryDirectory(arg__1: str) -> object:
@@ -790,7 +790,7 @@ def libraryDirectory(arg__1: str) -> object:
     @param subdirectory: path to append to the .nuke directory
     @return: string
     """
-    return Any
+    return object()
 
 
 def newProject(*args, **kwargs):
@@ -810,7 +810,7 @@ def openProject(path: str, flags: int = 'Hiero.Python.Project.kProjectOpenNoFlag
     @param path: Path to the project file (\*.hrox).
     @return: Opened project.
     """
-    return Any
+    return core.Project()
 
 
 def pathRemappings() -> object:
@@ -819,7 +819,7 @@ def pathRemappings() -> object:
 
     @return: a list of path remappings each containing the mapping for (windows, osx, linux)
     """
-    return str()
+    return object()
 
 
 def pluginPath():
@@ -837,7 +837,7 @@ def project(arg__1: str) -> object:
 
     @return: hiero.core.Project object
     """
-    return None
+    return object()
 
 
 def projects(*args, **kwargs):
@@ -867,14 +867,14 @@ def redo() -> object:
     """
 
     """
-    return None
+    return object()
 
 
 def redoSize() -> object:
     """
 
     """
-    return None
+    return object()
 
 
 def remapPath(arg__1: str) -> object:
@@ -884,7 +884,7 @@ def remapPath(arg__1: str) -> object:
     @param path: string path to apply the path remapping rules to
     @return: string
     """
-    return str()
+    return object()
 
 
 def stopScriptAndQuit(*args, **kwargs):
@@ -898,11 +898,11 @@ def undo() -> object:
     """
 
     """
-    return None
+    return object()
 
 
 def undoSize() -> object:
     """
 
     """
-    return None
+    return object()
