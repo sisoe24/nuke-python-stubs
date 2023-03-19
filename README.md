@@ -82,3 +82,5 @@ Pycharm Stub generator inspired the creation of this script.
 ## 1.6. Screenshot
 
 [Nuke Tools](https://marketplace.visualstudio.com/items?itemName=virgilsisoe.nuke-tools) for Visual Studio Code will include the stubs files by default.
+
+![Alt text](images/auto_complete.gif)
