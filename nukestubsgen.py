@@ -203,8 +203,7 @@ def is_valid_object(obj):
         try:
             eval(obj)
         except (NameError, SyntaxError) as err:
-            # some returns are descriptions, so return Any
-
+            # some returns are descriptions, so return None
             return None
 
     return obj
@@ -220,14 +219,14 @@ class GuessType:
         'optional': r'optional.+',
         'union': r'^(\w+) or (\w+)',
         'list': r'list|array',
-        'int': r'\b(int|integer|index|i\'th|\d)\b',
-        'str': r'\b(str|string|class|prompt|message|name|label|tooltip|text|file(\w+)?|path|code|script|shortcut|title)\b',
+        'tuple': r'tuple',
+        'int': r'\b(int|integer|index|frame|i\'th|\d)\b',
+        'str': r'\b(str|string|class|prompt|clipboard|message|name|label|tooltip|text|file(\w+)?|path|code|script|shortcut|title)\b',
         'bool': r'bool|true|false',
         'dict': r'dict',
         'Iterable': r'sequence|(\(|\[)\w+, \w+(\)|\])',
-        'Number': r'min|max|coordinate|range|number|frame|time|position|height|width|scale',
+        'Number': r'min|max|coordinate|range|number|time|position|height|width|scale',
         'float': r'float',
-        'Any': r'value',
         'Node': r'^(?:(a|the)\s)?node',
         'Knob': r'^(?:(a|the)\s)?knob',
         'Callable': 'callable',
@@ -248,6 +247,12 @@ class GuessType:
             exclude (list): Optional list to exclude matches.
         """
 
+        # XXX: running match classes BEFORE guess, produces slightly better results on hiero
+        # but worst on nuke.
+        # for x in get_classes_names():
+        #     if re.search(r'\b' + x + r'\b', self.string):
+        #         return x
+
         for match_type, pattern in self.types_match.items():
             if exclude and match_type in exclude:
                 continue
@@ -266,7 +271,7 @@ class GuessType:
         # do a last check if any type is a class Name else return 'Any'
         return next(
             (x for x in get_classes_names() if re.search(
-                r'\b' + x + r'\b', self.string)), 'Any'
+                r'\b' + x + r'\b', self.string)), None
         )
 
     def is_union(self, match: re.Match) -> str:
@@ -397,12 +402,24 @@ class ReturnExtractor:
         if not StubsRuntimeSettings.guess_type:
             return 'Any'
 
+        # 1. search for the return argument inside the docs
+        if self.header_obj.return_argument:
+            return_value = self._guess_type(self.header_obj.return_argument)
+            if return_value:
+                return return_value
+
+        # 2. search for return value inside the function signature
         try:
             return_value = str(inspect.signature(self.header_obj.obj))
         except (TypeError, ValueError):
             return_value = None
-        try:
+        else:
+            # skip when value is object to give it another chance of guessing
+            if 'object' in return_value:
+                return_value = None
 
+        # 3. use the return value signature or search for it inside the docs
+        try:
             # search for everything after `->` if any
             return_value = re.search(
                 r'(?<=> ).+', return_value or self.header_obj.docs).group()
@@ -410,11 +427,8 @@ class ReturnExtractor:
             # clean the extra last dot
             return_value = re.sub(r'\.$', '',  return_value)
         except AttributeError:
-            # doc had no -> return annotation so try guessing based on doc arg
-            return_value = self.header_obj.return_argument
-            return self._guess_type(return_value) if return_value else 'None'
+            return 'None'
         else:
-
             # a list of object that should not be valid even if nuke this that are
             not_valid = ['name']
 
@@ -422,7 +436,7 @@ class ReturnExtractor:
                 return return_value
 
             unknown('Returns', self.header_obj.obj.__name__, return_value)
-            return self._guess_type(return_value)
+            return self._guess_type(return_value) or 'Any'
 
     @staticmethod
     def _make_callable(text: str) -> str:
@@ -855,5 +869,5 @@ def generate_hiero_stubs():
     generate_stubs(ui, 'ui', {})
 
 
-# generate_nuke_stubs()
+generate_nuke_stubs()
 generate_hiero_stubs()
