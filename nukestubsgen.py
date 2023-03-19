@@ -38,6 +38,17 @@ def get_classes_names():
     return files
 
 
+# post fix dict structore
+# file:                 file name
+#    header:            change the header of a function
+#       initial:        original header
+#       new:            modified header
+#   returns:            change a return of a function
+#       function:       name of the function
+#       initial:        original return
+#       new:            modified return
+# }
+
 NUKE_POST_FIXES = {
     '__init__': {
         'headers': [
