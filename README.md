@@ -40,9 +40,7 @@ There are a couple of settings you can modify inside the `main()` function:
 
 ### 1.2.2. Use the stubs
 
-Using the stubs will vary based on your text editor since most of them have their way of adding stubs to the environment. Also, you can add them to your `PYTHONPATH` inside your `*rc|*profile` configuration file.
-
-> Example Unix `export PYTHONPATH="$HOME/.nuke/nuke-python-stubs/stubs:${PYTHONPATH}"`
+Using the stubs will vary based on your text editor since most of them have their way of adding stubs to the environment.
 
 Alternatively, you can use [NukeTools](https://marketplace.visualstudio.com/items?itemName=virgilsisoe.nuke-tools) and call the `Nuke Tools: Add Python Stubs` command.
 
