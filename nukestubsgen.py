@@ -10,31 +10,27 @@ from collections import namedtuple
 import nuke
 from hiero import ui, core
 
-# TODO: fix path
-PATH = pathlib.Path(__file__).parent / 'nuke-python-stubs'
-STUBS_PATH = PATH / 'stubs'
-STUBS_PATH.mkdir(exist_ok=True)
-
-NUKE_INTERNAL_MODULES = ('nuke_internal', 'nukescripts', 'ocionuke')
-
 StubsData = namedtuple('StubsData', ['builtin', 'constants', 'classes'])
 
 
 class StubsRuntimeSettings:
-    def __new__(cls, module, path: str, class_imports_header: str, post_fixes: dict, guess_type=True, log=False):
+    stubs_path = None
+    nuke_extras = None
+    log = False
+    guess = True
+
+    def __new__(cls, module, path: str, class_imports_header: str, post_fixes: dict):
         cls.path = path
         cls.module = module
         cls.post_fixes = post_fixes
         cls.class_imports_header = class_imports_header
-        cls.guess_type = guess_type
-        cls.log = log
 
         os.makedirs(os.path.join(path, 'classes'), exist_ok=True)
 
 
 def get_classes_names():
     files = []
-    for path in STUBS_PATH.glob('**/classes'):
+    for path in StubsRuntimeSettings.stubs_path.glob('**/classes'):
         files.extend(file.name.replace('.py', '') for file in path.glob('[!__]*.py'))
     return files
 
@@ -47,7 +43,7 @@ NUKE_POST_FIXES = {
                 'new': 'def createNode(node:str, args:str=None, inpanel:bool=None):'
             },
             {
-                'initial': "def tprint(value:Any, sep=' ', end='\\', file=sys.stdout):",
+                'initial': "def tprint(value, sep=' ', end='\\', file=sys.stdout):",
                 'new': "def tprint(value, sep=' ', end='\\n', file=sys.stdout):"
             },
             {
@@ -112,6 +108,9 @@ NUKE_POST_FIXES = {
         ]
     }
 }
+
+HIERO_CORE_POST_FIX = {}
+HIERO_UI_POST_FIX = {}
 
 
 def post_fixes(filename, func_header, func_return):
@@ -399,7 +398,7 @@ class ReturnExtractor:
 
     def _get_return(self) -> str:
         """Parse the return value from the docs if any."""
-        if not StubsRuntimeSettings.guess_type:
+        if not StubsRuntimeSettings.guess:
             return 'Any'
 
         # 1. search for the return argument inside the docs
@@ -506,8 +505,7 @@ class FunctionObject:
 
         return (
             args_parser.guess_data_type()
-            if StubsRuntimeSettings.guess_type
-            else args_parser.fn_header
+            if StubsRuntimeSettings.guess else args_parser.fn_header
         )
 
     @property
@@ -592,7 +590,7 @@ class FnHeaderExtractor:
 
     def _unknown_header(self, err: Optional[Exception] = '') -> str:
         # most likely some dunder methods that can be safely ignored
-        print(
+        log(
             f'Failed to extract func header for {self.obj_name}. '
             f'Fallback on object name. Traceback: {err}'
         )
@@ -696,7 +694,6 @@ def parse_modules():
     constants = ''
     classes = ''
 
-    print('Start extraction...')
     for attr in dir(StubsRuntimeSettings.module):
         obj = getattr(StubsRuntimeSettings.module, attr)
 
@@ -717,7 +714,6 @@ def parse_modules():
         elif attr == 'env':
             constants += f"env = {repr({k: '' for k, _ in obj.items()})}"
 
-    print('Extraction completed.')
     return StubsData(builtin, constants, classes)
 
 
@@ -764,13 +760,13 @@ def get_nuke_included_modules():
                 file.write(i.group(1) + '\n')
 
     for path in nuke.pluginPath():
-        for module in NUKE_INTERNAL_MODULES:
+        for module in StubsRuntimeSettings.nuke_extras:
             src = os.path.join(path, module)
             if os.path.exists(src):
-                log(f'Internal module copied: {module}')
+                print(f'  Internal module copied: {module}')
                 destination = (
                     StubsRuntimeSettings.path / module
-                    if module == 'nuke_internal' else STUBS_PATH / module
+                    if module == 'nuke_internal' else StubsRuntimeSettings.stubs_path / module
                 )
                 copytree(src, str(destination), dirs_exist_ok=True)
 
@@ -780,9 +776,10 @@ def get_nuke_included_modules():
 
 def generate_nuke_stubs():
     """Generate stubs for the `nuke` module."""
+    print('Generate Nuke Stubs...')
     StubsRuntimeSettings(
         module=nuke,
-        path=STUBS_PATH / 'nuke',
+        path=StubsRuntimeSettings.stubs_path / 'nuke',
         class_imports_header='import nuke',
         post_fixes=NUKE_POST_FIXES
     )
@@ -804,11 +801,11 @@ def generate_nuke_stubs():
     # Built-in methods
     {}
     """).format(stubs_data.constants, stubs_data.builtin).strip()
-    print('Generating __init__.py')
+    print('  Generating __init__.py')
     with open(StubsRuntimeSettings.path / '__init__.py', 'w') as file:
         file.write(init_file)
 
-    print('Generating class imports.')
+    print('  Generating class imports.')
     with open(StubsRuntimeSettings.path / 'classes' / '__init__.py', 'w') as file:
         file.write(stubs_data.classes)
 
@@ -818,11 +815,12 @@ def get_hiero_included_modules(path):
     site_packages = pathlib.Path(PySide2.__file__).parent.parent
     hiero = site_packages / 'hiero'
     if hiero.exists():
-        print('Hiero module copied')
+        print('  Internal module copied: hiero')
         copytree(str(hiero), str(path), dirs_exist_ok=True)
 
 
 def generate_hiero_stubs():
+    print('Generate Hiero Stubs...')
 
     def generate_stubs(module, module_name, post_fixes):
         imports_header = dedent('''
@@ -855,19 +853,36 @@ def generate_hiero_stubs():
         # Built-in methods
         {}
         """).format(constants, builtin).strip()
-        print('Generating __init__.py')
+        print(f'  {module_name}: Generating __init__.py')
         with open(StubsRuntimeSettings.path / '__init__.py', 'a') as file:
             file.write(init_file)
 
-        print('Generating class imports.')
+        print(f'  {module_name} Generating class imports.')
         with open(StubsRuntimeSettings.path / 'classes' / '__init__.py', 'w') as file:
             file.write(class_imports)
 
-    path = STUBS_PATH / 'hiero'
+    path = StubsRuntimeSettings.stubs_path / 'hiero'
     get_hiero_included_modules(path)
-    generate_stubs(core, 'core', {})
-    generate_stubs(ui, 'ui', {})
+    generate_stubs(core, 'core', HIERO_CORE_POST_FIX)
+    generate_stubs(ui, 'ui', HIERO_UI_POST_FIX)
 
 
-generate_nuke_stubs()
-generate_hiero_stubs()
+def main():
+    stubs_path = pathlib.Path(
+        os.path.join(os.path.expanduser('~'), '.nuke', 'nuke-python-stubs', 'stubs')
+    )
+    os.makedirs(stubs_path, exist_ok=True)
+
+    StubsRuntimeSettings.stubs_path = stubs_path
+    StubsRuntimeSettings.log = False
+    StubsRuntimeSettings.guess = True
+    StubsRuntimeSettings.nuke_extras = ('nuke_internal', 'nukescripts', 'ocionuke')
+
+    print('Start Extraction')
+    generate_nuke_stubs()
+    generate_hiero_stubs()
+    print(f'Extraction completed in: "{stubs_path}"')
+
+
+if __name__ == '__main__':
+    main()
