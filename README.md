@@ -62,18 +62,18 @@ Example:
 
 In the string: `-> switch to next view in settings Views list`, the parser will identify `list` as a match.
 
-> You can enable the log or log_to_file options to check what wasn't guessed.
+> You can enable the `log` or `log_to_file` options to check what wasn't guessed.
 > You can also disable the guess filter by setting `StubsRuntimeSettings.guess` to `False`.
 
-AS a workaround, a post-fix mechanism allows you to "manually" point to the wrong value and substitute it with a new one. You can look at the `NUKE_POST_FIXES` dictionary for more information.
+As a workaround, there is a post-fix mechanism which allows you to "manually" point to the wrong value and substitute it with a new one. You can look at the `NUKE_POST_FIXES` dictionary for more information.
 
 ## 1.4. Contributing
 
-Although the script is a mess, you can still contribute by adding post-fixes information when you find wrong values. I can then generate new stubs and upload them.
+Although the script is a mess, you can still contribute by adding post-fixes information when you find wrong values.
 
 If you would like to add some code, you need `pre-commit` installed in your repo.
 
-For convenience, place the repo inside `~/.nuke` so that git catches any change in the stubs files. Once you generate the stubs, run `pre-commit run -a` to apply the pre-commit hooks to each file to see the "real" difference of your new commits.
+For convenience, place the repo inside `~/.nuke` so that `git` catches any change in the stubs files. Once you generate the stubs, run `pre-commit run -a` to apply the pre-commit hooks to each file to see the "real" difference of your new commits.
 
 ## 1.5. Acknowledgment
 
