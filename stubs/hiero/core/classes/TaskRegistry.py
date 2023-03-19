@@ -2,8 +2,11 @@ import typing
 from typing import *
 from numbers import Number
 
+import ui
 import core
 import PySide2
+from PySide2.QtCore import Signal
+from PySide2.QtWidgets import *
 
 from . import *
 
@@ -156,7 +159,7 @@ class TaskRegistry(IExporterRegistry):
         @param: string - Preset name
         @return: hiero.core.TaskPreset instance as type template
         """
-        return Any
+        return TaskPreset()
 
     def copyPreset(self, preset):
         """
@@ -171,7 +174,7 @@ class TaskRegistry(IExporterRegistry):
         @param: hiero.core.TaskPreset instance for duplication
         @return: new hiero.core.TaskPreset instance
         """
-        return Any
+        return TaskPreset()
 
     def copyAndAddProjectPreset(self, preset, project):
         """

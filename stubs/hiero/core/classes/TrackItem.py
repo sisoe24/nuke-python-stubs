@@ -2,8 +2,11 @@ import typing
 from typing import *
 from numbers import Number
 
+import ui
 import core
 import PySide2
+from PySide2.QtCore import Signal
+from PySide2.QtWidgets import *
 
 from . import *
 
@@ -290,7 +293,7 @@ class TrackItem(TrackItemBase):
         WARNING - DEPRECATED ( setCurrentVersionIndex ): This method is deprecated and will not be present in future versions of the Python API.
         Version indices are no longer unique identifiers and should not be used as such. Please use TrackItem.setActiveVersion() instead.
         """
-        return Any
+        return Version()
 
     def setName(self, name: str) -> None:
         """
@@ -317,7 +320,7 @@ class TrackItem(TrackItemBase):
         @param trackIndex: optional track index, for instance if you are adding an audio Clip and want to use its second audio track
         @return: the hiero.core.Clip object passed in
         """
-        return Any
+        return TrackItem()
 
     def setSourceIn(self, arg__1: float) -> None:
         """
@@ -470,7 +473,7 @@ class TrackItem(TrackItemBase):
         WARNING - DEPRECATED ( versionDown ): This method is deprecated and will not be present in future versions of the Python API.
         Only available versions can now be obtained from TrackItem. To find new versions, please use hiero.core.VersionScanner. To obtain the next version, please use TrackItem.prevVersion().
         """
-        return Any
+        return Version()
 
     def versionLinkedToBin(self) -> bool:
         """
@@ -489,7 +492,7 @@ class TrackItem(TrackItemBase):
         WARNING - DEPRECATED ( versionMaxAvailable ): This method is deprecated and will not be present in future versions of the Python API.
         Only available versions can now be obtained from TrackItem. This method has been replaced by TrackItem.maxVersion().
         """
-        return Any
+        return Version()
 
     def versionMinAvailable(self, *args, **kwargs):
         """
@@ -500,7 +503,7 @@ class TrackItem(TrackItemBase):
         WARNING - DEPRECATED ( versionMinAvailable ): This method is deprecated and will not be present in future versions of the Python API.
         Only available versions can now be obtained from TrackItem. This method has been replaced by TrackItem.minVersion().
         """
-        return Any
+        return Version()
 
     def versionNextAvailable(self, *args, **kwargs):
         """
@@ -511,7 +514,7 @@ class TrackItem(TrackItemBase):
         WARNING - DEPRECATED ( versionNextAvailable ): This method is deprecated and will not be present in future versions of the Python API.
         Only available versions can now be obtained from TrackItem. This method has been replaced by TrackItem.nextVersion().
         """
-        return Any
+        return Version()
 
     def versionPrevAvailable(self, *args, **kwargs):
         """
@@ -522,7 +525,7 @@ class TrackItem(TrackItemBase):
         WARNING - DEPRECATED ( versionPrevAvailable ): This method is deprecated and will not be present in future versions of the Python API.
         Only available versions can now be obtained from TrackItem. This method has been replaced by TrackItem.prevVersion().
         """
-        return Any
+        return Version()
 
     def versionUp(self, *args, **kwargs):
         """
@@ -533,7 +536,7 @@ class TrackItem(TrackItemBase):
         WARNING - DEPRECATED ( versionUp ): This method is deprecated and will not be present in future versions of the Python API.
         Only available versions can now be obtained from TrackItem. To find new versions, please use hiero.core.VersionScanner. To obtain the next version, please use TrackItem.nextVersion().
         """
-        return Any
+        return Version()
 
     def __copy__(self,) -> None:
         """

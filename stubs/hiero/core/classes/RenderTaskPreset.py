@@ -2,8 +2,11 @@ import typing
 from typing import *
 from numbers import Number
 
+import ui
 import core
 import PySide2
+from PySide2.QtCore import Signal
+from PySide2.QtWidgets import *
 
 from . import *
 
@@ -59,7 +62,7 @@ class RenderTaskPreset(TaskPresetBase):
         """
         return None
 
-    def addCustomResolveEntries(self, resolver: Any):
+    def addCustomResolveEntries(self, resolver: ResolveTable):
         """
         addCustomResolveEntries(self, resolver)
         RenderTaskPreset adds specialized tokens specific to this type of export, such as {ext} which returns the output format extension.

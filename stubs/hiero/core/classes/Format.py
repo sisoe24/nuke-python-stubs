@@ -2,8 +2,11 @@ import typing
 from typing import *
 from numbers import Number
 
+import ui
 import core
 import PySide2
+from PySide2.QtCore import Signal
+from PySide2.QtWidgets import *
 
 from . import *
 

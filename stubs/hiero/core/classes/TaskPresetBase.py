@@ -2,8 +2,11 @@ import typing
 from typing import *
 from numbers import Number
 
+import ui
 import core
 import PySide2
+from PySide2.QtCore import Signal
+from PySide2.QtWidgets import *
 
 from . import *
 
@@ -118,7 +121,7 @@ class TaskPresetBase(ITaskPreset):
         """
         return str()
 
-    def addDefaultResolveEntries(self, resolver: Any):
+    def addDefaultResolveEntries(self, resolver: ResolveTable):
         """
         addDefaultResolveEntries(self, resolver)
         Create resolve entries for default resolve tokens shared by all task types.
@@ -127,7 +130,7 @@ class TaskPresetBase(ITaskPreset):
         """
         return None
 
-    def addCustomResolveEntries(self, resolver: Any):
+    def addCustomResolveEntries(self, resolver: ResolveTable):
         """
         addCustomResolveEntries(self, resolver)
         Impliment this function on custom export tasks to add resolve entries specific to that class.
@@ -136,7 +139,7 @@ class TaskPresetBase(ITaskPreset):
         """
         return None
 
-    def addUserResolveEntries(self, resolver: Any):
+    def addUserResolveEntries(self, resolver: ResolveTable):
         """
         addUserResolveEntries(self, resolver)
         Override this function to add user specific resolve tokens.

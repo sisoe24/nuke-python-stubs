@@ -2,8 +2,11 @@ import typing
 from typing import *
 from numbers import Number
 
+import ui
 import core
 import PySide2
+from PySide2.QtCore import Signal
+from PySide2.QtWidgets import *
 
 from . import *
 
@@ -137,7 +140,7 @@ class BinItem(Object):
         WARNING - DEPRECATED ( clone ): This method is deprecated and will not be present in future versions of the Python API.
         This method has been replaced by copy().
         """
-        return Any
+        return BinItem()
 
     def color(self) -> PySide2.QtGui.QColor:
         """
@@ -164,7 +167,7 @@ class BinItem(Object):
         @param knobs: keyword args for specifying additional knobs to set
         @return: the created Version
         """
-        return Any
+        return Version()
 
     def deserializeChildItem(self, data: str, index: int) -> None:
         """
@@ -331,7 +334,7 @@ class BinItem(Object):
         WARNING - DEPRECATED ( setActiveVersionIndex ): This method is deprecated and will not be present in future versions of the Python API.
         Version indices are no longer unique identifiers and should not be used as such. Please use BinItem.setActiveVersion() instead.
         """
-        return Any
+        return Version()
 
     def setColor(self, arg__1: PySide2.QtGui.QColor) -> None:
         """
@@ -387,7 +390,7 @@ class BinItem(Object):
         WARNING - DEPRECATED ( versionDown ): This method is deprecated and will not be present in future versions of the Python API.
         Only available versions can now be obtained from BinItem. To find new versions, please use hiero.core.VersionScanner. To obtain the next version, please use BinItem.prevVersion().
         """
-        return Any
+        return Version()
 
     def versionMaxAvailable(self, *args, **kwargs):
         """
@@ -398,7 +401,7 @@ class BinItem(Object):
         WARNING - DEPRECATED ( versionMaxAvailable ): This method is deprecated and will not be present in future versions of the Python API.
         Only available versions can now be obtained from BinItem. This method has been replaced by BinItem.maxVersion().
         """
-        return Any
+        return Version()
 
     def versionMinAvailable(self, *args, **kwargs):
         """
@@ -409,7 +412,7 @@ class BinItem(Object):
         WARNING - DEPRECATED ( versionMinAvailable ): This method is deprecated and will not be present in future versions of the Python API.
         Only available versions can now be obtained from BinItem. This method has been replaced by BinItem.minVersion().
         """
-        return Any
+        return Version()
 
     def versionNextAvailable(self, *args, **kwargs):
         """
@@ -420,7 +423,7 @@ class BinItem(Object):
         WARNING - DEPRECATED ( versionNextAvailable ): This method is deprecated and will not be present in future versions of the Python API.
         Only available versions can now be obtained from BinItem. This method has been replaced by BinItem.nextVersion().
         """
-        return Any
+        return Version()
 
     def versionPrevAvailable(self, *args, **kwargs):
         """
@@ -431,7 +434,7 @@ class BinItem(Object):
         WARNING - DEPRECATED ( versionPrevAvailable ): This method is deprecated and will not be present in future versions of the Python API.
         Only available versions can now be obtained from BinItem. This method has been replaced by BinItem.prevVersion().
         """
-        return Any
+        return Version()
 
     def versionUp(self, *args, **kwargs):
         """
@@ -442,7 +445,7 @@ class BinItem(Object):
         WARNING - DEPRECATED ( versionUp ): This method is deprecated and will not be present in future versions of the Python API.
         Only available versions can now be obtained from BinItem. To find new versions, please use hiero.core.VersionScanner. To obtain the next version, please use BinItem.nextVersion().
         """
-        return Any
+        return Version()
 
     def __copy__(self,) -> None:
         """

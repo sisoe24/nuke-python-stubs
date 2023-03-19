@@ -2,8 +2,11 @@ import typing
 from typing import *
 from numbers import Number
 
+import ui
 import core
 import PySide2
+from PySide2.QtCore import Signal
+from PySide2.QtWidgets import *
 
 from . import *
 
@@ -84,7 +87,7 @@ class Clip(SequenceBase):
         WARNING - DEPRECATED ( clone ): This method is deprecated and will not be present in future versions of the Python API.
         This method has been replaced by copy().
         """
-        return Any
+        return Clip()
 
     def copy(self) -> object:
         """

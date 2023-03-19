@@ -4,6 +4,7 @@ import threading
 from typing import *
 from numbers import Number
 
+import ui
 import core
 import _fnpython
 from core import *
@@ -849,6 +850,789 @@ def projects(*args, **kwargs):
     @return: tuple of hiero.core.Project objects
     """
     return Any
+
+
+def quit(*args, **kwargs):
+    """
+    hiero.core.quit() -> shuts down Hiero, without saving any existing projects. Safer than calling sys.exit(), which doesn't always clean up properly and can cause Hiero to crash. This version sets the exit code of the Hiero process to 0.
+
+    Note that this must be the last line in a script.
+    hiero.core.quit(exitCode) -> same as the first version of this method, except that this one sets the exit code of the process to the exitCode variable.
+
+    @param exitCode: optional; integer value to set the process's exit code to
+    """
+    return int()
+
+
+def redo() -> object:
+    """
+
+    """
+    return object()
+
+
+def redoSize() -> object:
+    """
+
+    """
+    return object()
+
+
+def remapPath(arg__1: str) -> object:
+    """
+    hiero.core.remapPath(path) -> uses the platform specific path remapping rules from the user's preferences and applies them to the input path.
+
+    @param path: string path to apply the path remapping rules to
+    @return: string
+    """
+    return object()
+
+
+def stopScriptAndQuit(*args, **kwargs):
+    """
+
+    """
+    return None
+
+
+def undo() -> object:
+    """
+
+    """
+    return object()
+
+
+def undoSize() -> object:
+    """
+
+    """
+    return object()
+
+
+'''Stubs generated automatically from Nuke's internal interpreter.'''
+
+
+# Constants
+GUI = True
+TYPE_CHECKING = False
+env = {'VersionDate': '', 'VersionMajor': '', 'VersionMinor': '', 'VersionRelease': '', 'VersionString': '',
+       'VersionPhaseNumber': '', 'ProductName': '', 'ApplicationName': '', 'HomeDirectory': '', 'SystemMemory': '', 'Features': ''}
+
+# Built-in methods
+
+
+def LUTGroup(*args, **kwargs):
+    """
+
+    """
+    return None
+
+
+def LUTs(*args, **kwargs):
+    """
+    hiero.core.LUTs() -> returns a tuple with the names of all of the available luts.
+
+    @return: tuple of strings
+    """
+    return Any
+
+
+def ViewerProcessNameFromDisplayTransformName(arg__1: str) -> object:
+    """
+
+    """
+    return object()
+
+
+def addPathRemap(arg__1: str, arg__2: str, arg__3: str) -> None:
+    """
+    hiero.core.addPathRemap(windowsPathPrefix, osxPathPrefix, linuxPathPrefix) -> adds to the table of file path remapping prefixes that Hiero maintains. Pairs of path prefixes added to this table will be used to convert paths between Windows, OSX and Linux. When on Windows, Hiero will replace any Linux or OSX prefixes found with the corresponding Windows prefix. On OSX, Hiero will search for the Windows and Linux path prefixes and replace them with the corresponding OSX prefix. The same applies for OSX/Windows prefixes being replaced on Linux. These can also be configured through the user interface in the General tab of the Preferences dialog.
+
+    @param windowsPathPrefix: string
+    @param osxPathPrefix: string
+    @param linuxPathPrefix: string
+
+    @return: None
+    """
+    return None
+
+
+def addPluginPath(*args, **kwargs):
+    """
+    hiero.core.addPluginPath(pluginPath) -> adds a new path to the list of plugin paths searched for Python plugins (in Python/Startup and Python/StartupUI folders). The user's .nuke folder will be the first in this list.
+    hiero.core.addPluginPath(pluginPath, index) -> the same as above, except that the index specifies which item in the list of paths to place the new one before.
+
+    @param pluginPath: the new path to add
+    @param index: optional; if not specified or negative, the new path will be added to the end of the list
+    """
+    return list()
+
+
+def closeAllProjects(*args, **kwargs):
+    """
+    hiero.core.closeProject() -> closes all of the existing projects without saving.
+    hiero.core.closeProject(bool dontSave) -> same as above, but if the parameter is set to false, unsaved projects will cause Hiero to popup a dialog for each unsaved project, asking the user if they'd like to save.
+
+    @param dontSave: True or False
+    """
+    return Any
+
+
+def conformer() -> object:
+    """
+    hiero.core.conformer() -> returns an interface for setting the conforming options.
+
+    @return: a hiero.core.Conformer object
+    """
+    return object()
+
+
+def formats() -> object:
+    """
+    hiero.core.formats() -> returns a tuple with all of the formats currently available.
+
+    @return: tuple of hiero.core.Format objects
+    """
+    return object()
+
+
+def getFilenameList(arg__1: str, arg__2: bool, arg__3: bool, arg__4: bool, arg__5: bool) -> object:
+    """
+    Deprecated. Do not use. Use hiero.core.filenameList() instead
+    """
+    return object()
+
+
+def getLibraryDirectory(arg__1: str) -> object:
+    """
+    hiero.core.getLibraryDirectory(subdirectory) -> deprecated; use hiero.core.libraryDirectory() instead.
+    """
+    return object()
+
+
+def getPluginPath():
+    """
+    hiero.core.getPluginPath() -> deprecated; please use hiero.core.pluginPath instead.
+    """
+    return Any
+
+
+def getRoleColorspace(*args, **kwargs):
+    """
+
+    """
+    return None
+
+
+def isHieroPlayer() -> object:
+    """
+
+    """
+    return object()
+
+
+def isIndie() -> object:
+    """
+
+    """
+    return object()
+
+
+def isNC() -> object:
+    """
+
+    """
+    return object()
+
+
+def libraryDirectory(arg__1: str) -> object:
+    """
+    hiero.core.libraryDirectory(subdirectory) -> returns the input appended to the location of the user's .nuke directory.
+
+    @param subdirectory: path to append to the .nuke directory
+    @return: string
+    """
+    return object()
+
+
+def newProject(*args, **kwargs):
+    """
+    hiero.core.newProject(name=None) -> creates and returns a new Project object. A name can optionally be given for the project.
+
+    @return: hiero.core.Project object
+    """
+    return str()
+
+
+def openProject(path: str, flags: int = 'Hiero.Python.Project.kProjectOpenNoFlags') -> core.Project:
+    """
+    hiero.core.openProject(path)
+
+    Opens the project found at the specified path. Must be called on the main thread. Throws an exception on failure.
+    @param path: Path to the project file (\*.hrox).
+    @return: Opened project.
+    """
+    return core.Project()
+
+
+def pathRemappings() -> object:
+    """
+    hiero.core.pathRemappings() -> returns the path remappings specified in the application preferences, or added through addPathRemap().
+
+    @return: a list of path remappings each containing the mapping for (windows, osx, linux)
+    """
+    return object()
+
+
+def pluginPath():
+    """
+    hiero.core.pluginPath() -> Returns a tuple of the search paths used by Hiero to load Python scripts.
+
+    @return: tuple of strings
+    """
+    return Any
+
+
+def project(arg__1: str) -> object:
+    """
+    hiero.core.project(name) -> returns the Project with the specified name, if it can be found, or None.
+
+    @return: hiero.core.Project object
+    """
+    return object()
+
+
+def projects(*args, **kwargs):
+    """
+    hiero.core.projects() -> returns a tuple of currently loaded projects which are user projects (not startup). Same effect as calling the method below passing Project.kUserProjects.
+    hiero.core.projects(projectTypes) -> returns a tuple of currently loaded projects, filtered according to projectTypes. Use hiero.core.projects()[-1] to get the last loaded project.
+    @param projectTypes: optional; one of Project.kAllProjects, Project.kUserProjects, Project.kStartupProjects
+
+    @return: tuple of hiero.core.Project objects
+    """
+    return Project()
+
+
+def quit(*args, **kwargs):
+    """
+    hiero.core.quit() -> shuts down Hiero, without saving any existing projects. Safer than calling sys.exit(), which doesn't always clean up properly and can cause Hiero to crash. This version sets the exit code of the Hiero process to 0.
+
+    Note that this must be the last line in a script.
+    hiero.core.quit(exitCode) -> same as the first version of this method, except that this one sets the exit code of the process to the exitCode variable.
+
+    @param exitCode: optional; integer value to set the process's exit code to
+    """
+    return int()
+
+
+def redo() -> object:
+    """
+
+    """
+    return object()
+
+
+def redoSize() -> object:
+    """
+
+    """
+    return object()
+
+
+def remapPath(arg__1: str) -> object:
+    """
+    hiero.core.remapPath(path) -> uses the platform specific path remapping rules from the user's preferences and applies them to the input path.
+
+    @param path: string path to apply the path remapping rules to
+    @return: string
+    """
+    return object()
+
+
+def stopScriptAndQuit(*args, **kwargs):
+    """
+
+    """
+    return None
+
+
+def undo() -> object:
+    """
+
+    """
+    return object()
+
+
+def undoSize() -> object:
+    """
+
+    """
+    return object()
+
+
+'''Stubs generated automatically from Nuke's internal interpreter.'''
+
+
+# Constants
+GUI = True
+TYPE_CHECKING = False
+env = {'VersionDate': '', 'VersionMajor': '', 'VersionMinor': '', 'VersionRelease': '', 'VersionString': '',
+       'VersionPhaseNumber': '', 'ProductName': '', 'ApplicationName': '', 'HomeDirectory': '', 'SystemMemory': '', 'Features': ''}
+
+# Built-in methods
+
+
+def LUTGroup(*args, **kwargs):
+    """
+
+    """
+    return None
+
+
+def LUTs(*args, **kwargs):
+    """
+    hiero.core.LUTs() -> returns a tuple with the names of all of the available luts.
+
+    @return: tuple of strings
+    """
+    return Any
+
+
+def ViewerProcessNameFromDisplayTransformName(arg__1: str) -> object:
+    """
+
+    """
+    return object()
+
+
+def addPathRemap(arg__1: str, arg__2: str, arg__3: str) -> None:
+    """
+    hiero.core.addPathRemap(windowsPathPrefix, osxPathPrefix, linuxPathPrefix) -> adds to the table of file path remapping prefixes that Hiero maintains. Pairs of path prefixes added to this table will be used to convert paths between Windows, OSX and Linux. When on Windows, Hiero will replace any Linux or OSX prefixes found with the corresponding Windows prefix. On OSX, Hiero will search for the Windows and Linux path prefixes and replace them with the corresponding OSX prefix. The same applies for OSX/Windows prefixes being replaced on Linux. These can also be configured through the user interface in the General tab of the Preferences dialog.
+
+    @param windowsPathPrefix: string
+    @param osxPathPrefix: string
+    @param linuxPathPrefix: string
+
+    @return: None
+    """
+    return None
+
+
+def addPluginPath(*args, **kwargs):
+    """
+    hiero.core.addPluginPath(pluginPath) -> adds a new path to the list of plugin paths searched for Python plugins (in Python/Startup and Python/StartupUI folders). The user's .nuke folder will be the first in this list.
+    hiero.core.addPluginPath(pluginPath, index) -> the same as above, except that the index specifies which item in the list of paths to place the new one before.
+
+    @param pluginPath: the new path to add
+    @param index: optional; if not specified or negative, the new path will be added to the end of the list
+    """
+    return list()
+
+
+def closeAllProjects(*args, **kwargs):
+    """
+    hiero.core.closeProject() -> closes all of the existing projects without saving.
+    hiero.core.closeProject(bool dontSave) -> same as above, but if the parameter is set to false, unsaved projects will cause Hiero to popup a dialog for each unsaved project, asking the user if they'd like to save.
+
+    @param dontSave: True or False
+    """
+    return Any
+
+
+def conformer() -> object:
+    """
+    hiero.core.conformer() -> returns an interface for setting the conforming options.
+
+    @return: a hiero.core.Conformer object
+    """
+    return object()
+
+
+def formats() -> object:
+    """
+    hiero.core.formats() -> returns a tuple with all of the formats currently available.
+
+    @return: tuple of hiero.core.Format objects
+    """
+    return object()
+
+
+def getFilenameList(arg__1: str, arg__2: bool, arg__3: bool, arg__4: bool, arg__5: bool) -> object:
+    """
+    Deprecated. Do not use. Use hiero.core.filenameList() instead
+    """
+    return object()
+
+
+def getLibraryDirectory(arg__1: str) -> object:
+    """
+    hiero.core.getLibraryDirectory(subdirectory) -> deprecated; use hiero.core.libraryDirectory() instead.
+    """
+    return object()
+
+
+def getPluginPath():
+    """
+    hiero.core.getPluginPath() -> deprecated; please use hiero.core.pluginPath instead.
+    """
+    return Any
+
+
+def getRoleColorspace(*args, **kwargs):
+    """
+
+    """
+    return None
+
+
+def isHieroPlayer() -> object:
+    """
+
+    """
+    return object()
+
+
+def isIndie() -> object:
+    """
+
+    """
+    return object()
+
+
+def isNC() -> object:
+    """
+
+    """
+    return object()
+
+
+def libraryDirectory(arg__1: str) -> object:
+    """
+    hiero.core.libraryDirectory(subdirectory) -> returns the input appended to the location of the user's .nuke directory.
+
+    @param subdirectory: path to append to the .nuke directory
+    @return: string
+    """
+    return object()
+
+
+def newProject(*args, **kwargs):
+    """
+    hiero.core.newProject(name=None) -> creates and returns a new Project object. A name can optionally be given for the project.
+
+    @return: hiero.core.Project object
+    """
+    return str()
+
+
+def openProject(path: str, flags: int = 'Hiero.Python.Project.kProjectOpenNoFlags') -> core.Project:
+    """
+    hiero.core.openProject(path)
+
+    Opens the project found at the specified path. Must be called on the main thread. Throws an exception on failure.
+    @param path: Path to the project file (\*.hrox).
+    @return: Opened project.
+    """
+    return core.Project()
+
+
+def pathRemappings() -> object:
+    """
+    hiero.core.pathRemappings() -> returns the path remappings specified in the application preferences, or added through addPathRemap().
+
+    @return: a list of path remappings each containing the mapping for (windows, osx, linux)
+    """
+    return object()
+
+
+def pluginPath():
+    """
+    hiero.core.pluginPath() -> Returns a tuple of the search paths used by Hiero to load Python scripts.
+
+    @return: tuple of strings
+    """
+    return Any
+
+
+def project(arg__1: str) -> object:
+    """
+    hiero.core.project(name) -> returns the Project with the specified name, if it can be found, or None.
+
+    @return: hiero.core.Project object
+    """
+    return object()
+
+
+def projects(*args, **kwargs):
+    """
+    hiero.core.projects() -> returns a tuple of currently loaded projects which are user projects (not startup). Same effect as calling the method below passing Project.kUserProjects.
+    hiero.core.projects(projectTypes) -> returns a tuple of currently loaded projects, filtered according to projectTypes. Use hiero.core.projects()[-1] to get the last loaded project.
+    @param projectTypes: optional; one of Project.kAllProjects, Project.kUserProjects, Project.kStartupProjects
+
+    @return: tuple of hiero.core.Project objects
+    """
+    return Project()
+
+
+def quit(*args, **kwargs):
+    """
+    hiero.core.quit() -> shuts down Hiero, without saving any existing projects. Safer than calling sys.exit(), which doesn't always clean up properly and can cause Hiero to crash. This version sets the exit code of the Hiero process to 0.
+
+    Note that this must be the last line in a script.
+    hiero.core.quit(exitCode) -> same as the first version of this method, except that this one sets the exit code of the process to the exitCode variable.
+
+    @param exitCode: optional; integer value to set the process's exit code to
+    """
+    return int()
+
+
+def redo() -> object:
+    """
+
+    """
+    return object()
+
+
+def redoSize() -> object:
+    """
+
+    """
+    return object()
+
+
+def remapPath(arg__1: str) -> object:
+    """
+    hiero.core.remapPath(path) -> uses the platform specific path remapping rules from the user's preferences and applies them to the input path.
+
+    @param path: string path to apply the path remapping rules to
+    @return: string
+    """
+    return object()
+
+
+def stopScriptAndQuit(*args, **kwargs):
+    """
+
+    """
+    return None
+
+
+def undo() -> object:
+    """
+
+    """
+    return object()
+
+
+def undoSize() -> object:
+    """
+
+    """
+    return object()
+
+
+'''Stubs generated automatically from Nuke's internal interpreter.'''
+
+
+# Constants
+GUI = True
+TYPE_CHECKING = False
+env = {'VersionDate': '', 'VersionMajor': '', 'VersionMinor': '', 'VersionRelease': '', 'VersionString': '',
+       'VersionPhaseNumber': '', 'ProductName': '', 'ApplicationName': '', 'HomeDirectory': '', 'SystemMemory': '', 'Features': ''}
+
+# Built-in methods
+
+
+def LUTGroup(*args, **kwargs):
+    """
+
+    """
+    return None
+
+
+def LUTs(*args, **kwargs):
+    """
+    hiero.core.LUTs() -> returns a tuple with the names of all of the available luts.
+
+    @return: tuple of strings
+    """
+    return Any
+
+
+def ViewerProcessNameFromDisplayTransformName(arg__1: str) -> object:
+    """
+
+    """
+    return object()
+
+
+def addPathRemap(arg__1: str, arg__2: str, arg__3: str) -> None:
+    """
+    hiero.core.addPathRemap(windowsPathPrefix, osxPathPrefix, linuxPathPrefix) -> adds to the table of file path remapping prefixes that Hiero maintains. Pairs of path prefixes added to this table will be used to convert paths between Windows, OSX and Linux. When on Windows, Hiero will replace any Linux or OSX prefixes found with the corresponding Windows prefix. On OSX, Hiero will search for the Windows and Linux path prefixes and replace them with the corresponding OSX prefix. The same applies for OSX/Windows prefixes being replaced on Linux. These can also be configured through the user interface in the General tab of the Preferences dialog.
+
+    @param windowsPathPrefix: string
+    @param osxPathPrefix: string
+    @param linuxPathPrefix: string
+
+    @return: None
+    """
+    return None
+
+
+def addPluginPath(*args, **kwargs):
+    """
+    hiero.core.addPluginPath(pluginPath) -> adds a new path to the list of plugin paths searched for Python plugins (in Python/Startup and Python/StartupUI folders). The user's .nuke folder will be the first in this list.
+    hiero.core.addPluginPath(pluginPath, index) -> the same as above, except that the index specifies which item in the list of paths to place the new one before.
+
+    @param pluginPath: the new path to add
+    @param index: optional; if not specified or negative, the new path will be added to the end of the list
+    """
+    return list()
+
+
+def closeAllProjects(*args, **kwargs):
+    """
+    hiero.core.closeProject() -> closes all of the existing projects without saving.
+    hiero.core.closeProject(bool dontSave) -> same as above, but if the parameter is set to false, unsaved projects will cause Hiero to popup a dialog for each unsaved project, asking the user if they'd like to save.
+
+    @param dontSave: True or False
+    """
+    return Any
+
+
+def conformer() -> object:
+    """
+    hiero.core.conformer() -> returns an interface for setting the conforming options.
+
+    @return: a hiero.core.Conformer object
+    """
+    return object()
+
+
+def formats() -> object:
+    """
+    hiero.core.formats() -> returns a tuple with all of the formats currently available.
+
+    @return: tuple of hiero.core.Format objects
+    """
+    return object()
+
+
+def getFilenameList(arg__1: str, arg__2: bool, arg__3: bool, arg__4: bool, arg__5: bool) -> object:
+    """
+    Deprecated. Do not use. Use hiero.core.filenameList() instead
+    """
+    return object()
+
+
+def getLibraryDirectory(arg__1: str) -> object:
+    """
+    hiero.core.getLibraryDirectory(subdirectory) -> deprecated; use hiero.core.libraryDirectory() instead.
+    """
+    return object()
+
+
+def getPluginPath():
+    """
+    hiero.core.getPluginPath() -> deprecated; please use hiero.core.pluginPath instead.
+    """
+    return Any
+
+
+def getRoleColorspace(*args, **kwargs):
+    """
+
+    """
+    return None
+
+
+def isHieroPlayer() -> object:
+    """
+
+    """
+    return object()
+
+
+def isIndie() -> object:
+    """
+
+    """
+    return object()
+
+
+def isNC() -> object:
+    """
+
+    """
+    return object()
+
+
+def libraryDirectory(arg__1: str) -> object:
+    """
+    hiero.core.libraryDirectory(subdirectory) -> returns the input appended to the location of the user's .nuke directory.
+
+    @param subdirectory: path to append to the .nuke directory
+    @return: string
+    """
+    return object()
+
+
+def newProject(*args, **kwargs):
+    """
+    hiero.core.newProject(name=None) -> creates and returns a new Project object. A name can optionally be given for the project.
+
+    @return: hiero.core.Project object
+    """
+    return str()
+
+
+def openProject(path: str, flags: int = 'Hiero.Python.Project.kProjectOpenNoFlags') -> core.Project:
+    """
+    hiero.core.openProject(path)
+
+    Opens the project found at the specified path. Must be called on the main thread. Throws an exception on failure.
+    @param path: Path to the project file (\*.hrox).
+    @return: Opened project.
+    """
+    return core.Project()
+
+
+def pathRemappings() -> object:
+    """
+    hiero.core.pathRemappings() -> returns the path remappings specified in the application preferences, or added through addPathRemap().
+
+    @return: a list of path remappings each containing the mapping for (windows, osx, linux)
+    """
+    return object()
+
+
+def pluginPath():
+    """
+    hiero.core.pluginPath() -> Returns a tuple of the search paths used by Hiero to load Python scripts.
+
+    @return: tuple of strings
+    """
+    return Any
+
+
+def project(arg__1: str) -> object:
+    """
+    hiero.core.project(name) -> returns the Project with the specified name, if it can be found, or None.
+
+    @return: hiero.core.Project object
+    """
+    return object()
+
+
+def projects(*args, **kwargs):
+    """
+    hiero.core.projects() -> returns a tuple of currently loaded projects which are user projects (not startup). Same effect as calling the method below passing Project.kUserProjects.
+    hiero.core.projects(projectTypes) -> returns a tuple of currently loaded projects, filtered according to projectTypes. Use hiero.core.projects()[-1] to get the last loaded project.
+    @param projectTypes: optional; one of Project.kAllProjects, Project.kUserProjects, Project.kStartupProjects
+
+    @return: tuple of hiero.core.Project objects
+    """
+    return Project()
 
 
 def quit(*args, **kwargs):
