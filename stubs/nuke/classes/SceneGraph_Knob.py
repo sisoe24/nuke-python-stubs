@@ -37,7 +37,7 @@ class SceneGraph_Knob(Unsigned_Knob):
 
         Returns a tuple of string tuples (name, type).
         """
-        return str()
+        return tuple()
 
     def setItems(self, *args, autoSelect=False):
         """

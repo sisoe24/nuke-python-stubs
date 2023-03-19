@@ -2706,7 +2706,7 @@ def warning(message: str):
     return None
 
 
-def zoom(scale, center: int = None, group: Group = None):
+def zoom(scale, center: tuple = None, group: Group = None):
     """
     zoom(scale, center, group) -> float
 

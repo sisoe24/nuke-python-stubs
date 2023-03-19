@@ -664,7 +664,7 @@ class Project(Object):
         viewsAndColors() -> Returns a list of this project's views and corresponding colors.
         @return: list of (str, PySide2.QtGui.QColor) tuples
         """
-        return tuple()
+        return list()
 
     def __copy__(self,) -> None:
         """
