@@ -32,13 +32,14 @@ class RuntimeSettings:
         os.makedirs(os.path.join(path, 'classes'), exist_ok=True)
 
 
-# add all hiero.ui and core classes.
-# TODO: fix path
-# TODO: first run there are no classes
-CLASSES = [f.replace('.py', '') for f in os.listdir('stubs/nuke/classes')]
+def get_classes_names():
+    files = []
+    for path in STUBS_PATH.glob('**/classes'):
+        files.extend(file.name.replace('.py', '') for file in path.glob('[!__]*.py'))
+    return files
+
 
 # TODO: make multiple dictionary based on current module
-# nuke changes
 MANUAL_CHANGES = {
     '__init__': {
         'headers': [
@@ -265,7 +266,8 @@ class GuessType:
 
         # do a last check if any type is a class Name else return 'Any'
         return next(
-            (x for x in CLASSES if re.search(r'\b' + x + r'\b', self.string)), 'Any'
+            (x for x in get_classes_names() if re.search(
+                r'\b' + x + r'\b', self.string)), 'Any'
         )
 
     def is_union(self, match: re.Match) -> str:
