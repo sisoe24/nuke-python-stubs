@@ -1,5 +1,6 @@
 import os
 import re
+import pprint
 import inspect
 import pathlib
 from shutil import copytree
@@ -16,8 +17,10 @@ StubsData = namedtuple('StubsData', ['builtin', 'constants', 'classes'])
 class StubsRuntimeSettings:
     stubs_path = None
     nuke_extras = None
-    log = False
     guess = True
+    log = False
+    log_to_file = False
+    lo_file = None
 
     def __new__(cls, module, path: str, class_imports_header: str, post_fixes: dict):
         cls.path = path
@@ -299,7 +302,7 @@ class GuessType:
             # return f'Optional[{guess_type}]=""'
             return f'{guess_type}=None'
 
-        unknown('Optionals', match.group(), guess_type)
+        unknown(text=self.string, _type='Optionals')
         return 'None'
 
 
@@ -376,7 +379,8 @@ class ArgsParser:
                 guessed_type = GuessType(docs_args[arg]).auto_guess()
 
                 if not guessed_type:
-                    unknown('Args', arg, docs_args[arg])
+                    unknown(_type='Args', args=self._extract_args(),
+                            arg=arg, value=docs_args[arg])
                     continue
 
                 index = args.index(arg)
@@ -434,8 +438,12 @@ class ReturnExtractor:
             if is_valid_object(return_value) and return_value not in not_valid:
                 return return_value
 
-            unknown('Returns', self.header_obj.obj.__name__, return_value)
-            return self._guess_type(return_value) or 'Any'
+            last_check = self._guess_type(return_value)
+            if last_check:
+                return last_check
+
+            unknown(_type='Returns', function=self.header_obj.obj.__name__, value=return_value)
+            return 'Any'
 
     @staticmethod
     def _make_callable(text: str) -> str:
@@ -717,15 +725,6 @@ def parse_modules():
     return StubsData(builtin, constants, classes)
 
 
-def unknown(_type, name, value):
-    log(f'\tUnknown type. Type: {_type} - Name: {name} - Value: {value}')
-
-
-def log(*args, **kwargs):
-    if StubsRuntimeSettings.log:
-        print(*args, **kwargs)
-
-
 def get_nuke_included_modules():
     """Get included modules inside plugins path.
 
@@ -733,7 +732,7 @@ def get_nuke_included_modules():
     - nuke_internal
     - ocionuke
     """
-    def clean_nukescripts():
+    def fix_nukescripts():
         """Import the correct module for nukescripts."""
         nukescripts_path = StubsRuntimeSettings.path / 'nukescripts'
         for file in nukescripts_path.glob('*.py'):
@@ -745,7 +744,7 @@ def get_nuke_included_modules():
                 f.write(sub)
                 f.truncate()
 
-    def clean_init():
+    def fix_init():
         """Clean nuke_internal __init__."""
         nuke_internal_init = os.path.join(
             StubsRuntimeSettings.path, 'nuke_internal', '__init__.py'
@@ -770,8 +769,8 @@ def get_nuke_included_modules():
                 )
                 copytree(src, str(destination), dirs_exist_ok=True)
 
-    clean_init()
-    clean_nukescripts()
+    fix_init()
+    fix_nukescripts()
 
 
 def generate_nuke_stubs():
@@ -867,16 +866,30 @@ def generate_hiero_stubs():
     generate_stubs(ui, 'ui', HIERO_UI_POST_FIX)
 
 
+def unknown(**kwargs):
+    log(f'  Unknown type: {pprint.pformat(kwargs, indent=4, width=120)}')
+
+
+def log(*args, **kwargs):
+    if StubsRuntimeSettings.log_to_file:
+        with open(StubsRuntimeSettings.log_file, 'a') as log:
+            log.write(' '.join(args) + '\n')
+
+    if StubsRuntimeSettings.log:
+        print(*args, **kwargs)
+
+
 def main():
     stubs_path = pathlib.Path(
         os.path.join(os.path.expanduser('~'), '.nuke', 'nuke-python-stubs', 'stubs')
     )
     os.makedirs(stubs_path, exist_ok=True)
-
     StubsRuntimeSettings.stubs_path = stubs_path
-    StubsRuntimeSettings.log = False
-    StubsRuntimeSettings.guess = True
-    StubsRuntimeSettings.nuke_extras = ('nuke_internal', 'nukescripts', 'ocionuke')
+
+    if StubsRuntimeSettings.log_to_file:
+        StubsRuntimeSettings.log_file = stubs_path.parent / 'nukestubsgen.log'
+        with open(StubsRuntimeSettings.log_file, 'w') as file:
+            file.write('')
 
     print('Start Extraction')
     generate_nuke_stubs()
@@ -885,4 +898,7 @@ def main():
 
 
 if __name__ == '__main__':
+    StubsRuntimeSettings.log = False
+    StubsRuntimeSettings.log_to_file = False
+    StubsRuntimeSettings.nuke_extras = ('nuke_internal', 'nukescripts', 'ocionuke')
     main()
