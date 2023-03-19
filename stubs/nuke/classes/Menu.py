@@ -83,7 +83,7 @@ class Menu(MenuItem):
         @param name: The name to search for.
         @return: The submenu or command we found, or None if we could not find anything.
         """
-        return Union[Menu, None]
+        return None
 
     def menu(self, name: str):
         """
@@ -92,7 +92,7 @@ class Menu(MenuItem):
         @param name: The name to search for.
         @return: The submenu or command we found, or None if we could not find anything.
         """
-        return Union[Menu, None]
+        return None
 
     def removeItem(self, name: str):
         """
@@ -101,7 +101,7 @@ class Menu(MenuItem):
         @param name: The name to remove for.
         @return: true if removed, false if menu not found
         """
-        return None
+        return bool()
 
     def items(self,):
         """

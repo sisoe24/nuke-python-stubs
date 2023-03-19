@@ -208,7 +208,7 @@ def alert(prompt: str):
     return None
 
 
-def allNodes(filter: str = None, group: Any = None):
+def allNodes(filter: str = None, group=None):
     """
     allNodes(filter, group) -> List.
 
@@ -224,7 +224,7 @@ def allNodes(filter: str = None, group: Any = None):
     return [Node]
 
 
-def animation(object: Any, *commands):
+def animation(object, *commands):
     """
     animation(object, *commands) -> None
 
@@ -274,7 +274,7 @@ def animationEnd():
 
     :return: The end frame.
     """
-    return float()
+    return int()
 
 
 def animationIncrement():
@@ -296,7 +296,7 @@ def animationStart():
 
     :return: The start frame.
     """
-    return float()
+    return int()
 
 
 def animations():
@@ -333,7 +333,7 @@ def applyPreset(nodeName: str, presetName: str):
     :param node: (optional) a Node object to apply the preset to. If this is provided, the nodeName parameter is ignored.
     :return: bool.
     """
-    return None
+    return bool()
 
 
 def applyUserPreset(nodeName: str, presetName: str):
@@ -347,7 +347,7 @@ def applyUserPreset(nodeName: str, presetName: str):
     :param node: (optional) a Node object to apply the preset to. If this is provided, the nodeName parameter is ignored.
     :return: bool.
     """
-    return None
+    return bool()
 
 
 def ask(prompt: str):
@@ -362,7 +362,7 @@ def ask(prompt: str):
     return bool()
 
 
-def askWithCancel(prompt: Any):
+def askWithCancel(prompt):
     """
     askWithCancel(prompt) -> bool
 
@@ -498,7 +498,7 @@ def channels(n=None):
     :param n: Optional node parameter.
     :return: A list of channel names.
     """
-    return str()
+    return list()
 
 
 def choice(title: str, prompt: str, options: list, default=0):
@@ -577,7 +577,7 @@ def clone(n: Node, args: Number = None, inpanel: bool = None):
     return Node()
 
 
-def cloneSelected(action: Any = None):
+def cloneSelected(action: str = None):
     """
     cloneSelected(action) -> bool
 
@@ -767,7 +767,7 @@ def deletePreset(nodeClassName: str, presetName: str):
     :param presetName: Name of the preset to create.
     :return: bool.
     """
-    return None
+    return bool()
 
 
 def deleteUserPreset(nodeClassName: str, presetName: str):
@@ -780,7 +780,7 @@ def deleteUserPreset(nodeClassName: str, presetName: str):
     :param presetName: Name of the preset to create.
     :return: bool.
     """
-    return None
+    return bool()
 
 
 def deleteView(s: str):
@@ -852,7 +852,7 @@ def error(message: str):
     return None
 
 
-def execute(nameOrNode: str, start: Number = None, end: Number = None, incr: int = None, views: list = None, continueOnError=False):
+def execute(nameOrNode: str, start: int = None, end: int = None, incr: int = None, views: list = None, continueOnError=False):
     """
     execute(nameOrNode, start, end, incr, views, continueOnError = False) -> None.
     execute(nameOrNode, frameRangeSet, views, continueOnError = False) -> None.\n
@@ -895,10 +895,10 @@ def executeBackgroundNuke(exe_path: str, nodes: list, frameRange, views: list, l
     :param: flipbookOptions: A dictionary with options to pass to the flipbook. These should include roi and pixelAspect.
     :return: Int.
     """
-    return None
+    return int()
 
 
-def executeMultiple(nodes: list, ranges: Number = None, views: list = None, continueOnError=False):
+def executeMultiple(nodes: list, ranges: int = None, views: list = None, continueOnError=False):
     """
     executeMultiple(nodes, ranges, views, continueOnError=False) -> None
 
@@ -1007,7 +1007,7 @@ def extractSelected():
     return None
 
 
-def filename(node: Any = None, i: Iterable = None):
+def filename(node=None, i: int = None):
     """
     filename(node, i) -> str
 
@@ -1040,7 +1040,7 @@ def forceClone():
     return bool()
 
 
-def forceLoad(n: Any = None):
+def forceLoad(n=None):
     """
     forceLoad(n) -> None
 
@@ -1068,7 +1068,7 @@ def formats():
     return [Format]
 
 
-def frame(f: Number = None):
+def frame(f: int = None):
     """
     frame(f) -> Current frame.
 
@@ -1082,7 +1082,7 @@ def frame(f: Number = None):
     :param f: Optional frame number.
     :return: Current frame.
     """
-    return Number()
+    return int()
 
 
 def fromNode(n: Node):
@@ -1106,7 +1106,7 @@ def getAllUserPresets():
 
     :return: a list of tuples containing all nodename/presetname pairs.
     """
-    return None
+    return list()
 
 
 def getClipname(prompt: str, pattern=None, default=None, multiple=False):
@@ -1151,7 +1151,7 @@ def getDeletedPresets():
 
     :return: a pyDict containing all nodename/presetname pairs.
     """
-    return None
+    return dict()
 
 
 def getFileNameList(dir: Iterable, splitSequences=False, extraInformation=False, returnDirs=True, returnHidden=False):
@@ -1167,7 +1167,7 @@ def getFileNameList(dir: Iterable, splitSequences=False, extraInformation=False,
     :param: returnHidden whether to return hidden files and directories.
     :return: Array of files.
     """
-    return str()
+    return list()
 
 
 def getFilename(message: str, pattern=None, default=None, favorites=None, type=None, multiple=False):
@@ -1215,7 +1215,7 @@ def getFramesAndViews(label: str, default=None, maxviews=0):
     :param maxviews: Optional max number of views.
     :return: List of ranges and views.
     """
-    return Iterable()
+    return list()
 
 
 def getInput(prompt: str, default: str):
@@ -1261,7 +1261,7 @@ def getNodePresetID():
 
     :return: a string containing the ID.
     """
-    return None
+    return str()
 
 
 def getOcioColorSpaces():
@@ -1283,7 +1283,7 @@ def getPaneFor(panelName):
 
     :return: The pane or None.
     """
-    return Any
+    return None
 
 
 def getPresetKnobValues():
@@ -1296,7 +1296,7 @@ def getPresetKnobValues():
     :param presetName: Name of the preset to get values for.
     :return: a pyDict containing all knob name/value pairs.
     """
-    return None
+    return str()
 
 
 def getPresets():
@@ -1307,7 +1307,7 @@ def getPresets():
 
     :return: a pyList containing all nodename/presetname pairs.
     """
-    return None
+    return list()
 
 
 def getPresetsMenu(Node):
@@ -1318,7 +1318,7 @@ def getPresetsMenu(Node):
 
     :return: The menu, or None if it doesn't exist.
     """
-    return Union[Menu, None]
+    return None
 
 
 def getReadFileKnob(node: Node):
@@ -1364,7 +1364,7 @@ def getUserPresetKnobValues():
     :param presetName: Name of the preset to get values for.
     :return: a pyDict containing all knob name/value pairs.
     """
-    return None
+    return str()
 
 
 def getUserPresets(Node):
@@ -1375,7 +1375,7 @@ def getUserPresets(Node):
 
     :return: a pyList containing all nodename/presetname pairs.
     """
-    return None
+    return list()
 
 
 def hotkeys():
@@ -1403,7 +1403,7 @@ def inputs(n: Node, i: Number = None):
     :param i: Optional number of inputs requested.
     :return: Number of inputs.
     """
-    return int()
+    return Number()
 
 
 def invertSelection():
@@ -1417,7 +1417,7 @@ def invertSelection():
     return None
 
 
-def knob(name: str, value: Any = None, getType: int = None, getClass: str = None):
+def knob(name: str, value=None, getType: int = None, getClass: str = None):
     """
     knob(name, value, getType, getClass) -> None
 
@@ -1498,7 +1498,7 @@ def knobDefault(classknob: str, value: str = None):
     :param value: Optional string to convert to the default value.
     :return: None or String with the default value.
     """
-    return str()
+    return Union[None, str]
 
 
 def knobTooltip(classknob: str, value: str):
@@ -1537,7 +1537,7 @@ def licenseInfo():
 
     :return: None
     """
-    return Any
+    return None
 
 
 def load(s: str):
@@ -1579,7 +1579,7 @@ def localiseFiles(readKnobs):
     return None
 
 
-def localizationEnabled(knob: Any):
+def localizationEnabled(knob):
     """
     localizationEnabled(knob) -> bool
 
@@ -1687,7 +1687,7 @@ def nodeDelete(s):
     return bool()
 
 
-def nodePaste(s: Any):
+def nodePaste(s: str):
     """
     nodePaste(s) -> Node
 
@@ -1717,7 +1717,7 @@ def nodesSelected():
 
     :return: true if any nodes are currently selected
     """
-    return None
+    return bool()
 
 
 def numvalue(knob: Knob, default=None):
@@ -1973,7 +1973,7 @@ def removeFavoriteDir(name: str, type: str = None):
     return None
 
 
-def execute(nameOrNode: str, start: Number = None, end: Number = None, incr: int = None, views: list = None, continueOnError=False):
+def execute(nameOrNode: str, start: int = None, end: int = None, incr: int = None, views: list = None, continueOnError=False):
     """
     execute(nameOrNode, start, end, incr, views, continueOnError = False) -> None.
     execute(nameOrNode, frameRangeSet, views, continueOnError = False) -> None.\n
@@ -2041,10 +2041,10 @@ def root():
 
     :return: The root node. This will never be None.
     """
-    return node()
+    return None
 
 
-def runIn(object: str, cmd: Any):
+def runIn(object: str, cmd):
     """
     runIn(object, cmd) -> bool
 
@@ -2109,7 +2109,7 @@ def saveUserPreset(node, presetName: str):
     :param presetName: Name of the preset to create.
     :return: bool.
     """
-    return None
+    return bool()
 
 
 def scriptClear(*args, **kwargs):
@@ -2160,7 +2160,7 @@ def scriptSave(filename=None):
     :param filename: Save to this file name without changing the script name in the project (use scriptSaveAs() if you want it to change).
     :return: True if the file was saved, otherwise an exception is thrown.)
     """
-    return bool()
+    return str()
 
 
 def scriptSaveAs(filename=None, overwrite=-1):
@@ -2221,7 +2221,7 @@ def selectPattern():
     return None
 
 
-def selectSimilar(matchType: Any):
+def selectSimilar(matchType):
     """
     selectSimilar(matchType) -> None
 
@@ -2271,7 +2271,7 @@ def setPreset(nodeClassName: str, presetName: str, knobValues: dict):
     :param knobValues: A dictionary containing a set of knob names and preset values.
     :return: bool.
     """
-    return None
+    return bool()
 
 
 def setReadOnlyPresets(readOnly):
@@ -2295,10 +2295,10 @@ def setUserPreset(nodeClassName: str, presetName: str, knobValues: dict):
     :param knobValues: A dictionary containing a set of knob names and preset values.
     :return: bool.
     """
-    return None
+    return bool()
 
 
-def show(n: Any = None, forceFloat: bool = None):
+def show(n=None, forceFloat: bool = None):
     """
     show(n, forceFloat) -> None
 
@@ -2352,7 +2352,7 @@ def showDag(n: Group = None):
     return None
 
 
-def showInfo(n: Any = None):
+def showInfo(n=None):
     """
     showInfo(n) -> str
 
@@ -2424,7 +2424,7 @@ def stopPerformanceTimers():
     return None
 
 
-def stripFrameRange(clipname: Any):
+def stripFrameRange(clipname):
     """
     stripFrameRange(clipname) -> string
 
@@ -2433,7 +2433,7 @@ def stripFrameRange(clipname: Any):
     :param clipname: The clipname.
     :return: The name without the frame range.
     """
-    return str()
+    return int()
 
 
 def suspendPathProcessing():
@@ -2486,7 +2486,7 @@ def thisClass():
 
     :return: The class name for the current node.
     """
-    return None
+    return str()
 
 
 def thisGroup():
@@ -2508,7 +2508,7 @@ def thisKnob():
 
     :return: Knob or None
     """
-    return Knob()
+    return Union[Knob, None]
 
 
 def thisNode():
@@ -2575,7 +2575,7 @@ def toNode(s: str):
     :param s: Node name.
     :return: Node or None if it does not exist.
     """
-    return Node()
+    return Union[Node, None]
 
 
 def toggleFullscreen():
@@ -2614,10 +2614,10 @@ def toolbar(name: str, create=True):
     :raises: A RuntimeException is thrown if not in GUI mode.
     :return: The toolbar, or None if no toolbar was found and 'create' was False.
     """
-    return ToolBar()
+    return bool()
 
 
-def tprint(value, sep=' ', end='\n', file=sys.stdout):
+def tprint(value, sep=' ', end='\', file=sys.stdout):
     """
     tprint(value, ..., sep=' ', end='\', file=sys.stdout) -> None
 
@@ -2691,7 +2691,7 @@ def waitForThreadsToFinish():
 
     :return: True or False.
     """
-    return str()
+    return Union[True, False]
 
 
 def warning(message: str):
@@ -2706,7 +2706,7 @@ def warning(message: str):
     return None
 
 
-def zoom(scale: Any, center: int = None, group: Group = None):
+def zoom(scale, center: int = None, group: Group = None):
     """
     zoom(scale, center, group) -> float
 
@@ -2726,7 +2726,7 @@ def zoom(scale: Any, center: int = None, group: Group = None):
     :param group: Optional Group. This is ignored at present.
     :return: Current zoom factor or None if not in a GUI context.
     """
-    return float()
+    return None
 
 
 def zoomToFitSelected():

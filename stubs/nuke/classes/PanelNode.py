@@ -56,7 +56,7 @@ class PanelNode(object):
         """
         return None
 
-    def writeKnobs(self, i: Any):
+    def writeKnobs(self, i):
         """
         self.writeKnobs(i) -> String in .nk form.
         Return a tcl list. If TO_SCRIPT | TO_VALUE is not on, this is a simple list

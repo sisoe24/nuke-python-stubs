@@ -71,7 +71,7 @@ class Disable_Knob(Boolean_Knob):
         Get the boolean value for this knob.
         @return: True or False.
         """
-        return bool()
+        return Union[True, False]
 
     def setValue(self, b: bool):
         """

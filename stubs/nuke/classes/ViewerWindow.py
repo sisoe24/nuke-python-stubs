@@ -113,7 +113,7 @@ class ViewerWindow(object):
         Returns the a list of geometry nodes attached with this viewer
         @return: Nodes: a list of the geometry nodes.
         """
-        return None
+        return list()
 
     def getGLCameraMatrix(self,):
         """

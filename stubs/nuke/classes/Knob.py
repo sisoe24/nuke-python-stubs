@@ -45,7 +45,7 @@ class Knob(object):
         Return the node that this knob belongs to. If the node has been cloned, we'll always return a reference to the original.
         @return: The node which owns this knob, or None if the knob has no owner yet.
         """
-        return nuke.Node()
+        return Node()
 
     def name(self,):
         """
@@ -124,7 +124,7 @@ class Knob(object):
         """
         return None
 
-    def setFlag(self, f: Any):
+    def setFlag(self, f):
         """
         self.setFlag(f) -> None.
         Logical OR of the argument and existing knob flags.
@@ -133,7 +133,7 @@ class Knob(object):
         """
         return None
 
-    def getFlag(self, f: Any):
+    def getFlag(self, f):
         """
         self.getFlag(f) -> Bool.
         Returns whether the input flag is set.
@@ -142,7 +142,7 @@ class Knob(object):
         """
         return bool()
 
-    def clearFlag(self, f: Any):
+    def clearFlag(self, f):
         """
         self.clearFlag(f) -> None.
         Clear flag.
@@ -366,7 +366,7 @@ class Knob(object):
         Returns the authoring mode currently set on the knob. This is a unique string identifier of the option, which is also used for serialisation and deserialisation. It is not meant to change,thus one can rely on it.
         @return: The string identifier of the current authoring mode set.
         """
-        return int()
+        return str()
 
     def setAuthorMode(self, authorMode: int):
         """

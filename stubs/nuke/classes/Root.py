@@ -53,7 +53,7 @@ class Root(Group):
         self.inputs() -> Gets the maximum number of connected inputs.
         @return: Number of the highest connected input + 1. If inputs 0, 1, and 3 are connected, this will return 4.
         """
-        return Number()
+        return int()
 
     def input(self, i: Number):
         """
@@ -214,7 +214,7 @@ class Root(Group):
         """
         return None
 
-    def setFrame(self, n: Number):
+    def setFrame(self, n: int):
         """
         self.setFrame(n) -> None.
         Set frame.
@@ -267,7 +267,7 @@ class Root(Group):
         @param colorspace: Colorspace name.
         @return: Family name, may be an empty string.
         """
-        return Any
+        return str()
 
     def __init__(self,  *args, **kwargs):
         """

@@ -99,7 +99,7 @@ class AnimationCurve(object):
         @param t: Time.
         @return: The value of the animation at time 't'.
         """
-        return float()
+        return Number()
 
     def derivative(self, t: Number, n: int = None):
         """
@@ -111,7 +111,7 @@ class AnimationCurve(object):
         """
         return float()
 
-    def inverse(self, y: Any):
+    def inverse(self, y):
         """
         self.inverse(y) -> Float.
         The inverse function at value y. This is the value of x such that evaluate(x)
@@ -133,7 +133,7 @@ class AnimationCurve(object):
         """
         return float()
 
-    def setKey(self, t: Number, y: Any):
+    def setKey(self, t: Number, y):
         """
         self.setKey(t, y) -> Key.
         Set a key at time t and value y. If there is no key
@@ -181,7 +181,7 @@ class AnimationCurve(object):
         """
         return str()
 
-    def changeInterpolation(self, keys: Iterable, type: Any):
+    def changeInterpolation(self, keys: Iterable, type):
         """
         self.changeInterpolation(keys, type) -> None.
         Change interpolation (and extrapolation) type for the keys.

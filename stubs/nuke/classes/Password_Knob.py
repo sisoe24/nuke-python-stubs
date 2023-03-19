@@ -46,7 +46,7 @@ class Password_Knob(Knob):
         """
         return str()
 
-    def setValue(self, val: Any, view='default'):
+    def setValue(self, val, view='default'):
         """
         self.setValue(val, view='default') -> None
 

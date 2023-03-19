@@ -57,7 +57,7 @@ class Panel(object):
         """
         return bool()
 
-    def addSingleLineInput(self, name: str, value: Any):
+    def addSingleLineInput(self, name: str, value):
         """
         self.addSingleLineInput(name, value) -> True if successful.
         Add a single-line input knob to the panel.
@@ -67,7 +67,7 @@ class Panel(object):
         """
         return bool()
 
-    def addPasswordInput(self, name: str, value: Any):
+    def addPasswordInput(self, name: str, value):
         """
         self.addPasswordInput(name, value) -> True if successful.
         Add a password input knob to the panel.
@@ -77,7 +77,7 @@ class Panel(object):
         """
         return bool()
 
-    def addFilenameSearch(self, name: str, value: Any):
+    def addFilenameSearch(self, name: str, value):
         """
         self.addFilenameSearch(name, value) -> True if successful.
         Add a filename search knob to the panel.
@@ -87,7 +87,7 @@ class Panel(object):
         """
         return bool()
 
-    def addClipnameSearch(self, name: str, value: Any):
+    def addClipnameSearch(self, name: str, value):
         """
         self.addClipnameSearch(name, value) -> True if successful.
         Add a clipname search knob to the panel.
@@ -97,7 +97,7 @@ class Panel(object):
         """
         return bool()
 
-    def addMultilineTextInput(self, name: str, value: Any):
+    def addMultilineTextInput(self, name: str, value):
         """
         self.addMultilineTextInput(name, value) -> True if successful.
         Add a multi-line text knob to the panel.
@@ -107,7 +107,7 @@ class Panel(object):
         """
         return bool()
 
-    def addNotepad(self, name: str, value: Any):
+    def addNotepad(self, name: str, value):
         """
         self.addNotepad(name, value) -> True if successful.
         Add a text edit widget to the panel.
@@ -117,7 +117,7 @@ class Panel(object):
         """
         return bool()
 
-    def addBooleanCheckBox(self, name: str, value: Any):
+    def addBooleanCheckBox(self, name: str, value):
         """
         self.addBooleanCheckBox(name, value) -> True if successful.
         Add a boolean check box knob to the panel.
@@ -127,7 +127,7 @@ class Panel(object):
         """
         return bool()
 
-    def addRGBColorChip(self, name: str, value: Any):
+    def addRGBColorChip(self, name: str, value):
         """
         self.addRGBColorChip(name, value) -> True if successful.
         Add a color chooser to the panel.
@@ -137,7 +137,7 @@ class Panel(object):
         """
         return bool()
 
-    def addEnumerationPulldown(self, name: str, value: Any):
+    def addEnumerationPulldown(self, name: str, value):
         """
         self.addEnumerationPulldown(name, value) -> True if successful.
         Add a pulldown menu to the panel.
@@ -147,7 +147,7 @@ class Panel(object):
         """
         return bool()
 
-    def addTextFontPulldown(self, name: str, value: Any):
+    def addTextFontPulldown(self, name: str, value):
         """
         self.addTextFontPulldown(name, value) -> True if successful.
         Add a font chooser to the panel.
@@ -157,7 +157,7 @@ class Panel(object):
         """
         return bool()
 
-    def addExpressionInput(self, name: str, value: Any):
+    def addExpressionInput(self, name: str, value):
         """
         self.addExpressionInput(name, value) -> True if successful.
         Add an expression evaluator to the panel.
@@ -167,7 +167,7 @@ class Panel(object):
         """
         return bool()
 
-    def addScriptCommand(self, name: str, value: Any):
+    def addScriptCommand(self, name: str, value):
         """
         self.addScriptCommand(name, value) -> True if successful.
         Add a script command evaluator to the panel.
@@ -177,7 +177,7 @@ class Panel(object):
         """
         return bool()
 
-    def addButton(self, name: str, value: Any):
+    def addButton(self, name: str, value):
         """
         self.addButton(name, value) -> True if successful.
         Add a button to the panel.
@@ -194,7 +194,7 @@ class Panel(object):
         @param name: The name of the knob to get a value from.
         @return: The value for the field if any, otherwise None.
         """
-        return Any
+        return None
 
     def execute(self, name: str):
         """

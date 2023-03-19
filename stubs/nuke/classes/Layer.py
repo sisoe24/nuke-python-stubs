@@ -57,7 +57,7 @@ class Layer(object):
 
         @return: A list of strings, where each string is the name of a channel in this layer.
         """
-        return str()
+        return list()
 
     def __init__(self,  *args, **kwargs):
         """

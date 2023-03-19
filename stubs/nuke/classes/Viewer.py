@@ -51,7 +51,7 @@ class Viewer(Node):
         Returns None if the Viewer has no window yet.
         @return: Boolean or None.
         """
-        return bool()
+        return Union[bool, None]
 
     def setRoi(self, box: dict):
         """
@@ -66,14 +66,14 @@ class Viewer(Node):
         self.playbackRange() -> FrameRange.
         Return the frame range that's currently set to be played back in the viewer.@return: FrameRange.
         """
-        return FrameRange()
+        return Number()
 
     def visibleRange(self,):
         """
         self.visibleRange() -> FrameRange.
         Return the frame range that is currently visible in the viewer.@return: FrameRange.
         """
-        return FrameRange()
+        return Number()
 
     def frameCached(self, f):
         """

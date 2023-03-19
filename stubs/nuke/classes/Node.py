@@ -102,14 +102,14 @@ class Node(object):
         self.isCloneable() -> If the node permits cloning.
         @return: True if the node allows cloning, False otherwise.
         """
-        return Any
+        return bool()
 
     def inputs(self,):
         """
         self.inputs() -> Gets the maximum number of connected inputs.
         @return: Number of the highest connected input + 1. If inputs 0, 1, and 3 are connected, this will return 4.
         """
-        return Number()
+        return int()
 
     def input(self, i: Number):
         """
@@ -187,7 +187,7 @@ class Node(object):
         """
         return Number()
 
-    def metadata(self, key: str = None, time: Number = None, view: Any = None):
+    def metadata(self, key: str = None, time: Number = None, view=None):
         """
         self.metadata(key, time, view) -> value or dict
         Return the metadata item for key on this node at current output context, or at optional time and view.
@@ -198,7 +198,7 @@ class Node(object):
         @param view: Optional view to evaluate at (default is taken from node's current output context).
         @return: The requested metadata value, a dictionary containing all keys if a key name is not provided, or None if the specified key is not matched.
         """
-        return Union[value, dict]
+        return str()
 
     def maximumOutputs(self,):
         """
@@ -339,7 +339,7 @@ class Node(object):
         """
         return Number()
 
-    def setCustomIcon(self, image: str, scale: Number = None, offsetX: Any = None, offsetY: Any = None):
+    def setCustomIcon(self, image: str, scale: Number = None, offsetX=None, offsetY=None):
         """
         self.setCustomIcon(image, scale, offsetX, offsetY) -> bool.
         Set a custom icon for the node.
@@ -403,7 +403,7 @@ class Node(object):
         """
         return None
 
-    def writeKnobs(self, i: Any):
+    def writeKnobs(self, i):
         """
         self.writeKnobs(i) -> String in .nk form.
         Return a tcl list. If TO_SCRIPT | TO_VALUE is not on, this is a simple list
@@ -583,7 +583,7 @@ class Node(object):
         Frame range for this node.
         @return: FrameRange.
         """
-        return FrameRange()
+        return Number()
 
     def upstreamFrameRange(self, i: Number):
         """
@@ -592,7 +592,7 @@ class Node(object):
         @param i: Input number.
         @return: FrameRange. Returns None when querying an invalid input.
         """
-        return FrameRange()
+        return Number()
 
     def format(self,):
         """
@@ -624,7 +624,7 @@ class Node(object):
         Pixel Aspect ratio of the node.
         @return: float.
         """
-        return int()
+        return float()
 
     def screenWidth(self,):
         """
@@ -650,7 +650,7 @@ class Node(object):
         """
         return list()
 
-    def dependencies(self, what: Any = None):
+    def dependencies(self, what):
         """
         self.dependencies(what) -> List of nodes.
 
@@ -669,7 +669,7 @@ class Node(object):
         """
         return [Node]
 
-    def dependent(self, what: Any = None, forceEvaluate: bool = None):
+    def dependent(self, what, forceEvaluate: bool):
         """
         self.dependent(what, forceEvaluate) -> List of nodes.
 
@@ -692,7 +692,7 @@ class Node(object):
         """
         return [Node]
 
-    def fileDependencies(self, start: Number, end: Number):
+    def fileDependencies(self, start: int, end: int):
         """
         self.fileDependencies(start, end) -> List of nodes and filenames.
 
@@ -782,7 +782,7 @@ class Node(object):
         timeTakenCPU =  the CPU time spent in microseconds
         timeTakenWall = the actual time ( wall time ) spent in microseconds
         """
-        return Number()
+        return dict()
 
     def isLocalized(self,):
         """
@@ -796,14 +796,14 @@ class Node(object):
         self.forceUpdateLocalization() -> Force Updates the localized files for this node.
         @return: None
         """
-        return str()
+        return None
 
     def localizationProgress(self,):
         """
         self.localizationProgress() -> Checks and reports on progress of localization of the current node.
         @return: float, between 0.0 (not localized) and 1.0 (localized)
         """
-        return Any
+        return int()
 
     def isLocalizationOutdated(self,):
         """
