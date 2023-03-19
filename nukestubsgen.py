@@ -178,14 +178,14 @@ def manual_mods(filename, func_header, func_return):
     return func_header, func_return
 
 
-def indented_docs(obj: object) -> str:
-    """Return the indent version of the docs."""
-    return indent(f'"""\n{get_docs(obj)}\n"""', ' ' * 4)
-
-
 def get_docs(obj: object) -> str:
     """Return object docs or empty string if there are none"""
     return inspect.getdoc(obj) or ''
+
+
+def indented_docs(obj: object) -> str:
+    """Return the indent version of the docs."""
+    return indent(f'"""\n{get_docs(obj)}\n"""', ' ' * 4)
 
 
 def is_valid_object(obj):
@@ -648,8 +648,9 @@ class ClassExtractor:
                 class_body += f'{member} = {obj}\n'
                 continue
 
-            class_body += func_constructor(FunctionObject(
-                obj=obj, fallback_name=member, is_class=True), self.class_name
+            class_body += func_constructor(
+                FunctionObject(obj=obj, fallback_name=member, is_class=True),
+                self.class_name
             )
 
         return indent(class_body, ' ' * 4)
@@ -791,7 +792,7 @@ def todo_generate_hiero_stubs():
     path = STUBS_PATH / 'hiero' / 'core'
 
     Settings.module = hiero.core
-    Settings.log = True
+    # Settings.log = True
     Settings.path = path
     os.makedirs(path / 'classes', exist_ok=True)
 
@@ -804,7 +805,6 @@ def todo_generate_hiero_stubs():
     from typing import *
 
     from .classes import *
-    from .nuke_internal import *
 
     # Constants
     {}
@@ -813,7 +813,7 @@ def todo_generate_hiero_stubs():
     {}
     """).format(constants, builtin).strip()
     print('Generating __init__.py')
-    with open(Settings.path / '__init__.py', 'w') as file:
+    with open(Settings.path / '__init__.py', 'a') as file:
         file.write(init_file)
 
     print('Generating class imports.')
