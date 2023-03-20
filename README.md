@@ -71,7 +71,7 @@ Although the script is a mess, you can still contribute by adding post-fixes inf
 
 If you would like to add some code, you need `pre-commit` installed in your repo.
 
-For convenience, place the repo inside `~/.nuke` so that `git` catches any change in the stubs files. Once you generate the stubs, run `pre-commit run -a` to apply the pre-commit hooks to each file to see the "real" difference of your new commits.
+For convenience, place the repo inside `~/.nuke` since the stubs are created inside `~/.nuke/nuke-python-stubs/stubs`. This way, `git` catches any change in the stubs files. Once you generate the stubs, run `pre-commit run -a` to apply the pre-commit hooks to each file to see the "real" difference of your new commits.
 
 ## 1.5. Acknowledgment
 
