@@ -691,7 +691,7 @@ class Project(Object):
     kUserProjects = 1
     kStartupProjects = 2
 
-    def _Project_extractSettings(self):
+    def extractSettings(self):
         """
         self.extractSettings() -> returns a dict of the project's settings.     @return: dict
 
