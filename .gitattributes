@@ -1,0 +1,14 @@
+# Files
+.gitignore                 export-ignore
+.gitattributes             export-ignore
+.pre-commit-config.yaml    export-ignore
+.python-version            export-ignore
+
+*.lock                     export-ignore
+
+images                    export-ignore
+ests                      export-ignore
+
+# Source files
+*                   text=auto
+*.py                text diff=python
