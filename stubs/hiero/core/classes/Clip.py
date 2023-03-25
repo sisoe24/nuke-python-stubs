@@ -105,7 +105,7 @@ class Clip(SequenceBase):
         """
         return str()
 
-    def getAvailableOcioColourTransforms(self) -> typing.List*args:
+    def getAvailableOcioColourTransforms(self) -> typing.List[str]:
         """
         self.getAvailableOcioColourTransforms() -> returns colour transform for the source media.
 
@@ -325,7 +325,7 @@ class Clip(SequenceBase):
         """
         return None
 
-    def views(self) -> typing.List*args:
+    def views(self) -> typing.List[str]:
         """
         self.views() -> get the list of views available for the clip. If it uses a path with %v/%V, this will return all the views for which media exists. If the source media contains multiple named views, it will return those (note this does not work for mov files). Otherwise returns an empty list.
 

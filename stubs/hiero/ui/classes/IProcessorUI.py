@@ -50,7 +50,7 @@ class IProcessorUI(Object):
         """
         return str()
 
-    def populateUI(self, processorUIWidget: PySide2.QtWidgets.QWidget, taskUIWidget: PySide2.QtWidgets.QWidget, items: typing.List*args) -> None:
+    def populateUI(self, processorUIWidget: PySide2.QtWidgets.QWidget, taskUIWidget: PySide2.QtWidgets.QWidget, items: typing.List[core.ItemWrapper]) -> None:
         """
         self.populateUI() -> called by Hiero to allow the IProcessorUI to populate a QWidget with the ui widgets neccessary to reflect the current preset.
         The EditMode is used to instruct the UI generation code to build in ReadOnly mode
@@ -98,7 +98,7 @@ class IProcessorUI(Object):
         """
         return str()
 
-    def validate(self, selection: typing.List*args) -> bool:
+    def validate(self, selection: typing.List[core.ItemWrapper]) -> bool:
         """
         self.validate() -> called by Hiero to get .
 
@@ -107,7 +107,7 @@ class IProcessorUI(Object):
         """
         return bool()
 
-    def validateSelection(self, selection: typing.List*args) -> bool:
+    def validateSelection(self, selection: typing.List[core.ItemWrapper]) -> bool:
         """
 
         """

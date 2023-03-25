@@ -64,7 +64,7 @@ class TracksMask(Object):
         """
         return None
 
-    def setTracks(self, tracks: typing.List*args) -> None:
+    def setTracks(self, tracks: typing.List[core.VideoTrack]) -> None:
         """
 
         """
@@ -76,7 +76,7 @@ class TracksMask(Object):
         """
         return None
 
-    def tracks(self) -> typing.List*args:
+    def tracks(self) -> typing.List[core.VideoTrack]:
         """
 
         """

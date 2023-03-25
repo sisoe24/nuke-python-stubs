@@ -73,7 +73,7 @@ class TrackItem(TrackItemBase):
         """
         return int()
 
-    def getAvailableOcioColourTransforms(self) -> typing.List*args:
+    def getAvailableOcioColourTransforms(self) -> typing.List[str]:
         """
         self.    getAvailableOcioColourTransforms() -> returns colour transform for the media source.
 

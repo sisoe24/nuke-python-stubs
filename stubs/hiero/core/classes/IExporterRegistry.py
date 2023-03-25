@@ -80,7 +80,7 @@ class IExporterRegistry(Object):
         """
         return TaskPreset()
 
-    def createAndExecuteProcessor(self, preset: core.ITaskPreset, items: typing.List*args, submissionName: str) -> None:
+    def createAndExecuteProcessor(self, preset: core.ITaskPreset, items: typing.List[core.ItemWrapper], submissionName: str) -> None:
         """
         self.createAndExecuteProcessor(hiero.core.TaskPreset, [hiero.core.ItemWrapper], string) -> Called by the C++ application to instantiate the Processor associated with specified preset and execute on the selected items.
 
@@ -106,7 +106,7 @@ class IExporterRegistry(Object):
         """
         return bool()
 
-    def localPresets(self) -> typing.List*args:
+    def localPresets(self) -> typing.List[core.ITaskPreset]:
         """
         self.projectPresets() -> Returns a list of local presets assigned to the specified Project.
 
@@ -122,7 +122,7 @@ class IExporterRegistry(Object):
         """
         return bool()
 
-    def nukeShotExportPresets(self, project: core.Project) -> typing.List*args:
+    def nukeShotExportPresets(self, project: core.Project) -> typing.List[core.ITaskPreset]:
         """
         self.nukeShotExportPresets(hiero.core.Project) -> Get a list of presets which are contain Nuke shot exports.
 
@@ -172,7 +172,7 @@ class IExporterRegistry(Object):
         """
         return None
 
-    def projectExportHistoryXml(self, project: core.Project) -> typing.List*args:
+    def projectExportHistoryXml(self, project: core.Project) -> typing.List[str]:
         """
         self.projectExportHistoryXml(hiero.core.Project) -> Returns a list of XML fragments containing the project export history.
 
@@ -181,7 +181,7 @@ class IExporterRegistry(Object):
         """
         return list()
 
-    def projectPresets(self, project: core.Project) -> typing.List*args:
+    def projectPresets(self, project: core.Project) -> typing.List[core.ITaskPreset]:
         """
         self.projectPresets(hiero.core.Project) -> Returns a list of project presets assigned to the specified Project.
 
@@ -228,7 +228,7 @@ class IExporterRegistry(Object):
         """
         return None
 
-    def restoreProjectExportHistoryXml(self, project: core.Project, history: typing.List*args) -> None:
+    def restoreProjectExportHistoryXml(self, project: core.Project, history: typing.List[str]) -> None:
         """
         self.restoreProjectExportHistoryXml(hiero.core.Project, list) -> Restore the export history for a project.
 
@@ -269,7 +269,7 @@ class IExporterRegistry(Object):
         """
         return None
 
-    def submissionNames(self) -> typing.List*args:
+    def submissionNames(self) -> typing.List[str]:
         """
         self.submissionNames() -> Called by the C++ application to get a list of the available Submission objects. Submission objects are used to manage render farm renders.
 
@@ -277,7 +277,7 @@ class IExporterRegistry(Object):
         """
         return list()
 
-    def validateExport(self, preset: core.ITaskPreset, items: typing.List*args) -> str:
+    def validateExport(self, preset: core.ITaskPreset, items: typing.List[core.ItemWrapper]) -> str:
         """
         self.validateExport(hiero.core.TaskPreset, [hiero.core.ItemWrapper]) -> Called by the C++ application to determinate if preset and selected items have valid resolution according the application mode.
         A warning message will be shown in case of any invalid output resolution.

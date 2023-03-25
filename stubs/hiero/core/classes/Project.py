@@ -364,7 +364,7 @@ class Project(Object):
         """
         return str()
 
-    def posterFrameSettings(self) -> typing.Tuple*args:
+    def posterFrameSettings(self) -> typing.Tuple[core.Project.PosterFrameSetting, int]:
         """
         posterFrameSettings() -> Get the poster frame settings used for clips added to the project.
         @return: tuple of poster frame setting and custom frame number
@@ -652,14 +652,14 @@ class Project(Object):
         """
         return Any
 
-    def views(self) -> typing.List*args:
+    def views(self) -> typing.List[str]:
         """
         views() -> Returns a list of this project's views.
         @return: list of strings
         """
         return list()
 
-    def viewsAndColors(self) -> typing.List*args:
+    def viewsAndColors(self) -> typing.List[typing.Tuple[str, PySide2.QtGui.QColor]]:
         """
         viewsAndColors() -> Returns a list of this project's views and corresponding colors.
         @return: list of (str, PySide2.QtGui.QColor) tuples

@@ -63,7 +63,7 @@ class DataCollection(Object):
         """
         return Union[True, False]
 
-    def keys(self) -> typing.List*args:
+    def keys(self) -> typing.List[str]:
         """
         self.keys() -> returns keys in the collection.
 

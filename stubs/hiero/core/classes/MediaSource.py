@@ -82,7 +82,7 @@ class MediaSource(Object):
         """
         return None
 
-    def associatedFilePaths(self) -> typing.List*args:
+    def associatedFilePaths(self) -> typing.List[str]:
         """
         self.associatedFilePaths() -> Return a list of file paths associated with the 'main' file, this is used with r3d clips where there are multiple r3ds in sequence, or rmd files.
 
@@ -121,7 +121,7 @@ class MediaSource(Object):
         """
         return int()
 
-    def fileinfos(self) -> typing.List*args:
+    def fileinfos(self) -> typing.List[core.MediaFileInfo]:
         """
         self.fileinfos() -> returns a tuple of hiero.core.MediaFileInfo objects, which can be used to retrieve all of the file fragments that are used by this MediaSource.
 

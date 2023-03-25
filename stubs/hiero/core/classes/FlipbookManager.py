@@ -45,7 +45,7 @@ class FlipbookManager(Object):
         """
         return EffectTrackItem()
 
-    def createSequence(self, frameRate: core.TimeBase, outputFormat: core.Format, views: typing.List*args) -> core.Sequence:
+    def createSequence(self, frameRate: core.TimeBase, outputFormat: core.Format, views: typing.List[str]) -> core.Sequence:
         """
         self.createSequence(framerate, outputformat) -> creates and returns a flipbook sequence with the defined framerate and ouput formar.
 

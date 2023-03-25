@@ -140,7 +140,7 @@ class Sequence(SequenceBase):
         """
         return None
 
-    def importTracks(self, path: str) -> typing.List*args:
+    def importTracks(self, path: str) -> typing.List[core.TrackBase]:
         """
         self.importTracks(filePath) -> imports all of the tracks from the file specified by the filePath argument.
 
@@ -149,7 +149,7 @@ class Sequence(SequenceBase):
         """
         return list()
 
-    def importTracksFromTimeBaseKeepFrames(self, path: str, toTimebase: core.TimeBase) -> typing.List*args:
+    def importTracksFromTimeBaseKeepFrames(self, path: str, toTimebase: core.TimeBase) -> typing.List[core.TrackBase]:
         """
         self.importTracksFromTimeBaseKeepFrames(filePath, srcTimebase) -> imports all of the tracks from the file specified by the filePath argument using the specified timebase.
 
@@ -159,7 +159,7 @@ class Sequence(SequenceBase):
         """
         return list()
 
-    def importTracksFromTimeBaseKeepTimecodes(self, path: str, toTimebase: core.TimeBase, roundingMode: core.TimeBase.RoundingMode) -> typing.List*args:
+    def importTracksFromTimeBaseKeepTimecodes(self, path: str, toTimebase: core.TimeBase, roundingMode: core.TimeBase.RoundingMode) -> typing.List[core.TrackBase]:
         """
         self.importTracksFromTimeBaseKeepTimecodes(filePath, srcTimebase, roundingMode) -> imports all of the tracks from the file specified by the filePath argument using the specified timebase.
 

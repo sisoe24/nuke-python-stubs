@@ -48,7 +48,7 @@ class ITask(Object):
         """
         return None
 
-    def children(self) -> typing.List*args:
+    def children(self) -> typing.List[core.ITask]:
         """
         self.children() -> get a list of child tasks.  Note that this list should not change after addToQueue() has been called.
         """

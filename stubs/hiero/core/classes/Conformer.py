@@ -49,7 +49,7 @@ class Conformer(Object):
         """
         return bool()
 
-    def excludePatterns(self) -> typing.List*args:
+    def excludePatterns(self) -> typing.List[str]:
         """
         self.excludePatterns() -> returns the list of file patterns that are excluded from source media searches.
         By default this is empty.
@@ -66,7 +66,7 @@ class Conformer(Object):
         """
         return bool()
 
-    def includePatterns(self) -> typing.List*args:
+    def includePatterns(self) -> typing.List[str]:
         """
         self.includePatterns() -> returns the list of file patterns that are included in source media searches.
         By default this is '*', which includes all file types.
@@ -75,7 +75,7 @@ class Conformer(Object):
         """
         return list()
 
-    def nativeRuleFiltering(self) -> typing.Dict*args:
+    def nativeRuleFiltering(self) -> typing.Dict[str, bool]:
         """
         self.nativeRuleFiltering() -> returns a dictionary with the names of the native conforming rules and whether they are enabled for conforming.
         By changing the state of the flags for the rules and submitting the dictionary back to the Conformer the rules can be filterd out.
@@ -84,7 +84,7 @@ class Conformer(Object):
         """
         return str()
 
-    def nativeRuleNames(self) -> typing.List*args:
+    def nativeRuleNames(self) -> typing.List[str]:
         """
         self.nativeRuleNames() -> returns the list of names for the native rules.
         This can be used to set rule filtering.
@@ -93,7 +93,7 @@ class Conformer(Object):
         """
         return list()
 
-    def pythonRuleFiltering(self) -> typing.Dict*args:
+    def pythonRuleFiltering(self) -> typing.Dict[str, bool]:
         """
         self.pythonRuleFiltering() -> returns a dictionary with the names of the Python conforming rules and whether they are enabled for conforming.
         By changing the state of the flags for the rules and submitting the dictionary back to the Conformer the rules can be filterd out.
@@ -102,7 +102,7 @@ class Conformer(Object):
         """
         return str()
 
-    def pythonRuleNames(self) -> typing.List*args:
+    def pythonRuleNames(self) -> typing.List[str]:
         """
         self.pythonRuleNames() -> returns the list of names for the registered Python rules.
         This can be used to set rule filtering.
@@ -117,7 +117,7 @@ class Conformer(Object):
         """
         return None
 
-    def setExcludePatterns(self, excludePatterns: typing.List*args) -> None:
+    def setExcludePatterns(self, excludePatterns: typing.List[str]) -> None:
         """
         self.setExcludePatterns( filepatterns ) -> sets the list of file patterns to exclude from source media searches.
         """
@@ -129,19 +129,19 @@ class Conformer(Object):
         """
         return None
 
-    def setIncludePatterns(self, includePatterns: typing.List*args) -> None:
+    def setIncludePatterns(self, includePatterns: typing.List[str]) -> None:
         """
         self.setIncludePatterns( filepatterns ) -> sets the list of file patterns to include in source media searches.
         """
         return None
 
-    def setNativeRuleFiltering(self, ruleFiltering: typing.Dict*args) -> None:
+    def setNativeRuleFiltering(self, ruleFiltering: typing.Dict[str, bool]) -> None:
         """
         self.setNativeRuleFiltering( ruleFiltering ) -> uses a dictionary keyed on the names of the native conforming rules to set whether each rule is enabled for conforming.
         """
         return None
 
-    def setPythonRuleFiltering(self, ruleFiltering: typing.Dict*args) -> None:
+    def setPythonRuleFiltering(self, ruleFiltering: typing.Dict[str, bool]) -> None:
         """
         self.setPythonRuleFiltering( ruleFiltering ) -> uses a dictionary keyed on the names of the Python conforming rules to set whether each rule is enabled for conforming.
         """

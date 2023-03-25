@@ -34,7 +34,7 @@ class ViewerCursorTool(QObject):
         """
         return None
 
-    def setCursors(self, cursors: typing.List*args) -> None:
+    def setCursors(self, cursors: typing.List[ui.ViewerCursor]) -> None:
         """
 
         """

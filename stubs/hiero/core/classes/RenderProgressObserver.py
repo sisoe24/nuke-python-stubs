@@ -52,7 +52,7 @@ class RenderProgressObserver(Object):
         """
         return bool()
 
-    def updateProgress(self, progressList: typing.Sequence*args) -> None:
+    def updateProgress(self, progressList: typing.Sequence[typing.Any]) -> None:
         """
         RenderProgressObserver.updateProgress() -> called on progress of frame renders
         @param progressList: list of lists containing [filePath, frame, progress]

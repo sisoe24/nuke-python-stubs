@@ -48,7 +48,7 @@ class WindowManager(Object):
         """
         return None
 
-    def windows(self) -> typing.List*args:
+    def windows(self) -> typing.List[PySide2.QtWidgets.QWidget]:
         """
         self.windows() -> Returns a list with the available widgets in WindowManager
 

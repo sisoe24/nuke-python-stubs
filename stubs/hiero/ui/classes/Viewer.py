@@ -40,7 +40,7 @@ class Viewer(QObject):
         """
         return ui.ViewerTool()
 
-    def availableGuideOverlayNames(self) -> typing.Set*args:
+    def availableGuideOverlayNames(self) -> typing.Set[str]:
         """
         self.availableGuideOverlayNames() -> returns the names of all the guide overlays available in the viewer. Can only be called from the user interface thread. Use hiero.core.executeInMainThread if you need to call it from a non-ui thread.
 
@@ -48,7 +48,7 @@ class Viewer(QObject):
         """
         return str()
 
-    def cachedFrames(self) -> typing.Set*args:
+    def cachedFrames(self) -> typing.Set[int]:
         """
         self.cachedFrames() -> get the frames which are currently cached in the viewer.
 
@@ -277,7 +277,7 @@ class Viewer(QObject):
         """
         return None
 
-    def selectedGuideOverlayNames(self) -> typing.Set*args:
+    def selectedGuideOverlayNames(self) -> typing.Set[str]:
         """
         self.selectedGuideOverlayNames() -> returns the names of the current guide overlays in the viewer. Can only be called from the user interface thread. Use hiero.core.executeInMainThread if you need to call it from a non-ui thread.
 
@@ -333,7 +333,7 @@ class Viewer(QObject):
         """
         return None
 
-    def setGuideOverlayFromRemote(self, overlayNames: typing.Set*args) -> None:
+    def setGuideOverlayFromRemote(self, overlayNames: typing.Set[str], remoteOverlaysAvailable: typing.Set[str]) -> None:
         """
         self.setGuideOverlayFromRemote() -> Sets the guide overlays in the viewer from a remote source. Can only be called from the user interface thread. Use hiero.core.executeInMainThread if you need to call it from a non-ui thread.
 
@@ -536,25 +536,25 @@ class Viewer(QObject):
     ePlaybackBounce: Any = None
     ePlaybackStop: Any = None
     ePlaybackContinue: Any = None
+    sequenceChanged = Signal()
+    maskOverlayChanged = Signal()
+    playbackModeChanged = Signal()
     maskOverlayStyleChanged = Signal()
+    timeDisplayFormatChanged = Signal()
+    trackSelectionChanged = Signal()
     compareModeChanged = Signal()
-    playbackSpeedChanged = Signal()
+    timeChanged = Signal()
+    frameDisplayed = Signal()
+    transformChanged = Signal()
+    gainChanged = Signal()
     gammaChanged = Signal()
     shuttleTargetFPSChanged = Signal()
-    playbackModeChanged = Signal()
-    transformChanged = Signal()
-    timeChanged = Signal()
-    gainChanged = Signal()
-    trackSelectionChanged = Signal()
-    maskOverlayChanged = Signal()
-    targetFrameRateChanged = Signal()
-    guideOverlayChanged = Signal()
-    currentLayerChanged = Signal()
-    sequenceChanged = Signal()
     layoutModeChanged = Signal()
+    currentLayerChanged = Signal()
+    playbackSpeedChanged = Signal()
+    guideOverlayChanged = Signal()
     channelsChanged = Signal()
-    timeDisplayFormatChanged = Signal()
-    frameDisplayed = Signal()
+    targetFrameRateChanged = Signal()
     staticMetaObject: Any = None
 
     def _goToTag(self, tag: str):

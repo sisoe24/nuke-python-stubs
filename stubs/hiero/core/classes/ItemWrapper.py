@@ -104,7 +104,7 @@ class ItemWrapper(Object):
         """
         return Iterable()
 
-    def setTrackItemsForViews(self, items: typing.List*args) -> None:
+    def setTrackItemsForViews(self, items: typing.List[core.TrackItemBase]) -> None:
         """
 
         """
@@ -118,7 +118,7 @@ class ItemWrapper(Object):
         """
         return TrackItem()
 
-    def trackItemsForViews(self) -> typing.List*args:
+    def trackItemsForViews(self) -> typing.List[core.TrackItemBase]:
         """
 
         """

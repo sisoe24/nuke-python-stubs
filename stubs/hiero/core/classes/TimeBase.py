@@ -206,7 +206,7 @@ class TimeBase(Object):
         """
         return int()
 
-    def toRational(self) -> typing.Tuple*args:
+    def toRational(self) -> typing.Tuple[int, int]:
         """
         self.toRational() -> returns a tuple of the numerator and the denominator of the time base.
 
