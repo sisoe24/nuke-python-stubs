@@ -708,7 +708,7 @@ class Project(Object):
 
         sequences = myProject.sequences('30Sec')
         """
-        return list()
+        return [core.Sequence]
 
     def bins(self, partialName=None):
         """
@@ -721,7 +721,7 @@ class Project(Object):
 
         bins = myProject.bins('MyBin')
         """
-        return list()
+        return [core.Bin]
 
     def clips(self, partialName=None):
         """
@@ -734,7 +734,7 @@ class Project(Object):
 
         clips = myProject.clips('30Sec')
         """
-        return list()
+        return [core.Clip]
 
     def tracks(self, partialName=None):
         """
@@ -747,7 +747,7 @@ class Project(Object):
 
         tracks = myProject.tracks('30Sec')
         """
-        return list()
+        return Union[core.VideoTrack, core.AudioTrack]
 
     def videoTracks(self, partialName=None):
         """
@@ -760,7 +760,7 @@ class Project(Object):
 
         tracks = myProject.videoTracks('30Sec')
         """
-        return list()
+        return [core.VideoTrack]
 
     def audioTracks(self, partialName=None):
         """
@@ -773,7 +773,7 @@ class Project(Object):
 
         tracks = myProject.audioTracks('30Sec')
         """
-        return list()
+        return [core.AudioTrack]
 
     def trackItems(self, partialName=None):
         """
@@ -786,7 +786,7 @@ class Project(Object):
 
         trackItems = myProject.trackItems('30Sec')
         """
-        return list()
+        return [core.TrackItem]
 
     def videoTrackItems(self, partialName=None):
         """
@@ -799,7 +799,7 @@ class Project(Object):
 
         trackItems = myProject.videoTrackItems('30Sec')
         """
-        return list()
+        return [core.TrackItem]
 
     def audioTrackItems(self, partialName=None):
         """
@@ -812,4 +812,4 @@ class Project(Object):
 
         trackItems = myProject.audioTrackItems('30Sec')
         """
-        return list()
+        return [core.TrackItem]
