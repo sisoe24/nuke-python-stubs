@@ -40,9 +40,7 @@ There are a couple of settings you can modify inside the `main()` function:
 
 ### 1.2.2. Use the stubs
 
-Using the stubs will vary based on your text editor since most of them have their way of adding stubs to the environment. Also, you can add them to your `PYTHONPATH` inside your `*rc|*profile` configuration file.
-
-> Example Unix `export PYTHONPATH="$HOME/.nuke/nuke-python-stubs/stubs:${PYTHONPATH}"`
+Using the stubs will vary based on your text editor since most of them have their way of adding stubs to the environment.
 
 Alternatively, you can use [NukeTools](https://marketplace.visualstudio.com/items?itemName=virgilsisoe.nuke-tools) and call the `Nuke Tools: Add Python Stubs` command.
 
@@ -62,18 +60,18 @@ Example:
 
 In the string: `-> switch to next view in settings Views list`, the parser will identify `list` as a match.
 
-> You can enable the log or log_to_file options to check what wasn't guessed.
+> You can enable the `log` or `log_to_file` options to check what wasn't guessed.
 > You can also disable the guess filter by setting `StubsRuntimeSettings.guess` to `False`.
 
-AS a workaround, a post-fix mechanism allows you to "manually" point to the wrong value and substitute it with a new one. You can look at the `NUKE_POST_FIXES` dictionary for more information.
+As a workaround, there is a post-fix mechanism which allows you to "manually" point to the wrong value and substitute it with a new one. You can look at the `NUKE_POST_FIXES` dictionary for more information.
 
 ## 1.4. Contributing
 
-Although the script is a mess, you can still contribute by adding post-fixes information when you find wrong values. I can then generate new stubs and upload them.
+Although the script is a mess, you can still contribute by adding post-fixes information when you find wrong values.
 
 If you would like to add some code, you need `pre-commit` installed in your repo.
 
-For convenience, place the repo inside `~/.nuke` so that git catches any change in the stubs files. Once you generate the stubs, run `pre-commit run -a` to apply the pre-commit hooks to each file to see the "real" difference of your new commits.
+For convenience, place the repo inside `~/.nuke` since the stubs are created inside `~/.nuke/nuke-python-stubs/stubs`. This way, `git` catches any change in the stubs files. Once you generate the stubs, run `pre-commit run -a` to apply the pre-commit hooks to each file to see the "real" difference of your new commits.
 
 ## 1.5. Acknowledgment
 
@@ -82,3 +80,5 @@ Pycharm Stub generator inspired the creation of this script.
 ## 1.6. Screenshot
 
 [Nuke Tools](https://marketplace.visualstudio.com/items?itemName=virgilsisoe.nuke-tools) for Visual Studio Code will include the stubs files by default.
+
+![Alt text](images/auto_complete.gif)
