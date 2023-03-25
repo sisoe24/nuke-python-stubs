@@ -123,7 +123,64 @@ NUKE_POST_FIXES = {
     }
 }
 
-HIERO_CORE_POST_FIX = {}
+HIERO_CORE_POST_FIX = {
+    'Project': {
+        'headers': [
+            {
+                'initial': 'def _Project_extractSettings(self):',
+                'new': 'def extractSettings(self):'
+            }
+        ],
+        'returns': [
+            {
+                'function': 'sequences',
+                'initial': 'return list()',
+                'new': 'return [core.Sequence]'
+            },
+            {
+                'function': 'bins',
+                'initial': 'return list()',
+                'new': 'return [core.Bin]'
+            },
+            {
+                'function': 'clips',
+                'initial': 'return list()',
+                'new': 'return [core.Clip]'
+            },
+            {
+                'function': 'tracks',
+                'initial': 'return list()',
+                'new': 'return Union[core.VideoTrack, core.AudioTrack]'
+            },
+            {
+                'function': 'videoTracks',
+                'initial': 'return list()',
+                'new': 'return [core.VideoTrack]'
+            },
+            {
+                'function': 'audioTracks',
+                'initial': 'return list()',
+                'new': 'return [core.AudioTrack]'
+            },
+            {
+                'function': 'trackItems',
+                'initial': 'return list()',
+                'new': 'return [core.TrackItem]'
+            },
+            {
+                'function': 'videoTrackItems',
+                'initial': 'return list()',
+                'new': 'return [core.TrackItem]'
+            },
+            {
+                'function': 'audioTrackItems',
+                'initial': 'return list()',
+                'new': 'return [core.TrackItem]'
+            },
+        ]
+    }
+}
+
 HIERO_UI_POST_FIX = {}
 
 
@@ -190,9 +247,11 @@ def post_fixes(filename, func_header, func_return):
 
     for file, modifications in StubsRuntimeSettings.post_fixes.items():
         if filename == file:
-            func_header = header_mod(func_header, modifications['headers'])
-            func_return = return_mod(func_header, func_return,
-                                     modifications['returns'])
+            if modifications.get('headers'):
+                func_header = header_mod(func_header, modifications['headers'])
+            if modifications.get('returns'):
+                func_return = return_mod(func_header, func_return,
+                                         modifications['returns'])
 
     return func_header, func_return
 
@@ -277,7 +336,7 @@ class GuessType:
                     return self.is_union(match)
 
                 if match_type == 'optional':
-                    return self.is_optional(match)
+                    return self.is_optional()
 
                 return match_type
 
@@ -306,7 +365,7 @@ class GuessType:
 
         return f'Union[{match1}, {match2}]'
 
-    def is_optional(self, match: re.Match) -> str:
+    def is_optional(self) -> str:
         guess_type = self.auto_guess(exclude=['optional'])
         if guess_type:
             # Using Optional from types seems to produce the same result
@@ -340,7 +399,7 @@ class ArgsParser:
             r'\.\.\.,?': '',                   # dots
             r'/,?': '',                        # positional syntax
             r'\[,(.+)\]': r',\1=None',         # optionals
-            r'\[.+\]': '*args',                # list args
+            r'(?<!\w)\[.+\]': '*args',                # list args
             r'=(?=\s+,|\s+\)|,)': '=None',     # empty args
             r'\\(\w)': r'\\\\\1',              # escape chars
         }
