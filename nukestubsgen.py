@@ -124,6 +124,15 @@ NUKE_POST_FIXES = {
 }
 
 HIERO_CORE_POST_FIX = {
+    'Bin': {
+        'returns': [
+            {
+                'function': 'importSequence',
+                'initial': 'return Iterable()',
+                'new': 'return core.Sequence'
+            },
+        ],
+    },
     'Project': {
         'headers': [
             {
@@ -428,7 +437,7 @@ class ArgsParser:
         args = self.args_regex.search(self.fn_header).group()
         return [_.strip() for _ in args.split(',')]
 
-    @staticmethod
+    @ staticmethod
     def _annotation_syntax(_type: str) -> str:
         """Return type wrapped in proper annotation syntax.
 
@@ -466,7 +475,7 @@ class ReturnExtractor:
     def __init__(self, header_obj):
         self.header_obj = header_obj
 
-    @staticmethod
+    @ staticmethod
     def _guess_type(text):
         return GuessType(text).auto_guess(exclude='optional')
 
@@ -515,7 +524,7 @@ class ReturnExtractor:
             unknown(_type='Returns', function=self.header_obj.obj.__name__, value=return_value)
             return 'Any'
 
-    @staticmethod
+    @ staticmethod
     def _make_callable(text: str) -> str:
         """Make a return callable to propagate the offer auto complete for this obj.
 
@@ -542,7 +551,7 @@ class FunctionObject:
         self._fallback_name = fallback_name
         self._is_class = is_class
 
-    @property
+    @ property
     def obj(self) -> object:
         # TODO: this fails if object has no __dict__ or __name__
         try:
@@ -552,29 +561,29 @@ class FunctionObject:
 
         return self._obj
 
-    @property
+    @ property
     def is_class(self) -> bool:
         return self._is_class
 
-    @property
+    @ property
     def docs(self) -> str:
         return inspect.getdoc(self._obj) or ''
 
-    @property
+    @ property
     def docs_arguments(self) -> Union[dict, None]:
         docs_args = re.findall(
             r'(?<=(?:@|:)param(?:\s|:))(?:\s?)(\w+)(?:\:|\s)(.+)',
             self.docs)
         return dict(docs_args) or None
 
-    @property
+    @ property
     def return_argument(self) -> Union[re.Match, None]:
         try:
             return re.search(r'(?<=(?:@|:)return:)(.+)', self.docs).group()
         except AttributeError:
             return None
 
-    @property
+    @ property
     def header(self):
         fn_header = FnHeaderExtractor(self).extract()
 
@@ -586,7 +595,7 @@ class FunctionObject:
             if StubsRuntimeSettings.guess else args_parser.fn_header
         )
 
-    @property
+    @ property
     def return_(self):
         return ReturnExtractor(self).extract()
 
