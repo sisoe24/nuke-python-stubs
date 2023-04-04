@@ -193,7 +193,7 @@ class Bin(Object):
         @param frameRate: optional float argument specifying the frame rate for the created sequence
         @return: hiero.core.Sequence the created sequence
         """
-        return Iterable()
+        return core.Sequence()
 
     def isNull(self) -> bool:
         """
