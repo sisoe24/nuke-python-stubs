@@ -260,7 +260,7 @@ class VideoTrack(TrackBase):
         """
         return None
 
-    def _VideoTrack_addToNukeScript(self, script=None, additionalNodes=*args, disconnected=False, includeAnnotations=False, includeEffects=True):
+    def addToNukeScript(self, script=None, additionalNodes='', disconnected=False, includeAnnotations=False, includeEffects=True):
         """
         Add a Read node for each track item to the script with Merge or Dissolve nodes
         to join them in a sequence. TimeClip nodes are added to pad any gaps between clips.
