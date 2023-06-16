@@ -124,6 +124,93 @@ NUKE_POST_FIXES = {
 }
 
 HIERO_CORE_POST_FIX = {
+    '__init__': {
+        'headers': [
+            {
+                'initial': 'def conformer() -> object:',
+                'new': 'def conformer() -> Conformer:'
+            },
+            {
+                'initial': 'def project(arg__1: str) -> object:',
+                'new': 'def project(arg__1: str) -> Project:'
+            },
+            {
+                'initial': 'def projects(*args, **kwargs) -> object:',
+                'new': 'def projects(*args, **kwargs) -> Tuple[Project, ...]:'
+            }
+        ],
+        'returns': [
+            {
+                'function': 'projects',
+                'initial': 'return tuple()',
+                'new': 'return tuple(Project,)'
+            }
+        ]
+    },
+    'VideoTrack': {
+        'headers': [
+            {
+                'initial': 'def _VideoTrack_addToNukeScript(self, script=None, additionalNodes=*args, disconnected=False, includeAnnotations=False, includeEffects=True):',
+                'new': 'def addToNukeScript(self, script=None, additionalNodes=*args, disconnected=False, includeAnnotations=False, includeEffects=True):'
+            }
+        ],
+    },
+    'Sequence': {
+        'headers': [
+            {
+                'initial': 'def _Sequence_addToNukeScript(self, script=None, additionalNodes=*args, disconnected=False, masterTrackItem=None, includeAnnotations=False, includeEffects=True, outputToFormat=None):',
+                'new': ' def addToNukeScript(self, script=None, additionalNodes=*args, disconnected=False, masterTrackItem=None, includeAnnotations=False, includeEffects=True, outputToFormat=None):'
+            }
+        ],
+    },
+    'Clip': {
+        'headers': [
+            {
+                'initial': 'def _Clip_addAnnotationsToNukeScript(self, script, firstFrame, trimmed, trimStart=None, trimEnd=None):',
+                'new': 'def addAnnotationsToNukeScript(self, script, firstFrame, trimmed, trimStart=None, trimEnd=None):'
+            },
+            {
+                'initial': 'def _Clip_getReadInfo(self, firstFrame=None):',
+                'new': 'def getReadInfo(self, firstFrame=None):'
+            },
+            {
+                'initial': 'def _Clip_addToNukeScript(self, script: str, additionalNodes=None, additionalNodesCallback=None, firstFrame=None, trimmed=True, trimStart=None, trimEnd=None, colourTransform=None, metadataNode=None, includeMetadataNode=True, nodeLabel=None, enabled=True, includeEffects=True, beforeBehaviour=None, afterBehaviour=None, project=None, readNodes={}, addEffectsLifetime=True):',
+                'new': 'def addToNukeScript(self, script: str, additionalNodes=None, additionalNodesCallback=None, firstFrame=None, trimmed=True, trimStart=None, trimEnd=None, colourTransform=None, metadataNode=None, includeMetadataNode=True, nodeLabel=None, enabled=True, includeEffects=True, beforeBehaviour=None, afterBehaviour=None, project=None, readNodes={}, addEffectsLifetime=True):'
+            }
+        ],
+    },
+    'EffectTrackItem': {
+        'headers': [
+            {
+                'initial': 'def _EffectTrackItem_addToNukeScript(self, script, offset=0, inputs=1, startHandle=0, endHandle=0, addLifetime=True):',
+                'new': 'def addToNukeScript(self, script, offset=0, inputs=1, startHandle=0, endHandle=0, addLifetime=True):'
+            },
+            {
+                'initial': 'def _EffectTrackItem_isRetimeEffect(self):',
+                'new': 'def isRetimeEffect(self):'
+            },
+            {
+                'initial': 'def __EffectTrackItem_name(self):',
+                'new': 'def name(self):'
+            },
+            {
+                'initial': 'def __EffectTrackItem_setName(self, name):',
+                'new': 'def setName(self, name: str):'
+            }
+        ],
+    },
+    'TrackItem': {
+        'headers': [
+            {
+                'initial': 'def __TrackItem_unlinkAll(self):',
+                'new': 'def unlinkAll(self):'
+            },
+            {
+                'initial': 'def _TrackItem_addToNukeScript(self, script=None, firstFrame=None, additionalNodes=[], additionalNodesCallback=None, includeRetimes=False, retimeMethod=None, startHandle=None, endHandle=None, colourTransform=None, offset=0, nodeLabel=None, includeAnnotations=False, includeEffects=True, outputToSequenceFormat=False):',
+                'new': 'def addToNukeScript(self, script=None, firstFrame=None, additionalNodes=[], additionalNodesCallback=None, includeRetimes=False, retimeMethod=None, startHandle=None, endHandle=None, colourTransform=None, offset=0, nodeLabel=None, includeAnnotations=False, includeEffects=True, outputToSequenceFormat=False):'
+            }
+        ],
+    },
     'Bin': {
         'returns': [
             {
@@ -437,7 +524,7 @@ class ArgsParser:
         args = self.args_regex.search(self.fn_header).group()
         return [_.strip() for _ in args.split(',')]
 
-    @ staticmethod
+    @staticmethod
     def _annotation_syntax(_type: str) -> str:
         """Return type wrapped in proper annotation syntax.
 
@@ -475,7 +562,7 @@ class ReturnExtractor:
     def __init__(self, header_obj):
         self.header_obj = header_obj
 
-    @ staticmethod
+    @staticmethod
     def _guess_type(text):
         return GuessType(text).auto_guess(exclude='optional')
 
@@ -524,7 +611,7 @@ class ReturnExtractor:
             unknown(_type='Returns', function=self.header_obj.obj.__name__, value=return_value)
             return 'Any'
 
-    @ staticmethod
+    @staticmethod
     def _make_callable(text: str) -> str:
         """Make a return callable to propagate the offer auto complete for this obj.
 
@@ -551,7 +638,7 @@ class FunctionObject:
         self._fallback_name = fallback_name
         self._is_class = is_class
 
-    @ property
+    @property
     def obj(self) -> object:
         # TODO: this fails if object has no __dict__ or __name__
         try:
@@ -561,29 +648,29 @@ class FunctionObject:
 
         return self._obj
 
-    @ property
+    @property
     def is_class(self) -> bool:
         return self._is_class
 
-    @ property
+    @property
     def docs(self) -> str:
         return inspect.getdoc(self._obj) or ''
 
-    @ property
+    @property
     def docs_arguments(self) -> Union[dict, None]:
         docs_args = re.findall(
             r'(?<=(?:@|:)param(?:\s|:))(?:\s?)(\w+)(?:\:|\s)(.+)',
             self.docs)
         return dict(docs_args) or None
 
-    @ property
+    @property
     def return_argument(self) -> Union[re.Match, None]:
         try:
             return re.search(r'(?<=(?:@|:)return:)(.+)', self.docs).group()
         except AttributeError:
             return None
 
-    @ property
+    @property
     def header(self):
         fn_header = FnHeaderExtractor(self).extract()
 
@@ -595,7 +682,7 @@ class FunctionObject:
             if StubsRuntimeSettings.guess else args_parser.fn_header
         )
 
-    @ property
+    @property
     def return_(self):
         return ReturnExtractor(self).extract()
 
