@@ -363,7 +363,7 @@ class Clip(SequenceBase):
         """
         return None
 
-    def addToNukeScript(self, script: str, additionalNodes=None, additionalNodesCallback=None, firstFrame=None, trimmed=True, trimStart=None, trimEnd=None, colourTransform=None, metadataNode=None, includeMetadataNode=True, nodeLabel=None, enabled=True, includeEffects=True, beforeBehaviour=None, afterBehaviour=None, project=None, readNodes={}, addEffectsLifetime=True):
+    def addToNukeScript(self, script: str, additionalNodes=list, additionalNodesCallback=None, firstFrame=None, trimmed=True, trimStart=None, trimEnd=None, colourTransform=None, metadataNode=None, includeMetadataNode=True, nodeLabel=None, enabled=True, includeEffects=True, beforeBehaviour=None, afterBehaviour=None, project=None, readNodes={}, addEffectsLifetime=True):
         """
         addToNukeScript(self, script, trimmed=True, trimStart=None, trimEnd=None)
 
