@@ -714,7 +714,7 @@ def closeAllProjects(*args, **kwargs):
     return Any
 
 
-def conformer() -> object:
+def conformer() -> Conformer:
     """
     hiero.core.conformer() -> returns an interface for setting the conforming options.
 
@@ -829,7 +829,7 @@ def pluginPath():
     return tuple()
 
 
-def project(arg__1: str) -> object:
+def project(arg__1: str) -> Project:
     """
     hiero.core.project(name) -> returns the Project with the specified name, if it can be found, or None.
 
@@ -838,7 +838,7 @@ def project(arg__1: str) -> object:
     return Project()
 
 
-def projects(*args, **kwargs):
+def projects(*args, **kwargs) -> Tuple[Project, ...]:
     """
     hiero.core.projects() -> returns a tuple of currently loaded projects which are user projects (not startup). Same effect as calling the method below passing Project.kUserProjects.
     hiero.core.projects(projectTypes) -> returns a tuple of currently loaded projects, filtered according to projectTypes. Use hiero.core.projects()[-1] to get the last loaded project.
@@ -846,7 +846,7 @@ def projects(*args, **kwargs):
 
     @return: tuple of hiero.core.Project objects
     """
-    return tuple()
+    return tuple(Project,)
 
 
 def quit(*args, **kwargs):
