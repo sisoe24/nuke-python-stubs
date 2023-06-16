@@ -113,7 +113,7 @@ class EffectTrackItem(SubTrackItem):
         """
         return str()
 
-    def setName(self, name):
+    def setName(self, name: str):
         """
         self.setName() -> Set the name of the effect's node.
         """
