@@ -135,7 +135,7 @@ HIERO_CORE_POST_FIX = {
                 'new': 'def project(arg__1: str) -> Project:'
             },
             {
-                'initial': 'def projects(*args, **kwargs) -> object:',
+                'initial': 'def projects(*args, **kwargs):',
                 'new': 'def projects(*args, **kwargs) -> Tuple[Project, ...]:'
             }
         ],
@@ -151,7 +151,7 @@ HIERO_CORE_POST_FIX = {
         'headers': [
             {
                 'initial': 'def _VideoTrack_addToNukeScript(self, script=None, additionalNodes=*args, disconnected=False, includeAnnotations=False, includeEffects=True):',
-                'new': 'def addToNukeScript(self, script=None, additionalNodes=*args, disconnected=False, includeAnnotations=False, includeEffects=True):'
+                'new': 'def addToNukeScript(self, script=None, additionalNodes=list, disconnected=False, includeAnnotations=False, includeEffects=True):'
             }
         ],
     },
@@ -159,7 +159,7 @@ HIERO_CORE_POST_FIX = {
         'headers': [
             {
                 'initial': 'def _Sequence_addToNukeScript(self, script=None, additionalNodes=*args, disconnected=False, masterTrackItem=None, includeAnnotations=False, includeEffects=True, outputToFormat=None):',
-                'new': ' def addToNukeScript(self, script=None, additionalNodes=*args, disconnected=False, masterTrackItem=None, includeAnnotations=False, includeEffects=True, outputToFormat=None):'
+                'new': 'def addToNukeScript(self, script=None, additionalNodes=list, disconnected=False, masterTrackItem=None, includeAnnotations=False, includeEffects=True, outputToFormat=None):'
             }
         ],
     },
@@ -174,8 +174,8 @@ HIERO_CORE_POST_FIX = {
                 'new': 'def getReadInfo(self, firstFrame=None):'
             },
             {
-                'initial': 'def _Clip_addToNukeScript(self, script: str, additionalNodes=None, additionalNodesCallback=None, firstFrame=None, trimmed=True, trimStart=None, trimEnd=None, colourTransform=None, metadataNode=None, includeMetadataNode=True, nodeLabel=None, enabled=True, includeEffects=True, beforeBehaviour=None, afterBehaviour=None, project=None, readNodes={}, addEffectsLifetime=True):',
-                'new': 'def addToNukeScript(self, script: str, additionalNodes=None, additionalNodesCallback=None, firstFrame=None, trimmed=True, trimStart=None, trimEnd=None, colourTransform=None, metadataNode=None, includeMetadataNode=True, nodeLabel=None, enabled=True, includeEffects=True, beforeBehaviour=None, afterBehaviour=None, project=None, readNodes={}, addEffectsLifetime=True):'
+                'initial': 'def _Clip_addToNukeScript(self, script:str, additionalNodes=None, additionalNodesCallback=None, firstFrame=None, trimmed=True, trimStart=None, trimEnd=None, colourTransform=None, metadataNode=None, includeMetadataNode=True, nodeLabel=None, enabled=True, includeEffects=True, beforeBehaviour=None, afterBehaviour=None, project=None, readNodes={}, addEffectsLifetime=True):',
+                'new': 'def addToNukeScript(self, script: str, additionalNodes=list, additionalNodesCallback=None, firstFrame=None, trimmed=True, trimStart=None, trimEnd=None, colourTransform=None, metadataNode=None, includeMetadataNode=True, nodeLabel=None, enabled=True, includeEffects=True, beforeBehaviour=None, afterBehaviour=None, project=None, readNodes={}, addEffectsLifetime=True):'
             }
         ],
     },
@@ -216,7 +216,7 @@ HIERO_CORE_POST_FIX = {
             {
                 'function': 'importSequence',
                 'initial': 'return Iterable()',
-                'new': 'return core.Sequence'
+                'new': 'return core.Sequence()'
             },
         ],
     },
