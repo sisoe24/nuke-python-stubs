@@ -93,19 +93,19 @@ class EffectTrackItem(SubTrackItem):
         """
         return None
 
-    def _EffectTrackItem_addToNukeScript(self, script, offset=0, inputs=1, startHandle=0, endHandle=0, addLifetime=True):
+    def addToNukeScript(self, script, offset=0, inputs=1, startHandle=0, endHandle=0, addLifetime=True):
         """
 
         """
         return None
 
-    def _EffectTrackItem_isRetimeEffect(self):
+    def isRetimeEffect(self):
         """
         Check if an EffectTrackItem applies a retime.  Currently this only applies to TimeWarp effects.
         """
         return None
 
-    def __EffectTrackItem_name(self):
+    def name(self):
         """
         self.name() -> Get the name of the effect's node.
 
@@ -113,7 +113,7 @@ class EffectTrackItem(SubTrackItem):
         """
         return str()
 
-    def __EffectTrackItem_setName(self, name):
+    def setName(self, name):
         """
         self.setName() -> Set the name of the effect's node.
         """

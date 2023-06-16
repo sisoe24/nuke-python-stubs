@@ -347,7 +347,7 @@ class Clip(SequenceBase):
     kNeverLocalize: Any = None
     kAlwaysLocalize: Any = None
 
-    def _Clip_addAnnotationsToNukeScript(self, script, firstFrame, trimmed, trimStart=None, trimEnd=None):
+    def addAnnotationsToNukeScript(self, script, firstFrame, trimmed, trimStart=None, trimEnd=None):
         """
         Add the annotations inside a clip to a Nuke script.  This is separated from Clip.addToNukeScript()
         so it's easier to control where in the script the annotations are placed.  The parameters are used to determine
@@ -355,7 +355,7 @@ class Clip(SequenceBase):
         """
         return None
 
-    def _Clip_getReadInfo(self, firstFrame=None):
+    def getReadInfo(self, firstFrame=None):
         """
         Get information (filename and start at value) for any Read Node in this clip.
 
@@ -363,7 +363,7 @@ class Clip(SequenceBase):
         """
         return None
 
-    def _Clip_addToNukeScript(self, script: str, additionalNodes=None, additionalNodesCallback=None, firstFrame=None, trimmed=True, trimStart=None, trimEnd=None, colourTransform=None, metadataNode=None, includeMetadataNode=True, nodeLabel=None, enabled=True, includeEffects=True, beforeBehaviour=None, afterBehaviour=None, project=None, readNodes={}, addEffectsLifetime=True):
+    def addToNukeScript(self, script: str, additionalNodes=None, additionalNodesCallback=None, firstFrame=None, trimmed=True, trimStart=None, trimEnd=None, colourTransform=None, metadataNode=None, includeMetadataNode=True, nodeLabel=None, enabled=True, includeEffects=True, beforeBehaviour=None, afterBehaviour=None, project=None, readNodes={}, addEffectsLifetime=True):
         """
         addToNukeScript(self, script, trimmed=True, trimStart=None, trimEnd=None)
 

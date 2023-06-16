@@ -288,7 +288,7 @@ class Sequence(SequenceBase):
         """
         return list()
 
-    def _Sequence_addToNukeScript(self, script=None, additionalNodes=*args, disconnected=False, masterTrackItem=None, includeAnnotations=False, includeEffects=True, outputToFormat=None):
+    def addToNukeScript(self, script=None, additionalNodes=None, disconnected=False, masterTrackItem=None, includeAnnotations=False, includeEffects=True, outputToFormat=None):
         """
         addToNukeScript(self, script)
         @param script: Nuke script object to add nodes to.

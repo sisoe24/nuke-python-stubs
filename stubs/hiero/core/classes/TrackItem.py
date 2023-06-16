@@ -549,7 +549,7 @@ class TrackItem(TrackItemBase):
     kAudio: Any = None
     kUnknown: Any = None
 
-    def _TrackItem_addToNukeScript(self, script=None, firstFrame=None, additionalNodes=[], additionalNodesCallback=None, includeRetimes=False, retimeMethod=None, startHandle=None, endHandle=None, colourTransform=None, offset=0, nodeLabel=None, includeAnnotations=False, includeEffects=True, outputToSequenceFormat=False):
+    def addToNukeScript(self, script=None, firstFrame=None, additionalNodes=[], additionalNodesCallback=None, includeRetimes=False, retimeMethod=None, startHandle=None, endHandle=None, colourTransform=None, offset=0, nodeLabel=None, includeAnnotations=False, includeEffects=True, outputToSequenceFormat=False):
         """
         This is a variation on the Clip.addToNukeScript() method that remaps the
         Read frame range to the range of the this TrackItem rather than the Clip's
@@ -565,7 +565,7 @@ class TrackItem(TrackItemBase):
         """
         return None
 
-    def __TrackItem_unlinkAll(self):
+    def unlinkAll(self):
         """
         self.unlinkAll() -> Unlink all track items that are linked to this one.
         """
