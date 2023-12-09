@@ -39,59 +39,42 @@ def get_classes_names():
 
 
 # post fix dict structore
-# file:                 file name
-#    header:            change the header of a function
-#       initial:        original header
-#       new:            modified header
-#   returns:            change a return of a function
-#       function:       name of the function
-#       initial:        original return
-#       new:            modified return
-# }
+# file:              file name
+#   initial:        original header
+#   new:            modified header
 
 NUKE_POST_FIXES = {
     '__init__': {
         'headers': [
             {
-                'initial': 'def createNode(node:str, args:list=None, inpanel:bool=None):',
-                'new': 'def createNode(node:str, args:str=None, inpanel:bool=None):'
+                'initial': 'def createNode(node:str, args:Optional[list] = None, inpanel:Optional[bool] = None) -> Node:',
+                'new': 'def createNode(node:str, args:Optional[str] = None, inpanel:Optional[bool] = None) -> Node:'
             },
             {
-                'initial': "def tprint(value, sep=' ', end='\\', file=sys.stdout):",
-                'new': "def tprint(value, sep=' ', end='\\n', file=sys.stdout):"
+                'initial': "def tprint(value, sep=' ', end='\\', file=sys.stdout) -> None:",
+                'new': "def tprint(value, sep=' ', end='\\n', file=sys.stdout) -> None:"
             },
             {
-                'initial': "def executeBackgroundNuke(exe_path:str, nodes:list, frameRange, views:list, limits:dict, continueOnError = False, flipbookToRun = \", flipbookOptions = {}):",
-                'new': "def executeBackgroundNuke(exe_path:str, nodes:list, frameRange, views:list, limits:dict, continueOnError = False, flipbookToRun = '', flipbookOptions = {}):"
+                'initial': "def executeBackgroundNuke(exe_path:str, nodes:list, frameRange, views:list, limits:dict, continueOnError = False, flipbookToRun = \", flipbookOptions = {}) -> int:",
+                'new': "def executeBackgroundNuke(exe_path:str, nodes:list, frameRange, views:list, limits:dict, continueOnError = False, flipbookToRun = '', flipbookOptions = {}) -> int:"
+            },
+            {
+                'initial': 'def allNodes(filter:Optional[str] = None, group=None) -> list:',
+                'new': 'def allNodes(filter: Optional[str] = None, group: Optional[str] = None) -> list[Node]:'
+            },
+            {
+                'initial': 'def formats() -> list:',
+                'new': 'def format() -> list[Format]:'
+            },
+            {
+                'initial': 'def layers(node=None) -> list:',
+                'new': 'def layers(node: Optional[Any] = None) -> list[str]:'
+            },
+            {
+                'initial': 'def selectedNodes(filter:Optional[str] = None) -> list:',
+                'new': 'def selectedNodes(filter:Optional[str] = None) -> list[Node]:'
             }
         ],
-        'returns': [
-            {
-                'function': 'getNodeClassName',
-                'initial': 'return None',
-                'new': 'return str()'
-            },
-            {
-                'function': 'allNodes',
-                'initial': 'return list()',
-                'new': 'return [Node]'
-            },
-            {
-                'function': 'formats',
-                'initial': 'return list()',
-                'new': 'return [Format]'
-            },
-            {
-                'function': 'layers',
-                'initial': 'return list()',
-                'new': 'return [str]'
-            },
-            {
-                'function': 'selectedNodes',
-                'initial': 'return list()',
-                'new': 'return [Node]'
-            }
-        ]
     },
     'Node': {
         'headers': [
@@ -100,24 +83,12 @@ NUKE_POST_FIXES = {
                 'new': 'def knob(self, p:Union[str, int], follow_link=None):'
             },
             {
-                'initial': 'def dependencies(self, what:Any):',
-                'new': 'def dependencies(self, what: Any=None):'
+                'initial': 'def dependencies(self, what) -> list:',
+                'new': 'def dependencies(self, what: Any=None) -> list[Node]:'
             },
             {
-                'initial': 'def dependent(self, what:Any, forceEvaluate:bool):',
-                'new': 'def dependent(self, what: Any=None, forceEvaluate:bool=None):'
-            }
-        ],
-        'returns': [
-            {
-                'function': 'dependencies',
-                'initial': 'return list()',
-                'new': 'return [Node]'
-            },
-            {
-                'function': 'dependent',
-                'initial': 'return list()',
-                'new': 'return [Node]'
+                'initial': 'def dependent(self, what, forceEvaluate:bool) -> list:',
+                'new': 'def dependent(self, what: Any=None, forceEvaluate:bool=None) -> list[Node]:'
             }
         ]
     }
@@ -648,6 +619,7 @@ class ReturnExtractor:
 
     def extract(self) -> str:
         """Extract function return from documentation."""
+        return self._get_return()
         return indent(f'return {self._make_callable(self._get_return())}', ' ' * 4)
 
 
@@ -703,8 +675,12 @@ class FunctionObject:
         args_parser = ArgsParser(fn_header, self.docs_arguments)
         args_parser.fix_args()
 
+        guessing_header = args_parser.guess_data_type()
+        if re.search(r'\):', guessing_header):
+            guessing_header = guessing_header.replace('):', f') -> {self.return_}:')
+
         return (
-            args_parser.guess_data_type()
+            guessing_header
             if StubsRuntimeSettings.guess else args_parser.fn_header
         )
 
@@ -809,7 +785,8 @@ def func_constructor(header_obj: FunctionObject, _id) -> str:
 
     func_header, func_return = post_fixes(_id, header_obj.header, header_obj.return_)
 
-    return f'{func_header}\n{get_docs(header_obj.obj)}\n{func_return}\n\n'
+    dots = indent('...', ' ' * 4)
+    return f'{func_header}\n{get_docs(header_obj.obj)}\n{dots}\n\n'
 
 
 class ClassExtractor:
@@ -1085,7 +1062,7 @@ def main():
 
     print('Start Extraction')
     generate_nuke_stubs()
-    generate_hiero_stubs()
+    # generate_hiero_stubs()
     print(f'Extraction completed in: "{stubs_path}"')
 
 
