@@ -20,7 +20,7 @@ from _fnpython import (TimelineEditorCreationFlag, menuBar, activeView,
 
 from . import (CopyCuts, TagsMenu, SendToNuke, FnPosterFrameUI,
                ScanForVersions, FnReExportAction, LocalisationMenu,
-               RenameTimelineShots, BuildExternalMediaTrack, guides,
+               RenameTimelineShots, BuildExternalMediaTrack, nuke, guides,
                nuke_bridge)
 from .classes import *
 

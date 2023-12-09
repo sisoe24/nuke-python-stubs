@@ -11,7 +11,7 @@ from core import *
 from _fnpython import pluginPath, getPluginPath
 
 from . import (FnNukeHelpers, FnOnProjectLoad, FnAddClipToSequence,
-               FnSequenceFormatHandler, log, util, events, deprecated,
+               FnSequenceFormatHandler, log, nuke, util, events, deprecated,
                find_plugins, find_startup_projects)
 from .classes import *
 from .find_items import (findItems, findItemByGuid, findItemsInBin,
