@@ -206,8 +206,8 @@ class ExportStructureViewer(QWidget):
     Full: Any = None
     Limited: Any = None
     ReadOnly: Any = None
-    structureModified = Signal()
     selectionChanged = Signal()
+    structureModified = Signal()
     kAddFolderToolTip = 'Adds a new directory to your export structure'
     kAddFileToolTip = 'Adds new file entry to the export structure'
     kRemoveToolTip = 'Deletes the selected file entry from the export structure'

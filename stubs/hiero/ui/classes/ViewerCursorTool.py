@@ -40,8 +40,8 @@ class ViewerCursorTool(QObject):
         """
         ...
 
-    cursorPositionChanged = Signal()
     cursorLeave = Signal()
+    cursorPositionChanged = Signal()
     staticMetaObject: Any = None
 
     def __init__(self,  *args, **kwargs) -> None:
