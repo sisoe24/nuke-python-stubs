@@ -4,7 +4,7 @@ import pprint
 import inspect
 import pathlib
 from shutil import copytree
-from typing import Match, Union, Optional
+from typing import List, Match, Union, Optional
 from textwrap import dedent, indent
 from collections import namedtuple
 
@@ -38,245 +38,199 @@ def get_classes_names():
     return files
 
 
-# post fix dict structore
-# file:              file name
-#   initial:        original header
-#   new:            modified header
-
 NUKE_POST_FIXES = {
-    '__init__': {
-        'headers': [
-            {
-                'initial': 'def createNode(node:str, args:Optional[list] = None, inpanel:Optional[bool] = None) -> Node:',
-                'new': 'def createNode(node:str, args:Optional[str] = None, inpanel:Optional[bool] = None) -> Node:'
-            },
-            {
-                'initial': "def tprint(value, sep=' ', end='\\', file=sys.stdout) -> None:",
-                'new': "def tprint(value, sep=' ', end='\\n', file=sys.stdout) -> None:"
-            },
-            {
-                'initial': "def executeBackgroundNuke(exe_path:str, nodes:list, frameRange, views:list, limits:dict, continueOnError = False, flipbookToRun = \", flipbookOptions = {}) -> int:",
-                'new': "def executeBackgroundNuke(exe_path:str, nodes:list, frameRange, views:list, limits:dict, continueOnError = False, flipbookToRun = '', flipbookOptions = {}) -> int:"
-            },
-            {
-                'initial': 'def allNodes(filter:Optional[str] = None, group=None) -> list:',
-                'new': 'def allNodes(filter: Optional[str] = None, group: Optional[str] = None) -> list[Node]:'
-            },
-            {
-                'initial': 'def formats() -> list:',
-                'new': 'def format() -> list[Format]:'
-            },
-            {
-                'initial': 'def layers(node=None) -> list:',
-                'new': 'def layers(node: Optional[Any] = None) -> list[str]:'
-            },
-            {
-                'initial': 'def selectedNodes(filter:Optional[str] = None) -> list:',
-                'new': 'def selectedNodes(filter:Optional[str] = None) -> list[Node]:'
-            }
-        ],
-    },
-    'Node': {
-        'headers': [
-            {
-                'initial': 'def knob(self, p:int, follow_link=None):',
-                'new': 'def knob(self, p:Union[str, int], follow_link=None):'
-            },
-            {
-                'initial': 'def dependencies(self, what) -> list:',
-                'new': 'def dependencies(self, what: Any=None) -> list[Node]:'
-            },
-            {
-                'initial': 'def dependent(self, what, forceEvaluate:bool) -> list:',
-                'new': 'def dependent(self, what: Any=None, forceEvaluate:bool=None) -> list[Node]:'
-            }
-        ]
-    }
+    '__init__': [
+        {
+            'old': 'def createNode(node:str, args:Optional[list] = None, inpanel:Optional[bool] = None) -> Node:',
+            'new': 'def createNode(node:str, args:Optional[str] = None, inpanel:Optional[bool] = None) -> Node:'
+        },
+        {
+            'old': "def tprint(value, sep=' ', end='\\', file=sys.stdout) -> None:",
+            'new': "def tprint(value, sep=' ', end='\\n', file=sys.stdout) -> None:"
+        },
+        {
+            'old': "def executeBackgroundNuke(exe_path:str, nodes:list, frameRange, views:list, limits:dict, continueOnError = False, flipbookToRun = \", flipbookOptions = {}) -> int:",
+            'new': "def executeBackgroundNuke(exe_path:str, nodes:list, frameRange, views:list, limits:dict, continueOnError = False, flipbookToRun = '', flipbookOptions = {}) -> int:"
+        },
+        {
+            'old': 'def allNodes(filter:Optional[str] = None, group=None) -> list:',
+            'new': 'def allNodes(filter: Optional[str] = None, group: Optional[str] = None) -> list[Node]:'
+        },
+        {
+            'old': 'def formats() -> list:',
+            'new': 'def format() -> list[Format]:'
+        },
+        {
+            'old': 'def layers(node=None) -> list:',
+            'new': 'def layers(node: Optional[Any] = None) -> list[str]:'
+        },
+        {
+            'old': 'def selectedNodes(filter:Optional[str] = None) -> list:',
+            'new': 'def selectedNodes(filter:Optional[str] = None) -> list[Node]:'
+        }
+    ],
+    'Node': [
+        {
+            'old': 'def knob(self, p:int, follow_link=None):',
+            'new': 'def knob(self, p:Union[str, int], follow_link=None):'
+        },
+        {
+            'old': 'def dependencies(self, what) -> list:',
+            'new': 'def dependencies(self, what: Any=None) -> list[Node]:'
+        },
+        {
+            'old': 'def dependent(self, what, forceEvaluate:bool) -> list:',
+            'new': 'def dependent(self, what: Any=None, forceEvaluate:bool=None) -> list[Node]:'
+        }
+    ]
 }
 
 HIERO_CORE_POST_FIX = {
-    '__init__': {
-        'headers': [
-            {
-                'initial': 'def conformer() -> object:',
-                'new': 'def conformer() -> Conformer:'
-            },
-            {
-                'initial': 'def project(arg__1: str) -> object:',
-                'new': 'def project(arg__1: str) -> Project:'
-            },
-            {
-                'initial': 'def projects(*args, **kwargs):',
-                'new': 'def projects(*args, **kwargs) -> Tuple[Project, ...]:'
-            },
-            {
-                'initial': 'def activeSequence():',
-                'new': 'def activeSequence() -> hiero.core.Sequence:'
-            }
-        ],
-        'returns': [
-            {
-                'function': 'projects',
-                'initial': 'return tuple()',
-                'new': 'return tuple(Project,)'
-            }
-        ]
-    },
-    'VideoTrack': {
-        'headers': [
-            {
-                'initial': 'def _VideoTrack_addToNukeScript(self, script=None, additionalNodes=*args, disconnected=False, includeAnnotations=False, includeEffects=True):',
-                'new': 'def addToNukeScript(self, script=None, additionalNodes=list, disconnected=False, includeAnnotations=False, includeEffects=True):'
-            },
-            {
-                'initial': 'def items(self) -> object:',
-                'new': 'def items(self) -> Tuple[core.TrackItem, ...]:'
-            }
-        ],
-    },
-    'Sequence': {
-        'headers': [
-            {
-                'initial': 'def _Sequence_addToNukeScript(self, script=None, additionalNodes=*args, disconnected=False, masterTrackItem=None, includeAnnotations=False, includeEffects=True, outputToFormat=None):',
-                'new': 'def addToNukeScript(self, script=None, additionalNodes=list, disconnected=False, masterTrackItem=None, includeAnnotations=False, includeEffects=True, outputToFormat=None):'
-            },
-            {
-                'initial': 'def videoTracks(self) -> object:',
-                'new': 'def videoTracks(self) -> Tuple[core.VideoTrack, ...]:'
-            }
-        ],
-    },
-    'Clip': {
-        'headers': [
-            {
-                'initial': 'def _Clip_addAnnotationsToNukeScript(self, script, firstFrame, trimmed, trimStart=None, trimEnd=None):',
-                'new': 'def addAnnotationsToNukeScript(self, script, firstFrame, trimmed, trimStart=None, trimEnd=None):'
-            },
-            {
-                'initial': 'def _Clip_getReadInfo(self, firstFrame=None):',
-                'new': 'def getReadInfo(self, firstFrame=None):'
-            },
-            {
-                'initial': 'def _Clip_addToNukeScript(self, script:str, additionalNodes=None, additionalNodesCallback=None, firstFrame=None, trimmed=True, trimStart=None, trimEnd=None, colourTransform=None, metadataNode=None, includeMetadataNode=True, nodeLabel=None, enabled=True, includeEffects=True, beforeBehaviour=None, afterBehaviour=None, project=None, readNodes={}, addEffectsLifetime=True):',
-                'new': 'def addToNukeScript(self, script: str, additionalNodes=list, additionalNodesCallback=None, firstFrame=None, trimmed=True, trimStart=None, trimEnd=None, colourTransform=None, metadataNode=None, includeMetadataNode=True, nodeLabel=None, enabled=True, includeEffects=True, beforeBehaviour=None, afterBehaviour=None, project=None, readNodes={}, addEffectsLifetime=True):'
-            }
-        ],
-    },
-    'EffectTrackItem': {
-        'headers': [
-            {
-                'initial': 'def _EffectTrackItem_addToNukeScript(self, script, offset=0, inputs=1, startHandle=0, endHandle=0, addLifetime=True):',
-                'new': 'def addToNukeScript(self, script, offset=0, inputs=1, startHandle=0, endHandle=0, addLifetime=True):'
-            },
-            {
-                'initial': 'def _EffectTrackItem_isRetimeEffect(self):',
-                'new': 'def isRetimeEffect(self):'
-            },
-            {
-                'initial': 'def __EffectTrackItem_name(self):',
-                'new': 'def name(self):'
-            },
-            {
-                'initial': 'def __EffectTrackItem_setName(self, name):',
-                'new': 'def setName(self, name: str):'
-            }
-        ],
-    },
-    'TrackItem': {
-        'headers': [
-            {
-                'initial': 'def source(self) -> object:',
-                'new': 'def source(self) -> Clip | Sequence | MediaSource: '
-            },
-            {
-                'initial': 'def __TrackItem_unlinkAll(self):',
-                'new': 'def unlinkAll(self):'
-            },
-            {
-                'initial': 'def _TrackItem_addToNukeScript(self, script=None, firstFrame=None, additionalNodes=[], additionalNodesCallback=None, includeRetimes=False, retimeMethod=None, startHandle=None, endHandle=None, colourTransform=None, offset=0, nodeLabel=None, includeAnnotations=False, includeEffects=True, outputToSequenceFormat=False):',
-                'new': 'def addToNukeScript(self, script=None, firstFrame=None, additionalNodes=[], additionalNodesCallback=None, includeRetimes=False, retimeMethod=None, startHandle=None, endHandle=None, colourTransform=None, offset=0, nodeLabel=None, includeAnnotations=False, includeEffects=True, outputToSequenceFormat=False):'
-            }
-        ],
-    },
-    'Bin': {
-        'returns': [
-            {
-                'function': 'importSequence',
-                'initial': 'return Iterable()',
-                'new': 'return core.Sequence()'
-            },
-        ],
-    },
-    'Project': {
-        'headers': [
-            {
-                'initial': 'def _Project_extractSettings(self):',
-                'new': 'def extractSettings(self):'
-            }
-        ],
-        'returns': [
-            {
-                'function': 'sequences',
-                'initial': 'return list()',
-                'new': 'return [core.Sequence]'
-            },
-            {
-                'function': 'bins',
-                'initial': 'return list()',
-                'new': 'return [core.Bin]'
-            },
-            {
-                'function': 'clips',
-                'initial': 'return list()',
-                'new': 'return [core.Clip]'
-            },
-            {
-                'function': 'tracks',
-                'initial': 'return list()',
-                'new': 'return Union[core.VideoTrack, core.AudioTrack]'
-            },
-            {
-                'function': 'videoTracks',
-                'initial': 'return list()',
-                'new': 'return [core.VideoTrack]'
-            },
-            {
-                'function': 'audioTracks',
-                'initial': 'return list()',
-                'new': 'return [core.AudioTrack]'
-            },
-            {
-                'function': 'trackItems',
-                'initial': 'return list()',
-                'new': 'return [core.TrackItem]'
-            },
-            {
-                'function': 'videoTrackItems',
-                'initial': 'return list()',
-                'new': 'return [core.TrackItem]'
-            },
-            {
-                'function': 'audioTrackItems',
-                'initial': 'return list()',
-                'new': 'return [core.TrackItem]'
-            },
-        ]
-    }
+    '__init__': [
+        {
+            'old': 'def conformer() -> object:',
+            'new': 'def conformer() -> Conformer:'
+        },
+        {
+            'old': 'def project(arg__1: str) -> object:',
+            'new': 'def project(arg__1: str) -> Project:'
+        },
+        {
+            'old': 'def projects(*args, **kwargs) -> tuple:',
+            'new': 'def projects(*args, **kwargs) -> Tuple[Project, ...]:'
+        },
+        {
+            'old': 'def activeSequence():',
+            'new': 'def activeSequence() -> hiero.core.Sequence:'
+        }
+    ],
+    'VideoTrack': [
+        {
+            'old': 'def _VideoTrack_addToNukeScript(self, script=None, additionalNodes=*args, disconnected=False, includeAnnotations=False, includeEffects=True):',
+            'new': 'def addToNukeScript(self, script=None, additionalNodes=list, disconnected=False, includeAnnotations=False, includeEffects=True):'
+        },
+        {
+            'old': 'def items(self) -> object:',
+            'new': 'def items(self) -> Tuple[core.TrackItem, ...]:'
+        }
+    ],
+    'Sequence': [
+        {
+            'old': 'def _Sequence_addToNukeScript(self, script=None, additionalNodes=*args, disconnected=False, masterTrackItem=None, includeAnnotations=False, includeEffects=True, outputToFormat=None):',
+            'new': 'def addToNukeScript(self, script=None, additionalNodes=list, disconnected=False, masterTrackItem=None, includeAnnotations=False, includeEffects=True, outputToFormat=None):'
+        },
+        {
+            'old': 'def videoTracks(self) -> object:',
+            'new': 'def videoTracks(self) -> Tuple[core.VideoTrack, ...]:'
+        }
+    ],
+    'Clip': [
+        {
+            'old': 'def _Clip_addAnnotationsToNukeScript(self, script, firstFrame, trimmed, trimStart=None, trimEnd=None):',
+            'new': 'def addAnnotationsToNukeScript(self, script, firstFrame, trimmed, trimStart=None, trimEnd=None):'
+        },
+        {
+            'old': 'def _Clip_getReadInfo(self, firstFrame=None):',
+            'new': 'def getReadInfo(self, firstFrame=None):'
+        },
+        {
+            'old': 'def _Clip_addToNukeScript(self, script:str, additionalNodes=None, additionalNodesCallback=None, firstFrame=None, trimmed=True, trimStart=None, trimEnd=None, colourTransform=None, metadataNode=None, includeMetadataNode=True, nodeLabel=None, enabled=True, includeEffects=True, beforeBehaviour=None, afterBehaviour=None, project=None, readNodes={}, addEffectsLifetime=True):',
+            'new': 'def addToNukeScript(self, script: str, additionalNodes=list, additionalNodesCallback=None, firstFrame=None, trimmed=True, trimStart=None, trimEnd=None, colourTransform=None, metadataNode=None, includeMetadataNode=True, nodeLabel=None, enabled=True, includeEffects=True, beforeBehaviour=None, afterBehaviour=None, project=None, readNodes={}, addEffectsLifetime=True):'
+        }
+    ],
+    'EffectTrackItem': [
+        {
+            'old': 'def _EffectTrackItem_addToNukeScript(self, script, offset=0, inputs=1, startHandle=0, endHandle=0, addLifetime=True):',
+            'new': 'def addToNukeScript(self, script, offset=0, inputs=1, startHandle=0, endHandle=0, addLifetime=True):'
+        },
+        {
+            'old': 'def _EffectTrackItem_isRetimeEffect(self):',
+            'new': 'def isRetimeEffect(self):'
+        },
+        {
+            'old': 'def __EffectTrackItem_name(self):',
+            'new': 'def name(self):'
+        },
+        {
+            'old': 'def __EffectTrackItem_setName(self, name):',
+            'new': 'def setName(self, name: str):'
+        }
+    ],
+    'TrackItem': [
+        {
+            'old': 'def source(self) -> object:',
+            'new': 'def source(self) -> Clip | Sequence | MediaSource: '
+        },
+        {
+            'old': 'def __TrackItem_unlinkAll(self):',
+            'new': 'def unlinkAll(self):'
+        },
+        {
+            'old': 'def _TrackItem_addToNukeScript(self, script=None, firstFrame=None, additionalNodes=[], additionalNodesCallback=None, includeRetimes=False, retimeMethod=None, startHandle=None, endHandle=None, colourTransform=None, offset=0, nodeLabel=None, includeAnnotations=False, includeEffects=True, outputToSequenceFormat=False):',
+            'new': 'def addToNukeScript(self, script=None, firstFrame=None, additionalNodes=[], additionalNodesCallback=None, includeRetimes=False, retimeMethod=None, startHandle=None, endHandle=None, colourTransform=None, offset=0, nodeLabel=None, includeAnnotations=False, includeEffects=True, outputToSequenceFormat=False):'
+        }
+    ],
+    'Bin': [
+        {
+            'old': 'def importSequence(self, filename: str, timeBase: core.TimeBase = Default(self, Hiero.Python.TimeBase), frameRate: float = 0.0, dropFrame: bool = False) -> core.Sequence:',
+            'new': 'def importSequence(self, filename: str, timeBase: core.TimeBase, frameRate: float = 0.0, dropFrame: bool = False) -> core.Sequence: '
+        },
+    ],
+    'Project': [
+        {
+            'old': 'def _Project_extractSettings(self) -> dict:',
+            'new': 'def extractSettings(self) -> dict[str, str]:'
+        },
+        {
+            'old': 'def sequences(self, partialName=None) -> list:',
+            'new': 'def sequences(self, partialNam: Optional[str]=None) -> list[core.Sequence]:'
+        },
+        {
+            'old': 'def clips(self, partialName=None) -> list:',
+            'new': 'def clips(self, partialName: Optional[str]=None) -> list[core.Clip]:'
+        },
+        {
+            'old': 'def bins(self, partialName=None) -> list:',
+            'new': 'def bins(self, partialName: Optional[str]=None) -> list[core.Bin]:'
+        },
+        {
+            'old': 'def tracks(self, partialName=None) -> list:',
+            'new': 'def tracks(self, partialName: Optional[str]=None) -> list[core.Track]:'
+        },
+        {
+            'old': 'def videoTracks(self, partialName=None) -> list:',
+            'new': 'def videoTracks(self, partialName: Optional[str]=None) -> list[core.VideoTrack]:'
+        },
+        {
+            'old': 'def audioTracks(self, partialName=None) -> list:',
+            'new': 'def audioTracks(self, partialName: Optional[str]=None) -> list[core.AudioTrack]:'
+        },
+        {
+            'old': 'def trackItems(self, partialName=None) -> list:',
+            'new': 'def trackItems(self, partialName: Optional[str]=None) -> list[core.TrackItem]:'
+        },
+        {
+            'old': 'def videoTrackItems(self, partialName=None) -> list:',
+            'new': 'def videoTrackItems(self, partialName: Optional[str]=None) -> list[core.TrackItem]:'
+        },
+        {
+            'old': 'def audioTrackItems(self, partialName=None) -> list:',
+            'new': 'def audioTrackItems(self, partialName: Optional[str]=None) -> list[core.TrackItem]:'
+        }
+    ],
 }
 
 HIERO_UI_POST_FIX = {
-    '__init__': {
-        'headers': [
-            {
-                'initial': 'def activeSequence():',
-                'new': 'def activeSequence() -> hiero.core.Sequence:'
-            },
-        ],
-    },
+    '__init__': [
+        {
+            'old': 'def activeSequence():',
+            'new': 'def activeSequence() -> hiero.core.Sequence:'
+        },
+    ],
 }
 
 
-def post_fixes(filename, func_header, func_return):
+def post_fixes(filename: str, old_header: str):
     """Make manual modifications to header and returns.
 
     Certain headers and returns are wrong, because of the docs or because the
@@ -286,17 +240,11 @@ def post_fixes(filename, func_header, func_return):
 
     Args:
         filename (str): the filename to check for modifications
-        func_header (str): the function header.
-        func_return (str): the function return.
+        func_header (str): the function header to check for modifications
 
-    Returns:
-        (str): the function header.
-        (str): the function return.
     """
-    def _debug(old, new):
-        log(f'Modifying: {old} -> {new}')
 
-    def header_mod(func_header, headers):
+    def header_mod(func_header: str, headers: List[dict[str, str]]):
         """Modify the header of the function.
 
         Args:
@@ -307,45 +255,20 @@ def post_fixes(filename, func_header, func_return):
             str: the header function
         """
         for header in headers:
-            if func_header == header['initial']:
+            if func_header == header['old']:
 
                 new = header['new']
-                _debug(func_header, new)
+                log(f'Post-Mod: {func_header} -> {new}')
+
                 func_header = new
 
         return func_header
 
-    def return_mod(func_header, func_return, returns):
-        """Modify the return of the function.
-
-        The header is checked before, to be sure that the modification
-        is for the right function.
-
-        Args:
-            func_header (str): the current function header.
-            func_return (str): the current function header.
-            returns (list): the list of modification to make.
-
-        Returns:
-            str: the header function
-        """
-        for _return in returns:
-            if _return['function'] in func_header and _return['initial'] in func_return:
-                new = _return['new']
-                _debug(func_return, new)
-                func_return = indent(new, ' ' * 4)
-
-        return func_return
-
     for file, modifications in StubsRuntimeSettings.post_fixes.items():
-        if filename == file:
-            if modifications.get('headers'):
-                func_header = header_mod(func_header, modifications['headers'])
-            if modifications.get('returns'):
-                func_return = return_mod(func_header, func_return,
-                                         modifications['returns'])
+        if filename == file and modifications:
+            old_header = header_mod(old_header, modifications)
 
-    return func_header, func_return
+    return old_header
 
 
 def get_docs(obj: object) -> str:
@@ -563,7 +486,7 @@ class ReturnExtractor:
     def _guess_type(text):
         return GuessType(text).auto_guess(exclude='optional')
 
-    def _get_return(self) -> str:
+    def extract(self) -> str:
         """Parse the return value from the docs if any."""
         if not StubsRuntimeSettings.guess:
             return 'Any'
@@ -607,20 +530,6 @@ class ReturnExtractor:
 
             unknown(_type='Returns', function=self.header_obj.obj.__name__, value=return_value)
             return 'Any'
-
-    @staticmethod
-    def _make_callable(text: str) -> str:
-        """Make a return callable to propagate the offer auto complete for this obj.
-
-        Values that should not have a parenthesis call like: Any, None,
-        True/False and so on are excluded.
-        """
-        return text if re.search(r'(Any|None|True|])', text) else f'{text}()'
-
-    def extract(self) -> str:
-        """Extract function return from documentation."""
-        return self._get_return()
-        return indent(f'return {self._make_callable(self._get_return())}', ' ' * 4)
 
 
 class FunctionObject:
@@ -773,17 +682,18 @@ class FnHeaderExtractor:
         return self.simple_header()
 
 
-def func_constructor(header_obj: FunctionObject, _id) -> str:
+def func_constructor(header_obj: FunctionObject, file_name: str) -> str:
     """Construct the function body.
 
     Args:
         header_obj (FunctionObject): FunctionObject data type
+        file_name (str): the file name to check for modifications
 
     Returns:
         [type]: string representation of the function body.
     """
 
-    func_header, func_return = post_fixes(_id, header_obj.header, header_obj.return_)
+    func_header = post_fixes(file_name, header_obj.header)
 
     dots = indent('...', ' ' * 4)
     return f'{func_header}\n{get_docs(header_obj.obj)}\n{dots}\n\n'
@@ -1015,6 +925,7 @@ def generate_hiero_stubs():
         from typing import *
         from numbers import Number
         from .classes import *
+        from . import nuke
 
         # Constants
         {}
@@ -1061,8 +972,8 @@ def main():
             file.write('')
 
     print('Start Extraction')
-    generate_nuke_stubs()
-    # generate_hiero_stubs()
+    # generate_nuke_stubs()
+    generate_hiero_stubs()
     print(f'Extraction completed in: "{stubs_path}"')
 
 
