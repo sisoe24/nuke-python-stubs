@@ -691,14 +691,14 @@ class Project(Object):
     kUserProjects = 1
     kStartupProjects = 2
 
-    def _Project_extractSettings(self) -> dict:
+    def extractSettings(self) -> dict[str, str]:
         """
         self.extractSettings() -> returns a dict of the project's settings.     @return: dict
 
         """
         ...
 
-    def sequences(self, partialName=None) -> list:
+    def sequences(self, partialNam: Optional[str] = None) -> list[core.Sequence]:
         """
         self.sequences(partialName) -> returns all sequences in a project. User can filter by by partial name.
         @param partialName: optional string with partial name to match against. Will match if this string is anywhere in the name.
@@ -710,7 +710,7 @@ class Project(Object):
         """
         ...
 
-    def bins(self, partialName=None) -> list:
+    def bins(self, partialName: Optional[str] = None) -> list[core.Bin]:
         """
         self.bins(partialName) -> returns all bins in a project. Searches recursively, so will return bins within other bins in the list.
         @param partialName: optional string with partial name to match against. Will match if this string is anywhere in the name.
@@ -723,7 +723,7 @@ class Project(Object):
         """
         ...
 
-    def clips(self, partialName=None) -> list:
+    def clips(self, partialName: Optional[str] = None) -> list[core.Clip]:
         """
         self.clips(partialName) -> returns all clips in a project.
         @param partialName: optional string with partial name to match against. Will match if this string is anywhere in the name.
@@ -736,7 +736,7 @@ class Project(Object):
         """
         ...
 
-    def tracks(self, partialName=None) -> list:
+    def tracks(self, partialName: Optional[str] = None) -> list[core.Track]:
         """
         self.tracks(partialName) -> returns all tracks in a project.
         @param partialName: optional string with partial name to match against. Will match if this string is anywhere in the name.
@@ -749,7 +749,7 @@ class Project(Object):
         """
         ...
 
-    def videoTracks(self, partialName=None) -> list:
+    def videoTracks(self, partialName: Optional[str] = None) -> list[core.VideoTrack]:
         """
         self.videoTracks(partialName) -> returns all video tracks in a project.
         @param partialName: optional string with partial name to match against. Will match if this string is anywhere in the name.
@@ -762,7 +762,7 @@ class Project(Object):
         """
         ...
 
-    def audioTracks(self, partialName=None) -> list:
+    def audioTracks(self, partialName: Optional[str] = None) -> list[core.AudioTrack]:
         """
         self.audioTracks(partialName) -> returns all audio tracks in a project.
         @param partialName: optional string with partial name to match against. Will match if this string is anywhere in the name.
@@ -775,7 +775,7 @@ class Project(Object):
         """
         ...
 
-    def trackItems(self, partialName=None) -> list:
+    def trackItems(self, partialName: Optional[str] = None) -> list[core.TrackItem]:
         """
         self.trackItems(partialName) -> returns all track items in a project.
         @param partialName: optional string with partial name to match against. Will match if this string is anywhere in the name.
@@ -788,7 +788,7 @@ class Project(Object):
         """
         ...
 
-    def videoTrackItems(self, partialName=None) -> list:
+    def videoTrackItems(self, partialName: Optional[str] = None) -> list[core.TrackItem]:
         """
         self.videoTrackItems(partialName) -> returns all video track items in a project.
         @param partialName: optional string with partial name to match against. Will match if this string is anywhere in the name.
@@ -801,7 +801,7 @@ class Project(Object):
         """
         ...
 
-    def audioTrackItems(self, partialName=None) -> list:
+    def audioTrackItems(self, partialName: Optional[str] = None) -> list[core.TrackItem]:
         """
         self.audioTrackItems(partialName) -> returns all audio track items in a project.
         @param partialName: optional string with partial name to match against. Will match if this string is anywhere in the name.
