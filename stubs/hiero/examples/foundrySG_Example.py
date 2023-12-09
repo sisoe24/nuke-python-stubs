@@ -42,6 +42,7 @@ else:
 
 
 # SHOTGUN ACCESS.  SG OBJECT CREATION HAPPENS HERE
+
 sg = shotgun_api3.Shotgun(sgURL,
                           login=sgLogin,
                           password=sgPassword)

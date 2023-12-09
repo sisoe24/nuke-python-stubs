@@ -293,7 +293,16 @@ HIERO_CORE_POST_FIX = {
     }
 }
 
-HIERO_UI_POST_FIX = {}
+HIERO_UI_POST_FIX = {
+    '__init__': {
+        'headers': [
+            {
+                'initial': 'def activeSequence():',
+                'new': 'def activeSequence() -> hiero.core.Sequence:'
+            },
+        ],
+    },
+}
 
 
 def post_fixes(filename, func_header, func_return):
@@ -370,7 +379,8 @@ def post_fixes(filename, func_header, func_return):
 
 def get_docs(obj: object) -> str:
     """Return the indent version of the docs."""
-    return indent(f'"""\n{inspect.getdoc(obj) or ''}\n"""', ' ' * 4)
+    docs = inspect.getdoc(obj) or ''
+    return indent(f'"""\n{docs}\n"""', ' ' * 4)
 
 
 def is_valid_object(obj):
@@ -482,7 +492,7 @@ class GuessType:
         if guess_type:
             # Using Optional from types seems to produce the same result
             # return f'Optional[{guess_type}]=""'
-            return f'{guess_type}: Optional[Any] = None'
+            return f'Optional[{guess_type}] = None'
 
         unknown(text=self.string, _type='Optionals')
         return 'None'

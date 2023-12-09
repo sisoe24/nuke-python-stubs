@@ -14,6 +14,7 @@ from . import add_effect, hiero_state
 
 isPlayer = hiero.core.isHieroPlayer()
 
+
 add_effect.createEffectActions()
 
 if not isPlayer:

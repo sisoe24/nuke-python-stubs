@@ -469,7 +469,8 @@ class TranscodeExporter(FnExternalRender.NukeRenderTask):
                                        firstFrame=firstFrame,
                                        trimmed=True,
                                        includeEffects=self.includeEffects(),
-                                       project=self._project)  # _clip has no project set, but one is needed by addToNukeScript to do colorpsace conversions
+                                       # _clip has no project set, but one is needed by addToNukeScript to do colorpsace conversions
+                                       project=self._project)
             if self.includeAnnotations():
                 self._clip.addAnnotationsToNukeScript(
                     script, firstFrame=firstFrame, trimmed=True)

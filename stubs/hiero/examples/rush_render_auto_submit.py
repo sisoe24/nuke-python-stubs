@@ -14,10 +14,9 @@ import hiero.core.nuke as nuke
 from PySide2 import QtCore
 from hiero.exporters.FnSubmission import Submission
 
+
 # Create a Task to handle Sequences and Clips for Transcoding. This is pulled from site-packages/hiero/exporters/FnLocalNukeRender.py
 # Modify this to pass the information you want to your own external processes
-
-
 class RushRenderTask(hiero.core.TaskBase):
     def __init__(self, initDict, scriptPath):
         hiero.core.TaskBase.__init__(self, initDict)

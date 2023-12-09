@@ -3,9 +3,8 @@
 import hiero.core
 from PySide2 import QtGui, QtCore, QtWidgets
 
+
 # This is just a convenience method for returning QActions with a title, triggered method and icon.
-
-
 def createMenuAction(title, method, icon=None):
     action = QtWidgets.QAction(title, None)
     action.setIcon(QtGui.QIcon(icon))

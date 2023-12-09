@@ -5,9 +5,8 @@ from hiero.ui.FnUIProperty import UIPropertyFactory
 
 from . import FnAudioConstants
 
+
 # Defines the required audio export properties in the preset decitionary
-
-
 def defineExportPresetProperties(exportPreset):
     exportPreset.properties(
     )[FnAudioConstants.kNumChannelsKey] = FnAudioConstants.kDefaultChannels
