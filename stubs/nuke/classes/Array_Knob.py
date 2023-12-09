@@ -71,7 +71,7 @@ class Array_Knob(Knob):
         """
         return list()
 
-    def resize(self, w: Number, h: Number = None):
+    def resize(self, w: Number, h: Optional[Number] = None):
         """
         self.resize(w, h) -> True if successful, False otherwise.
         Resize the array.
@@ -90,7 +90,7 @@ class Array_Knob(Knob):
         """
         return bool()
 
-    def toScript(self, quote: bool = None, context: str = None):
+    def toScript(self, quote: Optional[bool] = None, context: Optional[str] = None):
         """
         self.toScript(quote, context) -> String.
         Return the value of the knob in script syntax.
@@ -185,7 +185,7 @@ class Array_Knob(Knob):
         """
         return int()
 
-    def setValue(self, value: float, index: int = None, time: Number = None, view=None):
+    def setValue(self, value: float, index: Optional[int] = None, time: Optional[Number] = None, view=None):
         """
         self.setValue(value, index, time, view) -> True if value changed, False otherwise. Safe to ignore.
         Set index to value at time and view.
@@ -197,7 +197,7 @@ class Array_Knob(Knob):
         """
         return bool()
 
-    def setValueAt(self, value: float, time: Number, index: int = None, view=None):
+    def setValueAt(self, value: float, time: Number, index: Optional[int] = None, view=None):
         """
         self.setValueAt(value, time, index, view) -> bool.
         Set value of element 'index' at time for view. If the knob is animated, it will set a new keyframe or change an existing one. Index and view are optional. Return True if successful.
@@ -209,7 +209,7 @@ class Array_Knob(Knob):
         """
         return bool()
 
-    def value(self, index: int = None, view=None, time: Number = None):
+    def value(self, index: Optional[int] = None, view=None, time: Optional[Number] = None):
         """
         self.value(index, view, time) -> Floating point or List of floating point values (in case some are different).
         @param index: Optional index. Default is 0.
@@ -219,7 +219,7 @@ class Array_Knob(Knob):
         """
         return list()
 
-    def value(self, index: int = None, view=None, time: Number = None):
+    def value(self, index: Optional[int] = None, view=None, time: Optional[Number] = None):
         """
         self.value(index, view, time) -> Floating point or List of floating point values (in case some are different).
         @param index: Optional index. Default is 0.
@@ -229,7 +229,7 @@ class Array_Knob(Knob):
         """
         return list()
 
-    def valueAt(self, time: Number, index: int = None, view=None):
+    def valueAt(self, time: Number, index: Optional[int] = None, view=None):
         """
         self.valueAt(time, index, view) -> Floating point or List of floating point values (in case some are different).
         Return value for this knob at specified time, optional index and view.
@@ -240,7 +240,7 @@ class Array_Knob(Knob):
         """
         return list()
 
-    def valueAt(self, time: Number, index: int = None, view=None):
+    def valueAt(self, time: Number, index: Optional[int] = None, view=None):
         """
         self.valueAt(time, index, view) -> Floating point or List of floating point values (in case some are different).
         Return value for this knob at specified time, optional index and view.
@@ -251,7 +251,7 @@ class Array_Knob(Knob):
         """
         return list()
 
-    def setKeyAt(self, time: Number, index: int = None, view=None):
+    def setKeyAt(self, time: Number, index: Optional[int] = None, view=None):
         """
         self.setKeyAt(time, index, view) -> None.
         Set a key on element 'index', at time and view.
@@ -262,7 +262,7 @@ class Array_Knob(Knob):
         """
         return None
 
-    def removeKey(self, index: int = None, view=None):
+    def removeKey(self, index: Optional[int] = None, view=None):
         """
         self.removeKey(index, view) -> True if succeeded, False otherwise.
         Remove key.
@@ -272,7 +272,7 @@ class Array_Knob(Knob):
         """
         return bool()
 
-    def removeKeyAt(self, time: Number, index: int = None, view=None):
+    def removeKeyAt(self, time: Number, index: Optional[int] = None, view=None):
         """
         self.removeKeyAt(time, index, view) -> True if succeeded, False otherwise.
         Remove keyframe at specified time, optional index and view. Return True if successful.
@@ -283,7 +283,7 @@ class Array_Knob(Knob):
         """
         return bool()
 
-    def isKey(self, index: int = None, view=None):
+    def isKey(self, index: Optional[int] = None, view=None):
         """
         self.isKey(index, view) -> True if succeeded, False otherwise.
         @param index: Optional index.
@@ -292,7 +292,7 @@ class Array_Knob(Knob):
         """
         return bool()
 
-    def isKeyAt(self, time: Number, index: int = None, view=None):
+    def isKeyAt(self, time: Number, index: Optional[int] = None, view=None):
         """
         self.isKeyAt(time, index, view) -> True if succeeded, False otherwise.
         Returns True if there is a keyframe at specified time, optional index and view, otherwise returns False.
@@ -339,7 +339,7 @@ class Array_Knob(Knob):
         """
         return None
 
-    def setAnimated(self, index: int = None, view=None):
+    def setAnimated(self, index: Optional[int] = None, view=None):
         """
         self.setAnimated(index, view) -> True if succeeded, False otherwise.
         Create an Animation object. Return True if successful, in which case caller must initialise it by calling setValue() or setValueAt().
@@ -349,7 +349,7 @@ class Array_Knob(Knob):
         """
         return bool()
 
-    def isAnimated(self, index: int = None, view=None):
+    def isAnimated(self, index: Optional[int] = None, view=None):
         """
         self.isAnimated(index, view) -> True if animated, False otherwise.
         @param index: Optional index.
@@ -358,7 +358,7 @@ class Array_Knob(Knob):
         """
         return bool()
 
-    def clearAnimated(self, index: int = None, view=None):
+    def clearAnimated(self, index: Optional[int] = None, view=None):
         """
         self.clearAnimated(index, view) -> True if succeeded, False otherwise.
         Delete animation.
@@ -380,7 +380,7 @@ class Array_Knob(Knob):
         """
         return bool()
 
-    def hasExpression(self, index: int = None):
+    def hasExpression(self, index: Optional[int] = None):
         """
         self.hasExpression(index) -> True if has expression, False otherwise.
         @param index: Optional index.

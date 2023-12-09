@@ -17,7 +17,7 @@ class Menu(MenuItem):
         """
         return None
 
-    def addCommand(self, name: str, command: str = None, shortcut: str = None, icon: str = None, tooltip: str = None, index: Number = None, readonly: bool = None, shortcutContext: int = None, tag: int = None, tagTarget: int = None, node):
+    def addCommand(self, name: str, command: Optional[str] = None, shortcut: Optional[str] = None, icon: Optional[str] = None, tooltip: Optional[str] = None, index: Optional[Number] = None, readonly: Optional[bool] = None, shortcutContext: Optional[int] = None, tag: Optional[int] = None, tagTarget: Optional[int] = None, node):
         """
         self.addCommand(name, command, shortcut, icon, tooltip, index, readonly, shortcutContext, tag, tagTarget, node) -> The menu/toolbar item that was added to hold the command.
         Add a new command to this menu/toolbar. Note that when invoked, the command is automatically enclosed in an undo group, so that undo/redo functionality works. Optional arguments can be specified by name.

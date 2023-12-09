@@ -10,8 +10,9 @@ from PySide2.QtGui import QDesktopServices
 from PySide2.QtCore import QUrl
 from PySide2.QtWidgets import QMenu, QAction, QFileDialog
 
-
 #### Shot Methods ####
+
+
 def getStatus(trackItem):
     status = 'OK'
     if not trackItem.isMediaPresent():

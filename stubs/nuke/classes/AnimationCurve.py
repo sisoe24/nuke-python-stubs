@@ -101,7 +101,7 @@ class AnimationCurve(object):
         """
         return Number()
 
-    def derivative(self, t: Number, n: int = None):
+    def derivative(self, t: Number, n: Optional[int] = None):
         """
         self.derivative(t, n) -> Float.
         The n'th derivative at time 't'. If n is less than 1 it returns evaluate(t).
@@ -205,7 +205,7 @@ class AnimationCurve(object):
         """
         return None
 
-    def toScript(self, selected: bool = None):
+    def toScript(self, selected: Optional[bool] = None):
         """
         self.toScript(selected) -> str
         @param selected: Optional parameter. If this is given and is True, then only

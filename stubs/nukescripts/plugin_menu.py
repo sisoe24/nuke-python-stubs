@@ -4,9 +4,10 @@ import os.path
 
 import nuke_internal as nuke
 
-
 # Warning this relies on nuke replacing matching menu entries so that
 # we don't get duplicates:
+
+
 def update_plugin_menu(menuname):
     pluginList = []
     if nuke.env['nc']:

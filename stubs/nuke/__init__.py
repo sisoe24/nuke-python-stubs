@@ -116,7 +116,7 @@ def activeViewer():
     return ViewerWindow()
 
 
-def addFavoriteDir(name: str, directory: str, type: str = None, icon: str = None, tooltip: str = None, key: str = None):
+def addFavoriteDir(name: str, directory: str, type: Optional[str] = None, icon: Optional[str] = None, tooltip: Optional[str] = None, key: Optional[str] = None):
     """
     addFavoriteDir(name, directory, type, icon, tooltip, key) -> None.
 
@@ -208,7 +208,7 @@ def alert(prompt: str):
     return None
 
 
-def allNodes(filter: str = None, group=None):
+def allNodes(filter: Optional[str] = None, group=None):
     """
     allNodes(filter, group) -> List.
 
@@ -561,7 +561,7 @@ def clearTabMenuWeighting():
     return None
 
 
-def clone(n: Node, args: Number = None, inpanel: bool = None):
+def clone(n: Node, args: Optional[Number] = None, inpanel: Optional[bool] = None):
     """
     clone(n, args, inpanel) -> Node
 
@@ -577,7 +577,7 @@ def clone(n: Node, args: Number = None, inpanel: bool = None):
     return Node()
 
 
-def cloneSelected(action: str = None):
+def cloneSelected(action: Optional[str] = None):
     """
     cloneSelected(action) -> bool
 
@@ -652,7 +652,7 @@ def createLiveInput():
     return Node()
 
 
-def createNode(node: str, args: str = None, inpanel: bool = None):
+def createNode(node: str, args: Optional[list] = None, inpanel: Optional[bool] = None):
     """
     createNode(node, args, inpanel) -> Node.
 
@@ -797,7 +797,7 @@ def deleteView(s: str):
     return None
 
 
-def display(s: str, node: Node, title: str = None, width: Number = None):
+def display(s: str, node: Node, title: Optional[str] = None, width: Optional[Number] = None):
     """
     display(s, node, title, width) -> None.
 
@@ -852,7 +852,7 @@ def error(message: str):
     return None
 
 
-def execute(nameOrNode: str, start: int = None, end: int = None, incr: int = None, views: list = None, continueOnError=False):
+def execute(nameOrNode: str, start: Optional[int] = None, end: Optional[int] = None, incr: Optional[int] = None, views: Optional[list] = None, continueOnError=False):
     """
     execute(nameOrNode, start, end, incr, views, continueOnError = False) -> None.
     execute(nameOrNode, frameRangeSet, views, continueOnError = False) -> None.\n
@@ -898,7 +898,7 @@ def executeBackgroundNuke(exe_path: str, nodes: list, frameRange, views: list, l
     return int()
 
 
-def executeMultiple(nodes: list, ranges: int = None, views: list = None, continueOnError=False):
+def executeMultiple(nodes: list, ranges: Optional[int] = None, views: Optional[list] = None, continueOnError=False):
     """
     executeMultiple(nodes, ranges, views, continueOnError=False) -> None
 
@@ -1007,7 +1007,7 @@ def extractSelected():
     return None
 
 
-def filename(node=None, i: int = None):
+def filename(node=None, i: Optional[int] = None):
     """
     filename(node, i) -> str
 
@@ -1068,7 +1068,7 @@ def formats():
     return [Format]
 
 
-def frame(f: int = None):
+def frame(f: Optional[int] = None):
     """
     frame(f) -> Current frame.
 
@@ -1129,7 +1129,7 @@ def getClipname(prompt: str, pattern=None, default=None, multiple=False):
     return list()
 
 
-def getColor(initial: int = None):
+def getColor(initial: Optional[int] = None):
     """
     getColor(initial) -> int
 
@@ -1389,7 +1389,7 @@ def hotkeys():
     return str()
 
 
-def inputs(n: Node, i: Number = None):
+def inputs(n: Node, i: Optional[Number] = None):
     """
     inputs(n, i) -> int
 
@@ -1417,7 +1417,7 @@ def invertSelection():
     return None
 
 
-def knob(name: str, value=None, getType: int = None, getClass: str = None):
+def knob(name: str, value=None, getType: Optional[int] = None, getClass: Optional[str] = None):
     """
     knob(name, value, getType, getClass) -> None
 
@@ -1472,7 +1472,7 @@ def knob(name: str, value=None, getType: int = None, getClass: str = None):
     return None
 
 
-def knobDefault(classknob: str, value: str = None):
+def knobDefault(classknob: str, value: Optional[str] = None):
     """
     knobDefault(classknob, value) -> str
 
@@ -1649,7 +1649,7 @@ def message(prompt: str):
     return None
 
 
-def modified(status: bool = None):
+def modified(status: Optional[bool] = None):
     """
     modified(status) -> True if modified, False otherwise.
 
@@ -1960,7 +1960,7 @@ def registerFlipbook(s: str):
     return None
 
 
-def removeFavoriteDir(name: str, type: str = None):
+def removeFavoriteDir(name: str, type: Optional[str] = None):
     """
     removeFavoriteDir(name, type) -> None.
 
@@ -1973,7 +1973,7 @@ def removeFavoriteDir(name: str, type: str = None):
     return None
 
 
-def execute(nameOrNode: str, start: int = None, end: int = None, incr: int = None, views: list = None, continueOnError=False):
+def execute(nameOrNode: str, start: Optional[int] = None, end: Optional[int] = None, incr: Optional[int] = None, views: Optional[list] = None, continueOnError=False):
     """
     execute(nameOrNode, start, end, incr, views, continueOnError = False) -> None.
     execute(nameOrNode, frameRangeSet, views, continueOnError = False) -> None.\n
@@ -2058,7 +2058,7 @@ def runIn(object: str, cmd):
     return bool()
 
 
-def sample(n: Node, c: str, x: Number, y: Number, dx: Number = None, dy: Number = None):
+def sample(n: Node, c: str, x: Number, y: Number, dx: Optional[Number] = None, dy: Optional[Number] = None):
     """
     sample(n, c, x, y, dx, dy) -> float.
 
@@ -2247,7 +2247,7 @@ def selectedNode():
     return Node()
 
 
-def selectedNodes(filter: str = None):
+def selectedNodes(filter: Optional[str] = None):
     """
     selectedNodes(filter) -> List.
 
@@ -2298,7 +2298,7 @@ def setUserPreset(nodeClassName: str, presetName: str, knobValues: dict):
     return bool()
 
 
-def show(n=None, forceFloat: bool = None):
+def show(n=None, forceFloat: Optional[bool] = None):
     """
     show(n, forceFloat) -> None
 
@@ -2340,7 +2340,7 @@ def pluginPath():
     return list()
 
 
-def showDag(n: Group = None):
+def showDag(n: Optional[Group] = None):
     """
     showDag(n) -> None
 
@@ -2566,7 +2566,7 @@ def thisView():
     return str()
 
 
-def toNode(s: str) -> Node:
+def toNode(s: str):
     """
     toNode(s) -> Node
 
@@ -2575,7 +2575,7 @@ def toNode(s: str) -> Node:
     :param s: Node name.
     :return: Node or None if it does not exist.
     """
-    ...
+    return Union[Node, None]
 
 
 def toggleFullscreen():
@@ -2706,7 +2706,7 @@ def warning(message: str):
     return None
 
 
-def zoom(scale, center: tuple = None, group: Group = None):
+def zoom(scale, center: Optional[tuple] = None, group: Optional[Group] = None):
     """
     zoom(scale, center, group) -> float
 

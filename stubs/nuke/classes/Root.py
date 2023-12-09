@@ -195,7 +195,7 @@ class Root(Group):
         """
         return None
 
-    def addView(self, name: str, color: list = None):
+    def addView(self, name: str, color: Optional[list] = None):
         """
         self.addView(name, color) -> None.
         Add view.

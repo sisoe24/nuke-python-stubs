@@ -187,7 +187,7 @@ class Node(object):
         """
         return Number()
 
-    def metadata(self, key: str = None, time: Number = None, view=None):
+    def metadata(self, key: Optional[str] = None, time: Optional[Number] = None, view=None):
         """
         self.metadata(key, time, view) -> value or dict
         Return the metadata item for key on this node at current output context, or at optional time and view.
@@ -339,7 +339,7 @@ class Node(object):
         """
         return Number()
 
-    def setCustomIcon(self, image: str, scale: Number = None, offsetX=None, offsetY=None):
+    def setCustomIcon(self, image: str, scale: Optional[Number] = None, offsetX=None, offsetY=None):
         """
         self.setCustomIcon(image, scale, offsetX, offsetY) -> bool.
         Set a custom icon for the node.
@@ -471,7 +471,7 @@ class Node(object):
         """
         return bool()
 
-    def sample(self, c: str, x: Number, y: Number, dx: Number = None, dy: Number = None):
+    def sample(self, c: str, x: Number, y: Number, dx: Optional[Number] = None, dy: Optional[Number] = None):
         """
         self.sample(c, x, y, dx, dy) -> Floating point value.
         Return pixel values from an image.

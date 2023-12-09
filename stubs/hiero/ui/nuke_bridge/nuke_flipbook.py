@@ -672,6 +672,7 @@ flipbooking.register(FlipbookNuke())
 
 
 # This overrides Nuke's default renderdialog.py, without having to modify the Nuke install.
+
 def _getIntermediatePath(self):
     """Get the path for the temporary files. May be filled in using printf syntax."""
     flipbooktmp = ''

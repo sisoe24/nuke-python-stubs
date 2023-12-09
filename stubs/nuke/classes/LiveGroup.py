@@ -64,7 +64,7 @@ class LiveGroup(Precomp):
         """
         return bool()
 
-    def publishLiveGroup(self, file: str = None):
+    def publishLiveGroup(self, file: Optional[str] = None):
         """
         publishLiveGroup(file) -> bool
 

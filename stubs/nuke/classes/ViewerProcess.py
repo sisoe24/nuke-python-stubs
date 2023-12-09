@@ -42,7 +42,7 @@ class ViewerProcess(object):
         """
         return None
 
-    def node(self, name: str = None, viewer: str = None):
+    def node(self, name: Optional[str] = None, viewer: Optional[str] = None):
         """
         nuke.ViewerProcess.node(name, viewer) -> Node.
 
