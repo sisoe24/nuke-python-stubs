@@ -11,42 +11,42 @@ class Password_Knob(Knob):
     A knob which holds a password string value. Appears as a password entry field in a Node panel.
     """
 
-    def __hash__(self, ):
+    def __hash__(self, ) -> None:
         """
         Return hash(self).
         """
-        return None
+        ...
 
-    def __init__(self,  *args, **kwargs):
+    def __init__(self,  *args, **kwargs) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """
-        return None
+        ...
 
-    def __new__(self, *args, **kwargs):
+    def __new__(self, *args, **kwargs) -> None:
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
-        return None
+        ...
 
-    def getText(self,):
+    def getText(self,) -> str:
         """
         self.getText() -> string
 
         Return text associated with knob.
         """
-        return str()
+        ...
 
-    def value(self,):
+    def value(self,) -> str:
         """
         self.value() -> str
 
         Get the value of this knob as a string.
         @return: String value.
         """
-        return str()
+        ...
 
-    def setValue(self, val, view='default'):
+    def setValue(self, val, view='default') -> None:
         """
         self.setValue(val, view='default') -> None
 
@@ -55,4 +55,4 @@ class Password_Knob(Knob):
         @param view: Optional parameter specifying which view to set the value for. If omitted, the value will be set for the default view.
         @return: None
         """
-        return None
+        ...

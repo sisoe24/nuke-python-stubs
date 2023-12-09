@@ -13,98 +13,98 @@ class Hash(object):
     The append() method is used to add objects to the hash; the value will be recomputed efficiently as each new object is added.
     """
 
-    def __hash__(self, ):
+    def __hash__(self, ) -> None:
         """
         Return hash(self).
         """
-        return None
+        ...
 
-    def __getattribute__(self, name, ):
+    def __getattribute__(self, name, ) -> None:
         """
         Return getattr(self, name).
         """
-        return None
+        ...
 
-    def __setattr__(self, name, value, ):
+    def __setattr__(self, name, value, ) -> None:
         """
         Implement setattr(self, name, value).
         """
-        return None
+        ...
 
-    def __delattr__(self, name, ):
+    def __delattr__(self, name, ) -> None:
         """
         Implement delattr(self, name).
         """
-        return None
+        ...
 
-    def __lt__(self, value, ):
+    def __lt__(self, value, ) -> None:
         """
         Return self<value.
         """
-        return None
+        ...
 
-    def __le__(self, value, ):
+    def __le__(self, value, ) -> None:
         """
         Return self<=value.
         """
-        return None
+        ...
 
-    def __eq__(self, value, ):
+    def __eq__(self, value, ) -> None:
         """
         Return self==value.
         """
-        return None
+        ...
 
-    def __ne__(self, value, ):
+    def __ne__(self, value, ) -> None:
         """
         Return self!=value.
         """
-        return None
+        ...
 
-    def __gt__(self, value, ):
+    def __gt__(self, value, ) -> None:
         """
         Return self>value.
         """
-        return None
+        ...
 
-    def __ge__(self, value, ):
+    def __ge__(self, value, ) -> None:
         """
         Return self>=value.
         """
-        return None
+        ...
 
-    def __new__(self, *args, **kwargs):
+    def __new__(self, *args, **kwargs) -> None:
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
-        return None
+        ...
 
-    def getHash(self, *args, **kwargs):
+    def getHash(self, *args, **kwargs) -> None:
         """
         Get the current value of the hash.
         """
-        return None
+        ...
 
-    def setHash(self, *args, **kwargs):
+    def setHash(self, *args, **kwargs) -> None:
         """
         Set the current value of the hash.
         """
-        return None
+        ...
 
-    def reset(self, *args, **kwargs):
+    def reset(self, *args, **kwargs) -> None:
         """
         Reset the hash.
         """
-        return None
+        ...
 
-    def append(self, *args, **kwargs):
+    def append(self, *args, **kwargs) -> None:
         """
         Add another value to the hash.
         """
-        return None
+        ...
 
-    def __init__(self,  *args, **kwargs):
+    def __init__(self,  *args, **kwargs) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """
-        return None
+        ...

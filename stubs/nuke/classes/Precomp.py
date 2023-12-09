@@ -11,40 +11,40 @@ class Precomp(Group):
 
     """
 
-    def __repr__(self, ):
+    def __repr__(self, ) -> None:
         """
         Return repr(self).
         """
-        return None
+        ...
 
-    def __str__(self, ):
+    def __str__(self, ) -> None:
         """
         Return str(self).
         """
-        return None
+        ...
 
-    def __len__(self, ):
+    def __len__(self, ) -> None:
         """
         Return len(self).
         """
-        return None
+        ...
 
-    def __getitem__(self, key, ):
+    def __getitem__(self, key, ) -> None:
         """
         Return self[key].
         """
-        return None
+        ...
 
-    def reload(self,):
+    def reload(self,) -> None:
         """
         self.reload() -> None
         Precomp Node reload()
         @return: None
         """
-        return None
+        ...
 
-    def __init__(self,  *args, **kwargs):
+    def __init__(self,  *args, **kwargs) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """
-        return None
+        ...

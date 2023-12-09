@@ -15,10 +15,10 @@ class CancelledError(Exception):
         """
         list of weak references to the object (if defined)
         """
-        return None
+        ...
 
-    def __init__(self,  *args, **kwargs):
+    def __init__(self,  *args, **kwargs) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """
-        return None
+        ...

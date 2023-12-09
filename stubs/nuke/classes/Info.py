@@ -11,52 +11,52 @@ class Info(object):
     An info object stores x, y, w and h values.
     """
 
-    def __hash__(self, ):
+    def __hash__(self, ) -> None:
         """
         Return hash(self).
         """
-        return None
+        ...
 
-    def __init__(self,  *args, **kwargs):
+    def __init__(self,  *args, **kwargs) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """
-        return None
+        ...
 
-    def __new__(self, *args, **kwargs):
+    def __new__(self, *args, **kwargs) -> None:
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
-        return None
+        ...
 
-    def x(self,):
+    def x(self,) -> float:
         """
         x() -> float
 
         Return left edge.
         """
-        return float()
+        ...
 
-    def y(self,):
+    def y(self,) -> float:
         """
         self.y() -> float
 
         Return the bottom edge.
         """
-        return float()
+        ...
 
-    def w(self,):
+    def w(self,) -> float:
         """
         self.w() -> float
 
         Return width.
         """
-        return float()
+        ...
 
-    def h(self,):
+    def h(self,) -> float:
         """
         self.h() -> float
 
         Return height.
         """
-        return float()
+        ...

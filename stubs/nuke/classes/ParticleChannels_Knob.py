@@ -11,37 +11,37 @@ class ParticleChannels_Knob(Knob):
     ParticleChannels_Knob
     """
 
-    def __hash__(self, ):
+    def __hash__(self, ) -> None:
         """
         Return hash(self).
         """
-        return None
+        ...
 
-    def __init__(self,  *args, **kwargs):
+    def __init__(self,  *args, **kwargs) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """
-        return None
+        ...
 
-    def __new__(self, *args, **kwargs):
+    def __new__(self, *args, **kwargs) -> None:
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
-        return None
+        ...
 
-    def value(self,):
+    def value(self,) -> int:
         """
         self.value() -> int
         Get the ParticleChannels value for this knob.
         @return: Particle channels as integer.
         """
-        return int()
+        ...
 
-    def setValue(self, v: int):
+    def setValue(self, v: int) -> bool:
         """
         self.setValue(v) -> bool
         Set the ParticleChannels value of this knob.
         @param v: int convertible object.
         @return: True if modified, False otherwise.
         """
-        return bool()
+        ...

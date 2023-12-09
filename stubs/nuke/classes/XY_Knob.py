@@ -11,52 +11,52 @@ class XY_Knob(Array_Knob):
     A knob which describes a 2D position.
     """
 
-    def __hash__(self, ):
+    def __hash__(self, ) -> None:
         """
         Return hash(self).
         """
-        return None
+        ...
 
-    def __init__(self,  *args, **kwargs):
+    def __init__(self,  *args, **kwargs) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """
-        return None
+        ...
 
-    def __new__(self, *args, **kwargs):
+    def __new__(self, *args, **kwargs) -> None:
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
-        return None
+        ...
 
-    def names(self, n):
+    def names(self, n) -> str:
         """
         names(n) -> string
 
         Return name for dimension n. The argument n is an integer.
         """
-        return str()
+        ...
 
-    def value(self, n, oc):
+    def value(self, n, oc) -> float:
         """
         value(n, oc) -> float
 
         Return value for dimension n. The optional argument oc is an OutputContext.
         """
-        return float()
+        ...
 
-    def x(self, oc):
+    def x(self, oc) -> float:
         """
         x(oc) -> float
 
         Return value for x. The optional oc argument is an OutputContext
         """
-        return float()
+        ...
 
-    def y(self, oc):
+    def y(self, oc) -> float:
         """
         y(oc) -> float
 
         Return value for y. The optional oc argument is an OutputContext
         """
-        return float()
+        ...

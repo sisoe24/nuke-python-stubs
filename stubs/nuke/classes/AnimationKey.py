@@ -67,83 +67,83 @@ class AnimationKey(object):
     True if the point is selected in the curve editor.
     """
 
-    def __hash__(self, ):
+    def __hash__(self, ) -> None:
         """
         Return hash(self).
         """
-        return None
+        ...
 
-    def __init__(self,  *args, **kwargs):
+    def __init__(self,  *args, **kwargs) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """
-        return None
+        ...
 
-    def __new__(self, *args, **kwargs):
+    def __new__(self, *args, **kwargs) -> None:
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
-        return None
+        ...
 
     @property
     def x(self) -> Any:
         """
         The horizontal position of the point
         """
-        return None
+        ...
 
     @property
     def y(self) -> Any:
         """
         The vertical position of the point
         """
-        return None
+        ...
 
     @property
     def lslope(self) -> Any:
         """
         The derivative to the left of the point
         """
-        return None
+        ...
 
     @property
     def rslope(self) -> Any:
         """
         The derivative to the right of the point
         """
-        return None
+        ...
 
     @property
     def la(self) -> Any:
         """
         The left 'bicubic' value
         """
-        return None
+        ...
 
     @property
     def ra(self) -> Any:
         """
         The right 'bicubic' value
         """
-        return None
+        ...
 
     @property
     def interpolation(self) -> Any:
         """
         Used to calculate all the slopes except for the left slope of the first key and the right slope of the last key
         """
-        return None
+        ...
 
     @property
     def extrapolation(self) -> Any:
         """
         Controls how to set the left slope of the first point and the right slope of the last point
         """
-        return None
+        ...
 
     @property
     def selected(self) -> Any:
         """
         True if the point is selected in the curve editor
         """
-        return None
+        ...

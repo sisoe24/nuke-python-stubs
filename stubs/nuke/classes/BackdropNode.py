@@ -11,31 +11,31 @@ class BackdropNode(Node):
 
     """
 
-    def __repr__(self, ):
+    def __repr__(self, ) -> None:
         """
         Return repr(self).
         """
-        return None
+        ...
 
-    def __str__(self, ):
+    def __str__(self, ) -> None:
         """
         Return str(self).
         """
-        return None
+        ...
 
-    def __len__(self, ):
+    def __len__(self, ) -> None:
         """
         Return len(self).
         """
-        return None
+        ...
 
-    def __getitem__(self, key, ):
+    def __getitem__(self, key, ) -> None:
         """
         Return self[key].
         """
-        return None
+        ...
 
-    def selectNodes(self, selectNodes):
+    def selectNodes(self, selectNodes) -> None:
         """
         self.selectNodes(selectNodes) -> None
         Select or deselect all nodes in backdrop node
@@ -45,9 +45,9 @@ class BackdropNode(Node):
 
         @return: None.
         """
-        return None
+        ...
 
-    def getNodes(self,):
+    def getNodes(self,) -> list:
         """
         self.getNodes() -> a list of nodes contained inside the backdrop
         Get the nodes contained inside a backdrop node
@@ -57,10 +57,10 @@ class BackdropNode(Node):
 
         @return: a list of nodes contained inside the backdrop.
         """
-        return list()
+        ...
 
-    def __init__(self,  *args, **kwargs):
+    def __init__(self,  *args, **kwargs) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """
-        return None
+        ...

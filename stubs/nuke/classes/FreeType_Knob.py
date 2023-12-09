@@ -11,25 +11,25 @@ class FreeType_Knob(Knob):
     A knob which holds a font family and style name.
     """
 
-    def __hash__(self, ):
+    def __hash__(self, ) -> None:
         """
         Return hash(self).
         """
-        return None
+        ...
 
-    def __init__(self,  *args, **kwargs):
+    def __init__(self,  *args, **kwargs) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """
-        return None
+        ...
 
-    def __new__(self, *args, **kwargs):
+    def __new__(self, *args, **kwargs) -> None:
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
-        return None
+        ...
 
-    def getValue(self,):
+    def getValue(self,) -> str:
         """
         self.getValue() -> [String, String]
 
@@ -37,9 +37,9 @@ class FreeType_Knob(Knob):
 
         :return: [String, String].
         """
-        return str()
+        ...
 
-    def setValue(self, family: str, style: str):
+    def setValue(self, family: str, style: str) -> None:
         """
         self.setValue(family,style) -> None.
 
@@ -52,4 +52,4 @@ class FreeType_Knob(Knob):
         :raises: It raises an exception if the font is not available.
         :return: None.
         """
-        return None
+        ...

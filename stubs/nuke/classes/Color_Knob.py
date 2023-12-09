@@ -11,36 +11,36 @@ class Color_Knob(Array_Knob):
     A knob which holds a color. Provides a UI for picking colours as well as editing the values directly.
     """
 
-    def __hash__(self, ):
+    def __hash__(self, ) -> None:
         """
         Return hash(self).
         """
-        return None
+        ...
 
-    def __init__(self,  *args, **kwargs):
+    def __init__(self,  *args, **kwargs) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """
-        return None
+        ...
 
-    def __new__(self, *args, **kwargs):
+    def __new__(self, *args, **kwargs) -> None:
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
-        return None
+        ...
 
-    def names(self, n):
+    def names(self, n) -> str:
         """
         names(n) -> string
 
         Return name for dimension n. The argument n is an integer.
         """
-        return str()
+        ...
 
-    def inputNumber(self,):
+    def inputNumber(self,) -> int:
         """
         inputNumber() -> int
 
         Return input number.
         """
-        return int()
+        ...

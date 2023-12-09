@@ -11,29 +11,29 @@ class Obsolete_Knob(Knob):
     For internal use only.
     """
 
-    def __hash__(self, ):
+    def __hash__(self, ) -> None:
         """
         Return hash(self).
         """
-        return None
+        ...
 
-    def __init__(self,  *args, **kwargs):
+    def __init__(self,  *args, **kwargs) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """
-        return None
+        ...
 
-    def value(self, *args, **kwargs):
+    def value(self, *args, **kwargs) -> None:
         """
         Return value at the current frame for channel 'c'.
         """
-        return None
+        ...
 
-    def setValue(self, val, chan):
+    def setValue(self, val, chan) -> bool:
         """
         self.setValue(val, chan) -> bool
 
         Sets the value 'val' at channel 'chan'.
         @return: True if successful, False if not.
         """
-        return bool()
+        ...

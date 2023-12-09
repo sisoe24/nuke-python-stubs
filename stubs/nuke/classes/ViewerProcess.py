@@ -11,13 +11,13 @@ class ViewerProcess(object):
     ViewerProcess
     """
 
-    def __hash__(self, ):
+    def __hash__(self, ) -> None:
         """
         Return hash(self).
         """
-        return None
+        ...
 
-    def register(self, name: str, call: Callable, args, kwargs=None):
+    def register(self, name: str, call: Callable, args, kwargs=None) -> None:
         """
         nuke.ViewerProcess.register(name, call, args, kwargs) -> None.
 
@@ -29,9 +29,9 @@ class ViewerProcess(object):
         :param kwargs: Optional named arguments.
         :return: None.
         """
-        return None
+        ...
 
-    def unregister(self, name: str):
+    def unregister(self, name: str) -> None:
         """
         nuke.ViewerProcess.unregister(name) -> None.
 
@@ -40,9 +40,9 @@ class ViewerProcess(object):
         :param name: Menu name.
         :return: None.
         """
-        return None
+        ...
 
-    def node(self, name: Optional[str] = None, viewer: Optional[str] = None):
+    def node(self, name: Optional[str] = None, viewer: Optional[str] = None) -> Node:
         """
         nuke.ViewerProcess.node(name, viewer) -> Node.
 
@@ -52,9 +52,9 @@ class ViewerProcess(object):
         :param viewer: Optional viewer name.
         :return: Node.
         """
-        return Node()
+        ...
 
-    def registeredNames(self,):
+    def registeredNames(self,) -> list:
         """
         nuke.ViewerProcess.registeredNames() -> List.
 
@@ -62,9 +62,9 @@ class ViewerProcess(object):
 
         :return: List.
         """
-        return list()
+        ...
 
-    def storeSelectionBeforeReload(self,):
+    def storeSelectionBeforeReload(self,) -> None:
         """
         nuke.ViewerProcess.storeSelectionBeforeReload() -> None.
 
@@ -73,9 +73,9 @@ class ViewerProcess(object):
 
         :return: None.
         """
-        return None
+        ...
 
-    def restoreSelectionAfterReload(self,):
+    def restoreSelectionAfterReload(self,) -> None:
         """
         nuke.ViewerProcess.restoreSelectionAfterReload() -> None.
 
@@ -84,10 +84,10 @@ class ViewerProcess(object):
 
         :return: None.
         """
-        return None
+        ...
 
-    def __init__(self,  *args, **kwargs):
+    def __init__(self,  *args, **kwargs) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """
-        return None
+        ...

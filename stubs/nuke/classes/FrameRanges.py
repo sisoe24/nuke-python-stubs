@@ -11,102 +11,102 @@ class FrameRanges(object):
     A sequence of FrameRange objects with convenience functions for iterating over all frames in all ranges.
     """
 
-    def __hash__(self, ):
+    def __hash__(self, ) -> None:
         """
         Return hash(self).
         """
-        return None
+        ...
 
-    def __str__(self, ):
+    def __str__(self, ) -> None:
         """
         Return str(self).
         """
-        return None
+        ...
 
-    def __iter__(self, ):
+    def __iter__(self, ) -> None:
         """
         Implement iter(self).
         """
-        return None
+        ...
 
-    def __next__(self, ):
+    def __next__(self, ) -> None:
         """
         Implement next(self).
         """
-        return None
+        ...
 
-    def __init__(self,  *args, **kwargs):
+    def __init__(self,  *args, **kwargs) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """
-        return None
+        ...
 
-    def __new__(self, *args, **kwargs):
+    def __new__(self, *args, **kwargs) -> None:
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
-        return None
+        ...
 
-    def size(self,):
+    def size(self,) -> int:
         """
         size() -> int
 
         return the ranges number.
         """
-        return int()
+        ...
 
-    def add(self, r):
+    def add(self, r) -> None:
         """
         add(r) -> None
 
         add a new frame range.
         """
-        return None
+        ...
 
-    def minFrame(self,):
+    def minFrame(self,) -> int:
         """
         minFrame() -> int
 
         get minimun frame of all ranges.
         """
-        return int()
+        ...
 
-    def maxFrame(self,):
+    def maxFrame(self,) -> int:
         """
         maxFrame() -> int
 
         get maximun frame of all ranges.
         """
-        return int()
+        ...
 
-    def clear(self,):
+    def clear(self,) -> None:
         """
         clear() -> None
 
         reset all store frame ranges.
         """
-        return None
+        ...
 
-    def compact(self,):
+    def compact(self,) -> None:
         """
         compact() -> None
 
         compact all the frame ranges.
         """
-        return None
+        ...
 
-    def toFrameList(self,):
+    def toFrameList(self,) -> [int]:
         """
         toFrameList() -> [int]
 
         return a list of frames in a vector
         """
-        return [int]
+        ...
 
-    def getRange(self,):
+    def getRange(self,) -> FrameRange:
         """
         getRange()-> FrameRange
 
         return a range from the list
         """
-        return FrameRange()
+        ...

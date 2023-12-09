@@ -11,19 +11,19 @@ class Array_Knob(Knob):
     A knob which holds an array of values.
     """
 
-    def __hash__(self, ):
+    def __hash__(self, ) -> None:
         """
         Return hash(self).
         """
-        return None
+        ...
 
-    def __new__(self, *args, **kwargs):
+    def __new__(self, *args, **kwargs) -> None:
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
-        return None
+        ...
 
-    def vect(self,):
+    def vect(self,) -> list:
         """
         self.vect() -> List of knob values.
         @return: List of knob values.
@@ -31,9 +31,9 @@ class Array_Knob(Knob):
         nor get their values from a ValueProvider.
         For knobs like that, use Array_Knob.getValue, instead
         """
-        return list()
+        ...
 
-    def array(self,):
+    def array(self,) -> list:
         """
         self.array() -> List of knob values.
         @return: List of knob values.
@@ -41,37 +41,37 @@ class Array_Knob(Knob):
         nor get their values from a ValueProvider.
         For knobs like that, use Array_Knob.getValue, instead
         """
-        return list()
+        ...
 
-    def width(self,):
+    def width(self,) -> list:
         """
         self.width() -> Width of array of values.
         @return: Width of array of values.
         """
-        return list()
+        ...
 
-    def height(self,):
+    def height(self,) -> list:
         """
         self.height() -> Height of array of values.
         @return: Height of array of values.
         """
-        return list()
+        ...
 
-    def arraySize(self,):
+    def arraySize(self,) -> list:
         """
         self.arraySize() -> Number of elements in array.
         @return: Number of elements in array.
         """
-        return list()
+        ...
 
-    def dimensions(self,):
+    def dimensions(self,) -> list:
         """
         self.dimensions() -> Dimensions in array.
         @return: Dimensions in array.
         """
-        return list()
+        ...
 
-    def resize(self, w: Number, h: Optional[Number] = None):
+    def resize(self, w: Number, h: Optional[Number] = None) -> bool:
         """
         self.resize(w, h) -> True if successful, False otherwise.
         Resize the array.
@@ -79,18 +79,18 @@ class Array_Knob(Knob):
         @param h: Optional new height
         @return: True if successful, False otherwise.
         """
-        return bool()
+        ...
 
-    def fromScript(self, s: str):
+    def fromScript(self, s: str) -> bool:
         """
         self.fromScript(s) -> True if successful, False otherwise.
         Set value of the knob to a user defined script (TCL syntax, as in .nk file). Return True if successful.
         @param s: Nuke script to be set on knob.
         @return: True if successful, False otherwise.
         """
-        return bool()
+        ...
 
-    def toScript(self, quote: Optional[bool] = None, context: Optional[str] = None):
+    def toScript(self, quote: Optional[bool] = None, context: Optional[str] = None) -> str:
         """
         self.toScript(quote, context) -> String.
         Return the value of the knob in script syntax.
@@ -98,59 +98,59 @@ class Array_Knob(Knob):
         @param context: Optional context, default is current, None will be "contextless" (all views, all keys) as in a .nk file.
         @return: String.
         """
-        return str()
+        ...
 
-    def notDefault(self,):
+    def notDefault(self,) -> bool:
         """
         self.notDefault() -> True if any of the values is not set to the default, False otherwise.
         @return: True if any of the values is not set to the default, False otherwise.
         """
-        return bool()
+        ...
 
-    def defaultValue(self,):
+    def defaultValue(self,) -> Any:
         """
         self.defaultValue() -> Default value.
         @return: Default value.
         """
-        return Any
+        ...
 
-    def setDefaultValue(self, s: Iterable):
+    def setDefaultValue(self, s: Iterable) -> None:
         """
         self.setDefaultValue(s) -> None.
         @param s: Sequence of floating-point values.
         @return: None.
         """
-        return None
+        ...
 
-    def min(self,):
+    def min(self,) -> Number:
         """
         self.min() -> Minimum value.
         @return: Minimum value.
         """
-        return Number()
+        ...
 
-    def min(self,):
+    def min(self,) -> Number:
         """
         self.min() -> Minimum value.
         @return: Minimum value.
         """
-        return Number()
+        ...
 
-    def max(self,):
+    def max(self,) -> Number:
         """
         self.max() -> Maximum value.
         @return: Maximum value.
         """
-        return Number()
+        ...
 
-    def max(self,):
+    def max(self,) -> Number:
         """
         self.max() -> Maximum value.
         @return: Maximum value.
         """
-        return Number()
+        ...
 
-    def setRange(self, f1: Number, f2: Number):
+    def setRange(self, f1: Number, f2: Number) -> None:
         """
         self.setRange(f1, f2) -> None.
         Set range of values.
@@ -158,17 +158,17 @@ class Array_Knob(Knob):
         @param f2 Max value.
         @return: None.
         """
-        return None
+        ...
 
-    def singleValue(self, view=None):
+    def singleValue(self, view=None) -> bool:
         """
         self.singleValue(view) -> True if holds a single value.
         @param view: Optional view. Default is current view.
         @return: True if holds a single value.
         """
-        return bool()
+        ...
 
-    def setSingleValue(self, b: bool, view=None):
+    def setSingleValue(self, b: bool, view=None) -> None:
         """
         self.setSingleValue(b, view) -> None.
         Set to just hold a single value or not.
@@ -176,16 +176,16 @@ class Array_Knob(Knob):
         @param view: Optional view. Default is current view.
         @return: None.
         """
-        return None
+        ...
 
-    def frame(self,):
+    def frame(self,) -> int:
         """
         self.frame() -> Frame number.
         @return: Frame number.
         """
-        return int()
+        ...
 
-    def setValue(self, value: float, index: Optional[int] = None, time: Optional[Number] = None, view=None):
+    def setValue(self, value: float, index: Optional[int] = None, time: Optional[Number] = None, view=None) -> bool:
         """
         self.setValue(value, index, time, view) -> True if value changed, False otherwise. Safe to ignore.
         Set index to value at time and view.
@@ -195,9 +195,9 @@ class Array_Knob(Knob):
         @param view: Optional view.
         @return: True if value changed, False otherwise. Safe to ignore.
         """
-        return bool()
+        ...
 
-    def setValueAt(self, value: float, time: Number, index: Optional[int] = None, view=None):
+    def setValueAt(self, value: float, time: Number, index: Optional[int] = None, view=None) -> bool:
         """
         self.setValueAt(value, time, index, view) -> bool.
         Set value of element 'index' at time for view. If the knob is animated, it will set a new keyframe or change an existing one. Index and view are optional. Return True if successful.
@@ -207,9 +207,9 @@ class Array_Knob(Knob):
         @param view: Optional view.
         @return: True if value changed, False otherwise. Safe to ignore.
         """
-        return bool()
+        ...
 
-    def value(self, index: Optional[int] = None, view=None, time: Optional[Number] = None):
+    def value(self, index: Optional[int] = None, view=None, time: Optional[Number] = None) -> list:
         """
         self.value(index, view, time) -> Floating point or List of floating point values (in case some are different).
         @param index: Optional index. Default is 0.
@@ -217,9 +217,9 @@ class Array_Knob(Knob):
         @param time: Optional time.
         @return: Floating point or List of floating point values (in case some are different).
         """
-        return list()
+        ...
 
-    def value(self, index: Optional[int] = None, view=None, time: Optional[Number] = None):
+    def value(self, index: Optional[int] = None, view=None, time: Optional[Number] = None) -> list:
         """
         self.value(index, view, time) -> Floating point or List of floating point values (in case some are different).
         @param index: Optional index. Default is 0.
@@ -227,9 +227,9 @@ class Array_Knob(Knob):
         @param time: Optional time.
         @return: Floating point or List of floating point values (in case some are different).
         """
-        return list()
+        ...
 
-    def valueAt(self, time: Number, index: Optional[int] = None, view=None):
+    def valueAt(self, time: Number, index: Optional[int] = None, view=None) -> list:
         """
         self.valueAt(time, index, view) -> Floating point or List of floating point values (in case some are different).
         Return value for this knob at specified time, optional index and view.
@@ -238,9 +238,9 @@ class Array_Knob(Knob):
         @param view: Optional view.
         @return: Floating point or List of floating point values (in case some are different).
         """
-        return list()
+        ...
 
-    def valueAt(self, time: Number, index: Optional[int] = None, view=None):
+    def valueAt(self, time: Number, index: Optional[int] = None, view=None) -> list:
         """
         self.valueAt(time, index, view) -> Floating point or List of floating point values (in case some are different).
         Return value for this knob at specified time, optional index and view.
@@ -249,9 +249,9 @@ class Array_Knob(Knob):
         @param view: Optional view.
         @return: Floating point or List of floating point values (in case some are different).
         """
-        return list()
+        ...
 
-    def setKeyAt(self, time: Number, index: Optional[int] = None, view=None):
+    def setKeyAt(self, time: Number, index: Optional[int] = None, view=None) -> None:
         """
         self.setKeyAt(time, index, view) -> None.
         Set a key on element 'index', at time and view.
@@ -260,9 +260,9 @@ class Array_Knob(Knob):
         @param view: Optional view.
         @return: None.
         """
-        return None
+        ...
 
-    def removeKey(self, index: Optional[int] = None, view=None):
+    def removeKey(self, index: Optional[int] = None, view=None) -> bool:
         """
         self.removeKey(index, view) -> True if succeeded, False otherwise.
         Remove key.
@@ -270,9 +270,9 @@ class Array_Knob(Knob):
         @param view: Optional view.
         @return: True if succeeded, False otherwise.
         """
-        return bool()
+        ...
 
-    def removeKeyAt(self, time: Number, index: Optional[int] = None, view=None):
+    def removeKeyAt(self, time: Number, index: Optional[int] = None, view=None) -> bool:
         """
         self.removeKeyAt(time, index, view) -> True if succeeded, False otherwise.
         Remove keyframe at specified time, optional index and view. Return True if successful.
@@ -281,18 +281,18 @@ class Array_Knob(Knob):
         @param view: Optional view.
         @return: True if succeeded, False otherwise.
         """
-        return bool()
+        ...
 
-    def isKey(self, index: Optional[int] = None, view=None):
+    def isKey(self, index: Optional[int] = None, view=None) -> bool:
         """
         self.isKey(index, view) -> True if succeeded, False otherwise.
         @param index: Optional index.
         @param view: Optional view.
         @return: True if succeeded, False otherwise.
         """
-        return bool()
+        ...
 
-    def isKeyAt(self, time: Number, index: Optional[int] = None, view=None):
+    def isKeyAt(self, time: Number, index: Optional[int] = None, view=None) -> bool:
         """
         self.isKeyAt(time, index, view) -> True if succeeded, False otherwise.
         Returns True if there is a keyframe at specified time, optional index and view, otherwise returns False.
@@ -301,45 +301,45 @@ class Array_Knob(Knob):
         @param view: Optional view.
         @return: True if succeeded, False otherwise.
         """
-        return bool()
+        ...
 
-    def getNumKeys(self, *args, **kwargs):
+    def getNumKeys(self, *args, **kwargs) -> None:
         """
         Return number of keys at channel 'c'.
         """
-        return None
+        ...
 
-    def getKeyIndex(self, *args, **kwargs):
+    def getKeyIndex(self, *args, **kwargs) -> None:
         """
         Return index of the keyframe at time 't' and channel 'c'.
         """
-        return None
+        ...
 
-    def getKeyTime(self, *args, **kwargs):
+    def getKeyTime(self, *args, **kwargs) -> None:
         """
         Return time of the keyframe at time 't' and channel 'c'.
         """
-        return None
+        ...
 
-    def getDerivative(self, *args, **kwargs):
+    def getDerivative(self, *args, **kwargs) -> None:
         """
         Return derivative at time 't' and index 'i'.
         """
-        return None
+        ...
 
-    def getNthDerivative(self, *args, **kwargs):
+    def getNthDerivative(self, *args, **kwargs) -> None:
         """
         Return n'th derivative at time 't' and index 'i'.
         """
-        return None
+        ...
 
-    def getIntegral(self, *args, **kwargs):
+    def getIntegral(self, *args, **kwargs) -> None:
         """
         Return integral at time interval [t1, t2] and index 'i'.
         """
-        return None
+        ...
 
-    def setAnimated(self, index: Optional[int] = None, view=None):
+    def setAnimated(self, index: Optional[int] = None, view=None) -> bool:
         """
         self.setAnimated(index, view) -> True if succeeded, False otherwise.
         Create an Animation object. Return True if successful, in which case caller must initialise it by calling setValue() or setValueAt().
@@ -347,18 +347,18 @@ class Array_Knob(Knob):
         @param view: Optional view.
         @return: True if succeeded, False otherwise.
         """
-        return bool()
+        ...
 
-    def isAnimated(self, index: Optional[int] = None, view=None):
+    def isAnimated(self, index: Optional[int] = None, view=None) -> bool:
         """
         self.isAnimated(index, view) -> True if animated, False otherwise.
         @param index: Optional index.
         @param view: Optional view.
         @return: True if animated, False otherwise.
         """
-        return bool()
+        ...
 
-    def clearAnimated(self, index: Optional[int] = None, view=None):
+    def clearAnimated(self, index: Optional[int] = None, view=None) -> bool:
         """
         self.clearAnimated(index, view) -> True if succeeded, False otherwise.
         Delete animation.
@@ -366,9 +366,9 @@ class Array_Knob(Knob):
         @param view: Optional view.
         @return: True if succeeded, False otherwise.
         """
-        return bool()
+        ...
 
-    def setExpression(self, expression: str, channel=-1, view=None):
+    def setExpression(self, expression: str, channel=-1, view=None) -> bool:
         """
         self.setExpression(expression, channel=-1, view=None) -> bool
         Set the expression for a knob. You can optionally specify a channel to set the expression for.
@@ -378,35 +378,35 @@ class Array_Knob(Knob):
         @param view: Optional view parameter. Without, this command will set the expression for the current view theinterface is displaying. Can be the name of the view or the index.
         @return: True if successful, False if not.
         """
-        return bool()
+        ...
 
-    def hasExpression(self, index: Optional[int] = None):
+    def hasExpression(self, index: Optional[int] = None) -> bool:
         """
         self.hasExpression(index) -> True if has expression, False otherwise.
         @param index: Optional index.
         @return: True if has expression, False otherwise.
         """
-        return bool()
+        ...
 
-    def splitView(self, view=None):
+    def splitView(self, view=None) -> None:
         """
         self.splitView(view) -> None.
         Split the view away from the current knob value.
         @param view: Optional view. Default is current view.
         @return: None.
         """
-        return None
+        ...
 
-    def unsplitView(self, view=None):
+    def unsplitView(self, view=None) -> None:
         """
         self.unsplitView(view) -> None.
         Unsplit the view so that it shares a value with other views.
         @param view: Optional view. Default is current view.
         @return: None.
         """
-        return None
+        ...
 
-    def animations(self, view=None):
+    def animations(self, view=None) -> list:
         """
         self.animations(view) -> AnimationCurve list.
         @param view: Optional view.
@@ -419,9 +419,9 @@ class Array_Knob(Knob):
         a[0].setKey(0, 11)
         a[0].setKey(10, 20)
         """
-        return list()
+        ...
 
-    def animation(self, chan, view=None):
+    def animation(self, chan, view=None) -> Union[AnimationCurve, None]:
         """
         self.animation(chan, view) -> AnimationCurve or None.
         Return the AnimationCurve for the  channel 'chan' and view 'view'. The view argument is optional.
@@ -429,18 +429,18 @@ class Array_Knob(Knob):
         @param view: Optional view.
         @return: AnimationCurve or None.
         """
-        return Union[AnimationCurve, None]
+        ...
 
-    def deleteAnimation(self, curve: AnimationCurve):
+    def deleteAnimation(self, curve: AnimationCurve) -> None:
         """
         self.deleteAnimation(curve) -> None. Raises ValueError if not found.
         Deletes the AnimationCurve.
         @param curve: An AnimationCurve instance which belongs to this Knob.
         @return: None. Raises ValueError if not found.
         """
-        return None
+        ...
 
-    def copyAnimation(self, channel: int, curve: AnimationCurve, view=None):
+    def copyAnimation(self, channel: int, curve: AnimationCurve, view=None) -> None:
         """
         self.copyAnimation(channel, curve, view) -> None.
         Copies the i'th channel of the AnimationCurve curve to this object. The view is optional and defaults to the current view.
@@ -449,9 +449,9 @@ class Array_Knob(Knob):
         @param view: Optional view. Defaults to current.
         @return: None.
         """
-        return None
+        ...
 
-    def copyAnimations(self, curves: list, view=None):
+    def copyAnimations(self, curves: list, view=None) -> None:
         """
         self.copyAnimations(curves, view) -> None.
         Copies the AnimationCurves from curves to this object. The view is optional and defaults to the current view.
@@ -459,10 +459,10 @@ class Array_Knob(Knob):
         @param view: Optional view. Defaults to current.
         @return: None.
         """
-        return None
+        ...
 
-    def __init__(self,  *args, **kwargs):
+    def __init__(self,  *args, **kwargs) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """
-        return None
+        ...

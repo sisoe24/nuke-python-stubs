@@ -13,33 +13,33 @@ class SceneGraph_Knob(Unsigned_Knob):
     to specify their level in the tree. Handles multiple selection of items within the tree.
     """
 
-    def __hash__(self, ):
+    def __hash__(self, ) -> None:
         """
         Return hash(self).
         """
-        return None
+        ...
 
-    def __init__(self,  *args, **kwargs):
+    def __init__(self,  *args, **kwargs) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """
-        return None
+        ...
 
-    def __new__(self, *args, **kwargs):
+    def __new__(self, *args, **kwargs) -> None:
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
-        return None
+        ...
 
-    def getItems(self,):
+    def getItems(self,) -> tuple:
         """
         self.getItems() -> tuple of strings (name, type)
 
         Returns a tuple of string tuples (name, type).
         """
-        return tuple()
+        ...
 
-    def setItems(self, *args, autoSelect=False):
+    def setItems(self, *args, autoSelect=False) -> None:
         """
         self.setItems([(name1, type1), (name2, type2), ...], autoSelect=false) -> None
 
@@ -49,9 +49,9 @@ class SceneGraph_Knob(Unsigned_Knob):
         :param autoSelect: If True, all items are automatically set as imported and selected.
         :return: None.
         """
-        return None
+        ...
 
-    def addItems(self, *args, autoSelect=False):
+    def addItems(self, *args, autoSelect=False) -> None:
         """
         self.addItems([(name1, type1), (name2, type2), ...], autoSelect=false) -> None\n
 
@@ -61,29 +61,29 @@ class SceneGraph_Knob(Unsigned_Knob):
         :param autoSelect: If True, all items are automatically set as selected.
         :return: None.
         """
-        return None
+        ...
 
-    def removeItems(self, *args):
+    def removeItems(self, *args) -> None:
         """
         self.removeItems([name1, name2, ...]) -> None
 
         Removes a list of string names from the knob.
         """
-        return None
+        ...
 
-    def getSelectedItems(self,):
+    def getSelectedItems(self,) -> list:
         """
         self.getSelectedItems() -> list
 
         :return: list of strings containing all currently selected items in the knob.
         """
-        return list()
+        ...
 
-    def setSelectedItems(self, *args):
+    def setSelectedItems(self, *args) -> None:
         """
         self.setSelectedItems([name1, name2, ...]) -> None
 
         :param items: sequence of strings - names of the items in the list .
         :return: None.
         """
-        return None
+        ...
