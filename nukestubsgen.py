@@ -972,7 +972,7 @@ def main():
             file.write('')
 
     print('Start Extraction')
-    # generate_nuke_stubs()
+    generate_nuke_stubs()
     generate_hiero_stubs()
     print(f'Extraction completed in: "{stubs_path}"')
 
