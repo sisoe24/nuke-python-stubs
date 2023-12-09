@@ -17,178 +17,178 @@ class ProcessorUIBase(IProcessorUI):
     by the specialised processor UIs.
     """
 
-    def getTaskItemType(self):
+    def getTaskItemType(self) -> None:
         """
 
         """
-        return None
+        ...
 
-    def __init__(self, preset, itemTypes):
+    def __init__(self, preset, itemTypes) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """
-        return None
+        ...
 
-    def validate(self, exportItems):
+    def validate(self, exportItems) -> None:
         """
         Validate settings in UI. Return False for failure in order to abort export.
         """
-        return None
+        ...
 
-    def isTranscodeExport(self):
+    def isTranscodeExport(self) -> None:
         """
         Check if there are transcode tasks in this export.
         """
-        return None
+        ...
 
-    def findCompItems(self, items):
+    def findCompItems(self, items) -> None:
         """
         Search for comp clips and track items in a list of ItemWrappers.
         """
-        return None
+        ...
 
-    def checkUnrenderedComps(self, exportItems):
+    def checkUnrenderedComps(self, exportItems) -> None:
         """
         Check for unrendered comps selected for export and ask the user what to do.
         """
-        return None
+        ...
 
-    def projectFromSelection(self, items):
+    def projectFromSelection(self, items) -> None:
         """
 
         """
-        return None
+        ...
 
-    def toTrackItems(self, items):
+    def toTrackItems(self, items) -> None:
         """
 
         """
-        return None
+        ...
 
-    def findOfflineMedia(self, exportItems):
+    def findOfflineMedia(self, exportItems) -> None:
         """
 
         """
-        return None
+        ...
 
-    def offlineMediaPrompt(self, messageText, messageDetails, hasOnline):
+    def offlineMediaPrompt(self, messageText, messageDetails, hasOnline) -> None:
         """
 
         """
-        return None
+        ...
 
-    def checkOfflineMedia(self, exportItems):
+    def checkOfflineMedia(self, exportItems) -> None:
         """
 
         """
-        return None
+        ...
 
-    def findTagsForItems(self, exportItems):
+    def findTagsForItems(self, exportItems) -> None:
         """
         Find tags for the export items.
         """
-        return None
+        ...
 
-    def populateUI(self, processorUIWidget, taskUIWidget, exportItems):
+    def populateUI(self, processorUIWidget, taskUIWidget, exportItems) -> None:
         """
         Build the processor UI and add it to widget.
         """
-        return None
+        ...
 
-    def setPreset(self, preset):
+    def setPreset(self, preset) -> None:
         """
         Set the export preset.
         """
-        return None
+        ...
 
-    def preset(self):
+    def preset(self) -> None:
         """
         Get the export preset.
         """
-        return None
+        ...
 
-    def setTaskContent(self, preset):
+    def setTaskContent(self, preset) -> None:
         """
         Get the UI for a task preset and add it in the 'Content' tab.
         """
-        return None
+        ...
 
-    def onExportStructureModified(self):
+    def onExportStructureModified(self) -> None:
         """
         Callback when the export structure is modified by the user.
         """
-        return None
+        ...
 
-    def onExportStructureSelectionChanged(self):
+    def onExportStructureSelectionChanged(self) -> None:
         """
         Callback when the selection in the export structure viewer changes.
         """
-        return None
+        ...
 
-    def onExportStructureViewerDestroyed(self):
+    def onExportStructureViewerDestroyed(self) -> None:
         """
         Callback when the export structure viewer is destroyed.  Qt will delete it while we still
         have a reference, so reset to None when the destroyed() signal is emitted.
         """
-        return None
+        ...
 
-    def createProcessorSettingsWidget(self, exportItems):
+    def createProcessorSettingsWidget(self, exportItems) -> None:
         """
         Create the UI for processor-specific settings.  To be reimplemented by subclasses.
         """
-        return None
+        ...
 
-    def processorSettingsLabel(self):
+    def processorSettingsLabel(self) -> None:
         """
         Get the label which is put on the tab for processor-specific settings.  To be reimplemented by subclasses.
         """
-        return None
+        ...
 
-    def savePreset(self):
+    def savePreset(self) -> None:
         """
         Save the export template to the preset.
         """
-        return None
+        ...
 
-    def createVersionWidget(self):
+    def createVersionWidget(self) -> None:
         """
         Create a widget for selecting the version number for export.
         """
-        return None
+        ...
 
-    def onVersionIndexChanged(self, value):
+    def onVersionIndexChanged(self, value) -> None:
         """
         Callback when the version index changes.
         """
-        return None
+        ...
 
-    def onVersionPaddingChanged(self, padding):
+    def onVersionPaddingChanged(self, padding) -> None:
         """
         Callback when the version padding changes.
         """
-        return None
+        ...
 
-    def createPathPreviewWidget(self):
+    def createPathPreviewWidget(self) -> None:
         """
         Create a widget for showing a preview of the expanded export path.
         """
-        return None
+        ...
 
-    def updatePathPreview(self):
+    def updatePathPreview(self) -> None:
         """
         Update the path preview widget for the currently selected item in the
         tree view.
         """
-        return None
+        ...
 
-    def skipOffline(self):
+    def skipOffline(self) -> None:
         """
 
         """
-        return None
+        ...
 
-    def refreshContent(self):
+    def refreshContent(self) -> None:
         """
         Refresh the content area of this ProcessorUI
         """
-        return None
+        ...

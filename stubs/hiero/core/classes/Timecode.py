@@ -16,19 +16,19 @@ class Timecode(Object):
     Helper module to convert back and forth between (frames and time bases) and time code values.
     """
 
-    def __init__(self,  *args, **kwargs):
+    def __init__(self,  *args, **kwargs) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """
-        return None
+        ...
 
-    def __new__(self, *args, **kwargs):
+    def __new__(self, *args, **kwargs) -> None:
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
-        return None
+        ...
 
-    def HMSFToFrames(self, *args, **kwargs):
+    def HMSFToFrames(self, *args, **kwargs) -> Any:
         """
         staticmethod(function) -> method
 
@@ -49,9 +49,9 @@ class Timecode(Object):
         Static methods in Python are similar to those found in Java or C++.
         For a more advanced concept, see the classmethod builtin.
         """
-        return Any
+        ...
 
-    def displayTypeFromString(self, *args, **kwargs):
+    def displayTypeFromString(self, *args, **kwargs) -> Any:
         """
         staticmethod(function) -> method
 
@@ -72,9 +72,9 @@ class Timecode(Object):
         Static methods in Python are similar to those found in Java or C++.
         For a more advanced concept, see the classmethod builtin.
         """
-        return Any
+        ...
 
-    def framesToHMSF(self, *args, **kwargs):
+    def framesToHMSF(self, *args, **kwargs) -> Any:
         """
         staticmethod(function) -> method
 
@@ -95,9 +95,9 @@ class Timecode(Object):
         Static methods in Python are similar to those found in Java or C++.
         For a more advanced concept, see the classmethod builtin.
         """
-        return Any
+        ...
 
-    def stringToTime(self, *args, **kwargs):
+    def stringToTime(self, *args, **kwargs) -> Any:
         """
         staticmethod(function) -> method
 
@@ -118,9 +118,9 @@ class Timecode(Object):
         Static methods in Python are similar to those found in Java or C++.
         For a more advanced concept, see the classmethod builtin.
         """
-        return Any
+        ...
 
-    def timeToString(self, *args, **kwargs):
+    def timeToString(self, *args, **kwargs) -> Any:
         """
         staticmethod(function) -> method
 
@@ -141,13 +141,13 @@ class Timecode(Object):
         Static methods in Python are similar to those found in Java or C++.
         For a more advanced concept, see the classmethod builtin.
         """
-        return Any
+        ...
 
     def __copy__(self,) -> None:
         """
 
         """
-        return None
+        ...
 
     DisplayType: Any = None
     kDisplayTimecode: Any = None

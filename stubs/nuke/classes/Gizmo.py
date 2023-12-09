@@ -11,56 +11,56 @@ class Gizmo(Group):
 
     """
 
-    def __repr__(self, ):
+    def __repr__(self, ) -> None:
         """
         Return repr(self).
         """
-        return None
+        ...
 
-    def __str__(self, ):
+    def __str__(self, ) -> None:
         """
         Return str(self).
         """
-        return None
+        ...
 
-    def __len__(self, ):
+    def __len__(self, ) -> None:
         """
         Return len(self).
         """
-        return None
+        ...
 
-    def __getitem__(self, key, ):
+    def __getitem__(self, key, ) -> None:
         """
         Return self[key].
         """
-        return None
+        ...
 
-    def command(self,):
+    def command(self,) -> str:
         """
         self.command() -> String.
         Gizmo command.
         @return: String.
         """
-        return str()
+        ...
 
-    def filename(self,):
+    def filename(self,) -> str:
         """
         self.filename() -> String.
         Gizmo filename.
         @return: String.
         """
-        return str()
+        ...
 
-    def makeGroup(self,):
+    def makeGroup(self,) -> Group:
         """
         self.makeGroup() -> Group
         Creates a Group node copy of the Gizmo node.
         @return: Group.
         """
-        return Group()
+        ...
 
-    def __init__(self,  *args, **kwargs):
+    def __init__(self,  *args, **kwargs) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """
-        return None
+        ...

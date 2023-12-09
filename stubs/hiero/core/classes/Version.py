@@ -20,79 +20,79 @@ class Version(Object):
         """
         Return repr(self).
         """
-        return None
+        ...
 
-    def __hash__(self, ):
+    def __hash__(self, ) -> None:
         """
         Return hash(self).
         """
-        return None
+        ...
 
-    def __lt__(self, value, ):
+    def __lt__(self, value, ) -> None:
         """
         Return self<value.
         """
-        return None
+        ...
 
-    def __le__(self, value, ):
+    def __le__(self, value, ) -> None:
         """
         Return self<=value.
         """
-        return None
+        ...
 
-    def __eq__(self, value, ):
+    def __eq__(self, value, ) -> None:
         """
         Return self==value.
         """
-        return None
+        ...
 
-    def __ne__(self, value, ):
+    def __ne__(self, value, ) -> None:
         """
         Return self!=value.
         """
-        return None
+        ...
 
-    def __gt__(self, value, ):
+    def __gt__(self, value, ) -> None:
         """
         Return self>value.
         """
-        return None
+        ...
 
-    def __ge__(self, value, ):
+    def __ge__(self, value, ) -> None:
         """
         Return self>=value.
         """
-        return None
+        ...
 
-    def __init__(self,  *args, **kwargs):
+    def __init__(self,  *args, **kwargs) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """
-        return None
+        ...
 
-    def __bool__(self, ):
+    def __bool__(self, ) -> None:
         """
         self != 0
         """
-        return None
+        ...
 
-    def __new__(self, *args, **kwargs):
+    def __new__(self, *args, **kwargs) -> None:
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
-        return None
+        ...
 
     def guid(self) -> object:
         """
 
         """
-        return None
+        ...
 
     def isHidden(self) -> bool:
         """
 
         """
-        return bool()
+        ...
 
     def isNull(self) -> bool:
         """
@@ -100,7 +100,7 @@ class Version(Object):
 
         @return: True or False
         """
-        return Union[True, False]
+        ...
 
     def item(self) -> None:
         """
@@ -108,7 +108,7 @@ class Version(Object):
 
         @return: hiero.core.Clip or hiero.core.Sequence object
         """
-        return Iterable()
+        ...
 
     def name(self) -> str:
         """
@@ -116,7 +116,7 @@ class Version(Object):
 
         @return: string
         """
-        return str()
+        ...
 
     def parent(self) -> core.BinItem:
         """
@@ -124,19 +124,19 @@ class Version(Object):
 
         @return: hiero.core.BinItem object
         """
-        return BinItem()
+        ...
 
     def serialize(self) -> str:
         """
 
         """
-        return str()
+        ...
 
     def setHidden(self, hidden: bool) -> None:
         """
 
         """
-        return None
+        ...
 
     def toString(self) -> str:
         """
@@ -144,9 +144,9 @@ class Version(Object):
 
         @return: string
         """
-        return str()
+        ...
 
-    def versionIndex(self, *args, **kwargs):
+    def versionIndex(self, *args, **kwargs) -> str:
         """
         self.versionIndex() -> returns a string containing the version's index.
 
@@ -155,10 +155,10 @@ class Version(Object):
         WARNING - DEPRECATED ( versionIndex ): This method is deprecated and will not be present in future versions of the Python API.
         Version indices are no longer unique identifiers and should not be used as such.
         """
-        return str()
+        ...
 
     def __copy__(self,) -> None:
         """
 
         """
-        return None
+        ...

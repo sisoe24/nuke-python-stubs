@@ -11,42 +11,42 @@ class ProgressTask(object):
     ProgressTask
     """
 
-    def __hash__(self, ):
+    def __hash__(self, ) -> None:
         """
         Return hash(self).
         """
-        return None
+        ...
 
-    def __new__(self, *args, **kwargs):
+    def __new__(self, *args, **kwargs) -> None:
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
-        return None
+        ...
 
-    def setProgress(self, i):
+    def setProgress(self, i) -> None:
         """
         self.setProgress(i) -> None.
 
         i is an integer representing the current progress
         """
-        return None
+        ...
 
-    def setMessage(self, s):
+    def setMessage(self, s) -> None:
         """
         self.setMessage(s) -> None.
 
         set the message for the progress task
         """
-        return None
+        ...
 
-    def isCancelled(self,):
+    def isCancelled(self,) -> bool:
         """
         self.isCancelled() -> True if the user has requested the task to be cancelled.
         """
-        return bool()
+        ...
 
-    def __init__(self,  *args, **kwargs):
+    def __init__(self,  *args, **kwargs) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """
-        return None
+        ...

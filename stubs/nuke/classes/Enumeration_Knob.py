@@ -20,41 +20,41 @@ class Enumeration_Knob(Unsigned_Knob):
     k = nuke.Enumeration_Knob('MyEnumKnobName', 'MyEnumKnobLabel', ['label1', 'label2'])
     """
 
-    def __hash__(self, ):
+    def __hash__(self, ) -> None:
         """
         Return hash(self).
         """
-        return None
+        ...
 
-    def __init__(self,  *args, **kwargs):
+    def __init__(self,  *args, **kwargs) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """
-        return None
+        ...
 
-    def __new__(self, *args, **kwargs):
+    def __new__(self, *args, **kwargs) -> None:
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
-        return None
+        ...
 
-    def numValues(self,):
+    def numValues(self,) -> int:
         """
         self.numValues() -> int
 
         Return number of values. Deprecated.
         """
-        return int()
+        ...
 
-    def enumName(self, n):
+    def enumName(self, n) -> str:
         """
         self.enumName(n) -> string
 
         Return name of enumeration n. The argument n is an integer and in the range of 0 and numValues. Deprecated.
         """
-        return str()
+        ...
 
-    def values(self,):
+    def values(self,) -> list:
         """
         self.values() -> List of strings.
         Return list of items.
@@ -64,9 +64,9 @@ class Enumeration_Knob(Unsigned_Knob):
         k = w['file_type']
         k.values()
         """
-        return list()
+        ...
 
-    def value(self,):
+    def value(self,) -> str:
         """
         self.value() -> String.
         Current value.
@@ -76,9 +76,9 @@ class Enumeration_Knob(Unsigned_Knob):
         k = w['file_type']
         k.value()
         """
-        return str()
+        ...
 
-    def setValue(self, item: Union[int, str]):
+    def setValue(self, item: Union[int, str]) -> None:
         """
         self.setValue(item) -> None.
         Set the current value. item will first be converted into a string and matched against the enum values.
@@ -90,9 +90,9 @@ class Enumeration_Knob(Unsigned_Knob):
         k = w['file_type']
         k.setValue('exr')
         """
-        return None
+        ...
 
-    def setValues(self, items: list):
+    def setValues(self, items: list) -> None:
         """
         self.setValues(items) -> None.
         (Re)initialise knob to the supplied list of items.
@@ -103,9 +103,9 @@ class Enumeration_Knob(Unsigned_Knob):
         k = w['file_type']
         k.setValues(['exr'])
         """
-        return None
+        ...
 
-    def getDisplayStrFromID(self, ):
+    def getDisplayStrFromID(self, ) -> str:
         """
         self.getDisplayStrFromID()
         returns the display text for the associated id
@@ -114,4 +114,4 @@ class Enumeration_Knob(Unsigned_Knob):
         Example:
         displayStr = knob.getDisplayStrFromID('scene_linear')
         """
-        return str()
+        ...

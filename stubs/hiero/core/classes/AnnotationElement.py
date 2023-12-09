@@ -17,35 +17,35 @@ class AnnotationElement(Object):
     This class should not be used directly and AnnotationElement objects should not be created.
     """
 
-    def __setattr__(self, name, value, ):
+    def __setattr__(self, name, value, ) -> None:
         """
         Implement setattr(self, name, value).
         """
-        return None
+        ...
 
-    def __delattr__(self, name, ):
+    def __delattr__(self, name, ) -> None:
         """
         Implement delattr(self, name).
         """
-        return None
+        ...
 
-    def __init__(self,  *args, **kwargs):
+    def __init__(self,  *args, **kwargs) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """
-        return None
+        ...
 
-    def __bool__(self, ):
+    def __bool__(self, ) -> None:
         """
         self != 0
         """
-        return None
+        ...
 
-    def __new__(self, *args, **kwargs):
+    def __new__(self, *args, **kwargs) -> None:
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
-        return None
+        ...
 
     def color(self) -> object:
         """
@@ -54,13 +54,13 @@ class AnnotationElement(Object):
 
         @return: tuple of (red, green, blue, alpha)
         """
-        return tuple()
+        ...
 
     def isNull(self) -> bool:
         """
 
         """
-        return bool()
+        ...
 
     def setColor(self, red: float, green: float, blue: float, alpha: float) -> None:
         """
@@ -74,7 +74,7 @@ class AnnotationElement(Object):
         @param blue: The new blue component.
         @param alpha: The new alpha component.
         """
-        return None
+        ...
 
     def toString(self) -> str:
         """
@@ -84,10 +84,10 @@ class AnnotationElement(Object):
 
         @return: A string describing the object.
         """
-        return str()
+        ...
 
     def __copy__(self,) -> None:
         """
 
         """
-        return None
+        ...

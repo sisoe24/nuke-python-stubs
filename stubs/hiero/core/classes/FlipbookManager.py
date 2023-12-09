@@ -16,17 +16,17 @@ class FlipbookManager(Object):
     Object for Flipbook manager
     """
 
-    def __init__(self,  *args, **kwargs):
+    def __init__(self,  *args, **kwargs) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """
-        return None
+        ...
 
-    def __new__(self, *args, **kwargs):
+    def __new__(self, *args, **kwargs) -> None:
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
-        return None
+        ...
 
     def createClip(self, filepath: str) -> core.Clip:
         """
@@ -34,7 +34,7 @@ class FlipbookManager(Object):
 
         @return: hiero.core.Clip
         """
-        return Clip()
+        ...
 
     def createEffectItem(self, effectType: bytes, timelineIn: int, timelineOut: int) -> core.EffectTrackItem:
         """
@@ -43,7 +43,7 @@ class FlipbookManager(Object):
 
         @return: hiero.core.EffectTrackItem
         """
-        return EffectTrackItem()
+        ...
 
     def createSequence(self, frameRate: core.TimeBase, outputFormat: core.Format, views: typing.List[str]) -> core.Sequence:
         """
@@ -51,7 +51,7 @@ class FlipbookManager(Object):
 
         @return: hiero.core.Sequence
         """
-        return Iterable()
+        ...
 
     def setWorkingSpace(self, workingSpace: str) -> None:
         """
@@ -59,7 +59,7 @@ class FlipbookManager(Object):
 
         @return: None
         """
-        return None
+        ...
 
     def updateOCIOConfig(self, ocioConfigPath: str) -> None:
         """
@@ -67,10 +67,10 @@ class FlipbookManager(Object):
 
         @return: None
         """
-        return None
+        ...
 
     def __copy__(self,) -> None:
         """
 
         """
-        return None
+        ...

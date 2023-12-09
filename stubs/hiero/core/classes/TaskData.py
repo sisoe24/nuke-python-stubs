@@ -34,22 +34,22 @@ class TaskData(dict):
     kShotNameIndex = 'shotNameIndex'
     kMediaToSkip = 'mediaToSkip'
 
-    def __init__(self, preset, item, exportRoot, shotPath, version, exportTemplate, project, cutHandles=None, resolver=None, retime=False, startFrame=None, startFrameSource=None, submission=None, skipOffline=True, presetId=None, shotNameIndex='', mediaToSkip=[]):
+    def __init__(self, preset, item, exportRoot, shotPath, version, exportTemplate, project, cutHandles=None, resolver=None, retime=False, startFrame=None, startFrameSource=None, submission=None, skipOffline=True, presetId=None, shotNameIndex='', mediaToSkip=[]) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """
-        return None
+        ...
 
     @property
     def __dict__(self) -> Any:
         """
         dictionary for instance variables (if defined)
         """
-        return None
+        ...
 
     @property
     def __weakref__(self) -> Any:
         """
         list of weak references to the object (if defined)
         """
-        return None
+        ...

@@ -21,77 +21,77 @@ class TrackBase(Object):
      TrackBase.eDontCollapseSubTracks: removing a sub-track item will not cause empty sub-tracks to be removed
     """
 
-    def __hash__(self, ):
+    def __hash__(self, ) -> None:
         """
         Return hash(self).
         """
-        return None
+        ...
 
-    def __setattr__(self, name, value, ):
+    def __setattr__(self, name, value, ) -> None:
         """
         Implement setattr(self, name, value).
         """
-        return None
+        ...
 
-    def __delattr__(self, name, ):
+    def __delattr__(self, name, ) -> None:
         """
         Implement delattr(self, name).
         """
-        return None
+        ...
 
-    def __lt__(self, value, ):
+    def __lt__(self, value, ) -> None:
         """
         Return self<value.
         """
-        return None
+        ...
 
-    def __le__(self, value, ):
+    def __le__(self, value, ) -> None:
         """
         Return self<=value.
         """
-        return None
+        ...
 
-    def __eq__(self, value, ):
+    def __eq__(self, value, ) -> None:
         """
         Return self==value.
         """
-        return None
+        ...
 
-    def __ne__(self, value, ):
+    def __ne__(self, value, ) -> None:
         """
         Return self!=value.
         """
-        return None
+        ...
 
-    def __gt__(self, value, ):
+    def __gt__(self, value, ) -> None:
         """
         Return self>value.
         """
-        return None
+        ...
 
-    def __ge__(self, value, ):
+    def __ge__(self, value, ) -> None:
         """
         Return self>=value.
         """
-        return None
+        ...
 
-    def __init__(self,  *args, **kwargs):
+    def __init__(self,  *args, **kwargs) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """
-        return None
+        ...
 
-    def __bool__(self, ):
+    def __bool__(self, ) -> None:
         """
         self != 0
         """
-        return None
+        ...
 
-    def __new__(self, *args, **kwargs):
+    def __new__(self, *args, **kwargs) -> None:
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
-        return None
+        ...
 
     def addItem(self, trackItem: core.TrackItem) -> core.TrackItem:
         """
@@ -100,7 +100,7 @@ class TrackBase(Object):
         @param item: the hiero.core.TrackItem to add to this track
         @return: hiero.core.TrackItem object
         """
-        return TrackItem()
+        ...
 
     def addTag(self, tag: core.Tag) -> core.Tag:
         """
@@ -109,7 +109,7 @@ class TrackBase(Object):
         @param tag: Tag object to apply to the track
         @return: a hiero.core.Tag object
         """
-        return Tag()
+        ...
 
     def addTransition(self, transition: core.Transition) -> core.Transition:
         """
@@ -121,7 +121,7 @@ class TrackBase(Object):
         @param transition: the hiero.core.Transition to add to this track
         @return: a hiero.core.Transition object
         """
-        return Transition()
+        ...
 
     def clearRange(self, start: int, end: int, ripple: bool) -> None:
         """
@@ -131,13 +131,13 @@ class TrackBase(Object):
         @param end: the end of the range to clear
         @param ripple: set to True to shift the remaining track items to the left
         """
-        return None
+        ...
 
     def guid(self) -> object:
         """
 
         """
-        return None
+        ...
 
     def isEnabled(self) -> bool:
         """
@@ -145,7 +145,7 @@ class TrackBase(Object):
 
         @return: True or False
         """
-        return Union[True, False]
+        ...
 
     def isLocked(self) -> bool:
         """
@@ -153,7 +153,7 @@ class TrackBase(Object):
 
         @return: True or False
         """
-        return Union[True, False]
+        ...
 
     def isNull(self) -> bool:
         """
@@ -161,7 +161,7 @@ class TrackBase(Object):
 
         @return: True or False
         """
-        return Union[True, False]
+        ...
 
     def metadata(self) -> core.DataCollection:
         """
@@ -169,7 +169,7 @@ class TrackBase(Object):
 
         @return: hiero.core.DataCollection object
         """
-        return DataCollection()
+        ...
 
     def name(self) -> str:
         """
@@ -177,7 +177,7 @@ class TrackBase(Object):
 
         @return: string
         """
-        return str()
+        ...
 
     def numItems(self) -> int:
         """
@@ -185,7 +185,7 @@ class TrackBase(Object):
 
         @return: int
         """
-        return int()
+        ...
 
     def numTransitions(self) -> int:
         """
@@ -193,7 +193,7 @@ class TrackBase(Object):
 
         @return: int
         """
-        return int()
+        ...
 
     def project(self) -> object:
         """
@@ -201,15 +201,15 @@ class TrackBase(Object):
 
         @return: hiero.core.Project object
         """
-        return Project()
+        ...
 
-    def razorAt(self, *args, **kwargs):
+    def razorAt(self, *args, **kwargs) -> Number:
         """
         self.razorAt(time) -> Creates razor cuts on a track for the parameter time(s).
 
         @param time: if a single (integer) value, indicates the razor cut time; if a tuple or list of integer values, then the times to create multiple cuts at
         """
-        return Number()
+        ...
 
     def removeItem(self, trackItem: core.TrackItem, option: int = 'eRemoveLinkedItems') -> None:
         """
@@ -218,7 +218,7 @@ class TrackBase(Object):
         @param trackItem: the hiero.core.TrackItem to remove from this track
         @param option: options controlling the remove behavior. By default linked items are also removed. Note that if linked effects are not removed, this will put them in an invalid state.
         """
-        return None
+        ...
 
     def removeTag(self, tag: core.Tag) -> None:
         """
@@ -226,7 +226,7 @@ class TrackBase(Object):
 
         @param tag: tag object
         """
-        return None
+        ...
 
     def removeTransition(self, transition: core.Transition) -> None:
         """
@@ -234,13 +234,13 @@ class TrackBase(Object):
 
         @param transition: the hiero.core.Transition to remove from this track's timeline
         """
-        return None
+        ...
 
     def setEnabled(self, enabled: bool) -> None:
         """
         self.setEnabled() -> enables or disables the Track.
         """
-        return None
+        ...
 
     def setLocked(self, locked: bool) -> None:
         """
@@ -248,7 +248,7 @@ class TrackBase(Object):
 
         @return: True or False
         """
-        return Union[True, False]
+        ...
 
     def setName(self, name: str) -> None:
         """
@@ -256,7 +256,7 @@ class TrackBase(Object):
 
         @param: string
         """
-        return None
+        ...
 
     def tags(self) -> object:
         """
@@ -264,7 +264,7 @@ class TrackBase(Object):
 
         @return: tuple of hiero.core.Tag objects
         """
-        return tuple()
+        ...
 
     def toString(self) -> str:
         """
@@ -272,13 +272,13 @@ class TrackBase(Object):
 
         @return: string
         """
-        return str()
+        ...
 
     def trackIndex(self) -> int:
         """
 
         """
-        return int()
+        ...
 
     def trackName(self) -> str:
         """
@@ -286,7 +286,7 @@ class TrackBase(Object):
 
         @return: string
         """
-        return str()
+        ...
 
     def transitions(self) -> object:
         """
@@ -294,13 +294,13 @@ class TrackBase(Object):
 
         @return: tuple of hiero.core.Transition objects
         """
-        return tuple()
+        ...
 
     def __copy__(self,) -> None:
         """
 
         """
-        return None
+        ...
 
     RemoveItemOptions: Any = None
     eRemoveLinkedItems: Any = None

@@ -11,104 +11,104 @@ class Box3_Knob(Array_Knob):
     A 3-dimensional box.
     """
 
-    def __hash__(self, ):
+    def __hash__(self, ) -> None:
         """
         Return hash(self).
         """
-        return None
+        ...
 
-    def __init__(self,  *args, **kwargs):
+    def __init__(self,  *args, **kwargs) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """
-        return None
+        ...
 
-    def __new__(self, *args, **kwargs):
+    def __new__(self, *args, **kwargs) -> None:
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
-        return None
+        ...
 
-    def names(self, *args, **kwargs):
+    def names(self, *args, **kwargs) -> None:
         """
         Return name for dimension 'i'
         """
-        return None
+        ...
 
-    def value(self, *args, **kwargs):
+    def value(self, *args, **kwargs) -> None:
         """
         Return value for dimension 'i'
         """
-        return None
+        ...
 
-    def x(self, *args, **kwargs):
+    def x(self, *args, **kwargs) -> None:
         """
         Return value for X position. X is the minimum horizontal extent of the box.
         """
-        return None
+        ...
 
-    def setX(self, *args, **kwargs):
+    def setX(self, *args, **kwargs) -> None:
         """
         Set value for X position. X is the minimum horizontal extent of the box.
         """
-        return None
+        ...
 
-    def y(self, *args, **kwargs):
+    def y(self, *args, **kwargs) -> None:
         """
         Return value for Y position. Y is the minimum vertical extent of the box.
         """
-        return None
+        ...
 
-    def setY(self, *args, **kwargs):
+    def setY(self, *args, **kwargs) -> None:
         """
         Set value for Y position. Y is the minimum vertical extent of the box.
         """
-        return None
+        ...
 
-    def n(self, *args, **kwargs):
+    def n(self, *args, **kwargs) -> None:
         """
         Return value for N position. N (near) is the minimum Z extent of the box.
         """
-        return None
+        ...
 
-    def setN(self, *args, **kwargs):
+    def setN(self, *args, **kwargs) -> None:
         """
         Set value for N position. N (near) is the minimum Z extent of the box.
         """
-        return None
+        ...
 
-    def r(self, *args, **kwargs):
+    def r(self, *args, **kwargs) -> None:
         """
         Return value for R extent. R (right) is the right extent of the box.
         """
-        return None
+        ...
 
-    def setR(self, *args, **kwargs):
+    def setR(self, *args, **kwargs) -> None:
         """
         Set value for R extent. R (right) is the right extent of the box.
         """
-        return None
+        ...
 
-    def t(self, *args, **kwargs):
+    def t(self, *args, **kwargs) -> None:
         """
         Return value for T extent. T (top) is the maximum vertical extent of the box.
         """
-        return None
+        ...
 
-    def setT(self, *args, **kwargs):
+    def setT(self, *args, **kwargs) -> None:
         """
         Set value for T extent. T (top) is the maximum vertical extent of the box.
         """
-        return None
+        ...
 
-    def f(self, *args, **kwargs):
+    def f(self, *args, **kwargs) -> None:
         """
         Return value for F extent. F (far) is the maximum Z extent of the box.
         """
-        return None
+        ...
 
-    def setF(self, *args, **kwargs):
+    def setF(self, *args, **kwargs) -> None:
         """
         Set value for F extent. F (far) is the maximum Z extent of the box.
         """
-        return None
+        ...

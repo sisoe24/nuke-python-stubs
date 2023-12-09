@@ -11,75 +11,75 @@ class Axis_Knob(Knob):
     A knob which descibes a 3D affine transformation, by combining rotations around each principal axis, scaling, translation, skew and a pivot point.
     """
 
-    def __hash__(self, ):
+    def __hash__(self, ) -> None:
         """
         Return hash(self).
         """
-        return None
+        ...
 
-    def __init__(self,  *args, **kwargs):
+    def __init__(self,  *args, **kwargs) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """
-        return None
+        ...
 
-    def __new__(self, *args, **kwargs):
+    def __new__(self, *args, **kwargs) -> None:
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
-        return None
+        ...
 
-    def translate(self,):
+    def translate(self,) -> XYZ_Knob:
         """
         self.translate() -> XYZ_Knob
 
         Return translation knob.
         """
-        return XYZ_Knob()
+        ...
 
-    def rotate(self,):
+    def rotate(self,) -> XYZ_Knob:
         """
         self.rotate() -> XYZ_Knob
 
         Return rotation knob.
         """
-        return XYZ_Knob()
+        ...
 
-    def scale(self,):
+    def scale(self,) -> Scale_Knob:
         """
         self.scale() -> Scale_Knob
 
         Return scale knob.
         """
-        return Scale_Knob()
+        ...
 
-    def uniformScale(self,):
+    def uniformScale(self,) -> Double_Knob:
         """
         self.uniformScale() -> Double_Knob
 
         Return uniform scale knob.
         """
-        return Double_Knob()
+        ...
 
-    def pivot(self,):
+    def pivot(self,) -> XYZ_Knob:
         """
         self.pivot() -> XYZ_Knob
 
         Return pivot knob.
         """
-        return XYZ_Knob()
+        ...
 
-    def skew(self,):
+    def skew(self,) -> XYZ_Knob:
         """
         self.skew() -> XYZ_Knob
 
         Return skew knob.
         """
-        return XYZ_Knob()
+        ...
 
-    def value(self,):
+    def value(self,) -> Any:
         """
         self.value() -> _nukemath.Matrix4
         Return the transform matrix formed by combining the input knob values for translate, rotate, scale, skew and pivot.
         """
-        return Any
+        ...

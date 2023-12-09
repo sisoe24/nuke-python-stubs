@@ -20,31 +20,31 @@ class DataCollection(Object):
         """
         Return repr(self).
         """
-        return None
+        ...
 
-    def __init__(self,  *args, **kwargs):
+    def __init__(self,  *args, **kwargs) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """
-        return None
+        ...
 
-    def __getitem__(self, key, ):
+    def __getitem__(self, key, ) -> None:
         """
         Return self[key].
         """
-        return None
+        ...
 
-    def __contains__(self, key, ):
+    def __contains__(self, key, ) -> None:
         """
         Return key in self.
         """
-        return None
+        ...
 
-    def __new__(self, *args, **kwargs):
+    def __new__(self, *args, **kwargs) -> None:
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
-        return None
+        ...
 
     def dict(self) -> object:
         """
@@ -52,7 +52,7 @@ class DataCollection(Object):
 
         @return: dict
         """
-        return dict()
+        ...
 
     def hasKey(self, key: str) -> bool:
         """
@@ -61,7 +61,7 @@ class DataCollection(Object):
         @param key: the key to look up
         @return: True or False
         """
-        return Union[True, False]
+        ...
 
     def keys(self) -> typing.List[str]:
         """
@@ -69,7 +69,7 @@ class DataCollection(Object):
 
         @return: list of strings which are keys in the collection
         """
-        return list()
+        ...
 
     def readOnly(self) -> bool:
         """
@@ -77,7 +77,7 @@ class DataCollection(Object):
 
         @return: True or False
         """
-        return Union[True, False]
+        ...
 
     def setValue(self, key: str, value: str) -> None:
         """
@@ -86,7 +86,7 @@ class DataCollection(Object):
         @param key: the key to look up
         @param value: value to assign to key
         """
-        return None
+        ...
 
     def toString(self) -> str:
         """
@@ -94,7 +94,7 @@ class DataCollection(Object):
 
         @return: string
         """
-        return str()
+        ...
 
     def value(self, key: str) -> str:
         """
@@ -103,10 +103,10 @@ class DataCollection(Object):
         @param key: the key to look up
         @return: string
         """
-        return str()
+        ...
 
     def __copy__(self,) -> None:
         """
 
         """
-        return None
+        ...

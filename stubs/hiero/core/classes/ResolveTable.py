@@ -24,82 +24,82 @@ class ResolveTable(object):
     StringItem: Any = None
     CallbackItem: Any = None
 
-    def __init__(self):
+    def __init__(self) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """
-        return None
+        ...
 
-    def duplicate(self):
+    def duplicate(self) -> None:
         """
 
         """
-        return None
+        ...
 
-    def entries(self):
+    def entries(self) -> None:
         """
 
         """
-        return None
+        ...
 
-    def entryCount(self):
+    def entryCount(self) -> None:
         """
         self.entryCount() -> returns the number of entries in this resolver.
         """
-        return None
+        ...
 
-    def entryName(self, index):
+    def entryName(self, index) -> None:
         """
         self.entryCount(index) -> returns the name of the entry based on the index.
         """
-        return None
+        ...
 
-    def entryDescription(self, index):
+    def entryDescription(self, index) -> None:
         """
         self.entryDescription(index) -> returns a description of the item, which can be used to populate a dialog to the user when they are picking keywords.
         """
-        return None
+        ...
 
-    def addResolver(self, name, description, resolver):
+    def addResolver(self, name, description, resolver) -> None:
         """
 
         """
-        return None
+        ...
 
-    def merge(self, resolver):
+    def merge(self, resolver) -> None:
         """
 
         """
-        return None
+        ...
 
-    def pathSensitiveReplace(self, initialString, findValue, replaceValue, isPath):
+    def pathSensitiveReplace(self, initialString, findValue, replaceValue, isPath) -> None:
         """
 
         """
-        return None
+        ...
 
-    def resolve(self, task, value, isPath=False):
+    def resolve(self, task, value, isPath=False) -> None:
         """
 
         """
-        return None
+        ...
 
-    def addEntriesToExportStructureViewer(self, viewer):
+    def addEntriesToExportStructureViewer(self, viewer) -> None:
         """
 
         """
-        return None
+        ...
 
     @property
     def __dict__(self) -> Any:
         """
         dictionary for instance variables (if defined)
         """
-        return None
+        ...
 
     @property
     def __weakref__(self) -> Any:
         """
         list of weak references to the object (if defined)
         """
-        return None
+        ...

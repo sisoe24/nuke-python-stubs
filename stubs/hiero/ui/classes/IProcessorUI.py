@@ -18,29 +18,29 @@ class IProcessorUI(Object):
     This class should not be used directly; use hiero.ui.ProcessorUIBase instead.
     """
 
-    def __setattr__(self, name, value, ):
+    def __setattr__(self, name, value, ) -> None:
         """
         Implement setattr(self, name, value).
         """
-        return None
+        ...
 
-    def __delattr__(self, name, ):
+    def __delattr__(self, name, ) -> None:
         """
         Implement delattr(self, name).
         """
-        return None
+        ...
 
-    def __init__(self,  *args, **kwargs):
+    def __init__(self,  *args, **kwargs) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """
-        return None
+        ...
 
-    def __new__(self, *args, **kwargs):
+    def __new__(self, *args, **kwargs) -> None:
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
-        return None
+        ...
 
     def displayName(self) -> str:
         """
@@ -48,7 +48,7 @@ class IProcessorUI(Object):
 
         @return: string
         """
-        return str()
+        ...
 
     def populateUI(self, processorUIWidget: PySide2.QtWidgets.QWidget, taskUIWidget: PySide2.QtWidgets.QWidget, items: typing.List[core.ItemWrapper]) -> None:
         """
@@ -60,7 +60,7 @@ class IProcessorUI(Object):
         @param items: [hiero.core.ItemWrapper]
         @param editMode: hiero.core.IProcessorUI.EditMode
         """
-        return None
+        ...
 
     def preset(self) -> core.ITaskPreset:
         """
@@ -68,19 +68,19 @@ class IProcessorUI(Object):
 
         @return: hiero.core.ITaskPreset
         """
-        return ITaskPreset()
+        ...
 
     def refreshContent(self) -> None:
         """
 
         """
-        return None
+        ...
 
     def savePreset(self) -> None:
         """
 
         """
-        return None
+        ...
 
     def setPreset(self, preset: core.ITaskPreset) -> None:
         """
@@ -88,7 +88,7 @@ class IProcessorUI(Object):
 
         @param preset: hiero.core.ITaskPreset
         """
-        return None
+        ...
 
     def toolTip(self) -> str:
         """
@@ -96,7 +96,7 @@ class IProcessorUI(Object):
 
         @return: string
         """
-        return str()
+        ...
 
     def validate(self, selection: typing.List[core.ItemWrapper]) -> bool:
         """
@@ -105,19 +105,19 @@ class IProcessorUI(Object):
         @param: [hiero.core.ItemWrapper]
         @return: bool
         """
-        return bool()
+        ...
 
     def validateSelection(self, selection: typing.List[core.ItemWrapper]) -> bool:
         """
 
         """
-        return bool()
+        ...
 
     def __copy__(self,) -> None:
         """
 
         """
-        return None
+        ...
 
     EditMode: Any = None
     ReadOnly: Any = None

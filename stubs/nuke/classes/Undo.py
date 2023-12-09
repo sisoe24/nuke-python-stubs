@@ -11,140 +11,140 @@ class Undo(object):
     Undo
     """
 
-    def __hash__(self, ):
+    def __hash__(self, ) -> None:
         """
         Return hash(self).
         """
-        return None
+        ...
 
-    def __new__(self, *args, **kwargs):
+    def __new__(self, *args, **kwargs) -> None:
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
-        return None
+        ...
 
-    def begin(self, *args, **kwargs):
+    def begin(self, *args, **kwargs) -> None:
         """
         Begin a new user-visible group of undo actions.
         """
-        return None
+        ...
 
-    def name(self, *args, **kwargs):
+    def name(self, *args, **kwargs) -> None:
         """
         Name current undo set.
         """
-        return None
+        ...
 
-    def end(self, *args, **kwargs):
+    def end(self, *args, **kwargs) -> None:
         """
         Complete current undo set and add it to the undo list.
         """
-        return None
+        ...
 
-    def new(self, *args, **kwargs):
+    def new(self, *args, **kwargs) -> None:
         """
         Same as end();begin().
         """
-        return None
+        ...
 
-    def cancel(self, *args, **kwargs):
+    def cancel(self, *args, **kwargs) -> None:
         """
         Undoes any actions recorded in the current set and throws it away.
         """
-        return None
+        ...
 
-    def undoSize(self, *args, **kwargs):
+    def undoSize(self, *args, **kwargs) -> None:
         """
         Number of undo's that can be done.
         """
-        return None
+        ...
 
-    def redoSize(self, *args, **kwargs):
+    def redoSize(self, *args, **kwargs) -> None:
         """
         Number of redo's that can be done.
         """
-        return None
+        ...
 
-    def undoTruncate(self, *args, **kwargs):
+    def undoTruncate(self, *args, **kwargs) -> None:
         """
         Destroy any undo's greater or equal to n.
         """
-        return None
+        ...
 
-    def redoTruncate(self, *args, **kwargs):
+    def redoTruncate(self, *args, **kwargs) -> None:
         """
         Destroy any redo's greater or equal to n.
         """
-        return None
+        ...
 
-    def undoDescribe(self, *args, **kwargs):
+    def undoDescribe(self, *args, **kwargs) -> None:
         """
         Return short description of undo n.
         """
-        return None
+        ...
 
-    def redoDescribe(self, *args, **kwargs):
+    def redoDescribe(self, *args, **kwargs) -> None:
         """
         Return short description of redo n.
         """
-        return None
+        ...
 
-    def undoDescribeFully(self, *args, **kwargs):
+    def undoDescribeFully(self, *args, **kwargs) -> None:
         """
         Return long description of undo n.
         """
-        return None
+        ...
 
-    def redoDescribeFully(self, *args, **kwargs):
+    def redoDescribeFully(self, *args, **kwargs) -> None:
         """
         Return long description of redo n.
         """
-        return None
+        ...
 
-    def undo(self, *args, **kwargs):
+    def undo(self, *args, **kwargs) -> None:
         """
         Undoes 0'th undo.
         """
-        return None
+        ...
 
-    def redo(self, *args, **kwargs):
+    def redo(self, *args, **kwargs) -> None:
         """
         Redoes 0'th redo.
         """
-        return None
+        ...
 
-    def disable(self, *args, **kwargs):
+    def disable(self, *args, **kwargs) -> None:
         """
         Prevent recording undos until matching enable()
         """
-        return None
+        ...
 
-    def enable(self, *args, **kwargs):
+    def enable(self, *args, **kwargs) -> None:
         """
         Undoes the previous disable()
         """
-        return None
+        ...
 
-    def disabled(self, *args, **kwargs):
+    def disabled(self, *args, **kwargs) -> None:
         """
         True if disable() has been called
         """
-        return None
+        ...
 
-    def __enter__(self, *args, **kwargs):
+    def __enter__(self, *args, **kwargs) -> None:
         """
 
         """
-        return None
+        ...
 
-    def __exit__(self, *args, **kwargs):
+    def __exit__(self, *args, **kwargs) -> None:
         """
 
         """
-        return None
+        ...
 
-    def __init__(self,  *args, **kwargs):
+    def __init__(self,  *args, **kwargs) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """
-        return None
+        ...

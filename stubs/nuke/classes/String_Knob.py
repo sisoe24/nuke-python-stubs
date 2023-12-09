@@ -11,25 +11,25 @@ class String_Knob(Knob):
     A knob which holds a string value. Appears as a text entry field in a Node panel.
     """
 
-    def __hash__(self, ):
+    def __hash__(self, ) -> None:
         """
         Return hash(self).
         """
-        return None
+        ...
 
-    def __init__(self,  *args, **kwargs):
+    def __init__(self,  *args, **kwargs) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """
-        return None
+        ...
 
-    def __new__(self, *args, **kwargs):
+    def __new__(self, *args, **kwargs) -> None:
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
-        return None
+        ...
 
-    def getText(self, oc=None):
+    def getText(self, oc=None) -> str:
         """
         self.getText(oc) -> string
 
@@ -37,9 +37,9 @@ class String_Knob(Knob):
         @param oc: Optional parameter specifying the output context.
         Return text associated with knob.
         """
-        return str()
+        ...
 
-    def setValue(self, val, view='default'):
+    def setValue(self, val, view='default') -> None:
         """
         self.setValue(val, view='default') -> None
 
@@ -48,9 +48,9 @@ class String_Knob(Knob):
         @param view: Optional parameter specifying which view to set the value for. If omitted, the value will be set for the default view.
         @return: None
         """
-        return None
+        ...
 
-    def value(self, oc=None):
+    def value(self, oc=None) -> str:
         """
         self.value(oc) -> str
 
@@ -58,9 +58,9 @@ class String_Knob(Knob):
         @param oc: Optional parameter specifying the output context.
         @return: String value.
         """
-        return str()
+        ...
 
-    def value(self, oc=None):
+    def value(self, oc=None) -> str:
         """
         self.value(oc) -> str
 
@@ -68,9 +68,9 @@ class String_Knob(Knob):
         @param oc: Optional parameter specifying the output context.
         @return: String value.
         """
-        return str()
+        ...
 
-    def setValue(self, val, view='default'):
+    def setValue(self, val, view='default') -> None:
         """
         self.setValue(val, view='default') -> None
 
@@ -79,22 +79,22 @@ class String_Knob(Knob):
         @param view: Optional parameter specifying which view to set the value for. If omitted, the value will be set for the default view.
         @return: None
         """
-        return None
+        ...
 
-    def splitView(self, view=None):
+    def splitView(self, view=None) -> None:
         """
         self.splitView(view) -> None.
         Split the view away from the current knob value.
         @param view: Optional view. Default is current view.
         @return: None.
         """
-        return None
+        ...
 
-    def unsplitView(self, view=None):
+    def unsplitView(self, view=None) -> None:
         """
         self.unsplitView(view) -> None.
         Unsplit the view so that it shares a value with other views.
         @param view: Optional view. Default is current view.
         @return: None.
         """
-        return None
+        ...

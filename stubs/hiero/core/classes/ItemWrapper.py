@@ -16,23 +16,23 @@ class ItemWrapper(Object):
 
     """
 
-    def __init__(self,  *args, **kwargs):
+    def __init__(self,  *args, **kwargs) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """
-        return None
+        ...
 
-    def __bool__(self, ):
+    def __bool__(self, ) -> None:
         """
         self != 0
         """
-        return None
+        ...
 
-    def __new__(self, *args, **kwargs):
+    def __new__(self, *args, **kwargs) -> None:
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
-        return None
+        ...
 
     def bin(self) -> core.Bin:
         """
@@ -40,7 +40,7 @@ class ItemWrapper(Object):
 
         @return: hiero.core.Bin object
         """
-        return Bin()
+        ...
 
     def binItem(self) -> core.BinItem:
         """
@@ -48,7 +48,7 @@ class ItemWrapper(Object):
 
         @return: hiero.core.BinItem object
         """
-        return BinItem()
+        ...
 
     def clip(self) -> core.Clip:
         """
@@ -56,13 +56,13 @@ class ItemWrapper(Object):
 
         @return: hiero.core.Clip object
         """
-        return Clip()
+        ...
 
     def ignore(self) -> bool:
         """
 
         """
-        return bool()
+        ...
 
     def isNull(self) -> bool:
         """
@@ -70,7 +70,7 @@ class ItemWrapper(Object):
 
         @return: True or False
         """
-        return Union[True, False]
+        ...
 
     def item(self) -> object:
         """
@@ -78,7 +78,7 @@ class ItemWrapper(Object):
 
         @return: hiero.core.Sequence | hiero.core.Clip | hiero.core.TrackItemBase | hiero.core.BinItem
         """
-        return Iterable()
+        ...
 
     def name(self) -> str:
         """
@@ -86,7 +86,7 @@ class ItemWrapper(Object):
 
         @return: string
         """
-        return str()
+        ...
 
     def root(self) -> core.Bin:
         """
@@ -94,7 +94,7 @@ class ItemWrapper(Object):
 
         @return: hiero.core.Bin object
         """
-        return Bin()
+        ...
 
     def sequence(self) -> core.Sequence:
         """
@@ -102,13 +102,13 @@ class ItemWrapper(Object):
 
         @return: hiero.core.Sequence object
         """
-        return Iterable()
+        ...
 
     def setTrackItemsForViews(self, items: typing.List[core.TrackItemBase]) -> None:
         """
 
         """
-        return None
+        ...
 
     def trackItem(self) -> core.TrackItemBase:
         """
@@ -116,23 +116,23 @@ class ItemWrapper(Object):
 
         @return: hiero.core.TrackItem object
         """
-        return TrackItem()
+        ...
 
     def trackItemsForViews(self) -> typing.List[core.TrackItemBase]:
         """
 
         """
-        return list()
+        ...
 
     def __copy__(self,) -> None:
         """
 
         """
-        return None
+        ...
 
     @property
     def _ignore(self) -> Any:
         """
 
         """
-        return None
+        ...

@@ -11,13 +11,13 @@ class MenuBar(object):
     MenuBar
     """
 
-    def __hash__(self, ):
+    def __hash__(self, ) -> None:
         """
         Return hash(self).
         """
-        return None
+        ...
 
-    def addCommand(self, name: str, command: str = None, shortcut: str = None, icon: str = None, tooltip: str = None, index: Number = None, readonly: bool = None, shortcutContext: int = None, tag: int = None, tagTarget: int = None, node):
+    def addCommand(self, name: str, command: Optional[str] = None, shortcut: Optional[str] = None, icon: Optional[str] = None, tooltip: Optional[str] = None, index: Optional[Number] = None, readonly: Optional[bool] = None, shortcutContext: Optional[int] = None, tag: Optional[int] = None, tagTarget: Optional[int] = None, node) -> Any:
         """
         self.addCommand(name, command, shortcut, icon, tooltip, index, readonly, shortcutContext, tag, tagTarget, node) -> The menu/toolbar item that was added to hold the command.
         Add a new command to this menu/toolbar. Note that when invoked, the command is automatically enclosed in an undo group, so that undo/redo functionality works. Optional arguments can be specified by name.
@@ -40,9 +40,9 @@ class MenuBar(object):
         @param tagTarget: Optional. Determines which type of the menu/toolbar should display the specified tag (0==Unknown, 1=Beta, 2=TabMenu, 3=ContextMenu, 7=All).
         @param nodeClass: The NodeClass the tag should apply to.@return: The menu/toolbar item that was added to hold the command.
         """
-        return Any
+        ...
 
-    def addMenu(self, **kwargs):
+    def addMenu(self, **kwargs) -> Any:
         """
         self.addMenu(**kwargs) -> The submenu that was added.
         Add a new submenu.
@@ -54,9 +54,9 @@ class MenuBar(object):
                         tag       Optional. Sets the tag icon that is displayed on the menu/toolbar item (0==None, 1=Beta, 2=Classic).
         @return: The submenu that was added.
         """
-        return Any
+        ...
 
-    def clearMenu(self,):
+    def clearMenu(self,) -> bool:
         """
         self.clearMenu()
         Clears a menu.
@@ -64,9 +64,9 @@ class MenuBar(object):
                         name      The name for the menu/toolbar item
         @return: true if cleared, false if menu not found
         """
-        return bool()
+        ...
 
-    def addSeparator(self, **kwargs):
+    def addSeparator(self, **kwargs) -> Any:
         """
         self.addSeparator(**kwargs) -> The separator that was created.
         Add a separator to this menu/toolbar.
@@ -74,65 +74,65 @@ class MenuBar(object):
         index     The position to insert the new separator in, in the menu/toolbar.
         @return: The separator that was created.
         """
-        return Any
+        ...
 
-    def findItem(self, name: str):
+    def findItem(self, name: str) -> None:
         """
         self.findItem(name) -> Menu or None
         Finds a submenu or command with a particular name.
         @param name: The name to search for.
         @return: The submenu or command we found, or None if we could not find anything.
         """
-        return None
+        ...
 
-    def menu(self, name: str):
+    def menu(self, name: str) -> None:
         """
         self.menu(name) -> Menu or None
         Finds a submenu or command with a particular name.
         @param name: The name to search for.
         @return: The submenu or command we found, or None if we could not find anything.
         """
-        return None
+        ...
 
-    def removeItem(self, name: str):
+    def removeItem(self, name: str) -> bool:
         """
         self.removeItem(name) -> None
         Removes a submenu or command with a particular name. If the containing menu becomes empty, it will be removed too.
         @param name: The name to remove for.
         @return: true if removed, false if menu not found
         """
-        return bool()
+        ...
 
-    def items(self,):
+    def items(self,) -> None:
         """
         self.items() -> None
         Returns a list of sub menu items.
         """
-        return None
+        ...
 
-    def name(self,):
+    def name(self,) -> str:
         """
         self.name() -> String
         Returns the name of the menu item.
         """
-        return str()
+        ...
 
-    def addAction(self, action):
+    def addAction(self, action) -> bool:
         """
         self.addAction(action) -> bool
         Adds the QAction to the menu.
         """
-        return bool()
+        ...
 
-    def updateMenuItems(self,):
+    def updateMenuItems(self,) -> None:
         """
         updateMenuItems() -> None
         Updates menu items' states. Call on about to show menu.
         """
-        return None
+        ...
 
-    def __init__(self,  *args, **kwargs):
+    def __init__(self,  *args, **kwargs) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """
-        return None
+        ...

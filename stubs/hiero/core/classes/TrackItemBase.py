@@ -20,81 +20,81 @@ class TrackItemBase(Object):
         """
         Return repr(self).
         """
-        return None
+        ...
 
-    def __hash__(self, ):
+    def __hash__(self, ) -> None:
         """
         Return hash(self).
         """
-        return None
+        ...
 
-    def __setattr__(self, name, value, ):
+    def __setattr__(self, name, value, ) -> None:
         """
         Implement setattr(self, name, value).
         """
-        return None
+        ...
 
-    def __delattr__(self, name, ):
+    def __delattr__(self, name, ) -> None:
         """
         Implement delattr(self, name).
         """
-        return None
+        ...
 
-    def __lt__(self, value, ):
+    def __lt__(self, value, ) -> None:
         """
         Return self<value.
         """
-        return None
+        ...
 
-    def __le__(self, value, ):
+    def __le__(self, value, ) -> None:
         """
         Return self<=value.
         """
-        return None
+        ...
 
-    def __eq__(self, value, ):
+    def __eq__(self, value, ) -> None:
         """
         Return self==value.
         """
-        return None
+        ...
 
-    def __ne__(self, value, ):
+    def __ne__(self, value, ) -> None:
         """
         Return self!=value.
         """
-        return None
+        ...
 
-    def __gt__(self, value, ):
+    def __gt__(self, value, ) -> None:
         """
         Return self>value.
         """
-        return None
+        ...
 
-    def __ge__(self, value, ):
+    def __ge__(self, value, ) -> None:
         """
         Return self>=value.
         """
-        return None
+        ...
 
-    def __init__(self,  *args, **kwargs):
+    def __init__(self,  *args, **kwargs) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """
-        return None
+        ...
 
-    def __bool__(self, ):
+    def __bool__(self, ) -> None:
         """
         self != 0
         """
-        return None
+        ...
 
-    def __new__(self, *args, **kwargs):
+    def __new__(self, *args, **kwargs) -> None:
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
-        return None
+        ...
 
-    def clone(self, *args, **kwargs):
+    def clone(self, *args, **kwargs) -> None:
         """
         self.clone() -> returns a deep copy of this object.
 
@@ -103,13 +103,13 @@ class TrackItemBase(Object):
         WARNING - DEPRECATED ( clone ): This method is deprecated and will not be present in future versions of the Python API.
         This method has been replaced by copy().
         """
-        return None
+        ...
 
     def copy(self) -> object:
         """
         self.copy() -> returns a deep copy of this object.
         """
-        return Any
+        ...
 
     def duration(self) -> int:
         """
@@ -117,13 +117,13 @@ class TrackItemBase(Object):
 
         @return: frames
         """
-        return int()
+        ...
 
     def guid(self) -> object:
         """
 
         """
-        return None
+        ...
 
     def isEnabled(self) -> bool:
         """
@@ -131,7 +131,7 @@ class TrackItemBase(Object):
 
         @return: True or False
         """
-        return Union[True, False]
+        ...
 
     def isNull(self) -> bool:
         """
@@ -139,7 +139,7 @@ class TrackItemBase(Object):
 
         @return: True or False
         """
-        return Union[True, False]
+        ...
 
     def linkedItems(self) -> object:
         """
@@ -147,7 +147,7 @@ class TrackItemBase(Object):
 
         @return: tuple of linked items
         """
-        return tuple()
+        ...
 
     def move(self, frames: int) -> None:
         """
@@ -155,9 +155,9 @@ class TrackItemBase(Object):
 
         @param time: frame value. If positive, the item moves right. If negative, the item moves left.
         """
-        return None
+        ...
 
-    def moveTrackItems(self, *args, **kwargs):
+    def moveTrackItems(self, *args, **kwargs) -> Any:
         """
         staticmethod(function) -> method
 
@@ -178,7 +178,7 @@ class TrackItemBase(Object):
         Static methods in Python are similar to those found in Java or C++.
         For a more advanced concept, see the classmethod builtin.
         """
-        return Any
+        ...
 
     def parent(self) -> object:
         """
@@ -186,19 +186,19 @@ class TrackItemBase(Object):
 
         @return: hiero.core.AudioTrack or hiero.core.VideoTrack object
         """
-        return AudioTrack()
+        ...
 
     def parentSequence(self) -> object:
         """
 
         """
-        return None
+        ...
 
     def parentTrack(self) -> object:
         """
 
         """
-        return None
+        ...
 
     def project(self) -> object:
         """
@@ -206,7 +206,7 @@ class TrackItemBase(Object):
 
         @return: hiero.core.Project object
         """
-        return Project()
+        ...
 
     def sequence(self) -> core.Sequence:
         """
@@ -214,7 +214,7 @@ class TrackItemBase(Object):
 
         @return: hiero.core.Project object
         """
-        return Project()
+        ...
 
     def setEnabled(self, enable: bool) -> None:
         """
@@ -222,7 +222,7 @@ class TrackItemBase(Object):
 
         @return: True or False
         """
-        return Union[True, False]
+        ...
 
     def setTimelineIn(self, time: int) -> None:
         """
@@ -230,7 +230,7 @@ class TrackItemBase(Object):
 
         @param inTime: frame value
         """
-        return None
+        ...
 
     def setTimelineOut(self, time: int) -> None:
         """
@@ -238,7 +238,7 @@ class TrackItemBase(Object):
 
         @param outTime: frame value
         """
-        return None
+        ...
 
     def timelineIn(self) -> int:
         """
@@ -246,7 +246,7 @@ class TrackItemBase(Object):
 
         @return: frames
         """
-        return int()
+        ...
 
     def timelineOut(self) -> int:
         """
@@ -254,7 +254,7 @@ class TrackItemBase(Object):
 
         @return: frames
         """
-        return int()
+        ...
 
     def toString(self) -> str:
         """
@@ -262,7 +262,7 @@ class TrackItemBase(Object):
 
         @return: string
         """
-        return str()
+        ...
 
     def trimIn(self, t: int) -> None:
         """
@@ -270,7 +270,7 @@ class TrackItemBase(Object):
 
         @param time: frame value. If positive, the item duration shrinks. If negative, the item duration grows.
         """
-        return None
+        ...
 
     def trimOut(self, t: int) -> None:
         """
@@ -278,10 +278,10 @@ class TrackItemBase(Object):
 
         @param time: frame value. If positive, the item duration shrinks. If negative, the item duration grows.
         """
-        return None
+        ...
 
     def __copy__(self,) -> None:
         """
 
         """
-        return None
+        ...

@@ -23,31 +23,31 @@ class Annotation(SubTrackItem):
         """
         Return repr(self).
         """
-        return None
+        ...
 
-    def __setattr__(self, name, value, ):
+    def __setattr__(self, name, value, ) -> None:
         """
         Implement setattr(self, name, value).
         """
-        return None
+        ...
 
-    def __delattr__(self, name, ):
+    def __delattr__(self, name, ) -> None:
         """
         Implement delattr(self, name).
         """
-        return None
+        ...
 
-    def __init__(self,  *args, **kwargs):
+    def __init__(self,  *args, **kwargs) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """
-        return None
+        ...
 
-    def __new__(self, *args, **kwargs):
+    def __new__(self, *args, **kwargs) -> None:
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
-        return None
+        ...
 
     def addElement(self, element: core.AnnotationElement) -> core.AnnotationElement:
         """
@@ -56,13 +56,13 @@ class Annotation(SubTrackItem):
 
         @return: If there was no error, returns the added element.
         """
-        return core.AnnotationElement()
+        ...
 
     def deserialize(self, data: str) -> None:
         """
         self.deserialize() -> restore the annotation from XML data
         """
-        return None
+        ...
 
     def elements(self) -> object:
         """
@@ -70,13 +70,13 @@ class Annotation(SubTrackItem):
 
         @return: tuple of hiero.core.Element sub-class objects
         """
-        return tuple()
+        ...
 
     def serialize(self) -> str:
         """
         self.serialize() -> serialize the annotation object to XML
         """
-        return str()
+        ...
 
     def toString(self) -> str:
         """
@@ -84,16 +84,16 @@ class Annotation(SubTrackItem):
 
         @return: string
         """
-        return str()
+        ...
 
     def __copy__(self,) -> None:
         """
 
         """
-        return None
+        ...
 
-    def _Annotation_addToNukeScript(self, script, offset=0, inputs=0, cliptype=None):
+    def _Annotation_addToNukeScript(self, script, offset=0, inputs=0, cliptype=None) -> None:
         """
 
         """
-        return None
+        ...

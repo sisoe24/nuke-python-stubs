@@ -18,29 +18,29 @@ class IExporterRegistry(Object):
     This class should not be used directly; use hiero.core.TaskRegistry instead.
     """
 
-    def __setattr__(self, name, value, ):
+    def __setattr__(self, name, value, ) -> None:
         """
         Implement setattr(self, name, value).
         """
-        return None
+        ...
 
-    def __delattr__(self, name, ):
+    def __delattr__(self, name, ) -> None:
         """
         Implement delattr(self, name).
         """
-        return None
+        ...
 
-    def __init__(self,  *args, **kwargs):
+    def __init__(self,  *args, **kwargs) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """
-        return None
+        ...
 
-    def __new__(self, *args, **kwargs):
+    def __new__(self, *args, **kwargs) -> None:
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
-        return None
+        ...
 
     def assignPresetToProject(self, preset: core.ITaskPreset, project: core.Project) -> None:
         """
@@ -50,7 +50,7 @@ class IExporterRegistry(Object):
         @param: hiero.core.TaskPreset
         @param: hiero.core.Project
         """
-        return None
+        ...
 
     def copyAndAddProcessorPreset(self, preset: core.ITaskPreset) -> core.ITaskPreset:
         """
@@ -59,7 +59,7 @@ class IExporterRegistry(Object):
         @param: hiero.core.TaskPreset instance for duplication
         @return: new hiero.core.TaskPreset instance
         """
-        return TaskPreset()
+        ...
 
     def copyAndAddProjectPreset(self, preset: core.ITaskPreset, project: core.Project) -> core.ITaskPreset:
         """
@@ -69,7 +69,7 @@ class IExporterRegistry(Object):
         @param: hiero.core.Project to which cloned preset should be assigned
         @return: new hiero.core.TaskPreset instance
         """
-        return TaskPreset()
+        ...
 
     def createAndAddProcessorPreset(self, preset: str, typetemplate: core.ITaskPreset) -> core.ITaskPreset:
         """
@@ -78,7 +78,7 @@ class IExporterRegistry(Object):
         @param: string - Preset name
         @return: hiero.core.TaskPreset instance as type template
         """
-        return TaskPreset()
+        ...
 
     def createAndExecuteProcessor(self, preset: core.ITaskPreset, items: typing.List[core.ItemWrapper], submissionName: str) -> None:
         """
@@ -88,7 +88,7 @@ class IExporterRegistry(Object):
         @param: list of items for export
         @param: name of submission object used for dispatching job to renderfarm
         """
-        return None
+        ...
 
     def discardPresetChanges(self, project: core.Project) -> None:
         """
@@ -96,7 +96,7 @@ class IExporterRegistry(Object):
 
         @param: hiero.core.Project)
         """
-        return None
+        ...
 
     def loadPresets(self, path: str) -> bool:
         """
@@ -104,7 +104,7 @@ class IExporterRegistry(Object):
 
         @param: path as string
         """
-        return bool()
+        ...
 
     def localPresets(self) -> typing.List[core.ITaskPreset]:
         """
@@ -112,7 +112,7 @@ class IExporterRegistry(Object):
 
         @return: list of TaskPreset instances
         """
-        return list()
+        ...
 
     def localPresetsChanged(self) -> bool:
         """
@@ -120,7 +120,7 @@ class IExporterRegistry(Object):
 
         @return: bool changed state
         """
-        return bool()
+        ...
 
     def nukeShotExportPresets(self, project: core.Project) -> typing.List[core.ITaskPreset]:
         """
@@ -128,7 +128,7 @@ class IExporterRegistry(Object):
 
         @return: list of TaskPreset instances
         """
-        return list()
+        ...
 
     def presetFromXml(self, xml: str) -> core.ITaskPreset:
         """
@@ -137,7 +137,7 @@ class IExporterRegistry(Object):
         @param: string - Preset XML
         @return: hiero.core.TaskPreset instance
         """
-        return TaskPreset()
+        ...
 
     def presetToPrettyXml(self, preset: core.ITaskPreset) -> str:
         """
@@ -146,7 +146,7 @@ class IExporterRegistry(Object):
         @param: hiero.core.TaskPreset instance
         @return: string - Preset XML
         """
-        return str()
+        ...
 
     def presetToXml(self, preset: core.ITaskPreset) -> str:
         """
@@ -155,13 +155,13 @@ class IExporterRegistry(Object):
         @param: hiero.core.TaskPreset instance
         @return: string - Preset XML
         """
-        return str()
+        ...
 
     def presetsSubDirectory(self) -> str:
         """
         self.presetsSubDirectory() -> Get the sub-directory in the plugin paths to search for presets.
         """
-        return str()
+        ...
 
     def projectDuplicated(self, project: core.Project, newProject: core.Project) -> None:
         """
@@ -170,7 +170,7 @@ class IExporterRegistry(Object):
         @param: hiero.core.Project - original project
         @param: hiero.core.Project - new project
         """
-        return None
+        ...
 
     def projectExportHistoryXml(self, project: core.Project) -> typing.List[str]:
         """
@@ -179,7 +179,7 @@ class IExporterRegistry(Object):
         @param hiero.core.Project: project
         @return: list of strings
         """
-        return list()
+        ...
 
     def projectPresets(self, project: core.Project) -> typing.List[core.ITaskPreset]:
         """
@@ -188,7 +188,7 @@ class IExporterRegistry(Object):
         @param: hiero.core.Project
         @return: list of TaskPreset instances
         """
-        return list()
+        ...
 
     def projectPresetsChanged(self, project: core.Project) -> bool:
         """
@@ -196,7 +196,7 @@ class IExporterRegistry(Object):
 
         @param: hiero.core.Project
         """
-        return bool()
+        ...
 
     def projectUnloaded(self, project: core.Project) -> None:
         """
@@ -204,13 +204,13 @@ class IExporterRegistry(Object):
 
         @param: hiero.core.Project
         """
-        return None
+        ...
 
     def registerme(self) -> None:
         """
         self.registerme() -> Called from python implimentation of TaskRegistry to register instance as the Application Task Registry.
         """
-        return None
+        ...
 
     def removeProcessorPreset(self, preset: core.ITaskPreset) -> None:
         """
@@ -218,7 +218,7 @@ class IExporterRegistry(Object):
 
         @param: hiero.core.TaskPreset
         """
-        return None
+        ...
 
     def renameProcessorPreset(self, preset: core.ITaskPreset, newname: str) -> None:
         """
@@ -226,7 +226,7 @@ class IExporterRegistry(Object):
 
         @param: hiero.core.TaskPreset
         """
-        return None
+        ...
 
     def restoreProjectExportHistoryXml(self, project: core.Project, history: typing.List[str]) -> None:
         """
@@ -235,7 +235,7 @@ class IExporterRegistry(Object):
         @param hiero.core.Project: project
         @param list: list of strings containing export history
         """
-        return None
+        ...
 
     def revertDefaultPresets(self) -> None:
         """
@@ -243,7 +243,7 @@ class IExporterRegistry(Object):
 
         @param: path as string
         """
-        return None
+        ...
 
     def savePresets(self, path: str) -> bool:
         """
@@ -251,7 +251,7 @@ class IExporterRegistry(Object):
 
         @param: path as string
         """
-        return bool()
+        ...
 
     def startPresetChanges(self, project: core.Project) -> None:
         """
@@ -259,7 +259,7 @@ class IExporterRegistry(Object):
 
         @param: hiero.core.Project)
         """
-        return None
+        ...
 
     def submissionChanged(self, submissionName: str) -> None:
         """
@@ -267,7 +267,7 @@ class IExporterRegistry(Object):
 
         @param: submission name as a string
         """
-        return None
+        ...
 
     def submissionNames(self) -> typing.List[str]:
         """
@@ -275,7 +275,7 @@ class IExporterRegistry(Object):
 
         @return: list of name strings
         """
-        return list()
+        ...
 
     def validateExport(self, preset: core.ITaskPreset, items: typing.List[core.ItemWrapper]) -> str:
         """
@@ -286,10 +286,10 @@ class IExporterRegistry(Object):
         @param: list of items for export
         @return: An error string if disallowed, otherwise an empty string.
         """
-        return str()
+        ...
 
     def __copy__(self,) -> None:
         """
 
         """
-        return None
+        ...

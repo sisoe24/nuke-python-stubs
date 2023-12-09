@@ -11,37 +11,37 @@ class Unsigned_Knob(Array_Knob):
     A knob which holds one or more unsigned integer values.
     """
 
-    def __hash__(self, ):
+    def __hash__(self, ) -> None:
         """
         Return hash(self).
         """
-        return None
+        ...
 
-    def __init__(self,  *args, **kwargs):
+    def __init__(self,  *args, **kwargs) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """
-        return None
+        ...
 
-    def __new__(self, *args, **kwargs):
+    def __new__(self, *args, **kwargs) -> None:
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
-        return None
+        ...
 
-    def value(self,):
+    def value(self,) -> int:
         """
         self.value() -> int
         Get the value of this knob as an integer.
         @return: int
         """
-        return int()
+        ...
 
-    def setValue(self, val: int):
+    def setValue(self, val: int) -> bool:
         """
         self.setValue(val) -> bool
         Set the unsigned integer value of this knob.
         @param val: The new value for the knob. Must be an integer >= 0.
         @return: True if succeeded, False otherwise.
         """
-        return bool()
+        ...

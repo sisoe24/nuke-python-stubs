@@ -16,41 +16,41 @@ class SubTrackItem(TrackItemBase):
     Base class for items that exist in sub-tracks, e.g. Annotation objects. This class should never be used directly.
     """
 
-    def __setattr__(self, name, value, ):
+    def __setattr__(self, name, value, ) -> None:
         """
         Implement setattr(self, name, value).
         """
-        return None
+        ...
 
-    def __delattr__(self, name, ):
+    def __delattr__(self, name, ) -> None:
         """
         Implement delattr(self, name).
         """
-        return None
+        ...
 
-    def __init__(self,  *args, **kwargs):
+    def __init__(self,  *args, **kwargs) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """
-        return None
+        ...
 
-    def __bool__(self, ):
+    def __bool__(self, ) -> None:
         """
         self != 0
         """
-        return None
+        ...
 
-    def __new__(self, *args, **kwargs):
+    def __new__(self, *args, **kwargs) -> None:
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
-        return None
+        ...
 
     def descString(self) -> str:
         """
 
         """
-        return str()
+        ...
 
     def setTimelineIn(self, time: int) -> None:
         """
@@ -58,7 +58,7 @@ class SubTrackItem(TrackItemBase):
 
         @param inTime: frame for the new in point
         """
-        return None
+        ...
 
     def setTimelineOut(self, time: int) -> None:
         """
@@ -66,7 +66,7 @@ class SubTrackItem(TrackItemBase):
 
         @param outTime: frame for the new out point
         """
-        return None
+        ...
 
     def subTrackIndex(self) -> int:
         """
@@ -74,7 +74,7 @@ class SubTrackItem(TrackItemBase):
 
         @return: int index, -1 if the item has not been added to a track
         """
-        return int()
+        ...
 
     def toString(self) -> str:
         """
@@ -82,10 +82,10 @@ class SubTrackItem(TrackItemBase):
 
         @return: string
         """
-        return str()
+        ...
 
     def __copy__(self,) -> None:
         """
 
         """
-        return None
+        ...

@@ -11,94 +11,94 @@ class BBox_Knob(Array_Knob):
     A knob which holds a bounding box.
     """
 
-    def __hash__(self, ):
+    def __hash__(self, ) -> None:
         """
         Return hash(self).
         """
-        return None
+        ...
 
-    def __init__(self,  *args, **kwargs):
+    def __init__(self,  *args, **kwargs) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """
-        return None
+        ...
 
-    def __new__(self, *args, **kwargs):
+    def __new__(self, *args, **kwargs) -> None:
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
-        return None
+        ...
 
-    def names(self, *args, **kwargs):
+    def names(self, *args, **kwargs) -> None:
         """
         Return name for dimension 'i'
         """
-        return None
+        ...
 
-    def value(self, *args, **kwargs):
+    def value(self, *args, **kwargs) -> None:
         """
         Return value for dimension 'i'
         """
-        return None
+        ...
 
-    def x(self, *args, **kwargs):
+    def x(self, *args, **kwargs) -> None:
         """
         Return value for X position.
         """
-        return None
+        ...
 
-    def setX(self, *args, **kwargs):
+    def setX(self, *args, **kwargs) -> None:
         """
         Set value for X position.
         """
-        return None
+        ...
 
-    def y(self, *args, **kwargs):
+    def y(self, *args, **kwargs) -> None:
         """
         Return value for Y position.
         """
-        return None
+        ...
 
-    def setY(self, *args, **kwargs):
+    def setY(self, *args, **kwargs) -> None:
         """
         Set value for Y position.
         """
-        return None
+        ...
 
-    def r(self, *args, **kwargs):
+    def r(self, *args, **kwargs) -> None:
         """
         Return value for R extent.
         """
-        return None
+        ...
 
-    def setR(self, *args, **kwargs):
+    def setR(self, *args, **kwargs) -> None:
         """
         Set value for R extent.
         """
-        return None
+        ...
 
-    def t(self, *args, **kwargs):
+    def t(self, *args, **kwargs) -> None:
         """
         Return value for T extent.
         """
-        return None
+        ...
 
-    def setT(self, *args, **kwargs):
+    def setT(self, *args, **kwargs) -> None:
         """
         Set value for T extent.
         """
-        return None
+        ...
 
-    def toDict(self,):
+    def toDict(self,) -> dict:
         """
         self.toDict() -> dict.
 
         Returns the bounding box as a dict with x, y, r, and t keys.
         @return: dict with x, y, r and t keys
         """
-        return dict()
+        ...
 
-    def fromDict(self, box: dict):
+    def fromDict(self, box: dict) -> None:
         """
         self.fromDict(box) -> None
 
@@ -106,4 +106,4 @@ class BBox_Knob(Array_Knob):
         @param box: Dictionary containing the x, y, r and t keys.
         @return: None
         """
-        return None
+        ...

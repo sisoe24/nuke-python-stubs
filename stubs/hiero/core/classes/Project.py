@@ -22,79 +22,79 @@ class Project(Object):
         """
         Return repr(self).
         """
-        return None
+        ...
 
-    def __hash__(self, ):
+    def __hash__(self, ) -> None:
         """
         Return hash(self).
         """
-        return None
+        ...
 
-    def __setattr__(self, name, value, ):
+    def __setattr__(self, name, value, ) -> None:
         """
         Implement setattr(self, name, value).
         """
-        return None
+        ...
 
-    def __delattr__(self, name, ):
+    def __delattr__(self, name, ) -> None:
         """
         Implement delattr(self, name).
         """
-        return None
+        ...
 
-    def __lt__(self, value, ):
+    def __lt__(self, value, ) -> None:
         """
         Return self<value.
         """
-        return None
+        ...
 
-    def __le__(self, value, ):
+    def __le__(self, value, ) -> None:
         """
         Return self<=value.
         """
-        return None
+        ...
 
-    def __eq__(self, value, ):
+    def __eq__(self, value, ) -> None:
         """
         Return self==value.
         """
-        return None
+        ...
 
-    def __ne__(self, value, ):
+    def __ne__(self, value, ) -> None:
         """
         Return self!=value.
         """
-        return None
+        ...
 
-    def __gt__(self, value, ):
+    def __gt__(self, value, ) -> None:
         """
         Return self>value.
         """
-        return None
+        ...
 
-    def __ge__(self, value, ):
+    def __ge__(self, value, ) -> None:
         """
         Return self>=value.
         """
-        return None
+        ...
 
-    def __init__(self,  *args, **kwargs):
+    def __init__(self,  *args, **kwargs) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """
-        return None
+        ...
 
-    def __bool__(self, ):
+    def __bool__(self, ) -> None:
         """
         self != 0
         """
-        return None
+        ...
 
-    def __new__(self, *args, **kwargs):
+    def __new__(self, *args, **kwargs) -> None:
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
-        return None
+        ...
 
     def addView(self, name: str, color: str = Default(self, Hiero.Python.String)) -> bool:
         """
@@ -104,13 +104,13 @@ class Project(Object):
         @param color: optional; string in the format #RGB, #RRGGBB, #RRRGGGBBB, #RRRRGGGGBBBB or a name from the list of colors defined in the list of SVG color keyword names
         @return: True or False
         """
-        return Union[True, False]
+        ...
 
     def autosave(self) -> None:
         """
         self.autosave() -> if the project has been modified create an autosave file
         """
-        return None
+        ...
 
     def beginUndo(self, arg__1: str) -> core.UndoGroup:
         """
@@ -121,25 +121,25 @@ class Project(Object):
 
         @return: UndoGroup object
         """
-        return UndoGroup()
+        ...
 
     def buildTrackName(self) -> str:
         """
         buildTrackName() -> get default track name used when building vfx trackthis can be configured in the project settings dialog
         """
-        return str()
+        ...
 
     def cancelUndo(self) -> None:
         """
         self.cancelUndo() -> cancels an undo action started previously by a call to self.beginUndo().
         """
-        return None
+        ...
 
     def clearUnusedLocalFiles(self) -> None:
         """
         clearUnusedLocalFiles() -> clear all localised files that are not in any currently open project. This requires localisation to be enabled
         """
-        return None
+        ...
 
     def clipsBin(self) -> core.Bin:
         """
@@ -147,13 +147,13 @@ class Project(Object):
 
         @return: hiero.core.Bin object
         """
-        return Bin()
+        ...
 
     def close(self) -> None:
         """
         self.close() -> closes the project. Be aware that this method will not save the project, even if changes have been made since the last save of the project.
         """
-        return None
+        ...
 
     def customExportDirectory(self) -> str:
         """
@@ -161,7 +161,7 @@ class Project(Object):
 
         @return: string
         """
-        return str()
+        ...
 
     def deletable(self) -> bool:
         """
@@ -169,7 +169,7 @@ class Project(Object):
 
         @return: True or False
         """
-        return Union[True, False]
+        ...
 
     def deleteView(self, name: str) -> bool:
         """
@@ -177,7 +177,7 @@ class Project(Object):
         @param name: string
         @return: True or False
         """
-        return Union[True, False]
+        ...
 
     def editable(self) -> bool:
         """
@@ -185,13 +185,13 @@ class Project(Object):
 
         @return: True or False
         """
-        return Union[True, False]
+        ...
 
     def endUndo(self) -> None:
         """
         self.endUndo() -> ends an undo action started previously by a call to self.beginUndo(). This will put a new item into the Edit > Undo/Redo menu items.
         """
-        return None
+        ...
 
     def exportRootDirectory(self) -> str:
         """
@@ -199,7 +199,7 @@ class Project(Object):
 
         @return: string
         """
-        return str()
+        ...
 
     def framerate(self) -> core.TimeBase:
         """
@@ -207,20 +207,20 @@ class Project(Object):
 
         @return: TimeBase
         """
-        return Number()
+        ...
 
     def guid(self) -> object:
         """
 
         """
-        return None
+        ...
 
     def heroView(self) -> str:
         """
         heroView() -> Get the name of the hero view set on the project
         @return: str
         """
-        return str()
+        ...
 
     def isLocalisationEnabled(self) -> bool:
         """
@@ -228,7 +228,7 @@ class Project(Object):
 
         @return: whether localisation is enabled
         """
-        return bool()
+        ...
 
     def isNull(self) -> bool:
         """
@@ -236,7 +236,7 @@ class Project(Object):
 
         @return: True or False
         """
-        return Union[True, False]
+        ...
 
     def isRestricted(self) -> bool:
         """
@@ -244,7 +244,7 @@ class Project(Object):
 
         @return: True or False
         """
-        return Union[True, False]
+        ...
 
     def lutSetting16Bit(self) -> str:
         """
@@ -252,7 +252,7 @@ class Project(Object):
 
         @return: string
         """
-        return str()
+        ...
 
     def lutSetting8Bit(self) -> str:
         """
@@ -260,7 +260,7 @@ class Project(Object):
 
         @return: string
         """
-        return str()
+        ...
 
     def lutSettingFloat(self) -> str:
         """
@@ -268,7 +268,7 @@ class Project(Object):
 
         @return: string
         """
-        return str()
+        ...
 
     def lutSettingLog(self) -> str:
         """
@@ -276,7 +276,7 @@ class Project(Object):
 
         @return: string
         """
-        return str()
+        ...
 
     def lutSettingMonitorOut(self) -> str:
         """
@@ -284,7 +284,7 @@ class Project(Object):
 
         @return: string
         """
-        return str()
+        ...
 
     def lutSettingThumbnail(self) -> str:
         """
@@ -292,7 +292,7 @@ class Project(Object):
 
         @return: string
         """
-        return str()
+        ...
 
     def lutSettingViewer(self) -> str:
         """
@@ -300,7 +300,7 @@ class Project(Object):
 
         @return: string
         """
-        return str()
+        ...
 
     def lutSettingWorkingSpace(self) -> str:
         """
@@ -308,7 +308,7 @@ class Project(Object):
 
         @return: string
         """
-        return str()
+        ...
 
     def lutUseOCIOForExport(self) -> bool:
         """
@@ -316,13 +316,13 @@ class Project(Object):
 
         @return: bool
         """
-        return bool()
+        ...
 
     def modifiedSinceLastSave(self) -> bool:
         """
         self.modifiedSinceLastSave() -> Check if the project has been modified since it was last saved
         """
-        return bool()
+        ...
 
     def name(self) -> str:
         """
@@ -330,7 +330,7 @@ class Project(Object):
 
         @return: string
         """
-        return str()
+        ...
 
     def ocioConfigName(self) -> str:
         """
@@ -338,7 +338,7 @@ class Project(Object):
 
         @return: string
         """
-        return str()
+        ...
 
     def ocioConfigPath(self) -> str:
         """
@@ -346,7 +346,7 @@ class Project(Object):
 
         @return: string
         """
-        return str()
+        ...
 
     def outputFormat(self) -> core.Format:
         """
@@ -354,7 +354,7 @@ class Project(Object):
 
         @return: Format
         """
-        return Format()
+        ...
 
     def path(self) -> str:
         """
@@ -362,14 +362,14 @@ class Project(Object):
 
         @return: string
         """
-        return str()
+        ...
 
     def posterFrameSettings(self) -> typing.Tuple[core.Project.PosterFrameSetting, int]:
         """
         posterFrameSettings() -> Get the poster frame settings used for clips added to the project.
         @return: tuple of poster frame setting and custom frame number
         """
-        return tuple()
+        ...
 
     def projectDirectory(self, expanded: bool) -> str:
         """
@@ -378,13 +378,13 @@ class Project(Object):
         @param expanded: whether expressions in the path are expanded
         @return: string
         """
-        return str()
+        ...
 
     def redo(self) -> None:
         """
         self.redo() -> triggers a redo of the next item in the redo stack. Only works on the main thread. If called from any other thread, throws an exception.
         """
-        return None
+        ...
 
     def redoItemText(self) -> str:
         """
@@ -392,13 +392,13 @@ class Project(Object):
 
         @return: string
         """
-        return str()
+        ...
 
     def save(self) -> None:
         """
         self.save() -> saves a previously saved project to disk.
         """
-        return None
+        ...
 
     def saveAs(self, filename: str, saveFlags: int = 'kProjectSaveNoFlags') -> None:
         """
@@ -406,7 +406,7 @@ class Project(Object):
 
         @param filename: path to save the project to
         """
-        return None
+        ...
 
     def setCustomExportDirectory(self, path: str) -> None:
         """
@@ -414,7 +414,7 @@ class Project(Object):
 
         @param path: path
         """
-        return None
+        ...
 
     def setDeletable(self, deletable: bool) -> None:
         """
@@ -422,7 +422,7 @@ class Project(Object):
 
         @param deletable: True or False
         """
-        return None
+        ...
 
     def setEditable(self, editable: bool) -> None:
         """
@@ -430,7 +430,7 @@ class Project(Object):
 
         @param editable: True or False
         """
-        return None
+        ...
 
     def setFramerate(self, framerate: core.TimeBase) -> None:
         """
@@ -438,13 +438,13 @@ class Project(Object):
 
         @param: TimeBase
         """
-        return None
+        ...
 
     def setHasMigratedSequenceProperties(self) -> None:
         """
         setHasMigratedSequenceProperties() -> Mark the project as having had deprecated sequence properties converted into soft effects.
         """
-        return None
+        ...
 
     def setLocalisationEnabled(self, isEnabled: bool) -> None:
         """
@@ -452,21 +452,21 @@ class Project(Object):
 
         @param isEnabled: whether localisation should be enabled
         """
-        return None
+        ...
 
     def setModified(self) -> None:
         """
         self.setModified() -> Set the project as modified even if just saved or loaded
         """
-        return None
+        ...
 
     def setOcioConfigPath(self, path: str) -> None:
         """
         self.setOcioConfigPath(path) -> set the ocio config for the project
         """
-        return None
+        ...
 
-    def setOutputFormat(self, *args, **kwargs):
+    def setOutputFormat(self, *args, **kwargs) -> Iterable:
         """
         setOutputFormat(Format) -> sets project's default output format for new sequences.
         setOutputFormat(width, height, pixelAspect, name) -> sets project's default output format for new sequences. This will persist when the application is restarted
@@ -476,13 +476,13 @@ class Project(Object):
         @param pixelAspect: float for pixel aspect ratio
         @param name: string for the format name
         """
-        return Iterable()
+        ...
 
     def setPath(self, path: str) -> None:
         """
         self.setPath(path) -> set the path a project saves to without saving it
         """
-        return None
+        ...
 
     def setPosterFrameSettings(self, mode: core.Project.PosterFrameSetting, customFrame: int = 0) -> None:
         """
@@ -490,7 +490,7 @@ class Project(Object):
         @param setting: the mode for setting poster frames
         @param customFrame: the frame number if mode is set to ePosterFrameCustom
         """
-        return None
+        ...
 
     def setProjectDirectory(self, path: str) -> None:
         """
@@ -498,7 +498,7 @@ class Project(Object):
 
         @param path: the path or expression to set
         """
-        return None
+        ...
 
     def setShotPresetName(self, path: str) -> None:
         """
@@ -506,13 +506,13 @@ class Project(Object):
 
         @param name:
         """
-        return None
+        ...
 
     def setShowViewColors(self, show: bool) -> None:
         """
         setShowViewColors() -> Set if colors set for views are shown in the UI.
         """
-        return None
+        ...
 
     def setStartTimecode(self, timecode: int) -> None:
         """
@@ -520,7 +520,7 @@ class Project(Object):
 
         @param startTime: TimeBase start timecode for sequence
         """
-        return None
+        ...
 
     def setTimeDisplayFormat(self, displayType: core.Timecode.DisplayType) -> None:
         """
@@ -528,13 +528,13 @@ class Project(Object):
 
         @param displayType: DisplayType to use
         """
-        return None
+        ...
 
     def setTrackItemVersionsLinkedToBin(self, linked: bool) -> None:
         """
         setTrackItemVersionsLinkedToBin(linked) -> Set whether track item versions are linked by default
         """
-        return None
+        ...
 
     def setUseCustomExportDirectory(self, arg__1: bool) -> None:
         """
@@ -542,20 +542,20 @@ class Project(Object):
 
         @param custom:
         """
-        return None
+        ...
 
-    def setViews(self, *args, **kwargs):
+    def setViews(self, *args, **kwargs) -> Any:
         """
         setViews(views) -> Set the project's views.
         @param views: this can be either a list of view names, or a list of tuples with (name, color)
         """
-        return Any
+        ...
 
     def setViewsForStereo(self) -> None:
         """
         setViewsForStereo() -> Replaces the project's views with two views named "left" and "right".
         """
-        return None
+        ...
 
     def shotPresetName(self) -> str:
         """
@@ -563,13 +563,13 @@ class Project(Object):
 
         @return: string
         """
-        return str()
+        ...
 
     def showViewColors(self) -> bool:
         """
         showViewColors() -> Get if colors set for views are shown in the UI.
         """
-        return bool()
+        ...
 
     def startTimecode(self) -> int:
         """
@@ -577,7 +577,7 @@ class Project(Object):
 
         @return: Time
         """
-        return Number()
+        ...
 
     def tagsBin(self) -> core.Bin:
         """
@@ -585,13 +585,13 @@ class Project(Object):
 
         @return: hiero.core.Bin object
         """
-        return Bin()
+        ...
 
     def timeDisplayFormat(self) -> core.Timecode.DisplayType:
         """
         timeDisplayFormat() -> gets project's default displayType for new sequences. @return: DisplayType
         """
-        return core.Timecode.DisplayType()
+        ...
 
     def toString(self) -> str:
         """
@@ -599,19 +599,19 @@ class Project(Object):
 
         @return: string
         """
-        return str()
+        ...
 
     def trackItemVersionsLinkedToBin(self) -> bool:
         """
         trackItemVersionsLinkedToBin() -> Get whether track item versions are linked by default
         """
-        return bool()
+        ...
 
     def undo(self) -> None:
         """
         self.undo() -> triggers an undo on the last item previously added to the undo stack. Only works on the main thread. If called from any other thread, throws an exception.
         """
-        return None
+        ...
 
     def undoItemText(self) -> str:
         """
@@ -619,7 +619,7 @@ class Project(Object):
 
         @return: string
         """
-        return str()
+        ...
 
     def useCustomExportDirectory(self) -> bool:
         """
@@ -627,9 +627,9 @@ class Project(Object):
 
         @return: bool
         """
-        return bool()
+        ...
 
-    def useOCIOEnvironmentOverride(self, *args, **kwargs):
+    def useOCIOEnvironmentOverride(self, *args, **kwargs) -> Any:
         """
         staticmethod(function) -> method
 
@@ -650,27 +650,27 @@ class Project(Object):
         Static methods in Python are similar to those found in Java or C++.
         For a more advanced concept, see the classmethod builtin.
         """
-        return Any
+        ...
 
     def views(self) -> typing.List[str]:
         """
         views() -> Returns a list of this project's views.
         @return: list of strings
         """
-        return list()
+        ...
 
     def viewsAndColors(self) -> typing.List[typing.Tuple[str, PySide2.QtGui.QColor]]:
         """
         viewsAndColors() -> Returns a list of this project's views and corresponding colors.
         @return: list of (str, PySide2.QtGui.QColor) tuples
         """
-        return list()
+        ...
 
     def __copy__(self,) -> None:
         """
 
         """
-        return None
+        ...
 
     OpenFlags: Any = None
     kProjectOpenNoFlags: Any = None
@@ -691,14 +691,14 @@ class Project(Object):
     kUserProjects = 1
     kStartupProjects = 2
 
-    def extractSettings(self):
+    def extractSettings(self) -> dict[str, str]:
         """
         self.extractSettings() -> returns a dict of the project's settings.     @return: dict
 
         """
-        return dict()
+        ...
 
-    def sequences(self, partialName=None):
+    def sequences(self, partialNam: Optional[str] = None) -> list[core.Sequence]:
         """
         self.sequences(partialName) -> returns all sequences in a project. User can filter by by partial name.
         @param partialName: optional string with partial name to match against. Will match if this string is anywhere in the name.
@@ -708,9 +708,9 @@ class Project(Object):
 
         sequences = myProject.sequences('30Sec')
         """
-        return [core.Sequence]
+        ...
 
-    def bins(self, partialName=None):
+    def bins(self, partialName: Optional[str] = None) -> list[core.Bin]:
         """
         self.bins(partialName) -> returns all bins in a project. Searches recursively, so will return bins within other bins in the list.
         @param partialName: optional string with partial name to match against. Will match if this string is anywhere in the name.
@@ -721,9 +721,9 @@ class Project(Object):
 
         bins = myProject.bins('MyBin')
         """
-        return [core.Bin]
+        ...
 
-    def clips(self, partialName=None):
+    def clips(self, partialName: Optional[str] = None) -> list[core.Clip]:
         """
         self.clips(partialName) -> returns all clips in a project.
         @param partialName: optional string with partial name to match against. Will match if this string is anywhere in the name.
@@ -734,9 +734,9 @@ class Project(Object):
 
         clips = myProject.clips('30Sec')
         """
-        return [core.Clip]
+        ...
 
-    def tracks(self, partialName=None):
+    def tracks(self, partialName: Optional[str] = None) -> list[core.Track]:
         """
         self.tracks(partialName) -> returns all tracks in a project.
         @param partialName: optional string with partial name to match against. Will match if this string is anywhere in the name.
@@ -747,9 +747,9 @@ class Project(Object):
 
         tracks = myProject.tracks('30Sec')
         """
-        return Union[core.VideoTrack, core.AudioTrack]
+        ...
 
-    def videoTracks(self, partialName=None):
+    def videoTracks(self, partialName: Optional[str] = None) -> list[core.VideoTrack]:
         """
         self.videoTracks(partialName) -> returns all video tracks in a project.
         @param partialName: optional string with partial name to match against. Will match if this string is anywhere in the name.
@@ -760,9 +760,9 @@ class Project(Object):
 
         tracks = myProject.videoTracks('30Sec')
         """
-        return [core.VideoTrack]
+        ...
 
-    def audioTracks(self, partialName=None):
+    def audioTracks(self, partialName: Optional[str] = None) -> list[core.AudioTrack]:
         """
         self.audioTracks(partialName) -> returns all audio tracks in a project.
         @param partialName: optional string with partial name to match against. Will match if this string is anywhere in the name.
@@ -773,9 +773,9 @@ class Project(Object):
 
         tracks = myProject.audioTracks('30Sec')
         """
-        return [core.AudioTrack]
+        ...
 
-    def trackItems(self, partialName=None):
+    def trackItems(self, partialName: Optional[str] = None) -> list[core.TrackItem]:
         """
         self.trackItems(partialName) -> returns all track items in a project.
         @param partialName: optional string with partial name to match against. Will match if this string is anywhere in the name.
@@ -786,9 +786,9 @@ class Project(Object):
 
         trackItems = myProject.trackItems('30Sec')
         """
-        return [core.TrackItem]
+        ...
 
-    def videoTrackItems(self, partialName=None):
+    def videoTrackItems(self, partialName: Optional[str] = None) -> list[core.TrackItem]:
         """
         self.videoTrackItems(partialName) -> returns all video track items in a project.
         @param partialName: optional string with partial name to match against. Will match if this string is anywhere in the name.
@@ -799,9 +799,9 @@ class Project(Object):
 
         trackItems = myProject.videoTrackItems('30Sec')
         """
-        return [core.TrackItem]
+        ...
 
-    def audioTrackItems(self, partialName=None):
+    def audioTrackItems(self, partialName: Optional[str] = None) -> list[core.TrackItem]:
         """
         self.audioTrackItems(partialName) -> returns all audio track items in a project.
         @param partialName: optional string with partial name to match against. Will match if this string is anywhere in the name.
@@ -812,4 +812,4 @@ class Project(Object):
 
         trackItems = myProject.audioTrackItems('30Sec')
         """
-        return [core.TrackItem]
+        ...

@@ -16,23 +16,23 @@ class Keys(Object):
 
     """
 
-    def __init__(self,  *args, **kwargs):
+    def __init__(self,  *args, **kwargs) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """
-        return None
+        ...
 
-    def __new__(self, *args, **kwargs):
+    def __new__(self, *args, **kwargs) -> None:
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
-        return None
+        ...
 
     def __copy__(self,) -> None:
         """
 
         """
-        return None
+        ...
 
     kMediaUmid = 'umid'
     kMediaName = 'name'

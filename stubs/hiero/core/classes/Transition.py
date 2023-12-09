@@ -20,37 +20,37 @@ class Transition(TrackItemBase):
         """
         Return repr(self).
         """
-        return None
+        ...
 
-    def __setattr__(self, name, value, ):
+    def __setattr__(self, name, value, ) -> None:
         """
         Implement setattr(self, name, value).
         """
-        return None
+        ...
 
-    def __delattr__(self, name, ):
+    def __delattr__(self, name, ) -> None:
         """
         Implement delattr(self, name).
         """
-        return None
+        ...
 
-    def __init__(self,  *args, **kwargs):
+    def __init__(self,  *args, **kwargs) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """
-        return None
+        ...
 
-    def __bool__(self, ):
+    def __bool__(self, ) -> None:
         """
         self != 0
         """
-        return None
+        ...
 
-    def __new__(self, *args, **kwargs):
+    def __new__(self, *args, **kwargs) -> None:
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
-        return None
+        ...
 
     def alignment(self) -> core.Transition.Alignments:
         """
@@ -58,9 +58,9 @@ class Transition(TrackItemBase):
 
         @return: alignment type (hiero.core.Transition.Alignments)
         """
-        return Transition()
+        ...
 
-    def createAudioCrossfadeTransition(self, *args, **kwargs):
+    def createAudioCrossfadeTransition(self, *args, **kwargs) -> Any:
         """
         staticmethod(function) -> method
 
@@ -81,9 +81,9 @@ class Transition(TrackItemBase):
         Static methods in Python are similar to those found in Java or C++.
         For a more advanced concept, see the classmethod builtin.
         """
-        return Any
+        ...
 
-    def createAudioFadeInTransition(self, *args, **kwargs):
+    def createAudioFadeInTransition(self, *args, **kwargs) -> Any:
         """
         staticmethod(function) -> method
 
@@ -104,9 +104,9 @@ class Transition(TrackItemBase):
         Static methods in Python are similar to those found in Java or C++.
         For a more advanced concept, see the classmethod builtin.
         """
-        return Any
+        ...
 
-    def createAudioFadeOutTransition(self, *args, **kwargs):
+    def createAudioFadeOutTransition(self, *args, **kwargs) -> Any:
         """
         staticmethod(function) -> method
 
@@ -127,9 +127,9 @@ class Transition(TrackItemBase):
         Static methods in Python are similar to those found in Java or C++.
         For a more advanced concept, see the classmethod builtin.
         """
-        return Any
+        ...
 
-    def createDissolveTransition(self, *args, **kwargs):
+    def createDissolveTransition(self, *args, **kwargs) -> Any:
         """
         staticmethod(function) -> method
 
@@ -150,9 +150,9 @@ class Transition(TrackItemBase):
         Static methods in Python are similar to those found in Java or C++.
         For a more advanced concept, see the classmethod builtin.
         """
-        return Any
+        ...
 
-    def createFadeInTransition(self, *args, **kwargs):
+    def createFadeInTransition(self, *args, **kwargs) -> Any:
         """
         staticmethod(function) -> method
 
@@ -173,9 +173,9 @@ class Transition(TrackItemBase):
         Static methods in Python are similar to those found in Java or C++.
         For a more advanced concept, see the classmethod builtin.
         """
-        return Any
+        ...
 
-    def createFadeOutTransition(self, *args, **kwargs):
+    def createFadeOutTransition(self, *args, **kwargs) -> Any:
         """
         staticmethod(function) -> method
 
@@ -196,7 +196,7 @@ class Transition(TrackItemBase):
         Static methods in Python are similar to those found in Java or C++.
         For a more advanced concept, see the classmethod builtin.
         """
-        return Any
+        ...
 
     def dissolveNode(self) -> object:
         """
@@ -204,13 +204,13 @@ class Transition(TrackItemBase):
 
         @return: nuke.Node
         """
-        return Node()
+        ...
 
     def guid(self) -> object:
         """
 
         """
-        return None
+        ...
 
     def inTrackItem(self) -> core.TrackItem:
         """
@@ -218,7 +218,7 @@ class Transition(TrackItemBase):
 
         return: hiero.core.TrackItem
         """
-        return core.TrackItem()
+        ...
 
     def outTrackItem(self) -> core.TrackItem:
         """
@@ -226,7 +226,7 @@ class Transition(TrackItemBase):
 
         return: hiero.core.TrackItem
         """
-        return core.TrackItem()
+        ...
 
     def parent(self) -> object:
         """
@@ -234,7 +234,7 @@ class Transition(TrackItemBase):
 
         @return: hiero.core.AudioTrack or hiero.core.VideoTrack object
         """
-        return AudioTrack()
+        ...
 
     def project(self) -> object:
         """
@@ -242,7 +242,7 @@ class Transition(TrackItemBase):
 
         @return: hiero.core.Project object
         """
-        return Project()
+        ...
 
     def setAlignment(self, alignment: core.Transition.Alignments) -> None:
         """
@@ -250,7 +250,7 @@ class Transition(TrackItemBase):
 
         @param alignment: alignment type (hiero.core.Transition.Alignments), either kFadeIn, kDissolve, or kFadeOut
         """
-        return None
+        ...
 
     def setTimelineIn(self, arg__1: int) -> None:
         """
@@ -258,7 +258,7 @@ class Transition(TrackItemBase):
 
         @param inTime: frame for the new in point
         """
-        return None
+        ...
 
     def setTimelineOut(self, arg__1: int) -> None:
         """
@@ -266,7 +266,7 @@ class Transition(TrackItemBase):
 
         @param outTime: frame for the new out point
         """
-        return None
+        ...
 
     def toString(self) -> str:
         """
@@ -274,13 +274,13 @@ class Transition(TrackItemBase):
 
         @return: string
         """
-        return str()
+        ...
 
     def __copy__(self,) -> None:
         """
 
         """
-        return None
+        ...
 
     Alignments: Any = None
     kFadeIn: Any = None

@@ -16,35 +16,35 @@ class AnnotationText(AnnotationElement):
     A class, derived from AnnotationElement, storing a single item of text within an annotation.
     """
 
-    def __setattr__(self, name, value, ):
+    def __setattr__(self, name, value, ) -> None:
         """
         Implement setattr(self, name, value).
         """
-        return None
+        ...
 
-    def __delattr__(self, name, ):
+    def __delattr__(self, name, ) -> None:
         """
         Implement delattr(self, name).
         """
-        return None
+        ...
 
-    def __init__(self,  *args, **kwargs):
+    def __init__(self,  *args, **kwargs) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """
-        return None
+        ...
 
-    def __bool__(self, ):
+    def __bool__(self, ) -> None:
         """
         self != 0
         """
-        return None
+        ...
 
-    def __new__(self, *args, **kwargs):
+    def __new__(self, *args, **kwargs) -> None:
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
-        return None
+        ...
 
     def box(self) -> object:
         """
@@ -54,7 +54,7 @@ class AnnotationText(AnnotationElement):
 
         @return: The text box position and size in the form (x, y, width, height)
         """
-        return str()
+        ...
 
     def fontPath(self) -> str:
         """
@@ -64,13 +64,13 @@ class AnnotationText(AnnotationElement):
 
         @return: A string containing the current font path.
         """
-        return str()
+        ...
 
     def fontSize(self) -> float:
         """
 
         """
-        return float()
+        ...
 
     def horizontalJustification(self) -> core.AnnotationText.HorizontalJustification:
         """
@@ -80,13 +80,13 @@ class AnnotationText(AnnotationElement):
 
         @return: One of eHLeft, eHCenter, eHRight, eHJustify.
         """
-        return core.AnnotationText.HorizontalJustification()
+        ...
 
     def isNull(self) -> bool:
         """
 
         """
-        return bool()
+        ...
 
     def rotation(self) -> float:
         """
@@ -96,7 +96,7 @@ class AnnotationText(AnnotationElement):
 
         @return: The text's rotation angle.
         """
-        return str()
+        ...
 
     def setBox(self, x: float, y: float, width: float, height: float) -> None:
         """
@@ -112,7 +112,7 @@ class AnnotationText(AnnotationElement):
         @param width: The new width of the text box.
         @param height: The new height of the text box.
         """
-        return None
+        ...
 
     def setFontPath(self, fontPath: str) -> None:
         """
@@ -120,13 +120,13 @@ class AnnotationText(AnnotationElement):
 
         Sets the path to the file from which to load the font for use with this annotation text object.
         """
-        return None
+        ...
 
     def setFontSize(self, size: float) -> None:
         """
 
         """
-        return None
+        ...
 
     def setHorizontalJustification(self, justify: core.AnnotationText.HorizontalJustification) -> None:
         """
@@ -136,7 +136,7 @@ class AnnotationText(AnnotationElement):
 
         @param justify: One of eHLeft, eHCenter, eHRight, eHJustify.
         """
-        return None
+        ...
 
     def setRotation(self, rotation: float) -> None:
         """
@@ -146,7 +146,7 @@ class AnnotationText(AnnotationElement):
 
         @param rotation: The new rotation angle, in degrees.
         """
-        return None
+        ...
 
     def setText(self, text: str) -> None:
         """
@@ -156,7 +156,7 @@ class AnnotationText(AnnotationElement):
 
         @param text: The new text string.
         """
-        return None
+        ...
 
     def setVerticalJustification(self, justify: core.AnnotationText.VerticalJustification) -> None:
         """
@@ -166,7 +166,7 @@ class AnnotationText(AnnotationElement):
 
         @param justify: One of eVBaseline, eVTop, eVCenter, eVBottom.
         """
-        return None
+        ...
 
     def text(self) -> str:
         """
@@ -174,7 +174,7 @@ class AnnotationText(AnnotationElement):
 
         @return: A string containing the current text for this annotation text object.
         """
-        return str()
+        ...
 
     def toString(self) -> str:
         """
@@ -182,7 +182,7 @@ class AnnotationText(AnnotationElement):
 
         @return: string
         """
-        return str()
+        ...
 
     def verticalJustification(self) -> core.AnnotationText.VerticalJustification:
         """
@@ -192,13 +192,13 @@ class AnnotationText(AnnotationElement):
 
         @return: One of eVBaseline, eVTop, eVCenter, eVBottom.
         """
-        return core.AnnotationText.VerticalJustification()
+        ...
 
     def __copy__(self,) -> None:
         """
 
         """
-        return None
+        ...
 
     HorizontalJustification: Any = None
     eHLeft: Any = None
