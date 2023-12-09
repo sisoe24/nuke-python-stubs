@@ -16,52 +16,52 @@ class Channel_Knob(Knob):
     @param depth: Optional number of channels with zero being the Nuke default number of channels. Defaults to 0.
     """
 
-    def __hash__(self, ):
+    def __hash__(self, ) -> None:
         """
         Return hash(self).
         """
-        return None
+        ...
 
-    def __init__(self,  *args, **kwargs):
+    def __init__(self,  *args, **kwargs) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """
-        return None
+        ...
 
-    def __new__(self, *args, **kwargs):
+    def __new__(self, *args, **kwargs) -> None:
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
-        return None
+        ...
 
-    def layerSelector(self,):
+    def layerSelector(self,) -> bool:
         """
         self.layerSelector() -> bool
         """
-        return bool()
+        ...
 
-    def channelSelector(self,):
+    def channelSelector(self,) -> bool:
         """
         self.channelSelector() -> bool
         """
-        return bool()
+        ...
 
-    def checkMarks(self,):
+    def checkMarks(self,) -> bool:
         """
         self.checkMarks() -> bool
         """
-        return bool()
+        ...
 
-    def isChannelEnabled(self, name: str):
+    def isChannelEnabled(self, name: str) -> bool:
         """
         self.isChannelEnabled(name) -> bool
 
         Test if a channel is enabled.
         @param name: The name of the channel.@return: True if the channel is enabled, False otherwise.
         """
-        return bool()
+        ...
 
-    def enableChannel(self, name: str, b: bool):
+    def enableChannel(self, name: str, b: bool) -> None:
         """
         self.enableChannel(name, b) -> None
 
@@ -70,9 +70,9 @@ class Channel_Knob(Knob):
         @param b: True to enable the channel, False to disable it.
         @return: None
         """
-        return None
+        ...
 
-    def setEnable(self, name: str):
+    def setEnable(self, name: str) -> None:
         """
         self.setEnable(name) -> None
 
@@ -80,46 +80,46 @@ class Channel_Knob(Knob):
         @param name: The name of the channel to enable.
         @return: None
         """
-        return None
+        ...
 
-    def depth(self,):
+    def depth(self,) -> int:
         """
         self.depth() -> int
 
         Get the channel depth.
         @return: The depth of the channel as an int.
         """
-        return int()
+        ...
 
-    def inputKnob(self,):
+    def inputKnob(self,) -> bool:
         """
         self.inputKnob() -> bool
         """
-        return bool()
+        ...
 
-    def inputNumber(self,):
+    def inputNumber(self,) -> int:
         """
         self.inputNumber() -> int
         """
-        return int()
+        ...
 
-    def setInput(self, num: Number):
+    def setInput(self, num: Number) -> None:
         """
         self.setInput(num) -> None
         Set the input number for this knob.@param num: The number of the new input.
         @return: None
         """
-        return None
+        ...
 
-    def value(self,):
+    def value(self,) -> str:
         """
         self.value() -> str
         Get the name of the selected channel.
         @return: The name of the channel as a string.
         """
-        return str()
+        ...
 
-    def setValue(self, name: str):
+    def setValue(self, name: str) -> None:
         """
         self.setValue(name) -> None
         Set the selected channel using the channel name.
@@ -127,4 +127,4 @@ class Channel_Knob(Knob):
         @return: None
         @raise ValueError exception if the channel doesn't exist.
         """
-        return None
+        ...

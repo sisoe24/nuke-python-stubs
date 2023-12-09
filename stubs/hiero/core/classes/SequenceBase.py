@@ -16,77 +16,77 @@ class SequenceBase(Object):
     Base class for Sequence and Clip objects. Has some methods common to both of those objects. Most likely never used directly.
     """
 
-    def __hash__(self, ):
+    def __hash__(self, ) -> None:
         """
         Return hash(self).
         """
-        return None
+        ...
 
-    def __setattr__(self, name, value, ):
+    def __setattr__(self, name, value, ) -> None:
         """
         Implement setattr(self, name, value).
         """
-        return None
+        ...
 
-    def __delattr__(self, name, ):
+    def __delattr__(self, name, ) -> None:
         """
         Implement delattr(self, name).
         """
-        return None
+        ...
 
-    def __lt__(self, value, ):
+    def __lt__(self, value, ) -> None:
         """
         Return self<value.
         """
-        return None
+        ...
 
-    def __le__(self, value, ):
+    def __le__(self, value, ) -> None:
         """
         Return self<=value.
         """
-        return None
+        ...
 
-    def __eq__(self, value, ):
+    def __eq__(self, value, ) -> None:
         """
         Return self==value.
         """
-        return None
+        ...
 
-    def __ne__(self, value, ):
+    def __ne__(self, value, ) -> None:
         """
         Return self!=value.
         """
-        return None
+        ...
 
-    def __gt__(self, value, ):
+    def __gt__(self, value, ) -> None:
         """
         Return self>value.
         """
-        return None
+        ...
 
-    def __ge__(self, value, ):
+    def __ge__(self, value, ) -> None:
         """
         Return self>=value.
         """
-        return None
+        ...
 
-    def __init__(self,  *args, **kwargs):
+    def __init__(self,  *args, **kwargs) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """
-        return None
+        ...
 
-    def __bool__(self, ):
+    def __bool__(self, ) -> None:
         """
         self != 0
         """
-        return None
+        ...
 
-    def __new__(self, *args, **kwargs):
+    def __new__(self, *args, **kwargs) -> None:
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
-        return None
+        ...
 
     def addTag(self, tag: core.Tag) -> core.Tag:
         """
@@ -95,7 +95,7 @@ class SequenceBase(Object):
         @param tag: the tag object to add
         @return: hiero.core.Tag object
         """
-        return Tag()
+        ...
 
     def addTagToRange(self, tag: core.Tag, inTime: int, outTime: int) -> core.Tag:
         """
@@ -106,7 +106,7 @@ class SequenceBase(Object):
         @param outTime: the last time at which the tag is valid
         @return: hiero.core.Tag object
         """
-        return Tag()
+        ...
 
     def binItem(self) -> core.BinItem:
         """
@@ -114,7 +114,7 @@ class SequenceBase(Object):
 
         @return: BinItem
         """
-        return BinItem()
+        ...
 
     def clearInTime(self) -> None:
         """
@@ -122,7 +122,7 @@ class SequenceBase(Object):
 
         @return: None
         """
-        return None
+        ...
 
     def clearOutTime(self) -> None:
         """
@@ -130,7 +130,7 @@ class SequenceBase(Object):
 
         @return: None
         """
-        return None
+        ...
 
     def clearRange(self, start: int, end: int, ripple: bool) -> None:
         """
@@ -140,19 +140,19 @@ class SequenceBase(Object):
         @param end: the end of the range to clear
         @param ripple: set to True to shift the remaining track items to the left
         """
-        return None
+        ...
 
     def disableSoftTrims(self) -> None:
         """
         self.disableSoftTrims() -> disables soft trims on the object.
         """
-        return None
+        ...
 
     def dropFrame(self) -> bool:
         """
         self.dropFrame() -> get whether sequence timecode is displayed in drop frame format
         """
-        return bool()
+        ...
 
     def duration(self) -> int:
         """
@@ -160,15 +160,15 @@ class SequenceBase(Object):
 
         @return: int time value
         """
-        return int()
+        ...
 
-    def editFinished(self, *args, **kwargs):
+    def editFinished(self, *args, **kwargs) -> list:
         """
         self.editFinished(trackItems) -> this should be called after finishing editing the sequence to ensure that its internal state is updated properly and to send a signal to all objects listening to changes in this object (e.g. UI views).This function optionally takes a list of track items that is used to selectively rebuild only those sections of the timeline.This allows a faster update when the edited track items are known.
 
         @param trackItems: optional, the track items to be updated
         """
-        return list()
+        ...
 
     def enableSoftTrims(self, inTime: int, outTime: int) -> None:
         """
@@ -177,7 +177,7 @@ class SequenceBase(Object):
         @param inTime: Time - soft trim in time
         @param outTime: Time - soft trim out time
         """
-        return None
+        ...
 
     def format(self) -> core.Format:
         """
@@ -185,7 +185,7 @@ class SequenceBase(Object):
 
         @return: hiero.core.Format object
         """
-        return Format()
+        ...
 
     def framerate(self) -> core.TimeBase:
         """
@@ -193,13 +193,13 @@ class SequenceBase(Object):
 
         @return: hiero.core.TimeBase object
         """
-        return Number()
+        ...
 
     def getAnnotationsTrack(self) -> core.VideoTrack:
         """
         self.getAnnotationsTrack() -> Returns the annotations track for the Clip or Sequence. If one does not already exist, it will be created.
         """
-        return core.VideoTrack()
+        ...
 
     def inOutEnabled(self) -> bool:
         """
@@ -207,7 +207,7 @@ class SequenceBase(Object):
 
         @return: bool
         """
-        return bool()
+        ...
 
     def inTime(self) -> int:
         """
@@ -215,7 +215,7 @@ class SequenceBase(Object):
 
         @return: frame
         """
-        return int()
+        ...
 
     def isNull(self) -> bool:
         """
@@ -223,7 +223,7 @@ class SequenceBase(Object):
 
         @return: True or False
         """
-        return Union[True, False]
+        ...
 
     def metadata(self) -> core.DataCollection:
         """
@@ -231,7 +231,7 @@ class SequenceBase(Object):
 
         @return: hiero.core.DataCollection object
         """
-        return DataCollection()
+        ...
 
     def name(self) -> str:
         """
@@ -239,7 +239,7 @@ class SequenceBase(Object):
 
         @return: string
         """
-        return str()
+        ...
 
     def outTime(self) -> int:
         """
@@ -247,13 +247,13 @@ class SequenceBase(Object):
 
         @return: frame
         """
-        return int()
+        ...
 
     def posterFrame(self) -> int:
         """
         self.posterFrame() -> get the frame in the sequence used for thumbnails
         """
-        return int()
+        ...
 
     def project(self) -> object:
         """
@@ -261,7 +261,7 @@ class SequenceBase(Object):
 
         @return: hiero.core.Project object
         """
-        return Project()
+        ...
 
     def rawView(self) -> str:
         """
@@ -269,15 +269,15 @@ class SequenceBase(Object):
 
         @return: string
         """
-        return str()
+        ...
 
-    def razorAt(self, *args, **kwargs):
+    def razorAt(self, *args, **kwargs) -> Number:
         """
         self.razorAt(time) -> Creates razor cuts on all of the unlocked tracks for the parameter time(s).
 
         @param time: if a single (integer) value, indicates the razor cut time; if a tuple or list of integer values, then the times to create multiple cuts at
         """
-        return Number()
+        ...
 
     def refreshInOutEnabled(self) -> None:
         """
@@ -285,7 +285,7 @@ class SequenceBase(Object):
 
         @return: None
         """
-        return None
+        ...
 
     def removeTag(self, tag: core.Tag) -> None:
         """
@@ -293,13 +293,13 @@ class SequenceBase(Object):
 
         @param tag: hiero.core.Tag object
         """
-        return None
+        ...
 
     def setDropFrame(self, drop: bool) -> None:
         """
         self.setDropFrame(drop) -> set whether sequence timecode is displayed in drop frame format
         """
-        return None
+        ...
 
     def setFormat(self, format: core.Format) -> None:
         """
@@ -309,7 +309,7 @@ class SequenceBase(Object):
 
         Example: myClipSequence.setFormat( hiero.core.Format(2048, 400, 2.37, 'MyFormat') )
         """
-        return None
+        ...
 
     def setFramerate(self, timeBase: core.TimeBase) -> None:
         """
@@ -317,7 +317,7 @@ class SequenceBase(Object):
 
         @param framerate: framerate value to set
         """
-        return None
+        ...
 
     def setInOutEnabled(self, enable: bool) -> None:
         """
@@ -325,7 +325,7 @@ class SequenceBase(Object):
 
         @return: None
         """
-        return None
+        ...
 
     def setInTime(self, t: int) -> None:
         """
@@ -334,7 +334,7 @@ class SequenceBase(Object):
 
         @return: None
         """
-        return None
+        ...
 
     def setName(self, name: str) -> None:
         """
@@ -342,7 +342,7 @@ class SequenceBase(Object):
 
         @param: string new name
         """
-        return None
+        ...
 
     def setOutTime(self, t: int) -> None:
         """
@@ -351,13 +351,13 @@ class SequenceBase(Object):
 
         @return: None
         """
-        return None
+        ...
 
     def setPosterFrame(self, frame: int) -> None:
         """
         self.setPosterFrame(frame) -> set the frame in the sequence used for thumbnails
         """
-        return None
+        ...
 
     def setSoftTrimsInTime(self, value: int) -> None:
         """
@@ -365,7 +365,7 @@ class SequenceBase(Object):
 
         @param inTime: in frame value for the soft trims
         """
-        return None
+        ...
 
     def setSoftTrimsOutTime(self, value: int) -> None:
         """
@@ -373,9 +373,9 @@ class SequenceBase(Object):
 
         @param outTime: out frame value for the soft trims
         """
-        return None
+        ...
 
-    def setTimecodeStart(self, *args, **kwargs):
+    def setTimecodeStart(self, *args, **kwargs) -> int:
         """
         self.setTimecodeStart(time) -> sets the value of the start timecode by frame. To convert times to frame values, use TimeCode.HMSFToFrames or TimeCode.stringToTime.
         self.setTimecodeStart(timecodeValue, hasDropFrames) -> sets the value of the start timecode by formatted string, using the framerate of the Sequence or Clip as the time base. If just passing in a framerate, pass it in as an integer.
@@ -384,7 +384,7 @@ class SequenceBase(Object):
         @param timecodeValue: string of the format "hh:mm:ss:ff"
         @param hasDropFrames: True if the timecode includes drop frames, False otherwise
         """
-        return int()
+        ...
 
     def softTrimsEnabled(self) -> bool:
         """
@@ -392,7 +392,7 @@ class SequenceBase(Object):
 
         @return: True or False
         """
-        return Union[True, False]
+        ...
 
     def softTrimsInTime(self) -> int:
         """
@@ -400,7 +400,7 @@ class SequenceBase(Object):
 
         @return: frame
         """
-        return int()
+        ...
 
     def softTrimsOutTime(self) -> int:
         """
@@ -408,7 +408,7 @@ class SequenceBase(Object):
 
         @return: frame
         """
-        return int()
+        ...
 
     def tags(self) -> object:
         """
@@ -416,7 +416,7 @@ class SequenceBase(Object):
 
         @return: tuple of hiero.core.Tag objects
         """
-        return tuple()
+        ...
 
     def thumbnail(self, index: int = 0, layer: str = Default(self, Hiero.Python.String)) -> PySide2.QtGui.QImage:
         """
@@ -426,7 +426,7 @@ class SequenceBase(Object):
         @param layer: the layer to get the thumbnail for (defaults to colour)
         @return: QImage object
         """
-        return Any
+        ...
 
     def timecodeStart(self) -> int:
         """
@@ -434,7 +434,7 @@ class SequenceBase(Object):
 
         @return: frame
         """
-        return int()
+        ...
 
     def timelineOffset(self) -> int:
         """
@@ -442,7 +442,7 @@ class SequenceBase(Object):
 
         @return: frame
         """
-        return int()
+        ...
 
     def toString(self) -> str:
         """
@@ -450,9 +450,9 @@ class SequenceBase(Object):
 
         @return: string
         """
-        return str()
+        ...
 
-    def writeAudioToFile(self, *args, **kwargs):
+    def writeAudioToFile(self, *args, **kwargs) -> str:
         """
         self.writeAudioToFile() -> Bounce down audio tracks and write to wav file at specified location. File will be created or overwritten.
 
@@ -464,10 +464,10 @@ class SequenceBase(Object):
         @param bitDepth: sample bit depth (PCM only)
         @param bitRate: audio bitrate in bits (compressed formats only)
         """
-        return str()
+        ...
 
     def __copy__(self,) -> None:
         """
 
         """
-        return None
+        ...

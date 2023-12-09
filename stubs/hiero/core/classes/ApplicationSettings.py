@@ -16,19 +16,19 @@ class ApplicationSettings(Object):
     Helper object to set and get application settings.
     """
 
-    def __init__(self,  *args, **kwargs):
+    def __init__(self,  *args, **kwargs) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """
-        return None
+        ...
 
-    def __new__(self, *args, **kwargs):
+    def __new__(self, *args, **kwargs) -> None:
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
-        return None
+        ...
 
-    def boolValue(self, *args, **kwargs):
+    def boolValue(self, *args, **kwargs) -> str:
         """
         self.boolValue(key, defaultValue) -> returns the previously stored value as True or False, named by the key parameter, or the defaultValue parameter
         self.boolValue(key) ->  returns the previously stored value as True or False, named by the key parameter, or the default value as configured (if configured) by the Hiero code. Use this method if you're looking up a value used by Hiero internally.
@@ -38,7 +38,7 @@ class ApplicationSettings(Object):
         @param defaultValue: the value to return if this setting hasn't been saved before. Does not save the value to the default.
         @return: string
         """
-        return str()
+        ...
 
     def setBoolValue(self, key: str, value: bool) -> None:
         """
@@ -47,9 +47,9 @@ class ApplicationSettings(Object):
         @param key: string name of the value to retrieve
         @param value: the bool (True or False) value to save.
         """
-        return None
+        ...
 
-    def setValueOverride(self, name, value):
+    def setValueOverride(self, name, value) -> None:
         """
         self.setValue(key, value) -> saves the value with the application's settings using the key
 
@@ -57,9 +57,9 @@ class ApplicationSettings(Object):
 
         @param value: the value to store
         """
-        return None
+        ...
 
-    def getValueOverride(self, name, defaultValue=None):
+    def getValueOverride(self, name, defaultValue=None) -> int:
         """
         self.value(key, defaultValue=None) -> returns the previously stored string value named by the key parameter, or the defaultValue parameter
 
@@ -67,10 +67,10 @@ class ApplicationSettings(Object):
         @param defaultValue: the value to return if this setting hasn't been saved before. Does not save the value to the default
         @return: string, unless the defaultValue is set, in which case, the return value will be the same type as the defaultValue (string, int or bool)
         """
-        return int()
+        ...
 
     def __copy__(self,) -> None:
         """
 
         """
-        return None
+        ...

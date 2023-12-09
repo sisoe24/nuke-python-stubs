@@ -16,36 +16,36 @@ class ViewerCursorTool(QObject):
     QObject(self, parent: typing.Optional[PySide2.QtCore.QObject] = None) -> None
     """
 
-    def __setattr__(self, name, value, ):
+    def __setattr__(self, name, value, ) -> None:
         """
         Implement setattr(self, name, value).
         """
-        return None
+        ...
 
-    def __delattr__(self, name, ):
+    def __delattr__(self, name, ) -> None:
         """
         Implement delattr(self, name).
         """
-        return None
+        ...
 
-    def __new__(self, *args, **kwargs):
+    def __new__(self, *args, **kwargs) -> None:
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
-        return None
+        ...
 
     def setCursors(self, cursors: typing.List[ui.ViewerCursor]) -> None:
         """
 
         """
-        return None
+        ...
 
     cursorPositionChanged = Signal()
     cursorLeave = Signal()
     staticMetaObject: Any = None
 
-    def __init__(self,  *args, **kwargs):
+    def __init__(self,  *args, **kwargs) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """
-        return None
+        ...

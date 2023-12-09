@@ -22,57 +22,57 @@ class TimeBase(Object):
         """
         Return repr(self).
         """
-        return None
+        ...
 
-    def __lt__(self, value, ):
+    def __lt__(self, value, ) -> None:
         """
         Return self<value.
         """
-        return None
+        ...
 
-    def __le__(self, value, ):
+    def __le__(self, value, ) -> None:
         """
         Return self<=value.
         """
-        return None
+        ...
 
-    def __eq__(self, value, ):
+    def __eq__(self, value, ) -> None:
         """
         Return self==value.
         """
-        return None
+        ...
 
-    def __ne__(self, value, ):
+    def __ne__(self, value, ) -> None:
         """
         Return self!=value.
         """
-        return None
+        ...
 
-    def __gt__(self, value, ):
+    def __gt__(self, value, ) -> None:
         """
         Return self>value.
         """
-        return None
+        ...
 
-    def __ge__(self, value, ):
+    def __ge__(self, value, ) -> None:
         """
         Return self>=value.
         """
-        return None
+        ...
 
-    def __init__(self,  *args, **kwargs):
+    def __init__(self,  *args, **kwargs) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """
-        return None
+        ...
 
-    def __new__(self, *args, **kwargs):
+    def __new__(self, *args, **kwargs) -> None:
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
-        return None
+        ...
 
-    def convert(self, *args, **kwargs):
+    def convert(self, *args, **kwargs) -> Any:
         """
         staticmethod(function) -> method
 
@@ -93,7 +93,7 @@ class TimeBase(Object):
         Static methods in Python are similar to those found in Java or C++.
         For a more advanced concept, see the classmethod builtin.
         """
-        return Any
+        ...
 
     def convertTime(self, t: int, toRate: core.TimeBase) -> int:
         """
@@ -104,16 +104,16 @@ class TimeBase(Object):
         @param toRate: the new time time to convert to
         @return: integer
         """
-        return int()
+        ...
 
     def denominator(self) -> int:
         """
         self.denominator() -> gets the denominator of the time base.
         @return: int
         """
-        return int()
+        ...
 
-    def fromRational(self, *args, **kwargs):
+    def fromRational(self, *args, **kwargs) -> Any:
         """
         staticmethod(function) -> method
 
@@ -134,9 +134,9 @@ class TimeBase(Object):
         Static methods in Python are similar to those found in Java or C++.
         For a more advanced concept, see the classmethod builtin.
         """
-        return Any
+        ...
 
-    def fromString(self, *args, **kwargs):
+    def fromString(self, *args, **kwargs) -> Any:
         """
         staticmethod(function) -> method
 
@@ -157,7 +157,7 @@ class TimeBase(Object):
         Static methods in Python are similar to those found in Java or C++.
         For a more advanced concept, see the classmethod builtin.
         """
-        return Any
+        ...
 
     def isNTSC(self) -> bool:
         """
@@ -165,7 +165,7 @@ class TimeBase(Object):
 
         @return: True or False
         """
-        return Union[True, False]
+        ...
 
     def isValid(self) -> bool:
         """
@@ -173,14 +173,14 @@ class TimeBase(Object):
 
         @return: True or False
         """
-        return Union[True, False]
+        ...
 
     def numerator(self) -> int:
         """
         self.numerator() -> gets the numerator of the time base.
         @return: int
         """
-        return int()
+        ...
 
     def supportsDropFrames(self) -> bool:
         """
@@ -188,7 +188,7 @@ class TimeBase(Object):
 
         @return: True or False
         """
-        return Union[True, False]
+        ...
 
     def toFloat(self) -> float:
         """
@@ -196,7 +196,7 @@ class TimeBase(Object):
 
         @return: float
         """
-        return float()
+        ...
 
     def toInt(self) -> int:
         """
@@ -204,7 +204,7 @@ class TimeBase(Object):
 
         @return: int
         """
-        return int()
+        ...
 
     def toRational(self) -> typing.Tuple[int, int]:
         """
@@ -212,7 +212,7 @@ class TimeBase(Object):
 
         @return: tuple of integers
         """
-        return tuple()
+        ...
 
     def toRationalString(self) -> str:
         """
@@ -220,7 +220,7 @@ class TimeBase(Object):
 
         @return: string
         """
-        return str()
+        ...
 
     def toString(self) -> str:
         """
@@ -228,13 +228,13 @@ class TimeBase(Object):
 
         @return: string
         """
-        return str()
+        ...
 
     def __copy__(self,) -> None:
         """
 
         """
-        return None
+        ...
 
     __hash__: Any = None
     RoundingMode: Any = None

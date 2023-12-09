@@ -16,23 +16,23 @@ class ReformatState(Object):
     Object representing a the reformatting settings for a track item.  This corresponds to the Nuke 'Reformat' node.
     """
 
-    def __init__(self,  *args, **kwargs):
+    def __init__(self,  *args, **kwargs) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """
-        return None
+        ...
 
-    def __bool__(self, ):
+    def __bool__(self, ) -> None:
         """
         self != 0
         """
-        return None
+        ...
 
-    def __new__(self, *args, **kwargs):
+    def __new__(self, *args, **kwargs) -> None:
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
-        return None
+        ...
 
     def boxForceShape(self) -> bool:
         """
@@ -40,7 +40,7 @@ class ReformatState(Object):
 
         @return: bool
         """
-        return bool()
+        ...
 
     def boxPAR(self) -> float:
         """
@@ -48,7 +48,7 @@ class ReformatState(Object):
 
         @return: double
         """
-        return float()
+        ...
 
     def boxSize(self) -> PySide2.QtCore.QSize:
         """
@@ -56,13 +56,13 @@ class ReformatState(Object):
 
         @return: QSize
         """
-        return Any
+        ...
 
     def isNull(self) -> bool:
         """
 
         """
-        return bool()
+        ...
 
     def originalResizeFlip(self) -> bool:
         """
@@ -70,7 +70,7 @@ class ReformatState(Object):
 
         @return: bool
         """
-        return bool()
+        ...
 
     def originalResizeFlop(self) -> bool:
         """
@@ -78,7 +78,7 @@ class ReformatState(Object):
 
         @return: bool
         """
-        return bool()
+        ...
 
     def originalResizeTurn(self) -> bool:
         """
@@ -86,7 +86,7 @@ class ReformatState(Object):
 
         @return: bool
         """
-        return bool()
+        ...
 
     def originalType(self) -> str:
         """
@@ -94,7 +94,7 @@ class ReformatState(Object):
 
         @return: string
         """
-        return str()
+        ...
 
     def resizeCenter(self) -> bool:
         """
@@ -102,7 +102,7 @@ class ReformatState(Object):
 
         @return: bool
         """
-        return bool()
+        ...
 
     def resizeFlip(self) -> bool:
         """
@@ -110,7 +110,7 @@ class ReformatState(Object):
 
         @return: bool
         """
-        return bool()
+        ...
 
     def resizeFlop(self) -> bool:
         """
@@ -118,7 +118,7 @@ class ReformatState(Object):
 
         @return: bool
         """
-        return bool()
+        ...
 
     def resizeTurn(self) -> bool:
         """
@@ -126,7 +126,7 @@ class ReformatState(Object):
 
         @return: bool
         """
-        return bool()
+        ...
 
     def resizeType(self) -> str:
         """
@@ -134,7 +134,7 @@ class ReformatState(Object):
 
         @return: string
         """
-        return str()
+        ...
 
     def scale(self) -> float:
         """
@@ -142,7 +142,7 @@ class ReformatState(Object):
 
         @return: double
         """
-        return float()
+        ...
 
     def setBoxForceShape(self, force: bool) -> None:
         """
@@ -150,7 +150,7 @@ class ReformatState(Object):
 
         @param setBoxForceShape: bool
         """
-        return None
+        ...
 
     def setBoxPAR(self, PAR: float) -> None:
         """
@@ -158,7 +158,7 @@ class ReformatState(Object):
 
         @param PAR: double
         """
-        return None
+        ...
 
     def setBoxSize(self, size: PySide2.QtCore.QSize) -> None:
         """
@@ -166,7 +166,7 @@ class ReformatState(Object):
 
         @param size: QSize
         """
-        return None
+        ...
 
     def setResizeCenter(self, center: bool) -> None:
         """
@@ -174,25 +174,25 @@ class ReformatState(Object):
 
         @param center: bool
         """
-        return None
+        ...
 
     def setResizeFlip(self, flip: bool) -> None:
         """
         self.setResizeFlip() -> the flip option has been removed, this method exists only for compatibility reasons
         """
-        return None
+        ...
 
     def setResizeFlop(self, flop: bool) -> None:
         """
         self.setResizeFlop() -> the flop option has been removed, this method exists only for compatibility reasons
         """
-        return None
+        ...
 
     def setResizeTurn(self, turn: bool) -> None:
         """
         self.setResizeTurn() -> the turn option has been removed, this method exists only for compatibility reasons
         """
-        return None
+        ...
 
     def setResizeType(self, newResizeType: str) -> None:
         """
@@ -200,13 +200,13 @@ class ReformatState(Object):
 
         @param newResizeType: string
         """
-        return None
+        ...
 
     def setScale(self, value: float) -> None:
         """
         self.setScale() -> the scale option has been removed, this method exists only for compatibility reasons
         """
-        return None
+        ...
 
     def setType(self, newType: str) -> None:
         """
@@ -214,7 +214,7 @@ class ReformatState(Object):
 
         @param newType: string
         """
-        return None
+        ...
 
     def toString(self) -> str:
         """
@@ -222,7 +222,7 @@ class ReformatState(Object):
 
         @return: string
         """
-        return str()
+        ...
 
     def type(self) -> str:
         """
@@ -230,10 +230,10 @@ class ReformatState(Object):
 
         @return: string
         """
-        return str()
+        ...
 
     def __copy__(self,) -> None:
         """
 
         """
-        return None
+        ...

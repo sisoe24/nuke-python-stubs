@@ -16,29 +16,29 @@ class Viewer(QObject):
     Object for manipulating viewers in Hiero. Get the currently active viewer by calling hiero.ui.currentViewer().
     """
 
-    def __setattr__(self, name, value, ):
+    def __setattr__(self, name, value, ) -> None:
         """
         Implement setattr(self, name, value).
         """
-        return None
+        ...
 
-    def __delattr__(self, name, ):
+    def __delattr__(self, name, ) -> None:
         """
         Implement delattr(self, name).
         """
-        return None
+        ...
 
-    def __new__(self, *args, **kwargs):
+    def __new__(self, *args, **kwargs) -> None:
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
-        return None
+        ...
 
     def annotationTool(self) -> ui.ViewerTool:
         """
         self.annotationTool() -> return the annotation tool for this viewer.
         """
-        return ui.ViewerTool()
+        ...
 
     def availableGuideOverlayNames(self) -> typing.Set[str]:
         """
@@ -46,7 +46,7 @@ class Viewer(QObject):
 
         @return: The names of all the guide overlays available in the viewer
         """
-        return str()
+        ...
 
     def cachedFrames(self) -> typing.Set[int]:
         """
@@ -54,7 +54,7 @@ class Viewer(QObject):
 
         @return: set containing the indices of the cached frames
         """
-        return int()
+        ...
 
     def channels(self) -> ui.Player.Channels:
         """
@@ -62,7 +62,7 @@ class Viewer(QObject):
 
         @return: a Viewer clip player's current channels
         """
-        return Viewer()
+        ...
 
     def compareMode(self) -> ui.Viewer.CompareMode:
         """
@@ -70,7 +70,7 @@ class Viewer(QObject):
 
         @return: a Viewer.CompareMode object
         """
-        return Viewer()
+        ...
 
     def currentLayerName(self) -> str:
         """
@@ -78,13 +78,13 @@ class Viewer(QObject):
 
         @return: a Viewer clip player's channels layer name
         """
-        return str()
+        ...
 
     def cursorTool(self) -> ui.ViewerCursorTool:
         """
 
         """
-        return ui.ViewerCursorTool()
+        ...
 
     def displayDropFrames(self) -> bool:
         """
@@ -92,7 +92,7 @@ class Viewer(QObject):
 
         @return: True if the display frames are being displayed
         """
-        return bool()
+        ...
 
     def displayTimecode(self) -> bool:
         """
@@ -100,25 +100,25 @@ class Viewer(QObject):
 
         @return: True if the timecode is being displayed
         """
-        return bool()
+        ...
 
     def enterFullScreen(self) -> None:
         """
         self.enterFullScreen() -> puts the viewer into full screen mode. Can only be called from the user interface thread. Use hiero.core.executeInMainThread if you need to call it from a non-ui thread.
         """
-        return None
+        ...
 
     def exitFullScreen(self) -> None:
         """
         self.exitFullScreen() -> takes the viewer out of full screen mode. Can only be called from the user interface thread. Use hiero.core.executeInMainThread if you need to call it from a non-ui thread.
         """
-        return None
+        ...
 
     def flushCache(self) -> None:
         """
         self.flushCache() -> flush the cache on the viewer and pause caching.
         """
-        return None
+        ...
 
     def frameIncrement(self) -> int:
         """
@@ -126,7 +126,7 @@ class Viewer(QObject):
 
         @return: the number of frames to skip or nudge
         """
-        return Number()
+        ...
 
     def gain(self) -> float:
         """
@@ -134,7 +134,7 @@ class Viewer(QObject):
 
         @return: a Viewer clip player's gain value
         """
-        return Viewer()
+        ...
 
     def gamma(self) -> float:
         """
@@ -142,7 +142,7 @@ class Viewer(QObject):
 
         @return: a Viewer clip player's gamma value
         """
-        return Viewer()
+        ...
 
     def getAchievedFPS(self) -> float:
         """
@@ -150,31 +150,31 @@ class Viewer(QObject):
 
         @return: floating point frames per second average
         """
-        return float()
+        ...
 
     def goToNextEdit(self) -> None:
         """
         self.goToNextEdit() -> Move playhead to next edit. Can only be called from the user interface thread.
         """
-        return None
+        ...
 
     def goToNextTag(self) -> None:
         """
         self.goToNextTag() -> Move playhead to next tag. Can only be called from the user interface thread.
         """
-        return None
+        ...
 
     def goToPrevEdit(self) -> None:
         """
         self.goToPrevEdit() -> Move playhead to previous edit. Can only be called from the user interface thread.
         """
-        return None
+        ...
 
     def goToPrevTag(self) -> None:
         """
         self.goToPrevTag() -> Move playhead to previous tag. Can only be called from the user interface thread.
         """
-        return None
+        ...
 
     def image(self) -> PySide2.QtGui.QImage:
         """
@@ -182,7 +182,7 @@ class Viewer(QObject):
 
         @return: a PySide2.QtGui.QImage object
         """
-        return Any
+        ...
 
     def isCachingPaused(self) -> bool:
         """
@@ -190,7 +190,7 @@ class Viewer(QObject):
 
         @return: bool
         """
-        return bool()
+        ...
 
     def layoutMode(self) -> ui.Viewer.LayoutMode:
         """
@@ -198,7 +198,7 @@ class Viewer(QObject):
 
         @return: a Viewer.LayoutMode object
         """
-        return Viewer()
+        ...
 
     def maskOverlayName(self) -> str:
         """
@@ -206,7 +206,7 @@ class Viewer(QObject):
 
         @return: The name of the mask overlay currently active in the viewer
         """
-        return str()
+        ...
 
     def maskOverlayStyle(self) -> ui.Player.MaskOverlayStyle:
         """
@@ -214,7 +214,7 @@ class Viewer(QObject):
 
         @return: The current mask overlay style active in the viewer
         """
-        return ui.Player.MaskOverlayStyle()
+        ...
 
     def overlaysShown(self) -> bool:
         """
@@ -222,31 +222,31 @@ class Viewer(QObject):
 
         @return: bool
         """
-        return bool()
+        ...
 
     def pauseCaching(self) -> None:
         """
         self.pauseCaching() -> pause caching on the viewer.
         """
-        return None
+        ...
 
     def play(self) -> None:
         """
         self.play() -> starts playback in the viewer in the forward direction. Can only be called from the user interface thread. Use hiero.core.executeInMainThread if you need to call it from a non-ui thread.
         """
-        return None
+        ...
 
     def playBackwards(self) -> None:
         """
         self.playBackwards() -> starts playback in the viewer in the backwards direction. Can only be called from the user interface thread. Use hiero.core.executeInMainThread if you need to call it from a non-ui thread.
         """
-        return None
+        ...
 
     def playForwards(self) -> None:
         """
         self.playForwards() -> starts playback in the viewer in the forward direction. Can only be called from the user interface thread. Use hiero.core.executeInMainThread if you need to call it from a non-ui thread.
         """
-        return None
+        ...
 
     def playbackMode(self) -> ui.Viewer.PlaybackMode:
         """
@@ -254,13 +254,13 @@ class Viewer(QObject):
 
         @return: a Viewer.PlaybackMode object
         """
-        return Viewer()
+        ...
 
     def playbackSpeed(self) -> int:
         """
         self.playbackSpeed() -> Get the current playback speed, which will be 0 if playback is not currently in progress.
         """
-        return int()
+        ...
 
     def player(self, index: int = 0) -> ui.Player:
         """
@@ -269,13 +269,13 @@ class Viewer(QObject):
         @param index: integer index of the player to retrieve
         @return: hiero.ui.Player object
         """
-        return Player()
+        ...
 
     def resumeCaching(self) -> None:
         """
         self.resumeCaching() -> resume caching on the viewer.
         """
-        return None
+        ...
 
     def selectedGuideOverlayNames(self) -> typing.Set[str]:
         """
@@ -283,7 +283,7 @@ class Viewer(QObject):
 
         @return: The names of all the guide overlays currently active in the viewer
         """
-        return str()
+        ...
 
     def setChannels(self, channels: ui.Player.Channels) -> None:
         """
@@ -291,7 +291,7 @@ class Viewer(QObject):
 
         @param channels: the channels to be set in the viewer
         """
-        return None
+        ...
 
     def setCompareMode(self, mode: ui.Viewer.CompareMode) -> None:
         """
@@ -299,7 +299,7 @@ class Viewer(QObject):
 
         @param compareMode: a Viewer.CompareMode value
         """
-        return None
+        ...
 
     def setDisplayTimecode(self, displayTimecode: bool) -> None:
         """
@@ -307,7 +307,7 @@ class Viewer(QObject):
 
         @return: None
         """
-        return None
+        ...
 
     def setFrameIncrement(self, frameIncrement: int) -> None:
         """
@@ -315,7 +315,7 @@ class Viewer(QObject):
 
         @param frames: the number of frames to skip or nudge
         """
-        return None
+        ...
 
     def setGain(self, gain: float) -> None:
         """
@@ -323,7 +323,7 @@ class Viewer(QObject):
 
         @param gain: a gain value to be set in the viewer
         """
-        return None
+        ...
 
     def setGamma(self, gamma: float) -> None:
         """
@@ -331,7 +331,7 @@ class Viewer(QObject):
 
         @param gamma: a gamma value to be set in the viewer
         """
-        return None
+        ...
 
     def setGuideOverlayFromRemote(self, overlayNames: typing.Set[str], remoteOverlaysAvailable: typing.Set[str]) -> None:
         """
@@ -340,7 +340,7 @@ class Viewer(QObject):
         @param overlayNames: the names of the overlays to be set
         @param remoteOverlaysAvailable: the names of the overlays that are available to the remote client
         """
-        return None
+        ...
 
     def setLayer(self, layerName: str) -> None:
         """
@@ -348,7 +348,7 @@ class Viewer(QObject):
 
         @param layerName: the name of the channels layer to be set in the viewer
         """
-        return None
+        ...
 
     def setLayoutMode(self, layoutMode: ui.Viewer.LayoutMode) -> None:
         """
@@ -356,7 +356,7 @@ class Viewer(QObject):
 
         @param layoutMode: a Viewer.LayoutMode value indicating what layout to set the viewer to
         """
-        return None
+        ...
 
     def setMaskOverlayFromRemote(self, overlayName: str) -> None:
         """
@@ -364,7 +364,7 @@ class Viewer(QObject):
 
         @param remoteOverlayName: the name of the overlay to be set
         """
-        return None
+        ...
 
     def setMaskOverlayStyle(self, pyStyle: ui.Player.MaskOverlayStyle) -> None:
         """
@@ -372,7 +372,7 @@ class Viewer(QObject):
 
         @param pyStyle: the mask style to be set in the viewer
         """
-        return None
+        ...
 
     def setOverlaysShown(self, show: bool) -> None:
         """
@@ -380,7 +380,7 @@ class Viewer(QObject):
 
         @param show: bool
         """
-        return None
+        ...
 
     def setPlaybackMode(self, mode: ui.Viewer.PlaybackMode) -> None:
         """
@@ -388,13 +388,13 @@ class Viewer(QObject):
 
         @param mode: a Viewer.PlaybackMode value
         """
-        return None
+        ...
 
     def setPlaybackSpeed(self, speed: int) -> None:
         """
         self.setPlaybackSpeed(speed) -> Set the current playback speed. Setting to 0 will stop, -1 play in reverse, etc.
         """
-        return None
+        ...
 
     def setPlayer(self, index: int) -> None:
         """
@@ -402,7 +402,7 @@ class Viewer(QObject):
 
         @param index: integer index of the player to set as the active player
         """
-        return None
+        ...
 
     def setSequence(self, sequence: core.SequenceBase, indexOfPlayer: int) -> None:
         """
@@ -411,7 +411,7 @@ class Viewer(QObject):
         @param sequence: the sequence to set on this viewer
         @param indexOfPlayer: index to specify which of the players the sequence should be set on
         """
-        return None
+        ...
 
     def setTime(self, time: int) -> None:
         """
@@ -419,7 +419,7 @@ class Viewer(QObject):
 
         @param time: frame to set the play head to
         """
-        return None
+        ...
 
     def setTimeDisplayFormat(self, displayTimecode: bool, displayDropFrames: bool) -> None:
         """
@@ -428,7 +428,7 @@ class Viewer(QObject):
         @param displayTimecode: Display timecode
         @param displayDropFrames: Display drop frames
         """
-        return None
+        ...
 
     def setTracksMask(self, indexOfPlayer: int, tracksMask: ui.TracksMask) -> None:
         """
@@ -437,7 +437,7 @@ class Viewer(QObject):
         @param indexOfPlayer: integer index of the player
         @param tracksMask: TracksMask instance
         """
-        return None
+        ...
 
     def setView(self, name: str, viewIndex: int = 0) -> None:
         """
@@ -445,13 +445,13 @@ class Viewer(QObject):
         @param name: string
         @param viewIndex: optional; integer (for example in stereo a viewIndex of 0 corresponds to the primary view and 1 to the secondary view)
         """
-        return None
+        ...
 
     def stop(self) -> None:
         """
         self.stop() -> stops playback in the viewer. Can only be called from the user interface thread. Use hiero.core.executeInMainThread if you need to call it from a non-ui thread.
         """
-        return None
+        ...
 
     def syncShuttleTargetFPS(self, fps: float) -> None:
         """
@@ -459,7 +459,7 @@ class Viewer(QObject):
 
         @param fps: Target frame rate for the shuttle tool
         """
-        return None
+        ...
 
     def syncTargetFrameRate(self, numerator: int, denominator: int) -> None:
         """
@@ -468,25 +468,25 @@ class Viewer(QObject):
         @param numerator: Numerator of the target frame rate
         @param denominator: Denominator of the target frame rate
         """
-        return None
+        ...
 
     def time(self) -> int:
         """
         self.time() -> returns the current frame of the viewer.
         """
-        return int()
+        ...
 
     def toggleFullScreen(self) -> None:
         """
         self.toggleFullScreen() -> toggles full screen mode for the viewer. Can only be called from the user interface thread. Use hiero.core.executeInMainThread if you need to call it from a non-ui thread.
         """
-        return None
+        ...
 
     def toggleFullScreen1_1(self) -> None:
         """
         self.toggleFullScreen1_1() -> toggles 1:1 full screen mode for the viewer. Can only be called from the user interface thread. Use hiero.core.executeInMainThread if you need to call it from a non-ui thread.
         """
-        return None
+        ...
 
     def tracksMask(self, indexOfPlayer: int) -> ui.TracksMask:
         """
@@ -495,26 +495,26 @@ class Viewer(QObject):
         @param indexOfPlayer: integer index of the player
         @return: TracksMask instance
         """
-        return TracksMask()
+        ...
 
     def view(self, viewIndex: int = 0) -> str:
         """
         view(viewIndex) -> Returns the name of the active view for viewIndex.
         @param viewIndex: optional; integer (for example in stereo a viewIndex of 0 corresponds to the primary view and 1 to the secondary view)
         """
-        return str()
+        ...
 
     def window(self) -> PySide2.QtWidgets.QWidget:
         """
         self.window() -> Return the viewer window
         """
-        return Any
+        ...
 
     def wipeTool(self) -> ui.ViewerWipeTool:
         """
         self.wipeTool() -> return the wipe tool for this viewer
         """
-        return ui.ViewerWipeTool()
+        ...
 
     LayoutMode: Any = None
     eLayoutWipe: Any = None
@@ -536,28 +536,28 @@ class Viewer(QObject):
     ePlaybackBounce: Any = None
     ePlaybackStop: Any = None
     ePlaybackContinue: Any = None
-    maskOverlayStyleChanged = Signal()
-    gainChanged = Signal()
+    guideOverlayChanged = Signal()
     transformChanged = Signal()
-    targetFrameRateChanged = Signal()
-    shuttleTargetFPSChanged = Signal()
-    playbackModeChanged = Signal()
+    maskOverlayChanged = Signal()
     gammaChanged = Signal()
+    channelsChanged = Signal()
+    sequenceChanged = Signal()
+    currentLayerChanged = Signal()
     timeDisplayFormatChanged = Signal()
+    layoutModeChanged = Signal()
+    gainChanged = Signal()
+    maskOverlayStyleChanged = Signal()
+    playbackSpeedChanged = Signal()
     compareModeChanged = Signal()
     trackSelectionChanged = Signal()
+    shuttleTargetFPSChanged = Signal()
     frameDisplayed = Signal()
+    targetFrameRateChanged = Signal()
     timeChanged = Signal()
-    channelsChanged = Signal()
-    guideOverlayChanged = Signal()
-    playbackSpeedChanged = Signal()
-    sequenceChanged = Signal()
-    maskOverlayChanged = Signal()
-    layoutModeChanged = Signal()
-    currentLayerChanged = Signal()
+    playbackModeChanged = Signal()
     staticMetaObject: Any = None
 
-    def _goToTag(self, tag: str):
+    def _goToTag(self, tag: str) -> None:
         """
         Move playhead to Tag.
         If Tag (Tag Object or Tag name) does not exists on the Viewer's Sequence/Clip
@@ -565,46 +565,46 @@ class Viewer(QObject):
 
         @param tag: a Tag object or the name of the desired tag.
         """
-        return None
+        ...
 
-    def _goToInTime(self):
+    def _goToInTime(self) -> None:
         """
         Move playhead to In point
         """
-        return None
+        ...
 
-    def _goToOutTime(self):
+    def _goToOutTime(self) -> None:
         """
         Move playhead to Out point
         """
-        return None
+        ...
 
-    def _goToTrackItemStart(self, trackItem: Iterable):
+    def _goToTrackItemStart(self, trackItem: Iterable) -> None:
         """
         Move playhead to start of the trackItem.
 
         @param trackItem: sequence's track item.
         """
-        return None
+        ...
 
-    def _goToTrackItemEnd(self, trackItem: Iterable):
+    def _goToTrackItemEnd(self, trackItem: Iterable) -> None:
         """
         Move playhead to end of the trackItem.
 
         @param trackItem: sequence's track item.
         """
-        return None
+        ...
 
-    def _goToTrackItemMiddle(self, trackItem: Iterable):
+    def _goToTrackItemMiddle(self, trackItem: Iterable) -> None:
         """
         Move playhead to middle of the trackItem.
 
         @param trackItem: sequence's track item.
         """
-        return None
+        ...
 
-    def __init__(self,  *args, **kwargs):
+    def __init__(self,  *args, **kwargs) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """
-        return None
+        ...

@@ -20,56 +20,56 @@ class UndoGroup(Object):
         // Undoable edits
     """
 
-    def __init__(self,  *args, **kwargs):
+    def __init__(self,  *args, **kwargs) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """
-        return None
+        ...
 
-    def __bool__(self, ):
+    def __bool__(self, ) -> None:
         """
         self != 0
         """
-        return None
+        ...
 
-    def __new__(self, *args, **kwargs):
+    def __new__(self, *args, **kwargs) -> None:
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
-        return None
+        ...
 
     def __enter__(self) -> None:
         """
         self.__enter__() -> Allows usage in a with block to automatically end the undo.
         """
-        return None
+        ...
 
     def __exit__(self, arg__1: object, arg__2: object, arg__3: object) -> None:
         """
         self.__exit__() -> Calls self.endUndo().  This allows usage in a with block to automatically end the undo.
         """
-        return Any
+        ...
 
     def beginUndo(self) -> None:
         """
         self.beginUndo() -> starts a new undo action on the project with the initialised name.  See hiero.core.Project.beginUndo()
         """
-        return None
+        ...
 
     def endUndo(self) -> None:
         """
         self.endUndo() -> ends the undo action on the project
         """
-        return None
+        ...
 
     def isNull(self) -> bool:
         """
 
         """
-        return bool()
+        ...
 
     def __copy__(self,) -> None:
         """
 
         """
-        return None
+        ...

@@ -13,86 +13,86 @@ class GlobalsEnvironment(object):
     nuke.env['threads'] = 4
     """
 
-    def __repr__(self, ):
+    def __repr__(self, ) -> None:
         """
         Return repr(self).
         """
-        return None
+        ...
 
-    def __hash__(self, ):
+    def __hash__(self, ) -> None:
         """
         Return hash(self).
         """
-        return None
+        ...
 
-    def __len__(self, ):
+    def __len__(self, ) -> None:
         """
         Return len(self).
         """
-        return None
+        ...
 
-    def __getitem__(self, key, ):
+    def __getitem__(self, key, ) -> None:
         """
         Return self[key].
         """
-        return None
+        ...
 
-    def __setitem__(self, key, value, ):
+    def __setitem__(self, key, value, ) -> None:
         """
         Set self[key] to value.
         """
-        return None
+        ...
 
-    def __delitem__(self, key, ):
+    def __delitem__(self, key, ) -> None:
         """
         Delete self[key].
         """
-        return None
+        ...
 
-    def __new__(self, *args, **kwargs):
+    def __new__(self, *args, **kwargs) -> None:
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
-        return None
+        ...
 
-    def __contains__(self, *args, **kwargs):
+    def __contains__(self, *args, **kwargs) -> None:
         """
 
         """
-        return None
+        ...
 
-    def keys(self, *args, **kwargs):
+    def keys(self, *args, **kwargs) -> None:
         """
 
         """
-        return None
+        ...
 
-    def has_key(self, *args, **kwargs):
+    def has_key(self, *args, **kwargs) -> None:
         """
 
         """
-        return None
+        ...
 
-    def values(self, *args, **kwargs):
+    def values(self, *args, **kwargs) -> None:
         """
 
         """
-        return None
+        ...
 
-    def get(self, *args, **kwargs):
+    def get(self, *args, **kwargs) -> None:
         """
 
         """
-        return None
+        ...
 
-    def items(self, *args, **kwargs):
+    def items(self, *args, **kwargs) -> None:
         """
 
         """
-        return None
+        ...
 
-    def __init__(self,  *args, **kwargs):
+    def __init__(self,  *args, **kwargs) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """
-        return None
+        ...

@@ -20,70 +20,70 @@ class ExportStructure2(IExportStructure):
     of paths and task presets.
     """
 
-    def __init__(self):
+    def __init__(self) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """
-        return None
+        ...
 
-    def rootElement(self):
+    def rootElement(self) -> None:
         """
         Return the root element in this hierarchy.
         The root element is not included in the path generation
         """
-        return None
+        ...
 
-    def findElementsByPath(self, path):
+    def findElementsByPath(self, path) -> None:
         """
         Find the elements matching path. Returns a list.
         """
-        return None
+        ...
 
-    def exportRootPath(self):
+    def exportRootPath(self) -> None:
         """
         Returns the exportRootPath, the root of the export into which the export structure is built
         """
-        return None
+        ...
 
-    def setExportRootPath(self, rootPath):
+    def setExportRootPath(self, rootPath) -> None:
         """
         Set the exportRootPath, the root of the export into which the export structure is built
         """
-        return None
+        ...
 
-    def _fromXml(self, element):
+    def _fromXml(self, element) -> None:
         """
 
         """
-        return None
+        ...
 
-    def _toXml(self, parent):
+    def _toXml(self, parent) -> None:
         """
 
         """
-        return None
+        ...
 
-    def restore(self, sequence):
+    def restore(self, sequence) -> None:
         """
         Restore the hierarchy from a list of (path, preset) tuples
         """
-        return None
+        ...
 
-    def _traverse(self, element):
+    def _traverse(self, element) -> None:
         """
         Helper for flatten. Recursively traverse the structure, building a list
         of (path, preset) tuples for each element with no children.
         """
-        return None
+        ...
 
-    def flatten(self):
+    def flatten(self) -> None:
         """
         Return the hierarchy as a list of (path, preset) tuples
         """
-        return None
+        ...
 
-    def __repr__(self):
+    def __repr__(self) -> None:
         """
         Return repr(self).
         """
-        return None
+        ...

@@ -104,7 +104,7 @@ env = {'64bit': '', 'ExecutablePath': '', 'ExternalPython': '', 'LINUX': '', 'MA
 # Built-in methods
 
 
-def activeViewer():
+def activeViewer() -> ViewerWindow:
     """
     activeViewer() -> ViewerWindow
 
@@ -113,10 +113,10 @@ def activeViewer():
 
     :return: Object representing the active ViewerWindow
     """
-    return ViewerWindow()
+    ...
 
 
-def addFavoriteDir(name: str, directory: str, type: str = None, icon: str = None, tooltip: str = None, key: str = None):
+def addFavoriteDir(name: str, directory: str, type: Optional[str] = None, icon: Optional[str] = None, tooltip: Optional[str] = None, key: Optional[str] = None) -> None:
     """
     addFavoriteDir(name, directory, type, icon, tooltip, key) -> None.
 
@@ -130,10 +130,10 @@ def addFavoriteDir(name: str, directory: str, type: str = None, icon: str = None
     :param key: Optional shortcut key.
     :return: None.
     """
-    return None
+    ...
 
 
-def addFormat(s: str):
+def addFormat(s: str) -> Union[Format, None]:
     """
     addFormat(s) -> Format or None.
 
@@ -145,10 +145,10 @@ def addFormat(s: str):
     :param s: String in TCL format \w h ?x y r t? ?pa? name\.
     :return: Format or None.
     """
-    return Union[Format, None]
+    ...
 
 
-def addNodePresetExcludePaths(paths: Iterable):
+def addNodePresetExcludePaths(paths: Iterable) -> None:
     """
     addNodePresetExcludePaths( paths ) -> None
 
@@ -157,10 +157,10 @@ def addNodePresetExcludePaths(paths: Iterable):
     :param: paths Sequence of paths to exclude
     :return: None.
     """
-    return None
+    ...
 
 
-def addSequenceFileExtension(fileExtension: str):
+def addSequenceFileExtension(fileExtension: str) -> None:
     """
     addSequenceFileExtension( fileExtension )
 
@@ -168,20 +168,20 @@ def addSequenceFileExtension(fileExtension: str):
 
     :param fileExtension: the new file extension. Valid examples are: 'exr', '.jpg'; invalid examples are: 'somefile.ext'
     """
-    return None
+    ...
 
 
-def addToolsetExcludePaths(paths: list):
+def addToolsetExcludePaths(paths: list) -> None:
     """
     addToolsetExcludePaths( paths ) -> None
 
     :param paths Sequence of paths to exclude. Adds a list of paths that will be excluded from Toolset search paths.
     :return: None.
     """
-    return None
+    ...
 
 
-def addView(s: str):
+def addView(s: str) -> None:
     """
     addView(s) -> None
 
@@ -192,10 +192,10 @@ def addView(s: str):
     :param s: View name.
     :return: None
     """
-    return None
+    ...
 
 
-def alert(prompt: str):
+def alert(prompt: str) -> None:
     """
     alert(prompt) -> None
 
@@ -205,10 +205,10 @@ def alert(prompt: str):
     :param prompt: Present user with this message.
     :return: None
     """
-    return None
+    ...
 
 
-def allNodes(filter: str = None, group=None):
+def allNodes(filter: Optional[str] = None, group: Optional[str] = None) -> list[Node]:
     """
     allNodes(filter, group) -> List.
 
@@ -221,10 +221,10 @@ def allNodes(filter: str = None, group=None):
     :param recurseGroups: Optional. If True, will also return all child nodes within any group nodes. This is done recursively and defaults to False.
     :return: List
     """
-    return [Node]
+    ...
 
 
-def animation(object, *commands):
+def animation(object, *commands) -> None:
     """
     animation(object, *commands) -> None
 
@@ -263,10 +263,10 @@ def animation(object, *commands):
     :param commands: a varargs-style list of commands, where each command is one of those defined above.
     :return: None
     """
-    return None
+    ...
 
 
-def animationEnd():
+def animationEnd() -> int:
     """
     animationEnd() -> float.
 
@@ -274,10 +274,10 @@ def animationEnd():
 
     :return: The end frame.
     """
-    return int()
+    ...
 
 
-def animationIncrement():
+def animationIncrement() -> float:
     """
     animationIncrement() -> float
 
@@ -285,10 +285,10 @@ def animationIncrement():
 
     :return: The recommended interval.
     """
-    return float()
+    ...
 
 
-def animationStart():
+def animationStart() -> int:
     """
     animationStart() -> float
 
@@ -296,10 +296,10 @@ def animationStart():
 
     :return: The start frame.
     """
-    return int()
+    ...
 
 
-def animations():
+def animations() -> tuple:
     """
     animations() -> tuple
 
@@ -319,10 +319,10 @@ def animations():
 
     :return: A tuple of animatable things.
     """
-    return tuple()
+    ...
 
 
-def applyPreset(nodeName: str, presetName: str):
+def applyPreset(nodeName: str, presetName: str) -> bool:
     """
     applyPreset(nodeName, presetName) -> None
 
@@ -333,10 +333,10 @@ def applyPreset(nodeName: str, presetName: str):
     :param node: (optional) a Node object to apply the preset to. If this is provided, the nodeName parameter is ignored.
     :return: bool.
     """
-    return bool()
+    ...
 
 
-def applyUserPreset(nodeName: str, presetName: str):
+def applyUserPreset(nodeName: str, presetName: str) -> bool:
     """
     applyUserPreset(nodeName, presetName) -> None
 
@@ -347,10 +347,10 @@ def applyUserPreset(nodeName: str, presetName: str):
     :param node: (optional) a Node object to apply the preset to. If this is provided, the nodeName parameter is ignored.
     :return: bool.
     """
-    return bool()
+    ...
 
 
-def ask(prompt: str):
+def ask(prompt: str) -> bool:
     """
     ask(prompt) -> bool
 
@@ -359,10 +359,10 @@ def ask(prompt: str):
     :param prompt: Present the user with this message.
     :return: True if Yes, False otherwise.
     """
-    return bool()
+    ...
 
 
-def askWithCancel(prompt):
+def askWithCancel(prompt) -> bool:
     """
     askWithCancel(prompt) -> bool
 
@@ -371,10 +371,10 @@ def askWithCancel(prompt):
     :param prompt: Present the user with this question.
     :return: True if Yes, False if No, an exception is thrown if Cancel.
     """
-    return bool()
+    ...
 
 
-def autoplace(n: Node):
+def autoplace(n: Node) -> None:
     """
     autoplace(n) -> None.
 
@@ -385,10 +385,10 @@ def autoplace(n: Node):
     :param n: Node.
     :return: None
     """
-    return None
+    ...
 
 
-def autoplaceSnap(n: Node):
+def autoplaceSnap(n: Node) -> None:
     """
     autoplaceSnap(n) -> None
 
@@ -397,10 +397,10 @@ def autoplaceSnap(n: Node):
     :param n: Node.
     :return: None
     """
-    return None
+    ...
 
 
-def autoplace_all():
+def autoplace_all() -> None:
     """
     autoplace_all() -> None.
 
@@ -408,10 +408,10 @@ def autoplace_all():
 
     :return: None. May return exception it top context group has subgraph locked.
     """
-    return None
+    ...
 
 
-def autoplace_snap_all():
+def autoplace_snap_all() -> None:
     """
     autoplace_snap_all() -> None.
 
@@ -419,10 +419,10 @@ def autoplace_snap_all():
 
     :return: None. May return exception it top context group has subgraph locked.
     """
-    return None
+    ...
 
 
-def autoplace_snap_selected():
+def autoplace_snap_selected() -> None:
     """
     autoplace_snap_selected() -> None.
 
@@ -430,10 +430,10 @@ def autoplace_snap_selected():
 
     :return: None. May return exception it top context group has subgraph locked.
     """
-    return None
+    ...
 
 
-def cacheUsage():
+def cacheUsage() -> int:
     """
     cacheUsage() -> int
 
@@ -441,10 +441,10 @@ def cacheUsage():
 
     :return: Current memory usage in bytes.
     """
-    return int()
+    ...
 
 
-def canCreateNode(name: str):
+def canCreateNode(name: str) -> bool:
     """
     canCreateNode(name) -> True if the node can be created, or False if not.
 
@@ -453,10 +453,10 @@ def canCreateNode(name: str):
     :param name: Node name.
     :return: True if the node can be created, or False if not.
     """
-    return bool()
+    ...
 
 
-def cancel():
+def cancel() -> None:
     """
     cancel() -> None
 
@@ -464,10 +464,10 @@ def cancel():
 
     :return: None
     """
-    return None
+    ...
 
 
-def center():
+def center() -> list:
     """
     center() -> array with x, then y
 
@@ -482,10 +482,10 @@ def center():
         nuke.zoom( zoom, center )
     :return: Array of x, y.
     """
-    return list()
+    ...
 
 
-def channels(n=None):
+def channels(n=None) -> list:
     """
     channels(n=None) -> (string)
 
@@ -498,10 +498,10 @@ def channels(n=None):
     :param n: Optional node parameter.
     :return: A list of channel names.
     """
-    return list()
+    ...
 
 
-def choice(title: str, prompt: str, options: list, default=0):
+def choice(title: str, prompt: str, options: list, default=0) -> int:
     """
     choice(title, prompt, options, default = 0) -> index
 
@@ -513,55 +513,55 @@ def choice(title: str, prompt: str, options: list, default=0):
     :param default: The index (starting from zero) of the option to select first.
     :return: An integer index (starting from zero) of the choice the user selected, or None if the dialog was cancelled.
     """
-    return int()
+    ...
 
 
-def clearBlinkCache():
+def clearBlinkCache() -> None:
     """
     clearBlinkCache() -> None
 
     Clear the Blink cache for all devices.
     """
-    return None
+    ...
 
 
-def clearDiskCache():
+def clearDiskCache() -> None:
     """
     clearDiskCache() -> None
 
     Clear the disk cache of all files.
     """
-    return None
+    ...
 
 
-def clearRAMCache():
+def clearRAMCache() -> None:
     """
     clearRAMCache() -> None
 
     Clear the RAM cache of all files.
     """
-    return None
+    ...
 
 
-def clearTabMenuFavorites():
+def clearTabMenuFavorites() -> None:
     """
     clearTabMenuFavorites() -> None
 
     Uncheck every favourite node in tab search menu.
     """
-    return None
+    ...
 
 
-def clearTabMenuWeighting():
+def clearTabMenuWeighting() -> None:
     """
     clearTabMenuWeighting() -> None
 
     Set the weight of each node to 0 in tab search menu.
     """
-    return None
+    ...
 
 
-def clone(n: Node, args: Number = None, inpanel: bool = None):
+def clone(n: Node, args: Optional[Number] = None, inpanel: Optional[bool] = None) -> Node:
     """
     clone(n, args, inpanel) -> Node
 
@@ -574,10 +574,10 @@ def clone(n: Node, args: Number = None, inpanel: bool = None):
     :param inpanel: Optional boolean.
     :return: Node
     """
-    return Node()
+    ...
 
 
-def cloneSelected(action: str = None):
+def cloneSelected(action: Optional[str] = None) -> bool:
     """
     cloneSelected(action) -> bool
 
@@ -586,10 +586,10 @@ def cloneSelected(action: str = None):
     :param action: Optional and if 'copy' it cuts the resulting clones to the clipboard.
     :return: True if succeeded, False otherwise.
     """
-    return bool()
+    ...
 
 
-def collapseToGroup(show=True):
+def collapseToGroup(show=True) -> Group:
     """
     collapseToGroup(show=True) -> Group
 
@@ -598,10 +598,10 @@ def collapseToGroup(show=True):
     :param show: If show is True, the node graph for the new group is shown in the background.
     :return: The new Group node.
     """
-    return Group()
+    ...
 
 
-def collapseToLiveGroup(show=True):
+def collapseToLiveGroup(show=True) -> Group:
     """
     collapseToLiveGroup(show=True) -> Group
 
@@ -610,10 +610,10 @@ def collapseToLiveGroup(show=True):
     :param show: If show is True, the node graph for the new group is shown in the background.
     :return: The new Group node.
     """
-    return Group()
+    ...
 
 
-def connectNodes():
+def connectNodes() -> None:
     """
     connectNodes() -> None
 
@@ -621,10 +621,10 @@ def connectNodes():
 
     :return: None
     """
-    return None
+    ...
 
 
-def connectViewer(inputNum: Number, node: Node):
+def connectViewer(inputNum: Number, node: Node) -> None:
     """
     connectViewer(inputNum, node) -> None
 
@@ -637,10 +637,10 @@ def connectViewer(inputNum: Number, node: Node):
     :param node: The Node to connect to the input.
     :return: None
     """
-    return None
+    ...
 
 
-def createLiveInput():
+def createLiveInput() -> Node:
     """
     createLiveInput() -> Node
 
@@ -649,10 +649,10 @@ def createLiveInput():
 
     :return: The new LiveInput_Node.
     """
-    return Node()
+    ...
 
 
-def createNode(node: str, args: str = None, inpanel: bool = None):
+def createNode(node: str, args: Optional[str] = None, inpanel: Optional[bool] = None) -> Node:
     """
     createNode(node, args, inpanel) -> Node.
 
@@ -663,10 +663,10 @@ def createNode(node: str, args: str = None, inpanel: bool = None):
     :param inpanel: Optional boolean to open the control bin (default is True; only applies when the GUI is running).
     :return: Node.
     """
-    return Node()
+    ...
 
 
-def createScenefileBrowser(fileName: str, nodeName: str):
+def createScenefileBrowser(fileName: str, nodeName: str) -> None:
     """
     createScenefileBrowser( fileName, nodeName ) -> None
 
@@ -680,10 +680,10 @@ def createScenefileBrowser(fileName: str, nodeName: str):
     :param fileName: Path and filename for an alembic or usd/usda/usdc/usdz file.
     :param nodeName: name of a valid scene file node to populate. If the node is invalid, new nodes will be automatically created
     """
-    return None
+    ...
 
 
-def createToolset(filename=None, overwrite=-1, rootPath=None):
+def createToolset(filename=None, overwrite=-1, rootPath=None) -> None:
     """
     createToolset(filename=None, overwrite=-1, rootPath = None) -> None
 
@@ -695,10 +695,10 @@ def createToolset(filename=None, overwrite=-1, rootPath=None):
      otherwise, in GUI mode ask the user, in terminal do same as False. Default
      is -1, meaning 'ask the user'.
     """
-    return None
+    ...
 
 
-def critical(message: str):
+def critical(message: str) -> None:
     """
     critical(message)-> None
 
@@ -707,10 +707,10 @@ def critical(message: str):
     :param message: String parameter.
     :return: None.
     """
-    return None
+    ...
 
 
-def debug(message: str):
+def debug(message: str) -> None:
     """
     debug(message)-> None
 
@@ -719,10 +719,10 @@ def debug(message: str):
     :param message: String parameter.
     :return: None.
     """
-    return None
+    ...
 
 
-def defaultFontPathname():
+def defaultFontPathname() -> str:
     """
     defaultFontPathname() -> str
 
@@ -730,10 +730,10 @@ def defaultFontPathname():
 
     :return: Path to the font.
     """
-    return str()
+    ...
 
 
-def defaultNodeColor(s: str):
+def defaultNodeColor(s: str) -> int:
     """
     defaultNodeColor(s) -> int
 
@@ -742,10 +742,10 @@ def defaultNodeColor(s: str):
     :param s: Node class.
     :return: The color as a packed integer (0xRRGGBB00).
     """
-    return int()
+    ...
 
 
-def delete(n: Node):
+def delete(n: Node) -> None:
     """
     delete(n) -> None
 
@@ -754,10 +754,10 @@ def delete(n: Node):
     :param n: Node.
     :return: None
     """
-    return None
+    ...
 
 
-def deletePreset(nodeClassName: str, presetName: str):
+def deletePreset(nodeClassName: str, presetName: str) -> bool:
     """
     deletePreset(nodeClassName, presetName) -> None
 
@@ -767,10 +767,10 @@ def deletePreset(nodeClassName: str, presetName: str):
     :param presetName: Name of the preset to create.
     :return: bool.
     """
-    return bool()
+    ...
 
 
-def deleteUserPreset(nodeClassName: str, presetName: str):
+def deleteUserPreset(nodeClassName: str, presetName: str) -> bool:
     """
     deleteUserPreset(nodeClassName, presetName) -> None
 
@@ -780,10 +780,10 @@ def deleteUserPreset(nodeClassName: str, presetName: str):
     :param presetName: Name of the preset to create.
     :return: bool.
     """
-    return bool()
+    ...
 
 
-def deleteView(s: str):
+def deleteView(s: str) -> None:
     """
     deleteView(s) -> None
 
@@ -794,10 +794,10 @@ def deleteView(s: str):
     :param s: View name.
     :return: None
     """
-    return None
+    ...
 
 
-def display(s: str, node: Node, title: str = None, width: Number = None):
+def display(s: str, node: Node, title: Optional[str] = None, width: Optional[Number] = None) -> None:
     """
     display(s, node, title, width) -> None.
 
@@ -813,10 +813,10 @@ def display(s: str, node: Node, title: str = None, width: Number = None):
     :param width: Optional width of window.
     :return: None.
     """
-    return None
+    ...
 
 
-def duplicateSelectedNodes():
+def duplicateSelectedNodes() -> None:
     """
     duplicateSelectedNodes() -> None.
 
@@ -824,10 +824,10 @@ def duplicateSelectedNodes():
 
     :return: None. May return exception it top context group has subgraph locked.
     """
-    return None
+    ...
 
 
-def endGroup():
+def endGroup() -> None:
     """
     endGroup() -> None
 
@@ -837,10 +837,10 @@ def endGroup():
 
     :return: None.
     """
-    return None
+    ...
 
 
-def error(message: str):
+def error(message: str) -> None:
     """
     error(message)-> None
 
@@ -849,10 +849,10 @@ def error(message: str):
     :param message: String parameter.
     :return: None.
     """
-    return None
+    ...
 
 
-def execute(nameOrNode: str, start: int = None, end: int = None, incr: int = None, views: list = None, continueOnError=False):
+def execute(nameOrNode: str, start: Optional[int] = None, end: Optional[int] = None, incr: Optional[int] = None, views: Optional[list] = None, continueOnError=False) -> None:
     """
     execute(nameOrNode, start, end, incr, views, continueOnError = False) -> None.
     execute(nameOrNode, frameRangeSet, views, continueOnError = False) -> None.\n
@@ -877,10 +877,10 @@ def execute(nameOrNode: str, start: int = None, end: int = None, incr: int = Non
     :param views: Optional list of views. Default is None, meaning \all views\.
     :return: None
     """
-    return None
+    ...
 
 
-def executeBackgroundNuke(exe_path: str, nodes: list, frameRange, views: list, limits: dict, continueOnError=False, flipbookToRun='', flipbookOptions={}):
+def executeBackgroundNuke(exe_path: str, nodes: list, frameRange, views: list, limits: dict, continueOnError=False, flipbookToRun='', flipbookOptions={}) -> int:
     """
     executeBackgroundNuke(exe_path, nodes, frameRange, views, limits, continueOnError = False, flipbookToRun = ", flipbookOptions = {}) -> None
 
@@ -895,10 +895,10 @@ def executeBackgroundNuke(exe_path: str, nodes: list, frameRange, views: list, l
     :param: flipbookOptions: A dictionary with options to pass to the flipbook. These should include roi and pixelAspect.
     :return: Int.
     """
-    return int()
+    ...
 
 
-def executeMultiple(nodes: list, ranges: int = None, views: list = None, continueOnError=False):
+def executeMultiple(nodes: list, ranges: Optional[int] = None, views: Optional[list] = None, continueOnError=False) -> None:
     """
     executeMultiple(nodes, ranges, views, continueOnError=False) -> None
 
@@ -921,10 +921,10 @@ def executeMultiple(nodes: list, ranges: int = None, views: list = None, continu
     :param views: Optional list of views. Default is None. Execute for all.
     :return: None
     """
-    return None
+    ...
 
 
-def executing():
+def executing() -> bool:
     """
     executing() -> Bool.
 
@@ -933,10 +933,10 @@ def executing():
     :param f: Optional frame number.
     :return: Current bool.
     """
-    return bool()
+    ...
 
 
-def exists(s: str):
+def exists(s: str) -> bool:
     """
     exists(s) -> bool
 
@@ -946,10 +946,10 @@ def exists(s: str):
     :param s: Name of item.
     :return: True if exists, False otherwise.
     """
-    return bool()
+    ...
 
 
-def expandSelectedGroup():
+def expandSelectedGroup() -> None:
     """
     expandSelectedGroup() -> None
 
@@ -959,10 +959,10 @@ def expandSelectedGroup():
 
     :return: None
     """
-    return None
+    ...
 
 
-def expression(s: str):
+def expression(s: str) -> float:
     """
     expression(s) -> float
 
@@ -976,10 +976,10 @@ def expression(s: str):
     :param s: The expression, as a string.
     :return: The result.
     """
-    return float()
+    ...
 
 
-def expression(s: str):
+def expression(s: str) -> float:
     """
     expression(s) -> float
 
@@ -993,10 +993,10 @@ def expression(s: str):
     :param s: The expression, as a string.
     :return: The result.
     """
-    return float()
+    ...
 
 
-def extractSelected():
+def extractSelected() -> None:
     """
     extractSelected() -> None
 
@@ -1004,10 +1004,10 @@ def extractSelected():
 
     :return: None
     """
-    return None
+    ...
 
 
-def filename(node=None, i: int = None):
+def filename(node=None, i: Optional[int] = None) -> str:
     """
     filename(node, i) -> str
 
@@ -1028,19 +1028,19 @@ def filename(node=None, i: int = None):
     :param i: Optional nuke.REPLACE. Will replace %%04d style sequences with the current frame number.
     :return: Filename, or None if no filenames are found.
     """
-    return str()
+    ...
 
 
-def forceClone():
+def forceClone() -> bool:
     """
     forceClone() -> bool
 
     :return: True if succeeded, False otherwise.
     """
-    return bool()
+    ...
 
 
-def forceLoad(n=None):
+def forceLoad(n=None) -> None:
     """
     forceLoad(n) -> None
 
@@ -1049,26 +1049,26 @@ def forceLoad(n=None):
     :param n: Optional node argument. Default is the current node.
     :return: None
     """
-    return None
+    ...
 
 
-def fork(*args, **kwargs):
+def fork(*args, **kwargs) -> None:
     """
     Forks a new instance of Nuke optionally with the contents of the named file.
     """
-    return None
+    ...
 
 
-def formats():
+def format() -> list[Format]:
     """
     formats() -> list
 
     :return: List of all available formats.
     """
-    return [Format]
+    ...
 
 
-def frame(f: int = None):
+def frame(f: Optional[int] = None) -> int:
     """
     frame(f) -> Current frame.
 
@@ -1082,10 +1082,10 @@ def frame(f: int = None):
     :param f: Optional frame number.
     :return: Current frame.
     """
-    return int()
+    ...
 
 
-def fromNode(n: Node):
+def fromNode(n: Node) -> str:
     """
     fromNode(n) -> String.
 
@@ -1095,10 +1095,10 @@ def fromNode(n: Node):
     :param n: A Node.
     :return: String.
     """
-    return str()
+    ...
 
 
-def getAllUserPresets():
+def getAllUserPresets() -> list:
     """
     getAllUserPresets() -> None
 
@@ -1106,10 +1106,10 @@ def getAllUserPresets():
 
     :return: a list of tuples containing all nodename/presetname pairs.
     """
-    return list()
+    ...
 
 
-def getClipname(prompt: str, pattern=None, default=None, multiple=False):
+def getClipname(prompt: str, pattern=None, default=None, multiple=False) -> list:
     """
     getClipname(prompt, pattern=None, default=None, multiple=False) -> list of strings or string
 
@@ -1126,10 +1126,10 @@ def getClipname(prompt: str, pattern=None, default=None, multiple=False):
      strings, otherwise as a single string. If the dialog is cancelled, the
      return value is None.
     """
-    return list()
+    ...
 
 
-def getColor(initial: int = None):
+def getColor(initial: Optional[int] = None) -> int:
     """
     getColor(initial) -> int
 
@@ -1140,10 +1140,10 @@ def getColor(initial: int = None):
     :param initial: Optional initial color. Integer with components packed as above.
     :return: The selected color.
     """
-    return int()
+    ...
 
 
-def getDeletedPresets():
+def getDeletedPresets() -> dict:
     """
     getDeletedPresets() -> None
 
@@ -1151,10 +1151,10 @@ def getDeletedPresets():
 
     :return: a pyDict containing all nodename/presetname pairs.
     """
-    return dict()
+    ...
 
 
-def getFileNameList(dir: Iterable, splitSequences=False, extraInformation=False, returnDirs=True, returnHidden=False):
+def getFileNameList(dir: Iterable, splitSequences=False, extraInformation=False, returnDirs=True, returnHidden=False) -> list:
     """
     getFileNameList( dir, splitSequences = False, extraInformation = False, returnDirs=True, returnHidden=False ) -> str
 
@@ -1167,10 +1167,10 @@ def getFileNameList(dir: Iterable, splitSequences=False, extraInformation=False,
     :param: returnHidden whether to return hidden files and directories.
     :return: Array of files.
     """
-    return list()
+    ...
 
 
-def getFilename(message: str, pattern=None, default=None, favorites=None, type=None, multiple=False):
+def getFilename(message: str, pattern=None, default=None, favorites=None, type=None, multiple=False) -> list:
     """
     getFilename(message, pattern=None, default=None, favorites=None, type=None, multiple=False) -> list of strings or single string
 
@@ -1190,10 +1190,10 @@ def getFilename(message: str, pattern=None, default=None, favorites=None, type=N
      strings, otherwise as a single string. If the dialog was cancelled, the
      return value will be None.
     """
-    return list()
+    ...
 
 
-def getFonts():
+def getFonts() -> list:
     """
     getFonts() -> list of font  families and styl.
 
@@ -1201,10 +1201,10 @@ def getFonts():
 
     :return: List of font families and style.
     """
-    return list()
+    ...
 
 
-def getFramesAndViews(label: str, default=None, maxviews=0):
+def getFramesAndViews(label: str, default=None, maxviews=0) -> list:
     """
     getFramesAndViews(label, default=None, maxviews=0) -> (ranges, views)
 
@@ -1215,10 +1215,10 @@ def getFramesAndViews(label: str, default=None, maxviews=0):
     :param maxviews: Optional max number of views.
     :return: List of ranges and views.
     """
-    return list()
+    ...
 
 
-def getInput(prompt: str, default: str):
+def getInput(prompt: str, default: str) -> str:
     """
     getInput(prompt, default) -> str
 
@@ -1228,10 +1228,10 @@ def getInput(prompt: str, default: str):
     :param default: Default value for the input text field.
     :return: String from text field or None if dialog is cancelled.
     """
-    return str()
+    ...
 
 
-def getNodeClassName():
+def getNodeClassName() -> str:
     """
     getNodeClassName() -> None
 
@@ -1239,10 +1239,10 @@ def getNodeClassName():
 
     :return: a string containing the name.
     """
-    return str()
+    ...
 
 
-def getNodePresetExcludePaths():
+def getNodePresetExcludePaths() -> list:
     """
     getNodePresetExcludePaths() -> string list
 
@@ -1250,10 +1250,10 @@ def getNodePresetExcludePaths():
 
     :return: List of paths.
     """
-    return list()
+    ...
 
 
-def getNodePresetID():
+def getNodePresetID() -> str:
     """
     getNodePresetID() -> None
 
@@ -1261,19 +1261,19 @@ def getNodePresetID():
 
     :return: a string containing the ID.
     """
-    return str()
+    ...
 
 
-def getOcioColorSpaces():
+def getOcioColorSpaces() -> list:
     """
     getOcioColorSpaces() -> returns the list of OCIO colorspaces.
 
     :return: list of strings
     """
-    return list()
+    ...
 
 
-def getPaneFor(panelName):
+def getPaneFor(panelName) -> None:
     """
     getPaneFor( panelName ) -> Dock
 
@@ -1283,10 +1283,10 @@ def getPaneFor(panelName):
 
     :return: The pane or None.
     """
-    return None
+    ...
 
 
-def getPresetKnobValues():
+def getPresetKnobValues() -> str:
     """
     getPresetKnobValues() -> None
 
@@ -1296,10 +1296,10 @@ def getPresetKnobValues():
     :param presetName: Name of the preset to get values for.
     :return: a pyDict containing all knob name/value pairs.
     """
-    return str()
+    ...
 
 
-def getPresets():
+def getPresets() -> list:
     """
     getPresets() -> None
 
@@ -1307,10 +1307,10 @@ def getPresets():
 
     :return: a pyList containing all nodename/presetname pairs.
     """
-    return list()
+    ...
 
 
-def getPresetsMenu(Node):
+def getPresetsMenu(Node) -> None:
     """
     getPresetsMenu(Node) -> Menu or None
 
@@ -1318,10 +1318,10 @@ def getPresetsMenu(Node):
 
     :return: The menu, or None if it doesn't exist.
     """
-    return None
+    ...
 
 
-def getReadFileKnob(node: Node):
+def getReadFileKnob(node: Node) -> knob:
     """
     getReadFileKnob(node) -> knob
 
@@ -1331,19 +1331,19 @@ def getReadFileKnob(node: Node):
 
     :return: A PyObject containing the read knob if it exists, NULL otherwise
     """
-    return knob()
+    ...
 
 
-def getRenderProgress():
+def getRenderProgress() -> int:
     """
     getRenderProgress() -> Returns the progress of the render of a frame from 0 - 100 % complete.
 
     :return: The progress of the render.  Can be 0 if there is no progress to report.
     """
-    return int()
+    ...
 
 
-def getToolsetExcludePaths():
+def getToolsetExcludePaths() -> list:
     """
     getToolsetExcludePaths() -> string list
 
@@ -1351,10 +1351,10 @@ def getToolsetExcludePaths():
 
     :return: List of paths.
     """
-    return list()
+    ...
 
 
-def getUserPresetKnobValues():
+def getUserPresetKnobValues() -> str:
     """
     getUserPresetKnobValues() -> None
 
@@ -1364,10 +1364,10 @@ def getUserPresetKnobValues():
     :param presetName: Name of the preset to get values for.
     :return: a pyDict containing all knob name/value pairs.
     """
-    return str()
+    ...
 
 
-def getUserPresets(Node):
+def getUserPresets(Node) -> list:
     """
     getUserPresets(Node) -> None
 
@@ -1375,10 +1375,10 @@ def getUserPresets(Node):
 
     :return: a pyList containing all nodename/presetname pairs.
     """
-    return list()
+    ...
 
 
-def hotkeys():
+def hotkeys() -> str:
     """
     hotkeys() -> str
 
@@ -1386,10 +1386,10 @@ def hotkeys():
 
     :return: A formatted string.
     """
-    return str()
+    ...
 
 
-def inputs(n: Node, i: Number = None):
+def inputs(n: Node, i: Optional[Number] = None) -> Number:
     """
     inputs(n, i) -> int
 
@@ -1403,10 +1403,10 @@ def inputs(n: Node, i: Number = None):
     :param i: Optional number of inputs requested.
     :return: Number of inputs.
     """
-    return Number()
+    ...
 
 
-def invertSelection():
+def invertSelection() -> None:
     """
     invertSelection() -> None
 
@@ -1414,10 +1414,10 @@ def invertSelection():
 
     :return: None.
     """
-    return None
+    ...
 
 
-def knob(name: str, value=None, getType: int = None, getClass: str = None):
+def knob(name: str, value=None, getType: Optional[int] = None, getClass: Optional[str] = None) -> None:
     """
     knob(name, value, getType, getClass) -> None
 
@@ -1469,10 +1469,10 @@ def knob(name: str, value=None, getType: int = None, getClass: str = None):
     :param getType: Optional boolean argument. If True, return the class ID for the knob instead of the knob itself. The class ID is an int.
     :param getClass: Optional boolean argument. If True, return the class name for the knob instead of the knob itself. The class name is a string.
     """
-    return None
+    ...
 
 
-def knobDefault(classknob: str, value: str = None):
+def knobDefault(classknob: str, value: Optional[str] = None) -> Union[None, str]:
     """
     knobDefault(classknob, value) -> str
 
@@ -1498,10 +1498,10 @@ def knobDefault(classknob: str, value: str = None):
     :param value: Optional string to convert to the default value.
     :return: None or String with the default value.
     """
-    return Union[None, str]
+    ...
 
 
-def knobTooltip(classknob: str, value: str):
+def knobTooltip(classknob: str, value: str) -> None:
     """
     knobTooltip(classknob, value) -> None
 
@@ -1515,10 +1515,10 @@ def knobTooltip(classknob: str, value: str):
     :param value: String to use as the tooltip
     :return: None)
     """
-    return None
+    ...
 
 
-def layers(node=None):
+def layers(node: Optional[Any] = None) -> list[str]:
     """
     layers(node=None) -> string list.
 
@@ -1528,19 +1528,19 @@ def layers(node=None):
     :param node: Optional node parameter.
     :return: A list of layer names.
     """
-    return [str]
+    ...
 
 
-def licenseInfo():
+def licenseInfo() -> None:
     """
     licenseInfo() -> Shows information about licenses used by nuke.
 
     :return: None
     """
-    return None
+    ...
 
 
-def load(s: str):
+def load(s: str) -> None:
     """
     load(s) -> None
 
@@ -1554,10 +1554,10 @@ def load(s: str):
     :return: None
     :raise RuntimeError: if the plugin couldn't be loaded for any reason.
     """
-    return None
+    ...
 
 
-def loadToolset(filename=None, overwrite=-1):
+def loadToolset(filename=None, overwrite=-1) -> None:
     """
     loadToolset(filename=None, overwrite=-1) -> None
 
@@ -1565,10 +1565,10 @@ def loadToolset(filename=None, overwrite=-1):
 
     :param filename: name of preset script file to load
     """
-    return None
+    ...
 
 
-def localiseFiles(readKnobs):
+def localiseFiles(readKnobs) -> None:
     """
     localiseFiles(readKnobs)
 
@@ -1576,10 +1576,10 @@ def localiseFiles(readKnobs):
 
     @return: None.
     """
-    return None
+    ...
 
 
-def localizationEnabled(knob):
+def localizationEnabled(knob) -> bool:
     """
     localizationEnabled(knob) -> bool
 
@@ -1588,10 +1588,10 @@ def localizationEnabled(knob):
     :param knob: The Read_File_Knob to check.
     :return: true if enabled, false otherwise
     """
-    return bool()
+    ...
 
 
-def makeGroup(show=True):
+def makeGroup(show=True) -> Group:
     """
     makeGroup(show=True) -> Group
 
@@ -1602,19 +1602,19 @@ def makeGroup(show=True):
     :param show: If show is True, the node graph for the new group is shown.
     :return: The new Group node.
     """
-    return Group()
+    ...
 
 
-def maxPerformanceInfo(*args, **kwargs):
+def maxPerformanceInfo(*args, **kwargs) -> Number:
     """
     maxPerformanceInfo -> Get the max performance info for this session.
 
     :return: a struct containing the max performance info if performance timers are in use, otherwise returns None.
     """
-    return Number()
+    ...
 
 
-def menu(name: str):
+def menu(name: str) -> Menu:
     """
     menu(name) -> Menu
 
@@ -1633,10 +1633,10 @@ def menu(name: str):
     :return: The menu.
     :raises: RuntimeError: if Nuke isn't in GUI mode.
     """
-    return Menu()
+    ...
 
 
-def message(prompt: str):
+def message(prompt: str) -> None:
     """
     message(prompt) -> None
 
@@ -1646,10 +1646,10 @@ def message(prompt: str):
     :param prompt: Present user with this message.
     :return: None
     """
-    return None
+    ...
 
 
-def modified(status: bool = None):
+def modified(status: Optional[bool] = None) -> bool:
     """
     modified(status) -> True if modified, False otherwise.
 
@@ -1661,10 +1661,10 @@ def modified(status: bool = None):
     :param status: Optional boolean value. If this is present the status will be set to this value; otherwise it will be retrieved instead.
     :return: True if modified, False otherwise.
     """
-    return bool()
+    ...
 
 
-def nodeCopy(s: str):
+def nodeCopy(s: str) -> bool:
     """
     nodeCopy(s) -> bool
 
@@ -1673,10 +1673,10 @@ def nodeCopy(s: str):
     :param s: The name of a clipboad to copy into. If s is the string '%clipboard%' this will copy into the operating systems clipboard.
     :return: True if any nodes were selected, False otherwise.
     """
-    return bool()
+    ...
 
 
-def nodeDelete(s):
+def nodeDelete(s) -> bool:
     """
     nodeDelete(s) -> True if any nodes were deleted, False otherwise.
 
@@ -1684,10 +1684,10 @@ def nodeDelete(s):
 
     :return: True if all nodes were deleted, False if at least one wasn't.
     """
-    return bool()
+    ...
 
 
-def nodePaste(s: str):
+def nodePaste(s: str) -> Node:
     """
     nodePaste(s) -> Node
 
@@ -1698,29 +1698,29 @@ def nodePaste(s: str):
     :param s: The 's' argument can be '%clipboard%' to paste the operating system's clipboard contents.
     :return: Node
     """
-    return Node()
+    ...
 
 
-def nodeTypes(force_plugin_load=False):
+def nodeTypes(force_plugin_load=False) -> list:
     """
     nodeTypes(force_plugin_load=False) -> List
 
     :param force_plugin_load bool True to force loading all plugins on the path before querying node types, defaults to False
     :return list of all loaded node types
     """
-    return list()
+    ...
 
 
-def nodesSelected():
+def nodesSelected() -> bool:
     """
     nodesSelected() -> None
 
     :return: true if any nodes are currently selected
     """
-    return bool()
+    ...
 
 
-def numvalue(knob: Knob, default=None):
+def numvalue(knob: Knob, default=None) -> float:
     """
     numvalue(knob, default=infinity) -> float
 
@@ -1735,10 +1735,10 @@ def numvalue(knob: Knob, default=None):
      be converted to a number.
     :return: A numeric value for the knob, or the default value (if any).
     """
-    return float()
+    ...
 
 
-def oculaPresent():
+def oculaPresent() -> bool:
     """
     oculaPresent() -> bool
 
@@ -1746,10 +1746,10 @@ def oculaPresent():
 
     :return: True if Ocula is present, False if not.
     """
-    return bool()
+    ...
 
 
-def ofxAddPluginAliasExclusion(fullOfxEffectName: list):
+def ofxAddPluginAliasExclusion(fullOfxEffectName: list) -> None:
     """
     ofxAddPluginAliasExclusion(fullOfxEffectName) -> None
 
@@ -1766,10 +1766,10 @@ def ofxAddPluginAliasExclusion(fullOfxEffectName: list):
     :param fullOfxEffectName: The fully qualified name of the ofx plugin to add to the exclusion list.
     :return: None.
     """
-    return None
+    ...
 
 
-def ofxMenu():
+def ofxMenu() -> bool:
     """
     ofxMenu() -> bool
 
@@ -1779,10 +1779,10 @@ def ofxMenu():
 
     :return: True if succeeded, False otherwise.
     """
-    return bool()
+    ...
 
 
-def ofxPluginPath():
+def ofxPluginPath() -> list:
     """
     nuke.ofxPluginPath() -> String list
 
@@ -1790,10 +1790,10 @@ def ofxPluginPath():
 
     :return: String list
     """
-    return list()
+    ...
 
 
-def ofxRemovePluginAliasExclusion(fullOfxEffectName: list):
+def ofxRemovePluginAliasExclusion(fullOfxEffectName: list) -> None:
     """
     ofxRemovePluginAliasExclusion(fullOfxEffectName) -> None
 
@@ -1803,19 +1803,19 @@ def ofxRemovePluginAliasExclusion(fullOfxEffectName: list):
     :param fullOfxEffectName: The fully qualified name of the ofx plugin to remove from the exclusion list.
     :return: None.
     """
-    return None
+    ...
 
 
-def nodesSelected():
+def nodesSelected() -> list:
     """
     nodesSelected() -> List
 
     :return: a list of Nodes which have panels open. The last item in the list is the currently active Node panel.
     """
-    return list()
+    ...
 
 
-def pan():
+def pan() -> list:
     """
     pan() -> array with x, then y
 
@@ -1827,19 +1827,19 @@ def pan():
 
     :return: Array of x, y.
     """
-    return list()
+    ...
 
 
-def performanceProfileFilename():
+def performanceProfileFilename() -> str:
     """
     performanceProfileFilename() -> File to write performance profile to for this session.
 
     :return: the profile filename if performance timers are in use, otherwise returns None.
     """
-    return str()
+    ...
 
 
-def pluginExists(name: str):
+def pluginExists(name: str) -> bool:
     """
     pluginExists(name) -> True if found, or False if not.
 
@@ -1852,10 +1852,10 @@ def pluginExists(name: str):
     :param name: Plugin name or filename.
     :return: True if found, or False if not.
     """
-    return bool()
+    ...
 
 
-def pluginInstallLocation():
+def pluginInstallLocation() -> list:
     """
     pluginInstallLocation() -> string list
 
@@ -1863,10 +1863,10 @@ def pluginInstallLocation():
 
     :return: List of paths.
     """
-    return list()
+    ...
 
 
-def pluginPath():
+def pluginPath() -> list:
     """
     pluginPath() -> string list
 
@@ -1880,10 +1880,10 @@ def pluginPath():
 
     :return: List of paths.
     """
-    return list()
+    ...
 
 
-def plugins(switches=0, *pattern):
+def plugins(switches=0, *pattern) -> list:
     """
     plugins(switches=0, *pattern)-> list of str
 
@@ -1920,10 +1920,10 @@ def plugins(switches=0, *pattern):
     :param pattern: Zero or more glob patterns.
     :return: List of plugins.
     """
-    return list()
+    ...
 
 
-def recentFile(index: list):
+def recentFile(index: list) -> str:
     """
     recentFile(index) -> str
 
@@ -1934,10 +1934,10 @@ def recentFile(index: list):
     :raise ValueError: if the index is negative.
     :raise RuntimeError: if there is no entry in the recent files list for the specified index.
     """
-    return str()
+    ...
 
 
-def redo():
+def redo() -> None:
     """
     redo() -> None
 
@@ -1945,10 +1945,10 @@ def redo():
 
     :return: None
     """
-    return None
+    ...
 
 
-def registerFlipbook(s: str):
+def registerFlipbook(s: str) -> None:
     """
     registerFlipbook(s) -> None
 
@@ -1957,10 +1957,10 @@ def registerFlipbook(s: str):
     :param s: Name of the flipbook application to be registered.
     :return: None
     """
-    return None
+    ...
 
 
-def removeFavoriteDir(name: str, type: str = None):
+def removeFavoriteDir(name: str, type: Optional[str] = None) -> None:
     """
     removeFavoriteDir(name, type) -> None.
 
@@ -1970,10 +1970,10 @@ def removeFavoriteDir(name: str, type: str = None):
     :param type: Optional bitwise OR combination of nuke.IMAGE, nuke.SCRIPT, nuke.FONT or nuke.GEO.
     :return: None
     """
-    return None
+    ...
 
 
-def execute(nameOrNode: str, start: int = None, end: int = None, incr: int = None, views: list = None, continueOnError=False):
+def execute(nameOrNode: str, start: Optional[int] = None, end: Optional[int] = None, incr: Optional[int] = None, views: Optional[list] = None, continueOnError=False) -> None:
     """
     execute(nameOrNode, start, end, incr, views, continueOnError = False) -> None.
     execute(nameOrNode, frameRangeSet, views, continueOnError = False) -> None.\n
@@ -1998,10 +1998,10 @@ def execute(nameOrNode: str, start: int = None, end: int = None, incr: int = Non
     :param views: Optional list of views. Default is None, meaning \all views\.
     :return: None
     """
-    return None
+    ...
 
 
-def rescanFontFolders():
+def rescanFontFolders() -> None:
     """
     rescanFontFolders() -> None
 
@@ -2009,19 +2009,19 @@ def rescanFontFolders():
 
     :return: None.
     """
-    return None
+    ...
 
 
-def resetPerformanceTimers():
+def resetPerformanceTimers() -> None:
     """
     resetPerformanceTimers() -> None
 
     Clears the accumulated time on the performance timers.
     """
-    return None
+    ...
 
 
-def resumePathProcessing():
+def resumePathProcessing() -> None:
     """
     resumePathProcessing() -> None
 
@@ -2030,10 +2030,10 @@ def resumePathProcessing():
 
     :return: None.
     """
-    return None
+    ...
 
 
-def root():
+def root() -> None:
     """
     root() -> node
 
@@ -2041,10 +2041,10 @@ def root():
 
     :return: The root node. This will never be None.
     """
-    return None
+    ...
 
 
-def runIn(object: str, cmd):
+def runIn(object: str, cmd) -> bool:
     """
     runIn(object, cmd) -> bool
 
@@ -2055,10 +2055,10 @@ def runIn(object: str, cmd):
     :param cmd: Command to run.
     :return: True if succeeded, False otherwise.
     """
-    return bool()
+    ...
 
 
-def sample(n: Node, c: str, x: Number, y: Number, dx: Number = None, dy: Number = None):
+def sample(n: Node, c: str, x: Number, y: Number, dx: Optional[Number] = None, dy: Optional[Number] = None) -> float:
     """
     sample(n, c, x, y, dx, dy) -> float.
 
@@ -2077,10 +2077,10 @@ def sample(n: Node, c: str, x: Number, y: Number, dx: Number = None, dy: Number 
     :param dy: Optional size of the area to sample (Y coordinate).
     :return: Floating point value.
     """
-    return float()
+    ...
 
 
-def saveEventGraphTimers(filePath: str):
+def saveEventGraphTimers(filePath: str) -> None:
     """
     saveEventGraphTimers(filePath) -> None
 
@@ -2088,19 +2088,19 @@ def saveEventGraphTimers(filePath: str):
 
     :param filePath: specify the file path where the event graph profiling data should be saved to.
     """
-    return None
+    ...
 
 
-def saveToScript(filename, fileContent):
+def saveToScript(filename, fileContent) -> None:
     """
     saveToScript(filename, fileContent) -> None
 
     Saves the fileContent with the given filename.
     """
-    return None
+    ...
 
 
-def saveUserPreset(node, presetName: str):
+def saveUserPreset(node, presetName: str) -> bool:
     """
     saveUserPreset(node, presetName) -> None
 
@@ -2109,47 +2109,47 @@ def saveUserPreset(node, presetName: str):
     :param presetName: Name of the preset to create.
     :return: bool.
     """
-    return bool()
+    ...
 
 
-def scriptClear(*args, **kwargs):
+def scriptClear(*args, **kwargs) -> None:
     """
     Clears a Nuke script and resets all the root knobs to user defined knob defaults. To reset to compiled in defaults only pass in resetToCompiledDefaults=True. To clear the user knobs, pass in clearUserKnobs=True.
     """
-    return None
+    ...
 
 
-def scriptName():
+def scriptName() -> str:
     """
     scriptName() -> String
 
     Return the current script's file name
     """
-    return str()
+    ...
 
 
-def scriptNew(*args, **kwargs):
+def scriptNew(*args, **kwargs) -> None:
     """
     Start a new script. Returns True if successful.
     """
-    return None
+    ...
 
 
-def scriptReadFile(*args, **kwargs):
+def scriptReadFile(*args, **kwargs) -> None:
     """
     Read nodes from a file.
     """
-    return None
+    ...
 
 
-def scriptReadText(*args, **kwargs):
+def scriptReadText(*args, **kwargs) -> None:
     """
     Read nodes from a string.
     """
-    return None
+    ...
 
 
-def scriptSave(filename=None):
+def scriptSave(filename=None) -> str:
     """
     scriptSave(filename=None) -> bool
 
@@ -2160,10 +2160,10 @@ def scriptSave(filename=None):
     :param filename: Save to this file name without changing the script name in the project (use scriptSaveAs() if you want it to change).
     :return: True if the file was saved, otherwise an exception is thrown.)
     """
-    return str()
+    ...
 
 
-def scriptSaveAs(filename=None, overwrite=-1):
+def scriptSaveAs(filename=None, overwrite=-1) -> None:
     """
     scriptSaveAs(filename=None, overwrite=-1) -> None
 
@@ -2177,26 +2177,26 @@ def scriptSaveAs(filename=None, overwrite=-1):
      otherwise, in GUI mode ask the user, in terminal do same as False. Default
      is -1, meaning 'ask the user'.
     """
-    return None
+    ...
 
 
-def scriptSaveToTemp(string):
+def scriptSaveToTemp(string) -> str:
     """
     scriptSaveToTemp(string) -> string
 
     Saves the script to a file without modifying the root information or the original script
     """
-    return str()
+    ...
 
 
-def scriptSource(*args, **kwargs):
+def scriptSource(*args, **kwargs) -> None:
     """
     Same as scriptReadFile().
     """
-    return None
+    ...
 
 
-def selectAll():
+def selectAll() -> None:
     """
     selectAll() -> None
 
@@ -2204,10 +2204,10 @@ def selectAll():
 
     :return: None
     """
-    return None
+    ...
 
 
-def selectPattern():
+def selectPattern() -> None:
     """
     selectPattern() -> None
 
@@ -2218,10 +2218,10 @@ def selectPattern():
 
     :return: None
     """
-    return None
+    ...
 
 
-def selectSimilar(matchType):
+def selectSimilar(matchType) -> None:
     """
     selectSimilar(matchType) -> None
 
@@ -2230,10 +2230,10 @@ def selectSimilar(matchType):
     :param matchType: One of nuke.MATCH_CLASS, nuke.MATCH_LABEL, nuke.MATCH_COLOR.
     :return: None.
     """
-    return None
+    ...
 
 
-def selectedNode():
+def selectedNode() -> Node:
     """
     selectedNode() -> Node.
 
@@ -2244,10 +2244,10 @@ def selectedNode():
 
     :return: Node.
     """
-    return Node()
+    ...
 
 
-def selectedNodes(filter: str = None):
+def selectedNodes(filter: Optional[str] = None) -> list[Node]:
     """
     selectedNodes(filter) -> List.
 
@@ -2257,10 +2257,10 @@ def selectedNodes(filter: str = None):
     :param filter: Optional class of Node. Instructs the algorithm to apply only to a specific class of nodes.
     :return: The list of selected nodes.
     """
-    return [Node]
+    ...
 
 
-def setPreset(nodeClassName: str, presetName: str, knobValues: dict):
+def setPreset(nodeClassName: str, presetName: str, knobValues: dict) -> bool:
     """
     setPreset(nodeClassName, presetName, knobValues) -> None
 
@@ -2271,20 +2271,20 @@ def setPreset(nodeClassName: str, presetName: str, knobValues: dict):
     :param knobValues: A dictionary containing a set of knob names and preset values.
     :return: bool.
     """
-    return bool()
+    ...
 
 
-def setReadOnlyPresets(readOnly):
+def setReadOnlyPresets(readOnly) -> None:
     """
     setReadOnlyPresets(readOnly) -> None
 
     Sets whether newly created presets should be added in read-only mode.
     Read-only presets can be applied to a node, but can't be overwritten or deleted.
     """
-    return None
+    ...
 
 
-def setUserPreset(nodeClassName: str, presetName: str, knobValues: dict):
+def setUserPreset(nodeClassName: str, presetName: str, knobValues: dict) -> bool:
     """
     setUserPreset(nodeClassName, presetName, knobValues) -> None
 
@@ -2295,10 +2295,10 @@ def setUserPreset(nodeClassName: str, presetName: str, knobValues: dict):
     :param knobValues: A dictionary containing a set of knob names and preset values.
     :return: bool.
     """
-    return bool()
+    ...
 
 
-def show(n=None, forceFloat: bool = None):
+def show(n=None, forceFloat: Optional[bool] = None) -> None:
     """
     show(n, forceFloat) -> None
 
@@ -2309,10 +2309,10 @@ def show(n=None, forceFloat: bool = None):
     :param forceFloat: Optional python object. If it evaluates to True it will open the window as a floating panel. Default is False.
     :return: None
     """
-    return None
+    ...
 
 
-def showBookmarkChooser(n):
+def showBookmarkChooser(n) -> None:
     """
     showBookmarkChooser(n) -> None
 
@@ -2320,10 +2320,10 @@ def showBookmarkChooser(n):
 
     :return: None
     """
-    return None
+    ...
 
 
-def pluginPath():
+def pluginPath() -> list:
     """
     pluginPath() -> string list
 
@@ -2337,10 +2337,10 @@ def pluginPath():
 
     :return: List of paths.
     """
-    return list()
+    ...
 
 
-def showDag(n: Group = None):
+def showDag(n: Optional[Group] = None) -> None:
     """
     showDag(n) -> None
 
@@ -2349,10 +2349,10 @@ def showDag(n: Group = None):
     :param n: Optional Group.
     :return: None
     """
-    return None
+    ...
 
 
-def showInfo(n=None):
+def showInfo(n=None) -> str:
     """
     showInfo(n) -> str
 
@@ -2363,10 +2363,10 @@ def showInfo(n=None):
     :param n: Optional node argument.
     :return: String.
     """
-    return str()
+    ...
 
 
-def showSettings():
+def showSettings() -> None:
     """
     showSettings() -> None
 
@@ -2374,10 +2374,10 @@ def showSettings():
 
     :return: None
     """
-    return None
+    ...
 
 
-def splayNodes():
+def splayNodes() -> None:
     """
     splayNodes() -> None
 
@@ -2385,46 +2385,46 @@ def splayNodes():
 
     :return: None
     """
-    return None
+    ...
 
 
-def startEventGraphTimers():
+def startEventGraphTimers() -> None:
     """
     startEventGraphTimers() -> None
 
     Start keeping track of events in the event graph.
     """
-    return None
+    ...
 
 
-def startPerformanceTimers():
+def startPerformanceTimers() -> None:
     """
     startPerformanceTimers() -> None
 
     Start keeping track of accumulated time on the performance timers, and display the accumulated time in the DAG.
     """
-    return None
+    ...
 
 
-def stopEventGraphTimers():
+def stopEventGraphTimers() -> None:
     """
     stopEventGraphTimers() -> None
 
     Stop keeping track of events in the event graph.
     """
-    return None
+    ...
 
 
-def stopPerformanceTimers():
+def stopPerformanceTimers() -> None:
     """
     stopPerformanceTimers() -> None
 
     Stop keeping track of accumulated time on the performance timers, and cease displaying the accumulated time in the DAG.
     """
-    return None
+    ...
 
 
-def stripFrameRange(clipname):
+def stripFrameRange(clipname) -> int:
     """
     stripFrameRange(clipname) -> string
 
@@ -2433,10 +2433,10 @@ def stripFrameRange(clipname):
     :param clipname: The clipname.
     :return: The name without the frame range.
     """
-    return int()
+    ...
 
 
-def suspendPathProcessing():
+def suspendPathProcessing() -> None:
     """
     suspendPathProcessing() -> None
 
@@ -2445,24 +2445,24 @@ def suspendPathProcessing():
 
     :return: None.
     """
-    return None
+    ...
 
 
-def tabClose(*args, **kwargs):
+def tabClose(*args, **kwargs) -> None:
     """
     Close the active dock tab. Returns True if successful.
     """
-    return None
+    ...
 
 
-def tabNext(*args, **kwargs):
+def tabNext(*args, **kwargs) -> None:
     """
     Make the next tab in this dock active. Returns True if successful.
     """
-    return None
+    ...
 
 
-def tcl(s: str, *args):
+def tcl(s: str, *args) -> str:
     """
     tcl(s, *args) -> str.
 
@@ -2474,10 +2474,10 @@ def tcl(s: str, *args):
     :param args: The arguments to pass in to the TCL code.
     :return: Result of TCL command as string.
     """
-    return str()
+    ...
 
 
-def thisClass():
+def thisClass() -> str:
     """
     thisClass() -> None
 
@@ -2486,10 +2486,10 @@ def thisClass():
 
     :return: The class name for the current node.
     """
-    return str()
+    ...
 
 
-def thisGroup():
+def thisGroup() -> Group:
     """
     thisGroup() -> Group
 
@@ -2497,10 +2497,10 @@ def thisGroup():
 
     :return: The group node.
     """
-    return Group()
+    ...
 
 
-def thisKnob():
+def thisKnob() -> Union[Knob, None]:
     """
     thisKnob() -> Knob
 
@@ -2508,10 +2508,10 @@ def thisKnob():
 
     :return: Knob or None
     """
-    return Union[Knob, None]
+    ...
 
 
-def thisNode():
+def thisNode() -> Node:
     """
     thisNode() -> Node.
 
@@ -2519,10 +2519,10 @@ def thisNode():
 
     :return: The node.
     """
-    return Node()
+    ...
 
 
-def thisPane():
+def thisPane() -> Any:
     """
     thisPane() -> the active pane.
 
@@ -2530,10 +2530,10 @@ def thisPane():
 
     :return: The active pane.
     """
-    return Any
+    ...
 
 
-def thisParent():
+def thisParent() -> Node:
     """
     thisParent() -> Node
 
@@ -2541,10 +2541,10 @@ def thisParent():
 
     :return: A node.
     """
-    return Node()
+    ...
 
 
-def thisRoot():
+def thisRoot() -> Root:
     """
     thisRoot() -> Root
 
@@ -2552,10 +2552,10 @@ def thisRoot():
 
     :return: The root node.
     """
-    return Root()
+    ...
 
 
-def thisView():
+def thisView() -> str:
     """
     thisView() -> str
 
@@ -2563,10 +2563,10 @@ def thisView():
 
     :return: The current view name as a string.
     """
-    return str()
+    ...
 
 
-def toNode(s: str):
+def toNode(s: str) -> Union[Node, None]:
     """
     toNode(s) -> Node
 
@@ -2575,10 +2575,10 @@ def toNode(s: str):
     :param s: Node name.
     :return: Node or None if it does not exist.
     """
-    return Union[Node, None]
+    ...
 
 
-def toggleFullscreen():
+def toggleFullscreen() -> None:
     """
     toggleFullscreen() -> None
 
@@ -2586,10 +2586,10 @@ def toggleFullscreen():
 
     :return: None
     """
-    return None
+    ...
 
 
-def toggleViewers():
+def toggleViewers() -> None:
     """
     toggleViewers() -> None
 
@@ -2597,10 +2597,10 @@ def toggleViewers():
 
     :return: None
     """
-    return None
+    ...
 
 
-def toolbar(name: str, create=True):
+def toolbar(name: str, create=True) -> bool:
     """
     toolbar(name, create=True)-> ToolBar
 
@@ -2614,10 +2614,10 @@ def toolbar(name: str, create=True):
     :raises: A RuntimeException is thrown if not in GUI mode.
     :return: The toolbar, or None if no toolbar was found and 'create' was False.
     """
-    return bool()
+    ...
 
 
-def tprint(value, sep=' ', end='\n', file=sys.stdout):
+def tprint(value, sep=' ', end='\n', file=sys.stdout) -> None:
     """
     tprint(value, ..., sep=' ', end='\', file=sys.stdout) -> None
 
@@ -2629,10 +2629,10 @@ def tprint(value, sep=' ', end='\n', file=sys.stdout):
     :param end: string appended after the last value, default a newline.
     :return: None
     """
-    return None
+    ...
 
 
-def undo():
+def undo() -> None:
     """
     undo() -> None
 
@@ -2640,28 +2640,28 @@ def undo():
 
     :return: None
     """
-    return None
+    ...
 
 
-def usingOCIO():
+def usingOCIO() -> bool:
     """
     usingOCIO() -> returns true if using OCIO instead of Nuke LUTs.
 
     :return: bool
     """
-    return bool()
+    ...
 
 
-def usingPerformanceTimers():
+def usingPerformanceTimers() -> bool:
     """
     usingPerformanceTimers() -> True if on, False if off
 
     :return: true if performance timers are in use.
     """
-    return bool()
+    ...
 
 
-def value(knob, default):
+def value(knob, default) -> str:
     """
     value(knob, default) -> string.
 
@@ -2669,10 +2669,10 @@ def value(knob, default):
     is an optional default value to be returned in case of an error. Unlike knob(), this will evaluate animation at the
     current frame, and expand brackets and dollar signs in string knobs.
     """
-    return str()
+    ...
 
 
-def views():
+def views() -> list:
     """
     views() -> List.
 
@@ -2680,10 +2680,10 @@ def views():
 
     :return: List
     """
-    return list()
+    ...
 
 
-def waitForThreadsToFinish():
+def waitForThreadsToFinish() -> Union[True, False]:
     """
     waitForThreadsToFinish() -> str
 
@@ -2691,10 +2691,10 @@ def waitForThreadsToFinish():
 
     :return: True or False.
     """
-    return Union[True, False]
+    ...
 
 
-def warning(message: str):
+def warning(message: str) -> None:
     """
     warning(message)-> None
 
@@ -2703,10 +2703,10 @@ def warning(message: str):
     :param message: String parameter.
     :return: None.
     """
-    return None
+    ...
 
 
-def zoom(scale, center: tuple = None, group: Group = None):
+def zoom(scale, center: Optional[tuple] = None, group: Optional[Group] = None) -> None:
     """
     zoom(scale, center, group) -> float
 
@@ -2726,10 +2726,10 @@ def zoom(scale, center: tuple = None, group: Group = None):
     :param group: Optional Group. This is ignored at present.
     :return: Current zoom factor or None if not in a GUI context.
     """
-    return None
+    ...
 
 
-def zoomToFitSelected():
+def zoomToFitSelected() -> None:
     """
     zoomToFitSelected() -> None
 
@@ -2737,4 +2737,4 @@ def zoomToFitSelected():
 
     :return: None.
     """
-    return None
+    ...

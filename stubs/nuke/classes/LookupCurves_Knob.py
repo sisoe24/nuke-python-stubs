@@ -11,25 +11,25 @@ class LookupCurves_Knob(Knob):
     Provide a set of user-editable lookup curves.
     """
 
-    def __hash__(self, ):
+    def __hash__(self, ) -> None:
         """
         Return hash(self).
         """
-        return None
+        ...
 
-    def __init__(self,  *args, **kwargs):
+    def __init__(self,  *args, **kwargs) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """
-        return None
+        ...
 
-    def __new__(self, *args, **kwargs):
+    def __new__(self, *args, **kwargs) -> None:
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
-        return None
+        ...
 
-    def addCurve(self, curve: str, expr=None):
+    def addCurve(self, curve: str, expr=None) -> None:
         """
         self.addCurve(curve, expr=None) -> None
         Adds a curve.
@@ -37,9 +37,9 @@ class LookupCurves_Knob(Knob):
         @param expr: Optional parameter giving an expression for the curve.
         @return: None
         """
-        return None
+        ...
 
-    def editCurve(self, curve: str, expr=None):
+    def editCurve(self, curve: str, expr=None) -> None:
         """
         self.editCurve(curve, expr=None) -> None
         Edits an existing curve.
@@ -47,13 +47,13 @@ class LookupCurves_Knob(Knob):
         @param expr: The new expression for the curve.
         @return: None
         """
-        return None
+        ...
 
-    def delCurve(self, curve: str):
+    def delCurve(self, curve: str) -> None:
         """
         self.delCurve(curve) -> None
         Deletes a curve.
         @param curve: The name of the animation curve.
         @return: None
         """
-        return None
+        ...

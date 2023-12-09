@@ -36,7 +36,7 @@ class Event:
     def __str__(self):
         attrs = ' '.join([f'{k}={v}' for k, v in self.__dict__.items()
                          if not k.startswith('_') and k not in ('type', 'subtype')])
-        return f'Event(type={self.type} subtype={self.subtype} {attrs})'
+        return f"Event(type={self.type} subtype={self.subtype} {attrs})"
 
 # Enum of connection types
 

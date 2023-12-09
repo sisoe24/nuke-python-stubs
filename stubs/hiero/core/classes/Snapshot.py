@@ -20,25 +20,25 @@ class Snapshot(Object):
         """
         Return repr(self).
         """
-        return None
+        ...
 
-    def __init__(self,  *args, **kwargs):
+    def __init__(self,  *args, **kwargs) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """
-        return None
+        ...
 
-    def __bool__(self, ):
+    def __bool__(self, ) -> None:
         """
         self != 0
         """
-        return None
+        ...
 
-    def __new__(self, *args, **kwargs):
+    def __new__(self, *args, **kwargs) -> None:
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
-        return None
+        ...
 
     def comment(self) -> str:
         """
@@ -46,7 +46,7 @@ class Snapshot(Object):
 
         @return: string
         """
-        return str()
+        ...
 
     def isNull(self) -> bool:
         """
@@ -54,7 +54,7 @@ class Snapshot(Object):
 
         @return: True or False
         """
-        return Union[True, False]
+        ...
 
     def item(self) -> None:
         """
@@ -62,7 +62,7 @@ class Snapshot(Object):
 
         @return: hiero.core.Clip or hiero.core.Sequence object
         """
-        return Iterable()
+        ...
 
     def name(self) -> str:
         """
@@ -70,7 +70,7 @@ class Snapshot(Object):
 
         @return: string
         """
-        return str()
+        ...
 
     def setComment(self, comment: str) -> None:
         """
@@ -79,7 +79,7 @@ class Snapshot(Object):
         @param comment: string to set the comment to
         @return: string
         """
-        return str()
+        ...
 
     def toString(self) -> str:
         """
@@ -87,10 +87,10 @@ class Snapshot(Object):
 
         @return: string
         """
-        return str()
+        ...
 
     def __copy__(self,) -> None:
         """
 
         """
-        return None
+        ...

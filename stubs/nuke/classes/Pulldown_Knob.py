@@ -11,49 +11,49 @@ class Pulldown_Knob(Enumeration_Knob):
     Pulldown_Knob
     """
 
-    def __hash__(self, ):
+    def __hash__(self, ) -> None:
         """
         Return hash(self).
         """
-        return None
+        ...
 
-    def __init__(self,  *args, **kwargs):
+    def __init__(self,  *args, **kwargs) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """
-        return None
+        ...
 
-    def __new__(self, *args, **kwargs):
+    def __new__(self, *args, **kwargs) -> None:
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
-        return None
+        ...
 
-    def numValues(self,):
+    def numValues(self,) -> int:
         """
         numValues() -> int
 
         Return number of values.
         """
-        return int()
+        ...
 
-    def itemName(self, n):
+    def itemName(self, n) -> str:
         """
         itemName(n) -> string
 
         Return name of item n. The argument n is an integer and in the range of 0 and numValues.
         """
-        return str()
+        ...
 
-    def commands(self, n):
+    def commands(self, n) -> str:
         """
         commands(n) -> string
 
         Return command n. The argument n is an integer and in the range of 0 and numValues.
         """
-        return str()
+        ...
 
-    def value(self,):
+    def value(self,) -> str:
         """
         self.value() -> String.
         Current value.
@@ -63,9 +63,9 @@ class Pulldown_Knob(Enumeration_Knob):
         k = w['file_type']
         k.value()
         """
-        return str()
+        ...
 
-    def setValues(self, items: str):
+    def setValues(self, items: str) -> None:
         """
         self.setValues(items) -> None.
         (Re)initialise knob to the list of items.
@@ -79,4 +79,4 @@ class Pulldown_Knob(Enumeration_Knob):
         w.addKnob(k)
         k = w['kname']
         """
-        return None
+        ...

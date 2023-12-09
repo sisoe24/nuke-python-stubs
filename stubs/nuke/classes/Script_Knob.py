@@ -11,64 +11,64 @@ class Script_Knob(String_Knob):
     A button which executes a TCL script.
     """
 
-    def __hash__(self, ):
+    def __hash__(self, ) -> None:
         """
         Return hash(self).
         """
-        return None
+        ...
 
-    def __init__(self,  *args, **kwargs):
+    def __init__(self,  *args, **kwargs) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """
-        return None
+        ...
 
-    def __new__(self, *args, **kwargs):
+    def __new__(self, *args, **kwargs) -> None:
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
-        return None
+        ...
 
-    def command(self,):
+    def command(self,) -> str:
         """
         self.command() -> str
 
         Get the current command.
         @return: The current command as a string, or None if there is no current command.
         """
-        return str()
+        ...
 
-    def value(self,):
+    def value(self,) -> str:
         """
         self.value() -> str
 
         Get the current command.
         @return: The current command as a string, or None if there is no current command.
         """
-        return str()
+        ...
 
-    def setCommand(self, cmd: str):
+    def setCommand(self, cmd: str) -> None:
         """
         self.setCommand(cmd) -> None
         Set the new command for this knob.
         @param cmd: String containing a TCL command.
         @return: None.
         """
-        return None
+        ...
 
-    def setValue(self, cmd: str):
+    def setValue(self, cmd: str) -> None:
         """
         self.setValue(cmd) -> None
         Set the new command for this knob.
         @param cmd: String containing a TCL command.
         @return: None.
         """
-        return None
+        ...
 
-    def execute(self,):
+    def execute(self,) -> None:
         """
         self.execute() -> None
         Execute the command.
         @return: None.
         """
-        return None
+        ...

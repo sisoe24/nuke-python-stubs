@@ -11,7 +11,7 @@ class FnPySingleton(object):
 
     """
 
-    def __new__(self, *args, **kwargs):
+    def __new__(self, *args, **kwargs) -> Any:
         """
         staticmethod(function) -> method
 
@@ -32,24 +32,24 @@ class FnPySingleton(object):
         Static methods in Python are similar to those found in Java or C++.
         For a more advanced concept, see the classmethod builtin.
         """
-        return Any
+        ...
 
     @property
     def __dict__(self) -> Any:
         """
         dictionary for instance variables (if defined)
         """
-        return None
+        ...
 
     @property
     def __weakref__(self) -> Any:
         """
         list of weak references to the object (if defined)
         """
-        return None
+        ...
 
-    def __init__(self,  *args, **kwargs):
+    def __init__(self,  *args, **kwargs) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """
-        return None
+        ...

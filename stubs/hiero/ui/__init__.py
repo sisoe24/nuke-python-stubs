@@ -20,7 +20,7 @@ from _fnpython import (TimelineEditorCreationFlag, menuBar, activeView,
 
 from . import (CopyCuts, TagsMenu, SendToNuke, FnPosterFrameUI,
                ScanForVersions, FnReExportAction, LocalisationMenu,
-               RenameTimelineShots, BuildExternalMediaTrack, guides,
+               RenameTimelineShots, BuildExternalMediaTrack, nuke, guides,
                nuke_bridge)
 from .classes import *
 
@@ -211,28 +211,28 @@ def Initialise() -> None:
     """
 
     """
-    return None
+    ...
 
 
-def activeSequence():
+def activeSequence() -> Iterable:
     """
     hiero.ui.activeSequence() -> gets the currently active sequence.
 
     @return: a hiero.core.Sequence of the last activated hiero.ui.TimelineEditor, hiero.ui.SpreadsheetView object or hiero.ui.Viewer object
     """
-    return Iterable()
+    ...
 
 
-def activeView():
+def activeView() -> Number:
     """
     hiero.ui.activeView() -> gets the currently active view object.
 
     @return: depending on the active view, a hiero.ui.TimelineEditor, a hiero.ui.SpreadsheetView object, a hiero.ui.Viewer object or a hiero.ui.BinView object
     """
-    return Number()
+    ...
 
 
-def browseForApplication(*args, **kwargs):
+def browseForApplication(*args, **kwargs) -> str:
     """
     hiero.ui.browseForApplication (message, initialPath, parentWidget) -> brings up the file browser to allow the user to select an application. Allows the user to select an executable file on Windows and Linux, and to select an application bundle (\*.app) directory on OSX.
 
@@ -241,7 +241,7 @@ def browseForApplication(*args, **kwargs):
     @param parentWidget: QWidget to set as the parent of the file browser. Can be None.
     @return: string
     """
-    return str()
+    ...
 
 
 def currentContextMenuView() -> object:
@@ -250,7 +250,7 @@ def currentContextMenuView() -> object:
 
     @return: hiero.ui.Viewer, hiero.ui.TimelineEditor, hiero.ui.BinView, depending on which window had the context menu created for it
     """
-    return Number()
+    ...
 
 
 def currentViewer() -> ui.Viewer:
@@ -259,51 +259,51 @@ def currentViewer() -> ui.Viewer:
 
     @return: hiero.ui.Viewer
     """
-    return Viewer()
+    ...
 
 
-def currentWorkspace():
+def currentWorkspace() -> str:
     """
     hiero.ui.currentWorkspace() -> Returns the name of the current Workspace.
 
     @return: name of current Workspace as a string
     """
-    return str()
+    ...
 
 
-def findRegisteredAction(name):
+def findRegisteredAction(name) -> None:
     """
     hiero.ui.findRegisteredAction(name) -> Find the action with the given name.
 
     @return: a QAction, or None if not found.
     """
-    return None
+    ...
 
 
-def findRegisteredActions(pattern):
+def findRegisteredActions(pattern) -> list:
     """
     hiero.ui.findRegisteredActions(pattern) -> Find the action that starts with the given pattern.
 
     @return: a QAction list or None on an error.
     """
-    return list()
+    ...
 
 
 def flushAllViewersCache() -> None:
     """
     self.flushAllViewersCache() -> flush the cache of all viewers and pause caching
     """
-    return None
+    ...
 
 
 def getFlipbook() -> ui.Viewer:
     """
 
     """
-    return ui.Viewer()
+    ...
 
 
-def getTimelineEditor(sequence: Iterable, creationFlag: Iterable = None):
+def getTimelineEditor(sequence: Iterable, creationFlag: Optional[Iterable] = None) -> Number:
     """
     hiero.ui.getTimelineEditor(sequence, creationFlag) -> Find the TimelineEditor for the given Sequence. A new TimelineEditor may be created or an existing one may be recycled depending on the creationFlag parameter, see hiero.ui.TimelineEditorCreationFlag. If the optional creationFlag is not specified, the default behavior will recycle an existing TimelineEditor or create one i.e. hiero.ui.TimelineEditorCreationFlag.kRecycleOrCreate.
 
@@ -311,49 +311,49 @@ def getTimelineEditor(sequence: Iterable, creationFlag: Iterable = None):
     @param creationFlag (Optional): Enum flag of type hiero.ui.TimelineEditorCreationFlag. This flag determines the behavior when a TimelineEditor is not found for the given Sequence.
     @return: a hiero.ui.TimelineEditor if one exist or is successfully created/recycled.
     """
-    return Number()
+    ...
 
 
 def isInAnyProject(arg__1: str) -> object:
     """
 
     """
-    return None
+    ...
 
 
 def isInAnyTimeline(arg__1: str) -> object:
     """
 
     """
-    return None
+    ...
 
 
-def mainWindow():
+def mainWindow() -> Any:
     """
     hiero.ui.mainWindow() -> used to get Hiero's main window object.
 
     @return: a PySide2.QtGui.QMainWindow object
     """
-    return Any
+    ...
 
 
-def menuBar():
+def menuBar() -> Any:
     """
     hiero.ui.menuBar() -> used to get Hiero's global menu bar.
 
     @return: a PySide2.QtGui.QMenuBar object
     """
-    return Any
+    ...
 
 
 def monitorOutNode() -> object:
     """
 
     """
-    return None
+    ...
 
 
-def openFileBrowser(caption='', mode=1, pattern='', initialPath='', forSave=False, canChooseMultiple=False, sequencesEnabled=False, mayNotExist=False, showAllFileTypes=False, confirmOverwrite=True, requiredExtension=''):
+def openFileBrowser(caption='', mode=1, pattern='', initialPath='', forSave=False, canChooseMultiple=False, sequencesEnabled=False, mayNotExist=False, showAllFileTypes=False, confirmOverwrite=True, requiredExtension='') -> list:
     """
     openFileBrowser(caption="", mode=1, pattern="", initialPath="", forSave=False, canChooseMultiple=False, sequencesEnabled=False, mayNotExist=False, showAllFileTypes=False, confirmOverwrite=True, requiredExtension="") -> string list.
 
@@ -372,24 +372,24 @@ def openFileBrowser(caption='', mode=1, pattern='', initialPath='', forSave=Fals
     @param requiredExtension: Optional. Enforce a certain file extension.
     @return: The selected files as a list of strings
     """
-    return list()
+    ...
 
 
-def openInNewViewer(*args, **kwargs):
+def openInNewViewer(*args, **kwargs) -> Viewer:
     """
     hiero.ui.openInNewViewer( hiero.core.BinItem ) -> Opens a BinItem's activeItem (Clip/Sequence) in a new Viewer.
     hiero.ui.openInNewViewer( hiero.core.Sequence ) -> Opens a Sequence in a new Viewer.
     hiero.ui.openInNewViewer( hiero.core.Clip ) -> Opens a Clip in a new Viewer.
     @return: hiero.ui.Viewer object
     """
-    return Viewer()
+    ...
 
 
 def openInOSShell(arg__1: str) -> object:
     """
 
     """
-    return None
+    ...
 
 
 def openInSpreadsheet(sequence: core.Sequence) -> ui.SpreadsheetView:
@@ -397,10 +397,10 @@ def openInSpreadsheet(sequence: core.Sequence) -> ui.SpreadsheetView:
     hiero.ui.openInSpreadsheet( hiero.core.Sequence ) -> Opens a Sequence in a Spreadsheet.
     @return: hiero.ui.SpreadsheetView object
     """
-    return SpreadsheetView()
+    ...
 
 
-def openInTimeline(*args, **kwargs):
+def openInTimeline(*args, **kwargs) -> Number:
     """
     hiero.ui.openInTimeline( hiero.core.BinItem ) -> Opens a BinItem's activeItem (Clip/Sequence) in a Timeline View.
     hiero.ui.openInTimeline( hiero.core.Sequence ) -> Opens a Sequence in a Timeline View.
@@ -409,59 +409,59 @@ def openInTimeline(*args, **kwargs):
     hiero.ui.openInTimeline( [hiero.core.BinItem] ) -> Opens a list of BinItems' activeItems (Clips/Sequences) in a Timeline View.
     @return: tuple of hiero.ui.TimelineEditor objects
     """
-    return Number()
+    ...
 
 
-def openInViewer(*args, **kwargs):
+def openInViewer(*args, **kwargs) -> Viewer:
     """
     hiero.ui.openInViewer( hiero.core.BinItem ) -> Opens a BinItem's activeItem (Clip/Sequence) in the Viewer.
     hiero.ui.openInViewer( hiero.core.Sequence ) -> Opens a Sequence in the Viewer.
     hiero.ui.openInViewer( hiero.core.Clip ) -> Opens a Clip in the Viewer.
     @return: hiero.ui.Viewer object
     """
-    return Viewer()
+    ...
 
 
 def openProject(path: str, flags: int = 'Hiero.Python.Project.kProjectOpenNoFlags') -> core.Project:
     """
 
     """
-    return core.Project()
+    ...
 
 
-def registerAction(action):
+def registerAction(action) -> Any:
     """
     hiero.ui.registerAction(action) -> Register an action.
     """
-    return Any
+    ...
 
 
 def registerBinViewCustomMimeDataType(arg__1: str) -> object:
     """
     hiero.ui.registerBinViewCustomMimeDataType(customMimeType) -> registers a custom mime type so that Hiero passes on drag and drop events through the event system. For an example of how to use this method, see the bin_drop.py example.
     """
-    return Any
+    ...
 
 
-def registeredActions():
+def registeredActions() -> tuple:
     """
     hiero.ui.registeredActions() -> Returns a list of all registered actions.
 
     @return: a tuple of QActions
     """
-    return tuple()
+    ...
 
 
-def resetCurrentWorkspace():
+def resetCurrentWorkspace() -> None:
     """
     hiero.ui.resetCurrentWorkspace() -> Resets the current Workspace to its default state.
 
     @return: None
     """
-    return None
+    ...
 
 
-def saveWorkspace(name):
+def saveWorkspace(name) -> None:
     """
     hiero.ui.saveWorkspace(name) -> Save the current Workspace with name.
 
@@ -469,28 +469,28 @@ def saveWorkspace(name):
 
     Example: hiero.ui.saveWorkspace('NewWorkspaceName')
     """
-    return None
+    ...
 
 
-def sendToViewerA(*args, **kwargs):
+def sendToViewerA(*args, **kwargs) -> Iterable:
     """
     hiero.ui.sendToViewerA( hiero.core.BinItem ) -> Sends a BinItem's activeItem (Clip/Sequence) to the Viewer A.
     hiero.ui.sendToViewerA( hiero.core.Sequence ) -> Sends a Sequence to the Viewer A.
     hiero.ui.sendToViewerA( hiero.core.Clip ) -> Sends a Clip to the Viewer A.
     """
-    return Iterable()
+    ...
 
 
-def sendToViewerB(*args, **kwargs):
+def sendToViewerB(*args, **kwargs) -> Iterable:
     """
     hiero.ui.sendToViewerB( hiero.core.BinItem ) -> Sends a BinItem's activeItem (Clip/Sequence) to the Viewer B.
     hiero.ui.sendToViewerB( hiero.core.Sequence ) -> Sends a Sequence to the Viewer B.
     hiero.ui.sendToViewerB( hiero.core.Clip ) -> Sends a Clip to the Viewer B.
     """
-    return Iterable()
+    ...
 
 
-def setWorkspace(name):
+def setWorkspace(name) -> None:
     """
     hiero.ui.setWorkspace(name) -> Sets the Workspace with name, as per the name in the Workspace menu.
 
@@ -498,21 +498,21 @@ def setWorkspace(name):
 
     Example: hiero.ui.setWorkspace('Reviewing')
     """
-    return None
+    ...
 
 
 def unregisterBinViewCustomMimeDataType(arg__1: str) -> object:
     """
     hiero.ui.unregisterBinViewCustomMimeDataType(customMimeType) -> unregisters a custom mime type that was previously registered using hiero.ui.registerBinViewCustomMimeDataType().
     """
-    return Any
+    ...
 
 
 def updateViewer(oldClip: core.Clip, newClip: core.Clip) -> None:
     """
 
     """
-    return None
+    ...
 
 
 def windowManager() -> object:
@@ -521,4 +521,4 @@ def windowManager() -> object:
 
     @return: hiero.ui.WindowManager
     """
-    return WindowManager()
+    ...

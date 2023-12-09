@@ -16,68 +16,68 @@ class BackgroundRenderObserver(Object):
     Observer of background renders.
     """
 
-    def __init__(self,  *args, **kwargs):
+    def __init__(self,  *args, **kwargs) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """
-        return None
+        ...
 
-    def __bool__(self, ):
+    def __bool__(self, ) -> None:
         """
         self != 0
         """
-        return None
+        ...
 
-    def __new__(self, *args, **kwargs):
+    def __new__(self, *args, **kwargs) -> None:
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
-        return None
+        ...
 
     def isNull(self) -> bool:
         """
 
         """
-        return bool()
+        ...
 
     def onFrameRenderCancelled(self, path: str, frame: int, nodeName: str) -> None:
         """
 
         """
-        return None
+        ...
 
     def onFrameRenderError(self, path: str, frame: int, nodeName: str, error: str) -> None:
         """
 
         """
-        return None
+        ...
 
     def onFrameRenderInProgress(self, path: str, frame: int, nodeName: str) -> None:
         """
 
         """
-        return None
+        ...
 
     def onFrameRenderQueued(self, path: str, frame: int, nodeName: str) -> None:
         """
 
         """
-        return None
+        ...
 
     def onFrameRendered(self, path: str, frame: int, nodeName: str) -> None:
         """
 
         """
-        return None
+        ...
 
     def onRenderQueued(self, path: str, frameRanges: str, nodeName: str, views: str) -> None:
         """
 
         """
-        return None
+        ...
 
     def __copy__(self,) -> None:
         """
 
         """
-        return None
+        ...

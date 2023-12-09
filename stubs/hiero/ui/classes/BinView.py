@@ -16,17 +16,17 @@ class BinView(Object):
     Object representing the Bin View. Passed as the sender object to the event handler callbacks registered for hiero.core.events.EventType.kShowContextMenu type events. Can also be retrieved using hiero.ui.currentContextMenuView when active during the context menu events.
     """
 
-    def __init__(self,  *args, **kwargs):
+    def __init__(self,  *args, **kwargs) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """
-        return None
+        ...
 
-    def __new__(self, *args, **kwargs):
+    def __new__(self, *args, **kwargs) -> None:
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
-        return None
+        ...
 
     def getSelection(self) -> object:
         """
@@ -34,7 +34,7 @@ class BinView(Object):
 
         @return: tuple of hiero.core.BinItem objects
         """
-        return tuple()
+        ...
 
     def selection(self) -> object:
         """
@@ -42,16 +42,16 @@ class BinView(Object):
 
         @return: tuple of hiero.core.BinItem objects
         """
-        return tuple()
+        ...
 
     def window(self) -> PySide2.QtWidgets.QWidget:
         """
         self.window() -> Return the bin view window
         """
-        return Any
+        ...
 
     def __copy__(self,) -> None:
         """
 
         """
-        return None
+        ...

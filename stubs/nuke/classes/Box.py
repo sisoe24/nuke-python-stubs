@@ -11,202 +11,202 @@ class Box(object):
     A 2-dimensional rectangle. Described by left, right, top and bottom coords (width and height are calculated as necessary).
     """
 
-    def __hash__(self, ):
+    def __hash__(self, ) -> None:
         """
         Return hash(self).
         """
-        return None
+        ...
 
-    def __init__(self,  *args, **kwargs):
+    def __init__(self,  *args, **kwargs) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """
-        return None
+        ...
 
-    def __new__(self, *args, **kwargs):
+    def __new__(self, *args, **kwargs) -> None:
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
-        return None
+        ...
 
-    def x(self,):
+    def x(self,) -> int:
         """
         self.x() -> int
 
         The left edge of the box.
         """
-        return int()
+        ...
 
-    def setX(self, n):
+    def setX(self, n) -> None:
         """
         self.setX(n) -> None
 
         Set the left edge. The parameter n is an integer.
         """
-        return None
+        ...
 
-    def y(self,):
+    def y(self,) -> int:
         """
         self.y() -> int
 
         Return the bottom edge.
         """
-        return int()
+        ...
 
-    def setY(self, n):
+    def setY(self, n) -> None:
         """
         self.setY(n) -> None
 
         Set the bottom edge. The parameter n is an integer.
         """
-        return None
+        ...
 
-    def r(self,):
+    def r(self,) -> int:
         """
         self.r() -> int
 
         Return the right edge of the box.
         """
-        return int()
+        ...
 
-    def setR(self, n):
+    def setR(self, n) -> None:
         """
         self.setR(n) -> None
 
         Set the right edge. The parameter n is an integer.
         """
-        return None
+        ...
 
-    def t(self,):
+    def t(self,) -> int:
         """
         self.t() -> int
 
         Return top edge.
         """
-        return int()
+        ...
 
-    def setT(self, n):
+    def setT(self, n) -> None:
         """
         self.setT(n) -> None
 
         Set top edge.
         """
-        return None
+        ...
 
-    def w(self,):
+    def w(self,) -> int:
         """
         self.w() -> int
 
         Return width.
         """
-        return int()
+        ...
 
-    def setW(self, n):
+    def setW(self, n) -> None:
         """
         self.setW(n) -> None
 
         Set width by moving right edge.
         """
-        return None
+        ...
 
-    def h(self,):
+    def h(self,) -> int:
         """
         self.h() -> int
 
         Return height.
         """
-        return int()
+        ...
 
-    def setH(self, n):
+    def setH(self, n) -> None:
         """
         self.setH(n) -> None
 
         Set height by moving top edge.
         """
-        return None
+        ...
 
-    def centerX(self,):
+    def centerX(self,) -> float:
         """
         self.centerX() -> float
 
         Return center in X.
         """
-        return float()
+        ...
 
-    def centerY(self,):
+    def centerY(self,) -> float:
         """
         self.centerY() -> float
 
         Return height in Y.
         """
-        return float()
+        ...
 
-    def set(self, x, y, r, t):
+    def set(self, x, y, r, t) -> None:
         """
         self.set(x, y, r, t) -> None
 
         Set all values at once.
         """
-        return None
+        ...
 
-    def isConstant(self,):
+    def isConstant(self,) -> bool:
         """
         self.isConstant() -> True if box is 1x1 in both directions, False otherwise.
         """
-        return bool()
+        ...
 
-    def clear(self,):
+    def clear(self,) -> None:
         """
         self.clear() -> None.
 
         Set to is_constant().
         """
-        return None
+        ...
 
-    def move(self, dx, dy):
+    def move(self, dx, dy) -> None:
         """
         self.move(dx, dy) -> None.
 
         Move all the sides and thus the entire box by the given deltas.
         """
-        return None
+        ...
 
-    def pad(self, dx, dy, dr, dt):
+    def pad(self, dx, dy, dr, dt) -> None:
         """
         self.pad(dx, dy, dr, dt) -> None.
 
         Move all the sides and thus the entire box by the given deltas.
         """
-        return None
+        ...
 
-    def clampX(self, x):
+    def clampX(self, x) -> int:
         """
         self.clampX(x) -> int.
 
         Return x restricted to pointing at a pixel in the box.
         """
-        return int()
+        ...
 
-    def clampY(self, y):
+    def clampY(self, y) -> int:
         """
         self.clampY(y) -> int.
 
         Return y restricted to pointing at a pixel in the box.
         """
-        return int()
+        ...
 
-    def merge(self, x, y, r, t):
+    def merge(self, x, y, r, t) -> None:
         """
         self.merge(x, y, r, t) -> None.
 
         Merge with the given edges.
         """
-        return None
+        ...
 
-    def intersect(self, x, y, r, t):
+    def intersect(self, x, y, r, t) -> None:
         """
         self.intersect(x, y, r, t) -> None.
 
         Intersect with the given edges.
         """
-        return None
+        ...

@@ -21,53 +21,53 @@ class EffectTrackItem(SubTrackItem):
     EffectTrackItem(effectType, timelineIn, timelineOut)
     """
 
-    def __setattr__(self, name, value, ):
+    def __setattr__(self, name, value, ) -> None:
         """
         Implement setattr(self, name, value).
         """
-        return None
+        ...
 
-    def __delattr__(self, name, ):
+    def __delattr__(self, name, ) -> None:
         """
         Implement delattr(self, name).
         """
-        return None
+        ...
 
-    def __init__(self,  *args, **kwargs):
+    def __init__(self,  *args, **kwargs) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """
-        return None
+        ...
 
-    def __new__(self, *args, **kwargs):
+    def __new__(self, *args, **kwargs) -> None:
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
-        return None
+        ...
 
     def clone(self) -> object:
         """
         self.clone() -> returns a deep copy of this object but, unlike copy(), this clones the underlying Nuke node so that the knobs are shared.
         """
-        return Any
+        ...
 
     def copy(self) -> object:
         """
         self.copy() -> returns a deep copy of this object.
         """
-        return Any
+        ...
 
     def declone(self) -> None:
         """
         self.declone() -> Declones the effect item. Has no effect if the item is not a clone.
         """
-        return None
+        ...
 
     def isValid(self) -> bool:
         """
         self.isValid() -> Returns true if the effect item is in a valid state and position and false otherwise.
         """
-        return bool()
+        ...
 
     def node(self) -> object:
         """
@@ -77,7 +77,7 @@ class EffectTrackItem(SubTrackItem):
 
         @return: The effect node.
         """
-        return Node()
+        ...
 
     def toString(self) -> str:
         """
@@ -85,36 +85,36 @@ class EffectTrackItem(SubTrackItem):
 
         @return: string
         """
-        return str()
+        ...
 
     def __copy__(self,) -> None:
         """
 
         """
-        return None
+        ...
 
-    def addToNukeScript(self, script, offset=0, inputs=1, startHandle=0, endHandle=0, addLifetime=True):
+    def _EffectTrackItem_addToNukeScript(self, script, offset=0, inputs=1, startHandle=0, endHandle=0, addLifetime=True) -> None:
         """
 
         """
-        return None
+        ...
 
-    def isRetimeEffect(self):
+    def _EffectTrackItem_isRetimeEffect(self) -> None:
         """
         Check if an EffectTrackItem applies a retime.  Currently this only applies to TimeWarp effects.
         """
-        return None
+        ...
 
-    def name(self):
+    def __EffectTrackItem_name(self) -> str:
         """
         self.name() -> Get the name of the effect's node.
 
         @return: string
         """
-        return str()
+        ...
 
-    def setName(self, name: str):
+    def __EffectTrackItem_setName(self, name) -> None:
         """
         self.setName() -> Set the name of the effect's node.
         """
-        return None
+        ...

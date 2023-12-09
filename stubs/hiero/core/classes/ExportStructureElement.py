@@ -16,209 +16,209 @@ class ExportStructureElement(IExportStructureElement):
     ExportStructureElement represents a node within the export structure
     """
 
-    def __init__(self, name, isFolder):
+    def __init__(self, name, isFolder) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """
-        return None
+        ...
 
-    def preset(self):
+    def preset(self) -> None:
         """
         Return the preset assigned to this Element. May be None
         """
-        return None
+        ...
 
-    def setPreset(self, preset):
+    def setPreset(self, preset) -> None:
         """
         Set the preset assigned to this Element. May be None
         """
-        return None
+        ...
 
-    def setPresetType(self, identifier):
+    def setPresetType(self, identifier) -> None:
         """
         setPresetType(self, identifier)
 
         @param identifier: Unique identifier from the Task which is used to associate the preset type
         """
-        return None
+        ...
 
-    def path(self):
+    def path(self) -> None:
         """
         Return the path of this Element
         """
-        return None
+        ...
 
-    def name(self):
+    def name(self) -> None:
         """
         Return the name of this Element
         """
-        return None
+        ...
 
-    def setName(self, name):
+    def setName(self, name) -> None:
         """
         Set the name of this element.
         """
-        return None
+        ...
 
-    def pathChanged(self, oldPath):
+    def pathChanged(self, oldPath) -> None:
         """
         Notify children and any observers that the element's path has changed.
         """
-        return None
+        ...
 
-    def addPathChangedCallback(self, callback):
+    def addPathChangedCallback(self, callback) -> None:
         """
         Add a callback to be notified when the path of this element has changed,
         callbacks should take the arguments (oldPath, newPath).
         """
-        return None
+        ...
 
-    def isLeaf(self):
+    def isLeaf(self) -> None:
         """
         Returns True if node is flagged as leaf and may not accept children
         """
-        return None
+        ...
 
-    def parent(self):
+    def parent(self) -> None:
         """
         Return the parent element of this Element
         """
-        return None
+        ...
 
-    def _setParent(self, parent):
+    def _setParent(self, parent) -> None:
         """
         Set the parent element of this Element. Note: this is an internal method
         and should not be called directly. Elements should be added to a parent by
         calling parent.addChild()
         """
-        return None
+        ...
 
-    def childIndex(self, element):
+    def childIndex(self, element) -> None:
         """
         Given a child element, identify and return the index of the child within
         the children array. Returns -1 if child not found.
         """
-        return None
+        ...
 
-    def child(self, index):
+    def child(self, index) -> None:
         """
         Return a child by index
         """
-        return None
+        ...
 
-    def children(self):
+    def children(self) -> None:
         """
         Return a list of children
         """
-        return None
+        ...
 
-    def childCount(self):
+    def childCount(self) -> None:
         """
         Return the number of children
         """
-        return None
+        ...
 
-    def __bool__(self):
+    def __bool__(self) -> None:
         """
         Implemented because otherwise the __len__ method is used for evaluation
         in boolean contexts. 'if element' should always succeed.
         """
-        return None
+        ...
 
-    def __len__(self):
+    def __len__(self) -> None:
         """
 
         """
-        return None
+        ...
 
-    def __contains__(self, name):
+    def __contains__(self, name) -> None:
         """
 
         """
-        return None
+        ...
 
-    def __getitem__(self, index):
+    def __getitem__(self, index) -> None:
         """
 
         """
-        return None
+        ...
 
-    def __repr__(self):
+    def __repr__(self) -> None:
         """
         Return repr(self).
         """
-        return None
+        ...
 
-    def findElementsByPath(self, path):
+    def findElementsByPath(self, path) -> None:
         """
         Search recursively through the element tree finding elements which
         match path. Returns a list.
         """
-        return None
+        ...
 
-    def addChild(self, child):
+    def addChild(self, child) -> None:
         """
         Add a child to this Element
         """
-        return None
+        ...
 
-    def _createChildren(self, path, isFolder, preset=None):
+    def _createChildren(self, path, isFolder, preset=None) -> None:
         """
         Create and add a child element. If path has / separators, recursively
         adds children. Returns the final created element.
         """
-        return None
+        ...
 
-    def createChildFolder(self, path):
+    def createChildFolder(self, path) -> None:
         """
 
         """
-        return None
+        ...
 
-    def createChildTask(self, path):
+    def createChildTask(self, path) -> None:
         """
 
         """
-        return None
+        ...
 
-    def createChildFromPreset(self, path, preset):
+    def createChildFromPreset(self, path, preset) -> None:
         """
         Create a child element from a path and existing preset
         """
-        return None
+        ...
 
-    def removeChild(self, child):
+    def removeChild(self, child) -> None:
         """
         Remove a child from this Element
         """
-        return None
+        ...
 
-    def clearChildren(self):
+    def clearChildren(self) -> None:
         """
         Clear all the children
         """
-        return None
+        ...
 
-    def toXml(self):
+    def toXml(self) -> None:
         """
         Serialize Element and children to XML
         """
-        return None
+        ...
 
-    def _toXml(self, parent):
+    def _toXml(self, parent) -> None:
         """
 
         """
-        return None
+        ...
 
-    def fromXml(self, xml):
+    def fromXml(self, xml) -> None:
         """
         Build Child Elements from XML data
         """
-        return None
+        ...
 
-    def _fromXml(self, element):
+    def _fromXml(self, element) -> None:
         """
 
         """
-        return None
+        ...

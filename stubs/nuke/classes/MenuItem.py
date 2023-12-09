@@ -11,98 +11,98 @@ class MenuItem(object):
     MenuItem
     """
 
-    def __hash__(self, ):
+    def __hash__(self, ) -> None:
         """
         Return hash(self).
         """
-        return None
+        ...
 
-    def setEnabled(self, enabled: bool, recursive: bool):
+    def setEnabled(self, enabled: bool, recursive: bool) -> None:
         """
         self.setEnabled(enabled, recursive) -> None
         Enable or disable the item.
         @param enabled: True to enable the object; False to disable it.
         @param recursive: True to also setEnabled on submenu actions.
         """
-        return None
+        ...
 
-    def setVisible(self, visible: bool):
+    def setVisible(self, visible: bool) -> None:
         """
         self.setVisible(visible) -> None
         Show or hide the item.
         @param visible: True to show the object; False to hide it.
         """
-        return None
+        ...
 
-    def invoke(self,):
+    def invoke(self,) -> None:
         """
         self.invoke() -> None
         Perform the action associated with this menu item.
         """
-        return None
+        ...
 
-    def action(self,):
+    def action(self,) -> None:
         """
         self.action() -> None
         Get the action associated with this menu item.
         """
-        return None
+        ...
 
-    def name(self,):
+    def name(self,) -> str:
         """
         self.name() -> String
         Returns the name of the menu item.
         """
-        return str()
+        ...
 
-    def icon(self,):
+    def icon(self,) -> str:
         """
         self.icon() -> String
         Returns the name of the icon on this menu item as path of the icon.
         """
-        return str()
+        ...
 
-    def setIcon(self, icon: str):
+    def setIcon(self, icon: str) -> None:
         """
         self.setIcon(icon) -> None
         Set the icon on this menu item.
         @param icon: the new icon as a path
         """
-        return None
+        ...
 
-    def script(self,):
+    def script(self,) -> str:
         """
         self.script() -> String
         Returns the script that gets executed for this menu item.
         """
-        return str()
+        ...
 
-    def setScript(self, script):
+    def setScript(self, script) -> None:
         """
         self.setScript(script) -> None
         Set the script to be executed for this menu item.
         Note: To call a python script file, you can use the execfile() function. i.e:
         menu.setScript("execfile('script.py')")
         """
-        return None
+        ...
 
-    def shortcut(self,):
+    def shortcut(self,) -> str:
         """
         self.shortcut() -> String
         Returns the keyboard shortcut on this menu item. The format of this is the PortableText format. It will return a string such as "Ctrl+Shift+P". Note that on Mac OS X the Command key is equivalent to Ctrl.
         """
-        return str()
+        ...
 
-    def setShortcut(self, keySequence: str):
+    def setShortcut(self, keySequence: str) -> None:
         """
         self.setShortcut(keySequence) -> None
         Set the keyboard shortcut on this menu item.
         @param keySequence: the new shortcut in PortableText format, e.g. "Ctrl+Shift+P"
         """
-        return None
+        ...
 
-    def __init__(self,  *args, **kwargs):
+    def __init__(self,  *args, **kwargs) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """
-        return None
+        ...

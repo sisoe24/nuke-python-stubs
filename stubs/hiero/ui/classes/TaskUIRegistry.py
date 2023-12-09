@@ -16,72 +16,72 @@ class TaskUIRegistry(IExporterUIRegistry):
     Registry/factory for ITaskUI and IProcessorUI objects.
     """
 
-    def __init__(self):
+    def __init__(self) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """
-        return None
+        ...
 
-    def registerTaskUI(self, taskPreset, taskUI):
+    def registerTaskUI(self, taskPreset, taskUI) -> None:
         """
         Register an ITaskUI class and associate with an ITaskPreset class
         """
-        return None
+        ...
 
-    def registerProcessorUI(self, processorPreset, processorUI):
+    def registerProcessorUI(self, processorPreset, processorUI) -> None:
         """
         Register IProcessorUI class and associate with IProcessorPreset class
         """
-        return None
+        ...
 
-    def numTaskUIs(self):
+    def numTaskUIs(self) -> None:
         """
         Get the number of registered ITaskUI classes.
         """
-        return None
+        ...
 
-    def numProcessorUIs(self):
+    def numProcessorUIs(self) -> None:
         """
         Get the number of registered IProcessorUI classes.
         """
-        return None
+        ...
 
-    def getTaskUI(self, index):
+    def getTaskUI(self, index) -> None:
         """
         Return TaskUI registered at specified index
         """
-        return None
+        ...
 
-    def getProcessorUI(self, index):
+    def getProcessorUI(self, index) -> None:
         """
         Return ProcessorUI registered at specified index
         """
-        return None
+        ...
 
-    def processorUIByIndex(self, index):
+    def processorUIByIndex(self, index) -> None:
         """
         Return ProcessorUI registered at specified index
         """
-        return None
+        ...
 
-    def getTaskUIForPreset(self, preset):
+    def getTaskUIForPreset(self, preset) -> None:
         """
         Return TaskUI object associated with the preset type.  Note that this
         returns a stored instance of the preset, which is suitable for calling
         from C++ code.  For actually constructing UIs, getNewTaskUIForPreset()
         should be called to create a new object.
         """
-        return None
+        ...
 
-    def getNewTaskUIForPreset(self, preset):
+    def getNewTaskUIForPreset(self, preset) -> None:
         """
         Get a new instance of the task UI class for the preset.
         """
-        return None
+        ...
 
-    def getProcessorUIForPreset(self, preset):
+    def getProcessorUIForPreset(self, preset) -> None:
         """
         Return ProcessorUI object associated with the preset type.  Note that
         this returns a stored instance of the preset.
         """
-        return None
+        ...

@@ -18,35 +18,35 @@ class TrackItem(TrackItemBase):
     For an example of how to implement custom versioning scheme, see Plugins/site-packages/hiero/core/versioning_example.py.
     """
 
-    def __setattr__(self, name, value, ):
+    def __setattr__(self, name, value, ) -> None:
         """
         Implement setattr(self, name, value).
         """
-        return None
+        ...
 
-    def __delattr__(self, name, ):
+    def __delattr__(self, name, ) -> None:
         """
         Implement delattr(self, name).
         """
-        return None
+        ...
 
-    def __init__(self,  *args, **kwargs):
+    def __init__(self,  *args, **kwargs) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """
-        return None
+        ...
 
-    def __bool__(self, ):
+    def __bool__(self, ) -> None:
         """
         self != 0
         """
-        return None
+        ...
 
-    def __new__(self, *args, **kwargs):
+    def __new__(self, *args, **kwargs) -> None:
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
-        return None
+        ...
 
     def addTag(self, tag: core.Tag) -> core.Tag:
         """
@@ -55,7 +55,7 @@ class TrackItem(TrackItemBase):
         @param tag: tag object
         @return: a hiero.core.Tag object
         """
-        return Tag()
+        ...
 
     def currentVersion(self) -> core.Version:
         """
@@ -63,7 +63,7 @@ class TrackItem(TrackItemBase):
 
         @return: hiero.core.Version object
         """
-        return Version()
+        ...
 
     def eventNumber(self) -> int:
         """
@@ -71,7 +71,7 @@ class TrackItem(TrackItemBase):
 
         @return: integer event number
         """
-        return int()
+        ...
 
     def getAvailableOcioColourTransforms(self) -> typing.List[str]:
         """
@@ -79,7 +79,7 @@ class TrackItem(TrackItemBase):
 
         @return: string
         """
-        return str()
+        ...
 
     def handleInLength(self) -> int:
         """
@@ -87,7 +87,7 @@ class TrackItem(TrackItemBase):
 
         @return: frames
         """
-        return int()
+        ...
 
     def handleInTime(self) -> int:
         """
@@ -95,7 +95,7 @@ class TrackItem(TrackItemBase):
 
         @return: frames
         """
-        return int()
+        ...
 
     def handleOutLength(self) -> int:
         """
@@ -103,7 +103,7 @@ class TrackItem(TrackItemBase):
 
         @return: frames
         """
-        return int()
+        ...
 
     def handleOutTime(self) -> int:
         """
@@ -111,7 +111,7 @@ class TrackItem(TrackItemBase):
 
         @return: frames
         """
-        return int()
+        ...
 
     def inTransition(self) -> core.Transition:
         """
@@ -119,7 +119,7 @@ class TrackItem(TrackItemBase):
 
         @return: hiero.core.Transition object
         """
-        return Transition()
+        ...
 
     def isMediaPresent(self) -> bool:
         """
@@ -127,7 +127,7 @@ class TrackItem(TrackItemBase):
 
         @return: True or False
         """
-        return Union[True, False]
+        ...
 
     def link(self, trackItem: core.TrackItem) -> None:
         """
@@ -135,7 +135,7 @@ class TrackItem(TrackItemBase):
 
         @param trackItem: track item to link to
         """
-        return None
+        ...
 
     def mapSourceToTimeline(self, time: float) -> float:
         """
@@ -144,7 +144,7 @@ class TrackItem(TrackItemBase):
         @param time: time to map
         @return: mapped time
         """
-        return Number()
+        ...
 
     def mapTimelineToSource(self, time: float) -> float:
         """
@@ -153,7 +153,7 @@ class TrackItem(TrackItemBase):
         @param time: time to map
         @return: mapped time
         """
-        return Number()
+        ...
 
     def maxVersion(self) -> core.Version:
         """
@@ -161,7 +161,7 @@ class TrackItem(TrackItemBase):
 
         @return: hiero.core.Version object
         """
-        return Version()
+        ...
 
     def mediaType(self) -> core.TrackItem.MediaType:
         """
@@ -169,7 +169,7 @@ class TrackItem(TrackItemBase):
 
         @return: MediaType object
         """
-        return core.TrackItem.MediaType()
+        ...
 
     def metadata(self) -> core.DataCollection:
         """
@@ -177,7 +177,7 @@ class TrackItem(TrackItemBase):
 
         @return: hiero.core.DataCollection object
         """
-        return DataCollection()
+        ...
 
     def minVersion(self) -> core.Version:
         """
@@ -185,7 +185,7 @@ class TrackItem(TrackItemBase):
 
         @return: hiero.core.Version object
         """
-        return Version()
+        ...
 
     def name(self) -> str:
         """
@@ -193,7 +193,7 @@ class TrackItem(TrackItemBase):
 
         @return: string
         """
-        return str()
+        ...
 
     def nextVersion(self) -> core.Version:
         """
@@ -201,7 +201,7 @@ class TrackItem(TrackItemBase):
 
         @return: hiero.core.Version object
         """
-        return Version()
+        ...
 
     def numVersions(self) -> int:
         """
@@ -209,7 +209,7 @@ class TrackItem(TrackItemBase):
 
         @return: int
         """
-        return int()
+        ...
 
     def outTransition(self) -> core.Transition:
         """
@@ -217,7 +217,7 @@ class TrackItem(TrackItemBase):
 
         @return: hiero.core.Transition object
         """
-        return Transition()
+        ...
 
     def playbackSpeed(self) -> float:
         """
@@ -225,7 +225,7 @@ class TrackItem(TrackItemBase):
 
         @return: double
         """
-        return float()
+        ...
 
     def prevVersion(self) -> core.Version:
         """
@@ -233,7 +233,7 @@ class TrackItem(TrackItemBase):
 
         @return: hiero.core.Version object
         """
-        return Version()
+        ...
 
     def reconnectMedia(self, path: str) -> None:
         """
@@ -241,7 +241,7 @@ class TrackItem(TrackItemBase):
 
         @param path: path containing media to reconnect to
         """
-        return None
+        ...
 
     def reformatState(self) -> core.ReformatState:
         """
@@ -249,7 +249,7 @@ class TrackItem(TrackItemBase):
 
         @return: hiero.core.ReformatState object
         """
-        return ReformatState()
+        ...
 
     def removeTag(self, tag: core.Tag) -> None:
         """
@@ -257,7 +257,7 @@ class TrackItem(TrackItemBase):
 
         @param tag: hiero.core.Tag object
         """
-        return None
+        ...
 
     def replaceClips(self, path: str) -> None:
         """
@@ -265,7 +265,7 @@ class TrackItem(TrackItemBase):
 
         @param path: path containing media to replace with
         """
-        return None
+        ...
 
     def setCameraColourTransform(self, arg__1: str) -> None:
         """
@@ -273,7 +273,7 @@ class TrackItem(TrackItemBase):
 
         @param colourTransform: Colour transform name
         """
-        return None
+        ...
 
     def setCurrentVersion(self, version: core.Version) -> None:
         """
@@ -281,9 +281,9 @@ class TrackItem(TrackItemBase):
 
         @param version: hiero.core.Version object
         """
-        return None
+        ...
 
-    def setCurrentVersionIndex(self, *args, **kwargs):
+    def setCurrentVersionIndex(self, *args, **kwargs) -> Version:
         """
         self.setCurrentVersionIndex(index) -> sets the current version on this track item and returns the new version object. Creates a new version if there wasn't one before, but doesn't check that the versioned media source exists on disk.
 
@@ -293,7 +293,7 @@ class TrackItem(TrackItemBase):
         WARNING - DEPRECATED ( setCurrentVersionIndex ): This method is deprecated and will not be present in future versions of the Python API.
         Version indices are no longer unique identifiers and should not be used as such. Please use TrackItem.setActiveVersion() instead.
         """
-        return Version()
+        ...
 
     def setName(self, name: str) -> None:
         """
@@ -301,7 +301,7 @@ class TrackItem(TrackItemBase):
 
         @param name: the value to set the track name to
         """
-        return None
+        ...
 
     def setPlaybackSpeed(self, speed: float) -> None:
         """
@@ -309,9 +309,9 @@ class TrackItem(TrackItemBase):
 
         @param newSpeed: double
         """
-        return None
+        ...
 
-    def setSource(self, *args, **kwargs):
+    def setSource(self, *args, **kwargs) -> Clip:
         """
         self.setSource(clip, trackIndex=0) -> sets the source Clip for this TrackItem.
         If the TrackItem is not already in a Track, the duration will be set to the Clip's duration.
@@ -320,7 +320,7 @@ class TrackItem(TrackItemBase):
         @param trackIndex: optional track index, for instance if you are adding an audio Clip and want to use its second audio track
         @return: the hiero.core.Clip object passed in
         """
-        return Clip()
+        ...
 
     def setSourceIn(self, arg__1: float) -> None:
         """
@@ -328,7 +328,7 @@ class TrackItem(TrackItemBase):
 
         @param time: frame value
         """
-        return None
+        ...
 
     def setSourceMediaColourTransform(self, arg__1: str) -> None:
         """
@@ -336,7 +336,7 @@ class TrackItem(TrackItemBase):
 
         @param colourTransform: Colour transform name
         """
-        return None
+        ...
 
     def setSourceOut(self, arg__1: float) -> None:
         """
@@ -346,7 +346,7 @@ class TrackItem(TrackItemBase):
 
         @param time: frame value
         """
-        return None
+        ...
 
     def setTimelineIn(self, arg__1: int) -> None:
         """
@@ -354,7 +354,7 @@ class TrackItem(TrackItemBase):
 
         @param inTime: frame value
         """
-        return None
+        ...
 
     def setTimelineOut(self, arg__1: int) -> None:
         """
@@ -362,7 +362,7 @@ class TrackItem(TrackItemBase):
 
         @param outTime: frame value
         """
-        return None
+        ...
 
     def setTimes(self, timelineIn: int, timelineOut: int, sourceIn: float, sourceOut: float) -> None:
         """
@@ -373,7 +373,7 @@ class TrackItem(TrackItemBase):
         @param sourceIn: source in frame
         @param sourceOut: source out frame
         """
-        return None
+        ...
 
     def setVersionLinkedToBin(self, linked: bool, updateVersion: bool = False) -> None:
         """
@@ -382,15 +382,15 @@ class TrackItem(TrackItemBase):
         @param linked: The linked state to be set on the TrackItem
         @param updatedVersion: Whether or not the TrackItems version will be updated
         """
-        return None
+        ...
 
-    def source(self) -> object:
+    def source(self) -> Clip | Sequence | MediaSource:
         """
         self.source() -> depending on the underlying type of the track item, returns a hiero.core.Clip object, a hiero.core.Sequence object or a hiero.core.MediaSource object.
 
         @return: a hiero.core.Clip object, a hiero.core.Sequence object or a hiero.core.MediaSource object
         """
-        return Iterable()
+        ...
 
     def sourceDuration(self) -> float:
         """
@@ -400,7 +400,7 @@ class TrackItem(TrackItemBase):
 
         @return: frames
         """
-        return float()
+        ...
 
     def sourceIn(self) -> float:
         """
@@ -410,7 +410,7 @@ class TrackItem(TrackItemBase):
 
         @return: frame
         """
-        return int()
+        ...
 
     def sourceMediaColourTransform(self) -> str:
         """
@@ -418,7 +418,7 @@ class TrackItem(TrackItemBase):
 
         @return: string
         """
-        return str()
+        ...
 
     def sourceOut(self) -> float:
         """
@@ -428,7 +428,7 @@ class TrackItem(TrackItemBase):
 
         @return: frame
         """
-        return int()
+        ...
 
     def tags(self) -> object:
         """
@@ -436,7 +436,7 @@ class TrackItem(TrackItemBase):
 
         @return: tuple of hiero.core.Tag objects
         """
-        return tuple()
+        ...
 
     def thumbnail(self, index: int = 0, layer: str = Default(self, Hiero.Python.String)) -> PySide2.QtGui.QImage:
         """
@@ -446,7 +446,7 @@ class TrackItem(TrackItemBase):
         @param layer: the layer to get the thumbnail for (defaults to colour)
         @return: QImage object
         """
-        return Any
+        ...
 
     def toString(self) -> str:
         """
@@ -454,7 +454,7 @@ class TrackItem(TrackItemBase):
 
         @return: string
         """
-        return str()
+        ...
 
     def unlink(self, trackItem: core.TrackItem) -> None:
         """
@@ -462,9 +462,9 @@ class TrackItem(TrackItemBase):
 
         @param trackItem: track item from which this track item is being unlinked
         """
-        return None
+        ...
 
-    def versionDown(self, *args, **kwargs):
+    def versionDown(self, *args, **kwargs) -> Version:
         """
         self.versionDown() -> decrements the current version on this track item and returns the new version object. Creates a new version if there wasn't one before, but doesn't check that the versioned media source exists on disk.
 
@@ -473,7 +473,7 @@ class TrackItem(TrackItemBase):
         WARNING - DEPRECATED ( versionDown ): This method is deprecated and will not be present in future versions of the Python API.
         Only available versions can now be obtained from TrackItem. To find new versions, please use hiero.core.VersionScanner. To obtain the next version, please use TrackItem.prevVersion().
         """
-        return Version()
+        ...
 
     def versionLinkedToBin(self) -> bool:
         """
@@ -481,9 +481,9 @@ class TrackItem(TrackItemBase):
 
         @return: bool
         """
-        return bool()
+        ...
 
-    def versionMaxAvailable(self, *args, **kwargs):
+    def versionMaxAvailable(self, *args, **kwargs) -> Version:
         """
         self.versionMaxAvailable() -> returns the highest discovered version on this track item.
 
@@ -492,9 +492,9 @@ class TrackItem(TrackItemBase):
         WARNING - DEPRECATED ( versionMaxAvailable ): This method is deprecated and will not be present in future versions of the Python API.
         Only available versions can now be obtained from TrackItem. This method has been replaced by TrackItem.maxVersion().
         """
-        return Version()
+        ...
 
-    def versionMinAvailable(self, *args, **kwargs):
+    def versionMinAvailable(self, *args, **kwargs) -> Version:
         """
         self.versionMinAvailable() -> returns the lowest discovered version on this track item.
 
@@ -503,9 +503,9 @@ class TrackItem(TrackItemBase):
         WARNING - DEPRECATED ( versionMinAvailable ): This method is deprecated and will not be present in future versions of the Python API.
         Only available versions can now be obtained from TrackItem. This method has been replaced by TrackItem.minVersion().
         """
-        return Version()
+        ...
 
-    def versionNextAvailable(self, *args, **kwargs):
+    def versionNextAvailable(self, *args, **kwargs) -> Version:
         """
         self.versionNextAvailable() -> returns the next highest available version on this track item that the application has discovered.
 
@@ -514,9 +514,9 @@ class TrackItem(TrackItemBase):
         WARNING - DEPRECATED ( versionNextAvailable ): This method is deprecated and will not be present in future versions of the Python API.
         Only available versions can now be obtained from TrackItem. This method has been replaced by TrackItem.nextVersion().
         """
-        return Version()
+        ...
 
-    def versionPrevAvailable(self, *args, **kwargs):
+    def versionPrevAvailable(self, *args, **kwargs) -> Version:
         """
         self.versionPrevAvailable() -> returns the next lowest version on this track item that the application has discovered.
 
@@ -525,9 +525,9 @@ class TrackItem(TrackItemBase):
         WARNING - DEPRECATED ( versionPrevAvailable ): This method is deprecated and will not be present in future versions of the Python API.
         Only available versions can now be obtained from TrackItem. This method has been replaced by TrackItem.prevVersion().
         """
-        return Version()
+        ...
 
-    def versionUp(self, *args, **kwargs):
+    def versionUp(self, *args, **kwargs) -> Version:
         """
         self.versionUp() -> increments the current version on this track item and returns the new version object. Creates a new version if there wasn't one before, but doesn't check that the versioned media source exists on disk.
 
@@ -536,20 +536,20 @@ class TrackItem(TrackItemBase):
         WARNING - DEPRECATED ( versionUp ): This method is deprecated and will not be present in future versions of the Python API.
         Only available versions can now be obtained from TrackItem. To find new versions, please use hiero.core.VersionScanner. To obtain the next version, please use TrackItem.nextVersion().
         """
-        return Version()
+        ...
 
     def __copy__(self,) -> None:
         """
 
         """
-        return None
+        ...
 
     MediaType: Any = None
     kVideo: Any = None
     kAudio: Any = None
     kUnknown: Any = None
 
-    def addToNukeScript(self, script=None, firstFrame=None, additionalNodes=[], additionalNodesCallback=None, includeRetimes=False, retimeMethod=None, startHandle=None, endHandle=None, colourTransform=None, offset=0, nodeLabel=None, includeAnnotations=False, includeEffects=True, outputToSequenceFormat=False):
+    def _TrackItem_addToNukeScript(self, script=None, firstFrame=None, additionalNodes=[], additionalNodesCallback=None, includeRetimes=False, retimeMethod=None, startHandle=None, endHandle=None, colourTransform=None, offset=0, nodeLabel=None, includeAnnotations=False, includeEffects=True, outputToSequenceFormat=False) -> None:
         """
         This is a variation on the Clip.addToNukeScript() method that remaps the
         Read frame range to the range of the this TrackItem rather than the Clip's
@@ -563,10 +563,10 @@ class TrackItem(TrackItemBase):
         @param retimeMethod: "Motion", "Blend", "Frame" - Knob setting for OFlow retime method
         @param offset: Optional, Global frame offset applied across whole script
         """
-        return None
+        ...
 
-    def unlinkAll(self):
+    def __TrackItem_unlinkAll(self) -> None:
         """
         self.unlinkAll() -> Unlink all track items that are linked to this one.
         """
-        return None
+        ...

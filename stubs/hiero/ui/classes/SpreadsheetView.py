@@ -16,29 +16,29 @@ class SpreadsheetView(Object):
 
     """
 
-    def __init__(self,  *args, **kwargs):
+    def __init__(self,  *args, **kwargs) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """
-        return None
+        ...
 
-    def __new__(self, *args, **kwargs):
+    def __new__(self, *args, **kwargs) -> None:
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
-        return None
+        ...
 
     def beginSelectionUpdate(self) -> None:
         """
         self.beginSelectionUpdate() -> Call beginSelectionUpdate before, and endSelectionUpdate after, making multiple setSelection.
         """
-        return None
+        ...
 
     def endSelectionUpdate(self) -> None:
         """
         self.endSelectionUpdate() -> Call beginSelectionUpdate before, and endSelectionUpdate after, making multiple setSelection.
         """
-        return None
+        ...
 
     def selectAll(self) -> None:
         """
@@ -46,7 +46,7 @@ class SpreadsheetView(Object):
 
         Select All TrackItems within current sequence.
         """
-        return None
+        ...
 
     def selectNone(self) -> None:
         """
@@ -54,21 +54,21 @@ class SpreadsheetView(Object):
 
         Unselect all TrackItems.
         """
-        return None
+        ...
 
     def selection(self) -> object:
         """
 
         """
-        return None
+        ...
 
     def sequence(self) -> object:
         """
 
         """
-        return None
+        ...
 
-    def setSelection(self, *args, **kwargs):
+    def setSelection(self, *args, **kwargs) -> None:
         """
         self.setSelection( hiero.core.TrackItem )
         self.setSelection( [hiero.core.TrackItem] )
@@ -76,16 +76,16 @@ class SpreadsheetView(Object):
 
         @param selection: track item(s) to be selected.
         """
-        return None
+        ...
 
     def window(self) -> PySide2.QtWidgets.QWidget:
         """
         self.window() -> Return the spreadsheet view window
         """
-        return Any
+        ...
 
     def __copy__(self,) -> None:
         """
 
         """
-        return None
+        ...

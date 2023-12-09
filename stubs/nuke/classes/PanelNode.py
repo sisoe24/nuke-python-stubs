@@ -11,52 +11,52 @@ class PanelNode(object):
     PanelNode
     """
 
-    def __hash__(self, ):
+    def __hash__(self, ) -> None:
         """
         Return hash(self).
         """
-        return None
+        ...
 
-    def __str__(self, ):
+    def __str__(self, ) -> None:
         """
         Return str(self).
         """
-        return None
+        ...
 
-    def __new__(self, *args, **kwargs):
+    def __new__(self, *args, **kwargs) -> None:
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
-        return None
+        ...
 
-    def addKnob(self, k: Knob):
+    def addKnob(self, k: Knob) -> None:
         """
         self.addKnob(k) -> None.
         Add knob k to this node or panel.
         @param k: Knob.
         @return: None.
         """
-        return None
+        ...
 
-    def removeKnob(self, k: Knob):
+    def removeKnob(self, k: Knob) -> None:
         """
         self.removeKnob(k) -> None.
         Remove knob k from this node or panel. Throws a ValueError exception if k is not found on the node.
         @param k: Knob.
         @return: None.
         """
-        return None
+        ...
 
-    def readKnobs(self, s: str):
+    def readKnobs(self, s: str) -> None:
         """
         self.readKnobs(s) -> None.
         Read the knobs from a string (TCL syntax).
         @param s: A string.
         @return: None.
         """
-        return None
+        ...
 
-    def writeKnobs(self, i):
+    def writeKnobs(self, i) -> str:
         """
         self.writeKnobs(i) -> String in .nk form.
         Return a tcl list. If TO_SCRIPT | TO_VALUE is not on, this is a simple list
@@ -73,9 +73,9 @@ class PanelNode(object):
         @param i: The set of flags or'd together. Default is TO_SCRIPT | TO_VALUE.
         @return: String in .nk form.
         """
-        return str()
+        ...
 
-    def knobs(self,):
+    def knobs(self,) -> dict:
         """
         self.knobs() -> dict
 
@@ -90,16 +90,16 @@ class PanelNode(object):
 
         Note that this doesn't follow the links for Link_Knobs
         """
-        return dict()
+        ...
 
-    def createWidget(self, *args, **kwargs):
+    def createWidget(self, *args, **kwargs) -> None:
         """
         Create the widget for the panel
         """
-        return None
+        ...
 
-    def __init__(self,  *args, **kwargs):
+    def __init__(self,  *args, **kwargs) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """
-        return None
+        ...

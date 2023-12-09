@@ -21,67 +21,67 @@ class Tag(Object):
         """
         Return repr(self).
         """
-        return None
+        ...
 
-    def __lt__(self, value, ):
+    def __lt__(self, value, ) -> None:
         """
         Return self<value.
         """
-        return None
+        ...
 
-    def __le__(self, value, ):
+    def __le__(self, value, ) -> None:
         """
         Return self<=value.
         """
-        return None
+        ...
 
-    def __eq__(self, value, ):
+    def __eq__(self, value, ) -> None:
         """
         Return self==value.
         """
-        return None
+        ...
 
-    def __ne__(self, value, ):
+    def __ne__(self, value, ) -> None:
         """
         Return self!=value.
         """
-        return None
+        ...
 
-    def __gt__(self, value, ):
+    def __gt__(self, value, ) -> None:
         """
         Return self>value.
         """
-        return None
+        ...
 
-    def __ge__(self, value, ):
+    def __ge__(self, value, ) -> None:
         """
         Return self>=value.
         """
-        return None
+        ...
 
-    def __init__(self,  *args, **kwargs):
+    def __init__(self,  *args, **kwargs) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """
-        return None
+        ...
 
-    def __bool__(self, ):
+    def __bool__(self, ) -> None:
         """
         self != 0
         """
-        return None
+        ...
 
-    def __new__(self, *args, **kwargs):
+    def __new__(self, *args, **kwargs) -> None:
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
-        return None
+        ...
 
     def copy(self) -> core.Tag:
         """
 
         """
-        return core.Tag()
+        ...
 
     def guid(self) -> str:
         """
@@ -89,7 +89,7 @@ class Tag(Object):
 
         @return: object guid as string
         """
-        return str()
+        ...
 
     def icon(self) -> str:
         """
@@ -98,7 +98,7 @@ class Tag(Object):
 
         @return: string
         """
-        return str()
+        ...
 
     def inTime(self) -> int:
         """
@@ -106,7 +106,7 @@ class Tag(Object):
 
         @return: frame
         """
-        return int()
+        ...
 
     def isNull(self) -> bool:
         """
@@ -114,7 +114,7 @@ class Tag(Object):
 
         @return: True or False
         """
-        return Union[True, False]
+        ...
 
     def metadata(self) -> core.DataCollection:
         """
@@ -122,7 +122,7 @@ class Tag(Object):
 
         @return: hiero.core.DataCollection object
         """
-        return DataCollection()
+        ...
 
     def name(self) -> str:
         """
@@ -130,7 +130,7 @@ class Tag(Object):
 
         @return: string
         """
-        return str()
+        ...
 
     def note(self) -> str:
         """
@@ -138,7 +138,7 @@ class Tag(Object):
 
         @return: string
         """
-        return str()
+        ...
 
     def outTime(self) -> int:
         """
@@ -146,13 +146,13 @@ class Tag(Object):
 
         @return: frame
         """
-        return int()
+        ...
 
     def parentBin(self) -> object:
         """
 
         """
-        return None
+        ...
 
     def project(self) -> object:
         """
@@ -160,13 +160,13 @@ class Tag(Object):
 
         @return: hiero.core.Project object
         """
-        return Project()
+        ...
 
     def serialize(self) -> str:
         """
 
         """
-        return str()
+        ...
 
     def setIcon(self, iconPath: str) -> None:
         """
@@ -174,7 +174,7 @@ class Tag(Object):
 
         @param note: path to icon file
         """
-        return None
+        ...
 
     def setInTime(self, time: int) -> None:
         """
@@ -182,7 +182,7 @@ class Tag(Object):
 
         @param time: the in time
         """
-        return None
+        ...
 
     def setName(self, name: str) -> None:
         """
@@ -190,7 +190,7 @@ class Tag(Object):
 
         @param name: name to assign to tag
         """
-        return None
+        ...
 
     def setNote(self, note: str) -> None:
         """
@@ -198,7 +198,7 @@ class Tag(Object):
 
         @param note: string note to assign to tag
         """
-        return None
+        ...
 
     def setOutTime(self, time: int) -> None:
         """
@@ -206,7 +206,7 @@ class Tag(Object):
 
         @param time: the out time
         """
-        return None
+        ...
 
     def setVisible(self, visible: bool) -> None:
         """
@@ -214,13 +214,13 @@ class Tag(Object):
 
         @param visible: visibility state
         """
-        return None
+        ...
 
     def syncName(self, name: str) -> None:
         """
         self.syncName(name) -> set the name of the tag without sending additional notifications.
         """
-        return None
+        ...
 
     def toString(self) -> str:
         """
@@ -228,7 +228,7 @@ class Tag(Object):
 
         @return: string
         """
-        return str()
+        ...
 
     def visible(self) -> bool:
         """
@@ -236,12 +236,12 @@ class Tag(Object):
 
         @return: bool
         """
-        return bool()
+        ...
 
     def __copy__(self,) -> None:
         """
 
         """
-        return None
+        ...
 
     __hash__: Any = None

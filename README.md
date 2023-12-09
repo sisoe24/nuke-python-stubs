@@ -50,7 +50,6 @@ The script tries to guess the data type by parsing the function signature/docume
 
 - The type `Any` means **it could be any we don't know** and not: **any type is valid**.
 - The type  `Number` means **it could be a float or an int we don't know** and not: **any number type is valid**.
-- Optional arguments are signed as `x:type=None` for guessed types and `x=None` for the unguessed.
 
 > If arguments do not have any type annotation, it probably means that it was not possible to parse the function documentation.
 

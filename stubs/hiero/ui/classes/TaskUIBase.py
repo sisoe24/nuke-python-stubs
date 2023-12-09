@@ -17,84 +17,84 @@ class TaskUIBase(ITaskUI):
     """
     propertiesChanged = Signal()
 
-    def __init__(self, taskType, preset, displayName):
+    def __init__(self, taskType, preset, displayName) -> None:
         """
         Initialise Exporter Preset Base Class
         """
-        return None
+        ...
 
-    def setPreset(self, preset):
+    def setPreset(self, preset) -> None:
         """
         Assign Preset to ExporterUI
         """
-        return None
+        ...
 
-    def setTags(self, tags):
+    def setTags(self, tags) -> None:
         """
         setTags passes the subset of tags associated with the selection for export
         """
-        return None
+        ...
 
-    def preset(self):
+    def preset(self) -> None:
         """
         Return Preset currently assigned to ExporterUI
         """
-        return None
+        ...
 
-    def populateUI(self, widget, exportTemplate):
+    def populateUI(self, widget, exportTemplate) -> None:
         """
         populateUI() Export dialog to allow the TaskUI to populate a QWidget with the ui widgets neccessary to reflect the current preset.
         """
-        return None
+        ...
 
-    def setTaskItemType(self, type):
+    def setTaskItemType(self, type) -> None:
         """
 
         """
-        return None
+        ...
 
-    def taskItemType(self):
+    def taskItemType(self) -> None:
         """
 
         """
-        return None
+        ...
 
-    def displayName(self):
+    def displayName(self) -> None:
         """
         Exporter name to be displayed in the UI
         """
-        return None
+        ...
 
-    def ident(self):
+    def ident(self) -> str:
         """
         self.ident() -> called by Hiero to get a unique identifier linking this TaskUI with a Task and TaskPreset.
 
         @return: string
         """
-        return str()
+        ...
 
-    def parentType(self):
+    def parentType(self) -> None:
         """
 
         """
-        return None
+        ...
 
-    def setProject(self, project):
+    def setProject(self, project) -> None:
         """
         Set the project being used for the current export.
         """
-        return None
+        ...
 
-    def initializeAndPopulateUI(self, widget, exportTemplate):
+    def initializeAndPopulateUI(self, widget, exportTemplate) -> None:
         """
 
         """
-        return None
+        ...
 
-    def initializeUI(self, widget):
+    def initializeUI(self, widget) -> None:
         """
 
         """
-        return None
+        ...
 
     staticMetaObject: Any = None

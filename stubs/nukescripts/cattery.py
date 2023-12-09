@@ -76,7 +76,7 @@ class CatInfo:
             if directory not in nuke.pluginPath():
                 nuke.pluginAddPath(directory)
             filename = os.path.split(self.filepath)[-1]
-            return f'import nuke; nuke.createNode({filename!r})'
+            return f"import nuke; nuke.createNode({filename!r})"
 
         elif self.filepath.endswith('.cat'):
             # we are creating a temp nk file so we can setup the knob on inference pointing to the
@@ -183,7 +183,7 @@ def discover_packages(repository, target_version):
 
 
 def populate_menu(menu):
-    nuke_version = float(f'{nuke.NUKE_VERSION_MAJOR}.{nuke.NUKE_VERSION_MINOR}')
+    nuke_version = float(f"{nuke.NUKE_VERSION_MAJOR}.{nuke.NUKE_VERSION_MINOR}")
 
     packages_by_category = dict()
     for repository in find_repositories():

@@ -34,55 +34,55 @@ class Format(Object):
         """
         Return repr(self).
         """
-        return None
+        ...
 
-    def __lt__(self, value, ):
+    def __lt__(self, value, ) -> None:
         """
         Return self<value.
         """
-        return None
+        ...
 
-    def __le__(self, value, ):
+    def __le__(self, value, ) -> None:
         """
         Return self<=value.
         """
-        return None
+        ...
 
-    def __eq__(self, value, ):
+    def __eq__(self, value, ) -> None:
         """
         Return self==value.
         """
-        return None
+        ...
 
-    def __ne__(self, value, ):
+    def __ne__(self, value, ) -> None:
         """
         Return self!=value.
         """
-        return None
+        ...
 
-    def __gt__(self, value, ):
+    def __gt__(self, value, ) -> None:
         """
         Return self>value.
         """
-        return None
+        ...
 
-    def __ge__(self, value, ):
+    def __ge__(self, value, ) -> None:
         """
         Return self>=value.
         """
-        return None
+        ...
 
-    def __init__(self,  *args, **kwargs):
+    def __init__(self,  *args, **kwargs) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """
-        return None
+        ...
 
-    def __new__(self, *args, **kwargs):
+    def __new__(self, *args, **kwargs) -> None:
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
-        return None
+        ...
 
     def aspect(self) -> float:
         """
@@ -90,7 +90,7 @@ class Format(Object):
 
         @return: float
         """
-        return float()
+        ...
 
     def cleanAperture(self) -> object:
         """
@@ -98,7 +98,7 @@ class Format(Object):
 
         @return: tuple
         """
-        return tuple()
+        ...
 
     def height(self) -> int:
         """
@@ -106,7 +106,7 @@ class Format(Object):
 
         @return: int
         """
-        return int()
+        ...
 
     def isValid(self) -> bool:
         """
@@ -114,7 +114,7 @@ class Format(Object):
 
         @return: True or False
         """
-        return Union[True, False]
+        ...
 
     def name(self) -> str:
         """
@@ -122,7 +122,7 @@ class Format(Object):
 
         @return: string
         """
-        return str()
+        ...
 
     def pixelAspect(self) -> float:
         """
@@ -130,7 +130,7 @@ class Format(Object):
 
         @return: float
         """
-        return float()
+        ...
 
     def productionAperture(self) -> object:
         """
@@ -138,7 +138,7 @@ class Format(Object):
 
         @return: tuple
         """
-        return tuple()
+        ...
 
     def toString(self) -> str:
         """
@@ -146,7 +146,7 @@ class Format(Object):
 
         @return: string
         """
-        return str()
+        ...
 
     def width(self) -> int:
         """
@@ -154,19 +154,19 @@ class Format(Object):
 
         @return: int
         """
-        return int()
+        ...
 
     def __copy__(self,) -> None:
         """
 
         """
-        return None
+        ...
 
     __hash__: Any = None
 
-    def _Format_addToNukeScript(self, script=None, resize='width', black_outside=True):
+    def _Format_addToNukeScript(self, script=None, resize='width', black_outside=True) -> None:
         """
         self.addToNukeScript(self, script, to_type) -> adds a Reformat node matching this Format to the specified script and returns the nuke node object.     @param script: Nuke script object to add nodes to, or None to just generate and return the node.   @param resize: Type of resize (use constants from nuke.ReformatNode, default is kResizeWidth).   @parm black_outside: Value for the black_outside knob.   @return: hiero.core.nuke.ReformatNode object
 
         """
-        return None
+        ...
