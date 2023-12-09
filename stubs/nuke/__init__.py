@@ -2566,7 +2566,7 @@ def thisView():
     return str()
 
 
-def toNode(s: str):
+def toNode(s: str) -> Node:
     """
     toNode(s) -> Node
 
@@ -2575,7 +2575,7 @@ def toNode(s: str):
     :param s: Node name.
     :return: Node or None if it does not exist.
     """
-    return Union[Node, None]
+    ...
 
 
 def toggleFullscreen():

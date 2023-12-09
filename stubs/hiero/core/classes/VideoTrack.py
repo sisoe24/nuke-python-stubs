@@ -148,7 +148,7 @@ class VideoTrack(TrackBase):
         """
         return Union[True, False]
 
-    def items(self) -> object:
+    def items(self) -> Tuple[core.TrackItem, ...]:
         """
         self.items() -> returns a tuple with all of the track items contained by this track.
 

@@ -214,13 +214,13 @@ def Initialise() -> None:
     return None
 
 
-def activeSequence():
+def activeSequence() -> hiero.core.Sequence:
     """
     hiero.ui.activeSequence() -> gets the currently active sequence.
 
     @return: a hiero.core.Sequence of the last activated hiero.ui.TimelineEditor, hiero.ui.SpreadsheetView object or hiero.ui.Viewer object
     """
-    return Iterable()
+    ...
 
 
 def activeView():

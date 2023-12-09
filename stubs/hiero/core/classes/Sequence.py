@@ -260,7 +260,7 @@ class Sequence(SequenceBase):
         """
         return VideoTrack()
 
-    def videoTracks(self) -> object:
+    def videoTracks(self) -> Tuple[core.VideoTrack, ...]:
         """
         self.videoTracks() -> returns a tuple with all of the video tracks.
 
