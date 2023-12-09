@@ -11,7 +11,7 @@ from core import *
 from _fnpython import pluginPath, getPluginPath
 
 from . import (FnNukeHelpers, FnOnProjectLoad, FnAddClipToSequence,
-               FnSequenceFormatHandler, log, nuke, util, events, deprecated,
+               FnSequenceFormatHandler, log, util, events, deprecated,
                find_plugins, find_startup_projects)
 from .classes import *
 from .find_items import (findItems, findItemByGuid, findItemsInBin,
@@ -657,27 +657,27 @@ env = {'VersionDate': '', 'VersionMajor': '', 'VersionMinor': '', 'VersionReleas
 # Built-in methods
 
 
-def LUTGroup(*args, **kwargs):
+def LUTGroup(*args, **kwargs) -> None:
     """
 
     """
-    return None
+    ...
 
 
-def LUTs(*args, **kwargs):
+def LUTs(*args, **kwargs) -> tuple:
     """
     hiero.core.LUTs() -> returns a tuple with the names of all of the available luts.
 
     @return: tuple of strings
     """
-    return tuple()
+    ...
 
 
 def ViewerProcessNameFromDisplayTransformName(arg__1: str) -> object:
     """
 
     """
-    return None
+    ...
 
 
 def addPathRemap(arg__1: str, arg__2: str, arg__3: str) -> None:
@@ -690,10 +690,10 @@ def addPathRemap(arg__1: str, arg__2: str, arg__3: str) -> None:
 
     @return: None
     """
-    return None
+    ...
 
 
-def addPluginPath(*args, **kwargs):
+def addPluginPath(*args, **kwargs) -> list:
     """
     hiero.core.addPluginPath(pluginPath) -> adds a new path to the list of plugin paths searched for Python plugins (in Python/Startup and Python/StartupUI folders). The user's .nuke folder will be the first in this list.
     hiero.core.addPluginPath(pluginPath, index) -> the same as above, except that the index specifies which item in the list of paths to place the new one before.
@@ -701,17 +701,17 @@ def addPluginPath(*args, **kwargs):
     @param pluginPath: the new path to add
     @param index: optional; if not specified or negative, the new path will be added to the end of the list
     """
-    return list()
+    ...
 
 
-def closeAllProjects(*args, **kwargs):
+def closeAllProjects(*args, **kwargs) -> Any:
     """
     hiero.core.closeProject() -> closes all of the existing projects without saving.
     hiero.core.closeProject(bool dontSave) -> same as above, but if the parameter is set to false, unsaved projects will cause Hiero to popup a dialog for each unsaved project, asking the user if they'd like to save.
 
     @param dontSave: True or False
     """
-    return Any
+    ...
 
 
 def conformer() -> Conformer:
@@ -720,7 +720,7 @@ def conformer() -> Conformer:
 
     @return: a hiero.core.Conformer object
     """
-    return Conformer()
+    ...
 
 
 def formats() -> object:
@@ -729,56 +729,56 @@ def formats() -> object:
 
     @return: tuple of hiero.core.Format objects
     """
-    return tuple()
+    ...
 
 
 def getFilenameList(arg__1: str, arg__2: bool, arg__3: bool, arg__4: bool, arg__5: bool) -> object:
     """
     Deprecated. Do not use. Use hiero.core.filenameList() instead
     """
-    return None
+    ...
 
 
 def getLibraryDirectory(arg__1: str) -> object:
     """
     hiero.core.getLibraryDirectory(subdirectory) -> deprecated; use hiero.core.libraryDirectory() instead.
     """
-    return Any
+    ...
 
 
-def getPluginPath():
+def getPluginPath() -> Any:
     """
     hiero.core.getPluginPath() -> deprecated; please use hiero.core.pluginPath instead.
     """
-    return Any
+    ...
 
 
-def getRoleColorspace(*args, **kwargs):
+def getRoleColorspace(*args, **kwargs) -> None:
     """
 
     """
-    return None
+    ...
 
 
 def isHieroPlayer() -> object:
     """
 
     """
-    return None
+    ...
 
 
 def isIndie() -> object:
     """
 
     """
-    return None
+    ...
 
 
 def isNC() -> object:
     """
 
     """
-    return None
+    ...
 
 
 def libraryDirectory(arg__1: str) -> object:
@@ -788,16 +788,16 @@ def libraryDirectory(arg__1: str) -> object:
     @param subdirectory: path to append to the .nuke directory
     @return: string
     """
-    return str()
+    ...
 
 
-def newProject(*args, **kwargs):
+def newProject(*args, **kwargs) -> Project:
     """
     hiero.core.newProject(name=None) -> creates and returns a new Project object. A name can optionally be given for the project.
 
     @return: hiero.core.Project object
     """
-    return Project()
+    ...
 
 
 def openProject(path: str, flags: int = 'Hiero.Python.Project.kProjectOpenNoFlags') -> core.Project:
@@ -808,7 +808,7 @@ def openProject(path: str, flags: int = 'Hiero.Python.Project.kProjectOpenNoFlag
     @param path: Path to the project file (\*.hrox).
     @return: Opened project.
     """
-    return core.Project()
+    ...
 
 
 def pathRemappings() -> object:
@@ -817,16 +817,16 @@ def pathRemappings() -> object:
 
     @return: a list of path remappings each containing the mapping for (windows, osx, linux)
     """
-    return list()
+    ...
 
 
-def pluginPath():
+def pluginPath() -> tuple:
     """
     hiero.core.pluginPath() -> Returns a tuple of the search paths used by Hiero to load Python scripts.
 
     @return: tuple of strings
     """
-    return tuple()
+    ...
 
 
 def project(arg__1: str) -> Project:
@@ -835,10 +835,10 @@ def project(arg__1: str) -> Project:
 
     @return: hiero.core.Project object
     """
-    return Project()
+    ...
 
 
-def projects(*args, **kwargs) -> Tuple[Project, ...]:
+def projects(*args, **kwargs) -> tuple:
     """
     hiero.core.projects() -> returns a tuple of currently loaded projects which are user projects (not startup). Same effect as calling the method below passing Project.kUserProjects.
     hiero.core.projects(projectTypes) -> returns a tuple of currently loaded projects, filtered according to projectTypes. Use hiero.core.projects()[-1] to get the last loaded project.
@@ -846,10 +846,10 @@ def projects(*args, **kwargs) -> Tuple[Project, ...]:
 
     @return: tuple of hiero.core.Project objects
     """
-    return tuple(Project,)
+    ...
 
 
-def quit(*args, **kwargs):
+def quit(*args, **kwargs) -> int:
     """
     hiero.core.quit() -> shuts down Hiero, without saving any existing projects. Safer than calling sys.exit(), which doesn't always clean up properly and can cause Hiero to crash. This version sets the exit code of the Hiero process to 0.
 
@@ -858,21 +858,21 @@ def quit(*args, **kwargs):
 
     @param exitCode: optional; integer value to set the process's exit code to
     """
-    return int()
+    ...
 
 
 def redo() -> object:
     """
 
     """
-    return None
+    ...
 
 
 def redoSize() -> object:
     """
 
     """
-    return None
+    ...
 
 
 def remapPath(arg__1: str) -> object:
@@ -882,25 +882,25 @@ def remapPath(arg__1: str) -> object:
     @param path: string path to apply the path remapping rules to
     @return: string
     """
-    return str()
+    ...
 
 
-def stopScriptAndQuit(*args, **kwargs):
+def stopScriptAndQuit(*args, **kwargs) -> None:
     """
 
     """
-    return None
+    ...
 
 
 def undo() -> object:
     """
 
     """
-    return None
+    ...
 
 
 def undoSize() -> object:
     """
 
     """
-    return None
+    ...

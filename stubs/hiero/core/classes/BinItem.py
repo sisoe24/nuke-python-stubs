@@ -20,79 +20,79 @@ class BinItem(Object):
         """
         Return repr(self).
         """
-        return None
+        ...
 
-    def __hash__(self, ):
+    def __hash__(self, ) -> None:
         """
         Return hash(self).
         """
-        return None
+        ...
 
-    def __lt__(self, value, ):
+    def __lt__(self, value, ) -> None:
         """
         Return self<value.
         """
-        return None
+        ...
 
-    def __le__(self, value, ):
+    def __le__(self, value, ) -> None:
         """
         Return self<=value.
         """
-        return None
+        ...
 
-    def __eq__(self, value, ):
+    def __eq__(self, value, ) -> None:
         """
         Return self==value.
         """
-        return None
+        ...
 
-    def __ne__(self, value, ):
+    def __ne__(self, value, ) -> None:
         """
         Return self!=value.
         """
-        return None
+        ...
 
-    def __gt__(self, value, ):
+    def __gt__(self, value, ) -> None:
         """
         Return self>value.
         """
-        return None
+        ...
 
-    def __ge__(self, value, ):
+    def __ge__(self, value, ) -> None:
         """
         Return self>=value.
         """
-        return None
+        ...
 
-    def __init__(self,  *args, **kwargs):
+    def __init__(self,  *args, **kwargs) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """
-        return None
+        ...
 
-    def __bool__(self, ):
+    def __bool__(self, ) -> None:
         """
         self != 0
         """
-        return None
+        ...
 
-    def __getitem__(self, key, ):
+    def __getitem__(self, key, ) -> None:
         """
         Return self[key].
         """
-        return None
+        ...
 
-    def __len__(self, ):
+    def __len__(self, ) -> None:
         """
         Return len(self).
         """
-        return None
+        ...
 
-    def __new__(self, *args, **kwargs):
+    def __new__(self, *args, **kwargs) -> None:
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
-        return None
+        ...
 
     def activeItem(self) -> None:
         """
@@ -100,7 +100,7 @@ class BinItem(Object):
 
         @return: hiero.core.Clip or hiero.core.Sequence object
         """
-        return Iterable()
+        ...
 
     def activeVersion(self) -> core.Version:
         """
@@ -108,9 +108,9 @@ class BinItem(Object):
 
         @return: hiero.core.Version object
         """
-        return Version()
+        ...
 
-    def addSnapshot(self, *args, **kwargs):
+    def addSnapshot(self, *args, **kwargs) -> Snapshot:
         """
         self.addSnapshot(comment) -> adds a new snapshot for the object, with a comment.
         self.addSnapshot(sequence, comment) -> adds a new snapshot for the object, using the sequence as the new snapshot, setting the comment.
@@ -119,7 +119,7 @@ class BinItem(Object):
         @param sequence: a hiero.core.Sequence object to create the Snapshot from
         @return: hiero.core.Snapshot object
         """
-        return Snapshot()
+        ...
 
     def addVersion(self, version: core.Version, position: int = -1) -> core.Version:
         """
@@ -129,9 +129,9 @@ class BinItem(Object):
         @param position: position at which the new Version must be inserted, if -1 then insert at end
         @return: hiero.core.Version object
         """
-        return Version()
+        ...
 
-    def clone(self, *args, **kwargs):
+    def clone(self, *args, **kwargs) -> BinItem:
         """
         self.clone() -> returns a deep copy of this object.
 
@@ -140,7 +140,7 @@ class BinItem(Object):
         WARNING - DEPRECATED ( clone ): This method is deprecated and will not be present in future versions of the Python API.
         This method has been replaced by copy().
         """
-        return BinItem()
+        ...
 
     def color(self) -> PySide2.QtGui.QColor:
         """
@@ -148,7 +148,7 @@ class BinItem(Object):
 
         @return: PySide2.QtGui.QColor
         """
-        return Any
+        ...
 
     def copy(self) -> object:
         """
@@ -156,9 +156,9 @@ class BinItem(Object):
 
         @return: hiero.core.BinItem object
         """
-        return BinItem()
+        ...
 
-    def createClipVersion(self, *args, **knobs):
+    def createClipVersion(self, *args, **knobs) -> Version:
         """
         self.createClipVersion(position, path, **knobs) -> Construct a clip from a path and optional knob values, and add it as a new version. Raises RuntimeError if creating the clip fails or the path already exists as a version.
 
@@ -167,13 +167,13 @@ class BinItem(Object):
         @param knobs: keyword args for specifying additional knobs to set
         @return: the created Version
         """
-        return Version()
+        ...
 
     def deserializeChildItem(self, data: str, index: int) -> None:
         """
 
         """
-        return None
+        ...
 
     def displayColor(self) -> PySide2.QtGui.QColor:
         """
@@ -181,22 +181,22 @@ class BinItem(Object):
 
         @return: PySide2.QtGui.QColor
         """
-        return Any
+        ...
 
     def guid(self) -> object:
         """
 
         """
-        return None
+        ...
 
-    def hasVersion(self, *args, **kwargs):
+    def hasVersion(self, *args, **kwargs) -> Union[True, False]:
         """
         self.hasVersion(index) -> checks if a given version exists and is valid.
 
         @param index: index of the version to check for
         @return: True or False
         """
-        return Union[True, False]
+        ...
 
     def isClipVersion(self, clip: core.Clip) -> bool:
         """
@@ -205,7 +205,7 @@ class BinItem(Object):
         @param clip: Clip to look for
         @return: True or False
         """
-        return Union[True, False]
+        ...
 
     def isNull(self) -> bool:
         """
@@ -213,7 +213,7 @@ class BinItem(Object):
 
         @return: True or False
         """
-        return Union[True, False]
+        ...
 
     def items(self) -> object:
         """
@@ -221,7 +221,7 @@ class BinItem(Object):
 
         @return: tuple of hiero.core.Version objects
         """
-        return tuple()
+        ...
 
     def maxVersion(self) -> core.Version:
         """
@@ -229,7 +229,7 @@ class BinItem(Object):
 
         @return: hiero.core.Version object
         """
-        return Version()
+        ...
 
     def minVersion(self) -> core.Version:
         """
@@ -237,7 +237,7 @@ class BinItem(Object):
 
         @return: hiero.core.Version object
         """
-        return Version()
+        ...
 
     def name(self) -> str:
         """
@@ -245,7 +245,7 @@ class BinItem(Object):
 
         @return: string
         """
-        return str()
+        ...
 
     def nextVersion(self) -> core.Version:
         """
@@ -253,7 +253,7 @@ class BinItem(Object):
 
         @return: hiero.core.Version object
         """
-        return Version()
+        ...
 
     def numSnapshots(self) -> int:
         """
@@ -261,7 +261,7 @@ class BinItem(Object):
 
         @return: int
         """
-        return int()
+        ...
 
     def numVersions(self) -> int:
         """
@@ -269,7 +269,7 @@ class BinItem(Object):
 
         @return: int
         """
-        return int()
+        ...
 
     def parentBin(self) -> object:
         """
@@ -277,7 +277,7 @@ class BinItem(Object):
 
         @return: hiero.core.Bin object
         """
-        return Bin()
+        ...
 
     def prevVersion(self) -> core.Version:
         """
@@ -285,7 +285,7 @@ class BinItem(Object):
 
         @return: hiero.core.Version object
         """
-        return Version()
+        ...
 
     def project(self) -> object:
         """
@@ -293,7 +293,7 @@ class BinItem(Object):
 
         @return: heiro.core.Project object
         """
-        return Project()
+        ...
 
     def removeVersion(self, version: core.Version) -> None:
         """
@@ -301,7 +301,7 @@ class BinItem(Object):
 
         @param version: hiero.core.Version object to be removed
         """
-        return None
+        ...
 
     def restoreToSnapshot(self, index: int) -> None:
         """
@@ -309,22 +309,22 @@ class BinItem(Object):
 
         @param index: index of the Snapshot to restore from. Generates an exception if the index is out of range
         """
-        return None
+        ...
 
     def serialize(self) -> str:
         """
 
         """
-        return str()
+        ...
 
     def setActiveVersion(self, version: core.Version) -> core.Version:
         """
         self.setActiveVersion(version) -> sets the active version to the version parameter.
         @return: hiero.core.Version object
         """
-        return Version()
+        ...
 
-    def setActiveVersionIndex(self, *args, **kwargs):
+    def setActiveVersionIndex(self, *args, **kwargs) -> Version:
         """
         self.setActiveVersionIndex(version) -> sets the currently active version by index.
 
@@ -334,7 +334,7 @@ class BinItem(Object):
         WARNING - DEPRECATED ( setActiveVersionIndex ): This method is deprecated and will not be present in future versions of the Python API.
         Version indices are no longer unique identifiers and should not be used as such. Please use BinItem.setActiveVersion() instead.
         """
-        return Version()
+        ...
 
     def setColor(self, arg__1: PySide2.QtGui.QColor) -> None:
         """
@@ -342,13 +342,13 @@ class BinItem(Object):
 
         @param color: the color to set, as a PySide2.QtGui.QColor, a string (e.g. '#ff0000') or an integer containing the RGB components (e.g. 0x11aa33).
         """
-        return None
+        ...
 
     def setName(self, name: str) -> None:
         """
         self.setName(name) -> set the name of the item.
         """
-        return None
+        ...
 
     def snapshots(self) -> object:
         """
@@ -356,13 +356,13 @@ class BinItem(Object):
 
         @return: tuple of hiero.core.Snapshot objects
         """
-        return tuple()
+        ...
 
     def syncName(self, name: str) -> None:
         """
         self.syncName(name) -> set the name of the item without sending additional notifications.
         """
-        return None
+        ...
 
     def toString(self) -> str:
         """
@@ -370,18 +370,18 @@ class BinItem(Object):
 
         @return: string
         """
-        return str()
+        ...
 
-    def version(self, *args, **kwargs):
+    def version(self, *args, **kwargs) -> Version:
         """
         self.version(index) -> gets a Version object for the version of the bin item specified by the index.
 
         @param index: index of the version to get
         @return: hiero.core.Version object
         """
-        return Version()
+        ...
 
-    def versionDown(self, *args, **kwargs):
+    def versionDown(self, *args, **kwargs) -> Version:
         """
         self.versionDown() -> decrements the current/active version and returns the newly active Version object of the bin item.
 
@@ -390,9 +390,9 @@ class BinItem(Object):
         WARNING - DEPRECATED ( versionDown ): This method is deprecated and will not be present in future versions of the Python API.
         Only available versions can now be obtained from BinItem. To find new versions, please use hiero.core.VersionScanner. To obtain the next version, please use BinItem.prevVersion().
         """
-        return Version()
+        ...
 
-    def versionMaxAvailable(self, *args, **kwargs):
+    def versionMaxAvailable(self, *args, **kwargs) -> Version:
         """
         self.versionMaxAvailable() -> finds the highest version that is currently loaded and does not have missing or offline media and sets it as the active version on this bin item.
 
@@ -401,9 +401,9 @@ class BinItem(Object):
         WARNING - DEPRECATED ( versionMaxAvailable ): This method is deprecated and will not be present in future versions of the Python API.
         Only available versions can now be obtained from BinItem. This method has been replaced by BinItem.maxVersion().
         """
-        return Version()
+        ...
 
-    def versionMinAvailable(self, *args, **kwargs):
+    def versionMinAvailable(self, *args, **kwargs) -> Version:
         """
         self.versionMinAvailable() -> finds the lowest version that is currently loaded and does not have missing or offline media and sets it as the active version on this bin item.
 
@@ -412,9 +412,9 @@ class BinItem(Object):
         WARNING - DEPRECATED ( versionMinAvailable ): This method is deprecated and will not be present in future versions of the Python API.
         Only available versions can now be obtained from BinItem. This method has been replaced by BinItem.minVersion().
         """
-        return Version()
+        ...
 
-    def versionNextAvailable(self, *args, **kwargs):
+    def versionNextAvailable(self, *args, **kwargs) -> Version:
         """
         self.versionNextAvailable() -> finds the next (higher) version that is currently loaded and does not have missing or offline media and sets it as the active version on this bin item.
 
@@ -423,9 +423,9 @@ class BinItem(Object):
         WARNING - DEPRECATED ( versionNextAvailable ): This method is deprecated and will not be present in future versions of the Python API.
         Only available versions can now be obtained from BinItem. This method has been replaced by BinItem.nextVersion().
         """
-        return Version()
+        ...
 
-    def versionPrevAvailable(self, *args, **kwargs):
+    def versionPrevAvailable(self, *args, **kwargs) -> Version:
         """
         self.versionPrevAvailable() -> finds the prev (lower) version that is currently loaded and does not have missing or offline media and sets it as the active version on this bin item.
 
@@ -434,9 +434,9 @@ class BinItem(Object):
         WARNING - DEPRECATED ( versionPrevAvailable ): This method is deprecated and will not be present in future versions of the Python API.
         Only available versions can now be obtained from BinItem. This method has been replaced by BinItem.prevVersion().
         """
-        return Version()
+        ...
 
-    def versionUp(self, *args, **kwargs):
+    def versionUp(self, *args, **kwargs) -> Version:
         """
         self.versionUp() -> increments the current/active version and returns the newly active Version object of the bin item.
 
@@ -445,10 +445,10 @@ class BinItem(Object):
         WARNING - DEPRECATED ( versionUp ): This method is deprecated and will not be present in future versions of the Python API.
         Only available versions can now be obtained from BinItem. To find new versions, please use hiero.core.VersionScanner. To obtain the next version, please use BinItem.nextVersion().
         """
-        return Version()
+        ...
 
     def __copy__(self,) -> None:
         """
 
         """
-        return None
+        ...

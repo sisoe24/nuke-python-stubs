@@ -20,106 +20,106 @@ class Bin(Object):
         """
         Return repr(self).
         """
-        return None
+        ...
 
-    def __hash__(self, ):
+    def __hash__(self, ) -> None:
         """
         Return hash(self).
         """
-        return None
+        ...
 
-    def __setattr__(self, name, value, ):
+    def __setattr__(self, name, value, ) -> None:
         """
         Implement setattr(self, name, value).
         """
-        return None
+        ...
 
-    def __delattr__(self, name, ):
+    def __delattr__(self, name, ) -> None:
         """
         Implement delattr(self, name).
         """
-        return None
+        ...
 
-    def __lt__(self, value, ):
+    def __lt__(self, value, ) -> None:
         """
         Return self<value.
         """
-        return None
+        ...
 
-    def __le__(self, value, ):
+    def __le__(self, value, ) -> None:
         """
         Return self<=value.
         """
-        return None
+        ...
 
-    def __eq__(self, value, ):
+    def __eq__(self, value, ) -> None:
         """
         Return self==value.
         """
-        return None
+        ...
 
-    def __ne__(self, value, ):
+    def __ne__(self, value, ) -> None:
         """
         Return self!=value.
         """
-        return None
+        ...
 
-    def __gt__(self, value, ):
+    def __gt__(self, value, ) -> None:
         """
         Return self>value.
         """
-        return None
+        ...
 
-    def __ge__(self, value, ):
+    def __ge__(self, value, ) -> None:
         """
         Return self>=value.
         """
-        return None
+        ...
 
-    def __init__(self,  *args, **kwargs):
+    def __init__(self,  *args, **kwargs) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """
-        return None
+        ...
 
-    def __bool__(self, ):
+    def __bool__(self, ) -> None:
         """
         self != 0
         """
-        return None
+        ...
 
-    def __getitem__(self, key, ):
+    def __getitem__(self, key, ) -> None:
         """
         Return self[key].
         """
-        return None
+        ...
 
-    def __len__(self, ):
+    def __len__(self, ) -> None:
         """
         Return len(self).
         """
-        return None
+        ...
 
-    def __contains__(self, key, ):
+    def __contains__(self, key, ) -> None:
         """
         Return key in self.
         """
-        return None
+        ...
 
-    def __new__(self, *args, **kwargs):
+    def __new__(self, *args, **kwargs) -> None:
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
-        return None
+        ...
 
-    def addItem(self, *args, **kwargs):
+    def addItem(self, *args, **kwargs) -> Any:
         """
         self.addItem(object) -> adds the item to the bin object.
 
         @param object: hiero.core.Bin, hiero.core.BinItem, or hiero.core.Tag object, to be added as a sub item of the bin object
         @return: Added object
         """
-        return Any
+        ...
 
     def bins(self) -> object:
         """
@@ -127,7 +127,7 @@ class Bin(Object):
 
         @return: tuple of hiero.core.Bin objects
         """
-        return tuple()
+        ...
 
     def clips(self) -> object:
         """
@@ -135,7 +135,7 @@ class Bin(Object):
 
         @return: tuple of hiero.core.BinItem objects
         """
-        return tuple()
+        ...
 
     def color(self) -> PySide2.QtGui.QColor:
         """
@@ -143,9 +143,9 @@ class Bin(Object):
 
         @return: PySide2.QtGui.QColor
         """
-        return Any
+        ...
 
-    def createClip(self, *args, **knobs):
+    def createClip(self, *args, **knobs) -> Clip:
         """
         self.createClip(path, **knobs) -> Construct a clip from a path and optional knob values, and add it to the bin.
 
@@ -153,13 +153,13 @@ class Bin(Object):
         @param knobs: keyword args for specifying additional knobs to set
         @return: the created Clip
         """
-        return Clip()
+        ...
 
     def deserializeChildItem(self, data: str, index: int) -> None:
         """
 
         """
-        return None
+        ...
 
     def displayColor(self) -> PySide2.QtGui.QColor:
         """
@@ -167,13 +167,13 @@ class Bin(Object):
 
         @return: PySide2.QtGui.QColor
         """
-        return Any
+        ...
 
     def guid(self) -> object:
         """
 
         """
-        return None
+        ...
 
     def importFolder(self, arg__1: str) -> core.Bin:
         """
@@ -182,7 +182,7 @@ class Bin(Object):
         @param path: path to the media to import
         @return Bin: returns the bin created for imported media
         """
-        return core.Bin()
+        ...
 
     def importSequence(self, filename: str, timeBase: core.TimeBase = Default(self, Hiero.Python.TimeBase), frameRate: float = 0.0, dropFrame: bool = False) -> core.Sequence:
         """
@@ -193,7 +193,7 @@ class Bin(Object):
         @param frameRate: optional float argument specifying the frame rate for the created sequence
         @return: hiero.core.Sequence the created sequence
         """
-        return core.Sequence()
+        ...
 
     def isNull(self) -> bool:
         """
@@ -201,22 +201,22 @@ class Bin(Object):
 
         @return: True or False
         """
-        return Union[True, False]
+        ...
 
-    def items(self, *args, **kwargs):
+    def items(self, *args, **kwargs) -> tuple:
         """
         self.items(typeFilter) -> returns a tuple with all of the objects contained by this bin, filtered by the typeFilter argument, if supplied.
 
         @param typeFilter: combination of hiero.core.Bin.ItemType flags
         @return: tuple of hiero.core.BinItem objects
         """
-        return tuple()
+        ...
 
-    def moveItem(self, *args, **kwargs):
+    def moveItem(self, *args, **kwargs) -> None:
         """
 
         """
-        return None
+        ...
 
     def name(self) -> str:
         """
@@ -224,7 +224,7 @@ class Bin(Object):
 
         @return: True or False
         """
-        return Union[True, False]
+        ...
 
     def numChildren(self) -> int:
         """
@@ -232,7 +232,7 @@ class Bin(Object):
 
         @return: int
         """
-        return int()
+        ...
 
     def parentBin(self) -> object:
         """
@@ -240,7 +240,7 @@ class Bin(Object):
 
         @return: hiero.core.Bin object
         """
-        return Bin()
+        ...
 
     def project(self) -> object:
         """
@@ -248,7 +248,7 @@ class Bin(Object):
 
         @return: hiero.core.Project object
         """
-        return Project()
+        ...
 
     def reconnectMedia(self, path: str) -> None:
         """
@@ -256,15 +256,15 @@ class Bin(Object):
 
         @param path: path containing media to reconnect to
         """
-        return None
+        ...
 
-    def removeItem(self, *args, **kwargs):
+    def removeItem(self, *args, **kwargs) -> Any:
         """
         self.removeItem(object) -> removes the item from the bin object. If the object is not a child item of the bin object, throws an exception.
 
         @param object: hiero.core.Bin, hiero.core.BinItem, or hiero.core.Tag object to be removed as a sub item of the bin object
         """
-        return Any
+        ...
 
     def sequences(self) -> object:
         """
@@ -272,13 +272,13 @@ class Bin(Object):
 
         @return: tuple of hiero.core.BinItem objects
         """
-        return tuple()
+        ...
 
     def serialize(self) -> str:
         """
 
         """
-        return str()
+        ...
 
     def setColor(self, arg__1: PySide2.QtGui.QColor) -> None:
         """
@@ -286,19 +286,19 @@ class Bin(Object):
 
         @param color: the color to set, as a PySide2.QtGui.QColor, a string (e.g. '#ff0000') or an integer containing the RGB components (e.g. 0x11aa33).
         """
-        return None
+        ...
 
     def setName(self, name: str) -> None:
         """
         self.setName(name) -> set the name of the bin.
         """
-        return None
+        ...
 
     def syncName(self, name: str) -> None:
         """
         self.syncName(name) -> set the name of the bin without sending additional notifications.
         """
-        return None
+        ...
 
     def toString(self) -> str:
         """
@@ -306,13 +306,13 @@ class Bin(Object):
 
         @return: string
         """
-        return str()
+        ...
 
     def __copy__(self,) -> None:
         """
 
         """
-        return None
+        ...
 
     ItemType: Any = None
     kNone: Any = None

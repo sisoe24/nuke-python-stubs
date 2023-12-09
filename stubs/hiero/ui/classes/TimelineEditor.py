@@ -16,29 +16,29 @@ class TimelineEditor(Object):
     Object representing the Timeline Editor.
     """
 
-    def __init__(self,  *args, **kwargs):
+    def __init__(self,  *args, **kwargs) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """
-        return None
+        ...
 
-    def __new__(self, *args, **kwargs):
+    def __new__(self, *args, **kwargs) -> None:
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
-        return None
+        ...
 
     def beginSelectionUpdate(self) -> None:
         """
         self.beginSelectionUpdate() -> Call beginSelectionUpdate before, and endSelectionUpdate after, making multiple setSelection.
         """
-        return None
+        ...
 
     def endSelectionUpdate(self) -> None:
         """
         self.endSelectionUpdate() -> Call beginSelectionUpdate before, and endSelectionUpdate after, making multiple setSelection.
         """
-        return None
+        ...
 
     def getSelection(self) -> object:
         """
@@ -46,7 +46,7 @@ class TimelineEditor(Object):
 
         @return: tuple of TrackItem and Transition objects
         """
-        return tuple()
+        ...
 
     def selectAll(self) -> None:
         """
@@ -54,7 +54,7 @@ class TimelineEditor(Object):
 
         Select All TrackItems within current sequence.
         """
-        return None
+        ...
 
     def selectNone(self) -> None:
         """
@@ -62,7 +62,7 @@ class TimelineEditor(Object):
 
         Unselect all TrackItems and Tracks.
         """
-        return None
+        ...
 
     def selection(self) -> object:
         """
@@ -70,7 +70,7 @@ class TimelineEditor(Object):
 
         @return: tuple of TrackItem and Transition objects
         """
-        return tuple()
+        ...
 
     def sequence(self) -> object:
         """
@@ -78,9 +78,9 @@ class TimelineEditor(Object):
 
         @return: Sequence object
         """
-        return Iterable()
+        ...
 
-    def setSelection(self, *args, **kwargs):
+    def setSelection(self, *args, **kwargs) -> None:
         """
         self.setSelection( hiero.core.TrackItem )
         self.setSelection( [hiero.core.TrackItem] )
@@ -88,9 +88,9 @@ class TimelineEditor(Object):
 
         @param selection: track item(s) to be selected.
         """
-        return None
+        ...
 
-    def setTrackSelection(self, *args, **kwargs):
+    def setTrackSelection(self, *args, **kwargs) -> None:
         """
         self.setTrackSelection( hiero.core.TrackBase )
         self.setTrackSelection( [hiero.core.TrackBase] )
@@ -98,16 +98,16 @@ class TimelineEditor(Object):
 
         @param selection: Tracks to be selected.
         """
-        return None
+        ...
 
     def window(self) -> PySide2.QtWidgets.QWidget:
         """
         self.window() -> Return the timeline editor window
         """
-        return Any
+        ...
 
     def __copy__(self,) -> None:
         """
 
         """
-        return None
+        ...

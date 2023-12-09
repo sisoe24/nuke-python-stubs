@@ -16,7 +16,7 @@ class TimelineEditorCreationFlag(IntEnum):
     An enumeration.
     """
 
-    def _generate_next_value_(self, name, start, count, last_values):
+    def _generate_next_value_(self, name, start, count, last_values) -> None:
         """
         Generate the next value when not given.
 
@@ -25,7 +25,7 @@ class TimelineEditorCreationFlag(IntEnum):
         count: the number of existing members
         last_value: the last value assigned or None
         """
-        return None
+        ...
 
     _member_names_ = ['kDontCreate', 'kRecycleOrCreate', 'kForceCreation']
     _member_map_ = {'kDontCreate': < TimelineEditorCreationFlag.kDontCreate: 0 > , 'kRecycleOrCreate': < TimelineEditorCreationFlag.kRecycleOrCreate: 1 > , 'kForceCreation': < TimelineEditorCreationFlag.kForceCreation: 2 > }
@@ -35,14 +35,14 @@ class TimelineEditorCreationFlag(IntEnum):
     kRecycleOrCreate: Any = None
     kForceCreation: Any = None
 
-    def __new__(self, cls, value):
+    def __new__(self, cls, value) -> None:
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
-        return None
+        ...
 
-    def __init__(self,  *args, **kwargs):
+    def __init__(self,  *args, **kwargs) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """
-        return None
+        ...

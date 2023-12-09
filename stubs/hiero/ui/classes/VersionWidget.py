@@ -18,40 +18,40 @@ class VersionWidget(QSpinBox):
     """
     paddingChanged = Signal()
 
-    def __init__(self):
+    def __init__(self) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """
-        return None
+        ...
 
-    def setPadding(self, padding):
+    def setPadding(self, padding) -> None:
         """
 
         """
-        return None
+        ...
 
-    def padding(self):
+    def padding(self) -> None:
         """
 
         """
-        return None
+        ...
 
-    def sizeHint(self):
+    def sizeHint(self) -> None:
         """
         sizeHint(self) -> PySide2.QtCore.QSize
         """
-        return None
+        ...
 
-    def textFromValue(self, value):
+    def textFromValue(self, value) -> None:
         """
         textFromValue(self, val: int) -> str
         """
-        return None
+        ...
 
-    def valueFromText(self, text):
+    def valueFromText(self, text) -> None:
         """
         valueFromText(self, text: str) -> int
         """
-        return None
+        ...
 
     staticMetaObject: Any = None

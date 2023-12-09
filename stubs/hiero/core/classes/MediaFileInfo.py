@@ -16,17 +16,17 @@ class MediaFileInfo(Object):
     Object representing a single set of media files on disk.
     """
 
-    def __init__(self,  *args, **kwargs):
+    def __init__(self,  *args, **kwargs) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """
-        return None
+        ...
 
-    def __new__(self, *args, **kwargs):
+    def __new__(self, *args, **kwargs) -> None:
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
-        return None
+        ...
 
     def endFrame(self) -> int:
         """
@@ -34,7 +34,7 @@ class MediaFileInfo(Object):
 
         @return: integer frame
         """
-        return int()
+        ...
 
     def filename(self) -> str:
         """
@@ -46,7 +46,7 @@ class MediaFileInfo(Object):
 
         @return: string
         """
-        return str()
+        ...
 
     def startFrame(self) -> int:
         """
@@ -54,10 +54,10 @@ class MediaFileInfo(Object):
 
         @return: integer frame
         """
-        return int()
+        ...
 
     def __copy__(self,) -> None:
         """
 
         """
-        return None
+        ...

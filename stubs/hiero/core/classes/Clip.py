@@ -26,37 +26,37 @@ class Clip(SequenceBase):
         """
         Return repr(self).
         """
-        return None
+        ...
 
-    def __setattr__(self, name, value, ):
+    def __setattr__(self, name, value, ) -> None:
         """
         Implement setattr(self, name, value).
         """
-        return None
+        ...
 
-    def __delattr__(self, name, ):
+    def __delattr__(self, name, ) -> None:
         """
         Implement delattr(self, name).
         """
-        return None
+        ...
 
-    def __init__(self,  *args, **kwargs):
+    def __init__(self,  *args, **kwargs) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """
-        return None
+        ...
 
-    def __bool__(self, ):
+    def __bool__(self, ) -> None:
         """
         self != 0
         """
-        return None
+        ...
 
-    def __new__(self, *args, **kwargs):
+    def __new__(self, *args, **kwargs) -> None:
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
-        return None
+        ...
 
     def addTag(self, tag: core.Tag) -> core.Tag:
         """
@@ -65,7 +65,7 @@ class Clip(SequenceBase):
         @param tag: the tag object to add
         @return: hiero.core.Tag object
         """
-        return Tag()
+        ...
 
     def addTagToRange(self, tag: core.Tag, inTime: int, outTime: int) -> core.Tag:
         """
@@ -76,9 +76,9 @@ class Clip(SequenceBase):
         @param outTime: to - time to add tag
         @return: hiero.core.Tag object
         """
-        return Tag()
+        ...
 
-    def clone(self, *args, **kwargs):
+    def clone(self, *args, **kwargs) -> Clip:
         """
         self.clone() -> returns a deep copy of this object.
 
@@ -87,7 +87,7 @@ class Clip(SequenceBase):
         WARNING - DEPRECATED ( clone ): This method is deprecated and will not be present in future versions of the Python API.
         This method has been replaced by copy().
         """
-        return Clip()
+        ...
 
     def copy(self) -> object:
         """
@@ -95,7 +95,7 @@ class Clip(SequenceBase):
 
         @return: hiero.core.Clip object
         """
-        return Clip()
+        ...
 
     def entityReference(self) -> str:
         """
@@ -103,7 +103,7 @@ class Clip(SequenceBase):
 
         @return: string
         """
-        return str()
+        ...
 
     def getAvailableOcioColourTransforms(self) -> typing.List[str]:
         """
@@ -111,19 +111,19 @@ class Clip(SequenceBase):
 
         @return: string
         """
-        return str()
+        ...
 
     def guid(self) -> object:
         """
 
         """
-        return None
+        ...
 
     def hasError(self) -> bool:
         """
         self.hasError() -> check if the clip is in error state
         """
-        return bool()
+        ...
 
     def hasMultipleViews(self) -> bool:
         """
@@ -131,7 +131,7 @@ class Clip(SequenceBase):
 
         @return: bool
         """
-        return bool()
+        ...
 
     def isLocalizationOutdated(self) -> bool:
         """
@@ -139,7 +139,7 @@ class Clip(SequenceBase):
 
         @return: bool
         """
-        return bool()
+        ...
 
     def isLocalized(self) -> bool:
         """
@@ -147,7 +147,7 @@ class Clip(SequenceBase):
 
         @return: bool
         """
-        return bool()
+        ...
 
     def isNull(self) -> bool:
         """
@@ -155,7 +155,7 @@ class Clip(SequenceBase):
 
         @return: True or False
         """
-        return Union[True, False]
+        ...
 
     def localizationPolicy(self) -> core.Clip.LocalizationPolicy:
         """
@@ -163,7 +163,7 @@ class Clip(SequenceBase):
 
         @return: LocalizationPolicy
         """
-        return core.Clip.LocalizationPolicy()
+        ...
 
     def localizationPriority(self) -> int:
         """
@@ -171,7 +171,7 @@ class Clip(SequenceBase):
 
         @return: int
         """
-        return int()
+        ...
 
     def localizationProgress(self) -> float:
         """
@@ -179,7 +179,7 @@ class Clip(SequenceBase):
 
         @return: double
         """
-        return float()
+        ...
 
     def mediaSource(self) -> core.MediaSource:
         """
@@ -187,7 +187,7 @@ class Clip(SequenceBase):
 
         @return: hiero.core.MediaSource object
         """
-        return MediaSource()
+        ...
 
     def metadata(self) -> core.DataCollection:
         """
@@ -195,7 +195,7 @@ class Clip(SequenceBase):
 
         @return: hiero.core.Metadata object
         """
-        return core.DataCollection()
+        ...
 
     def numAudioTracks(self) -> int:
         """
@@ -203,7 +203,7 @@ class Clip(SequenceBase):
 
         @return: int
         """
-        return int()
+        ...
 
     def numVideoTracks(self) -> int:
         """
@@ -211,7 +211,7 @@ class Clip(SequenceBase):
 
         @return: int
         """
-        return int()
+        ...
 
     def readNode(self) -> object:
         """
@@ -219,7 +219,7 @@ class Clip(SequenceBase):
 
         @return: nuke.Node
         """
-        return Node()
+        ...
 
     def reconnectMedia(self, path: str) -> None:
         """
@@ -227,13 +227,13 @@ class Clip(SequenceBase):
 
         @param path: path containing media to reconnect to
         """
-        return None
+        ...
 
     def refresh(self) -> None:
         """
         self.refresh() -> updates the clip if the source media has changed.
         """
-        return None
+        ...
 
     def removeTag(self, tag: core.Tag) -> None:
         """
@@ -241,13 +241,13 @@ class Clip(SequenceBase):
 
         @param tag: hiero.core.Tag object
         """
-        return None
+        ...
 
     def rescan(self) -> None:
         """
         self.rescan() -> updates the clip and rescan the frame range if the source media has changed.
         """
-        return None
+        ...
 
     def setCameraColourTransform(self, arg__1: str) -> None:
         """
@@ -255,7 +255,7 @@ class Clip(SequenceBase):
 
         @param colourTransform: Colour transform name
         """
-        return None
+        ...
 
     def setEntityReference(self, location: str) -> None:
         """
@@ -263,13 +263,13 @@ class Clip(SequenceBase):
 
         @param location: Asset management system's string identifier for the entity.
         """
-        return None
+        ...
 
     def setFrameRange(self, startFrame: int, endFrame: int) -> None:
         """
         self.setFrameRange() -> Sets the clip frame range to the specified values.
         """
-        return None
+        ...
 
     def setLocalizationPolicy(self, policy: core.Clip.LocalizationPolicy) -> None:
         """
@@ -277,7 +277,7 @@ class Clip(SequenceBase):
 
         @param policy: localization policy to apply to the clip
         """
-        return None
+        ...
 
     def setLocalizationPriority(self, priority: int) -> None:
         """
@@ -285,7 +285,7 @@ class Clip(SequenceBase):
 
         @param: priority int
         """
-        return None
+        ...
 
     def setSourceMediaColourTransform(self, arg__1: str) -> None:
         """
@@ -293,7 +293,7 @@ class Clip(SequenceBase):
 
         @param colourTransform: Colour transform name
         """
-        return None
+        ...
 
     def sourceIn(self) -> int:
         """
@@ -301,7 +301,7 @@ class Clip(SequenceBase):
 
         @return: frame
         """
-        return int()
+        ...
 
     def sourceMediaColourTransform(self) -> str:
         """
@@ -309,7 +309,7 @@ class Clip(SequenceBase):
 
         @return: string
         """
-        return str()
+        ...
 
     def sourceOut(self) -> int:
         """
@@ -317,13 +317,13 @@ class Clip(SequenceBase):
 
         @return: frame
         """
-        return int()
+        ...
 
     def subTrackItems(self) -> object:
         """
 
         """
-        return None
+        ...
 
     def views(self) -> typing.List[str]:
         """
@@ -331,13 +331,13 @@ class Clip(SequenceBase):
 
         return: list(str)
         """
-        return list()
+        ...
 
     def __copy__(self,) -> None:
         """
 
         """
-        return None
+        ...
 
     LocalizationPolicy: Any = None
     kOffLocalize: Any = None
@@ -347,23 +347,23 @@ class Clip(SequenceBase):
     kNeverLocalize: Any = None
     kAlwaysLocalize: Any = None
 
-    def addAnnotationsToNukeScript(self, script, firstFrame, trimmed, trimStart=None, trimEnd=None):
+    def _Clip_addAnnotationsToNukeScript(self, script, firstFrame, trimmed, trimStart=None, trimEnd=None) -> None:
         """
         Add the annotations inside a clip to a Nuke script.  This is separated from Clip.addToNukeScript()
         so it's easier to control where in the script the annotations are placed.  The parameters are used to determine
         the frame range for the annotations.
         """
-        return None
+        ...
 
-    def getReadInfo(self, firstFrame=None):
+    def _Clip_getReadInfo(self, firstFrame=None) -> None:
         """
         Get information (filename and start at value) for any Read Node in this clip.
 
         @param firstFrame: Custom offset to move start frame of clip
         """
-        return None
+        ...
 
-    def addToNukeScript(self, script: str, additionalNodes=list, additionalNodesCallback=None, firstFrame=None, trimmed=True, trimStart=None, trimEnd=None, colourTransform=None, metadataNode=None, includeMetadataNode=True, nodeLabel=None, enabled=True, includeEffects=True, beforeBehaviour=None, afterBehaviour=None, project=None, readNodes={}, addEffectsLifetime=True):
+    def _Clip_addToNukeScript(self, script: str, additionalNodes=None, additionalNodesCallback=None, firstFrame=None, trimmed=True, trimStart=None, trimEnd=None, colourTransform=None, metadataNode=None, includeMetadataNode=True, nodeLabel=None, enabled=True, includeEffects=True, beforeBehaviour=None, afterBehaviour=None, project=None, readNodes={}, addEffectsLifetime=True) -> None:
         """
         addToNukeScript(self, script, trimmed=True, trimStart=None, trimEnd=None)
 
@@ -385,4 +385,4 @@ class Clip(SequenceBase):
         @param beforeBehaviour: What to do for frames before the first ([hold|loop|bounce|black])
         @param afterBehaviour: What to do for frames after the last ([hold|loop|bounce|black])
         """
-        return None
+        ...

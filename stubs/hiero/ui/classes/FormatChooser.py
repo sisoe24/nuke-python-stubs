@@ -16,47 +16,47 @@ class FormatChooser(QComboBox):
     QComboBox(self, parent: typing.Optional[PySide2.QtWidgets.QWidget] = None) -> None
     """
 
-    def __setattr__(self, name, value, ):
+    def __setattr__(self, name, value, ) -> None:
         """
         Implement setattr(self, name, value).
         """
-        return None
+        ...
 
-    def __delattr__(self, name, ):
+    def __delattr__(self, name, ) -> None:
         """
         Implement delattr(self, name).
         """
-        return None
+        ...
 
-    def __init__(self,  *args, **kwargs):
+    def __init__(self,  *args, **kwargs) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """
-        return None
+        ...
 
-    def __new__(self, *args, **kwargs):
+    def __new__(self, *args, **kwargs) -> None:
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
-        return None
+        ...
 
     def currentFormat(self) -> object:
         """
 
         """
-        return None
+        ...
 
     def setCurrentFormat(self, arg__1: core.Format) -> None:
         """
 
         """
-        return None
+        ...
 
     def setProject(self, arg__1: core.Project) -> None:
         """
 
         """
-        return None
+        ...
 
     formatChanged = Signal()
     staticMetaObject: Any = None

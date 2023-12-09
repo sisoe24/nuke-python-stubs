@@ -16,76 +16,76 @@ class TracksMask(Object):
 
     """
 
-    def __lt__(self, value, ):
+    def __lt__(self, value, ) -> None:
         """
         Return self<value.
         """
-        return None
+        ...
 
-    def __le__(self, value, ):
+    def __le__(self, value, ) -> None:
         """
         Return self<=value.
         """
-        return None
+        ...
 
-    def __eq__(self, value, ):
+    def __eq__(self, value, ) -> None:
         """
         Return self==value.
         """
-        return None
+        ...
 
-    def __ne__(self, value, ):
+    def __ne__(self, value, ) -> None:
         """
         Return self!=value.
         """
-        return None
+        ...
 
-    def __gt__(self, value, ):
+    def __gt__(self, value, ) -> None:
         """
         Return self>value.
         """
-        return None
+        ...
 
-    def __ge__(self, value, ):
+    def __ge__(self, value, ) -> None:
         """
         Return self>=value.
         """
-        return None
+        ...
 
-    def __init__(self,  *args, **kwargs):
+    def __init__(self,  *args, **kwargs) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """
-        return None
+        ...
 
-    def __new__(self, *args, **kwargs):
+    def __new__(self, *args, **kwargs) -> None:
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
-        return None
+        ...
 
     def setTracks(self, tracks: typing.List[core.VideoTrack]) -> None:
         """
 
         """
-        return None
+        ...
 
     def setVisibleByDefault(self, visibleByDefault: bool) -> None:
         """
 
         """
-        return None
+        ...
 
     def tracks(self) -> typing.List[core.VideoTrack]:
         """
 
         """
-        return list()
+        ...
 
     def visibleByDefault(self) -> bool:
         """
 
         """
-        return bool()
+        ...
 
     __hash__: Any = None

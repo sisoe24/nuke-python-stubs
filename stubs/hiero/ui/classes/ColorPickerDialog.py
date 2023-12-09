@@ -16,43 +16,43 @@ class ColorPickerDialog(QDialog):
     QDialog(self, parent: typing.Optional[PySide2.QtWidgets.QWidget] = None, f: PySide2.QtCore.Qt.WindowFlags = Default(Qt.WindowFlags)) -> None
     """
 
-    def __setattr__(self, name, value, ):
+    def __setattr__(self, name, value, ) -> None:
         """
         Implement setattr(self, name, value).
         """
-        return None
+        ...
 
-    def __delattr__(self, name, ):
+    def __delattr__(self, name, ) -> None:
         """
         Implement delattr(self, name).
         """
-        return None
+        ...
 
-    def __init__(self,  *args, **kwargs):
+    def __init__(self,  *args, **kwargs) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """
-        return None
+        ...
 
-    def __new__(self, *args, **kwargs):
+    def __new__(self, *args, **kwargs) -> None:
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
-        return None
+        ...
 
     def currentColor(self) -> PySide2.QtGui.QColor:
         """
 
         """
-        return Any
+        ...
 
     def setCurrentColor(self, color: PySide2.QtGui.QColor) -> None:
         """
 
         """
-        return None
+        ...
 
-    rejected = Signal()
     finished = Signal()
     accepted = Signal()
+    rejected = Signal()
     staticMetaObject: Any = None

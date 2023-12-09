@@ -20,67 +20,67 @@ class MediaSource(Object):
         """
         Return repr(self).
         """
-        return None
+        ...
 
-    def __hash__(self, ):
+    def __hash__(self, ) -> None:
         """
         Return hash(self).
         """
-        return None
+        ...
 
-    def __lt__(self, value, ):
+    def __lt__(self, value, ) -> None:
         """
         Return self<value.
         """
-        return None
+        ...
 
-    def __le__(self, value, ):
+    def __le__(self, value, ) -> None:
         """
         Return self<=value.
         """
-        return None
+        ...
 
-    def __eq__(self, value, ):
+    def __eq__(self, value, ) -> None:
         """
         Return self==value.
         """
-        return None
+        ...
 
-    def __ne__(self, value, ):
+    def __ne__(self, value, ) -> None:
         """
         Return self!=value.
         """
-        return None
+        ...
 
-    def __gt__(self, value, ):
+    def __gt__(self, value, ) -> None:
         """
         Return self>value.
         """
-        return None
+        ...
 
-    def __ge__(self, value, ):
+    def __ge__(self, value, ) -> None:
         """
         Return self>=value.
         """
-        return None
+        ...
 
-    def __init__(self,  *args, **kwargs):
+    def __init__(self,  *args, **kwargs) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """
-        return None
+        ...
 
-    def __bool__(self, ):
+    def __bool__(self, ) -> None:
         """
         self != 0
         """
-        return None
+        ...
 
-    def __new__(self, *args, **kwargs):
+    def __new__(self, *args, **kwargs) -> None:
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
-        return None
+        ...
 
     def associatedFilePaths(self) -> typing.List[str]:
         """
@@ -88,9 +88,9 @@ class MediaSource(Object):
 
         @return: list of path strings
         """
-        return list()
+        ...
 
-    def createOfflineVideoMediaSource(self, *args, **kwargs):
+    def createOfflineVideoMediaSource(self, *args, **kwargs) -> Any:
         """
         staticmethod(function) -> method
 
@@ -111,7 +111,7 @@ class MediaSource(Object):
         Static methods in Python are similar to those found in Java or C++.
         For a more advanced concept, see the classmethod builtin.
         """
-        return Any
+        ...
 
     def duration(self) -> int:
         """
@@ -119,7 +119,7 @@ class MediaSource(Object):
 
         @return: frames
         """
-        return int()
+        ...
 
     def fileinfos(self) -> typing.List[core.MediaFileInfo]:
         """
@@ -127,7 +127,7 @@ class MediaSource(Object):
 
         @return: tuple of hiero.core.MediaFileInfo objects
         """
-        return tuple()
+        ...
 
     def filename(self) -> str:
         """
@@ -137,7 +137,7 @@ class MediaSource(Object):
 
         @return: string
         """
-        return str()
+        ...
 
     def filenameHead(self) -> str:
         """
@@ -145,7 +145,7 @@ class MediaSource(Object):
 
         @return: string
         """
-        return str()
+        ...
 
     def filenamePadding(self) -> int:
         """
@@ -153,7 +153,7 @@ class MediaSource(Object):
 
         @return: int
         """
-        return int()
+        ...
 
     def firstpath(self) -> str:
         """
@@ -162,7 +162,7 @@ class MediaSource(Object):
 
         @return: string
         """
-        return str()
+        ...
 
     def fragmentFilename(self, index: int) -> str:
         """
@@ -172,7 +172,7 @@ class MediaSource(Object):
         @param fragmentIndex: index of the fragment to retrieve
         @return: string
         """
-        return str()
+        ...
 
     def fragmentPath(self, index: int) -> str:
         """
@@ -182,7 +182,7 @@ class MediaSource(Object):
         @param fragmentIndex: index of the fragment to retrieve
         @return: string
         """
-        return str()
+        ...
 
     def hasAudio(self) -> bool:
         """
@@ -190,7 +190,7 @@ class MediaSource(Object):
 
         @return: True or False
         """
-        return Union[True, False]
+        ...
 
     def hasVideo(self) -> bool:
         """
@@ -198,7 +198,7 @@ class MediaSource(Object):
 
         @return: True or False
         """
-        return Union[True, False]
+        ...
 
     def height(self) -> int:
         """
@@ -206,7 +206,7 @@ class MediaSource(Object):
 
         @return: int
         """
-        return int()
+        ...
 
     def isMediaPresent(self) -> bool:
         """
@@ -214,7 +214,7 @@ class MediaSource(Object):
 
         @return: True or False
         """
-        return Union[True, False]
+        ...
 
     def isNull(self) -> bool:
         """
@@ -222,7 +222,7 @@ class MediaSource(Object):
 
         @return: True or False
         """
-        return Union[True, False]
+        ...
 
     def isOffline(self) -> bool:
         """
@@ -230,7 +230,7 @@ class MediaSource(Object):
 
         @return: True or False
         """
-        return Union[True, False]
+        ...
 
     def metadata(self) -> core.DataCollection:
         """
@@ -238,13 +238,13 @@ class MediaSource(Object):
 
         @return: hiero.core.Metadata object
         """
-        return core.DataCollection()
+        ...
 
     def numChannels(self, mediaType: core.MediaSource.MediaType) -> int:
         """
 
         """
-        return int()
+        ...
 
     def numFragments(self) -> int:
         """
@@ -253,7 +253,7 @@ class MediaSource(Object):
 
         @return: int
         """
-        return int()
+        ...
 
     def pixelAspect(self) -> float:
         """
@@ -261,13 +261,13 @@ class MediaSource(Object):
 
         @return: float
         """
-        return float()
+        ...
 
     def refresh(self) -> None:
         """
         self.refresh() -> updates source info for latest changes in underlying files but doesn't update the frame range
         """
-        return None
+        ...
 
     def singleFile(self) -> bool:
         """
@@ -275,7 +275,7 @@ class MediaSource(Object):
 
         @return: True or False
         """
-        return Union[True, False]
+        ...
 
     def startTime(self) -> int:
         """
@@ -283,13 +283,13 @@ class MediaSource(Object):
 
         @return: int
         """
-        return int()
+        ...
 
     def timecodeStart(self) -> int:
         """
 
         """
-        return int()
+        ...
 
     def toString(self) -> str:
         """
@@ -298,7 +298,7 @@ class MediaSource(Object):
         @param includeMetadata: True adds metadata to the string, False does not
         @return: string
         """
-        return str()
+        ...
 
     def width(self) -> int:
         """
@@ -306,13 +306,13 @@ class MediaSource(Object):
 
         @return: int
         """
-        return int()
+        ...
 
     def __copy__(self,) -> None:
         """
 
         """
-        return None
+        ...
 
     MediaType: Any = None
     kVideo: Any = None

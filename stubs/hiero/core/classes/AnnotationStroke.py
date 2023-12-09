@@ -17,47 +17,47 @@ class AnnotationStroke(AnnotationElement):
     within an annotation.
     """
 
-    def __setattr__(self, name, value, ):
+    def __setattr__(self, name, value, ) -> None:
         """
         Implement setattr(self, name, value).
         """
-        return None
+        ...
 
-    def __delattr__(self, name, ):
+    def __delattr__(self, name, ) -> None:
         """
         Implement delattr(self, name).
         """
-        return None
+        ...
 
-    def __init__(self,  *args, **kwargs):
+    def __init__(self,  *args, **kwargs) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """
-        return None
+        ...
 
-    def __bool__(self, ):
+    def __bool__(self, ) -> None:
         """
         self != 0
         """
-        return None
+        ...
 
-    def __new__(self, *args, **kwargs):
+    def __new__(self, *args, **kwargs) -> None:
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
-        return None
+        ...
 
     def isNull(self) -> bool:
         """
 
         """
-        return bool()
+        ...
 
     def lineWidth(self) -> float:
         """
 
         """
-        return float()
+        ...
 
     def points(self) -> object:
         """
@@ -66,13 +66,13 @@ class AnnotationStroke(AnnotationElement):
 
         @return: tuple of 2 component tuples, each of the form (x, y)
         """
-        return tuple()
+        ...
 
     def setLineWidth(self, lineWidth: float) -> None:
         """
 
         """
-        return None
+        ...
 
     def setPoints(self, arg__1: object) -> None:
         """
@@ -80,7 +80,7 @@ class AnnotationStroke(AnnotationElement):
         The points must be specified as a list (not tuple) of 2d points, each point being a 2 component tuple of
         floats or integers, e.g. [(100, 200), (123.456, 300)].
         """
-        return Any
+        ...
 
     def toString(self) -> str:
         """
@@ -88,10 +88,10 @@ class AnnotationStroke(AnnotationElement):
 
         @return: string
         """
-        return str()
+        ...
 
     def __copy__(self,) -> None:
         """
 
         """
-        return None
+        ...

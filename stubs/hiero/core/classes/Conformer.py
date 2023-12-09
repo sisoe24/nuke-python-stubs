@@ -17,29 +17,29 @@ class Conformer(Object):
     These options mirror those found in the conforming dialog box in the UI.
     """
 
-    def __setattr__(self, name, value, ):
+    def __setattr__(self, name, value, ) -> None:
         """
         Implement setattr(self, name, value).
         """
-        return None
+        ...
 
-    def __delattr__(self, name, ):
+    def __delattr__(self, name, ) -> None:
         """
         Implement delattr(self, name).
         """
-        return None
+        ...
 
-    def __init__(self,  *args, **kwargs):
+    def __init__(self,  *args, **kwargs) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """
-        return None
+        ...
 
-    def __new__(self, *args, **kwargs):
+    def __new__(self, *args, **kwargs) -> None:
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
-        return None
+        ...
 
     def excludeNonOverlappingTimecode(self) -> bool:
         """
@@ -47,7 +47,7 @@ class Conformer(Object):
 
         @return: True when media which does not have timecode overlapping track items is excluded from matching.
         """
-        return bool()
+        ...
 
     def excludePatterns(self) -> typing.List[str]:
         """
@@ -56,7 +56,7 @@ class Conformer(Object):
 
         @return: A list containing the file patterns excluded from source media searches.
         """
-        return list()
+        ...
 
     def includeAlreadyMatched(self) -> bool:
         """
@@ -64,7 +64,7 @@ class Conformer(Object):
 
         @return: True when the tracks that already have media attached will be re-conformed.
         """
-        return bool()
+        ...
 
     def includePatterns(self) -> typing.List[str]:
         """
@@ -73,7 +73,7 @@ class Conformer(Object):
 
         @return: A list containing the file patterns included in source media searches.
         """
-        return list()
+        ...
 
     def nativeRuleFiltering(self) -> typing.Dict[str, bool]:
         """
@@ -82,7 +82,7 @@ class Conformer(Object):
 
         @return: A dictionary containing the enabled flag for each native rule, keyed by the rule name.
         """
-        return str()
+        ...
 
     def nativeRuleNames(self) -> typing.List[str]:
         """
@@ -91,7 +91,7 @@ class Conformer(Object):
 
         @return: A list containing the names for all of the conform rules built-in to Hiero.
         """
-        return list()
+        ...
 
     def pythonRuleFiltering(self) -> typing.Dict[str, bool]:
         """
@@ -100,7 +100,7 @@ class Conformer(Object):
 
         @return: A dictionary containing the enabled flag for each Python rule, keyed by the rule name.
         """
-        return str()
+        ...
 
     def pythonRuleNames(self) -> typing.List[str]:
         """
@@ -109,49 +109,49 @@ class Conformer(Object):
 
         @return: A list containing the names for all of the conform rules that have been added through the Python API.
         """
-        return list()
+        ...
 
     def setExcludeNonOverlappingTimecode(self, exclude: bool) -> None:
         """
         self.setExcludeNonOverlappingTimecode( flag ) -> controls whether matching is done on media which does not have timecode which overlaps the track item.
         """
-        return None
+        ...
 
     def setExcludePatterns(self, excludePatterns: typing.List[str]) -> None:
         """
         self.setExcludePatterns( filepatterns ) -> sets the list of file patterns to exclude from source media searches.
         """
-        return None
+        ...
 
     def setIncludeAlreadyMatched(self, val: bool) -> None:
         """
         self.setIncludeAlreadyMatched( flag ) -> controls whether to re-connect tracks that already have media matched to them.
         """
-        return None
+        ...
 
     def setIncludePatterns(self, includePatterns: typing.List[str]) -> None:
         """
         self.setIncludePatterns( filepatterns ) -> sets the list of file patterns to include in source media searches.
         """
-        return None
+        ...
 
     def setNativeRuleFiltering(self, ruleFiltering: typing.Dict[str, bool]) -> None:
         """
         self.setNativeRuleFiltering( ruleFiltering ) -> uses a dictionary keyed on the names of the native conforming rules to set whether each rule is enabled for conforming.
         """
-        return None
+        ...
 
     def setPythonRuleFiltering(self, ruleFiltering: typing.Dict[str, bool]) -> None:
         """
         self.setPythonRuleFiltering( ruleFiltering ) -> uses a dictionary keyed on the names of the Python conforming rules to set whether each rule is enabled for conforming.
         """
-        return None
+        ...
 
     def setUseBestTimecodeMatch(self, val: bool) -> None:
         """
         self.setUseBestTimecodeMatch( flag ) -> controls whether to accept the best timecode match if no rules match.
         """
-        return None
+        ...
 
     def useBestTimecodeMatch(self) -> bool:
         """
@@ -159,10 +159,10 @@ class Conformer(Object):
 
         @return: True when the best timecode match will be accepted if no rules match.
         """
-        return bool()
+        ...
 
     def __copy__(self,) -> None:
         """
 
         """
-        return None
+        ...

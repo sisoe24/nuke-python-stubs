@@ -18,29 +18,29 @@ class ITaskUI(Object):
     This class should not be used directly; use hiero.ui.TaskUIBase instead.
     """
 
-    def __setattr__(self, name, value, ):
+    def __setattr__(self, name, value, ) -> None:
         """
         Implement setattr(self, name, value).
         """
-        return None
+        ...
 
-    def __delattr__(self, name, ):
+    def __delattr__(self, name, ) -> None:
         """
         Implement delattr(self, name).
         """
-        return None
+        ...
 
-    def __init__(self,  *args, **kwargs):
+    def __init__(self,  *args, **kwargs) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """
-        return None
+        ...
 
-    def __new__(self, *args, **kwargs):
+    def __new__(self, *args, **kwargs) -> None:
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
-        return None
+        ...
 
     def displayName(self) -> str:
         """
@@ -48,7 +48,7 @@ class ITaskUI(Object):
 
         @return: string
         """
-        return str()
+        ...
 
     def ident(self) -> str:
         """
@@ -56,7 +56,7 @@ class ITaskUI(Object):
 
         @return: string
         """
-        return str()
+        ...
 
     def populateUI(self, widget: PySide2.QtWidgets.QWidget, exportTemplate: core.IExportStructure) -> None:
         """
@@ -65,7 +65,7 @@ class ITaskUI(Object):
         @param widget: PySide2.QtGui.QWidget
         @param exportTemplate: hiero.core.IExportStructure
         """
-        return None
+        ...
 
     def preset(self) -> core.ITaskPreset:
         """
@@ -73,7 +73,7 @@ class ITaskUI(Object):
 
         @return: hiero.core.ITaskPreset
         """
-        return ITaskPreset()
+        ...
 
     def setPreset(self, preset: core.ITaskPreset) -> None:
         """
@@ -81,10 +81,10 @@ class ITaskUI(Object):
 
         @param preset: hiero.core.ITaskPreset
         """
-        return None
+        ...
 
     def __copy__(self,) -> None:
         """
 
         """
-        return None
+        ...

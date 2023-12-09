@@ -16,19 +16,19 @@ class NamingScheme(Object):
     Utility object for extracting names for clips, versions and objects out of clip objects
     """
 
-    def __init__(self,  *args, **kwargs):
+    def __init__(self,  *args, **kwargs) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """
-        return None
+        ...
 
-    def __new__(self, *args, **kwargs):
+    def __new__(self, *args, **kwargs) -> None:
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
-        return None
+        ...
 
-    def clipName(self, *args, **kwargs):
+    def clipName(self, *args, **kwargs) -> Any:
         """
         staticmethod(function) -> method
 
@@ -49,9 +49,9 @@ class NamingScheme(Object):
         Static methods in Python are similar to those found in Java or C++.
         For a more advanced concept, see the classmethod builtin.
         """
-        return Any
+        ...
 
-    def default_clipName(self, *args, **kwargs):
+    def default_clipName(self, *args, **kwargs) -> Any:
         """
         staticmethod(function) -> method
 
@@ -72,9 +72,9 @@ class NamingScheme(Object):
         Static methods in Python are similar to those found in Java or C++.
         For a more advanced concept, see the classmethod builtin.
         """
-        return Any
+        ...
 
-    def default_rootName(self, *args, **kwargs):
+    def default_rootName(self, *args, **kwargs) -> Any:
         """
         staticmethod(function) -> method
 
@@ -95,9 +95,9 @@ class NamingScheme(Object):
         Static methods in Python are similar to those found in Java or C++.
         For a more advanced concept, see the classmethod builtin.
         """
-        return Any
+        ...
 
-    def default_trackItemName(self, *args, **kwargs):
+    def default_trackItemName(self, *args, **kwargs) -> Any:
         """
         staticmethod(function) -> method
 
@@ -118,9 +118,9 @@ class NamingScheme(Object):
         Static methods in Python are similar to those found in Java or C++.
         For a more advanced concept, see the classmethod builtin.
         """
-        return Any
+        ...
 
-    def default_versionName(self, *args, **kwargs):
+    def default_versionName(self, *args, **kwargs) -> Any:
         """
         staticmethod(function) -> method
 
@@ -141,9 +141,9 @@ class NamingScheme(Object):
         Static methods in Python are similar to those found in Java or C++.
         For a more advanced concept, see the classmethod builtin.
         """
-        return Any
+        ...
 
-    def rootName(self, *args, **kwargs):
+    def rootName(self, *args, **kwargs) -> Any:
         """
         staticmethod(function) -> method
 
@@ -164,9 +164,9 @@ class NamingScheme(Object):
         Static methods in Python are similar to those found in Java or C++.
         For a more advanced concept, see the classmethod builtin.
         """
-        return Any
+        ...
 
-    def trackItemName(self, *args, **kwargs):
+    def trackItemName(self, *args, **kwargs) -> Any:
         """
         staticmethod(function) -> method
 
@@ -187,9 +187,9 @@ class NamingScheme(Object):
         Static methods in Python are similar to those found in Java or C++.
         For a more advanced concept, see the classmethod builtin.
         """
-        return Any
+        ...
 
-    def versionName(self, *args, **kwargs):
+    def versionName(self, *args, **kwargs) -> Any:
         """
         staticmethod(function) -> method
 
@@ -210,10 +210,10 @@ class NamingScheme(Object):
         Static methods in Python are similar to those found in Java or C++.
         For a more advanced concept, see the classmethod builtin.
         """
-        return Any
+        ...
 
     def __copy__(self,) -> None:
         """
 
         """
-        return None
+        ...

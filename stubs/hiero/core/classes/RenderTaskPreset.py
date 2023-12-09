@@ -17,7 +17,7 @@ class RenderTaskPreset(TaskPresetBase):
     associated with generating Nuke render output.
     """
 
-    def AllViews(self, *args, **kwargs):
+    def AllViews(self, *args, **kwargs) -> Any:
         """
         staticmethod(function) -> method
 
@@ -38,21 +38,21 @@ class RenderTaskPreset(TaskPresetBase):
         Static methods in Python are similar to those found in Java or C++.
         For a more advanced concept, see the classmethod builtin.
         """
-        return Any
+        ...
 
-    def __init__(self, taskType, name, properties):
+    def __init__(self, taskType, name, properties) -> None:
         """
         Initialise presets to default values
         """
-        return None
+        ...
 
-    def _setCodecSettings(self, codecType, extension, fullname, isVideo, properties):
+    def _setCodecSettings(self, codecType, extension, fullname, isVideo, properties) -> None:
         """
         Build dictionary of format settings.
         """
-        return None
+        ...
 
-    def _getCodecSettingsDefault(self, codecType, codecKey):
+    def _getCodecSettingsDefault(self, codecType, codecKey) -> None:
         """
         Search codec settings for a matching codecKey and return a default value.
 
@@ -60,43 +60,43 @@ class RenderTaskPreset(TaskPresetBase):
 
         @param codecKey - codec settings key
         """
-        return None
+        ...
 
-    def addCustomResolveEntries(self, resolver: ResolveTable):
+    def addCustomResolveEntries(self, resolver: ResolveTable) -> None:
         """
         addCustomResolveEntries(self, resolver)
         RenderTaskPreset adds specialized tokens specific to this type of export, such as {ext} which returns the output format extension.
 
         @param resolver: ResolveTable object
         """
-        return None
+        ...
 
-    def summary(self):
+    def summary(self) -> None:
         """
         Called by Hiero to get a summary of the preset settings as a string.
         """
-        return None
+        ...
 
-    def extension(self):
+    def extension(self) -> None:
         """
 
         """
-        return None
+        ...
 
-    def codecName(self):
+    def codecName(self) -> None:
         """
 
         """
-        return None
+        ...
 
-    def codecProperties(self):
+    def codecProperties(self) -> None:
         """
 
         """
-        return None
+        ...
 
-    def codecSettings(self):
+    def codecSettings(self) -> None:
         """
 
         """
-        return None
+        ...

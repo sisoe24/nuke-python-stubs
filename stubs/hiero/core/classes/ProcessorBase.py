@@ -18,67 +18,67 @@ class ProcessorBase(object):
     Tasks with the appropriate parameters.
     """
 
-    def __init__(self, preset, submission, synchronous=False):
+    def __init__(self, preset, submission, synchronous=False) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """
-        return None
+        ...
 
-    def startProcessing(self, exportItems, preview=False):
+    def startProcessing(self, exportItems, preview=False) -> None:
         """
         Generate export tasks and add them to the export queue. If preview is
         True, the tasks are created and returned, but not scheduled for execution.
         """
-        return None
+        ...
 
-    def skipOffline(self):
+    def skipOffline(self) -> None:
         """
 
         """
-        return None
+        ...
 
-    def processTaskPreQueue(self):
+    def processTaskPreQueue(self) -> None:
         """
         processTaskPreQueue() Walk Tasks in submission and mark any duplicates.
 
         """
-        return None
+        ...
 
-    def validItem(self, supportedTypes, item):
+    def validItem(self, supportedTypes, item) -> None:
         """
         Get if the task is able to run on the item it was initialised with.
         """
-        return None
+        ...
 
-    def _tagCopiedSequence(self, sequence, sequenceCopy):
+    def _tagCopiedSequence(self, sequence, sequenceCopy) -> None:
         """
 
         """
-        return None
+        ...
 
-    def _addCopyTag(self, copy, original):
+    def _addCopyTag(self, copy, original) -> None:
         """
 
         """
-        return None
+        ...
 
-    def errors(self):
+    def errors(self) -> None:
         """
         Get an error string from the processor.  Iterates over child tasks and
         adds their error messages to the string.  Returns None if there were no errors.
         """
-        return None
+        ...
 
     @property
     def __dict__(self) -> Any:
         """
         dictionary for instance variables (if defined)
         """
-        return None
+        ...
 
     @property
     def __weakref__(self) -> Any:
         """
         list of weak references to the object (if defined)
         """
-        return None
+        ...

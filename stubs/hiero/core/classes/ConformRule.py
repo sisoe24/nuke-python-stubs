@@ -20,43 +20,43 @@ class ConformRule(Object):
         """
         Return repr(self).
         """
-        return None
+        ...
 
-    def __setattr__(self, name, value, ):
+    def __setattr__(self, name, value, ) -> None:
         """
         Implement setattr(self, name, value).
         """
-        return None
+        ...
 
-    def __delattr__(self, name, ):
+    def __delattr__(self, name, ) -> None:
         """
         Implement delattr(self, name).
         """
-        return None
+        ...
 
-    def __init__(self,  *args, **kwargs):
+    def __init__(self,  *args, **kwargs) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """
-        return None
+        ...
 
-    def __bool__(self, ):
+    def __bool__(self, ) -> None:
         """
         self != 0
         """
-        return None
+        ...
 
-    def __new__(self, *args, **kwargs):
+    def __new__(self, *args, **kwargs) -> None:
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
-        return None
+        ...
 
     def activate(self) -> None:
         """
         self.activate() -> adds this conform rule to the list of conform rules. Conform operations done after this call will use the rule.
         """
-        return None
+        ...
 
     def appliesToTrackItems(self) -> bool:
         """
@@ -64,7 +64,7 @@ class ConformRule(Object):
 
         @return: True or False; default implementation returns True
         """
-        return Union[True, False]
+        ...
 
     def compare(self, media: core.DataCollection, candidateMedia: core.DataCollection) -> bool:
         """
@@ -89,7 +89,7 @@ class ConformRule(Object):
 
         @return: True for a match, False otherwise; default implementation returns False
         """
-        return bool()
+        ...
 
     def conformType(self) -> int:
         """
@@ -97,13 +97,13 @@ class ConformRule(Object):
 
         @return: one of the constants kConform, kReconnect, kConformAndReconnect
         """
-        return int()
+        ...
 
     def deactivate(self) -> None:
         """
         self.deactivate() -> removes this conform rule from the list of conform rules. Conform operations done after this call will not use the rule.
         """
-        return None
+        ...
 
     def isNull(self) -> bool:
         """
@@ -111,7 +111,7 @@ class ConformRule(Object):
 
         @return: True for invalid, False otherwise
         """
-        return bool()
+        ...
 
     def name(self) -> str:
         """
@@ -119,7 +119,7 @@ class ConformRule(Object):
 
         @return: string
         """
-        return str()
+        ...
 
     def toString(self) -> str:
         """
@@ -127,13 +127,13 @@ class ConformRule(Object):
 
         @return: string
         """
-        return str()
+        ...
 
     def __copy__(self,) -> None:
         """
 
         """
-        return None
+        ...
 
     Type: Any = None
     kConform: Any = None

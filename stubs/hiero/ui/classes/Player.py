@@ -16,11 +16,11 @@ class Player(Object):
     Object representing a video player in Hiero. Players are used by Viewer objects, and can be retrieved using the player() method of Viewer objects.
     """
 
-    def __new__(self, *args, **kwargs):
+    def __new__(self, *args, **kwargs) -> None:
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
-        return None
+        ...
 
     def LUT(self) -> str:
         """
@@ -28,7 +28,7 @@ class Player(Object):
 
         @return: string
         """
-        return str()
+        ...
 
     def alphaIsTransparent(self) -> bool:
         """
@@ -36,13 +36,13 @@ class Player(Object):
 
         @return: True or False
         """
-        return Union[True, False]
+        ...
 
     def centerImage(self) -> None:
         """
         self.centerImage() -> centers the player, resetting the pan values.
         """
-        return None
+        ...
 
     def channels(self) -> ui.Player.Channels:
         """
@@ -50,7 +50,7 @@ class Player(Object):
 
         @return: hiero.ui.Player.Channels object
         """
-        return Player()
+        ...
 
     def displayGain(self) -> float:
         """
@@ -58,7 +58,7 @@ class Player(Object):
 
         @return: float
         """
-        return float()
+        ...
 
     def displayGamma(self) -> float:
         """
@@ -66,7 +66,7 @@ class Player(Object):
 
         @return: float
         """
-        return float()
+        ...
 
     def guideOverlay(self) -> object:
         """
@@ -74,7 +74,7 @@ class Player(Object):
 
         @return: sequence of foundry.ui.Drawing
         """
-        return Iterable()
+        ...
 
     def ignorePixelAspectRatio(self) -> bool:
         """
@@ -82,7 +82,7 @@ class Player(Object):
 
         @return: True or False
         """
-        return Union[True, False]
+        ...
 
     def maskOverlay(self) -> object:
         """
@@ -90,7 +90,7 @@ class Player(Object):
 
         @return: foundry.ui.Drawing
         """
-        return Any
+        ...
 
     def maskOverlayStyle(self) -> ui.Player.MaskOverlayStyle:
         """
@@ -98,7 +98,7 @@ class Player(Object):
 
         @return: hiero.ui.Player.MaskOverlayStyle
         """
-        return Player()
+        ...
 
     def pan(self, dx: float, dy: float) -> None:
         """
@@ -107,7 +107,7 @@ class Player(Object):
         @param dx: float value to pan in x by
         @param dy: float value to pan in y by
         """
-        return None
+        ...
 
     def proxyResolution(self) -> ui.Player.ProxyResolution:
         """
@@ -115,7 +115,7 @@ class Player(Object):
 
         @return: Player.ProxyResolution
         """
-        return Player()
+        ...
 
     def rect(self) -> PySide2.QtCore.QRect:
         """
@@ -123,15 +123,15 @@ class Player(Object):
 
         @return: rectangle
         """
-        return Any
+        ...
 
-    def sequence(self, *args, **kwargs):
+    def sequence(self, *args, **kwargs) -> Iterable:
         """
         self.sequence() -> returns the object currently being played.
 
         @return: hiero.core.Clip object or hiero.core.Sequence object, depending on what is currently playing
         """
-        return Iterable()
+        ...
 
     def setAlphaIsTransparent(self, alphaIsTransparent: bool) -> None:
         """
@@ -139,7 +139,7 @@ class Player(Object):
 
         @param alphaIsTransparent: True to have the player treat alpha as premultiplied transparency, False otherwise
         """
-        return None
+        ...
 
     def setChannels(self, channels: ui.Player.Channels) -> None:
         """
@@ -147,7 +147,7 @@ class Player(Object):
 
         @param channels: hiero.ui.Player.Channels object
         """
-        return None
+        ...
 
     def setDisplayGain(self, gain: float) -> None:
         """
@@ -155,7 +155,7 @@ class Player(Object):
 
         @param gain: float
         """
-        return None
+        ...
 
     def setDisplayGamma(self, gamma: float) -> None:
         """
@@ -163,7 +163,7 @@ class Player(Object):
 
         @param gamma: float
         """
-        return None
+        ...
 
     def setGuideOverlay(self, arg__1: object) -> object:
         """
@@ -171,7 +171,7 @@ class Player(Object):
 
         @param guideOverlays: sequence of foundry.ui.Drawing
         """
-        return Any
+        ...
 
     def setIgnorePixelAspectRatio(self, ignorePixelAspectRatio: bool) -> None:
         """
@@ -179,7 +179,7 @@ class Player(Object):
 
         @param ignorePixelAspectRatio: True to have the player ignore the pixel aspect ratio, False otherwise
         """
-        return None
+        ...
 
     def setLUT(self, lut: str) -> None:
         """
@@ -187,7 +187,7 @@ class Player(Object):
 
         @param lut: string name of the lut to use
         """
-        return None
+        ...
 
     def setMaskOverlay(self, arg__1: object) -> object:
         """
@@ -195,7 +195,7 @@ class Player(Object):
 
         @param aspect: foundry.ui.Drawing
         """
-        return Any
+        ...
 
     def setMaskOverlayStyle(self, maskOverlayStyle: ui.Player.MaskOverlayStyle) -> None:
         """
@@ -203,7 +203,7 @@ class Player(Object):
 
         @param style: hiero.ui.Player.MaskOverlayStyle style
         """
-        return None
+        ...
 
     def setProxyResolution(self, resolution: ui.Player.ProxyResolution) -> None:
         """
@@ -211,13 +211,13 @@ class Player(Object):
 
         @param resolution: Player.ProxyResolution
         """
-        return None
+        ...
 
     def setSequence(self, sequence: core.SequenceBase) -> None:
         """
         self.setSequence(clip) -> deprecated; use Viewer.setSequence instead
         """
-        return None
+        ...
 
     def setWarningOverlay(self, warningOverlay: ui.Player.WarningOverlay) -> None:
         """
@@ -225,7 +225,7 @@ class Player(Object):
 
         @param warningOverlay: One of the following enums: eWarningNone, eWarningExposure, eWarningPAL or eWarningNTSC
         """
-        return None
+        ...
 
     def setZoomMode(self, mode: ui.Player.ZoomMode) -> None:
         """
@@ -233,7 +233,7 @@ class Player(Object):
 
         @param mode: Zoom mode
         """
-        return None
+        ...
 
     def time(self) -> int:
         """
@@ -241,7 +241,7 @@ class Player(Object):
 
         @return: frame number
         """
-        return int()
+        ...
 
     def translation(self) -> PySide2.QtCore.QPointF:
         """
@@ -249,7 +249,7 @@ class Player(Object):
 
         @return: float
         """
-        return float()
+        ...
 
     def warningOverlay(self) -> ui.Player.WarningOverlay:
         """
@@ -257,7 +257,7 @@ class Player(Object):
 
         @return: One of the following enums: eWarningNone, eWarningExposure, eWarningPAL or eWarningNTSC
         """
-        return None
+        ...
 
     def zoom(self) -> float:
         """
@@ -265,7 +265,7 @@ class Player(Object):
 
         @return: float
         """
-        return float()
+        ...
 
     def zoomAbsolute(self, centreX: float, centreY: float, zoom: float) -> None:
         """
@@ -275,7 +275,7 @@ class Player(Object):
         @param centerY: new relative center of the zoom
         @param zoom: float value scale by
         """
-        return None
+        ...
 
     def zoomMode(self) -> ui.Player.ZoomMode:
         """
@@ -283,7 +283,7 @@ class Player(Object):
 
         @return: ZoomMode
         """
-        return ui.Player.ZoomMode()
+        ...
 
     def zoomRelative(self, centreX: float, centreY: float, zoomFactor: float) -> None:
         """
@@ -293,49 +293,49 @@ class Player(Object):
         @param centerY: new y center of the image, in image pixels
         @param zoom: float value scale by
         """
-        return None
+        ...
 
     def zoomToActualSize(self) -> None:
         """
         self.zoomToActualSize() -> scales and centers the image to the full size of the image.
         """
-        return None
+        ...
 
     def zoomToFill(self) -> None:
         """
         self.zoomToFill() -> scales the image so that it fills the player window.
         """
-        return None
+        ...
 
     def zoomToFit(self) -> None:
         """
         self.zoomToFit() -> scales the image so that it fits in the player window, maintaining the pixel aspect ratio.
         """
-        return None
+        ...
 
     def zoomToFitHeight(self) -> None:
         """
         self.zoomToFitHeight() -> scales the image so that the height of the image fits in the player window, maintaining the pixel aspect ratio.
         """
-        return None
+        ...
 
     def zoomToFitWidth(self) -> None:
         """
         self.zoomToFitWidth() -> scales the image so that the width of the image fits in the player window, maintaining the pixel aspect ratio.
         """
-        return None
+        ...
 
     def zoomToHalfSize(self) -> None:
         """
         self.zoomToActualSize() -> scales and centers the image to half the size of the image.
         """
-        return None
+        ...
 
     def __copy__(self,) -> None:
         """
 
         """
-        return None
+        ...
 
     Channels: Any = None
     eChannelRGB: Any = None
@@ -369,8 +369,8 @@ class Player(Object):
     eZoomToFitWidth: Any = None
     eZoomToFitHeight: Any = None
 
-    def __init__(self,  *args, **kwargs):
+    def __init__(self,  *args, **kwargs) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """
-        return None
+        ...

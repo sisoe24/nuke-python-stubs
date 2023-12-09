@@ -16,41 +16,41 @@ class ViewerWipeTool(ViewerTool):
     Python interface for the viewer tools
     """
 
-    def __setattr__(self, name, value, ):
+    def __setattr__(self, name, value, ) -> None:
         """
         Implement setattr(self, name, value).
         """
-        return None
+        ...
 
-    def __delattr__(self, name, ):
+    def __delattr__(self, name, ) -> None:
         """
         Implement delattr(self, name).
         """
-        return None
+        ...
 
-    def __new__(self, *args, **kwargs):
+    def __new__(self, *args, **kwargs) -> None:
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
-        return None
+        ...
 
     def setWipeToolState(self, wipeToolState: ui.WipeToolState) -> None:
         """
 
         """
-        return None
+        ...
 
     def wipeToolState(self) -> ui.WipeToolState:
         """
 
         """
-        return ui.WipeToolState()
+        ...
 
     wipeToolStateChanged = Signal()
     staticMetaObject: Any = None
 
-    def __init__(self,  *args, **kwargs):
+    def __init__(self,  *args, **kwargs) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """
-        return None
+        ...
