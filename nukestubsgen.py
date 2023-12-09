@@ -137,6 +137,10 @@ HIERO_CORE_POST_FIX = {
             {
                 'initial': 'def projects(*args, **kwargs):',
                 'new': 'def projects(*args, **kwargs) -> Tuple[Project, ...]:'
+            },
+            {
+                'initial': 'def activeSequence():',
+                'new': 'def activeSequence() -> hiero.core.Sequence:'
             }
         ],
         'returns': [
@@ -152,6 +156,10 @@ HIERO_CORE_POST_FIX = {
             {
                 'initial': 'def _VideoTrack_addToNukeScript(self, script=None, additionalNodes=*args, disconnected=False, includeAnnotations=False, includeEffects=True):',
                 'new': 'def addToNukeScript(self, script=None, additionalNodes=list, disconnected=False, includeAnnotations=False, includeEffects=True):'
+            },
+            {
+                'initial': 'def items(self) -> object:',
+                'new': 'def items(self) -> Tuple[core.TrackItem, ...]:'
             }
         ],
     },
@@ -160,6 +168,10 @@ HIERO_CORE_POST_FIX = {
             {
                 'initial': 'def _Sequence_addToNukeScript(self, script=None, additionalNodes=*args, disconnected=False, masterTrackItem=None, includeAnnotations=False, includeEffects=True, outputToFormat=None):',
                 'new': 'def addToNukeScript(self, script=None, additionalNodes=list, disconnected=False, masterTrackItem=None, includeAnnotations=False, includeEffects=True, outputToFormat=None):'
+            },
+            {
+                'initial': 'def videoTracks(self) -> object:',
+                'new': 'def videoTracks(self) -> Tuple[core.VideoTrack, ...]:'
             }
         ],
     },
@@ -201,6 +213,10 @@ HIERO_CORE_POST_FIX = {
     },
     'TrackItem': {
         'headers': [
+            {
+                'initial': 'def source(self) -> object:',
+                'new': 'def source(self) -> Clip | Sequence | MediaSource: '
+            },
             {
                 'initial': 'def __TrackItem_unlinkAll(self):',
                 'new': 'def unlinkAll(self):'
@@ -354,7 +370,7 @@ def post_fixes(filename, func_header, func_return):
 
 def get_docs(obj: object) -> str:
     """Return the indent version of the docs."""
-    return indent(f'"""\n{inspect.getdoc(obj) or ""}\n"""', ' ' * 4)
+    return indent(f'"""\n{inspect.getdoc(obj) or ''}\n"""', ' ' * 4)
 
 
 def is_valid_object(obj):
@@ -466,7 +482,7 @@ class GuessType:
         if guess_type:
             # Using Optional from types seems to produce the same result
             # return f'Optional[{guess_type}]=""'
-            return f'{guess_type}=None'
+            return f'{guess_type}: Optional[Any] = None'
 
         unknown(text=self.string, _type='Optionals')
         return 'None'
