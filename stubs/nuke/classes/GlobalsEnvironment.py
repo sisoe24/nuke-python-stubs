@@ -13,6 +13,12 @@ class GlobalsEnvironment(object):
     nuke.env['threads'] = 4
     """
 
+    def __new__(self, *args, **kwargs) -> None:
+        """
+        Create and return a new object.  See help(type) for accurate signature.
+        """
+        ...
+
     def __repr__(self, ) -> None:
         """
         Return repr(self).
@@ -46,12 +52,6 @@ class GlobalsEnvironment(object):
     def __delitem__(self, key, ) -> None:
         """
         Delete self[key].
-        """
-        ...
-
-    def __new__(self, *args, **kwargs) -> None:
-        """
-        Create and return a new object.  See help(type) for accurate signature.
         """
         ...
 

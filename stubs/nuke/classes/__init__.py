@@ -58,6 +58,7 @@ from .Bitmask_Knob import Bitmask_Knob
 from .Boolean_Knob import Boolean_Knob
 from .Channel_Knob import Channel_Knob
 from .Disable_Knob import Disable_Knob
+from .GeoSelection import GeoSelection
 from .OneView_Knob import OneView_Knob
 from .ProgressTask import ProgressTask
 from .ViewerWindow import ViewerWindow
@@ -87,6 +88,7 @@ from .SceneGraph_Knob import SceneGraph_Knob
 from .ChannelMask_Knob import ChannelMask_Knob
 from .EndTabGroup_Knob import EndTabGroup_Knob
 from .Enumeration_Knob import Enumeration_Knob
+from .GeoSelectionItem import GeoSelectionItem
 from .LinkableKnobInfo import LinkableKnobInfo
 from .PythonCustomKnob import PythonCustomKnob
 from .Transform2d_Knob import Transform2d_Knob

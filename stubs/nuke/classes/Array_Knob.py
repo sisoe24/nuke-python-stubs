@@ -11,15 +11,15 @@ class Array_Knob(Knob):
     A knob which holds an array of values.
     """
 
-    def __hash__(self, ) -> None:
-        """
-        Return hash(self).
-        """
-        ...
-
     def __new__(self, *args, **kwargs) -> None:
         """
         Create and return a new object.  See help(type) for accurate signature.
+        """
+        ...
+
+    def __hash__(self, ) -> None:
+        """
+        Return hash(self).
         """
         ...
 
