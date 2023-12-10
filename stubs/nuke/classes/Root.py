@@ -11,6 +11,12 @@ class Root(Group):
 
     """
 
+    def __new__(self, *args, **kwargs) -> None:
+        """
+        Create and return a new object.  See help(type) for accurate signature.
+        """
+        ...
+
     def __repr__(self, ) -> None:
         """
         Return repr(self).
@@ -32,12 +38,6 @@ class Root(Group):
     def __getitem__(self, key, ) -> None:
         """
         Return self[key].
-        """
-        ...
-
-    def __new__(self, *args, **kwargs) -> None:
-        """
-        Create and return a new object.  See help(type) for accurate signature.
         """
         ...
 

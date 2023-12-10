@@ -11,15 +11,15 @@ class ToolBar(object):
     ToolBar
     """
 
-    def __hash__(self, ) -> None:
-        """
-        Return hash(self).
-        """
-        ...
-
     def __new__(self, *args, **kwargs) -> None:
         """
         Create and return a new object.  See help(type) for accurate signature.
+        """
+        ...
+
+    def __hash__(self, ) -> None:
+        """
+        Return hash(self).
         """
         ...
 
@@ -28,6 +28,7 @@ class ToolBar(object):
         self.addCommand(name, command, shortcut, icon, tooltip, index, readonly, shortcutContext, tag, tagTarget, node) -> The menu/toolbar item that was added to hold the command.
         Add a new command to this menu/toolbar. Note that when invoked, the command is automatically enclosed in an undo group, so that undo/redo functionality works. Optional arguments can be specified by name.
         Note that if the command argument is not specified, then the command will be auto-created as a "nuke.createNode()" using the name argument as the node to create.
+        Note: During startup this command can cause slowdown when using the custom toolset menu. To speedup the process include "icon='/'" as an argument, however, it'll show an empty spot next to each menu where icons are shown.
 
         Example:
         menubar = nuke.menu('Nuke')
