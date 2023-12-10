@@ -13,6 +13,9 @@ from hiero import ui, core
 
 StubsData = namedtuple('StubsData', ['builtin', 'constants', 'classes'])
 
+# TODO: Rename all files extension to .pyi
+# TODO: Remove all source code from the copied modules
+
 
 class StubsRuntimeSettings:
     stubs_path = None
@@ -34,7 +37,7 @@ class StubsRuntimeSettings:
 def get_classes_names():
     files = []
     for path in StubsRuntimeSettings.stubs_path.glob('**/classes'):
-        files.extend(file.name.replace('.py', '') for file in path.glob('[!__]*.py'))
+        files.extend(file.name.replace('.pyi', '') for file in path.glob('[!__]*.pyi'))
     return files
 
 
@@ -706,7 +709,7 @@ class ClassExtractor:
         self.class_parent = self.obj.__base__.__name__
 
     def write(self):
-        with open(StubsRuntimeSettings.path / 'classes' / f'{self.class_name}.py', 'w') as file:
+        with open(StubsRuntimeSettings.path / 'classes' / f'{self.class_name}.pyi', 'w') as file:
             file.write(self._class_file())
 
     def _class_file(self):
@@ -879,12 +882,12 @@ def generate_nuke_stubs():
     # Built-in methods
     {}
     """).format(stubs_data.constants, stubs_data.builtin).strip()
-    print('  Generating __init__.py')
-    with open(StubsRuntimeSettings.path / '__init__.py', 'w') as file:
+    print('  Generating __init__.pyi')
+    with open(StubsRuntimeSettings.path / '__init__.pyi', 'w') as file:
         file.write(init_file)
 
     print('  Generating class imports.')
-    with open(StubsRuntimeSettings.path / 'classes' / '__init__.py', 'w') as file:
+    with open(StubsRuntimeSettings.path / 'classes' / '__init__.pyi', 'w') as file:
         file.write(stubs_data.classes)
 
 
@@ -932,12 +935,12 @@ def generate_hiero_stubs():
         # Built-in methods
         {}
         """).format(constants, builtin).strip()
-        print(f'  {module_name}: Generating __init__.py')
-        with open(StubsRuntimeSettings.path / '__init__.py', 'a') as file:
+        print(f'  {module_name}: Generating __init__.pyi')
+        with open(StubsRuntimeSettings.path / '__init__.pyi', 'a') as file:
             file.write(init_file)
 
         print(f'  {module_name} Generating class imports.')
-        with open(StubsRuntimeSettings.path / 'classes' / '__init__.py', 'w') as file:
+        with open(StubsRuntimeSettings.path / 'classes' / '__init__.pyi', 'w') as file:
             file.write(class_imports)
 
     path = StubsRuntimeSettings.stubs_path / 'hiero'
