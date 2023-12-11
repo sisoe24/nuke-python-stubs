@@ -21,6 +21,12 @@ class EffectTrackItem(SubTrackItem):
     EffectTrackItem(effectType, timelineIn, timelineOut)
     """
 
+    def __new__(self, *args, **kwargs) -> None:
+        """
+        Create and return a new object.  See help(type) for accurate signature.
+        """
+        ...
+
     def __setattr__(self, name, value, ) -> None:
         """
         Implement setattr(self, name, value).
@@ -36,12 +42,6 @@ class EffectTrackItem(SubTrackItem):
     def __init__(self,  *args, **kwargs) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
-        """
-        ...
-
-    def __new__(self, *args, **kwargs) -> None:
-        """
-        Create and return a new object.  See help(type) for accurate signature.
         """
         ...
 
@@ -63,6 +63,14 @@ class EffectTrackItem(SubTrackItem):
         """
         ...
 
+    def executeNode(self, frames: typing.List[int]) -> None:
+        """
+        self.executeNode(frames) -> execute the effect item's node
+
+        @param frames: a sequence of frame numbers to execute
+        """
+        ...
+
     def isValid(self) -> bool:
         """
         self.isValid() -> Returns true if the effect item is in a valid state and position and false otherwise.
@@ -76,6 +84,14 @@ class EffectTrackItem(SubTrackItem):
         Get the node used to apply the effect.
 
         @return: The effect node.
+        """
+        ...
+
+    def nodeHasError(self) -> bool:
+        """
+        self.nodeHasError() -> Returns True if the node is in error.
+
+        Note that an error on a node may not appear if it has not been rendered e.g. by the viewer, because, it may have not been validated.
         """
         ...
 

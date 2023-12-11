@@ -16,6 +16,12 @@ class DataCollection(Object):
     Storage objects for key/value pairs. Generally used to store metadata.
     """
 
+    def __new__(self, *args, **kwargs) -> None:
+        """
+        Create and return a new object.  See help(type) for accurate signature.
+        """
+        ...
+
     def __repr__(self) -> object:
         """
         Return repr(self).
@@ -37,12 +43,6 @@ class DataCollection(Object):
     def __contains__(self, key, ) -> None:
         """
         Return key in self.
-        """
-        ...
-
-    def __new__(self, *args, **kwargs) -> None:
-        """
-        Create and return a new object.  See help(type) for accurate signature.
         """
         ...
 

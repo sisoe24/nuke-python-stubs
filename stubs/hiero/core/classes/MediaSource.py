@@ -16,6 +16,12 @@ class MediaSource(Object):
     Represents a media source.
     """
 
+    def __new__(self, *args, **kwargs) -> None:
+        """
+        Create and return a new object.  See help(type) for accurate signature.
+        """
+        ...
+
     def __repr__(self) -> object:
         """
         Return repr(self).
@@ -72,13 +78,7 @@ class MediaSource(Object):
 
     def __bool__(self, ) -> None:
         """
-        self != 0
-        """
-        ...
-
-    def __new__(self, *args, **kwargs) -> None:
-        """
-        Create and return a new object.  See help(type) for accurate signature.
+        True if self else False
         """
         ...
 
@@ -90,7 +90,7 @@ class MediaSource(Object):
         """
         ...
 
-    def createOfflineVideoMediaSource(self, *args, **kwargs) -> Any:
+    def createOfflineVideoMediaSource(self, path: str, start: int, duration: int, frameRate: core.TimeBase, startTimecode: int = 0) -> core.MediaSource:
         """
         staticmethod(function) -> method
 

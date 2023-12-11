@@ -30,6 +30,12 @@ class Format(Object):
     Examples: F = hiero.core.Format(2048, 400, 2.37, 'MyFormat'), F = hiero.core.Format('2048 400 0 0 2048 400 2.37 MyFormat')
     """
 
+    def __new__(self, *args, **kwargs) -> None:
+        """
+        Create and return a new object.  See help(type) for accurate signature.
+        """
+        ...
+
     def __repr__(self) -> object:
         """
         Return repr(self).
@@ -75,12 +81,6 @@ class Format(Object):
     def __init__(self,  *args, **kwargs) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
-        """
-        ...
-
-    def __new__(self, *args, **kwargs) -> None:
-        """
-        Create and return a new object.  See help(type) for accurate signature.
         """
         ...
 
