@@ -60,6 +60,15 @@ class Group(Node):
         """
         ...
 
+    def findNode(self, name) -> str:
+        """
+        self.findNode(name) -> Node
+        Find the first node who's local name matches string 'name', including any clones.
+        Assumes the string contains only the node's local name, not the full path of the node which may contain parents or expressions.@param s: A string.
+        @return: Node with local name matching string 'name', or None if not found.
+        """
+        ...
+
     def run(self, callable: Callable) -> Callable:
         """
         self.run(callable) -> Result of callable.

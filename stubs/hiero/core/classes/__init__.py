@@ -40,6 +40,7 @@ from .TrackItemBase import TrackItemBase
 from .AnnotationText import AnnotationText
 from .DataCollection import DataCollection
 from .TaskPresetBase import TaskPresetBase
+from .VersionScanner import VersionScanner
 from .EffectTrackItem import EffectTrackItem
 from .FlipbookManager import FlipbookManager
 from .ProcessorPreset import ProcessorPreset
@@ -55,3 +56,4 @@ from .ExportStructureElement import ExportStructureElement
 from .RenderProgressObserver import RenderProgressObserver
 from .IExportStructureElement import IExportStructureElement
 from .BackgroundRenderObserver import BackgroundRenderObserver
+from .SequenceAutoDiskCacheMode import SequenceAutoDiskCacheMode

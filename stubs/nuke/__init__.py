@@ -23,7 +23,7 @@ DONT_SAVE_TO_NODEPRESET = 549755813888
 DO_NOT_READ = 2251799813685248
 DO_NOT_WRITE = 512
 ENDLINE = 8192
-EXE_PATH = '/Applications/Nuke14.0v3/Nuke14.0v3.app/Contents/MacOS/Nuke14.0'
+EXE_PATH = '/Applications/Nuke15.0v1/Nuke15.0v1.app/Contents/MacOS/Nuke15.0'
 EXPAND_TO_WIDTH = 68719476736
 EXPRESSIONS = 1
 FLOAT = 5
@@ -39,7 +39,9 @@ INT8 = 2
 INTERACTIVE = True
 INVALIDHINT = -1
 INVISIBLE = 1024
+KNOB_CHANGED_ALWAYS = 65536
 KNOB_CHANGED_RECURSIVE = 134217728
+KNOB_CHANGED_RIGHTCONTEXT = 274877906944
 LINEAR = 2
 LINKINPUTS = 8
 LIVEGROUP_CALLBACK_CAN_MAKE_EDITABLE = 'livegroup.can_make_editable'
@@ -59,13 +61,13 @@ NO_CHECKMARKS = 1
 NO_MULTIVIEW = 1073741824
 NO_POSTAGESTAMPS = False
 NO_UNDO = 524288
-NUKE_VERSION_DATE = 'Feb 16 2023'
-NUKE_VERSION_MAJOR = 14
+NUKE_VERSION_DATE = 'Oct  3 2023'
+NUKE_VERSION_MAJOR = 15
 NUKE_VERSION_MINOR = 0
 NUKE_VERSION_PHASE = ''
-NUKE_VERSION_PHASENUMBER = 74592
-NUKE_VERSION_RELEASE = 3
-NUKE_VERSION_STRING = '14.0v3'
+NUKE_VERSION_PHASENUMBER = 124535
+NUKE_VERSION_RELEASE = 1
+NUKE_VERSION_STRING = '15.0v1'
 NUM_CPUS = 10
 NUM_INTERPOLATIONS = 5
 PLUGIN_EXT = 'dylib'
@@ -82,8 +84,10 @@ REPLACE = 1
 REPLACE_VIEWS = 1
 SAVE_MENU = 33554432
 SCRIPT = 2
+SINGLE_SELECTION_ONLY = 1
 SMOOTH = 0
 STARTLINE = 4096
+STORE_INTEGER = 8
 STRIP_CASCADE_PREFIX = 4
 TABBEGINCLOSEDGROUP = 2
 TABBEGINGROUP = 1
@@ -516,6 +520,15 @@ def choice(title: str, prompt: str, options: list, default=0) -> int:
     ...
 
 
+def clearAssetCache() -> None:
+    """
+    clearAssetCache() -> None
+
+    Clear the Asset cache.
+    """
+    ...
+
+
 def clearBlinkCache() -> None:
     """
     clearBlinkCache() -> None
@@ -530,6 +543,17 @@ def clearDiskCache() -> None:
     clearDiskCache() -> None
 
     Clear the disk cache of all files.
+    """
+    ...
+
+
+def clearGeoSelection() -> None:
+    """
+    clearGeoSelection() -> None
+
+    Clear currently selected geometry.
+
+    :return: None.
     """
     ...
 
@@ -1218,6 +1242,15 @@ def getFramesAndViews(label: str, default=None, maxviews=0) -> list:
     ...
 
 
+def getGeoSelection() -> dict:
+    """
+    getGeoSelection() -> Returns the selection as a dictionary
+
+    :return: Currently selected geometry
+    """
+    ...
+
+
 def getInput(prompt: str, default: str) -> str:
     """
     getInput(prompt, default) -> str
@@ -1660,6 +1693,30 @@ def modified(status: Optional[bool] = None) -> bool:
 
     :param status: Optional boolean value. If this is present the status will be set to this value; otherwise it will be retrieved instead.
     :return: True if modified, False otherwise.
+    """
+    ...
+
+
+def nodeAtPath(path: str, instanceIndex: Optional[int] = None) -> Union[Node, None]:
+    """
+    nodeAtPath(path, instanceIndex) -> Node
+
+    Find the node at the given full path, if it exists, and return it as a Python object.
+    If the 'instanceIndex' provided is >= 0 then a specific clone instance (index 1+), or
+    the 'original'(base) instance (index 0) is returned. If 'instanceIndex' value is not
+    valid for the retrieved Node's context then null is returned.
+
+    'path' is -always- an absolute path and periods '.' are assumed as the node hierarchy
+    separator, conforming to the standard Nuke node path convention. However unlike 'toNode()'
+    embedded expressions are -NOT- supported in the path string. For example you cannot
+    retrieve a node using the path string 'Group1.FooNode.parent' as the trailing '.parent'
+    is an expression, while 'Group1.FooNode' will work since it ends in an explicit node name.
+
+    :param path: Absolute node path ending in a node name. No expression support provided.
+    :param instanceIndex: Optional. If >= 0 return a specific clone instance where index 0 is the
+    base node and index 1+ are clones. If instanceIndex is specified but the node is not cloned
+    or the value is out of range then None is returned.
+    :return: Node or None if it does not exist.
     """
     ...
 
@@ -2185,6 +2242,9 @@ def scriptSaveToTemp(string) -> str:
     scriptSaveToTemp(string) -> string
 
     Saves the script to a file without modifying the root information or the original script
+
+    :param overwrite: Optional boolean to overwrite an existing file. If not specified, the behaviour defaults to False.
+    :return: string
     """
     ...
 
@@ -2256,6 +2316,15 @@ def selectedNodes(filter: Optional[str] = None) -> list[Node]:
 
     :param filter: Optional class of Node. Instructs the algorithm to apply only to a specific class of nodes.
     :return: The list of selected nodes.
+    """
+    ...
+
+
+def setGeoSelection(GeoSelection) -> None:
+    """
+    setGeoSelection(GeoSelection) -> None
+
+    Set the currently selected geometry
     """
     ...
 

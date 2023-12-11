@@ -11,6 +11,12 @@ class Password_Knob(Knob):
     A knob which holds a password string value. Appears as a password entry field in a Node panel.
     """
 
+    def __new__(self, *args, **kwargs) -> None:
+        """
+        Create and return a new object.  See help(type) for accurate signature.
+        """
+        ...
+
     def __hash__(self, ) -> None:
         """
         Return hash(self).
@@ -20,12 +26,6 @@ class Password_Knob(Knob):
     def __init__(self,  *args, **kwargs) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
-        """
-        ...
-
-    def __new__(self, *args, **kwargs) -> None:
-        """
-        Create and return a new object.  See help(type) for accurate signature.
         """
         ...
 

@@ -8,8 +8,14 @@ from . import *
 
 class Path_Knob(EvalString_Knob):
     """
-    A string-valued knob for entering stage paths.
+    Stores a Prim path.
     """
+
+    def __new__(self, *args, **kwargs) -> None:
+        """
+        Create and return a new object.  See help(type) for accurate signature.
+        """
+        ...
 
     def __hash__(self, ) -> None:
         """
@@ -23,16 +29,10 @@ class Path_Knob(EvalString_Knob):
         """
         ...
 
-    def __new__(self, *args, **kwargs) -> None:
+    def stagePaths(self,) -> list:
         """
-        Create and return a new object.  See help(type) for accurate signature.
-        """
-        ...
+        self.stagePaths() -> list
 
-    def evaluate(self,) -> str:
-        """
-        self.evaluate() -> String.
-        Evaluate the string, performing substitutions.
-        @return: String.
+        Returns a list of paths (strings) in the stage.
         """
         ...

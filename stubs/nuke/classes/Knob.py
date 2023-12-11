@@ -14,6 +14,12 @@ class Knob(object):
     Knobs can be animated, have expressions, be disabled or hidden and more.
     """
 
+    def __new__(self, *args, **kwargs) -> None:
+        """
+        Create and return a new object.  See help(type) for accurate signature.
+        """
+        ...
+
     def __hash__(self, ) -> None:
         """
         Return hash(self).
@@ -26,16 +32,17 @@ class Knob(object):
         """
         ...
 
-    def __new__(self, *args, **kwargs) -> None:
-        """
-        Create and return a new object.  See help(type) for accurate signature.
-        """
-        ...
-
     def Class(self,) -> str:
         """
         self.Class() -> Class name.
         @return: Class name.
+        """
+        ...
+
+    def ClassID(self,) -> str:
+        """
+        self.ClassID() -> Class ID.
+        @return: Class ID.
         """
         ...
 
@@ -374,5 +381,16 @@ class Knob(object):
         Sets the authoring mode on the knob. This accepts both the unique string identifier, which is also used for serialisation and deserialisation, or index of the option for convenience. These values are not meant to change, thus one can rely on them.
         @param authorMode: The string identifier or index of the authoring mode.
         @return: None.
+        """
+        ...
+
+    def makeWidget(self,) -> Any:
+        """
+        self.makeWidget() -> PySide2.QtWidgets.QWidget.
+        Returns an instance of the QWidget subclass used to edit the knob's value.
+        The widget will update the knob's value when its value changes and should
+        update its displayed value(s) when they change on the knob.
+        Can return null if no widget should be created for the knob.
+        @return: PySide2.QtWidgets.QWidget.
         """
         ...

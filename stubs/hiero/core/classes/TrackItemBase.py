@@ -16,6 +16,12 @@ class TrackItemBase(Object):
     Base class for objects which can exist on a timeline track which provides some common methods.  Not to be used directly.
     """
 
+    def __new__(self, *args, **kwargs) -> None:
+        """
+        Create and return a new object.  See help(type) for accurate signature.
+        """
+        ...
+
     def __repr__(self) -> object:
         """
         Return repr(self).
@@ -84,13 +90,7 @@ class TrackItemBase(Object):
 
     def __bool__(self, ) -> None:
         """
-        self != 0
-        """
-        ...
-
-    def __new__(self, *args, **kwargs) -> None:
-        """
-        Create and return a new object.  See help(type) for accurate signature.
+        True if self else False
         """
         ...
 
@@ -157,7 +157,7 @@ class TrackItemBase(Object):
         """
         ...
 
-    def moveTrackItems(self, *args, **kwargs) -> Any:
+    def moveTrackItems(self, trackItems: typing.List[core.TrackItemBase], frames: int) -> None:
         """
         staticmethod(function) -> method
 

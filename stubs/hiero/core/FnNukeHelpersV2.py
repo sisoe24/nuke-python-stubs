@@ -160,7 +160,7 @@ class TrackItemScriptWriter(object):
         if inTransition is not None:
             if inTransition.alignment() == Transition.kDissolve:
                 # Calculate the delta required to move the beginning of the clip to cover the dissolve transition
-                self._inTransitionHandle = (
+                self._inTransitionHandle = int(
                     self._trackItem.timelineIn() - inTransition.timelineIn())
 
         # If the clip is reversed, we need to swap the start and end times
@@ -293,7 +293,8 @@ class TrackItemScriptWriter(object):
                       readNodes={},
                       addTimeClip=True,
                       projectSettings=None,
-                      pendingNodesScript=None):
+                      pendingNodesScript=None,
+                      addTransitions=True):
         """ Writes the TrackItem to a script. Returns the added nodes.
         @param script: the script writer to add nodes to
         @param nodeLabel: label for the Read node
@@ -302,6 +303,7 @@ class TrackItemScriptWriter(object):
         @param addChannelNode: add an AddChannels Node to the TrackItem, which will
                                inject a full alpha channel to Node tree
         @param pendingNodesScript Certain nodes must not be added to the script immediately. They are stored here.
+        @param addTransitions add fade-in/out transitions to the script.
         """
         added_nodes = []
         sequencePerFrameMetadataNodes = []
@@ -471,8 +473,8 @@ class TrackItemScriptWriter(object):
             keyFrames = '{{curve l x%d %f x%d %f}}' % (tIn, sIn, tOut, sOut)
             oflow = nuke.Node('OFlow2',
                               interpolation=self._params.retimeMethod(),
-                              timing='Source Frame',
-                              timingFrame=keyFrames)
+                              timing2='Frame',
+                              timingFrame2=keyFrames)
             oflow.setKnob('label', 'retime ' + str(self._retimeRate))
             added_nodes.append(oflow)
             script.addNode(oflow)
@@ -480,7 +482,8 @@ class TrackItemScriptWriter(object):
         added_nodes.extend(self.writeReformatAndEffects(
             script, additionalEffects, pendingNodesScript))
 
-        self.writeFadeInAndOutTransitions(script, added_nodes)
+        if addTransitions:
+            self.writeFadeInAndOutTransitions(script, added_nodes)
 
         if addTimeClip:
             timeClipNode = nuke.TimeClipNode(
@@ -507,6 +510,9 @@ class TrackItemScriptWriter(object):
         inTransition, outTransition = FnNukeHelpers._TrackItem_getTransitions(
             self._trackItem)
 
+        def makeConstant():
+            return nuke.ConstantNode(self._first_frame, self._last_frame, channels='rgba', format=str(self.outputFormat()))
+
         if inTransition and inTransition.alignment() == Transition.kFadeIn:
             fadeInGroup = nuke.GroupNode('FadeIn')
             fadeInGroup.addNode(nuke.Node('Input'))
@@ -514,8 +520,7 @@ class TrackItemScriptWriter(object):
             # Add set and push nodes to create the correct node graph structure
             addSetAndPushNode(fadeInGroup, added_nodes)
 
-            fadeInGroup.addNode(nuke.ConstantNode(
-                self._first_frame, self._last_frame, channels='rgb'))
+            fadeInGroup.addNode(makeConstant())
             with FnNukeHelpers.NodeAnimationOffsetter(inTransition.dissolveNode(), self._keyFrameOffset):
                 fadeInGroup.addNode(nuke.Node('Dissolve', inputs=2, which=inTransition.dissolveNode()[
                                     'which'].toScript(True), metainput=1))
@@ -536,8 +541,7 @@ class TrackItemScriptWriter(object):
             # Add set and push nodes to create the correct node graph structure
             addSetAndPushNode(fadeOutGroup, added_nodes)
 
-            fadeOutGroup.addNode(nuke.ConstantNode(
-                self._first_frame, self._last_frame, channels='rgb'))
+            fadeOutGroup.addNode(makeConstant())
             with FnNukeHelpers.NodeAnimationOffsetter(outTransition.dissolveNode(), self._keyFrameOffset):
                 fadeOutGroup.addNode(nuke.Node('Dissolve', inputs=2, which=outTransition.dissolveNode()[
                                      'which'].toScript(True), metainput=1))
@@ -641,63 +645,55 @@ class TrackItemScriptWriter(object):
             added_nodes.extend(effectNodes)
         return added_nodes
 
+    def outputFormat(self):
+        """ Get the output format for the track item. """
+        reformatMethod = self._params._reformatMethod
+        if reformatMethod['to_type'] == nuke.ReformatNode.kCompReformatToSequence:
+            return self._trackItem.parentSequence().format()
+        elif reformatMethod['to_type'] == nuke.ReformatNode.kToFormat:
+            return hiero.core.Format(reformatMethod['width'], reformatMethod['height'],
+                                     reformatMethod['pixelAspect'], reformatMethod['name'])
+        else:
+            return self._trackItem.source().format()
+
     def makeOutputReformatNode(self):
         """ If outputting to a different format from the clip (e.g. to the sequence
         format), create a ReformatNode to do this. If no output format is set, or
         it's the same as that of the clip, returns None.
         """
         reformatMethod = self._params._reformatMethod
-        if not reformatMethod:
+        reformatType = reformatMethod.get('to_type') if reformatMethod else None
+        if reformatType not in (nuke.ReformatNode.kCompReformatToSequence, nuke.ReformatNode.kToFormat):
             return None
 
-        # Default to no reformat, i.e. maintain plate format
-        reformatNode = None
+        outFormat = self.outputFormat()
+        outFormatStr = str(outFormat)
 
-        clipFormatString = str(self._trackItem.source().format())
+        clipFormatStr = str(self._trackItem.source().format())
+        if clipFormatStr == outFormatStr:
+            return
 
-        if reformatMethod['to_type'] == nuke.ReformatNode.kCompReformatToSequence:
+        reformatKnobs = {'format': outFormatStr,
+                         'filter': reformatMethod.get('filter'),
+                         'pbb': True}
+
+        if reformatType == nuke.ReformatNode.kCompReformatToSequence:
             # Reformat to sequence
-            formatString = str(self._trackItem.parentSequence().format())
-            if clipFormatString != formatString:
-                reformatState = self._trackItem.reformatState()
-                if reformatState.type() == nuke.ReformatNode.kDisabled:
-                    reformatNode = nuke.ReformatNode(resize=nuke.ReformatNode.kResizeNone,
-                                                     center=True,
-                                                     to_type=nuke.ReformatNode.kToFormat,
-                                                     format=formatString,
-                                                     filter=reformatMethod.get('filter'),
-                                                     pbb=True)
-                else:
-                    reformatNode = nuke.ReformatNode(resize=reformatState.resizeType(),
-                                                     center=reformatState.resizeCenter(),
-                                                     flip=reformatState.resizeFlip(),
-                                                     flop=reformatState.resizeFlop(),
-                                                     turn=reformatState.resizeTurn(),
-                                                     to_type=reformatState.type(),
-                                                     format=formatString,
-                                                     scale=reformatState.scale(),
-                                                     filter=reformatMethod.get('filter'),
-                                                     pbb=True)
-        elif reformatMethod['to_type'] == nuke.ReformatNode.kToFormat:
+            reformatState = self._trackItem.reformatState()
+            if reformatState.type() == nuke.ReformatNode.kDisabled:
+                reformatKnobs['resize'] = nuke.ReformatNode.kResizeNone
+                reformatKnobs['center'] = True
+            else:
+                reformatKnobs['resize'] = reformatState.resizeType()
+                reformatKnobs['center'] = reformatState.resizeCenter()
+                reformatKnobs['to_type'] = reformatState.type()
+        else:
             # Reformat to specific format
-            format = hiero.core.Format(reformatMethod['width'], reformatMethod['height'],
-                                       reformatMethod['pixelAspect'], reformatMethod['name'])
-            formatString = str(format)
-            if clipFormatString != formatString:
-                resizeType = reformatMethod['resize']
-                center = reformatMethod['center']
-                filter = reformatMethod.get('filter')
-                reformatNode = nuke.ReformatNode(resize=resizeType,
-                                                 center=center,
-                                                 flip=False,
-                                                 flop=False,
-                                                 turn=False,
-                                                 to_type=ReformatNode.kToFormat,
-                                                 format=formatString,
-                                                 scale=1.0,
-                                                 filter=filter,
-                                                 pbb=True)
-        return reformatNode
+            reformatKnobs['resize'] = reformatMethod['resize']
+            reformatKnobs['center'] = reformatMethod['center']
+            reformatKnobs['to_type'] = ReformatNode.kToFormat
+
+        return nuke.ReformatNode(**reformatKnobs)
 
 
 class VideoTrackScriptWriter(object):

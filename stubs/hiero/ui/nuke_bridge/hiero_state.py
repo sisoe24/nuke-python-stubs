@@ -4,7 +4,7 @@ import traceback
 import hiero.ui
 import hiero.core
 import hiero.core.util
-from hiero.core.VersionScanner import VersionScanner
+from hiero.core import VersionScanner
 from hiero.ui.BuildExternalMediaTrack import *
 
 

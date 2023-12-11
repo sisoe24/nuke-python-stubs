@@ -13,7 +13,7 @@ import foundry.ui
 import hiero.core
 import hiero.core.log
 from PySide2 import QtGui, QtCore, QtWidgets
-from hiero.core.VersionScanner import VersionScanner, VersionScanLogger
+from hiero.core import VersionScanner
 
 
 class ScanForVersionsTask(object):
@@ -37,13 +37,13 @@ class ScanForVersionsTask(object):
 
     def scanForVersionsInternal(self, versions, postScanFunc, shouldDisplayResults):
         scanner = VersionScanner()
-
-        VersionScanLogger().info(
+        VersionScanner.VersionScanLogger().info(
             'ScanForVersionsTask starting scan from versions with callback {}'.format(postScanFunc))
+
         for version in versions:
-            VersionScanLogger().info('Version to scan from: {}'.format(version))
+            VersionScanner.VersionScanLogger().info('Version to scan from: {}'.format(version))
             binItem = version.parent()
-            VersionScanLogger().info('Sibling versions: {}'.format(binItem.items()))
+            VersionScanner.VersionScanLogger().info('Sibling versions: {}'.format(binItem.items()))
 
         for version in versions:
             self.rescanClipRanges(version)
@@ -74,8 +74,8 @@ class ScanForVersionsTask(object):
                 if newVersion:
                     newVersions.append(newVersion)
 
-            VersionScanLogger().info('Finished adding versions for {} new versions list:\n{}'.format(
-                version, version.parent().items()))
+            VersionScanner.VersionScanLogger().info(
+                'Finished adding versions for {} new versions list:\n{}'.format(version, version.parent().items()))
 
             # If we have a post scan function then run it (version up/down, min/max)
             if (postScanFunc is not None):
@@ -83,8 +83,8 @@ class ScanForVersionsTask(object):
                 postScanFunc()
                 binitem = version.parent()
                 newClip = binitem.activeVersion().item()
-                VersionScanLogger().info('Calling post scan function {} new active version {}'.format(
-                    postScanFunc, binitem.activeVersion()))
+                VersionScanner.VersionScanLogger().info(
+                    'Calling post scan function {} new active version {}'.format(postScanFunc, binitem.activeVersion()))
 
                 # Then update any viewers looking at the old clip to the new clip
                 hiero.ui.updateViewer(oldClip, newClip)
@@ -147,8 +147,8 @@ def ScanVersionsAndCallbackTrackItems(trackItems, callback):
     """ Helper function for track items version changes.  Does the scan and
     calls callback on each item.
     """
-
-    VersionScanLogger().info('trackItems={} callback={}'.format(trackItems, callback))
+    VersionScanner.VersionScanLogger().info(
+        'trackItems={} callback={}'.format(trackItems, callback))
 
     # Build a set of versions so we're not scanning the same version multiple times
     versionsToScan = set()
@@ -163,8 +163,8 @@ def ScanVersionsAndCallbackTrackItems(trackItems, callback):
         for item in trackItems:
             oldVersion = item.currentVersion()
             callback(item)
-            VersionScanLogger().info('Called callback for {} old version {} new version {}'.format(
-                item, oldVersion, item.currentVersion()))
+            VersionScanner.VersionScanLogger().info(
+                'Called callback for {} old version {} new version {}'.format(item, oldVersion, item.currentVersion()))
     return ok
 
 

@@ -112,9 +112,9 @@ class TrackItemExportScriptWriter(object):
         """ Set to output the full clip length.  Calculates the handle values
         accordingly.
         """
-        self._startHandle = self._trackItem.sourceIn()
-        self._endHandle = (self._trackItem.source().duration() -
-                           self._trackItem.sourceOut()) - 1
+        self._startHandle = int(self._trackItem.sourceIn())
+        self._endHandle = int(
+            (self._trackItem.source().duration() - self._trackItem.sourceOut()) - 1)
 
     def setIncludeRetimes(self, includeRetimes, retimeMethod):
         """ Set whether retime nodes should be written and the retime method knob
@@ -163,7 +163,8 @@ class TrackItemExportScriptWriter(object):
                              nodeLabel=self._trackItem.parent().name(),
                              additionalEffects=additionalEffects,
                              addTimeClip=False,
-                             pendingNodesScript=pendingNodesScript)
+                             pendingNodesScript=pendingNodesScript,
+                             addTransitions=False)
 
     def writeToScript_old(self, script):
         """ Add the nodes for the TrackItem to a script writer.

@@ -16,6 +16,12 @@ class SequenceBase(Object):
     Base class for Sequence and Clip objects. Has some methods common to both of those objects. Most likely never used directly.
     """
 
+    def __new__(self, *args, **kwargs) -> None:
+        """
+        Create and return a new object.  See help(type) for accurate signature.
+        """
+        ...
+
     def __hash__(self, ) -> None:
         """
         Return hash(self).
@@ -78,13 +84,7 @@ class SequenceBase(Object):
 
     def __bool__(self, ) -> None:
         """
-        self != 0
-        """
-        ...
-
-    def __new__(self, *args, **kwargs) -> None:
-        """
-        Create and return a new object.  See help(type) for accurate signature.
+        True if self else False
         """
         ...
 
@@ -105,6 +105,14 @@ class SequenceBase(Object):
         @param inTime: the first time at which the tag is valid
         @param outTime: the last time at which the tag is valid
         @return: hiero.core.Tag object
+        """
+        ...
+
+    def autoDiskCacheMode(self) -> core.SequenceAutoDiskCacheMode:
+        """
+        self.autoDiskCacheMode() -> returns the auto disk cache mode of the Sequence or Clip.
+
+        @return: hiero.core.SequenceAutoDiskCacheMode
         """
         ...
 
@@ -292,6 +300,14 @@ class SequenceBase(Object):
         self.removeTag(tag) -> removes the tag from the track.
 
         @param tag: hiero.core.Tag object
+        """
+        ...
+
+    def setAutoDiskCacheMode(self, autoDiskCacheMode: core.SequenceAutoDiskCacheMode) -> None:
+        """
+        self.setAutoDiskCacheMode(autoDiskCacheMode) -> set the auto disk cache mode of the Sequence or Clip.
+
+        @param autoDiskCacheMode: the selected hiero.core.SequenceAutoDiskCacheMode
         """
         ...
 

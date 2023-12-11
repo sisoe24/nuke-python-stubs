@@ -18,6 +18,12 @@ class TrackItem(TrackItemBase):
     For an example of how to implement custom versioning scheme, see Plugins/site-packages/hiero/core/versioning_example.py.
     """
 
+    def __new__(self, *args, **kwargs) -> None:
+        """
+        Create and return a new object.  See help(type) for accurate signature.
+        """
+        ...
+
     def __setattr__(self, name, value, ) -> None:
         """
         Implement setattr(self, name, value).
@@ -38,13 +44,7 @@ class TrackItem(TrackItemBase):
 
     def __bool__(self, ) -> None:
         """
-        self != 0
-        """
-        ...
-
-    def __new__(self, *args, **kwargs) -> None:
-        """
-        Create and return a new object.  See help(type) for accurate signature.
+        True if self else False
         """
         ...
 

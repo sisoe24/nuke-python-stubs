@@ -47,7 +47,7 @@ versions of Nuke.
 import os
 import json
 
-import nuke
+import nuke_internal as nuke
 
 
 class CatInfo:
@@ -72,10 +72,7 @@ class CatInfo:
 
     def nuke_script(self):
         if self.filepath.endswith('.gizmo'):
-            directory, filename = os.path.split(self.filepath)
-            if directory not in nuke.pluginPath():
-                nuke.pluginAddPath(directory)
-            filename = os.path.split(self.filepath)[-1]
+            _, filename = os.path.split(self.filepath)
             return f"import nuke; nuke.createNode({filename!r})"
 
         elif self.filepath.endswith('.cat'):
@@ -182,7 +179,20 @@ def discover_packages(repository, target_version):
     return result
 
 
+def register_cats():
+    nuke_version = float(f"{nuke.NUKE_VERSION_MAJOR}.{nuke.NUKE_VERSION_MINOR}")
+    for repository in find_repositories():
+        for package in discover_packages(repository, nuke_version):
+            for cat in package.cats:
+                if not cat.filepath.endswith('.gizmo'):
+                    continue
+                directory, _ = os.path.split(cat.filepath)
+                if directory not in nuke.pluginPath():
+                    nuke.pluginAddPath(directory, addToSysPath=False)
+
+
 def populate_menu(menu):
+    register_cats()
     nuke_version = float(f"{nuke.NUKE_VERSION_MAJOR}.{nuke.NUKE_VERSION_MINOR}")
 
     packages_by_category = dict()
@@ -223,3 +233,7 @@ def create_menu():
 
     m.addSeparator()
     m.addCommand('Update', 'from nukescripts import cattery; cattery.create_menu()')
+
+
+# register/discover cattery models on first import
+register_cats()

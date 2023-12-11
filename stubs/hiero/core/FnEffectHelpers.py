@@ -6,6 +6,8 @@ import itertools
 from _nuke import Undo
 from hiero.core import TrackItem, ReformatState, EffectTrackItem, formats
 
+from .find_items import findItemsInAllProjects
+
 
 class EffectTransform(object):
     """ Class for handling scale and translation of effect knob values. """
@@ -440,9 +442,46 @@ def calculateReformat(inFormat, outFormat, resizeType, center, scale):
         x = int((ow - iw) / 2.0) if sx == 1 else (ow - iw * sx) / 2.0
         y = int((oh - ih) / 2.0) if sy == 1 else (oh - ih * sy) / 2.0
 
-    x *= sx
-    y *= sy
-    w = iw * sx
-    h = ih * sy
+    w = iw * sx + x
+    h = ih * sy + y
 
     return (x, y, w, h)
+
+
+def executeEffectNode(effectNode, frames):
+    """ Execute a node belonging to a soft effect in the timeline. This is similar
+    to the nuke.execute() function.
+    @param effectNode: the node to execute
+    @param frames: a sequence of frame numbers to execute
+    """
+    allEffectItems = findItemsInAllProjects(filter=EffectTrackItem)
+    effectForNode = next(
+        (item for item in allEffectItems if item.node() == effectNode), None)
+    if not effectForNode:
+        raise RuntimeError(f"Could not find effect item for node {effectNode.name()}")
+    effectForNode.executeNode(frames)
+
+
+def effectInputSourceCoods(effectItem):
+    """ Find the track item linked to the given effectItem and return the coordinates of its
+    source clip  mapped to the sequence output format space. If there is no linked track item,
+    the coordinates of the sequence format is returned.
+    @param effectItem: a soft effect in a sequence
+    """
+    from hiero.core.nuke import ReformatNode
+
+    sequenceFormat = effectItem.sequence().format()
+    linkedTrackItem = findLinkedTrackItem(effectItem)
+    if not linkedTrackItem:
+        return (0, 0, sequenceFormat.width(), sequenceFormat.height())
+
+    reformatState = linkedTrackItem.reformatState()
+    sourceFormat = linkedTrackItem.source().format()
+    resizeType = reformatState.resizeType() if reformatState.originalType(
+    ) == ReformatNode.kToFormat else 'scale'
+    center = reformatState.resizeCenter() if reformatState.originalType(
+    ) == ReformatNode.kToFormat else True
+    scale = reformatState.scale()
+
+    (x, y, r, t) = calculateReformat(sourceFormat, sequenceFormat, resizeType, center, scale)
+    return (int(x), int(y), int(r), int(t))

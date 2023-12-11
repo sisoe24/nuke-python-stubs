@@ -21,6 +21,12 @@ class TrackBase(Object):
      TrackBase.eDontCollapseSubTracks: removing a sub-track item will not cause empty sub-tracks to be removed
     """
 
+    def __new__(self, *args, **kwargs) -> None:
+        """
+        Create and return a new object.  See help(type) for accurate signature.
+        """
+        ...
+
     def __hash__(self, ) -> None:
         """
         Return hash(self).
@@ -83,13 +89,7 @@ class TrackBase(Object):
 
     def __bool__(self, ) -> None:
         """
-        self != 0
-        """
-        ...
-
-    def __new__(self, *args, **kwargs) -> None:
-        """
-        Create and return a new object.  See help(type) for accurate signature.
+        True if self else False
         """
         ...
 

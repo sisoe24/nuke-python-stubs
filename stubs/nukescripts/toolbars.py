@@ -161,7 +161,7 @@ def setup_toolbars():
     n.addCommand('OCIO LookTransform',
                  "nuke.createNode(\"OCIOLookTransform\")", icon='OCIO.png')
     n.addCommand('OCIO NamedTransform', "nuke.createNode(\"OCIONamedTransform\")",
-                 icon='OCIO.png', tag=MenuItemTag.Beta, nodeClass='OCIONamedTransform')
+                 icon='OCIO.png', nodeClass='OCIONamedTransform')
 
     n = m.addMenu('3D LUT', 'Toolbar3DLUT.png')
     n.addCommand('CMSTestPattern', "nuke.createNode(\"CMSTestPattern\")",
@@ -415,8 +415,12 @@ def setup_toolbars():
                  icon='GeoDisplace_3D.png', tag=MenuItemTag.Beta)
     n.addCommand('GeoDrawMode', "nuke.createNode(\"GeoDrawMode\")",
                  icon='GeoDrawMode_3D.png', tag=MenuItemTag.Beta)
+    n.addCommand('GeoDuplicate', "nuke.createNode(\"GeoDuplicate\")",
+                 icon='GeoDuplicate_3D.png', tag=MenuItemTag.Beta)
     n.addCommand('GeoInstance', "nuke.createNode(\"GeoInstance\")",
                  icon='GeoInstance_3D.png', tag=MenuItemTag.Beta)
+    n.addCommand('GeoIsolate', "nuke.createNode(\"GeoIsolate\")",
+                 icon='GeoPrune_3D.png', tag=MenuItemTag.Beta)
     n.addCommand('GeoMerge', "nuke.createNode(\"GeoMerge\")",
                  icon='GeoMerge_3D.png', tag=MenuItemTag.Beta)
     n.addCommand('GeoNoise', "nuke.createNode(\"GeoNoise\")",

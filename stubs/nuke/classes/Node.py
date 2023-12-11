@@ -11,6 +11,12 @@ class Node(object):
 
     """
 
+    def __new__(self, *args, **kwargs) -> None:
+        """
+        Create and return a new object.  See help(type) for accurate signature.
+        """
+        ...
+
     def __repr__(self, ) -> None:
         """
         Return repr(self).
@@ -77,16 +83,31 @@ class Node(object):
         """
         ...
 
-    def __new__(self, *args, **kwargs) -> None:
-        """
-        Create and return a new object.  See help(type) for accurate signature.
-        """
-        ...
-
     def Class(self,) -> str:
         """
         self.Class() -> Class of node.
         @return: Class of node.
+        """
+        ...
+
+    def isCloneable(self,) -> bool:
+        """
+        self.isCloneable() -> If the node permits cloning.
+        @return: True if the node allows cloning, False otherwise.
+        """
+        ...
+
+    def isClone(self,) -> bool:
+        """
+        self.isClone() -> Is this node a clone? If so use baseNode() to retrieve the 'original' node.
+        @return: True if the node is a clone, False otherwise.
+        """
+        ...
+
+    def baseNode(self,) -> Node:
+        """
+        self.baseNode() -> Return the 'original'(base) node if this is a clone, or this node if not cloned.
+        @return: A node.
         """
         ...
 
@@ -97,10 +118,26 @@ class Node(object):
         """
         ...
 
-    def isCloneable(self,) -> bool:
+    def cloneInstanceIndex(self,) -> int:
         """
-        self.isCloneable() -> If the node permits cloning.
-        @return: True if the node allows cloning, False otherwise.
+        self.cloneInstanceIndex() -> The instance index of this node where 0 is the base node, and clones begin at index 1.
+        The instance index is not guaranteed to be the same between Nuke sessions.
+        @return: Index of clone instance, or -1 if node is not cloned.
+        """
+        ...
+
+    def cloneInstanceNode(self, ) -> int:
+        """
+        self.cloneInstanceNode() -> The node for a valid clone instance index. If index is 0 this node(the base) is returned.
+        @param i: Instance index.
+        @return: An instance node, or None if index is invalid for this node.
+        """
+        ...
+
+    def cloneInstances(self,) -> list:
+        """
+        self.cloneInstances() -> Return a list of all instances for this node.
+        @return: List of nodes.
         """
         ...
 
@@ -870,7 +907,13 @@ class Node(object):
 
     def getStage(self, *args) -> None:
         """
-        self.getStage([OutputContext]) -> Runs the graph and returns the composed stage for geometry nodes. Returns None for other node types.
+        self.getStage([OutputContext]) -> Runs the graph and returns the composed stage for geometry, Viewer or ScanlineRender nodes (if the latter two have geometry nodes connected, else None). Returns None for other node types.
+        """
+        ...
+
+    def getUsdStage(self, *args) -> None:
+        """
+        self.getUsdStage([OutputContext]) -> Runs the graph and returns the composed usd stage for geometry, Viewer or ScanlineRender nodes (if the latter two have geometry nodes connected, else None). Returns None for other node types.
         """
         ...
 

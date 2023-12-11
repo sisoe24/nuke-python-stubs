@@ -5,10 +5,9 @@ import traceback
 import hiero.ui
 import hiero.core
 from PySide2 import QtCore
-from hiero.core import ItemWrapper
+from hiero.core import ItemWrapper, VersionScanner
 from PySide2.QtWidgets import QMenu, QAction, QMessageBox
 from hiero.ui.nuke_bridge import FnNsFrameServer as postProcessor
-from hiero.core.VersionScanner import VersionScanner
 from hiero.core.FnCompSourceInfo import CompSourceInfo
 
 

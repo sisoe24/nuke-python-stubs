@@ -16,6 +16,12 @@ class RenderProgressObserver(Object):
     Observer for tracking the progress of renders on the frame server.
     """
 
+    def __new__(self, *args, **kwargs) -> None:
+        """
+        Create and return a new object.  See help(type) for accurate signature.
+        """
+        ...
+
     def __setattr__(self, name, value, ) -> None:
         """
         Implement setattr(self, name, value).
@@ -36,13 +42,7 @@ class RenderProgressObserver(Object):
 
     def __bool__(self, ) -> None:
         """
-        self != 0
-        """
-        ...
-
-    def __new__(self, *args, **kwargs) -> None:
-        """
-        Create and return a new object.  See help(type) for accurate signature.
+        True if self else False
         """
         ...
 

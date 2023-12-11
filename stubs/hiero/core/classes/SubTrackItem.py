@@ -16,6 +16,12 @@ class SubTrackItem(TrackItemBase):
     Base class for items that exist in sub-tracks, e.g. Annotation objects. This class should never be used directly.
     """
 
+    def __new__(self, *args, **kwargs) -> None:
+        """
+        Create and return a new object.  See help(type) for accurate signature.
+        """
+        ...
+
     def __setattr__(self, name, value, ) -> None:
         """
         Implement setattr(self, name, value).
@@ -36,13 +42,7 @@ class SubTrackItem(TrackItemBase):
 
     def __bool__(self, ) -> None:
         """
-        self != 0
-        """
-        ...
-
-    def __new__(self, *args, **kwargs) -> None:
-        """
-        Create and return a new object.  See help(type) for accurate signature.
+        True if self else False
         """
         ...
 

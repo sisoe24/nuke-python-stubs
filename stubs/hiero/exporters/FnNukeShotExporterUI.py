@@ -171,6 +171,14 @@ class NukeShotExporterUI(hiero.ui.TaskUIBase):
             self._timelineWriteNode.timelineWriteNodeChanged.connect(
                 self.timelineWriteNodeChanged)
 
+            # Relative paths widget
+            key, value, label = 'useRelativePaths', False, 'Use Relative Paths:'
+            tooltip = ('When enabled, Read and Write nodes in the exported script will use relative paths.'
+                       ' The project directory will be set to the script directory and paths will be relative to that.')
+            relativePathsWidget = UIPropertyFactory.create(type(value), key=key, value=value,
+                                                           dictionary=self._preset._properties, tooltip=tooltip)
+            formLayout.addRow(label, relativePathsWidget)
+
             # Retiming
             formLayout.addDivider('Retiming')
 

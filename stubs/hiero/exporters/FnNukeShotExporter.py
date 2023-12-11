@@ -234,7 +234,7 @@ class NukeShotExporter(FnShotExporter.ShotTask):
             if self.outputSequenceTime():
                 offset = 0
             else:
-                offset = self._item.sourceIn() - self._item.timelineIn()
+                offset = int(self._item.sourceIn() - self._item.timelineIn())
                 if self._startFrame is not None and self._cutHandles is not None:
                     # This flag indicates that an explicit start frame has been specified
                     # To make sure that when the shot is expanded to include handles this is still the first
@@ -1184,6 +1184,9 @@ class NukeShotExporter(FnShotExporter.ShotTask):
         scriptFilename = self.resolvedExportPath()
         hiero.core.log.debug('Writing Script to: %s', scriptFilename)
 
+        if self._preset.properties()['useRelativePaths']:
+            self._setRelativePathsInScript(rootNode, script)
+
         # Call callback before writing script to disk (see _beforeNukeScriptWrite definition below)
         self._beforeNukeScriptWrite(script)
 
@@ -1208,6 +1211,31 @@ class NukeShotExporter(FnShotExporter.ShotTask):
     def finishTask(self):
         FnShotExporter.ShotTask.finishTask(self)
         self._parentSequence = None
+
+    def _setRelativePathsInScript(self, rootNode, scriptWriter):
+        """ Modify nodes in the script to use relative paths.
+        On the Root node sets the project directory to be the location of the script
+        For Read and Write nodes modifies the file knob to have paths relative to that.
+        On Windows this may fail as it's not possible to create relative paths between
+        e.g. different drive letters. setError() will be called in that case which raises
+        an exception.
+        """
+        rootNode.setKnob('project_directory', '[python {nuke.script_directory()}]')
+
+        scriptDirPath, _ = os.path.split(self.resolvedExportPath())
+
+        for node in scriptWriter.getNodes():
+            if isinstance(node, (nuke.ReadNode, nuke.WriteNode)):
+                nodePath = node.knob('file')
+                try:
+                    # Get relative path, ensuring generic path format (no backslashes)
+                    nodeRelPath = os.path.relpath(
+                        nodePath, scriptDirPath).replace(os.sep, '/')
+                    node.setKnob('file', nodeRelPath)
+                except ValueError:
+                    errorStr = f"Unable to create relative path for {
+                        nodePath} to script dir {scriptDirPath}"
+                    self.setError(errorStr)
 
     def _outputHandles(self, ignoreRetimes):
         """ Override from TaskBase.  This deals with handles in collated sequence export
@@ -1367,6 +1395,8 @@ class NukeShotPresetBase(hiero.core.TaskPresetBase):
         # This is not in the UI, and is only changed by create_comp.  See where this is accessed
         # in _taskStep() for more details.
         self.properties()['postProcessScript'] = True
+
+        self.properties()['useRelativePaths'] = False
 
     def addCustomResolveEntries(self, resolver):
         if _nuke.env['nc']:

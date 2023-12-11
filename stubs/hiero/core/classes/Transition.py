@@ -16,6 +16,12 @@ class Transition(TrackItemBase):
     Object representing a transition between two clips.
     """
 
+    def __new__(self, *args, **kwargs) -> None:
+        """
+        Create and return a new object.  See help(type) for accurate signature.
+        """
+        ...
+
     def __repr__(self) -> object:
         """
         Return repr(self).
@@ -42,13 +48,7 @@ class Transition(TrackItemBase):
 
     def __bool__(self, ) -> None:
         """
-        self != 0
-        """
-        ...
-
-    def __new__(self, *args, **kwargs) -> None:
-        """
-        Create and return a new object.  See help(type) for accurate signature.
+        True if self else False
         """
         ...
 
@@ -60,7 +60,7 @@ class Transition(TrackItemBase):
         """
         ...
 
-    def createAudioCrossfadeTransition(self, *args, **kwargs) -> Any:
+    def createAudioCrossfadeTransition(self, item1: core.TrackItem, item2: core.TrackItem, duration1: int, duration2: int) -> core.Transition:
         """
         staticmethod(function) -> method
 
@@ -83,7 +83,7 @@ class Transition(TrackItemBase):
         """
         ...
 
-    def createAudioFadeInTransition(self, *args, **kwargs) -> Any:
+    def createAudioFadeInTransition(self, item: core.TrackItem, duration: int) -> core.Transition:
         """
         staticmethod(function) -> method
 
@@ -106,7 +106,7 @@ class Transition(TrackItemBase):
         """
         ...
 
-    def createAudioFadeOutTransition(self, *args, **kwargs) -> Any:
+    def createAudioFadeOutTransition(self, item: core.TrackItem, duration: int) -> core.Transition:
         """
         staticmethod(function) -> method
 
@@ -129,7 +129,7 @@ class Transition(TrackItemBase):
         """
         ...
 
-    def createDissolveTransition(self, *args, **kwargs) -> Any:
+    def createDissolveTransition(self, item1: core.TrackItem, item2: core.TrackItem, duration1: int, duration2: int) -> core.Transition:
         """
         staticmethod(function) -> method
 
@@ -152,7 +152,7 @@ class Transition(TrackItemBase):
         """
         ...
 
-    def createFadeInTransition(self, *args, **kwargs) -> Any:
+    def createFadeInTransition(self, item: core.TrackItem, duration: int) -> core.Transition:
         """
         staticmethod(function) -> method
 
@@ -175,7 +175,7 @@ class Transition(TrackItemBase):
         """
         ...
 
-    def createFadeOutTransition(self, *args, **kwargs) -> Any:
+    def createFadeOutTransition(self, item: core.TrackItem, duration: int) -> core.Transition:
         """
         staticmethod(function) -> method
 

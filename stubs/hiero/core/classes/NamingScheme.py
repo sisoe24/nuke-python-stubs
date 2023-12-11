@@ -16,19 +16,19 @@ class NamingScheme(Object):
     Utility object for extracting names for clips, versions and objects out of clip objects
     """
 
-    def __init__(self,  *args, **kwargs) -> None:
-        """
-        Initialize self.  See help(type(self)) for accurate signature.
-        """
-        ...
-
     def __new__(self, *args, **kwargs) -> None:
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
         ...
 
-    def clipName(self, *args, **kwargs) -> Any:
+    def __init__(self,  *args, **kwargs) -> None:
+        """
+        Initialize self.  See help(type(self)) for accurate signature.
+        """
+        ...
+
+    def clipName(self, clip: core.Clip) -> str:
         """
         staticmethod(function) -> method
 
@@ -51,7 +51,7 @@ class NamingScheme(Object):
         """
         ...
 
-    def default_clipName(self, *args, **kwargs) -> Any:
+    def default_clipName(self, clip: core.Clip) -> str:
         """
         staticmethod(function) -> method
 
@@ -74,7 +74,7 @@ class NamingScheme(Object):
         """
         ...
 
-    def default_rootName(self, *args, **kwargs) -> Any:
+    def default_rootName(self, clip: core.Clip) -> str:
         """
         staticmethod(function) -> method
 
@@ -97,7 +97,7 @@ class NamingScheme(Object):
         """
         ...
 
-    def default_trackItemName(self, *args, **kwargs) -> Any:
+    def default_trackItemName(self, clip: core.Clip) -> str:
         """
         staticmethod(function) -> method
 
@@ -120,7 +120,7 @@ class NamingScheme(Object):
         """
         ...
 
-    def default_versionName(self, *args, **kwargs) -> Any:
+    def default_versionName(self, clip: core.Clip) -> str:
         """
         staticmethod(function) -> method
 
@@ -143,7 +143,7 @@ class NamingScheme(Object):
         """
         ...
 
-    def rootName(self, *args, **kwargs) -> Any:
+    def rootName(self, clip: core.Clip) -> str:
         """
         staticmethod(function) -> method
 
@@ -166,7 +166,7 @@ class NamingScheme(Object):
         """
         ...
 
-    def trackItemName(self, *args, **kwargs) -> Any:
+    def trackItemName(self, clip: core.Clip) -> str:
         """
         staticmethod(function) -> method
 
@@ -189,7 +189,7 @@ class NamingScheme(Object):
         """
         ...
 
-    def versionName(self, *args, **kwargs) -> Any:
+    def versionName(self, clip: core.Clip) -> str:
         """
         staticmethod(function) -> method
 

@@ -6,10 +6,16 @@ import nuke
 from . import *
 
 
-class PathExpression_Knob(EvalString_Knob):
+class PathExpression_Knob(Path_Knob):
     """
-    A string-valued knob for entering stage path expressions.
+    Stores a Prim path expression.
     """
+
+    def __new__(self, *args, **kwargs) -> None:
+        """
+        Create and return a new object.  See help(type) for accurate signature.
+        """
+        ...
 
     def __hash__(self, ) -> None:
         """
@@ -23,16 +29,10 @@ class PathExpression_Knob(EvalString_Knob):
         """
         ...
 
-    def __new__(self, *args, **kwargs) -> None:
+    def match(self, pattern: str) -> list:
         """
-        Create and return a new object.  See help(type) for accurate signature.
-        """
-        ...
+        self.match(pattern: str) -> list
 
-    def evaluate(self,) -> str:
-        """
-        self.evaluate() -> String.
-        Evaluate the string, performing substitutions.
-        @return: String.
+        Returns a list of paths (strings) that match the given stage using the pattern expression.
         """
         ...

@@ -18,6 +18,12 @@ class Project(Object):
     project = hiero.core.projects()[-1]
     """
 
+    def __new__(self, *args, **kwargs) -> None:
+        """
+        Create and return a new object.  See help(type) for accurate signature.
+        """
+        ...
+
     def __repr__(self) -> object:
         """
         Return repr(self).
@@ -86,13 +92,7 @@ class Project(Object):
 
     def __bool__(self, ) -> None:
         """
-        self != 0
-        """
-        ...
-
-    def __new__(self, *args, **kwargs) -> None:
-        """
-        Create and return a new object.  See help(type) for accurate signature.
+        True if self else False
         """
         ...
 
@@ -152,6 +152,12 @@ class Project(Object):
     def close(self) -> None:
         """
         self.close() -> closes the project. Be aware that this method will not save the project, even if changes have been made since the last save of the project.
+        """
+        ...
+
+    def createExportWriteNode(self) -> object:
+        """
+
         """
         ...
 
@@ -629,7 +635,7 @@ class Project(Object):
         """
         ...
 
-    def useOCIOEnvironmentOverride(self, *args, **kwargs) -> Any:
+    def useOCIOEnvironmentOverride(self,) -> bool:
         """
         staticmethod(function) -> method
 

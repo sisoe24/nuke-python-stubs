@@ -18,6 +18,12 @@ class TimeBase(Object):
     Can be initialised with an int, float, or str.  In addition, you can construct a TimeBase using TimeBase.fromRational(numerator, denominator), or use the predefined TimeBase values, for example TimeBase.k30NTSC.
     """
 
+    def __new__(self, *args, **kwargs) -> None:
+        """
+        Create and return a new object.  See help(type) for accurate signature.
+        """
+        ...
+
     def __repr__(self) -> object:
         """
         Return repr(self).
@@ -66,13 +72,7 @@ class TimeBase(Object):
         """
         ...
 
-    def __new__(self, *args, **kwargs) -> None:
-        """
-        Create and return a new object.  See help(type) for accurate signature.
-        """
-        ...
-
-    def convert(self, *args, **kwargs) -> Any:
+    def convert(self, t: int, from_: core.TimeBase, to: core.TimeBase) -> int:
         """
         staticmethod(function) -> method
 
@@ -113,7 +113,7 @@ class TimeBase(Object):
         """
         ...
 
-    def fromRational(self, *args, **kwargs) -> Any:
+    def fromRational(self, numerator: int, denominator: int) -> core.TimeBase:
         """
         staticmethod(function) -> method
 
@@ -136,7 +136,7 @@ class TimeBase(Object):
         """
         ...
 
-    def fromString(self, *args, **kwargs) -> Any:
+    def fromString(self, str: str) -> core.TimeBase:
         """
         staticmethod(function) -> method
 

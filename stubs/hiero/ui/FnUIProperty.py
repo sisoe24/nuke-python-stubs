@@ -81,6 +81,11 @@ class UIPropertyBase(QtWidgets.QWidget):
             The values provided are assumed to be the same type as those used to create the property. """
         raise NotImplementedError()
 
+    def updateToolTip(self, widget):
+        if widget and self._tooltip:
+            # Replace line breaks so that any html in the tooltip is displayed correctly
+            widget.setToolTip(self._tooltip.replace('\n', '<br />'))
+
     @staticmethod
     def register(valuetypes, objecttype):
         UIPropertyFactory.register(valuetypes, objecttype)
@@ -106,7 +111,7 @@ class ComboProperty(UIPropertyBase):
         assert hasattr(self._value, '__iter__')
 
         self._widget = QtWidgets.QComboBox()
-        self._widget.setToolTip(self._tooltip)
+        self.updateToolTip(self._widget)
         layout.addWidget(self._widget, stretch)
 
         index = 0
@@ -218,7 +223,7 @@ class CascadingEnumerationComboBox(QtWidgets.QComboBox):
         # Each value is possibly in / separated path form.  The last part is the
         # name, the earlier parts are used for constructing menus.
         for value in values:
-            components = value.split(CascadingEnumerationComboBox.kSeparator)
+            components = value[0].split(CascadingEnumerationComboBox.kSeparator)
             actionName = components[-1]
             actionMenu = getActionMenu(components[:-1])
             action = actionMenu.addAction(actionName)
@@ -260,7 +265,7 @@ class CascadingEnumerationProperty(UIPropertyBase):
         assert hasattr(self._value, '__iter__')
 
         self._widget = CascadingEnumerationComboBox(self._value)
-        self._widget.setToolTip(self._tooltip)
+        self.updateToolTip(self._widget)
         layout.addWidget(self._widget, stretch)
 
         if self._addWidgetHandler != None:
@@ -278,7 +283,7 @@ class CascadingEnumerationProperty(UIPropertyBase):
         presetIndex = None
         for index, listitem in enumerate(self._value):
 
-            listitem = listitem.split(CascadingEnumerationComboBox.kSeparator)[-1]
+            listitem = listitem[-1]
 
             if presetValue is not None and str(listitem) == str(presetValue):
                 presetIndex = index
@@ -309,7 +314,7 @@ class TextProperty(UIPropertyBase):
         layout.setContentsMargins(0, 0, 0, 0)
 
         self._widget = QtWidgets.QLineEdit()
-        self._widget.setToolTip(self._tooltip)
+        self.updateToolTip(self._widget)
         layout.addWidget(self._widget)
 
         self.update()
@@ -360,7 +365,7 @@ class CheckboxProperty(UIPropertyBase):
         layout.setContentsMargins(0, 0, 0, 0)
 
         self._widget = QtWidgets.QCheckBox()
-        self._widget.setToolTip(self._tooltip)
+        self.updateToolTip(self._widget)
 
         layout.addWidget(self._widget)
 
@@ -416,8 +421,8 @@ class SliderProperty(UIPropertyBase):
         self._slider = QtWidgets.QSlider(QtCore.Qt.Horizontal)
         self._lineEdit = QtWidgets.QLineEdit()
 
-        self._slider.setToolTip(self._tooltip)
-        self._lineEdit.setToolTip(self._tooltip)
+        self.updateToolTip(self._slider)
+        self.updateToolTip(self._lineEdit)
 
         self.update()
 
@@ -545,7 +550,7 @@ class CustomComboProperty(ComboProperty):
         kargs['value'] = list(kargs['value'].values())
         ComboProperty.__init__(self, stretch=1.0, **kargs)
 
-        self._widget.setToolTip(self._tooltip)
+        self.updateToolTip(self._widget)
         self._widget.setEditable(True)
         self._lineEdit = self._widget.lineEdit()
 

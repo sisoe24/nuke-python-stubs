@@ -5,7 +5,7 @@ import itertools
 
 import hiero.core
 import hiero.core.FnExporterBase as FnExporterBase
-from hiero.core.VersionScanner import VersionScanner
+from hiero.core import VersionScanner
 
 from .FnEffectHelpers import ensureEffectsNodesCreated
 from .FnExportKeywords import (KeywordTooltips, kFileBaseKeyword,
@@ -260,7 +260,8 @@ class ShotProcessor(hiero.core.ProcessorBase):
 
             # Copied effect items create their nodes lazily, but this has to happen on
             # the main thread, force it to be done here.
-            ensureEffectsNodesCreated(sequenceCopy)
+            if not preview:
+                ensureEffectsNodesCreated(sequenceCopy)
 
             # The export items should all come from the same project
             if not project:

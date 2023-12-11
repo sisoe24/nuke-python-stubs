@@ -8,12 +8,12 @@ from hiero.core import BinItem, VersionScanner
 
 # We want to redefine some of the methods of VersionScanner, but may still need to use the default functionality within our custom methods.
 # Therefore, we need to save a reference to the default methods, and then we will be able to call them from ours.
-if not hasattr(VersionScanner.VersionScanner, 'default_filterVersion'):
-    VersionScanner.VersionScanner.default_filterVersion = VersionScanner.VersionScanner.filterVersion
-if not hasattr(VersionScanner.VersionScanner, 'default_versionLessThan'):
-    VersionScanner.VersionScanner.default_versionLessThan = VersionScanner.VersionScanner.versionLessThan
-if not hasattr(VersionScanner.VersionScanner, 'default_findNewVersions'):
-    VersionScanner.VersionScanner.default_findNewVersions = VersionScanner.VersionScanner.findNewVersions
+if not hasattr(VersionScanner, 'default_filterVersion'):
+    VersionScanner.default_filterVersion = VersionScanner.filterVersion
+if not hasattr(VersionScanner, 'default_versionLessThan'):
+    VersionScanner.default_versionLessThan = VersionScanner.versionLessThan
+if not hasattr(VersionScanner, 'default_findNewVersions'):
+    VersionScanner.default_findNewVersions = VersionScanner.findNewVersions
 
 
 # Determine whether the file newVersionFile should be included as a new version of originalVersion
@@ -94,6 +94,6 @@ def findNewVersionsWithArtistName(self, version):
 
 
 # Override the default VersionScanner functions with the custom ones.
-VersionScanner.VersionScanner.filterVersion = filterVersionSameFormat
-VersionScanner.VersionScanner.versionLessThan = versionLessThanOrderByFormat
-VersionScanner.VersionScanner.findNewVersions = findNewVersionsWithArtistName
+VersionScanner.filterVersion = filterVersionSameFormat
+VersionScanner.versionLessThan = versionLessThanOrderByFormat
+VersionScanner.findNewVersions = findNewVersionsWithArtistName

@@ -10,8 +10,8 @@ import foundry.ui
 import hiero.core
 import hiero.core.log
 import hiero.core.util
-import hiero.core.VersionScanner
 from PySide2 import QtGui, QtCore, QtWidgets
+from hiero.core import VersionScanner
 
 
 class TrackFinderByNameWithDialog(object):
@@ -612,7 +612,7 @@ class BuildTrackActionBase(QtWidgets.QAction):
         trackItem.source().rescan()  # First rescan the current clip
         if trackItem.isMediaPresent():
             version = trackItem.currentVersion()
-            scanner = hiero.core.VersionScanner.VersionScanner()  # Scan for new versions
+            scanner = VersionScanner()  # Scan for new versions
             scanner.doScan(version)
             # Put the track item and the clip bin item on the max version
             trackItem.maxVersion()
@@ -633,7 +633,7 @@ class BuildTrackActionBase(QtWidgets.QAction):
                 existingSource = existingClip.activeItem().mediaSource()
                 if os.path.abspath(existingSource.firstpath()) in normPathFiles:
                     if self._useMaxVersions:
-                        scanner = hiero.core.VersionScanner.VersionScanner()
+                        scanner = VersionScanner()
                         scanner.doScan(existingClip.activeVersion())
                         existingClip.maxVersion()
 
@@ -758,7 +758,7 @@ class BuildTrackActionBase(QtWidgets.QAction):
             pathexts = [os.path.splitext(path)[1] for path in paths]
             for path in paths:
                 # Try to match files for different versions
-                versionScanner = hiero.core.VersionScanner.VersionScanner()
+                versionScanner = VersionScanner()
                 path = versionScanner.getGlobExpression(path)
 
                 # Strip padding out of single file types

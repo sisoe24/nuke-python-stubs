@@ -91,7 +91,7 @@ def addNewScriptVersionToBinRec(bin, previousFileName, newFileName):
                                               'is writing to an image sequence.')
 
                 if (versionFile == previousFileName):
-                    scanner = hiero.core.VersionScanner.VersionScanner()
+                    scanner = hiero.core.VersionScanner()
                     scanner.insertVersions(clip, [newFileName])
                     return True
 

@@ -411,7 +411,8 @@ def rotatePivotToPointsVerified(nodeToSnap, vertexSelection):
     # it to object space as pivot rotation should be we need to remove the object
     # rotation from it and then extract the rotation in XYZ order.
     R = rotateMatrixZXY(radians(nodeToSnap['rotate'].getValue()))
-    pivotRotate = extractRotationXYZ((R.inverse() * rotateMatrixZXY(pivotRotate)))
+    pivotRotate = _nukemath.Vector3(
+        *((R.inverse() * rotateMatrixZXY(pivotRotate)).rotationsXYZ()))
 
     pt = nodeToSnap['pivot_translate'].getValue()
     pivotTranslate = _nukemath.Vector3(pt[0], pt[1], pt[2])
@@ -639,38 +640,6 @@ def planeRotation(tri, norm=None):
     return _nukemath.Vector3(rx, ry, rz)
 
 
-def extractRotationXYZ(matrix):
-    '''
-    Extract XYZ rotation since Matrix4::rotationsXYZ() is buggy for some cases.
-    This function can be removed in favor of the new math API being included for
-    Nuke14. This function is a translation of their implementation for XYZ
-    rotations extraction.
-
-
-    @type matrix:  _nukemath.Matrix4
-    @param matrix: the matrix we will extract the rotations from.
-    @return: _nukemath.Vector3 with XYZ rotations.
-
-    '''
-    u = matrix.xAxis()
-    v = matrix.yAxis()
-    w = matrix.zAxis()
-
-    u.normalize()
-    v.normalize()
-    w.normalize()
-
-    ang0 = u.x * u.x + u.y * u.y
-    ry = math.atan2(-u.z, math.sqrt(ang0))
-    if abs(ang0) <= sys.float_info.epsilon:
-        rx = math.atan2(-w.y, v.y)
-        rz = 0.0
-    else:
-        rx = math.atan2(v.z, w.z)
-        rz = math.atan2(u.y, u.x)
-    return _nukemath.Vector3(rx, ry, rz)
-
-
 #
 # Helper functions
 #
@@ -754,26 +723,45 @@ def selectedVertexInfos(selectionThreshold=0.5):
     if not nuke.activeViewer():
         return
 
+    # New 3D system
+    stage = nuke.activeViewer().node().getStage()
+    if stage:
+        sel = nuke.getGeoSelection()
+        for o, s in enumerate(sel):
+            vertexWeights = s.getVertexWeights()
+            points = s.getWorldPoints(stage)
+            normals = s.getWorldNormals(stage)
+            if len(vertexWeights) == len(points) and len(vertexWeights) == len(normals):
+                points = [_nukemath.Vector3(p.x, p.y, p.z) for p in points]
+                normals = [_nukemath.Vector3(p.x, p.y, p.z) for p in normals]
+                for p in range(len(vertexWeights)):
+                    value = vertexWeights[p]
+                    if value >= selectionThreshold:
+                        yield VertexInfo(o, p, value, points[p], normals[p])
+            break
+
+    # Old 3D system
     for n in allNodesWithGeoSelectKnob():
         geoSelectKnob = n['geo_select']
         sel = geoSelectKnob.getSelection()
         objs = geoSelectKnob.getGeometry()
-        for o in range(len(sel)):
-            objSelection = sel[o]
-            objPoints = objs[o].points()
-            objTransform = objs[o].transform()
-            for p in range(len(objSelection)):
-                value = objSelection[p]
-                if value >= selectionThreshold:
-                    for prim in objs[o].primitives():
-                        for pt in prim.points():
-                            if pt == p:
-                                n = prim.normal()
-                                n = _nukemath.Vector3(n[0], n[1], n[2])
-                                normal = objTransform.vtransform(n)
-                    pos = objPoints[p]
-                    tPos = objTransform * _nukemath.Vector4(pos.x, pos.y, pos.z, 1.0)
-                    yield VertexInfo(o, p, value, _nukemath.Vector3(tPos.x, tPos.y, tPos.z), normal)
+        if objs:
+            for o in range(len(sel)):
+                objSelection = sel[o]
+                objPoints = objs[o].points()
+                objTransform = objs[o].transform()
+                for p in range(len(objSelection)):
+                    value = objSelection[p]
+                    if value >= selectionThreshold:
+                        for prim in objs[o].primitives():
+                            for pt in prim.points():
+                                if pt == p:
+                                    n = prim.normal()
+                                    n = _nukemath.Vector3(n[0], n[1], n[2])
+                                    normal = objTransform.vtransform(n)
+                        pos = objPoints[p]
+                        tPos = objTransform * _nukemath.Vector4(pos.x, pos.y, pos.z, 1.0)
+                        yield VertexInfo(o, p, value, _nukemath.Vector3(tPos.x, tPos.y, tPos.z), normal)
 
 
 def anySelectedVertexInfo(selectionThreshold=0.5):

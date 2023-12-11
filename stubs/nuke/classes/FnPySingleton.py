@@ -11,7 +11,7 @@ class FnPySingleton(object):
 
     """
 
-    def __new__(self, *args, **kwargs) -> Any:
+    def __new__(self, type, *args, **kwargs) -> None:
         """
         staticmethod(function) -> method
 

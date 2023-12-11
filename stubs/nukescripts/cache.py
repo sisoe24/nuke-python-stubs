@@ -14,6 +14,9 @@ def clearAllCaches():
     nuke.clearRAMCache()
     nuke.clearBlinkCache()
     memory.clearUsage()
+    # In case Nuke is built without OpenAssetIO
+    if hasattr(nuke, 'clearAssetCache'):
+        nuke.clearAssetCache()
 
 
 def humanReadable(numBytes):

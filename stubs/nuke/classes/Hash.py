@@ -13,6 +13,12 @@ class Hash(object):
     The append() method is used to add objects to the hash; the value will be recomputed efficiently as each new object is added.
     """
 
+    def __new__(self, *args, **kwargs) -> None:
+        """
+        Create and return a new object.  See help(type) for accurate signature.
+        """
+        ...
+
     def __hash__(self, ) -> None:
         """
         Return hash(self).
@@ -70,12 +76,6 @@ class Hash(object):
     def __ge__(self, value, ) -> None:
         """
         Return self>=value.
-        """
-        ...
-
-    def __new__(self, *args, **kwargs) -> None:
-        """
-        Create and return a new object.  See help(type) for accurate signature.
         """
         ...
 

@@ -127,39 +127,33 @@ def deserializeMessage(data):
     return msgType.deserialize(data)
 
 
-def RemoveDuplicateMessagesFilter(msgType, matchAttributes=None):
-    """ Create filter which only keeps the latest of messages in a list matching
-    msgType. If a list of attributes to match is also specified, earlier messages
-    of the same type are discarded if they have the same values for those attributes
-    as a later message
+def RemoveDuplicateMessagesFilter(msgType, matchAttributes):
+    """ Create filter where for messages which:
+          a) have msgType and
+          b) for the given list of attributes, match the values of a message sent later
+        the earlier messages are discarded.
     """
 
     # Helper for comparing a set of attributes on messages
-    def _compareAttrs(msgA, msgB, attrs):
-        for attr in attrs:
-            if getattr(msgA, attr) != getattr(msgB, attr):
-                return False
+    def _compareAttrs(nextMsg, matchMsgs, attrs):
+        for matchMsg in matchMsgs:
+            for attr in attrs:
+                if getattr(nextMsg, attr) != getattr(matchMsg, attr):
+                    return False
         return True
 
     def _inner(msgList):
         filteredList = []
         lastMatchingMsgs = []
-        # Reverse iterate to find the latest matching messages first
+        # Reverse iterate to find the latest messages first
         for msg in reversed(msgList):
-            discard = False
+            # For messages of the type being filtered, if they are either the last in the list, or their attributes don't
+            # match a later one in the list, keep them. Otherwise discard
             if isinstance(msg, msgType):
-                if not lastMatchingMsgs:  # Found first matching message
+                if not lastMatchingMsgs or not _compareAttrs(msg, lastMatchingMsgs, matchAttributes):
                     lastMatchingMsgs.append(msg)
-                else:
-                    # Discard any duplicate messages. If attributes to match against were
-                    # given only discard if they match the ones we're keeping
-                    discard = True
-                    if matchAttributes:
-                        for matchMsg in lastMatchingMsgs:
-                            if not _compareAttrs(msg, matchMsg, matchAttributes):
-                                discard = False
-                                lastMatchingMsgs.append(msg)
-            if not discard:
+                    filteredList.insert(0, msg)
+            else:
                 filteredList.insert(0, msg)
         return filteredList
     return _inner

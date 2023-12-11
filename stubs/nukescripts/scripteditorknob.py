@@ -7,7 +7,7 @@ from .blinkscripteditor import *
 
 class ScriptEditor(QWidget):
 
-    def __init__(self, knob, parent=None):
+    def __init__(self, knob, parent=None, language='blink'):
         super(ScriptEditor, self).__init__(parent)
 
         self.knob = knob
@@ -19,7 +19,9 @@ class ScriptEditor(QWidget):
         splitter = QSplitter(Qt.Vertical)
 
         # Setup main layout
-        self.myTextWindow = ScriptInputArea(None, self, self)
+        self.myTextWindow = ScriptInputArea(None, self, self, language)
+        if language == 'usd':
+            self.myTextWindow.setLineWrapMode(self.myTextWindow.NoWrap)
         splitter.addWidget(self.myTextWindow)
 
         layout = QVBoxLayout()
@@ -49,12 +51,13 @@ class ScriptEditor(QWidget):
 
 
 class ScriptEditorWidgetKnob():
-    def __init__(self, knob):
+    def __init__(self, knob, language='blink'):
         self.knob = knob
+        self.language = language
 
     def makeUI(self):
-        return ScriptEditor(self.knob)
+        return ScriptEditor(self.knob, None, self.language)
 
 
-def makeScriptEditorKnob():
-    return ScriptEditorWidgetKnob(nuke.thisKnob())
+def makeScriptEditorKnob(language='blink'):
+    return ScriptEditorWidgetKnob(nuke.thisKnob(), language)

@@ -22,7 +22,25 @@ class RenderTaskUIBase(TaskUIBase):
         """
         ...
 
+    def __del__(self) -> None:
+        """
+
+        """
+        ...
+
     def codecTypeComboBoxChanged(self, value) -> None:
+        """
+
+        """
+        ...
+
+    def writeNode(self) -> None:
+        """
+
+        """
+        ...
+
+    def setWriteNodeFileType(self, fileType) -> None:
         """
 
         """
@@ -83,12 +101,6 @@ class RenderTaskUIBase(TaskUIBase):
         """
         ...
 
-    def _getLutOptions(self) -> None:
-        """
-        Return the LUT options to use.
-        """
-        ...
-
     def buildCodecUI(self, layout, itemTaskType) -> None:
         """
         Populate layout with widgets reflected from the RenderPresetBase class
@@ -101,7 +113,13 @@ class RenderTaskUIBase(TaskUIBase):
         """
         ...
 
-    def createColourSpaceWidget(self, layout) -> None:
+    def getOutputTransformProperties(self) -> None:
+        """
+
+        """
+        ...
+
+    def createOutputTransformWidgets(self, layout) -> None:
         """
 
         """

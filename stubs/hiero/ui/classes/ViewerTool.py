@@ -16,6 +16,12 @@ class ViewerTool(QObject):
     Python interface for the viewer tools
     """
 
+    def __new__(self, *args, **kwargs) -> None:
+        """
+        Create and return a new object.  See help(type) for accurate signature.
+        """
+        ...
+
     def __setattr__(self, name, value, ) -> None:
         """
         Implement setattr(self, name, value).
@@ -25,12 +31,6 @@ class ViewerTool(QObject):
     def __delattr__(self, name, ) -> None:
         """
         Implement delattr(self, name).
-        """
-        ...
-
-    def __new__(self, *args, **kwargs) -> None:
-        """
-        Create and return a new object.  See help(type) for accurate signature.
         """
         ...
 

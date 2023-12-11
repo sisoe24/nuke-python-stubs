@@ -18,6 +18,9 @@ from .find_items import (findItems, findItemByGuid, findItemsInBin,
                          findItemsByGuid, findProjectTags, findItemsInProject)
 from .nuke.Script import getBundledNukePath, getBundledPythonPath
 from .FnResolveTable import ResolveTable
+from .FnEffectHelpers import executeEffectNode, effectInputSourceCoods
+from .FnVersionScanner import VersionScanner
+from .FnPostEffectCreation import afterEffectCreated, overrideKnobDefaults
 from .localisation_helpers import *
 
 
@@ -639,7 +642,7 @@ BinItem.createClipVersion = __createClip_wrapper(BinItem.createClipVersion)
 # Application logic run after a project is loaded
 
 
-# the following are Hiero/Studio only things, check if the exports feature is enabled
+# The following are Hiero/Studio only things, check if the exports feature is enabled
 if 'exports' in env['Features']:
     from .FnProcessor import ProcessorBase, ProcessorPreset
     from .FnExporterBase import (TaskBase, TaskData, TaskGroup, FolderTask,
@@ -648,6 +651,7 @@ if 'exports' in env['Features']:
     from .FnExportRegistry import TaskRegistry, taskRegistry
     from .FnExportStructure import ExportStructure2, ExportStructureElement
 
+# The following should be enabled across all apps
 '''Stubs generated automatically from Nuke's internal interpreter.'''
 
 # Constants
@@ -669,6 +673,20 @@ def LUTs(*args, **kwargs) -> tuple:
     hiero.core.LUTs() -> returns a tuple with the names of all of the available luts.
 
     @return: tuple of strings
+    """
+    ...
+
+
+def SequenceAutoDiskCacheModeFromString(str: str) -> core.SequenceAutoDiskCacheMode:
+    """
+
+    """
+    ...
+
+
+def SequenceAutoDiskCacheModeToString(mode: core.SequenceAutoDiskCacheMode) -> str:
+    """
+
     """
     ...
 

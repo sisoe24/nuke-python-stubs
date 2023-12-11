@@ -6,8 +6,27 @@ import nuke_internal as nuke
 # not plugins themselves
 PLUGINS_FILTER = [
     'Alembic_In',
+    'BlackmagicRawAPI',
     'DNxHR',
-    'FnNukeCodecs'
+    'DecoderCUDA',
+    'DecoderOpenCL',
+    'InstructionSetServicesAVX',
+    'InstructionSetServicesAVX2',
+    'FnNukeCodecs',
+    'REDCuda-x64',
+    'REDCuda-x86',
+    'REDDecoder',
+    'REDDecoder-x64',
+    'REDDecoder-x86',
+    'REDMetal',
+    'REDOpenCL',
+    'REDOpenCL-x64',
+    'REDOpenCL-x86',
+    'REDR3D',
+    'REDR3D-x64',
+    'REDR3D-x86',
+    'SMDK-VC140-x64-4_21_0',
+    'SonyRawDev'
 ]
 
 

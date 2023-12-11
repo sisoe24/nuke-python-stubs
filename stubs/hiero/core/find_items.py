@@ -4,6 +4,7 @@
 import itertools
 
 import hiero
+from hiero.core import projects
 
 
 def typeName(type):
@@ -370,6 +371,15 @@ def findItemsInBin(rootBin, filter=None, partialName=None, verbose=0):
         finalResults = [x for x in finalResults if partialName in x.name()]
 
     return finalResults
+
+
+def findItemsInAllProjects(**kwargs):
+    """ Search for items across all open projects. See findItemsInProject() for arguments.
+    """
+    def _inner():
+        for proj in projects():
+            yield findItemsInProject(proj=proj, **kwargs)
+    return itertools.chain.from_iterable(_inner())
 
 
 def findProjectTags(proj=None, tagName=None, iconName=None, verbose=0):

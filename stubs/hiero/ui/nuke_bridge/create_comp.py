@@ -12,9 +12,8 @@ from PySide2 import QtGui, QtCore, QtWidgets
 from hiero.ui import InvalidOutputResolutionMessage
 from _fnpython import viewIconForTrack, showCreateCompSpecialDialog
 from foundry.ui import showDismissibleWarning
-from hiero.core import log, nuke
+from hiero.core import VersionScanner, log, nuke
 from hiero.ui.nuke_bridge import FnNsFrameServer as postProcessor
-from hiero.core.VersionScanner import VersionScanner
 from hiero.ui.FnPathQueryDialog import *
 from hiero.ui.BuildExternalMediaTrack import (BuildTrack, TrackFinderByTag,
                                               BuildTrackFromExportTagAction)
@@ -246,7 +245,13 @@ class CreateCompForTrackItemsDialog(QtWidgets.QDialog):
                 trackModelItem.setIcon(trackViewIcon)
             model.setItem(index, kModelTrackNameColumn, trackModelItem)
             shotModelItem = QtGui.QStandardItem(item.name())
-            shotModelItem.setIcon(QtGui.QIcon(QtGui.QPixmap.fromImage(item.thumbnail())))
+
+            try:
+                shotModelItem.setIcon(QtGui.QIcon(
+                    QtGui.QPixmap.fromImage(item.thumbnail())))
+            except:
+                shotModelItem.setIcon(QtGui.QIcon(QtGui.QPixmap()))
+
             shotModelItem.setData(track.trackIndex(), kModelTrackIndexRole)
             model.setItem(index, kModelShotNameColumn, shotModelItem)
             timelineTimeItem = QtGui.QStandardItem(
@@ -460,14 +465,14 @@ class CreateCompActionBase(BuildTrackFromExportTagAction):
                     if key in taskProperties:
                         taskProperties[key] = value
 
-    def _preProcessTrackItems(self, trackItems):
+    def _preProcessTrackItems(self, trackItems, initialVersion):
         """ Check tags and versions on the given track items prior to exporting them.  This will return a list of tuples,
             containing (trackItem, tag, version).   If there was no tag already on the item, it will be None. """
 
         foundTag = False
         trackItemData = []
         for trackItem in trackItems:
-            version = 1
+            version = initialVersion
             tag = self.findExistingCreateCompTag(trackItem)
             # If there's an existing tag on this track item, figure out what the new version is.
             if tag:
@@ -961,8 +966,8 @@ class CreateCompActionBase(BuildTrackFromExportTagAction):
             ######
 
             try:
-                trackItemData = self._preProcessTrackItems(
-                    [singleNukeScriptMasterTrackItem])
+                trackItemData = self._preProcessTrackItems([singleNukeScriptMasterTrackItem],
+                                                           self.shotPreset.properties()['versionIndex'])
 
                 self._showProgress()
 
@@ -984,7 +989,8 @@ class CreateCompActionBase(BuildTrackFromExportTagAction):
             ######
 
             try:
-                trackItemData = self._preProcessTrackItems(self._trackItems)
+                trackItemData = self._preProcessTrackItems(self._trackItems,
+                                                           self.shotPreset.properties()['versionIndex'])
 
                 self._showProgress()
 

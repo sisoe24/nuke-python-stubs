@@ -94,7 +94,7 @@ class ResolveTable:
         return self._resolvers[self.entryName(index)].description()
 
     def addResolver(self, name, description, resolver):
-        if isinstance(resolver, collections.Callable):
+        if isinstance(resolver, collections.abc.Callable):
             self._resolvers[name] = ResolveTable.CallbackItem(name, description, resolver)
         else:
             self._resolvers[name] = ResolveTable.StringItem(name, description, resolver)

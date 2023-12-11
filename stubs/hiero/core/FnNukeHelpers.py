@@ -826,8 +826,8 @@ def _TrackItem_addToNukeScript(self,
         keyFrames = '{{curve l x%d %f x%d %f}}' % (tIn, sIn, tOut, sOut)
         oflow = nuke.Node('OFlow2',
                           interpolation=retimeMethod,
-                          timing='Source Frame',
-                          timingFrame=keyFrames)
+                          timing2='Frame',
+                          timingFrame2=keyFrames)
         oflow.setKnob('label', 'retime ' + str(retimeRate))
         added_nodes.append(oflow)
         script.addNode(oflow)
@@ -1647,6 +1647,12 @@ def _EffectTrackItem_addToNukeScript(self, script, offset=0, inputs=1, startHand
     # Set the lifetime knobs to disable the node outside the desired frame range.  Handles should be included
     startFrame = self.timelineIn() + offset - startHandle
     endFrame = self.timelineOut() + offset + endHandle
+
+    # Include the knobs for the node coloring as these are not written by writeKnobs
+    for colorKnobName in ('tile_color', 'gl_color'):
+        colorKnob = node[colorKnobName]
+        if colorKnob.notDefault():
+            additionalKnobs.append(f"{colorKnobName} {colorKnob.toScript()}")
 
     if addLifetime:
         additionalKnobs.append('lifetimeStart %s' % startFrame)

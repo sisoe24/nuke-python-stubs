@@ -1262,7 +1262,6 @@ class RenderTaskPreset(TaskPresetBase):
                                         'resize': 'width',
                                         'center': True,
                                         'filter': 'Cubic'}
-        self._properties['colourspace'] = 'default'
         self._properties['channels'] = 'rgb'
 
         # Views property, defaulting to 'all' so the views on the project can

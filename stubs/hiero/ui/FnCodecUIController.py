@@ -1,11 +1,9 @@
 import copy
 
-import nuke_internal as nuke
 import PySide2.QtCore as QtCore
 import PySide2.QtWidgets as QtWidgets
 from hiero.ui.FnUIProperty import UIPropertyFactory
 from hiero.ui.FnTaskUIFormLayout import TaskUIFormLayout
-from hiero.ui.FnNodePropertyWidget import NodePropertyWidget
 
 kEXRTooltips = {
     'metadata': ('Which metadata to write out to the EXR file.'
@@ -219,19 +217,3 @@ class EXRCodecUIController(CodecUIController):
             propertyWidget.propertyChanged.connect(self.metadataChanged)
         else:
             propertyWidget.propertyChanged.connect(self.propertyChanged)
-
-
-class WriteNodePropertyWidget(NodePropertyWidget):
-    """NodePropertyWidget subclass that creates property widgets for a write node with the
-    passed in fileType."""
-
-    def __init__(self, fileType, propertyDictionaries, presetDictionary):
-        self._writeNode = nuke.createNode('Write', '', False)
-        fileTypeKnob = self._writeNode.knobs()['file_type']
-        fileTypeKnob.setValue(fileType)
-
-        NodePropertyWidget.__init__(self, self._writeNode,
-                                    propertyDictionaries, presetDictionary)
-
-    def __del__(self):
-        nuke.delete(self._writeNode)

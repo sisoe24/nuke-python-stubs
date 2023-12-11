@@ -8,6 +8,8 @@ from io import StringIO
 import PySide2
 import nuke_internal as nuke
 
+from .usdhighlighter import UsdHighlighter
+
 # Syntax highlighting colour definitions
 kwdsFgColour = PySide2.QtGui.QColor(122, 136, 53)
 stringLiteralsFgColourDQ = PySide2.QtGui.QColor(226, 138, 138)
@@ -23,7 +25,7 @@ class ScriptInputArea(PySide2.QtWidgets.QPlainTextEdit, PySide2.QtCore.QObject):
     # Signal that will be emitted when the user has changed the text
     userChangedEvent = PySide2.QtCore.Signal()
 
-    def __init__(self, output, editor, parent=None):
+    def __init__(self, output, editor, parent=None, language='blink'):
         super(ScriptInputArea, self).__init__(parent)
 
         # Font will be setup by showEvent function, reading settings from preferences
@@ -52,7 +54,10 @@ class ScriptInputArea(PySide2.QtWidgets.QPlainTextEdit, PySide2.QtCore.QObject):
         self._lineNumberArea = LineNumberArea(self, parent=self)
 
         # Add highlighter
-        self._highlighterInput = InputHighlighter(self.document(), parent=self)
+        if language == 'usd':
+            self._highlighterInput = UsdHighlighter(self.document(), parent=self)
+        else:
+            self._highlighterInput = InputHighlighter(self.document(), parent=self)
 
         # Setup connections
         self.cursorPositionChanged.connect(self.highlightCurrentLine)

@@ -8,8 +8,10 @@ if isHiero:
     from . import localisationprefs
     from .panels import *
     from .nodepresets import *
+    from .scripteditorknob import *
 else:
 
+    from . import cattery
     from .crop import *
     from .drop import *
     from .edit import *
@@ -50,7 +52,6 @@ else:
         # Callback for viewsettings preferences
         from . import readviewscheck, localisationprefs, viewsettingsprefs
         from .panels import *
-        from .cattery import *
         from .toolbars import *
         from .toolsets import *
         from .nodepresets import *

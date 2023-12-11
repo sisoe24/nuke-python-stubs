@@ -11,6 +11,12 @@ class PanelNode(object):
     PanelNode
     """
 
+    def __new__(self, *args, **kwargs) -> None:
+        """
+        Create and return a new object.  See help(type) for accurate signature.
+        """
+        ...
+
     def __hash__(self, ) -> None:
         """
         Return hash(self).
@@ -20,12 +26,6 @@ class PanelNode(object):
     def __str__(self, ) -> None:
         """
         Return str(self).
-        """
-        ...
-
-    def __new__(self, *args, **kwargs) -> None:
-        """
-        Create and return a new object.  See help(type) for accurate signature.
         """
         ...
 

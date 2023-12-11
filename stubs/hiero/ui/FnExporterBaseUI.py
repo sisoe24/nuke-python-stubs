@@ -3,8 +3,10 @@
 import sys
 import os.path
 import itertools
+import collections
 
 import hiero.core
+import nuke_internal
 from PySide2 import QtGui, QtCore, QtWidgets
 from hiero.ui import *
 from hiero.core import nuke
@@ -15,8 +17,8 @@ from hiero.ui.FnPathQueryDialog import *
 from hiero.ui.FnDisclosureButton import DisclosureButton
 from hiero.ui.FnTaskUIFormLayout import TaskUIFormLayout
 from hiero.ui.FnCodecUIController import (CodecUIController,
-                                          EXRCodecUIController,
-                                          WriteNodePropertyWidget)
+                                          EXRCodecUIController)
+from hiero.ui.FnNodePropertyWidget import NodePropertyWidget
 
 
 class ReformatToolTips():
@@ -148,6 +150,12 @@ class RenderTaskUIBase(TaskUIBase):
         TaskUIBase.__init__(self, taskType, preset, displayName)
         self._codecSettings = preset._codecSettings
         self._uiProperties = []
+        self._writeNode = None
+
+    def __del__(self):
+        if self._writeNode:
+            nuke_internal.delete(self._writeNode)
+            self._writeNode = None
 
     def codecTypeComboBoxChanged(self, value):
         selectedFileType = self._codecTypeComboBox.currentText()
@@ -155,6 +163,15 @@ class RenderTaskUIBase(TaskUIBase):
         self._preset._properties['file_type'] = self._codecTypeComboBox.currentText()
         self.updateChannelsForFileType(selectedFileType)
         self.propertiesChanged.emit()
+
+    def writeNode(self):
+        if not self._writeNode:
+            self._writeNode = self._project.createExportWriteNode()
+        return self._writeNode
+
+    def setWriteNodeFileType(self, fileType):
+        fileTypeKnob = self.writeNode().knobs()['file_type']
+        fileTypeKnob.setValue(fileType)
 
     def updateChannelsForFileType(self, fileType):
         # Change the channels knob setting based on the file extension.  If exr is being written then set
@@ -217,6 +234,10 @@ class RenderTaskUIBase(TaskUIBase):
             oldWidget = layout.takeAt(0)
             if oldWidget and oldWidget.widget():
                 oldWidget.widget().hide()
+                try:
+                    oldWidget.widget().removeCallbacks()
+                except Exception:
+                    pass
                 oldWidget.widget().destroy()
 
     def updateCodecPropertiesWidget(self, file_type):
@@ -266,8 +287,9 @@ class RenderTaskUIBase(TaskUIBase):
         """ Create widgets for the given property dictionaries, and add them to the given layout. """
         presetDictionaries = self._preset._properties[file_type]
         if file_type in ['mov', 'mxf']:
-            widget = WriteNodePropertyWidget(
-                file_type, propertyDictionaries, presetDictionaries)
+            self.setWriteNodeFileType(file_type)
+            widget = NodePropertyWidget(
+                self.writeNode(), propertyDictionaries, presetDictionaries)
         else:
             if file_type == 'exr':
                 widget = EXRCodecUIController(
@@ -279,36 +301,15 @@ class RenderTaskUIBase(TaskUIBase):
 
         return widget
 
-    def _getLutOptions(self):
-        """
-        Return the LUT options to use.
-        """
-        # If a project has been set on this object, use that, otherwise try to get
-        # it from the preset.  If there are items being exported, then the project
-        # should have been set from those by the processor UI.
-        project = self._project or self._preset.project()
-        includeFamilies = True
-        luts = hiero.core.LUTs(
-            self._project, includeFamilies) if self._project else hiero.core.LUTs()
-        lutsWithRoleColorspaces = []
-        for i in range(len(luts)):
-            roleColorspace = hiero.core.getRoleColorspace(
-                self._project, i) if self._project else hiero.core.getRoleColorspace(i)
-            if roleColorspace:
-                lutsWithRoleColorspaces.append(luts[i] + ' (' + roleColorspace + ')')
-            else:
-                lutsWithRoleColorspaces.append(luts[i])
-        return tuple(lutsWithRoleColorspaces)
-
     def buildCodecUI(self, layout, itemTaskType):
         """Populate layout with widgets reflected from the RenderPresetBase class"""
         self._uiProperties = []
 
         self.createChannelsWidget(layout)
-        self.createColourSpaceWidget(layout)
         self.createViewsWidget(layout)
         self.createFileTypeWidget(layout)
         self.createCodecOptionsPlaceholder(layout)
+        self.createOutputTransformWidgets(layout)
         self.createReformatWidgets(layout, itemTaskType)
 
     def createChannelsWidget(self, layout):
@@ -332,30 +333,18 @@ class RenderTaskUIBase(TaskUIBase):
         uiProperty.propertyChanged.connect(self.propertyChanged)
         self._channelsCombo = uiProperty._widget
 
-    def createColourSpaceWidget(self, layout):
-        colourspaceToolTip = ('Color transfom (LUT) used to convert from the internal '
-                              'values used by Nuke to the values written to the file.\n\n'
-                              'Default means it is determined from the type of file '
-                              'and the size and type of data written to it.\n\n'
-                              'Warning\n'
-                              'The label for this knob has been changed - however the knob name is the same as in 13.0'
-                              ' - in a future major release the knob name will also be changed.')
+    def getOutputTransformProperties(self):
+        return collections.OrderedDict([
+            ('transformType', None),
+            ('colorspace', None),
+            ('ocioDisplay', None),
+            ('ocioView', None)
+        ])
 
-        def colourspaceWidgetHandler(widget, layout, value):
-            lutIcon = QtGui.QIcon('icons:LUT.png')
-            for i in range(0, widget.count()):
-                widget.setItemIcon(i, lutIcon)
-
-        key, value = 'colourspace', ('default',) + self._getLutOptions()
-        uiProperty = CascadingEnumerationProperty(key=key,
-                                                  value=value,
-                                                  dictionary=self._preset._properties,
-                                                  label='Output Transform',
-                                                  tooltip=colourspaceToolTip,
-                                                  addWidgetHandler=colourspaceWidgetHandler)
-        self._uiProperties.append(uiProperty)
-        layout.addRow(uiProperty._label + ':', uiProperty)
-        uiProperty.propertyChanged.connect(self.propertyChanged)
+    def createOutputTransformWidgets(self, layout):
+        layout.addDivider('Output Transform')
+        layout.addRow(NodePropertyWidget(self.writeNode(), [
+                      self.getOutputTransformProperties()], self._preset._properties))
 
     def createViewsWidget(self, layout):
         views = self._project.views()

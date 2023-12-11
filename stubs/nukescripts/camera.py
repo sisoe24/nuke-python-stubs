@@ -37,7 +37,7 @@ def camera_down():
     camera_up()
 
 
-def create_camera_here():
+def create_camera_here(className='Camera3'):
     # get selected nodes
     selected_nodes = nuke.selectedNodes()
 
@@ -45,7 +45,7 @@ def create_camera_here():
     for n in selected_nodes:
         n['selected'].setValue(False)
 
-    camera = nuke.createNode('Camera3')
+    camera = nuke.createNode(className)
 
     viewer = nuke.activeViewer()
 

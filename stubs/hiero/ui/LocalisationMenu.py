@@ -15,6 +15,13 @@ def _localisationEnabled():
 class LocaliseMenu:
     """Localization menu which adds right-click options for localising items from the Bin/Timeline/Spreadsheet view"""
 
+    # The localization policy to set on selected clips
+    kMode = hiero.core.Clip.kOnLocalize
+
+    # If the localization mode is set to 'Manual' this will force the selected clips
+    # to be updated
+    kForceUpdates = True
+
     def __init__(self):
         self._localiseMenu = None
 
@@ -72,12 +79,11 @@ class LocaliseMenu:
             if isinstance(self._selection[0], hiero.core.Bin):
                 for bin in self._selection:
                     hiero.core.setLocalisationPolicyOnBin(
-                        bin, hiero.core.Clip.kOnLocalize)
+                        bin, LocaliseMenu.kMode, forceUpdate=LocaliseMenu.kForceUpdates)
 
             elif isinstance(self._selection[0], hiero.core.Sequence):
                 for seq in self._selection:
-                    hiero.core.setLocalisationPolicyOnSequence(
-                        seq, hiero.core.Clip.kOnLocalize)
+                    hiero.core.setLocalisationPolicyOnSequence(seq, LocaliseMenu.kMode)
 
     # Called from the Spreadsheet or Timeline View, to localise all Clips in the Shot or Track
     def localiseTimelineSpreadsheetSelection(self):
@@ -89,12 +95,12 @@ class LocaliseMenu:
             if isinstance(self._selection[0], hiero.core.TrackItem):
                 for ti in self._selection:
                     hiero.core.setLocalisationPolicyOnTrackItem(
-                        ti, hiero.core.Clip.kOnLocalize)
+                        ti, LocaliseMenu.kMode, forceUpdate=LocaliseMenu.kForceUpdates)
 
             elif isinstance(self._selection[0], (hiero.core.VideoTrack, hiero.core.AudioTrack)):
                 for track in self._selection:
                     hiero.core.setLocalisationPolicyOnTrack(
-                        track, hiero.core.Clip.kOnLocalize)
+                        track, LocaliseMenu.kMode, forceUpdate=LocaliseMenu.kForceUpdates)
 
     # Called from the Spreadsheet or Timeline View, to localise all Clips in the current Sequence
     def localiseTimelineSpreadsheetSequence(self):
@@ -113,7 +119,7 @@ class LocaliseMenu:
 
             if isinstance(sequence, hiero.core.Sequence):
                 hiero.core.setLocalisationPolicyOnSequence(
-                    sequence, hiero.core.Clip.kOnLocalize)
+                    sequence, LocaliseMenu.kMode, forceUpdate=LocaliseMenu.kForceUpdates)
 
     # This handles events from the Project Bin View
     def binViewEventHandler(self, event):

@@ -17,6 +17,12 @@ class Tag(Object):
     Can be created with a string name, an optional path to an icon and an optional editable (in gui) boolean parameter
     """
 
+    def __new__(self, *args, **kwargs) -> None:
+        """
+        Create and return a new object.  See help(type) for accurate signature.
+        """
+        ...
+
     def __repr__(self) -> object:
         """
         Return repr(self).
@@ -67,13 +73,7 @@ class Tag(Object):
 
     def __bool__(self, ) -> None:
         """
-        self != 0
-        """
-        ...
-
-    def __new__(self, *args, **kwargs) -> None:
-        """
-        Create and return a new object.  See help(type) for accurate signature.
+        True if self else False
         """
         ...
 
@@ -210,7 +210,7 @@ class Tag(Object):
 
     def setVisible(self, visible: bool) -> None:
         """
-        self.setVisible() -> sets the visiblity of the tag.
+        self.setVisible() -> sets the visibility of the tag.
 
         @param visible: visibility state
         """
@@ -232,7 +232,7 @@ class Tag(Object):
 
     def visible(self) -> bool:
         """
-        self.visible() -> gets the visiblity state of the tag.
+        self.visible() -> gets the visibility state of the tag.
 
         @return: bool
         """

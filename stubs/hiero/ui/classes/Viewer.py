@@ -16,6 +16,12 @@ class Viewer(QObject):
     Object for manipulating viewers in Hiero. Get the currently active viewer by calling hiero.ui.currentViewer().
     """
 
+    def __new__(self, *args, **kwargs) -> None:
+        """
+        Create and return a new object.  See help(type) for accurate signature.
+        """
+        ...
+
     def __setattr__(self, name, value, ) -> None:
         """
         Implement setattr(self, name, value).
@@ -25,12 +31,6 @@ class Viewer(QObject):
     def __delattr__(self, name, ) -> None:
         """
         Implement delattr(self, name).
-        """
-        ...
-
-    def __new__(self, *args, **kwargs) -> None:
-        """
-        Create and return a new object.  See help(type) for accurate signature.
         """
         ...
 
@@ -309,6 +309,14 @@ class Viewer(QObject):
         """
         ...
 
+    def setExpanded(self, expanded: bool) -> None:
+        """
+        self.setExpandState() -> set the expanded state of the viewer. Can only be called from the user interface thread. Use hiero.core.executeInMainThread if you need to call it from a non-ui thread.
+
+        @param expanded: Expand viewer
+        """
+        ...
+
     def setFrameIncrement(self, frameIncrement: int) -> None:
         """
         self.setFrameIncrement(frames) -> changes the frame increment for the viewer. Can only be called from the user interface thread. Use hiero.core.executeInMainThread if you need to call it from a non-ui thread.
@@ -536,25 +544,25 @@ class Viewer(QObject):
     ePlaybackBounce: Any = None
     ePlaybackStop: Any = None
     ePlaybackContinue: Any = None
+    gainChanged = Signal()
     guideOverlayChanged = Signal()
+    maskOverlayStyleChanged = Signal()
+    shuttleTargetFPSChanged = Signal()
+    compareModeChanged = Signal()
+    targetFrameRateChanged = Signal()
+    frameDisplayed = Signal()
+    transformChanged = Signal()
     trackSelectionChanged = Signal()
+    layoutModeChanged = Signal()
     playbackSpeedChanged = Signal()
     channelsChanged = Signal()
-    layoutModeChanged = Signal()
-    playbackModeChanged = Signal()
-    currentLayerChanged = Signal()
-    transformChanged = Signal()
-    shuttleTargetFPSChanged = Signal()
-    sequenceChanged = Signal()
-    frameDisplayed = Signal()
-    timeDisplayFormatChanged = Signal()
-    timeChanged = Signal()
-    compareModeChanged = Signal()
-    maskOverlayChanged = Signal()
     gammaChanged = Signal()
-    gainChanged = Signal()
-    targetFrameRateChanged = Signal()
-    maskOverlayStyleChanged = Signal()
+    timeChanged = Signal()
+    sequenceChanged = Signal()
+    playbackModeChanged = Signal()
+    timeDisplayFormatChanged = Signal()
+    maskOverlayChanged = Signal()
+    currentLayerChanged = Signal()
     staticMetaObject: Any = None
 
     def _goToTag(self, tag: str) -> None:

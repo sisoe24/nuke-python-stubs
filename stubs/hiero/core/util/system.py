@@ -29,8 +29,8 @@ def _linuxSocketCount():
         log.error('Error when querying CPU info - %s', exception.message)
         socketCount = 1
     else:
-        physicalIds = [line for line in cpuinfoOutput.splitlines()
-                       if line.startswith('physical id')]
+        physicalIds = [line for line in cpuinfoOutput.decode(
+            'UTF-8').splitlines() if line.startswith('physical id')]
         physicalIds = set(physicalIds)
         socketCount = len(physicalIds)
         if socketCount == 0:
@@ -52,7 +52,7 @@ def _windowsSocketCount():
         log.error('Error when querying CPU socket info - %s', exception.message)
         socketCount = 1
     else:
-        cpuInfo = cpuInfo.strip()
+        cpuInfo = cpuInfo.decode('UTF-8').strip()
         cpuInfo = cpuInfo.split('\n')
         assert (len(cpuInfo) > 1)
         # wmic cpu list brief returns various bits of information for each processor in the system, along

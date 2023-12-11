@@ -21,7 +21,8 @@ _module_valid_orig = mapping.Reloader.module_valid
 _hiero_module_names = ('core', 'ui')
 
 
-def _module_valid_override(_, mod):
+@staticmethod
+def _module_valid_override(mod):
     return _module_valid_orig(mod) or mod.__name__ in _hiero_module_names
 
 

@@ -20,8 +20,7 @@ from _fnpython import (TimelineEditorCreationFlag, menuBar, activeView,
 
 from . import (CopyCuts, TagsMenu, SendToNuke, FnPosterFrameUI,
                ScanForVersions, FnReExportAction, LocalisationMenu,
-               RenameTimelineShots, BuildExternalMediaTrack, nuke, guides,
-               nuke_bridge)
+               RenameTimelineShots, BuildExternalMediaTrack, nuke, nuke_bridge)
 from .classes import *
 
 if 'exports' in hiero.core.env['Features']:
@@ -182,22 +181,6 @@ def getProjectRootInteractive(project):
 
     return projectRoot
 
-
-viewer_guides = [
-    guides.SimpleGuide('Title Safe', 1, 1, 1, 0.1, guides.kGuideMasked),
-    guides.SimpleGuide('Action Safe', 1, 1, 1, 0.05, guides.kGuideMasked),
-    guides.SimpleGuide('Format', 1, 0, 0, 0, guides.kGuideSequence, crosshairs=False),
-]
-
-viewer_masks = [
-    guides.MaskGuide('Square', 1.0),
-    guides.MaskGuide('4:3', 4.0/3.0),
-    guides.MaskGuide('16:9', 16.0/9.0),
-    guides.MaskGuide('14:9', 14.0/9.0),
-    guides.MaskGuide('1.66:1', 1.66),
-    guides.MaskGuide('1.85:1', 1.85),
-    guides.MaskGuide('2.35:1', 2.35),
-]
 
 # Python Menus and Actions
 '''Stubs generated automatically from Nuke's internal interpreter.'''

@@ -16,19 +16,19 @@ class Timecode(Object):
     Helper module to convert back and forth between (frames and time bases) and time code values.
     """
 
-    def __init__(self,  *args, **kwargs) -> None:
-        """
-        Initialize self.  See help(type(self)) for accurate signature.
-        """
-        ...
-
     def __new__(self, *args, **kwargs) -> None:
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
         ...
 
-    def HMSFToFrames(self, *args, **kwargs) -> Any:
+    def __init__(self,  *args, **kwargs) -> None:
+        """
+        Initialize self.  See help(type(self)) for accurate signature.
+        """
+        ...
+
+    def HMSFToFrames(self, timeBase: core.TimeBase, dropFrame: bool, h: int, m: int, s: int, f: int) -> int:
         """
         staticmethod(function) -> method
 
@@ -51,7 +51,7 @@ class Timecode(Object):
         """
         ...
 
-    def displayTypeFromString(self, *args, **kwargs) -> Any:
+    def displayTypeFromString(self, s: str) -> core.Timecode.DisplayType:
         """
         staticmethod(function) -> method
 
@@ -74,7 +74,7 @@ class Timecode(Object):
         """
         ...
 
-    def framesToHMSF(self, *args, **kwargs) -> Any:
+    def framesToHMSF(self, time: int, timeBase: core.TimeBase, dropFrame: bool) -> typing.Tuple[int, int, int, int]:
         """
         staticmethod(function) -> method
 
@@ -97,7 +97,7 @@ class Timecode(Object):
         """
         ...
 
-    def stringToTime(self, *args, **kwargs) -> Any:
+    def stringToTime(self, s: str, timeBase: core.TimeBase, displayType: core.Timecode.DisplayType, timecodeOffset: int = 0) -> typing.Tuple[int, int]:
         """
         staticmethod(function) -> method
 
@@ -120,7 +120,7 @@ class Timecode(Object):
         """
         ...
 
-    def timeToString(self, *args, **kwargs) -> Any:
+    def timeToString(self, time: int, timeBase: core.TimeBase, displayType: core.Timecode.DisplayType, includeSign: bool = False, timecodeOffset: int = 0) -> str:
         """
         staticmethod(function) -> method
 

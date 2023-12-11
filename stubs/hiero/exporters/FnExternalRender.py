@@ -198,40 +198,15 @@ def createWriteNode(ctx, path, preset, nodeName=None, inputNode=None, framerate=
 
                 writeNode.setKnob(key, str(value))
 
-    colourTransform = properties.get('colourspace', None)
-    if colourTransform:
-        colorspace, role = getColorspaceAndRoleSplit(colourTransform)
-        isValidTransform = isColorspaceValid(project, colorspace, role)
-        if not isValidTransform:
-            raise RuntimeError(
-                'Unable to create Write node with invalid color space: %s' % colourTransform)
+    def setKnobValue(node, properties, key):
+        value = properties.get(key, None)
+        if value:
+            node.setKnob(key, value)
 
-        projectsettings = project.extractSettings()
-        colourTransform = FnNukeHelpers.nukeColourTransformNameFromHiero(
-            colorspace, projectsettings)
-
-    projectsettings = project.extractSettings()
-    if projectsettings['lutUseOCIOForExport'] is True:
-
-        # If the colour transform hasnt been set or if set to default,
-        # we need to mimic the default colourspace of nukes write node
-        # Using the colour
-        if colourTransform in (None, 'default'):
-            colourTransform = _mapDefaultColourTransform(preset, projectsettings)
-
-        def isLog(colourspace):
-            for possibleLog in ('lg', 'log'):
-                if possibleLog in colourspace:
-                    return True
-            return False
-
-        if fileType == 'dpx':
-            colourTransformGroup = hiero.core.LUTGroup(project, colourTransform)
-            if isLog(colourTransform) or isLog(colourTransformGroup):
-                writeNode.setKnob('transfer', 'log')
-
-    if colourTransform is not None:
-        writeNode.setKnob('colorspace', colourTransform)
+    setKnobValue(writeNode, properties, 'colorspace')
+    setKnobValue(writeNode, properties, 'transformType')
+    setKnobValue(writeNode, properties, 'ocioDisplay')
+    setKnobValue(writeNode, properties, 'ocioView')
 
     # Set the views knob. If set to all, this is the default for Write nodes,
     # so no need to write the knob in that case
