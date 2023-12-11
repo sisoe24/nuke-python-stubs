@@ -16,6 +16,12 @@ class Bin(Object):
     Container object for hiero.core.BinItem objects (wrapping hiero.core.Clip and hiero.core.Sequence objects) and other hiero.core.Bin objects.
     """
 
+    def __new__(self, *args, **kwargs) -> None:
+        """
+        Create and return a new object.  See help(type) for accurate signature.
+        """
+        ...
+
     def __repr__(self) -> object:
         """
         Return repr(self).
@@ -84,7 +90,7 @@ class Bin(Object):
 
     def __bool__(self, ) -> None:
         """
-        self != 0
+        True if self else False
         """
         ...
 
@@ -103,12 +109,6 @@ class Bin(Object):
     def __contains__(self, key, ) -> None:
         """
         Return key in self.
-        """
-        ...
-
-    def __new__(self, *args, **kwargs) -> None:
-        """
-        Create and return a new object.  See help(type) for accurate signature.
         """
         ...
 

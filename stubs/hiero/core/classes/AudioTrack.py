@@ -16,6 +16,12 @@ class AudioTrack(TrackBase):
     Object for manipulating audio tracks.
     """
 
+    def __new__(self, *args, **kwargs) -> None:
+        """
+        Create and return a new object.  See help(type) for accurate signature.
+        """
+        ...
+
     def __repr__(self) -> object:
         """
         Return repr(self).
@@ -42,7 +48,7 @@ class AudioTrack(TrackBase):
 
     def __bool__(self, ) -> None:
         """
-        self != 0
+        True if self else False
         """
         ...
 
@@ -55,12 +61,6 @@ class AudioTrack(TrackBase):
     def __getitem__(self, key, ) -> None:
         """
         Return self[key].
-        """
-        ...
-
-    def __new__(self, *args, **kwargs) -> None:
-        """
-        Create and return a new object.  See help(type) for accurate signature.
         """
         ...
 
