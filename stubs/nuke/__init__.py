@@ -1758,7 +1758,7 @@ def nodePaste(s: str) -> Node:
     ...
 
 
-def nodeTypes(force_plugin_load=False) -> list:
+def nodeTypes(force_plugin_load=False) -> List:
     """
     nodeTypes(force_plugin_load=False) -> List
 

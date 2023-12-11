@@ -17,7 +17,7 @@ class GeoSelection(pybind11_object):
         """
         ...
 
-    def __getitem__(self: _nuke.GeoSelection, arg0: str) -> Any:
+    def __getitem__(self: _nuke.GeoSelection, arg0: str) -> GeoSelectionItem:
         """
         __getitem__(self: _nuke.GeoSelection, arg0: str) -> Foundry::Python::GeoSelectionItem
         """

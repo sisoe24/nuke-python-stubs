@@ -16,6 +16,12 @@ class Sequence(SequenceBase):
     Object for Sequences.
     """
 
+    def __new__(self, *args, **kwargs) -> None:
+        """
+        Create and return a new object.  See help(type) for accurate signature.
+        """
+        ...
+
     def __repr__(self) -> object:
         """
         Return repr(self).
@@ -42,7 +48,7 @@ class Sequence(SequenceBase):
 
     def __bool__(self, ) -> None:
         """
-        self != 0
+        True if self else False
         """
         ...
 
@@ -58,9 +64,9 @@ class Sequence(SequenceBase):
         """
         ...
 
-    def __new__(self, *args, **kwargs) -> None:
+    def activePlayhead(self) -> int:
         """
-        Create and return a new object.  See help(type) for accurate signature.
+        activePlayhead() -> Returns the index of the active playhead.
         """
         ...
 
@@ -202,6 +208,29 @@ class Sequence(SequenceBase):
         """
         ...
 
+    def playheadCount(self) -> int:
+        """
+        playheadCount(index) -> Returns the number of playheads in the sequence.
+        """
+        ...
+
+    def playheadState(self, index: int) -> core.Sequence.PlayheadState:
+        """
+        playheadState(index) -> The state of the given playhead index.
+        The available states are:  ePlayheadActive : is the active playhead
+          ePlayheadEnabled : is not the active playhead but is editable
+          ePlayheadDisabled : has been removed.
+          ePlayheadInvalid : index does not reference a valid playhead.@param index: The index of the playhead to be queried.
+        """
+        ...
+
+    def playheadTime(self, index: int) -> int:
+        """
+        playheadTime(index) -> Returns the time position of the playhead in the sequence.
+        @param index: The index of the playhead.
+        """
+        ...
+
     def reconnectMedia(self, path: str) -> None:
         """
         self.reconnectMedia(path) -> For each of the Clips used by this Sequence, reconnects media found in the specified path.
@@ -229,6 +258,31 @@ class Sequence(SequenceBase):
     def serialize(self) -> str:
         """
         self.serialize() -> serialize the sequence object to XML
+        """
+        ...
+
+    def setActivePlayhead(self, index: int) -> None:
+        """
+        setActivePlayhead(index) -> The given playhead index is made active.
+        There can only be one active playhead, the previous playhead will be made inactive.
+        @param index: The index of the playhead to be made active.
+        """
+        ...
+
+    def setPlayheadEnabled(self, index: int, enabled: bool) -> None:
+        """
+        setPlayheadEnabled(index, enabled) -> Put the given playhead into the enabled state. The playheadis not active but is visible and editable in the UI. Otherwise the playhead will be disabled, which means thatit will not be visible in the UI.
+        The current active playhead cannot be changed by this function.
+        @param index: The index of the playhead to be changed.
+        @param enabled: True if the playhead is enabled.
+        """
+        ...
+
+    def setPlayheadTime(self, index: int, time: int) -> None:
+        """
+        setPlayheadTime(index, time) -> Set the time position for the given playhead index.
+        @param index: The index of the playhead to be changed.
+        @param time: The new time position to be set.
         """
         ...
 
@@ -274,7 +328,13 @@ class Sequence(SequenceBase):
         """
         ...
 
-    def _addClip(self, clip, time: Number, videoTrackIndex=0, audioTrackIndex=-1) -> list:
+    PlayheadState: Any = None
+    ePlayheadActive: Any = None
+    ePlayheadEnabled: Any = None
+    ePlayheadDisabled: Any = None
+    ePlayheadInvalid: Any = None
+
+    def addClip(self, clip: Clip, time: Number, videoTrackIndex=0, audioTrackIndex=-1) -> list[core.TrackItem]:
         """
         Add a clip to a sequence, creating a TrackItem for each video/audio channel in the clip,
         adding them to the appropriate tracks and linking them together.  This has the same effect
@@ -288,7 +348,7 @@ class Sequence(SequenceBase):
         """
         ...
 
-    def _Sequence_addToNukeScript(self, script=None, additionalNodes=*args, disconnected=False, masterTrackItem=None, includeAnnotations=False, includeEffects=True, outputToFormat=None) -> None:
+    def addToNukeScript(self, script=None, additionalNodes=list, disconnected=False, masterTrackItem=None, includeAnnotations=False, includeEffects=True, outputToFormat=None):
         """
         addToNukeScript(self, script)
         @param script: Nuke script object to add nodes to.

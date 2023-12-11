@@ -57,7 +57,7 @@ class LinkableKnobInfo(object):
         """
         ...
 
-    def indices(self,) -> list:
+    def indices(self,) -> List:
         """
         self.indices() -> List
         Returns a list of the knob channels that should be used with this linkable knob.

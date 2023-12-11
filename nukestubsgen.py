@@ -116,8 +116,12 @@ HIERO_CORE_POST_FIX = {
     ],
     'Sequence': [
         {
-            'old': 'def _Sequence_addToNukeScript(self, script=None, additionalNodes=*args, disconnected=False, masterTrackItem=None, includeAnnotations=False, includeEffects=True, outputToFormat=None):',
+            'old': 'def _Sequence_addToNukeScript(self, script=None, additionalNodes=*args, disconnected=False, masterTrackItem=None, includeAnnotations=False, includeEffects=True, outputToFormat=None) -> None:',
             'new': 'def addToNukeScript(self, script=None, additionalNodes=list, disconnected=False, masterTrackItem=None, includeAnnotations=False, includeEffects=True, outputToFormat=None):'
+        },
+        {
+            'old': 'def _addClip(self, clip, time:Number, videoTrackIndex=0, audioTrackIndex=-1) -> list:',
+            'new': 'def addClip(self, clip: Clip, time: Number, videoTrackIndex=0, audioTrackIndex=-1) -> list[core.TrackItem]:'
         },
         {
             'old': 'def videoTracks(self) -> object:',
