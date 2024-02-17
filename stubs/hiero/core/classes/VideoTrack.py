@@ -4,6 +4,7 @@ from numbers import Number
 
 import ui
 import core
+import hiero
 import PySide2
 from PySide2.QtCore import Signal
 from PySide2.QtWidgets import *
@@ -148,7 +149,7 @@ class VideoTrack(TrackBase):
         """
         ...
 
-    def items(self) -> Tuple[core.TrackItem, ...]:
+    def items(self) -> Tuple[hiero.core.TrackItem, ...]:
         """
         self.items() -> returns a tuple with all of the track items contained by this track.
 
@@ -260,7 +261,7 @@ class VideoTrack(TrackBase):
         """
         ...
 
-    def _VideoTrack_addToNukeScript(self, script=None, additionalNodes=*args, disconnected=False, includeAnnotations=False, includeEffects=True) -> None:
+    def addToNukeScript(self, script=None, additionalNodes=None, disconnected=False, includeAnnotations=False, includeEffects=True) -> None:
         """
         Add a Read node for each track item to the script with Merge or Dissolve nodes
         to join them in a sequence. TimeClip nodes are added to pad any gaps between clips.

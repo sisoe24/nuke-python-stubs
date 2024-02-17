@@ -197,7 +197,7 @@ def Initialise() -> None:
     ...
 
 
-def activeSequence() -> Iterable:
+def activeSequence() -> hiero.core.Sequence:
     """
     hiero.ui.activeSequence() -> gets the currently active sequence.
 

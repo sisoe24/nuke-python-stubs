@@ -5,10 +5,11 @@ from numbers import Number
 import ui
 import core
 import PySide2
-from PySide2.QtCore import Signal
-from PySide2.QtWidgets import *
 
 from . import *
+
+# from PySide2.QtCore import Signal
+# from PySide2.QtWidgets import *
 
 
 class TrackItem(TrackItemBase):
@@ -438,7 +439,7 @@ class TrackItem(TrackItemBase):
         """
         ...
 
-    def thumbnail(self, index: int = 0, layer: str = Default(self, Hiero.Python.String)) -> PySide2.QtGui.QImage:
+    def thumbnail(self, index: int = 0, layer: str = '') -> PySide2.QtGui.QImage:
         """
         self.thumbnail(frame, layer) -> returns a thumbnail of the frame specified as a QImage object.
 
@@ -549,7 +550,7 @@ class TrackItem(TrackItemBase):
     kAudio: Any = None
     kUnknown: Any = None
 
-    def _TrackItem_addToNukeScript(self, script=None, firstFrame=None, additionalNodes=[], additionalNodesCallback=None, includeRetimes=False, retimeMethod=None, startHandle=None, endHandle=None, colourTransform=None, offset=0, nodeLabel=None, includeAnnotations=False, includeEffects=True, outputToSequenceFormat=False) -> None:
+    def addToNukeScript(self, script=None, firstFrame=None, additionalNodes=[], additionalNodesCallback=None, includeRetimes=False, retimeMethod=None, startHandle=None, endHandle=None, colourTransform=None, offset=0, nodeLabel=None, includeAnnotations=False, includeEffects=True, outputToSequenceFormat=False) -> None:
         """
         This is a variation on the Clip.addToNukeScript() method that remaps the
         Read frame range to the range of the this TrackItem rather than the Clip's
@@ -565,7 +566,7 @@ class TrackItem(TrackItemBase):
         """
         ...
 
-    def __TrackItem_unlinkAll(self) -> None:
+    def unlinkAll(self) -> None:
         """
         self.unlinkAll() -> Unlink all track items that are linked to this one.
         """

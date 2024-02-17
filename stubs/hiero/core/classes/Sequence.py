@@ -4,6 +4,7 @@ from numbers import Number
 
 import ui
 import core
+import hiero
 import PySide2
 from PySide2.QtCore import Signal
 from PySide2.QtWidgets import *
@@ -176,7 +177,7 @@ class Sequence(SequenceBase):
         """
         ...
 
-    def items(self) -> object:
+    def items(self) -> Tuple[hiero.core.VideoTrack, hiero.core.AudioTrack]:
         """
         self.items() -> returns a tuple with all of the video tracks concatenated with all of the audio tracks. Can iterate over the video tracks first by using self.numVideoTracks. The audio tracks follow the video tracks in the tuple returned from this method.
 
@@ -348,7 +349,7 @@ class Sequence(SequenceBase):
         """
         ...
 
-    def addToNukeScript(self, script=None, additionalNodes=list, disconnected=False, masterTrackItem=None, includeAnnotations=False, includeEffects=True, outputToFormat=None):
+    def addToNukeScript(self, script: hiero.core.nuke.ScriptWriter, additionalNodes=list, disconnected=False, masterTrackItem=None, includeAnnotations=False, includeEffects=True, outputToFormat=None):
         """
         addToNukeScript(self, script)
         @param script: Nuke script object to add nodes to.
