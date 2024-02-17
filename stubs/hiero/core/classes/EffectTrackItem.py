@@ -116,7 +116,7 @@ class EffectTrackItem(SubTrackItem):
         """
         ...
 
-    def isRetimeEffect(self) -> bool::
+    def isRetimeEffect(self) -> bool:
         """
         Check if an EffectTrackItem applies a retime.  Currently this only applies to TimeWarp effects.
         """
@@ -130,7 +130,7 @@ class EffectTrackItem(SubTrackItem):
         """
         ...
 
-    def setName(self, name: str) -> str:
+    def setName(self, name: str):
         """
         self.setName() -> Set the name of the effect's node.
         """
