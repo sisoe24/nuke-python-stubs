@@ -19,7 +19,7 @@ class ProcessorPreset(TaskPresetBase):
     and shared between the Processor and ProcessorUI user interface component
     """
 
-    def __init__(self, parentType, presetName) -> None:
+    def __init__(self, parentType, presetName: str) -> None:
         """
         Initialise Exporter Preset Base Class
 

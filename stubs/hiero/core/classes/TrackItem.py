@@ -439,7 +439,7 @@ class TrackItem(TrackItemBase):
         """
         ...
 
-    def thumbnail(self, index: int = 0, layer: str = Default(self, Hiero.Python.String)) -> PySide2.QtGui.QImage:
+    def thumbnail(self, index: int = 0, layer: str = None) -> PySide2.QtGui.QImage:
         """
         self.thumbnail(frame, layer) -> returns a thumbnail of the frame specified as a QImage object.
 

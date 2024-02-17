@@ -17,7 +17,7 @@ class TaskBase(ITask):
     TaskBase is the base class from which all Tasks must derrive.
     """
 
-    def __init__(self, initDictionary) -> None:
+    def __init__(self, initDictionary: dict) -> None:
         """
         __init__(self, initDictionary)
         Initialise TaskBase Class

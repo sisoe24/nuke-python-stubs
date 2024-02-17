@@ -19,7 +19,7 @@ class TaskPresetBase(ITaskPreset):
     and shared between the Task and TaskUI user interface component
     """
 
-    def __init__(self, parentType, presetName) -> None:
+    def __init__(self, parentType, presetName: str) -> None:
         """
         Initialise Exporter Preset Base Class
 
@@ -122,7 +122,7 @@ class TaskPresetBase(ITaskPreset):
         """
         ...
 
-    def addDefaultResolveEntries(self, resolver) -> None:
+    def addDefaultResolveEntries(self, resolver: ResolveTable) -> None:
         """
         addDefaultResolveEntries(self, resolver)
         Create resolve entries for default resolve tokens shared by all task types.
@@ -131,7 +131,7 @@ class TaskPresetBase(ITaskPreset):
         """
         ...
 
-    def addCustomResolveEntries(self, resolver) -> None:
+    def addCustomResolveEntries(self, resolver: ResolveTable) -> None:
         """
         addCustomResolveEntries(self, resolver)
         Impliment this function on custom export tasks to add resolve entries specific to that class.
@@ -140,7 +140,7 @@ class TaskPresetBase(ITaskPreset):
         """
         ...
 
-    def addUserResolveEntries(self, resolver) -> None:
+    def addUserResolveEntries(self, resolver: ResolveTable) -> None:
         """
         addUserResolveEntries(self, resolver)
         Override this function to add user specific resolve tokens.

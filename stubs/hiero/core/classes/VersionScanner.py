@@ -82,7 +82,7 @@ class VersionScanner(object):
         """
         ...
 
-    def findNewVersions(self, version) -> list:
+    def findNewVersions(self, version: Version) -> list:
         """
         Scan for files matching an existing Version.
 
@@ -92,7 +92,7 @@ class VersionScanner(object):
         """
         ...
 
-    def findNewVersionsInPath(self, filename) -> list:
+    def findNewVersionsInPath(self, filename: str) -> list:
         """
         Scan for files matching an existing path.
         Note: This will include the files used by already added versions.
@@ -103,7 +103,7 @@ class VersionScanner(object):
         """
         ...
 
-    def getFilename(self, version) -> str:
+    def getFilename(self, version: Version) -> str:
         """
         Get the file name of a given Version
 
@@ -113,7 +113,7 @@ class VersionScanner(object):
         """
         ...
 
-    def getActiveIndexFromPath(self, filepath) -> int:
+    def getActiveIndexFromPath(self, filepath: str) -> int:
         """
         Get the active version from a file path. This will be affected by the index detection method. See
         setVersionScanningIndexDetectionMethod() for more details.
@@ -124,7 +124,7 @@ class VersionScanner(object):
         """
         ...
 
-    def getGlobExpression(self, filename) -> str:
+    def getGlobExpression(self, filename: str) -> str:
         """
         Find substrings representing sequence padding (_kPaddedSequenceRegex) and version (_kVersionRegex) and replace them with
         suitable token strings in 'glob' format. For example:
@@ -141,7 +141,7 @@ class VersionScanner(object):
         """
         ...
 
-    def checkNewVersion(self, originalFile, newFile) -> bool:
+    def checkNewVersion(self, originalFile: str, newFile: str) -> bool:
         """
         Check that newFile correctly matches a version of originalFile, where newFile is a real filename and originalFile includes
         sequence padding tokens (e.g. "%03d").
@@ -153,7 +153,7 @@ class VersionScanner(object):
         """
         ...
 
-    def getMatches(self, originalFile) -> None:
+    def getMatches(self, originalFile: str) -> None:
         """
         Convenience function. When we get the glob results, we use regex to compare the original filename with the found files.
         Using _regexMatches, we ensure this regex matches are computed only once for each original filename.
@@ -164,7 +164,7 @@ class VersionScanner(object):
         """
         ...
 
-    def isVisitedClip(self, filename) -> str:
+    def isVisitedClip(self, filename: str) -> str:
         """
         Convenience function for determining whether a given file is part of an already visited sequence.
 
@@ -174,7 +174,7 @@ class VersionScanner(object):
         """
         ...
 
-    def markVisitedClip(self, filename) -> None:
+    def markVisitedClip(self, filename: str) -> None:
         """
         Convenience function that will add a file's path to a list of files already visited.
 
@@ -184,7 +184,7 @@ class VersionScanner(object):
         """
         ...
 
-    def getFileHead(self, filename) -> str:
+    def getFileHead(self, filename: str) -> str:
         """
         Extracts "filehead" from "filename", removing sequence numbers.
 
@@ -194,7 +194,7 @@ class VersionScanner(object):
         """
         ...
 
-    def filterVersion(self, binitem, newVersionFile) -> bool:
+    def filterVersion(self, binitem: BinItem, newVersionFile: str) -> bool:
         """
         Determine whether the file newVersionFile should be included as a new Version of binitem
 
@@ -205,7 +205,7 @@ class VersionScanner(object):
         """
         ...
 
-    def sortVersions(self, versionFiles) -> list:
+    def sortVersions(self, versionFiles: list) -> list:
         """
         Basic bubble sort for versions (we do not expect large numbers of versions).
 
@@ -215,7 +215,7 @@ class VersionScanner(object):
         """
         ...
 
-    def versionLessThan(self, filename1, filename2) -> str:
+    def versionLessThan(self, filename1: str, filename2: str) -> str:
         """
         Compare method for sorting. Compares version filenames according to:
         1st) Version index
@@ -229,7 +229,7 @@ class VersionScanner(object):
         """
         ...
 
-    def determineVersionIndex(self, binitem, newFilename) -> int:
+    def determineVersionIndex(self, binitem: Version, newFilename: str) -> int:
         """
         Get the index at which to insert new version files into a BinItem.
 
@@ -240,7 +240,7 @@ class VersionScanner(object):
         """
         ...
 
-    def insertVersions(self, binitem, versionFiles) -> list:
+    def insertVersions(self, binitem: BinItem, versionFiles: list) -> list:
         """
         Create Versions for a list of files and insert them into a BinItem.
 
@@ -251,7 +251,7 @@ class VersionScanner(object):
         """
         ...
 
-    def createAndInsertClipVersion(self, binitem, newFilename) -> None:
+    def createAndInsertClipVersion(self, binitem: Version, newFilename: str) -> None:
         """
         Create a new Version of a clip for a path and insert it.
 
@@ -272,7 +272,7 @@ class VersionScanner(object):
         """
         ...
 
-    def getNewVersionIndexForPath(self, path) -> int:
+    def getNewVersionIndexForPath(self, path: str) -> int:
         """
         Find the existing versions for the given path, and return a new version index which doesn't
         already exist.

@@ -545,28 +545,28 @@ class Viewer(QObject):
     ePlaybackBounce: Any = None
     ePlaybackStop: Any = None
     ePlaybackContinue: Any = None
-    targetFrameRateChanged = Signal()
-    gainChanged = Signal()
-    sequenceChanged = Signal()
-    guideOverlayChanged = Signal()
+    trackSelectionChanged = Signal()
     gammaChanged = Signal()
+    playbackModeChanged = Signal()
     playbackSpeedChanged = Signal()
+    maskOverlayStyleChanged = Signal()
+    guideOverlayChanged = Signal()
+    timeDisplayFormatChanged = Signal()
     maskOverlayChanged = Signal()
     transformChanged = Signal()
-    timeDisplayFormatChanged = Signal()
-    currentLayerChanged = Signal()
-    maskOverlayStyleChanged = Signal()
-    layoutModeChanged = Signal()
-    timeChanged = Signal()
-    playbackModeChanged = Signal()
-    trackSelectionChanged = Signal()
     shuttleTargetFPSChanged = Signal()
+    channelsChanged = Signal()
     compareModeChanged = Signal()
     frameDisplayed = Signal()
-    channelsChanged = Signal()
+    sequenceChanged = Signal()
+    layoutModeChanged = Signal()
+    currentLayerChanged = Signal()
+    gainChanged = Signal()
+    timeChanged = Signal()
+    targetFrameRateChanged = Signal()
     staticMetaObject: Any = None
 
-    def _goToTag(self, tag) -> None:
+    def _goToTag(self, tag: str) -> None:
         """
         Move playhead to Tag.
         If Tag (Tag Object or Tag name) does not exists on the Viewer's Sequence/Clip
@@ -588,7 +588,7 @@ class Viewer(QObject):
         """
         ...
 
-    def _goToTrackItemStart(self, trackItem) -> None:
+    def _goToTrackItemStart(self, trackItem: Iterable) -> None:
         """
         Move playhead to start of the trackItem.
 
@@ -596,7 +596,7 @@ class Viewer(QObject):
         """
         ...
 
-    def _goToTrackItemEnd(self, trackItem) -> None:
+    def _goToTrackItemEnd(self, trackItem: Iterable) -> None:
         """
         Move playhead to end of the trackItem.
 
@@ -604,7 +604,7 @@ class Viewer(QObject):
         """
         ...
 
-    def _goToTrackItemMiddle(self, trackItem) -> None:
+    def _goToTrackItemMiddle(self, trackItem: Iterable) -> None:
         """
         Move playhead to middle of the trackItem.
 
