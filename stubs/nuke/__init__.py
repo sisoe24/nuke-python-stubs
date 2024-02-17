@@ -1,7 +1,6 @@
 '''Stubs generated automatically from Nuke's internal interpreter.'''
 import typing
 from typing import *
-from numbers import Number
 
 from .classes import *
 from .nuke_internal import *

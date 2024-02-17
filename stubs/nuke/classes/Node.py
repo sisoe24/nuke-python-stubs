@@ -462,7 +462,7 @@ class Node(object):
         """
         ...
 
-    def knobs(self,) -> dict:
+    def knobs(self) -> dict[str, Knob]:
         """
         self.knobs() -> dict
 
@@ -479,7 +479,7 @@ class Node(object):
         """
         ...
 
-    def allKnobs(self,) -> list:
+    def allKnobs(self) -> list[Knob]:
         """
         self.allKnobs() -> list
 
