@@ -32,24 +32,18 @@ You can use the stub files inside the repository, but if you want to generate th
 
 Once done, you can find the stubs inside `~/.nuke/nuke-python-stubs/stubs`.
 
-There are a couple of settings you can modify inside the `main()` function:
-
-- `StubsRuntimeSettings.log`: Defaults to `False`. Log everything to console
-- `StubsRuntimeSettings.log_to_file`: Defaults to `False`. Log everything to file
-- `StubsRuntimeSettings.nuke_extras`: A list of existing nuke plugin modules to include in the stubs generation.
-
 ### 1.2.2. Use the stubs
 
 Using the stubs will vary based on your text editor since most of them have their way of adding stubs to the environment.
 
-Alternatively, you can use [NukeTools](https://marketplace.visualstudio.com/items?itemName=virgilsisoe.nuke-tools) and call the `Nuke Tools: Add Python Stubs` command.
+Alternatively, you can use Visual Studio Code [NukeTools](https://marketplace.visualstudio.com/items?itemName=virgilsisoe.nuke-tools) and call the `Nuke Tools: Add Python Stubs` command.
 
 ## 1.3. Type guess
 
 The script tries to guess the data type by parsing the function signature/documentation. This method is not 100% precise, and some types are unknown or wrong.
 
 - The type `Any` means **it could be any we don't know** and not: **any type is valid**.
-- The type  `Number` means **it could be a float or an int we don't know** and not: **any number type is valid**.
+- The type  `int|float` means **it could be a float or an int we don't know** and not: **any number type is valid**.
 
 > If arguments do not have any type annotation, it probably means that it was not possible to parse the function documentation.
 
@@ -59,7 +53,6 @@ Example:
 
 In the string: `-> switch to next view in settings Views list`, the parser will identify `list` as a match.
 
-> You can enable the `log` or `log_to_file` options to check what wasn't guessed.
 > You can also disable the guess filter by setting `StubsRuntimeSettings.guess` to `False`.
 
 As a workaround, there is a post-fix mechanism which allows you to "manually" point to the wrong value and substitute it with a new one. You can look at the `NUKE_POST_FIXES` dictionary for more information.
