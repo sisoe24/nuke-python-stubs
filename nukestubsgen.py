@@ -139,154 +139,154 @@ NUKE_POST_FIXES = {
 HIERO_CORE_POST_FIX = {
     '__init__': [
         {
-            'old': 'def conformer() -> object:',
+            'old': r'def conformer\(.+',
             'new': 'def conformer() -> Conformer:'
         },
         {
-            'old': 'def project(arg__1: str) -> object:',
+            'old': r'def project\(.+',
             'new': 'def project(arg__1: str) -> Project:'
         },
         {
-            'old': 'def projects(*args, **kwargs) -> tuple:',
+            'old': r'def projects\(.+',
             'new': 'def projects(*args, **kwargs) -> Tuple[Project, ...]:'
         },
         {
-            'old': 'def activeSequence():',
+            'old': r'def activeSequence\(.+',
             'new': 'def activeSequence() -> hiero.core.Sequence:'
         }
     ],
     'VideoTrack': [
         {
-            'old': 'def _VideoTrack_addToNukeScript(self, script=None, additionalNodes=*args, disconnected=False, includeAnnotations=False, includeEffects=True) -> None:',
+            'old': r'def _VideoTrack_addToNukeScript\(.+',
             'new': 'def addToNukeScript(self, script: hiero.core.nuke.ScriptWriter, additionalNodes=list, disconnected=False, includeAnnotations=False, includeEffects=True):'
         },
         {
-            'old': 'def items(self) -> object:',
+            'old': r'def items\(.+',
             'new': 'def items(self) -> Tuple[hiero.core.TrackItem, ...]:'
         },
         {
-            'old': 'def addTrackItem(self, *args, **kwargs) -> TrackItem:',
+            'old': r'def addTrackItem\(.+',
             'new': 'def addTrackItem(self, clip: hiero.core.Clip, position: Optional[int] = None) -> hiero.core.TrackItem:'
         }
     ],
     'Sequence': [
         {
-            'old': 'def _Sequence_addToNukeScript(self, script=None, additionalNodes=*args, disconnected=False, masterTrackItem=None, includeAnnotations=False, includeEffects=True, outputToFormat=None) -> None:',
+            'old': r'def _Sequence_addToNukeScript\(.+',
             'new': 'def addToNukeScript(self, script: hiero.core.nuke.ScriptWriter, additionalNodes=list, disconnected=False, masterTrackItem=None, includeAnnotations=False, includeEffects=True, outputToFormat=None):'
         },
         {
-            'old': 'def _addClip(self, clip, time, videoTrackIndex=0, audioTrackIndex=-1) -> list:',
-            'new': 'def addClip(self, clip: Clip, time: Number, videoTrackIndex=0, audioTrackIndex=-1) -> list[core.TrackItem]:'
+            'old': r'def _addClip\(.+',
+            'new': 'def addClip(self, clip: Clip, time: int|float, videoTrackIndex=0, audioTrackIndex=-1) -> list[core.TrackItem]:'
         },
         {
-            'old': 'def videoTracks(self) -> object:',
+            'old': r'def videoTracks\(.+',
             'new': 'def videoTracks(self) -> Tuple[core.VideoTrack, ...]:'
         },
         {
-            'old': 'def items(self) -> object:',
+            'old': r'def items\(.+',
             'new': 'def items(self) -> tuple[hiero.core.VideoTrack, hiero.core.AudioTrack]:',
         }
     ],
     'Clip': [
         {
-            'old': 'def _Clip_addAnnotationsToNukeScript(self, script, firstFrame, trimmed, trimStart=None, trimEnd=None) -> None:',
+            'old': r'def _Clip_addAnnotationsToNukeScript\(.+',
             'new': 'def addAnnotationsToNukeScript(self, script, firstFrame, trimmed, trimStart=None, trimEnd=None):'
         },
         {
-            'old': 'def _Clip_getReadInfo(self, firstFrame=None) -> None:',
+            'old': r'def _Clip_getReadInfo\(.+',
             'new': 'def getReadInfo(self, firstFrame=None):'
         },
         {
-            'old': 'def _Clip_addToNukeScript(self, script:str, additionalNodes=None, additionalNodesCallback=None, firstFrame=None, trimmed=True, trimStart=None, trimEnd=None, colourTransform=None, metadataNode=None, includeMetadataNode=True, nodeLabel=None, enabled=True, includeEffects=True, beforeBehaviour=None, afterBehaviour=None, project=None, readNodes={}, addEffectsLifetime=True) -> None:',
+            'old': r'def _Clip_addToNukeScript\(.+',
             'new': 'def addToNukeScript(self, script: hiero.core.nuke.ScriptWriter, additionalNodes=list, additionalNodesCallback=None, firstFrame=None, trimmed=True, trimStart=None, trimEnd=None, colourTransform=None, metadataNode=None, includeMetadataNode=True, nodeLabel=None, enabled=True, includeEffects=True, beforeBehaviour=None, afterBehaviour=None, project=None, readNodes={}, addEffectsLifetime=True):'
         }
     ],
     'EffectTrackItem': [
         {
-            'old': 'def _EffectTrackItem_addToNukeScript(self, script, offset=0, inputs=1, startHandle=0, endHandle=0, addLifetime=True) -> None:',
+            'old': r'def _EffectTrackItem_addToNukeScript\(.+',
             'new': 'def addToNukeScript(self, script: hiero.core.nuke.ScriptWriter, offset=0, inputs=1, startHandle=0, endHandle=0, addLifetime=True):'
         },
         {
-            'old': 'def _EffectTrackItem_isRetimeEffect(self) -> None:',
+            'old': r'def _EffectTrackItem_isRetimeEffect\(.+',
             'new': 'def isRetimeEffect(self) -> bool:'
         },
         {
-            'old': 'def __EffectTrackItem_name(self) -> str:',
+            'old': r'def __EffectTrackItem_name\(.+',
             'new': 'def name(self) -> str:'
         },
         {
-            'old': 'def __EffectTrackItem_setName(self, name) -> None:',
+            'old': r'def __EffectTrackItem_setName\(.+',
             'new': 'def setName(self, name: str):'
         }
     ],
     'TrackItem': [
         {
-            'old': 'def source(self) -> object:',
+            'old': r'def source\(.+',
             'new': 'def source(self) -> Clip | Sequence | MediaSource: '
         },
         {
-            'old': 'def __TrackItem_unlinkAll(self) -> None:',
+            'old': r'def __TrackItem_unlinkAll\(.+',
             'new': 'def unlinkAll(self):'
         },
         {
-            'old': 'def _TrackItem_addToNukeScript(self, script=None, firstFrame=None, additionalNodes=[], additionalNodesCallback=None, includeRetimes=False, retimeMethod=None, startHandle=None, endHandle=None, colourTransform=None, offset=0, nodeLabel=None, includeAnnotations=False, includeEffects=True, outputToSequenceFormat=False) -> None:',
+            'old': r'def _TrackItem_addToNukeScript\(.+',
             'new': 'def addToNukeScript(self, script: hiero.core.nuke.ScriptWriter, firstFrame=None, additionalNodes=[], additionalNodesCallback=None, includeRetimes=False, retimeMethod=None, startHandle=None, endHandle=None, colourTransform=None, offset=0, nodeLabel=None, includeAnnotations=False, includeEffects=True, outputToSequenceFormat=False):'
         },
         {
-            'old': 'def thumbnail(self, index: int = 0, layer: str = Default(self, Hiero.Python.String)) -> PySide2.QtGui.QImage:',
+            'old': r'def thumbnail\(.+',
             'new': 'def thumbnail(self, index: int = 0, layer: str = None) -> PySide2.QtGui.QImage:'
         }
     ],
     'Bin': [
         {
-            'old': 'def importSequence(self, filename: str, timeBase: core.TimeBase = Default(self, Hiero.Python.TimeBase), frameRate: float = 0.0, dropFrame: bool = False) -> core.Sequence:',
+            'old': r'def importSequence\(.+',
             'new': 'def importSequence(self, filename: str, timeBase: core.TimeBase, frameRate: float = 0.0, dropFrame: bool = False) -> core.Sequence: '
         },
     ],
     'Project': [
         {
-            'old': 'def _Project_extractSettings(self) -> dict:',
+            'old': r'def _Project_extractSettings\(.+',
             'new': 'def extractSettings(self) -> dict[str, str]:'
         },
         {
-            'old': 'def setOutputFormat(self, *args, **kwargs) -> Iterable:',
+            'old': r'def setOutputFormat\(.+',
             'new': 'def setOutputFormat(self, format: hiero.core.Format) -> None:'
         },
         {
-            'old': 'def sequences(self, partialName=None) -> list:',
+            'old': r'def sequences\(.+',
             'new': 'def sequences(self, partialNam: Optional[str]=None) -> list[core.Sequence]:'
         },
         {
-            'old': 'def clips(self, partialName=None) -> list:',
+            'old': r'def clips\(.+',
             'new': 'def clips(self, partialName: Optional[str]=None) -> list[core.Clip]:'
         },
         {
-            'old': 'def bins(self, partialName=None) -> list:',
+            'old': r'def bins\(.+',
             'new': 'def bins(self, partialName: Optional[str]=None) -> list[core.Bin]:'
         },
         {
-            'old': 'def tracks(self, partialName=None) -> list:',
+            'old': r'def tracks\(.+',
             'new': 'def tracks(self, partialName: Optional[str]=None) -> list[core.Track]:'
         },
         {
-            'old': 'def videoTracks(self, partialName=None) -> list:',
+            'old': r'def videoTracks\(.+',
             'new': 'def videoTracks(self, partialName: Optional[str]=None) -> list[core.VideoTrack]:'
         },
         {
-            'old': 'def audioTracks(self, partialName=None) -> list:',
+            'old': r'def audioTracks\(.+',
             'new': 'def audioTracks(self, partialName: Optional[str]=None) -> list[core.AudioTrack]:'
         },
         {
-            'old': 'def trackItems(self, partialName=None) -> list:',
+            'old': r'def trackItems\(.+',
             'new': 'def trackItems(self, partialName: Optional[str]=None) -> list[core.TrackItem]:'
         },
         {
-            'old': 'def videoTrackItems(self, partialName=None) -> list:',
-            'new': 'def videoTrackItems(self, partialName: Optional[str]=None) -> list[core.TrackItem]:'
+            'old': r'def videoTrackItems\(.+',
+            'new': 'def videoTrackItems(self, partialName: Optional[str] = None) -> list[core.TrackItem]:'
         },
         {
-            'old': 'def audioTrackItems(self, partialName=None) -> list:',
-            'new': 'def audioTrackItems(self, partialName: Optional[str]=None) -> list[core.TrackItem]:'
+            'old': r'def audioTrackItems\(.+',
+            'new': 'def audioTrackItems(self, partialName: Optional[str] = None) -> list[core.TrackItem]:'
         }
     ],
 }
@@ -294,11 +294,11 @@ HIERO_CORE_POST_FIX = {
 HIERO_UI_POST_FIX = {
     '__init__': [
         {
-            'old': 'def activeSequence():',
+            'old': r'def activeSequence\(.+',
             'new': 'def activeSequence() -> hiero.core.Sequence:'
         },
         {
-            'old': 'def getTimelineEditor(sequence, creationFlag) -> int | float:',
+            'old': r'def getTimelineEditor\(.+',
             'new': 'def getTimelineEditor(sequence: hiero.core.Sequence, creationFlag: Optional[hiero.ui.TimelineEditorCreationFlag] = None) -> hiero.ui.TimelineEditor:'
         }
     ],
@@ -306,8 +306,9 @@ HIERO_UI_POST_FIX = {
 
 GLOBAL_POST_FIXES = [
     {
-        'old': r'\(Object\):', 'new': ':'
-    }
+        'old': r'\(Object\):',
+        'new': ':',
+    },
 ]
 
 
@@ -325,7 +326,7 @@ def post_fixes(filename: str, old_header: str):
 
     """
 
-    def header_mod(func_header: str, headers: List[dict[str, str]]):
+    def header_mod(func_header: str, mods: List[dict[str, Union[str, str]]]):
         """Modify the header of the function.
 
         Args:
@@ -335,14 +336,11 @@ def post_fixes(filename: str, old_header: str):
         Returns:
             str: the header function
         """
-        for header in headers:
+        for mod in mods:
 
-            # TODO: Add regex support
-            if func_header == header['old']:
-
-                new = header['new']
+            if re.search(mod['old'], func_header):
+                new = mod['new']
                 LOGGER.debug('    Post-Mod: %s -> %s', func_header, new)
-
                 func_header = new
 
         return func_header
