@@ -176,103 +176,103 @@ class Knob(object):
         """
         ...
 
-    def getValue(self, *args, **kwargs) -> None:
+    def getValue(self, *args: typing.Any, **kwargs: typing.Any) -> None:
         """
         Return value at the current frame for channel 'c'.
         """
         ...
 
-    def value(self, *args, **kwargs) -> None:
+    def value(self, *args: typing.Any, **kwargs: typing.Any) -> None:
         """
         Return value at the current frame for channel 'c'.
         """
         ...
 
-    def getValueAt(self, *args, **kwargs) -> None:
+    def getValueAt(self, *args: typing.Any, **kwargs: typing.Any) -> None:
         """
         Return value at time 't' for channel 'c'.
         """
         ...
 
-    def getKeyList(self, *args, **kwargs) -> None:
+    def getKeyList(self, *args: typing.Any, **kwargs: typing.Any) -> None:
         """
         Get all unique keys on the knob.  Returns list.
         """
         ...
 
-    def removeKey(self, *args, **kwargs) -> None:
+    def removeKey(self, *args: typing.Any, **kwargs: typing.Any) -> None:
         """
         Remove key for channel 'c'. Return True if successful.
         """
         ...
 
-    def removeKeyAt(self, *args, **kwargs) -> None:
+    def removeKeyAt(self, *args: typing.Any, **kwargs: typing.Any) -> None:
         """
         Remove key at time 't' for channel 'c'. Return True if successful.
         """
         ...
 
-    def isKey(self, *args, **kwargs) -> None:
+    def isKey(self, *args: typing.Any, **kwargs: typing.Any) -> None:
         """
         Return True if there is a keyframe at the current frame for channel 'c'.
         """
         ...
 
-    def isKeyAt(self, *args, **kwargs) -> None:
+    def isKeyAt(self, *args: typing.Any, **kwargs: typing.Any) -> None:
         """
         Return True if there is a keyframe at time 't' for channel 'c'.
         """
         ...
 
-    def getNumKeys(self, *args, **kwargs) -> None:
+    def getNumKeys(self, *args: typing.Any, **kwargs: typing.Any) -> None:
         """
         Return number of keyframes for channel 'c'.
         """
         ...
 
-    def getKeyIndex(self, *args, **kwargs) -> None:
+    def getKeyIndex(self, *args: typing.Any, **kwargs: typing.Any) -> None:
         """
         Return keyframe index at time 't' for channel 'c'.
         """
         ...
 
-    def getKeyTime(self, *args, **kwargs) -> None:
+    def getKeyTime(self, *args: typing.Any, **kwargs: typing.Any) -> None:
         """
         Return index of the keyframe at time 't' for channel 'c'.
         """
         ...
 
-    def getDerivative(self, *args, **kwargs) -> None:
+    def getDerivative(self, *args: typing.Any, **kwargs: typing.Any) -> None:
         """
         Return derivative at time 't' for channel 'c'.
         """
         ...
 
-    def getNthDerivative(self, *args, **kwargs) -> None:
+    def getNthDerivative(self, *args: typing.Any, **kwargs: typing.Any) -> None:
         """
         Return nth derivative at time 't' for channel 'c'.
         """
         ...
 
-    def getIntegral(self, *args, **kwargs) -> None:
+    def getIntegral(self, *args: typing.Any, **kwargs: typing.Any) -> None:
         """
         Return integral at the interval [t1, t2] for channel 'c'.
         """
         ...
 
-    def setAnimated(self, *args, **kwargs) -> None:
+    def setAnimated(self, *args: typing.Any, **kwargs: typing.Any) -> None:
         """
         Set channel 'c' to be animated.
         """
         ...
 
-    def isAnimated(self, *args, **kwargs) -> None:
+    def isAnimated(self, *args: typing.Any, **kwargs: typing.Any) -> None:
         """
         Return True if channel 'c' is animated.
         """
         ...
 
-    def clearAnimated(self, *args, **kwargs) -> None:
+    def clearAnimated(self, *args: typing.Any, **kwargs: typing.Any) -> None:
         """
         Clear animation for channel 'c'. Return True if successful.
         """
@@ -309,7 +309,7 @@ class Knob(object):
         """
         ...
 
-    def fromScript(self, *args, **kwargs) -> None:
+    def fromScript(self, *args: typing.Any, **kwargs: typing.Any) -> None:
         """
         Initialise from script.
         """
