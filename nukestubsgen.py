@@ -304,6 +304,12 @@ HIERO_UI_POST_FIX = {
     ],
 }
 
+GLOBAL_POST_FIXES = [
+    {
+        'old': r'\(Object\):', 'new': ':'
+    }
+]
+
 
 def post_fixes(filename: str, old_header: str):
     """Make manual modifications to header and returns.
@@ -346,6 +352,18 @@ def post_fixes(filename: str, old_header: str):
             old_header = header_mod(old_header, modifications)
 
     return old_header
+
+
+def global_post_fixes():
+    for file in STUBS_PATH.glob('**/*.py'):
+        with open(file, 'r') as f:
+            content = f.read()
+
+        for fix in GLOBAL_POST_FIXES:
+            content = re.sub(fix['old'], fix['new'], content)
+
+        with open(file, 'w') as f:
+            f.write(content)
 
 
 def get_docs(obj: object) -> str:
@@ -1048,6 +1066,7 @@ def nukestubsgen():
 
     # generate_nuke_stubs()
     generate_hiero_stubs()
+    global_post_fixes()
 
     LOGGER.info(f'Generation completed: "{STUBS_PATH}"')
 
