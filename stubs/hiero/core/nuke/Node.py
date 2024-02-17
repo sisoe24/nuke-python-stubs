@@ -5,6 +5,7 @@ import math
 import os.path
 import subprocess
 import collections
+from typing import Any
 
 import hiero.core
 
@@ -176,7 +177,7 @@ class Node(object):
         else:
             return True
 
-    def setKnob(self, knobName, knobValue):
+    def setKnob(self, knobName: str, knobValue: Any):
         """ Set a knob value. """
         self._knobValues[str(knobName)] = knobValue
 
