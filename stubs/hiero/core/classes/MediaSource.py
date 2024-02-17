@@ -11,7 +11,7 @@ from PySide2.QtWidgets import *
 from . import *
 
 
-class MediaSource(Object):
+class MediaSource(object):
     """
     Represents a media source.
     """

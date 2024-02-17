@@ -11,7 +11,7 @@ from PySide2.QtWidgets import *
 from . import *
 
 
-class ITaskUI(Object):
+class ITaskUI(object):
     """
     ITaskUI provides a simple interface for our C++ Application to access Python instances of TaskUIBase.
 

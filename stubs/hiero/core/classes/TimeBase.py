@@ -11,7 +11,7 @@ from PySide2.QtWidgets import *
 from . import *
 
 
-class TimeBase(Object):
+class TimeBase(object):
     """
     Helper object that wraps up time bases (or frame rates). Stores values internally as integer ratios, as opposed to floating point values.
 

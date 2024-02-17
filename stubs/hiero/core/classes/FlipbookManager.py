@@ -11,7 +11,7 @@ from PySide2.QtWidgets import *
 from . import *
 
 
-class FlipbookManager(Object):
+class FlipbookManager(object):
     """
     Object for Flipbook manager
     """

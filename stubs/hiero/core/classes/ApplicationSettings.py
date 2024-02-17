@@ -11,7 +11,7 @@ from PySide2.QtWidgets import *
 from . import *
 
 
-class ApplicationSettings(Object):
+class ApplicationSettings(object):
     """
     Helper object to set and get application settings.
     """

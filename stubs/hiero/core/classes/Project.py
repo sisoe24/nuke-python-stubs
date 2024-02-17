@@ -11,7 +11,7 @@ from PySide2.QtWidgets import *
 from . import *
 
 
-class Project(Object):
+class Project(object):
     """
     Object for manipulating projects. Can be created using hiero.core.newProject() or by the following code:
     hiero.core.openProject(projectPath)

@@ -11,7 +11,7 @@ from PySide2.QtWidgets import *
 from . import *
 
 
-class ITaskPreset(Object):
+class ITaskPreset(object):
     """
     ITaskPreset provides a simple interface for our C++ Application to access Python instances of TaskPreset.
 

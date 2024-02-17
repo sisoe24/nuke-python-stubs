@@ -11,7 +11,7 @@ from PySide2.QtWidgets import *
 from . import *
 
 
-class BackgroundRenderObserver(Object):
+class BackgroundRenderObserver(object):
     """
     Observer of background renders.
     """

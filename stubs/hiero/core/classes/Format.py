@@ -11,7 +11,7 @@ from PySide2.QtWidgets import *
 from . import *
 
 
-class Format(Object):
+class Format(object):
     """
     Object containing width, height, pixel aspect, and name of a Clip/Sequence format.
 

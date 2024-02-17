@@ -11,7 +11,7 @@ from PySide2.QtWidgets import *
 from . import *
 
 
-class MediaFileInfo(Object):
+class MediaFileInfo(object):
     """
     Object representing a single set of media files on disk.
     """

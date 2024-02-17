@@ -11,7 +11,7 @@ from PySide2.QtWidgets import *
 from . import *
 
 
-class DataCollection(Object):
+class DataCollection(object):
     """
     Storage objects for key/value pairs. Generally used to store metadata.
     """

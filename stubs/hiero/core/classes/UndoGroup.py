@@ -11,7 +11,7 @@ from PySide2.QtWidgets import *
 from . import *
 
 
-class UndoGroup(Object):
+class UndoGroup(object):
     """
     Helper class for beginning and ending undo on a project. Recommended usage is to create with hiero.core.Project.beginUndo(name), using a with block for exception safety to ensure Project.endUndo() is called.
 

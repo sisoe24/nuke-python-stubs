@@ -11,7 +11,7 @@ from PySide2.QtWidgets import *
 from . import *
 
 
-class TimelineEditor(Object):
+class TimelineEditor(object):
     """
     Object representing the Timeline Editor.
     """

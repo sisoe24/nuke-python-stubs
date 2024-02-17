@@ -11,7 +11,7 @@ from PySide2.QtWidgets import *
 from . import *
 
 
-class BinItem(Object):
+class BinItem(object):
     """
     Generic object wrapper with shared functionality for sequences and clips.
     """

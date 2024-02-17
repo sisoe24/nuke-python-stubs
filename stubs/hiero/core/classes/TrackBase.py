@@ -11,7 +11,7 @@ from PySide2.QtWidgets import *
 from . import *
 
 
-class TrackBase(Object):
+class TrackBase(object):
     """
     Base class for VideoTrack and AudioTrack objects. This class should never be used directly.
 

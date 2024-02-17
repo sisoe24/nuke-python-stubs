@@ -11,7 +11,7 @@ from PySide2.QtWidgets import *
 from . import *
 
 
-class TracksMask(Object):
+class TracksMask(object):
     """
 
     """

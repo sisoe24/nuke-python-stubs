@@ -11,7 +11,7 @@ from PySide2.QtWidgets import *
 from . import *
 
 
-class NamingScheme(Object):
+class NamingScheme(object):
     """
     Utility object for extracting names for clips, versions and objects out of clip objects
     """

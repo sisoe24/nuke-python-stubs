@@ -11,7 +11,7 @@ from PySide2.QtWidgets import *
 from . import *
 
 
-class Conformer(Object):
+class Conformer(object):
     """
     Provides and interface for querying and setting the conform options, such as file pattern filters and active rules.
     These options mirror those found in the conforming dialog box in the UI.

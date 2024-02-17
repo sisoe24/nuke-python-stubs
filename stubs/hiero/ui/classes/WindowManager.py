@@ -11,7 +11,7 @@ from PySide2.QtWidgets import *
 from . import *
 
 
-class WindowManager(Object):
+class WindowManager(object):
     """
     Global object to handle window management in Hiero. Use hiero.ui.windowManager() to get the single instance of this object to use.
     """

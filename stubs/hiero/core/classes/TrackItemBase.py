@@ -11,7 +11,7 @@ from PySide2.QtWidgets import *
 from . import *
 
 
-class TrackItemBase(Object):
+class TrackItemBase(object):
     """
     Base class for objects which can exist on a timeline track which provides some common methods.  Not to be used directly.
     """
