@@ -1,7 +1,10 @@
+"""Stubs generated automatically from Nuke's internal interpreter."""
+import typing
 from typing import *
-from numbers import Number
 
 import nuke
+import PySide2
+from PySide2.QtWidgets import *
 
 from . import *
 
@@ -43,7 +46,7 @@ class Group(Node):
         """
         ...
 
-    def numNodes(self,) -> Number:
+    def numNodes(self,) -> int | float:
         """
         self.numNodes() -> Number of nodes
         Number of nodes in group.
@@ -148,25 +151,25 @@ class Group(Node):
         """
         ...
 
-    def __enter__(self, *args, **kwargs) -> None:
+    def __enter__(self, *args: typing.Any, **kwargs: typing.Any) -> None:
         """
 
         """
         ...
 
-    def __exit__(self, *args, **kwargs) -> None:
+    def __exit__(self, *args: typing.Any, **kwargs: typing.Any) -> None:
         """
 
         """
         ...
 
-    def __reduce_ex__(self, *args, **kwargs) -> None:
+    def __reduce_ex__(self, *args: typing.Any, **kwargs: typing.Any) -> None:
         """
         Helper for pickle.
         """
         ...
 
-    def subgraphLocked(self, *args, **kwargs) -> None:
+    def subgraphLocked(self, *args: typing.Any, **kwargs: typing.Any) -> None:
         """
 
         """
