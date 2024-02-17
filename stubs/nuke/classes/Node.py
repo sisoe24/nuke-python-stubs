@@ -1,7 +1,10 @@
+"""Stubs generated automatically from Nuke's internal interpreter."""
+import typing
 from typing import *
-from numbers import Number
 
 import nuke
+import PySide2
+from PySide2.QtWidgets import *
 
 from . import *
 
@@ -111,7 +114,7 @@ class Node(object):
         """
         ...
 
-    def clones(self,) -> Number:
+    def clones(self,) -> int | float:
         """
         self.clones() -> Number of clones.
         @return: Number of clones.
@@ -148,7 +151,7 @@ class Node(object):
         """
         ...
 
-    def input(self, i: Number) -> int:
+    def input(self, i: int | float) -> int:
         """
         self.input(i) -> The i'th input.
         @param i: Input number.
@@ -156,7 +159,7 @@ class Node(object):
         """
         ...
 
-    def setInput(self, i: Number, node: Node) -> bool:
+    def setInput(self, i: int | float, node: Node) -> bool:
         """
         self.setInput(i, node) -> bool
         Connect input i to node if canSetInput() returns true.
@@ -166,21 +169,21 @@ class Node(object):
         """
         ...
 
-    def numKnobs(self,) -> Number:
+    def numKnobs(self,) -> int | float:
         """
         self.numKnobs() -> The number of knobs.
         @return: The number of knobs.
         """
         ...
 
-    def numKnobs(self,) -> Number:
+    def numKnobs(self,) -> int | float:
         """
         self.numKnobs() -> The number of knobs.
         @return: The number of knobs.
         """
         ...
 
-    def knob(self, p: int, follow_link=None) -> Knob:
+    def knob(self, p: Union[str, int], follow_link=None):
         """
         self.knob(p[, follow_link]) -> The knob named p or the pth knob.
         @param p: A string or an integer.
@@ -189,42 +192,42 @@ class Node(object):
         """
         ...
 
-    def optionalInput(self,) -> Number:
+    def optionalInput(self,) -> int | float:
         """
         self.optionalInput() -> Number of first optional input.
         @return: Number of first optional input.
         """
         ...
 
-    def minimumInputs(self,) -> Number:
+    def minimumInputs(self,) -> int | float:
         """
         self.minimumInputs() -> Minimum number of inputs this node can have.
         @return: Minimum number of inputs this node can have.
         """
         ...
 
-    def minimumInputs(self,) -> Number:
+    def minimumInputs(self,) -> int | float:
         """
         self.minimumInputs() -> Minimum number of inputs this node can have.
         @return: Minimum number of inputs this node can have.
         """
         ...
 
-    def maximumInputs(self,) -> Number:
+    def maximumInputs(self,) -> int | float:
         """
         self.maximumInputs() -> Maximum number of inputs this node can have.
         @return: Maximum number of inputs this node can have.
         """
         ...
 
-    def maximumInputs(self,) -> Number:
+    def maximumInputs(self,) -> int | float:
         """
         self.maximumInputs() -> Maximum number of inputs this node can have.
         @return: Maximum number of inputs this node can have.
         """
         ...
 
-    def metadata(self, key: Optional[str] = None, time: Optional[Number] = None, view=None) -> str:
+    def metadata(self, key: Optional[str] = None, time: Optional[int | float] = None, view=None) -> str:
         """
         self.metadata(key, time, view) -> value or dict
         Return the metadata item for key on this node at current output context, or at optional time and view.
@@ -237,21 +240,21 @@ class Node(object):
         """
         ...
 
-    def maximumOutputs(self,) -> Number:
+    def maximumOutputs(self,) -> int | float:
         """
         self.maximumOutputs() -> Maximum number of outputs this node can have.
         @return: Maximum number of outputs this node can have.
         """
         ...
 
-    def maximumOutputs(self,) -> Number:
+    def maximumOutputs(self,) -> int | float:
         """
         self.maximumOutputs() -> Maximum number of outputs this node can have.
         @return: Maximum number of outputs this node can have.
         """
         ...
 
-    def connectInput(self, i: Number, node: Node) -> bool:
+    def connectInput(self, i: int | float, node: Node) -> bool:
         """
         self.connectInput(i, node) -> bool
         Connect the output of 'node' to the i'th input or the next available unconnected input. The requested input is tried first, but if it is already set then subsequent inputs are tried until an unconnected one is found, as when you drop a connection arrow onto a node in the GUI.
@@ -261,7 +264,7 @@ class Node(object):
         """
         ...
 
-    def canSetInput(self, i: Number, node: Node) -> bool:
+    def canSetInput(self, i: int | float, node: Node) -> bool:
         """
         self.canSetInput(i, node) -> bool
         Check whether the output of 'node' can be connected to input i.
@@ -334,14 +337,14 @@ class Node(object):
         """
         ...
 
-    def xpos(self,) -> Number:
+    def xpos(self,) -> int | float:
         """
         self.xpos() -> X position of node in node graph.
         @return: X position of node in node graph.
         """
         ...
 
-    def setXYpos(self, x: Number, y: Number) -> None:
+    def setXYpos(self, x: int | float, y: int | float) -> None:
         """
         self.setXYpos(x, y) -> None.
         Set the (x, y) position of node in node graph.
@@ -351,7 +354,7 @@ class Node(object):
         """
         ...
 
-    def setXpos(self, x: Number) -> None:
+    def setXpos(self, x: int | float) -> None:
         """
         self.setXpos(x) -> None.
         Set the x position of node in node graph.
@@ -360,7 +363,7 @@ class Node(object):
         """
         ...
 
-    def setYpos(self, y: Number) -> None:
+    def setYpos(self, y: int | float) -> None:
         """
         self.setYpos(y) -> None.
         Set the y position of node in node graph.
@@ -369,14 +372,14 @@ class Node(object):
         """
         ...
 
-    def ypos(self,) -> Number:
+    def ypos(self,) -> int | float:
         """
         self.ypos() -> Y position of node in node graph.
         @return: Y position of node in node graph.
         """
         ...
 
-    def setCustomIcon(self, image: str, scale: Optional[Number] = None, offsetX=None, offsetY=None) -> bool:
+    def setCustomIcon(self, image: str, scale: Optional[int | float] = None, offsetX=None, offsetY=None) -> bool:
         """
         self.setCustomIcon(image, scale, offsetX, offsetY) -> bool.
         Set a custom icon for the node.
@@ -508,7 +511,7 @@ class Node(object):
         """
         ...
 
-    def sample(self, c: str, x: Number, y: Number, dx: Optional[Number] = None, dy: Optional[Number] = None) -> float:
+    def sample(self, c: str, x: int | float, y: int | float, dx: Optional[int | float] = None, dy: Optional[int | float] = None) -> float:
         """
         self.sample(c, x, y, dx, dy) -> Floating point value.
         Return pixel values from an image.
@@ -526,7 +529,7 @@ class Node(object):
         """
         ...
 
-    def deepSample(self, c: str, x: Number, y: Number, n: int) -> float:
+    def deepSample(self, c: str, x: int | float, y: int | float, n: int) -> float:
         """
         self.deepSample(c, x, y, n) -> Floating point value.
         Return pixel values from a deep image.
@@ -540,7 +543,7 @@ class Node(object):
         """
         ...
 
-    def deepSampleCount(self, x: Number, y: Number) -> int:
+    def deepSampleCount(self, x: int | float, y: int | float) -> int:
         """
         self.deepSampleCount(x, y) -> Integer value.
         Return number of samples for a pixel on a deep image.
@@ -614,7 +617,7 @@ class Node(object):
         """
         ...
 
-    def frameRange(self,) -> Number:
+    def frameRange(self,) -> int | float:
         """
         self.frameRange() -> FrameRange.
         Frame range for this node.
@@ -622,7 +625,7 @@ class Node(object):
         """
         ...
 
-    def upstreamFrameRange(self, i: Number) -> Number:
+    def upstreamFrameRange(self, i: int | float) -> int | float:
         """
         self.upstreamFrameRange(i) -> FrameRange
         Frame range for the i'th input of this node.
@@ -771,7 +774,7 @@ class Node(object):
         """
         ...
 
-    def __reduce_ex__(self, *args, **kwargs) -> None:
+    def __reduce_ex__(self, *args: typing.Any, **kwargs: typing.Any) -> None:
         """
         Helper for pickle.
         """
@@ -849,7 +852,7 @@ class Node(object):
         """
         ...
 
-    def rootNode(self,) -> Number:
+    def rootNode(self) -> Node:
         """
         self.rootNode() -> Returns this node's root node. This may differ from nuke.root() for example if the read node was created importing footage to the timeline.
         """

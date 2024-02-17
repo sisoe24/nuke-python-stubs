@@ -1,4 +1,5 @@
 '''Stubs generated automatically from Nuke's internal interpreter.'''
+import typing
 from typing import *
 from numbers import Number
 
@@ -585,7 +586,7 @@ def clearTabMenuWeighting() -> None:
     ...
 
 
-def clone(n: Node, args: Optional[Number] = None, inpanel: Optional[bool] = None) -> Node:
+def clone(n: Node, args: Optional[int | float] = None, inpanel: Optional[bool] = None) -> Node:
     """
     clone(n, args, inpanel) -> Node
 
@@ -648,7 +649,7 @@ def connectNodes() -> None:
     ...
 
 
-def connectViewer(inputNum: Number, node: Node) -> None:
+def connectViewer(inputNum: int | float, node: Node) -> None:
     """
     connectViewer(inputNum, node) -> None
 
@@ -821,7 +822,7 @@ def deleteView(s: str) -> None:
     ...
 
 
-def display(s: str, node: Node, title: Optional[str] = None, width: Optional[Number] = None) -> None:
+def display(s: str, node: Node, title: Optional[str] = None, width: Optional[int | float] = None) -> None:
     """
     display(s, node, title, width) -> None.
 
@@ -1076,7 +1077,7 @@ def forceLoad(n=None) -> None:
     ...
 
 
-def fork(*args, **kwargs) -> None:
+def fork(*args: typing.Any, **kwargs: typing.Any) -> None:
     """
     Forks a new instance of Nuke optionally with the contents of the named file.
     """
@@ -1422,7 +1423,7 @@ def hotkeys() -> str:
     ...
 
 
-def inputs(n: Node, i: Optional[Number] = None) -> Number:
+def inputs(n: Node, i: Optional[int | float] = None) -> int | float:
     """
     inputs(n, i) -> int
 
@@ -1638,7 +1639,7 @@ def makeGroup(show=True) -> Group:
     ...
 
 
-def maxPerformanceInfo(*args, **kwargs) -> Number:
+def maxPerformanceInfo(*args: typing.Any, **kwargs: typing.Any) -> int | float:
     """
     maxPerformanceInfo -> Get the max performance info for this session.
 
@@ -2115,7 +2116,7 @@ def runIn(object: str, cmd) -> bool:
     ...
 
 
-def sample(n: Node, c: str, x: Number, y: Number, dx: Optional[Number] = None, dy: Optional[Number] = None) -> float:
+def sample(n: Node, c: str, x: int | float, y: int | float, dx: Optional[int | float] = None, dy: Optional[int | float] = None) -> float:
     """
     sample(n, c, x, y, dx, dy) -> float.
 
@@ -2169,7 +2170,7 @@ def saveUserPreset(node, presetName: str) -> bool:
     ...
 
 
-def scriptClear(*args, **kwargs) -> None:
+def scriptClear(*args: typing.Any, **kwargs: typing.Any) -> None:
     """
     Clears a Nuke script and resets all the root knobs to user defined knob defaults. To reset to compiled in defaults only pass in resetToCompiledDefaults=True. To clear the user knobs, pass in clearUserKnobs=True.
     """
@@ -2185,21 +2186,21 @@ def scriptName() -> str:
     ...
 
 
-def scriptNew(*args, **kwargs) -> None:
+def scriptNew(*args: typing.Any, **kwargs: typing.Any) -> None:
     """
     Start a new script. Returns True if successful.
     """
     ...
 
 
-def scriptReadFile(*args, **kwargs) -> None:
+def scriptReadFile(*args: typing.Any, **kwargs: typing.Any) -> None:
     """
     Read nodes from a file.
     """
     ...
 
 
-def scriptReadText(*args, **kwargs) -> None:
+def scriptReadText(*args: typing.Any, **kwargs: typing.Any) -> None:
     """
     Read nodes from a string.
     """
@@ -2249,7 +2250,7 @@ def scriptSaveToTemp(string) -> str:
     ...
 
 
-def scriptSource(*args, **kwargs) -> None:
+def scriptSource(*args: typing.Any, **kwargs: typing.Any) -> None:
     """
     Same as scriptReadFile().
     """
@@ -2517,14 +2518,14 @@ def suspendPathProcessing() -> None:
     ...
 
 
-def tabClose(*args, **kwargs) -> None:
+def tabClose(*args: typing.Any, **kwargs: typing.Any) -> None:
     """
     Close the active dock tab. Returns True if successful.
     """
     ...
 
 
-def tabNext(*args, **kwargs) -> None:
+def tabNext(*args: typing.Any, **kwargs: typing.Any) -> None:
     """
     Make the next tab in this dock active. Returns True if successful.
     """
