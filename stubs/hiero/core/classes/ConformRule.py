@@ -12,7 +12,7 @@ from PySide2.QtWidgets import *
 from . import *
 
 
-class ConformRule(Object):
+class ConformRule:
     """
     Represents a conform rule used by Hiero to make decisions when conforming. Can be derived from in order to make new conform rules.
     """

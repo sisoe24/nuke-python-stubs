@@ -12,7 +12,7 @@ from PySide2.QtWidgets import *
 from . import *
 
 
-class ITask(Object):
+class ITask:
     """
     ITask provides a simple interface for our C++ Application to access Python instances of TaskBase.
 

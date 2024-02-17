@@ -12,7 +12,7 @@ from PySide2.QtWidgets import *
 from . import *
 
 
-class Version(Object):
+class Version:
     """
     Object representing a version of a clip or sequence. Can be created with a Clip or Sequence object.
     """

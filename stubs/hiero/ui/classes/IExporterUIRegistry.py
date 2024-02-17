@@ -12,7 +12,7 @@ from PySide2.QtWidgets import *
 from . import *
 
 
-class IExporterUIRegistry(Object):
+class IExporterUIRegistry:
     """
     IExporterUIRegistry provides a simple interface for our C++ Application to access the Python instance of TaskUIRegistry.
 

@@ -12,7 +12,7 @@ from PySide2.QtWidgets import *
 from . import *
 
 
-class ViewerCursor(Object):
+class ViewerCursor:
     """
 
     """

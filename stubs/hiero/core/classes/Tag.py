@@ -12,7 +12,7 @@ from PySide2.QtWidgets import *
 from . import *
 
 
-class Tag(Object):
+class Tag:
     """
     Object representing a tag in Hiero.
     Can be created with a string name, an optional path to an icon and an optional editable (in gui) boolean parameter

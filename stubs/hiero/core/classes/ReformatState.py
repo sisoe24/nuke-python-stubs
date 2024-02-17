@@ -12,7 +12,7 @@ from PySide2.QtWidgets import *
 from . import *
 
 
-class ReformatState(Object):
+class ReformatState:
     """
     Object representing a the reformatting settings for a track item.  This corresponds to the Nuke 'Reformat' node.
     """

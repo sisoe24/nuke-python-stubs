@@ -12,7 +12,7 @@ from PySide2.QtWidgets import *
 from . import *
 
 
-class AnnotationElement(Object):
+class AnnotationElement:
     """
     Base class for types of elements that may be added to an Annotation.
     This class should not be used directly and AnnotationElement objects should not be created.

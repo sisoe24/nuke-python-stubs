@@ -12,7 +12,7 @@ from PySide2.QtWidgets import *
 from . import *
 
 
-class Snapshot(Object):
+class Snapshot:
     """
     Object representing a snapshot of a sequence or clip. Can be created with a Clip or a Sequence object.
     """

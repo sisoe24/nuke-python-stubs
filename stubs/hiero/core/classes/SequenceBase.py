@@ -12,7 +12,7 @@ from PySide2.QtWidgets import *
 from . import *
 
 
-class SequenceBase(Object):
+class SequenceBase:
     """
     Base class for Sequence and Clip objects. Has some methods common to both of those objects. Most likely never used directly.
     """

@@ -12,7 +12,7 @@ from PySide2.QtWidgets import *
 from . import *
 
 
-class IExporterRegistry(Object):
+class IExporterRegistry:
     """
     IExporterRegistry provides a simple interface for our C++ Application to access python instance of hiero.core.TaskRegistry.
 

@@ -12,7 +12,7 @@ from PySide2.QtWidgets import *
 from . import *
 
 
-class Timecode(Object):
+class Timecode:
     """
     Helper module to convert back and forth between (frames and time bases) and time code values.
     """

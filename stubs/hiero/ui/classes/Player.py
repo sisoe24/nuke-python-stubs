@@ -12,7 +12,7 @@ from PySide2.QtWidgets import *
 from . import *
 
 
-class Player(Object):
+class Player:
     """
     Object representing a video player in Hiero. Players are used by Viewer objects, and can be retrieved using the player() method of Viewer objects.
     """

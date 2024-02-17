@@ -12,7 +12,7 @@ from PySide2.QtWidgets import *
 from . import *
 
 
-class BinView(Object):
+class BinView:
     """
     Object representing the Bin View. Passed as the sender object to the event handler callbacks registered for hiero.core.events.EventType.kShowContextMenu type events. Can also be retrieved using hiero.ui.currentContextMenuView when active during the context menu events.
     """

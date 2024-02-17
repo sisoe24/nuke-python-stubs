@@ -12,7 +12,7 @@ from PySide2.QtWidgets import *
 from . import *
 
 
-class RenderProgressObserver(Object):
+class RenderProgressObserver:
     """
     Observer for tracking the progress of renders on the frame server.
     """
