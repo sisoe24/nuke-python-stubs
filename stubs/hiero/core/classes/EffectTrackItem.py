@@ -1,9 +1,10 @@
+"""Stubs generated automatically from Nuke's internal interpreter."""
 import typing
 from typing import *
-from numbers import Number
 
 import ui
 import core
+import hiero
 import PySide2
 from PySide2.QtCore import Signal
 from PySide2.QtWidgets import *
@@ -109,19 +110,19 @@ class EffectTrackItem(SubTrackItem):
         """
         ...
 
-    def _EffectTrackItem_addToNukeScript(self, script, offset=0, inputs=1, startHandle=0, endHandle=0, addLifetime=True) -> None:
+    def addToNukeScript(self, script: hiero.core.nuke.ScriptWriter, offset=0, inputs=1, startHandle=0, endHandle=0, addLifetime=True):
         """
 
         """
         ...
 
-    def _EffectTrackItem_isRetimeEffect(self) -> None:
+    def isRetimeEffect(self) -> bool::
         """
         Check if an EffectTrackItem applies a retime.  Currently this only applies to TimeWarp effects.
         """
         ...
 
-    def __EffectTrackItem_name(self) -> str:
+    def name(self) -> str:
         """
         self.name() -> Get the name of the effect's node.
 
@@ -129,7 +130,7 @@ class EffectTrackItem(SubTrackItem):
         """
         ...
 
-    def __EffectTrackItem_setName(self, name) -> None:
+    def setName(self, name: str) -> str:
         """
         self.setName() -> Set the name of the effect's node.
         """

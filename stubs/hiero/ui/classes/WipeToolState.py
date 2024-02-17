@@ -1,9 +1,10 @@
+"""Stubs generated automatically from Nuke's internal interpreter."""
 import typing
 from typing import *
-from numbers import Number
 
 import ui
 import core
+import hiero
 import PySide2
 from PySide2.QtCore import Signal
 from PySide2.QtWidgets import *
@@ -11,7 +12,7 @@ from PySide2.QtWidgets import *
 from . import *
 
 
-class WipeToolState(object):
+class WipeToolState(Object):
     """
 
     """
@@ -35,28 +36,28 @@ class WipeToolState(object):
         ...
 
     @property
-    def translateX(self) -> Any:
+    def translateX(self) -> typing.Any:
         """
 
         """
         ...
 
     @property
-    def translateY(self) -> Any:
+    def translateY(self) -> typing.Any:
         """
 
         """
         ...
 
     @property
-    def gauge(self) -> Any:
+    def gauge(self) -> typing.Any:
         """
 
         """
         ...
 
     @property
-    def rotation(self) -> Any:
+    def rotation(self) -> typing.Any:
         """
 
         """

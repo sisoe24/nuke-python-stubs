@@ -3,7 +3,6 @@ import sys
 import os.path
 import platform
 import subprocess
-from typing import IO, Any, TextIO
 
 import _fnpython
 import hiero.core
@@ -166,7 +165,7 @@ class ScriptWriter:
 
         return fileContents
 
-    def addNode(self, node: hiero.core.nuke.Node):
+    def addNode(self, node):
         if node is None:
             raise RuntimeError('Attempting to add None as a node.')
         if hasattr(node, '__iter__'):
@@ -180,7 +179,7 @@ class ScriptWriter:
     def getNodes(self):
         return self._nodes
 
-    def writeToDisk(self, scriptFilename: str):
+    def writeToDisk(self, scriptFilename):
         # Find the base destination directory, if it doesn't exist create it
         dstdir = os.path.dirname(scriptFilename)
         util.filesystem.makeDirs(dstdir)
@@ -468,7 +467,7 @@ def openNukeProcess(*args, **kwargs):
         sys.stderr = oldStderr
 
 
-def executeNukeScript(path: str, logfile: TextIO, executeOnSingleSocket=False):
+def executeNukeScript(path, logfile, executeOnSingleSocket=False):
     # Make sure the playback cache is unlocked from memory, otherwise it can interfere with launching Nuke.  See Bug 30188
     _fnpython._unlockPlaybackCacheInMemory()
 

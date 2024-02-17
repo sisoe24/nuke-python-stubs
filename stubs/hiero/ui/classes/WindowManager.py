@@ -1,9 +1,10 @@
+"""Stubs generated automatically from Nuke's internal interpreter."""
 import typing
 from typing import *
-from numbers import Number
 
 import ui
 import core
+import hiero
 import PySide2
 from PySide2.QtCore import Signal
 from PySide2.QtWidgets import *
@@ -11,7 +12,7 @@ from PySide2.QtWidgets import *
 from . import *
 
 
-class WindowManager(object):
+class WindowManager(Object):
     """
     Global object to handle window management in Hiero. Use hiero.ui.windowManager() to get the single instance of this object to use.
     """
@@ -22,7 +23,7 @@ class WindowManager(object):
         """
         ...
 
-    def addWindow(self, *args, **kwargs) -> Any:
+    def addWindow(self, *args: typing.Any, **kwargs: typing.Any) -> Any:
         """
         self.addWindow(window, section, shortcut) -> adds a window to the window manager and insert a menu item for it into the Window menu. This will also make the window dockable with Hiero's other windows.
 

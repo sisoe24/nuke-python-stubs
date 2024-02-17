@@ -1,9 +1,10 @@
+"""Stubs generated automatically from Nuke's internal interpreter."""
 import typing
 from typing import *
-from numbers import Number
 
 import ui
 import core
+import hiero
 import PySide2
 from PySide2.QtCore import Signal
 from PySide2.QtWidgets import *
@@ -11,7 +12,7 @@ from PySide2.QtWidgets import *
 from . import *
 
 
-class ViewerCursor(object):
+class ViewerCursor(Object):
     """
 
     """
@@ -35,21 +36,21 @@ class ViewerCursor(object):
         ...
 
     @property
-    def pos(self) -> Any:
+    def pos(self) -> typing.Any:
         """
 
         """
         ...
 
     @property
-    def color(self) -> Any:
+    def color(self) -> typing.Any:
         """
 
         """
         ...
 
     @property
-    def label(self) -> Any:
+    def label(self) -> typing.Any:
         """
 
         """

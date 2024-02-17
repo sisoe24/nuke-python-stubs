@@ -1,9 +1,10 @@
+"""Stubs generated automatically from Nuke's internal interpreter."""
 import typing
 from typing import *
-from numbers import Number
 
 import ui
 import core
+import hiero
 import PySide2
 from PySide2.QtCore import Signal
 from PySide2.QtWidgets import *
@@ -16,7 +17,7 @@ class TaskBase(ITask):
     TaskBase is the base class from which all Tasks must derrive.
     """
 
-    def __init__(self, initDictionary: dict) -> None:
+    def __init__(self, initDictionary) -> None:
         """
         __init__(self, initDictionary)
         Initialise TaskBase Class

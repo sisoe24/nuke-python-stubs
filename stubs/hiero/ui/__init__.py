@@ -1,13 +1,15 @@
 # Copyright (c) 2011 The Foundry Visionmongers Ltd.  All Rights Reserved.
 
 import os
+import typing
 import threading
 from typing import *
-from numbers import Number
 
 import ui
 import core
 import _nuke
+import hiero
+import PySide2
 # the following are Hiero/Studio only things, check if the exports feature is enabled
 import hiero.core
 from ui import *
@@ -185,10 +187,10 @@ def getProjectRootInteractive(project):
 # Python Menus and Actions
 '''Stubs generated automatically from Nuke's internal interpreter.'''
 
+
 # Constants
 
 # Built-in methods
-
 
 def Initialise() -> None:
     """
@@ -197,7 +199,7 @@ def Initialise() -> None:
     ...
 
 
-def activeSequence() -> hiero.core.Sequence:
+def activeSequence() -> Iterable:
     """
     hiero.ui.activeSequence() -> gets the currently active sequence.
 
@@ -206,7 +208,7 @@ def activeSequence() -> hiero.core.Sequence:
     ...
 
 
-def activeView() -> Number:
+def activeView() -> int | float:
     """
     hiero.ui.activeView() -> gets the currently active view object.
 
@@ -215,7 +217,7 @@ def activeView() -> Number:
     ...
 
 
-def browseForApplication(*args, **kwargs) -> str:
+def browseForApplication(*args: typing.Any, **kwargs: typing.Any) -> str:
     """
     hiero.ui.browseForApplication (message, initialPath, parentWidget) -> brings up the file browser to allow the user to select an application. Allows the user to select an executable file on Windows and Linux, and to select an application bundle (\*.app) directory on OSX.
 
@@ -286,7 +288,7 @@ def getFlipbook() -> ui.Viewer:
     ...
 
 
-def getTimelineEditor(sequence: Iterable, creationFlag: Optional[Iterable] = None) -> Number:
+def getTimelineEditor(sequence, creationFlag) -> int | float:
     """
     hiero.ui.getTimelineEditor(sequence, creationFlag) -> Find the TimelineEditor for the given Sequence. A new TimelineEditor may be created or an existing one may be recycled depending on the creationFlag parameter, see hiero.ui.TimelineEditorCreationFlag. If the optional creationFlag is not specified, the default behavior will recycle an existing TimelineEditor or create one i.e. hiero.ui.TimelineEditorCreationFlag.kRecycleOrCreate.
 
@@ -358,7 +360,7 @@ def openFileBrowser(caption='', mode=1, pattern='', initialPath='', forSave=Fals
     ...
 
 
-def openInNewViewer(*args, **kwargs) -> Viewer:
+def openInNewViewer(*args: typing.Any, **kwargs: typing.Any) -> Viewer:
     """
     hiero.ui.openInNewViewer( hiero.core.BinItem ) -> Opens a BinItem's activeItem (Clip/Sequence) in a new Viewer.
     hiero.ui.openInNewViewer( hiero.core.Sequence ) -> Opens a Sequence in a new Viewer.
@@ -383,7 +385,7 @@ def openInSpreadsheet(sequence: core.Sequence) -> ui.SpreadsheetView:
     ...
 
 
-def openInTimeline(*args, **kwargs) -> Number:
+def openInTimeline(*args: typing.Any, **kwargs: typing.Any) -> int | float:
     """
     hiero.ui.openInTimeline( hiero.core.BinItem ) -> Opens a BinItem's activeItem (Clip/Sequence) in a Timeline View.
     hiero.ui.openInTimeline( hiero.core.Sequence ) -> Opens a Sequence in a Timeline View.
@@ -395,7 +397,7 @@ def openInTimeline(*args, **kwargs) -> Number:
     ...
 
 
-def openInViewer(*args, **kwargs) -> Viewer:
+def openInViewer(*args: typing.Any, **kwargs: typing.Any) -> Viewer:
     """
     hiero.ui.openInViewer( hiero.core.BinItem ) -> Opens a BinItem's activeItem (Clip/Sequence) in the Viewer.
     hiero.ui.openInViewer( hiero.core.Sequence ) -> Opens a Sequence in the Viewer.
@@ -455,7 +457,7 @@ def saveWorkspace(name) -> None:
     ...
 
 
-def sendToViewerA(*args, **kwargs) -> Iterable:
+def sendToViewerA(*args: typing.Any, **kwargs: typing.Any) -> Iterable:
     """
     hiero.ui.sendToViewerA( hiero.core.BinItem ) -> Sends a BinItem's activeItem (Clip/Sequence) to the Viewer A.
     hiero.ui.sendToViewerA( hiero.core.Sequence ) -> Sends a Sequence to the Viewer A.
@@ -464,7 +466,7 @@ def sendToViewerA(*args, **kwargs) -> Iterable:
     ...
 
 
-def sendToViewerB(*args, **kwargs) -> Iterable:
+def sendToViewerB(*args: typing.Any, **kwargs: typing.Any) -> Iterable:
     """
     hiero.ui.sendToViewerB( hiero.core.BinItem ) -> Sends a BinItem's activeItem (Clip/Sequence) to the Viewer B.
     hiero.ui.sendToViewerB( hiero.core.Sequence ) -> Sends a Sequence to the Viewer B.

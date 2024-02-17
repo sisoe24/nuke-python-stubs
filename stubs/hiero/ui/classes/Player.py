@@ -1,9 +1,10 @@
+"""Stubs generated automatically from Nuke's internal interpreter."""
 import typing
 from typing import *
-from numbers import Number
 
 import ui
 import core
+import hiero
 import PySide2
 from PySide2.QtCore import Signal
 from PySide2.QtWidgets import *
@@ -11,7 +12,7 @@ from PySide2.QtWidgets import *
 from . import *
 
 
-class Player(object):
+class Player(Object):
     """
     Object representing a video player in Hiero. Players are used by Viewer objects, and can be retrieved using the player() method of Viewer objects.
     """
@@ -125,7 +126,7 @@ class Player(object):
         """
         ...
 
-    def sequence(self, *args, **kwargs) -> Iterable:
+    def sequence(self, *args: typing.Any, **kwargs: typing.Any) -> Iterable:
         """
         self.sequence() -> returns the object currently being played.
 

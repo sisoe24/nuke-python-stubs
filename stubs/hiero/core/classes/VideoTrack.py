@@ -1,6 +1,6 @@
+"""Stubs generated automatically from Nuke's internal interpreter."""
 import typing
 from typing import *
-from numbers import Number
 
 import ui
 import core
@@ -84,7 +84,7 @@ class VideoTrack(TrackBase):
         """
         ...
 
-    def addTrackItem(self, *args, **kwargs) -> TrackItem:
+    def addTrackItem(self, *args: typing.Any, **kwargs: typing.Any) -> TrackItem:
         """
         self.addTrackItem(clip, position) -> if the first parameter is a Clip object, the second parameter must be specified and this method creates a new track item and adds it to this video track at the given position.
         If the first parameter is a TrackItem, then this method just adds the track item specified.
@@ -261,7 +261,7 @@ class VideoTrack(TrackBase):
         """
         ...
 
-    def addToNukeScript(self, script=None, additionalNodes=None, disconnected=False, includeAnnotations=False, includeEffects=True) -> None:
+    def addToNukeScript(self, script: hiero.core.nuke.ScriptWriter, additionalNodes=list, disconnected=False, includeAnnotations=False, includeEffects=True):
         """
         Add a Read node for each track item to the script with Merge or Dissolve nodes
         to join them in a sequence. TimeClip nodes are added to pad any gaps between clips.

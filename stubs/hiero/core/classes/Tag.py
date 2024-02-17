@@ -1,9 +1,10 @@
+"""Stubs generated automatically from Nuke's internal interpreter."""
 import typing
 from typing import *
-from numbers import Number
 
 import ui
 import core
+import hiero
 import PySide2
 from PySide2.QtCore import Signal
 from PySide2.QtWidgets import *
@@ -11,7 +12,7 @@ from PySide2.QtWidgets import *
 from . import *
 
 
-class Tag(object):
+class Tag(Object):
     """
     Object representing a tag in Hiero.
     Can be created with a string name, an optional path to an icon and an optional editable (in gui) boolean parameter

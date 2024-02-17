@@ -1,9 +1,10 @@
+"""Stubs generated automatically from Nuke's internal interpreter."""
 import typing
 from typing import *
-from numbers import Number
 
 import ui
 import core
+import hiero
 import PySide2
 from PySide2.QtCore import Signal
 from PySide2.QtWidgets import *
@@ -11,7 +12,7 @@ from PySide2.QtWidgets import *
 from . import *
 
 
-class BinItem(object):
+class BinItem(Object):
     """
     Generic object wrapper with shared functionality for sequences and clips.
     """
@@ -110,7 +111,7 @@ class BinItem(object):
         """
         ...
 
-    def addSnapshot(self, *args, **kwargs) -> Snapshot:
+    def addSnapshot(self, *args: typing.Any, **kwargs: typing.Any) -> Snapshot:
         """
         self.addSnapshot(comment) -> adds a new snapshot for the object, with a comment.
         self.addSnapshot(sequence, comment) -> adds a new snapshot for the object, using the sequence as the new snapshot, setting the comment.
@@ -189,7 +190,7 @@ class BinItem(object):
         """
         ...
 
-    def hasVersion(self, *args, **kwargs) -> Union[True, False]:
+    def hasVersion(self, *args: typing.Any, **kwargs: typing.Any) -> Union[True, False]:
         """
         self.hasVersion(index) -> checks if a given version exists and is valid.
 
@@ -372,7 +373,7 @@ class BinItem(object):
         """
         ...
 
-    def version(self, *args, **kwargs) -> Version:
+    def version(self, *args: typing.Any, **kwargs: typing.Any) -> Version:
         """
         self.version(index) -> gets a Version object for the version of the bin item specified by the index.
 

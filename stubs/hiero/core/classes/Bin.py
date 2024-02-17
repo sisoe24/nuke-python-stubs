@@ -1,9 +1,10 @@
+"""Stubs generated automatically from Nuke's internal interpreter."""
 import typing
 from typing import *
-from numbers import Number
 
 import ui
 import core
+import hiero
 import PySide2
 from PySide2.QtCore import Signal
 from PySide2.QtWidgets import *
@@ -11,7 +12,7 @@ from PySide2.QtWidgets import *
 from . import *
 
 
-class Bin(object):
+class Bin(Object):
     """
     Container object for hiero.core.BinItem objects (wrapping hiero.core.Clip and hiero.core.Sequence objects) and other hiero.core.Bin objects.
     """
@@ -112,7 +113,7 @@ class Bin(object):
         """
         ...
 
-    def addItem(self, *args, **kwargs) -> Any:
+    def addItem(self, *args: typing.Any, **kwargs: typing.Any) -> Any:
         """
         self.addItem(object) -> adds the item to the bin object.
 
@@ -184,7 +185,7 @@ class Bin(object):
         """
         ...
 
-    def importSequence(self, filename: str, timeBase: core.TimeBase, frameRate: float = 0.0, dropFrame: bool = False) -> core.Sequence:
+    def importSequence(self, filename: str, timeBase: core.TimeBase = Default(self, Hiero.Python.TimeBase), frameRate: float = 0.0, dropFrame: bool = False) -> core.Sequence:
         """
         self.importSequence(filename, timeBase=None, frameRate=None, dropFrame=False) -> imports the sequence stored in filename into this bin (needs a project).  If the timebase/frame rate for the sequence isnot specified, the project defaults will be used.
 
@@ -203,7 +204,7 @@ class Bin(object):
         """
         ...
 
-    def items(self, *args, **kwargs) -> tuple:
+    def items(self, *args: typing.Any, **kwargs: typing.Any) -> tuple:
         """
         self.items(typeFilter) -> returns a tuple with all of the objects contained by this bin, filtered by the typeFilter argument, if supplied.
 
@@ -212,7 +213,7 @@ class Bin(object):
         """
         ...
 
-    def moveItem(self, *args, **kwargs) -> None:
+    def moveItem(self, *args: typing.Any, **kwargs: typing.Any) -> None:
         """
 
         """
@@ -258,7 +259,7 @@ class Bin(object):
         """
         ...
 
-    def removeItem(self, *args, **kwargs) -> Any:
+    def removeItem(self, *args: typing.Any, **kwargs: typing.Any) -> Any:
         """
         self.removeItem(object) -> removes the item from the bin object. If the object is not a child item of the bin object, throws an exception.
 

@@ -1,9 +1,10 @@
+"""Stubs generated automatically from Nuke's internal interpreter."""
 import typing
 from typing import *
-from numbers import Number
 
 import ui
 import core
+import hiero
 import PySide2
 from PySide2.QtCore import Signal
 from PySide2.QtWidgets import *
@@ -206,8 +207,8 @@ class ExportStructureViewer(QWidget):
     Full: Any = None
     Limited: Any = None
     ReadOnly: Any = None
-    selectionChanged = Signal()
     structureModified = Signal()
+    selectionChanged = Signal()
     kAddFolderToolTip = 'Adds a new directory to your export structure'
     kAddFileToolTip = 'Adds new file entry to the export structure'
     kRemoveToolTip = 'Deletes the selected file entry from the export structure'

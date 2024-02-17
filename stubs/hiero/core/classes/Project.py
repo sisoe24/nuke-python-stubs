@@ -1,9 +1,10 @@
+"""Stubs generated automatically from Nuke's internal interpreter."""
 import typing
 from typing import *
-from numbers import Number
 
 import ui
 import core
+import hiero
 import PySide2
 from PySide2.QtCore import Signal
 from PySide2.QtWidgets import *
@@ -11,7 +12,7 @@ from PySide2.QtWidgets import *
 from . import *
 
 
-class Project(object):
+class Project(Object):
     """
     Object for manipulating projects. Can be created using hiero.core.newProject() or by the following code:
     hiero.core.openProject(projectPath)
@@ -472,7 +473,7 @@ class Project(object):
         """
         ...
 
-    def setOutputFormat(self, *args, **kwargs) -> Iterable:
+    def setOutputFormat(self, *args: typing.Any, **kwargs: typing.Any) -> Iterable:
         """
         setOutputFormat(Format) -> sets project's default output format for new sequences.
         setOutputFormat(width, height, pixelAspect, name) -> sets project's default output format for new sequences. This will persist when the application is restarted
@@ -550,7 +551,7 @@ class Project(object):
         """
         ...
 
-    def setViews(self, *args, **kwargs) -> Any:
+    def setViews(self, *args: typing.Any, **kwargs: typing.Any) -> Any:
         """
         setViews(views) -> Set the project's views.
         @param views: this can be either a list of view names, or a list of tuples with (name, color)

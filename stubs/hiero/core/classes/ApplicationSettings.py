@@ -1,9 +1,10 @@
+"""Stubs generated automatically from Nuke's internal interpreter."""
 import typing
 from typing import *
-from numbers import Number
 
 import ui
 import core
+import hiero
 import PySide2
 from PySide2.QtCore import Signal
 from PySide2.QtWidgets import *
@@ -11,7 +12,7 @@ from PySide2.QtWidgets import *
 from . import *
 
 
-class ApplicationSettings(object):
+class ApplicationSettings(Object):
     """
     Helper object to set and get application settings.
     """
@@ -28,7 +29,7 @@ class ApplicationSettings(object):
         """
         ...
 
-    def boolValue(self, *args, **kwargs) -> str:
+    def boolValue(self, *args: typing.Any, **kwargs: typing.Any) -> str:
         """
         self.boolValue(key, defaultValue) -> returns the previously stored value as True or False, named by the key parameter, or the defaultValue parameter
         self.boolValue(key) ->  returns the previously stored value as True or False, named by the key parameter, or the default value as configured (if configured) by the Hiero code. Use this method if you're looking up a value used by Hiero internally.

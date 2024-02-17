@@ -1,9 +1,10 @@
+"""Stubs generated automatically from Nuke's internal interpreter."""
 import typing
 from typing import *
-from numbers import Number
 
 import ui
 import core
+import hiero
 import PySide2
 from PySide2.QtCore import Signal
 from PySide2.QtWidgets import *
@@ -11,7 +12,7 @@ from PySide2.QtWidgets import *
 from . import *
 
 
-class Conformer(object):
+class Conformer(Object):
     """
     Provides and interface for querying and setting the conform options, such as file pattern filters and active rules.
     These options mirror those found in the conforming dialog box in the UI.

@@ -1,9 +1,10 @@
+"""Stubs generated automatically from Nuke's internal interpreter."""
 import typing
 from typing import *
-from numbers import Number
 
 import ui
 import core
+import hiero
 import PySide2
 from PySide2.QtCore import Signal
 from PySide2.QtWidgets import *
@@ -11,7 +12,7 @@ from PySide2.QtWidgets import *
 from . import *
 
 
-class SequenceBase(object):
+class SequenceBase(Object):
     """
     Base class for Sequence and Clip objects. Has some methods common to both of those objects. Most likely never used directly.
     """
@@ -170,7 +171,7 @@ class SequenceBase(object):
         """
         ...
 
-    def editFinished(self, *args, **kwargs) -> list:
+    def editFinished(self, *args: typing.Any, **kwargs: typing.Any) -> list:
         """
         self.editFinished(trackItems) -> this should be called after finishing editing the sequence to ensure that its internal state is updated properly and to send a signal to all objects listening to changes in this object (e.g. UI views).This function optionally takes a list of track items that is used to selectively rebuild only those sections of the timeline.This allows a faster update when the edited track items are known.
 
@@ -279,7 +280,7 @@ class SequenceBase(object):
         """
         ...
 
-    def razorAt(self, *args, **kwargs) -> Number:
+    def razorAt(self, *args: typing.Any, **kwargs: typing.Any) -> int | float:
         """
         self.razorAt(time) -> Creates razor cuts on all of the unlocked tracks for the parameter time(s).
 
@@ -391,7 +392,7 @@ class SequenceBase(object):
         """
         ...
 
-    def setTimecodeStart(self, *args, **kwargs) -> int:
+    def setTimecodeStart(self, *args: typing.Any, **kwargs: typing.Any) -> int:
         """
         self.setTimecodeStart(time) -> sets the value of the start timecode by frame. To convert times to frame values, use TimeCode.HMSFToFrames or TimeCode.stringToTime.
         self.setTimecodeStart(timecodeValue, hasDropFrames) -> sets the value of the start timecode by formatted string, using the framerate of the Sequence or Clip as the time base. If just passing in a framerate, pass it in as an integer.
@@ -468,7 +469,7 @@ class SequenceBase(object):
         """
         ...
 
-    def writeAudioToFile(self, *args, **kwargs) -> str:
+    def writeAudioToFile(self, *args: typing.Any, **kwargs: typing.Any) -> str:
         """
         self.writeAudioToFile() -> Bounce down audio tracks and write to wav file at specified location. File will be created or overwritten.
 

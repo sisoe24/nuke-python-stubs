@@ -1,31 +1,48 @@
+from __future__ import annotations
+
 import os
 import re
 import pprint
 import inspect
+import logging
 import pathlib
+from types import ModuleType
 from shutil import copytree
-from typing import List, Match, Union, Optional
+from typing import (Any, Dict, List, Type, Match, Union, Callable, Iterable,
+                    Optional, NamedTuple)
 from textwrap import dedent, indent
-from collections import namedtuple
 
 import nuke
 from hiero import ui, core
 
-StubsData = namedtuple('StubsData', ['builtin', 'constants', 'classes'])
 
-# TODO: Convert arbitrarly strings eg. Object -> object
-# TODO: Allow post-fix to work on a regex match
+class StubsData(NamedTuple):
+    builtin: str
+    constants: str
+    classes: str
 
 
-class StubsRuntimeSettings:
-    stubs_path = None
-    nuke_extras = None
-    guess = True
-    log = False
-    log_to_file = False
-    lo_file = None
+STUBS_PATH = pathlib.Path().home() / '.nuke' / 'nuke-python-stubs' / 'stubs'
+STUBS_PATH.mkdir(parents=True, exist_ok=True)
 
-    def __new__(cls, module, path: str, class_imports_header: str, post_fixes: dict):
+LOG_FILE = STUBS_PATH.parent / 'nukestubsgen.log'
+LOG_FILE.write_text('')
+
+PostFixes = Dict[str, List[Dict[str, str]]]
+
+logging.basicConfig(filename=LOG_FILE, level=logging.DEBUG)
+
+
+class RuntimeSettings:
+    guess: bool = True
+
+    def __new__(
+        cls,
+        module: ModuleType,
+        path: pathlib.Path,
+        class_imports_header: str,
+        post_fixes: PostFixes
+    ):
         cls.path = path
         cls.module = module
         cls.post_fixes = post_fixes
@@ -34,9 +51,9 @@ class StubsRuntimeSettings:
         os.makedirs(os.path.join(path, 'classes'), exist_ok=True)
 
 
-def get_classes_names():
-    files = []
-    for path in StubsRuntimeSettings.stubs_path.glob('**/classes'):
+def get_classes_names() -> list[str]:
+    files: List[str] = []
+    for path in STUBS_PATH.glob('**/classes'):
         files.extend(file.name.replace('.py', '') for file in path.glob('[!__]*.py'))
     return files
 
@@ -116,6 +133,10 @@ HIERO_CORE_POST_FIX = {
             'old': 'def items(self) -> object:',
             'new': 'def items(self) -> Tuple[hiero.core.TrackItem, ...]:'
         },
+        {
+            'old': 'def addTrackItem(self, *args, **kwargs) -> TrackItem:',
+            'new': 'def addTrackItem(self, clip: hiero.core.Clip, position: Optional[int] = None) -> hiero.core.TrackItem:'
+        }
     ],
     'Sequence': [
         {
@@ -156,11 +177,11 @@ HIERO_CORE_POST_FIX = {
         },
         {
             'old': 'def _EffectTrackItem_isRetimeEffect(self) -> None:',
-            'new': 'def isRetimeEffect(self):'
+            'new': 'def isRetimeEffect(self) -> bool:'
         },
         {
-            'old': 'def __EffectTrackItem_name(self) -> None:',
-            'new': 'def name(self):'
+            'old': 'def __EffectTrackItem_name(self) -> str:',
+            'new': 'def name(self) -> str:'
         },
         {
             'old': 'def __EffectTrackItem_setName(self, name) -> None:',
@@ -195,6 +216,10 @@ HIERO_CORE_POST_FIX = {
         {
             'old': 'def _Project_extractSettings(self) -> dict:',
             'new': 'def extractSettings(self) -> dict[str, str]:'
+        },
+        {
+            'old': 'def setOutputFormat(self, *args, **kwargs) -> Iterable:',
+            'new': 'def setOutputFormat(self, format: hiero.core.Format) -> None:'
         },
         {
             'old': 'def sequences(self, partialName=None) -> list:',
@@ -270,16 +295,18 @@ def post_fixes(filename: str, old_header: str):
             str: the header function
         """
         for header in headers:
+
+            # TODO: Add regex support
             if func_header == header['old']:
 
                 new = header['new']
-                log(f'Post-Mod: {func_header} -> {new}')
+                logging.debug('Post-Mod: %s -> %s', func_header, new)
 
                 func_header = new
 
         return func_header
 
-    for file, modifications in StubsRuntimeSettings.post_fixes.items():
+    for file, modifications in RuntimeSettings.post_fixes.items():
         if filename == file and modifications:
             old_header = header_mod(old_header, modifications)
 
@@ -292,7 +319,7 @@ def get_docs(obj: object) -> str:
     return indent(f'"""\n{docs}\n"""', ' ' * 4)
 
 
-def is_valid_object(obj):
+def is_valid_object(obj: str) -> Optional[str]:
     """Check if is a valid object.
 
     At first method will try to check if object is callbale, if it fails will
@@ -300,12 +327,15 @@ def is_valid_object(obj):
     """
     try:
         # check if return could be a callable object eg. a class
-        callable(getattr(StubsRuntimeSettings.module, obj))
+        callable(getattr(RuntimeSettings.module, obj))
     except AttributeError as err:
         # if is not then check if is a valid object
+        logging.debug('Invalid object: %s - %s', obj, err)
+
         try:
             eval(obj)
         except (NameError, SyntaxError) as err:
+            logging.debug('Second check (eval) failed: %s - %s', obj, err)
             # some returns are descriptions, so return None
             return None
 
@@ -328,7 +358,7 @@ class GuessType:
         'bool': r'bool|true|false',
         'dict': r'dict',
         'Iterable': r'sequence|(\(|\[)\w+, \w+(\)|\])',
-        'Number': r'min|max|coordinate|range|number|time|position|height|width|scale',
+        'int|float': r'min|max|coordinate|range|number|time|position|height|width|scale',
         'float': r'float',
         'Node': r'^(?:(a|the)\s)?node',
         'Knob': r'^(?:(a|the)\s)?knob',
@@ -336,14 +366,14 @@ class GuessType:
         'None': 'None'
     }
 
-    def __init__(self, string):
+    def __init__(self, string: str):
         self.string = string.strip()
 
-    def _re_search(self, pattern: str) -> Union[Match, None]:
+    def _re_search(self, pattern: str) -> Union[Match[str], None]:
         """Perform and return the re.search operation on pattern for self.string."""
         return re.search(pattern, self.string, re.I)
 
-    def auto_guess(self, exclude=None) -> Union[str, None]:
+    def auto_guess(self, exclude: Optional[Iterable[str]] = None) -> Union[str, None]:
         """Auto guess type based on all of the regex pattern inside `types_match`.
 
         Args:
@@ -377,7 +407,7 @@ class GuessType:
                 r'\b' + x + r'\b', self.string)), None
         )
 
-    def is_union(self, match: re.Match) -> str:
+    def is_union(self, match: re.Match[str]) -> str:
         """Deal with Union arguments; int or str.
 
         Method will try to check if is a valid object. If that will fail will try
@@ -392,41 +422,31 @@ class GuessType:
 
         if not match2:
             # must add match1 to exclude to avoid matching the same type twice
-            match2 = self.auto_guess(exclude=['union', match1])
+            match2 = self.auto_guess(exclude=['union', match1 or ''])
 
         return f'Union[{match1}, {match2}]'
 
     def is_optional(self) -> str:
         guess_type = self.auto_guess(exclude=['optional'])
         if guess_type:
-            # Using Optional from types seems to produce the same result
-            # return f'Optional[{guess_type}]=""'
             return f'Optional[{guess_type}] = None'
 
-        unknown(text=self.string, _type='Optionals')
+        unknown_type(text=self.string, _type='Optionals')
         return 'None'
 
 
 class ArgsParser:
     args_regex = re.compile(r'(?<=\().+(?=\))')
 
-    def __init__(self, fn_header: str, docs_arguments):
+    def __init__(self, fn_header: str, docs_arguments: Optional[Dict[str, str]] = None):
         self.fn_header = fn_header
         self.docs_arguments = docs_arguments
 
     def fix_args(self):
         """Fix/Clean some text from the arguments."""
-        def is_arg_valid(arg):
-            """Check if is valid argument type"""
-            return is_valid_object(arg.expand(r'\1')) or 'None'
-
-        def make_arg_title(arg):
-            """Make true and false title case"""
-            return arg.expand(r'\1').title()
-
-        patterns = {
-            r'(false|true)': lambda m: make_arg_title(m),
-            r'(?<==)(\w+)(?=[^\.])\b': lambda m: is_arg_valid(m),
+        patterns: Dict[str, Union[str, Callable[[Match[str]], str]]] = {
+            r'(false|true)': lambda m: is_valid_object(m.expand(r'\1')) or 'None',
+            r'(?<==)(\w+)(?=[^\.])\b': lambda m: m.expand(r'\1').title(),
             r'\.\.\.,?': '',                   # dots
             r'/,?': '',                        # positional syntax
             r'\[,(.+)\]': r',\1=None',         # optionals
@@ -452,12 +472,17 @@ class ArgsParser:
 
         return self.fn_header
 
-    def _extract_args(self) -> str:
+    def _extract_args(self) -> List[str]:
         """Check if function header has any arguments and return them.
         if none are found return None.
         """
-        args = self.args_regex.search(self.fn_header).group()
-        return [_.strip() for _ in args.split(',')]
+        m = self.args_regex.search(self.fn_header)
+
+        if not m:
+            logging.debug('No arguments found in: %s', self.fn_header)
+            return []
+
+        return [_.strip() for _ in m.group().split(',')]
 
     @staticmethod
     def _annotation_syntax(_type: str) -> str:
@@ -467,7 +492,7 @@ class ArgsParser:
         """
         return f'={_type}' if _type == 'None' else f':{_type}'
 
-    def _guess_args(self, args: list) -> Union[str, None]:
+    def _guess_args(self, args: List[str]) -> Union[str, None]:
         """Try guessing args data type based on documentation text."""
 
         docs_args = self.docs_arguments
@@ -480,8 +505,8 @@ class ArgsParser:
                 guessed_type = GuessType(docs_args[arg]).auto_guess()
 
                 if not guessed_type:
-                    unknown(_type='Args', args=self._extract_args(),
-                            arg=arg, value=docs_args[arg])
+                    unknown_type(_type='Args', args=self._extract_args(),
+                                 arg=arg, value=docs_args[arg])
                     continue
 
                 index = args.index(arg)
@@ -494,16 +519,16 @@ class ArgsParser:
 
 
 class ReturnExtractor:
-    def __init__(self, header_obj):
+    def __init__(self, header_obj: FunctionObject):
         self.header_obj = header_obj
 
     @staticmethod
-    def _guess_type(text):
+    def _guess_type(text: str) -> Optional[str]:
         return GuessType(text).auto_guess(exclude='optional')
 
     def extract(self) -> str:
         """Parse the return value from the docs if any."""
-        if not StubsRuntimeSettings.guess:
+        if not RuntimeSettings.guess:
             return 'Any'
 
         # 1. search for the return argument inside the docs
@@ -543,12 +568,13 @@ class ReturnExtractor:
             if last_check:
                 return last_check
 
-            unknown(_type='Returns', function=self.header_obj.obj.__name__, value=return_value)
+            unknown_type(_type='Returns',
+                         function=self.header_obj.obj.__name__, value=return_value)
             return 'Any'
 
 
 class FunctionObject:
-    def __init__(self, obj, fallback_name, is_class):
+    def __init__(self, obj: object, fallback_name: str, is_class: bool = False):
         """Init method of the FunctionObject.
 
         Args:
@@ -579,16 +605,15 @@ class FunctionObject:
         return inspect.getdoc(self._obj) or ''
 
     @property
-    def docs_arguments(self) -> Union[dict, None]:
-        docs_args = re.findall(
-            r'(?<=(?:@|:)param(?:\s|:))(?:\s?)(\w+)(?:\:|\s)(.+)',
-            self.docs)
+    def docs_arguments(self) -> Union[Dict[str, str], None]:
+        # docs_args = re.findall(r'(?<=(?:@|:)param(?:\s|:))(?:\s?)(\w+)(?:\:|\s)(.+)', self.docs)
+        docs_args = re.findall(r'(?<=[@:]param[\s:])\s(\w+)[\s:](.+)', self.docs)
         return dict(docs_args) or None
 
     @property
-    def return_argument(self) -> Union[re.Match, None]:
+    def return_argument(self) -> Union[str, None]:
         try:
-            return re.search(r'(?<=(?:@|:)return:)(.+)', self.docs).group()
+            return re.search(r'(?<=[@:]return:)(.+)', self.docs).group()
         except AttributeError:
             return None
 
@@ -605,7 +630,7 @@ class FunctionObject:
 
         return (
             guessing_header
-            if StubsRuntimeSettings.guess else args_parser.fn_header
+            if RuntimeSettings.guess else args_parser.fn_header
         )
 
     @property
@@ -634,7 +659,7 @@ class FnHeaderExtractor:
         return header
 
     def simple_header(self) -> str:
-        return f'def {self.obj_name}(*args, **kwargs):'
+        return f'def {self.obj_name}(*args: typing.Any, **kwargs: typing.Any):'
 
     def _regex_extractor(self) -> str:
         """Extract function header with regex pattern. if fails fallback on simple header.
@@ -678,7 +703,7 @@ class FnHeaderExtractor:
             # so fallback on simple header
             # XXX: this is wrong on some occasions but it shouldnt be a problem.
             if inspect.isdatadescriptor(self.obj):
-                return f'@property\ndef {self.obj_name}(self) -> Any:'
+                return f'@property\ndef {self.obj_name}(self) -> typing.Any:'
 
             if inspect.ismethoddescriptor(self.obj):
                 return self.simple_header()
@@ -715,20 +740,17 @@ def func_constructor(header_obj: FunctionObject, file_name: str) -> str:
 
 
 class ClassExtractor:
-    def __init__(self, obj):
+    def __init__(self, obj: Type[object]):
         self.obj = obj
-        self.class_name = self.obj.__name__
-        self.class_parent = self.obj.__base__.__name__
+        self.class_name: str = self.obj.__name__
+        self.class_parent: str = self.obj.__base__.__name__
 
     def write(self):
-        with open(StubsRuntimeSettings.path / 'classes' / f'{self.class_name}.py', 'w') as file:
+        with open(RuntimeSettings.path / 'classes' / f'{self.class_name}.py', 'w') as file:
             file.write(self._class_file())
 
     def _class_file(self):
         return dedent("""
-        from numbers import Number
-        from typing import *
-
         {}
         from . import *
 
@@ -736,7 +758,7 @@ class ClassExtractor:
         {}
         {}
         """).format(
-            StubsRuntimeSettings.class_imports_header,
+            RuntimeSettings.class_imports_header,
             f'class {self.class_name}({self.class_parent}):',
             get_docs(self.obj),
             self._get_class_methods()
@@ -744,7 +766,8 @@ class ClassExtractor:
 
     def _get_class_methods(self) -> str:
         """Extract class methods."""
-        def fix_dict(_dict: dict) -> dict:
+
+        def fix_dict(d: Dict[Any, Any]) -> Dict[Any, Any]:
             """Clean dictionary from certain keys and add __init__ if missing.
 
             When __init__ is missing, it could create auto complete problems,
@@ -754,16 +777,17 @@ class ClassExtractor:
                 _dict (dict): the dictionary to clean
             """
             dummy_class = type('dummy', (object,), {})
-            _dict.setdefault('__init__', dummy_class.__init__)
+            d.setdefault('__init__', dummy_class.__init__)
 
-            not_include = ['__module__', '__doc__']
-            for i in not_include:
-                _dict.pop(i, '')
-            return _dict
+            dont_include = ('__module__', '__doc__')
+            for i in dont_include:
+                d.pop(i, '')
+            return d
 
         class_dict = fix_dict(dict(self.obj.__dict__))
 
         class_body = ''
+
         for member, obj in class_dict.items():
 
             # check for simple type class attributes
@@ -789,15 +813,15 @@ class ClassExtractor:
         return indent(class_body, ' ' * 4)
 
 
-def parse_modules():
+def parse_modules() -> StubsData:
     """Parse the nuke object from Nuke python interpret."""
 
     builtin = ''
     constants = ''
     classes = ''
 
-    for attr in dir(StubsRuntimeSettings.module):
-        obj = getattr(StubsRuntimeSettings.module, attr)
+    for attr in dir(RuntimeSettings.module):
+        obj = getattr(RuntimeSettings.module, attr)
 
         if inspect.isclass(obj):
             log('Class:', attr)
@@ -806,8 +830,7 @@ def parse_modules():
 
         elif inspect.isbuiltin(obj):
             log('Built-in method:', attr)
-            builtin += func_constructor(FunctionObject(obj, attr, False),
-                                        '__init__')
+            builtin += func_constructor(FunctionObject(obj, attr, False), '__init__')
 
         elif attr.isupper():
             log('Constants:', attr)
@@ -819,60 +842,59 @@ def parse_modules():
     return StubsData(builtin, constants, classes)
 
 
-def get_nuke_included_modules():
-    """Get included modules inside plugins path.
-
-    - nukescripts
-    - nuke_internal
-    - ocionuke
-    """
-    def fix_nukescripts():
-        """Import the correct module for nukescripts."""
-        nukescripts_path = StubsRuntimeSettings.path / 'nukescripts'
-        for file in nukescripts_path.glob('*.py'):
-            with open(file, 'r+', encoding='utf-8') as f:
-                content = f.read()
-                sub = re.sub('import nuke_internal as nuke',
-                             'import nuke', content)
-                f.seek(0)
-                f.write(sub)
-                f.truncate()
-
-    def fix_init():
-        """Clean nuke_internal __init__."""
-        nuke_internal_init = os.path.join(
-            StubsRuntimeSettings.path, 'nuke_internal', '__init__.py'
-        )
-
-        with open(nuke_internal_init, 'r') as file:
-            contents = re.finditer(r'(^(from|#).+)', file.read(), re.M)
-
-        with open(nuke_internal_init, 'w') as file:
-            file.seek(0)
-            for i in contents:
-                file.write(i.group(1) + '\n')
-
-    for path in nuke.pluginPath():
-        for module in StubsRuntimeSettings.nuke_extras:
-            src = os.path.join(path, module)
-            if os.path.exists(src):
-                print(f'  Internal module copied: {module}')
-                destination = (
-                    StubsRuntimeSettings.path / module
-                    if module == 'nuke_internal' else StubsRuntimeSettings.stubs_path / module
-                )
-                copytree(src, str(destination), dirs_exist_ok=True)
-
-    fix_init()
-    fix_nukescripts()
-
-
 def generate_nuke_stubs():
     """Generate stubs for the `nuke` module."""
-    print('Generate Nuke Stubs...')
-    StubsRuntimeSettings(
+    logging.info('Generate Nuke Stubs...')
+
+    def get_nuke_included_modules():
+        """Get included modules inside plugins path.
+        - nukescripts
+        - nuke_internal
+        - ocionuke
+        """
+        def fix_nukescripts():
+            """Import the correct module for nukescripts."""
+            nukescripts_path = RuntimeSettings.path / 'nukescripts'
+            for file in nukescripts_path.glob('*.py'):
+                with open(file, 'r+', encoding='utf-8') as f:
+                    content = f.read()
+                    content = content.replace(
+                        'import nuke_internal as nuke', 'import nuke')
+                    f.seek(0)
+                    f.write(content)
+                    f.truncate()
+
+        def fix_init():
+            """Clean nuke_internal __init__."""
+            nuke_internal_init = os.path.join(
+                RuntimeSettings.path, 'nuke_internal', '__init__.py'
+            )
+
+            with open(nuke_internal_init, 'r') as file:
+                contents = re.finditer(r'(^(from|#).+)', file.read(), re.M)
+
+            with open(nuke_internal_init, 'w') as file:
+                file.seek(0)
+                for i in contents:
+                    file.write(i.group(1) + '\n')
+
+        for path in nuke.pluginPath():
+            for module in ('nuke_internal', 'nukescripts', 'ocionuke'):
+                src = os.path.join(path, module)
+                if os.path.exists(src):
+                    print(f'  Internal module copied: {module}')
+                    destination = (
+                        RuntimeSettings.path / module
+                        if module == 'nuke_internal' else STUBS_PATH / module
+                    )
+                    copytree(src, str(destination), dirs_exist_ok=True)
+
+        fix_init()
+        fix_nukescripts()
+
+    RuntimeSettings(
         module=nuke,
-        path=StubsRuntimeSettings.stubs_path / 'nuke',
+        path=STUBS_PATH / 'nuke',
         class_imports_header='import nuke',
         post_fixes=NUKE_POST_FIXES
     )
@@ -883,6 +905,7 @@ def generate_nuke_stubs():
     init_file = dedent("""
     '''Stubs generated automatically from Nuke's internal interpreter.'''
     from numbers import Number
+    import typing
     from typing import *
 
     from .classes import *
@@ -895,38 +918,43 @@ def generate_nuke_stubs():
     {}
     """).format(stubs_data.constants, stubs_data.builtin).strip()
     print('  Generating __init__.py')
-    with open(StubsRuntimeSettings.path / '__init__.py', 'w') as file:
+    with open(RuntimeSettings.path / '__init__.py', 'w') as file:
         file.write(init_file)
 
     print('  Generating class imports.')
-    with open(StubsRuntimeSettings.path / 'classes' / '__init__.py', 'w') as file:
+    with open(RuntimeSettings.path / 'classes' / '__init__.py', 'w') as file:
         file.write(stubs_data.classes)
 
 
-def get_hiero_included_modules(path):
-    import PySide2
-    site_packages = pathlib.Path(PySide2.__file__).parent.parent
-    hiero = site_packages / 'hiero'
-    if hiero.exists():
-        print('  Internal module copied: hiero')
-        copytree(str(hiero), str(path), dirs_exist_ok=True)
-
-
 def generate_hiero_stubs():
-    print('Generate Hiero Stubs...')
+    logging.info('Generate Hiero Stubs...')
 
-    def generate_stubs(module, module_name, post_fixes):
+    def get_hiero_included_modules():
+        """Copy the internal hiero module to the stubs path."""
+        import PySide2
+
+        site_packages = pathlib.Path(PySide2.__file__).parent.parent
+        hiero = site_packages / 'hiero'
+        if hiero.exists():
+            logging.info('  Internal module copied: hiero')
+            copytree(str(hiero), str(STUBS_PATH / 'hiero'), dirs_exist_ok=True)
+
+    def generate_stubs(module: ModuleType, module_name: str, post_fixes: PostFixes):
         imports_header = dedent('''
+        """Stubs generated automatically from Nuke's internal interpreter."""
         import ui
         import core
+        import hiero
         import typing
         import PySide2
+        from typing import *
         from PySide2.QtWidgets import *
         from PySide2.QtCore import Signal
-        ''')
-        StubsRuntimeSettings(
+        ''').strip()
+
+        RuntimeSettings(
             module=module,
-            path=path / module_name,
+            path=STUBS_PATH / 'hiero' / module_name,
             post_fixes=post_fixes,
             class_imports_header=imports_header
         )
@@ -937,63 +965,52 @@ def generate_hiero_stubs():
         '''Stubs generated automatically from Nuke's internal interpreter.'''
         import ui
         import core
-        from typing import *
-        from numbers import Number
-        from .classes import *
+        import hiero
+        import typing
+        import PySide2
+
         from . import nuke
+        from .classes import *
+        from typing import *
 
         # Constants
         {}
         # Built-in methods
         {}
         """).format(constants, builtin).strip()
-        print(f'  {module_name}: Generating __init__.py')
-        with open(StubsRuntimeSettings.path / '__init__.py', 'a') as file:
+
+        logging.info('  %s: Generating __init__.py', module_name)
+        with open(RuntimeSettings.path / '__init__.py', 'a') as file:
             file.write(init_file)
 
-        print(f'  {module_name} Generating class imports.')
-        with open(StubsRuntimeSettings.path / 'classes' / '__init__.py', 'w') as file:
+        logging.info('  %s: Generating class imports.', module_name)
+        with open(RuntimeSettings.path / 'classes' / '__init__.py', 'w') as file:
             file.write(class_imports)
 
-    path = StubsRuntimeSettings.stubs_path / 'hiero'
-    get_hiero_included_modules(path)
+    get_hiero_included_modules()
+
     generate_stubs(core, 'core', HIERO_CORE_POST_FIX)
     generate_stubs(ui, 'ui', HIERO_UI_POST_FIX)
 
 
-def unknown(**kwargs):
+def unknown_type(**kwargs: Any):
+    """Log unknown types."""
     log(f'  Unknown type: {pprint.pformat(kwargs, indent=4, width=120)}')
 
 
-def log(*args, **kwargs):
-    if StubsRuntimeSettings.log_to_file:
-        with open(StubsRuntimeSettings.log_file, 'a') as log:
-            log.write(' '.join(args) + '\n')
-
-    if StubsRuntimeSettings.log:
-        print(*args, **kwargs)
+def log(*args: Any, **kwargs: Any):
+    logging.debug(*args, **kwargs)
 
 
 def main():
-    stubs_path = pathlib.Path(
-        os.path.join(os.path.expanduser('~'), '.nuke', 'nuke-python-stubs', 'stubs')
-    )
-    os.makedirs(stubs_path, exist_ok=True)
-    StubsRuntimeSettings.stubs_path = stubs_path
 
-    if StubsRuntimeSettings.log_to_file:
-        StubsRuntimeSettings.log_file = stubs_path.parent / 'nukestubsgen.log'
-        with open(StubsRuntimeSettings.log_file, 'w') as file:
-            file.write('')
+    logging.info('Starting Stub Generation...')
 
-    print('Start Extraction')
-    generate_nuke_stubs()
+    # generate_nuke_stubs()
     generate_hiero_stubs()
-    print(f'Extraction completed in: "{stubs_path}"')
+
+    logging.info(f'Generation completed: "{STUBS_PATH}"')
 
 
 if __name__ == '__main__':
-    StubsRuntimeSettings.log = False
-    StubsRuntimeSettings.log_to_file = False
-    StubsRuntimeSettings.nuke_extras = ('nuke_internal', 'nukescripts', 'ocionuke')
     main()

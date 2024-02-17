@@ -1,15 +1,15 @@
+"""Stubs generated automatically from Nuke's internal interpreter."""
 import typing
 from typing import *
-from numbers import Number
 
 import ui
 import core
+import hiero
 import PySide2
+from PySide2.QtCore import Signal
+from PySide2.QtWidgets import *
 
 from . import *
-
-# from PySide2.QtCore import Signal
-# from PySide2.QtWidgets import *
 
 
 class TrackItem(TrackItemBase):
@@ -312,7 +312,7 @@ class TrackItem(TrackItemBase):
         """
         ...
 
-    def setSource(self, *args, **kwargs) -> Clip:
+    def setSource(self, *args: typing.Any, **kwargs: typing.Any) -> Clip:
         """
         self.setSource(clip, trackIndex=0) -> sets the source Clip for this TrackItem.
         If the TrackItem is not already in a Track, the duration will be set to the Clip's duration.
@@ -439,7 +439,7 @@ class TrackItem(TrackItemBase):
         """
         ...
 
-    def thumbnail(self, index: int = 0, layer: str = '') -> PySide2.QtGui.QImage:
+    def thumbnail(self, index: int = 0, layer: str = Default(self, Hiero.Python.String)) -> PySide2.QtGui.QImage:
         """
         self.thumbnail(frame, layer) -> returns a thumbnail of the frame specified as a QImage object.
 
@@ -550,7 +550,7 @@ class TrackItem(TrackItemBase):
     kAudio: Any = None
     kUnknown: Any = None
 
-    def addToNukeScript(self, script=None, firstFrame=None, additionalNodes=[], additionalNodesCallback=None, includeRetimes=False, retimeMethod=None, startHandle=None, endHandle=None, colourTransform=None, offset=0, nodeLabel=None, includeAnnotations=False, includeEffects=True, outputToSequenceFormat=False) -> None:
+    def addToNukeScript(self, script: hiero.core.nuke.ScriptWriter, firstFrame=None, additionalNodes=[], additionalNodesCallback=None, includeRetimes=False, retimeMethod=None, startHandle=None, endHandle=None, colourTransform=None, offset=0, nodeLabel=None, includeAnnotations=False, includeEffects=True, outputToSequenceFormat=False):
         """
         This is a variation on the Clip.addToNukeScript() method that remaps the
         Read frame range to the range of the this TrackItem rather than the Clip's
@@ -566,7 +566,7 @@ class TrackItem(TrackItemBase):
         """
         ...
 
-    def unlinkAll(self) -> None:
+    def unlinkAll(self):
         """
         self.unlinkAll() -> Unlink all track items that are linked to this one.
         """

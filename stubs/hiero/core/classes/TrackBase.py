@@ -1,9 +1,10 @@
+"""Stubs generated automatically from Nuke's internal interpreter."""
 import typing
 from typing import *
-from numbers import Number
 
 import ui
 import core
+import hiero
 import PySide2
 from PySide2.QtCore import Signal
 from PySide2.QtWidgets import *
@@ -11,7 +12,7 @@ from PySide2.QtWidgets import *
 from . import *
 
 
-class TrackBase(object):
+class TrackBase(Object):
     """
     Base class for VideoTrack and AudioTrack objects. This class should never be used directly.
 
@@ -203,7 +204,7 @@ class TrackBase(object):
         """
         ...
 
-    def razorAt(self, *args, **kwargs) -> Number:
+    def razorAt(self, *args: typing.Any, **kwargs: typing.Any) -> int | float:
         """
         self.razorAt(time) -> Creates razor cuts on a track for the parameter time(s).
 

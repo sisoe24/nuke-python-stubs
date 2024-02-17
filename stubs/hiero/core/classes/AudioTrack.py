@@ -1,9 +1,10 @@
+"""Stubs generated automatically from Nuke's internal interpreter."""
 import typing
 from typing import *
-from numbers import Number
 
 import ui
 import core
+import hiero
 import PySide2
 from PySide2.QtCore import Signal
 from PySide2.QtWidgets import *
@@ -73,7 +74,7 @@ class AudioTrack(TrackBase):
         """
         ...
 
-    def addTrackItem(self, *args, **kwargs) -> TrackItem:
+    def addTrackItem(self, *args: typing.Any, **kwargs: typing.Any) -> TrackItem:
         """
         self.addTrackItem(clip, audioChannel, position) -> if the first parameter is a Clip object, the second and third parameters must be specified and this method creates a new track item with the specified audio channel and adds it to this audio track at the given position.
         If the first parameter is a TrackItem, then this method just adds the track item specified.

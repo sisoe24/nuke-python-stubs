@@ -1,11 +1,13 @@
 # Copyright (c) 2011 The Foundry Visionmongers Ltd.  All Rights Reserved.
 
+import typing
 import threading
 from typing import *
-from numbers import Number
 
 import ui
 import core
+import hiero
+import PySide2
 import _fnpython
 from core import *
 from _fnpython import pluginPath, getPluginPath
@@ -654,6 +656,7 @@ if 'exports' in env['Features']:
 # The following should be enabled across all apps
 '''Stubs generated automatically from Nuke's internal interpreter.'''
 
+
 # Constants
 GUI = True
 env = {'VersionDate': '', 'VersionMajor': '', 'VersionMinor': '', 'VersionRelease': '', 'VersionString': '',
@@ -661,14 +664,14 @@ env = {'VersionDate': '', 'VersionMajor': '', 'VersionMinor': '', 'VersionReleas
 # Built-in methods
 
 
-def LUTGroup(*args, **kwargs) -> None:
+def LUTGroup(*args: typing.Any, **kwargs: typing.Any) -> None:
     """
 
     """
     ...
 
 
-def LUTs(*args, **kwargs) -> tuple:
+def LUTs(*args: typing.Any, **kwargs: typing.Any) -> tuple:
     """
     hiero.core.LUTs() -> returns a tuple with the names of all of the available luts.
 
@@ -711,7 +714,7 @@ def addPathRemap(arg__1: str, arg__2: str, arg__3: str) -> None:
     ...
 
 
-def addPluginPath(*args, **kwargs) -> list:
+def addPluginPath(*args: typing.Any, **kwargs: typing.Any) -> list:
     """
     hiero.core.addPluginPath(pluginPath) -> adds a new path to the list of plugin paths searched for Python plugins (in Python/Startup and Python/StartupUI folders). The user's .nuke folder will be the first in this list.
     hiero.core.addPluginPath(pluginPath, index) -> the same as above, except that the index specifies which item in the list of paths to place the new one before.
@@ -722,7 +725,7 @@ def addPluginPath(*args, **kwargs) -> list:
     ...
 
 
-def closeAllProjects(*args, **kwargs) -> Any:
+def closeAllProjects(*args: typing.Any, **kwargs: typing.Any) -> Any:
     """
     hiero.core.closeProject() -> closes all of the existing projects without saving.
     hiero.core.closeProject(bool dontSave) -> same as above, but if the parameter is set to false, unsaved projects will cause Hiero to popup a dialog for each unsaved project, asking the user if they'd like to save.
@@ -771,7 +774,7 @@ def getPluginPath() -> Any:
     ...
 
 
-def getRoleColorspace(*args, **kwargs) -> None:
+def getRoleColorspace(*args: typing.Any, **kwargs: typing.Any) -> None:
     """
 
     """
@@ -809,7 +812,7 @@ def libraryDirectory(arg__1: str) -> object:
     ...
 
 
-def newProject(*args, **kwargs) -> Project:
+def newProject(*args: typing.Any, **kwargs: typing.Any) -> Project:
     """
     hiero.core.newProject(name=None) -> creates and returns a new Project object. A name can optionally be given for the project.
 
@@ -856,7 +859,7 @@ def project(arg__1: str) -> Project:
     ...
 
 
-def projects(*args, **kwargs) -> Tuple[Project, ...]:
+def projects(*args: typing.Any, **kwargs: typing.Any) -> tuple:
     """
     hiero.core.projects() -> returns a tuple of currently loaded projects which are user projects (not startup). Same effect as calling the method below passing Project.kUserProjects.
     hiero.core.projects(projectTypes) -> returns a tuple of currently loaded projects, filtered according to projectTypes. Use hiero.core.projects()[-1] to get the last loaded project.
@@ -867,7 +870,7 @@ def projects(*args, **kwargs) -> Tuple[Project, ...]:
     ...
 
 
-def quit(*args, **kwargs) -> int:
+def quit(*args: typing.Any, **kwargs: typing.Any) -> int:
     """
     hiero.core.quit() -> shuts down Hiero, without saving any existing projects. Safer than calling sys.exit(), which doesn't always clean up properly and can cause Hiero to crash. This version sets the exit code of the Hiero process to 0.
 
@@ -903,7 +906,7 @@ def remapPath(arg__1: str) -> object:
     ...
 
 
-def stopScriptAndQuit(*args, **kwargs) -> None:
+def stopScriptAndQuit(*args: typing.Any, **kwargs: typing.Any) -> None:
     """
 
     """

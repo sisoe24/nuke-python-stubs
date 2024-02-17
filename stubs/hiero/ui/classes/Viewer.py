@@ -1,9 +1,10 @@
+"""Stubs generated automatically from Nuke's internal interpreter."""
 import typing
 from typing import *
-from numbers import Number
 
 import ui
 import core
+import hiero
 import PySide2
 from PySide2.QtCore import Signal
 from PySide2.QtWidgets import *
@@ -544,28 +545,28 @@ class Viewer(QObject):
     ePlaybackBounce: Any = None
     ePlaybackStop: Any = None
     ePlaybackContinue: Any = None
-    channelsChanged = Signal()
-    maskOverlayStyleChanged = Signal()
-    transformChanged = Signal()
-    shuttleTargetFPSChanged = Signal()
-    sequenceChanged = Signal()
-    frameDisplayed = Signal()
-    gammaChanged = Signal()
-    gainChanged = Signal()
-    playbackModeChanged = Signal()
     targetFrameRateChanged = Signal()
-    compareModeChanged = Signal()
-    maskOverlayChanged = Signal()
-    trackSelectionChanged = Signal()
-    currentLayerChanged = Signal()
+    gainChanged = Signal()
+    sequenceChanged = Signal()
     guideOverlayChanged = Signal()
-    timeDisplayFormatChanged = Signal()
-    layoutModeChanged = Signal()
+    gammaChanged = Signal()
     playbackSpeedChanged = Signal()
+    maskOverlayChanged = Signal()
+    transformChanged = Signal()
+    timeDisplayFormatChanged = Signal()
+    currentLayerChanged = Signal()
+    maskOverlayStyleChanged = Signal()
+    layoutModeChanged = Signal()
     timeChanged = Signal()
+    playbackModeChanged = Signal()
+    trackSelectionChanged = Signal()
+    shuttleTargetFPSChanged = Signal()
+    compareModeChanged = Signal()
+    frameDisplayed = Signal()
+    channelsChanged = Signal()
     staticMetaObject: Any = None
 
-    def _goToTag(self, tag: str) -> None:
+    def _goToTag(self, tag) -> None:
         """
         Move playhead to Tag.
         If Tag (Tag Object or Tag name) does not exists on the Viewer's Sequence/Clip
@@ -587,7 +588,7 @@ class Viewer(QObject):
         """
         ...
 
-    def _goToTrackItemStart(self, trackItem: Iterable) -> None:
+    def _goToTrackItemStart(self, trackItem) -> None:
         """
         Move playhead to start of the trackItem.
 
@@ -595,7 +596,7 @@ class Viewer(QObject):
         """
         ...
 
-    def _goToTrackItemEnd(self, trackItem: Iterable) -> None:
+    def _goToTrackItemEnd(self, trackItem) -> None:
         """
         Move playhead to end of the trackItem.
 
@@ -603,7 +604,7 @@ class Viewer(QObject):
         """
         ...
 
-    def _goToTrackItemMiddle(self, trackItem: Iterable) -> None:
+    def _goToTrackItemMiddle(self, trackItem) -> None:
         """
         Move playhead to middle of the trackItem.
 

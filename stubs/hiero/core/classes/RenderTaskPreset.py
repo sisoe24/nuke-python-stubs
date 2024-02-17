@@ -1,9 +1,10 @@
+"""Stubs generated automatically from Nuke's internal interpreter."""
 import typing
 from typing import *
-from numbers import Number
 
 import ui
 import core
+import hiero
 import PySide2
 from PySide2.QtCore import Signal
 from PySide2.QtWidgets import *
@@ -45,7 +46,7 @@ class RenderTaskPreset(TaskPresetBase):
         """
         ...
 
-    def addCustomResolveEntries(self, resolver: ResolveTable) -> None:
+    def addCustomResolveEntries(self, resolver) -> None:
         """
         addCustomResolveEntries(self, resolver)
         RenderTaskPreset adds specialized tokens specific to this type of export, such as {ext} which returns the output format extension.

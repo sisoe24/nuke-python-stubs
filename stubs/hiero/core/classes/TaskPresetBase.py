@@ -1,9 +1,10 @@
+"""Stubs generated automatically from Nuke's internal interpreter."""
 import typing
 from typing import *
-from numbers import Number
 
 import ui
 import core
+import hiero
 import PySide2
 from PySide2.QtCore import Signal
 from PySide2.QtWidgets import *
@@ -18,7 +19,7 @@ class TaskPresetBase(ITaskPreset):
     and shared between the Task and TaskUI user interface component
     """
 
-    def __init__(self, parentType, presetName: str) -> None:
+    def __init__(self, parentType, presetName) -> None:
         """
         Initialise Exporter Preset Base Class
 
@@ -121,7 +122,7 @@ class TaskPresetBase(ITaskPreset):
         """
         ...
 
-    def addDefaultResolveEntries(self, resolver: ResolveTable) -> None:
+    def addDefaultResolveEntries(self, resolver) -> None:
         """
         addDefaultResolveEntries(self, resolver)
         Create resolve entries for default resolve tokens shared by all task types.
@@ -130,7 +131,7 @@ class TaskPresetBase(ITaskPreset):
         """
         ...
 
-    def addCustomResolveEntries(self, resolver: ResolveTable) -> None:
+    def addCustomResolveEntries(self, resolver) -> None:
         """
         addCustomResolveEntries(self, resolver)
         Impliment this function on custom export tasks to add resolve entries specific to that class.
@@ -139,7 +140,7 @@ class TaskPresetBase(ITaskPreset):
         """
         ...
 
-    def addUserResolveEntries(self, resolver: ResolveTable) -> None:
+    def addUserResolveEntries(self, resolver) -> None:
         """
         addUserResolveEntries(self, resolver)
         Override this function to add user specific resolve tokens.

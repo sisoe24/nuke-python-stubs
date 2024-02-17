@@ -1,9 +1,10 @@
+"""Stubs generated automatically from Nuke's internal interpreter."""
 import typing
 from typing import *
-from numbers import Number
 
 import ui
 import core
+import hiero
 import PySide2
 from PySide2.QtCore import Signal
 from PySide2.QtWidgets import *
@@ -11,7 +12,7 @@ from PySide2.QtWidgets import *
 from . import *
 
 
-class TimelineEditor(object):
+class TimelineEditor(Object):
     """
     Object representing the Timeline Editor.
     """
@@ -80,7 +81,7 @@ class TimelineEditor(object):
         """
         ...
 
-    def setSelection(self, *args, **kwargs) -> None:
+    def setSelection(self, *args: typing.Any, **kwargs: typing.Any) -> None:
         """
         self.setSelection( hiero.core.TrackItem )
         self.setSelection( [hiero.core.TrackItem] )
@@ -90,7 +91,7 @@ class TimelineEditor(object):
         """
         ...
 
-    def setTrackSelection(self, *args, **kwargs) -> None:
+    def setTrackSelection(self, *args: typing.Any, **kwargs: typing.Any) -> None:
         """
         self.setTrackSelection( hiero.core.TrackBase )
         self.setTrackSelection( [hiero.core.TrackBase] )

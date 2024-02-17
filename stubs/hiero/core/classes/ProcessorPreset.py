@@ -1,9 +1,10 @@
+"""Stubs generated automatically from Nuke's internal interpreter."""
 import typing
 from typing import *
-from numbers import Number
 
 import ui
 import core
+import hiero
 import PySide2
 from PySide2.QtCore import Signal
 from PySide2.QtWidgets import *
@@ -18,7 +19,7 @@ class ProcessorPreset(TaskPresetBase):
     and shared between the Processor and ProcessorUI user interface component
     """
 
-    def __init__(self, parentType, presetName: str) -> None:
+    def __init__(self, parentType, presetName) -> None:
         """
         Initialise Exporter Preset Base Class
 

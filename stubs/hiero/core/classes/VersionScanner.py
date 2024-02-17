@@ -1,9 +1,10 @@
+"""Stubs generated automatically from Nuke's internal interpreter."""
 import typing
 from typing import *
-from numbers import Number
 
 import ui
 import core
+import hiero
 import PySide2
 from PySide2.QtCore import Signal
 from PySide2.QtWidgets import *
@@ -81,7 +82,7 @@ class VersionScanner(object):
         """
         ...
 
-    def findNewVersions(self, version: Version) -> list:
+    def findNewVersions(self, version) -> list:
         """
         Scan for files matching an existing Version.
 
@@ -91,7 +92,7 @@ class VersionScanner(object):
         """
         ...
 
-    def findNewVersionsInPath(self, filename: str) -> list:
+    def findNewVersionsInPath(self, filename) -> list:
         """
         Scan for files matching an existing path.
         Note: This will include the files used by already added versions.
@@ -102,7 +103,7 @@ class VersionScanner(object):
         """
         ...
 
-    def getFilename(self, version: Version) -> str:
+    def getFilename(self, version) -> str:
         """
         Get the file name of a given Version
 
@@ -112,7 +113,7 @@ class VersionScanner(object):
         """
         ...
 
-    def getActiveIndexFromPath(self, filepath: str) -> int:
+    def getActiveIndexFromPath(self, filepath) -> int:
         """
         Get the active version from a file path. This will be affected by the index detection method. See
         setVersionScanningIndexDetectionMethod() for more details.
@@ -123,7 +124,7 @@ class VersionScanner(object):
         """
         ...
 
-    def getGlobExpression(self, filename: str) -> str:
+    def getGlobExpression(self, filename) -> str:
         """
         Find substrings representing sequence padding (_kPaddedSequenceRegex) and version (_kVersionRegex) and replace them with
         suitable token strings in 'glob' format. For example:
@@ -140,7 +141,7 @@ class VersionScanner(object):
         """
         ...
 
-    def checkNewVersion(self, originalFile: str, newFile: str) -> bool:
+    def checkNewVersion(self, originalFile, newFile) -> bool:
         """
         Check that newFile correctly matches a version of originalFile, where newFile is a real filename and originalFile includes
         sequence padding tokens (e.g. "%03d").
@@ -152,7 +153,7 @@ class VersionScanner(object):
         """
         ...
 
-    def getMatches(self, originalFile: str) -> None:
+    def getMatches(self, originalFile) -> None:
         """
         Convenience function. When we get the glob results, we use regex to compare the original filename with the found files.
         Using _regexMatches, we ensure this regex matches are computed only once for each original filename.
@@ -163,7 +164,7 @@ class VersionScanner(object):
         """
         ...
 
-    def isVisitedClip(self, filename: str) -> str:
+    def isVisitedClip(self, filename) -> str:
         """
         Convenience function for determining whether a given file is part of an already visited sequence.
 
@@ -173,7 +174,7 @@ class VersionScanner(object):
         """
         ...
 
-    def markVisitedClip(self, filename: str) -> None:
+    def markVisitedClip(self, filename) -> None:
         """
         Convenience function that will add a file's path to a list of files already visited.
 
@@ -183,7 +184,7 @@ class VersionScanner(object):
         """
         ...
 
-    def getFileHead(self, filename: str) -> str:
+    def getFileHead(self, filename) -> str:
         """
         Extracts "filehead" from "filename", removing sequence numbers.
 
@@ -193,7 +194,7 @@ class VersionScanner(object):
         """
         ...
 
-    def filterVersion(self, binitem: BinItem, newVersionFile: str) -> bool:
+    def filterVersion(self, binitem, newVersionFile) -> bool:
         """
         Determine whether the file newVersionFile should be included as a new Version of binitem
 
@@ -204,7 +205,7 @@ class VersionScanner(object):
         """
         ...
 
-    def sortVersions(self, versionFiles: list) -> list:
+    def sortVersions(self, versionFiles) -> list:
         """
         Basic bubble sort for versions (we do not expect large numbers of versions).
 
@@ -214,7 +215,7 @@ class VersionScanner(object):
         """
         ...
 
-    def versionLessThan(self, filename1: str, filename2: str) -> str:
+    def versionLessThan(self, filename1, filename2) -> str:
         """
         Compare method for sorting. Compares version filenames according to:
         1st) Version index
@@ -228,7 +229,7 @@ class VersionScanner(object):
         """
         ...
 
-    def determineVersionIndex(self, binitem: Version, newFilename: str) -> int:
+    def determineVersionIndex(self, binitem, newFilename) -> int:
         """
         Get the index at which to insert new version files into a BinItem.
 
@@ -239,7 +240,7 @@ class VersionScanner(object):
         """
         ...
 
-    def insertVersions(self, binitem: BinItem, versionFiles: list) -> list:
+    def insertVersions(self, binitem, versionFiles) -> list:
         """
         Create Versions for a list of files and insert them into a BinItem.
 
@@ -250,7 +251,7 @@ class VersionScanner(object):
         """
         ...
 
-    def createAndInsertClipVersion(self, binitem: Version, newFilename: str) -> None:
+    def createAndInsertClipVersion(self, binitem, newFilename) -> None:
         """
         Create a new Version of a clip for a path and insert it.
 
@@ -271,7 +272,7 @@ class VersionScanner(object):
         """
         ...
 
-    def getNewVersionIndexForPath(self, path: str) -> int:
+    def getNewVersionIndexForPath(self, path) -> int:
         """
         Find the existing versions for the given path, and return a new version index which doesn't
         already exist.
@@ -291,14 +292,14 @@ class VersionScanner(object):
         ...
 
     @property
-    def __dict__(self) -> Any:
+    def __dict__(self) -> typing.Any:
         """
         dictionary for instance variables (if defined)
         """
         ...
 
     @property
-    def __weakref__(self) -> Any:
+    def __weakref__(self) -> typing.Any:
         """
         list of weak references to the object (if defined)
         """

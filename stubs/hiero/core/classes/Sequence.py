@@ -1,6 +1,6 @@
+"""Stubs generated automatically from Nuke's internal interpreter."""
 import typing
 from typing import *
-from numbers import Number
 
 import ui
 import core
@@ -71,7 +71,7 @@ class Sequence(SequenceBase):
         """
         ...
 
-    def addTrack(self, *args, **kwargs) -> Iterable:
+    def addTrack(self, *args: typing.Any, **kwargs: typing.Any) -> Iterable:
         """
         self.addTrack(track) -> adds a video or audio track to the Sequence.
 
@@ -177,7 +177,7 @@ class Sequence(SequenceBase):
         """
         ...
 
-    def items(self) -> Tuple[hiero.core.VideoTrack, hiero.core.AudioTrack]:
+    def items(self) -> tuple[hiero.core.VideoTrack, hiero.core.AudioTrack]:
         """
         self.items() -> returns a tuple with all of the video tracks concatenated with all of the audio tracks. Can iterate over the video tracks first by using self.numVideoTracks. The audio tracks follow the video tracks in the tuple returned from this method.
 
@@ -240,7 +240,7 @@ class Sequence(SequenceBase):
         """
         ...
 
-    def removeTrack(self, *args, **kwargs) -> Iterable:
+    def removeTrack(self, *args: typing.Any, **kwargs: typing.Any) -> Iterable:
         """
         self.removeTrack(track) -> removes the track from the Sequence.
 
@@ -296,7 +296,7 @@ class Sequence(SequenceBase):
         """
         ...
 
-    def trackItemsAt(self, *args, **kwargs) -> tuple:
+    def trackItemsAt(self, *args: typing.Any, **kwargs: typing.Any) -> tuple:
         """
         self.trackItemsAt(time, mediaType) -> finds enabled track items for the specified time, ordered from top-track to bottom-track (or for audio, min channel to max channel).
 
@@ -335,7 +335,7 @@ class Sequence(SequenceBase):
     ePlayheadDisabled: Any = None
     ePlayheadInvalid: Any = None
 
-    def addClip(self, clip: Clip, time: Number, videoTrackIndex=0, audioTrackIndex=-1) -> list[core.TrackItem]:
+    def _addClip(self, clip, time, videoTrackIndex=0, audioTrackIndex=-1) -> list:
         """
         Add a clip to a sequence, creating a TrackItem for each video/audio channel in the clip,
         adding them to the appropriate tracks and linking them together.  This has the same effect

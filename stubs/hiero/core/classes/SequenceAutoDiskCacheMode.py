@@ -1,9 +1,10 @@
+"""Stubs generated automatically from Nuke's internal interpreter."""
 import typing
 from typing import *
-from numbers import Number
 
 import ui
 import core
+import hiero
 import PySide2
 from PySide2.QtCore import Signal
 from PySide2.QtWidgets import *
@@ -172,14 +173,14 @@ class SequenceAutoDiskCacheMode(object):
         """
         ...
 
-    def __reduce__(self, *args, **kwargs) -> None:
+    def __reduce__(self, *args: typing.Any, **kwargs: typing.Any) -> None:
         """
         Helper for pickle.
         """
         ...
 
     @property
-    def name(self) -> Any:
+    def name(self) -> typing.Any:
         """
 
         """
