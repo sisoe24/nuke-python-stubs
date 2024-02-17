@@ -30,7 +30,30 @@ LOG_FILE.write_text('')
 
 PostFixes = Dict[str, List[Dict[str, str]]]
 
-logging.basicConfig(filename=LOG_FILE, level=logging.DEBUG)
+
+def _setup_logger():
+
+    logger = logging.getLogger(__name__)
+
+    def console_handler():
+        console = logging.StreamHandler()
+        console.setLevel(logging.DEBUG)
+        console.setFormatter(logging.Formatter('%(levelname)s - %(message)s'))
+        return console
+
+    def file_handler():
+        file = logging.FileHandler(LOG_FILE)
+        file.setLevel(logging.DEBUG)
+        file.setFormatter(logging.Formatter('%(levelname)s - %(message)s'))
+        return file
+
+    logger.addHandler(console_handler())
+    logger.addHandler(file_handler())
+
+    return logger
+
+
+LOGGER = _setup_logger()
 
 
 class RuntimeSettings:
@@ -300,7 +323,7 @@ def post_fixes(filename: str, old_header: str):
             if func_header == header['old']:
 
                 new = header['new']
-                logging.debug('Post-Mod: %s -> %s', func_header, new)
+                LOGGER.debug('Post-Mod: %s -> %s', func_header, new)
 
                 func_header = new
 
@@ -330,12 +353,12 @@ def is_valid_object(obj: str) -> Optional[str]:
         callable(getattr(RuntimeSettings.module, obj))
     except AttributeError as err:
         # if is not then check if is a valid object
-        logging.debug('Invalid object: %s - %s', obj, err)
+        LOGGER.debug('Invalid object: %s - %s', obj, err)
 
         try:
             eval(obj)
         except (NameError, SyntaxError) as err:
-            logging.debug('Second check (eval) failed: %s - %s', obj, err)
+            LOGGER.debug('Second check (eval) failed: %s - %s', obj, err)
             # some returns are descriptions, so return None
             return None
 
@@ -479,7 +502,7 @@ class ArgsParser:
         m = self.args_regex.search(self.fn_header)
 
         if not m:
-            logging.debug('No arguments found in: %s', self.fn_header)
+            LOGGER.debug('No arguments found in: %s', self.fn_header)
             return []
 
         return [_.strip() for _ in m.group().split(',')]
@@ -844,7 +867,7 @@ def parse_modules() -> StubsData:
 
 def generate_nuke_stubs():
     """Generate stubs for the `nuke` module."""
-    logging.info('Generate Nuke Stubs...')
+    LOGGER.info('Generate Nuke Stubs...')
 
     def get_nuke_included_modules():
         """Get included modules inside plugins path.
@@ -927,7 +950,7 @@ def generate_nuke_stubs():
 
 
 def generate_hiero_stubs():
-    logging.info('Generate Hiero Stubs...')
+    LOGGER.info('Generate Hiero Stubs...')
 
     def get_hiero_included_modules():
         """Copy the internal hiero module to the stubs path."""
@@ -936,7 +959,7 @@ def generate_hiero_stubs():
         site_packages = pathlib.Path(PySide2.__file__).parent.parent
         hiero = site_packages / 'hiero'
         if hiero.exists():
-            logging.info('  Internal module copied: hiero')
+            LOGGER.info('  Internal module copied: hiero')
             copytree(str(hiero), str(STUBS_PATH / 'hiero'), dirs_exist_ok=True)
 
     def generate_stubs(module: ModuleType, module_name: str, post_fixes: PostFixes):
@@ -979,11 +1002,11 @@ def generate_hiero_stubs():
         {}
         """).format(constants, builtin).strip()
 
-        logging.info('  %s: Generating __init__.py', module_name)
+        LOGGER.info('  %s: Generating __init__.py', module_name)
         with open(RuntimeSettings.path / '__init__.py', 'a') as file:
             file.write(init_file)
 
-        logging.info('  %s: Generating class imports.', module_name)
+        LOGGER.info('  %s: Generating class imports.', module_name)
         with open(RuntimeSettings.path / 'classes' / '__init__.py', 'w') as file:
             file.write(class_imports)
 
@@ -999,17 +1022,17 @@ def unknown_type(**kwargs: Any):
 
 
 def log(*args: Any, **kwargs: Any):
-    logging.debug(*args, **kwargs)
+    LOGGER.debug(*args, **kwargs)
 
 
 def main():
 
-    logging.info('Starting Stub Generation...')
+    LOGGER.info('Starting Stub Generation...')
 
     # generate_nuke_stubs()
     generate_hiero_stubs()
 
-    logging.info(f'Generation completed: "{STUBS_PATH}"')
+    LOGGER.info(f'Generation completed: "{STUBS_PATH}"')
 
 
 if __name__ == '__main__':
