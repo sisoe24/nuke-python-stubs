@@ -1100,7 +1100,7 @@ def nukestubsgen():
     LOGGER.info('Starting Stub Generation...')
 
     generate_nuke_stubs()
-    # generate_hiero_stubs()
+    generate_hiero_stubs()
     global_post_fixes()
 
     LOGGER.info(f'Generation completed: "{STUBS_PATH}"')
