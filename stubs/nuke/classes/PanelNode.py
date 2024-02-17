@@ -1,7 +1,10 @@
+"""Stubs generated automatically from Nuke's internal interpreter."""
+import typing
 from typing import *
-from numbers import Number
 
 import nuke
+import PySide2
+from PySide2.QtWidgets import *
 
 from . import *
 
@@ -92,7 +95,7 @@ class PanelNode(object):
         """
         ...
 
-    def createWidget(self, *args, **kwargs) -> None:
+    def createWidget(self, *args: typing.Any, **kwargs: typing.Any) -> None:
         """
         Create the widget for the panel
         """

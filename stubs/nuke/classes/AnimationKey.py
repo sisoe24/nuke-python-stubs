@@ -1,7 +1,10 @@
+"""Stubs generated automatically from Nuke's internal interpreter."""
+import typing
 from typing import *
-from numbers import Number
 
 import nuke
+import PySide2
+from PySide2.QtWidgets import *
 
 from . import *
 
@@ -86,63 +89,63 @@ class AnimationKey(object):
         ...
 
     @property
-    def x(self) -> Any:
+    def x(self) -> typing.Any:
         """
         The horizontal position of the point
         """
         ...
 
     @property
-    def y(self) -> Any:
+    def y(self) -> typing.Any:
         """
         The vertical position of the point
         """
         ...
 
     @property
-    def lslope(self) -> Any:
+    def lslope(self) -> typing.Any:
         """
         The derivative to the left of the point
         """
         ...
 
     @property
-    def rslope(self) -> Any:
+    def rslope(self) -> typing.Any:
         """
         The derivative to the right of the point
         """
         ...
 
     @property
-    def la(self) -> Any:
+    def la(self) -> typing.Any:
         """
         The left 'bicubic' value
         """
         ...
 
     @property
-    def ra(self) -> Any:
+    def ra(self) -> typing.Any:
         """
         The right 'bicubic' value
         """
         ...
 
     @property
-    def interpolation(self) -> Any:
+    def interpolation(self) -> typing.Any:
         """
         Used to calculate all the slopes except for the left slope of the first key and the right slope of the last key
         """
         ...
 
     @property
-    def extrapolation(self) -> Any:
+    def extrapolation(self) -> typing.Any:
         """
         Controls how to set the left slope of the first point and the right slope of the last point
         """
         ...
 
     @property
-    def selected(self) -> Any:
+    def selected(self) -> typing.Any:
         """
         True if the point is selected in the curve editor
         """

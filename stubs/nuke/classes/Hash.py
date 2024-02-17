@@ -1,7 +1,10 @@
+"""Stubs generated automatically from Nuke's internal interpreter."""
+import typing
 from typing import *
-from numbers import Number
 
 import nuke
+import PySide2
+from PySide2.QtWidgets import *
 
 from . import *
 
@@ -79,25 +82,25 @@ class Hash(object):
         """
         ...
 
-    def getHash(self, *args, **kwargs) -> None:
+    def getHash(self, *args: typing.Any, **kwargs: typing.Any) -> None:
         """
         Get the current value of the hash.
         """
         ...
 
-    def setHash(self, *args, **kwargs) -> None:
+    def setHash(self, *args: typing.Any, **kwargs: typing.Any) -> None:
         """
         Set the current value of the hash.
         """
         ...
 
-    def reset(self, *args, **kwargs) -> None:
+    def reset(self, *args: typing.Any, **kwargs: typing.Any) -> None:
         """
         Reset the hash.
         """
         ...
 
-    def append(self, *args, **kwargs) -> None:
+    def append(self, *args: typing.Any, **kwargs: typing.Any) -> None:
         """
         Add another value to the hash.
         """

@@ -1,7 +1,10 @@
+"""Stubs generated automatically from Nuke's internal interpreter."""
+import typing
 from typing import *
-from numbers import Number
 
 import nuke
+import PySide2
+from PySide2.QtWidgets import *
 
 from . import *
 
@@ -29,61 +32,61 @@ class BBox_Knob(Array_Knob):
         """
         ...
 
-    def names(self, *args, **kwargs) -> None:
+    def names(self, *args: typing.Any, **kwargs: typing.Any) -> None:
         """
         Return name for dimension 'i'
         """
         ...
 
-    def value(self, *args, **kwargs) -> None:
+    def value(self, *args: typing.Any, **kwargs: typing.Any) -> None:
         """
         Return value for dimension 'i'
         """
         ...
 
-    def x(self, *args, **kwargs) -> None:
+    def x(self, *args: typing.Any, **kwargs: typing.Any) -> None:
         """
         Return value for X position.
         """
         ...
 
-    def setX(self, *args, **kwargs) -> None:
+    def setX(self, *args: typing.Any, **kwargs: typing.Any) -> None:
         """
         Set value for X position.
         """
         ...
 
-    def y(self, *args, **kwargs) -> None:
+    def y(self, *args: typing.Any, **kwargs: typing.Any) -> None:
         """
         Return value for Y position.
         """
         ...
 
-    def setY(self, *args, **kwargs) -> None:
+    def setY(self, *args: typing.Any, **kwargs: typing.Any) -> None:
         """
         Set value for Y position.
         """
         ...
 
-    def r(self, *args, **kwargs) -> None:
+    def r(self, *args: typing.Any, **kwargs: typing.Any) -> None:
         """
         Return value for R extent.
         """
         ...
 
-    def setR(self, *args, **kwargs) -> None:
+    def setR(self, *args: typing.Any, **kwargs: typing.Any) -> None:
         """
         Set value for R extent.
         """
         ...
 
-    def t(self, *args, **kwargs) -> None:
+    def t(self, *args: typing.Any, **kwargs: typing.Any) -> None:
         """
         Return value for T extent.
         """
         ...
 
-    def setT(self, *args, **kwargs) -> None:
+    def setT(self, *args: typing.Any, **kwargs: typing.Any) -> None:
         """
         Set value for T extent.
         """

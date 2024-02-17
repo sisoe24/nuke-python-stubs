@@ -1,7 +1,10 @@
+"""Stubs generated automatically from Nuke's internal interpreter."""
+import typing
 from typing import *
-from numbers import Number
 
 import nuke
+import PySide2
+from PySide2.QtWidgets import *
 
 from . import *
 
@@ -29,31 +32,31 @@ class WH_Knob(Array_Knob):
         """
         ...
 
-    def names(self, *args, **kwargs) -> None:
+    def names(self, *args: typing.Any, **kwargs: typing.Any) -> None:
         """
         Return name for dimension 'i'.
         """
         ...
 
-    def x(self, *args, **kwargs) -> None:
+    def x(self, *args: typing.Any, **kwargs: typing.Any) -> None:
         """
         Return value for X position.
         """
         ...
 
-    def y(self, *args, **kwargs) -> None:
+    def y(self, *args: typing.Any, **kwargs: typing.Any) -> None:
         """
         Return value for Y position.
         """
         ...
 
-    def x_at(self, *args, **kwargs) -> None:
+    def x_at(self, *args: typing.Any, **kwargs: typing.Any) -> None:
         """
         Return value for X position at time 't'.
         """
         ...
 
-    def y_at(self, *args, **kwargs) -> None:
+    def y_at(self, *args: typing.Any, **kwargs: typing.Any) -> None:
         """
         Return value for Y position at time 't'.
         """

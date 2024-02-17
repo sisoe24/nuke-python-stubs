@@ -1,7 +1,10 @@
+"""Stubs generated automatically from Nuke's internal interpreter."""
+import typing
 from typing import *
-from numbers import Number
 
 import nuke
+import PySide2
+from PySide2.QtWidgets import *
 
 from . import *
 
@@ -29,25 +32,25 @@ class IArray_Knob(Array_Knob):
         """
         ...
 
-    def dimensions(self, *args, **kwargs) -> None:
+    def dimensions(self, *args: typing.Any, **kwargs: typing.Any) -> None:
         """
         Return number of dimensions.
         """
         ...
 
-    def width(self, *args, **kwargs) -> None:
+    def width(self, *args: typing.Any, **kwargs: typing.Any) -> None:
         """
         Return width of the array.
         """
         ...
 
-    def height(self, *args, **kwargs) -> None:
+    def height(self, *args: typing.Any, **kwargs: typing.Any) -> None:
         """
         Return height of the array.
         """
         ...
 
-    def value(self, *args, **kwargs) -> None:
+    def value(self, *args: typing.Any, **kwargs: typing.Any) -> None:
         """
         Return value of the array at position (x, y).
         """

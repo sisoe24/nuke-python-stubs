@@ -1,7 +1,10 @@
+"""Stubs generated automatically from Nuke's internal interpreter."""
+import typing
 from typing import *
-from numbers import Number
 
 import nuke
+import PySide2
+from PySide2.QtWidgets import *
 
 from . import *
 
@@ -103,7 +106,7 @@ class Channel_Knob(Knob):
         """
         ...
 
-    def setInput(self, num: Number) -> None:
+    def setInput(self, num: int | float) -> None:
         """
         self.setInput(num) -> None
         Set the input number for this knob.@param num: The number of the new input.

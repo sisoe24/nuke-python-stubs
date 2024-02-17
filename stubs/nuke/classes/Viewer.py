@@ -1,7 +1,10 @@
+"""Stubs generated automatically from Nuke's internal interpreter."""
+import typing
 from typing import *
-from numbers import Number
 
 import nuke
+import PySide2
+from PySide2.QtWidgets import *
 
 from . import *
 
@@ -61,14 +64,14 @@ class Viewer(Node):
         """
         ...
 
-    def playbackRange(self,) -> Number:
+    def playbackRange(self,) -> int | float:
         """
         self.playbackRange() -> FrameRange.
         Return the frame range that's currently set to be played back in the viewer.@return: FrameRange.
         """
         ...
 
-    def visibleRange(self,) -> Number:
+    def visibleRange(self,) -> int | float:
         """
         self.visibleRange() -> FrameRange.
         Return the frame range that is currently visible in the viewer.@return: FrameRange.

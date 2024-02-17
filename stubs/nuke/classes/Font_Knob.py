@@ -1,7 +1,10 @@
+"""Stubs generated automatically from Nuke's internal interpreter."""
+import typing
 from typing import *
-from numbers import Number
 
 import nuke
+import PySide2
+from PySide2.QtWidgets import *
 
 from . import *
 
@@ -29,7 +32,7 @@ class Font_Knob(Knob):
         """
         ...
 
-    def value(self, *args, **kwargs) -> None:
+    def value(self, *args: typing.Any, **kwargs: typing.Any) -> None:
         """
         Return value at the current frame for channel 'c'.
         """

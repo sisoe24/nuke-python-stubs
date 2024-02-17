@@ -1,7 +1,10 @@
+"""Stubs generated automatically from Nuke's internal interpreter."""
+import typing
 from typing import *
-from numbers import Number
 
 import nuke
+import PySide2
+from PySide2.QtWidgets import *
 
 from . import *
 
@@ -17,13 +20,13 @@ class RunInMainThread(object):
         """
         ...
 
-    def request(self, *args, **kwargs) -> None:
+    def request(self, *args: typing.Any, **kwargs: typing.Any) -> None:
         """
 
         """
         ...
 
-    def result(self, *args, **kwargs) -> None:
+    def result(self, *args: typing.Any, **kwargs: typing.Any) -> None:
         """
 
         """

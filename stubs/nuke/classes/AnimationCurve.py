@@ -1,7 +1,10 @@
+"""Stubs generated automatically from Nuke's internal interpreter."""
+import typing
 from typing import *
-from numbers import Number
 
 import nuke
+import PySide2
+from PySide2.QtWidgets import *
 
 from . import *
 
@@ -23,7 +26,7 @@ class AnimationCurve(object):
         """
         ...
 
-    def size(self,) -> Number:
+    def size(self,) -> int | float:
         """
         self.size() -> Number of keys.
         @return: Number of keys.
@@ -92,7 +95,7 @@ class AnimationCurve(object):
         """
         ...
 
-    def evaluate(self, t: Number) -> Number:
+    def evaluate(self, t: int | float) -> int | float:
         """
         self.evaluate(t) -> float
         Value at time 't'.
@@ -101,7 +104,7 @@ class AnimationCurve(object):
         """
         ...
 
-    def derivative(self, t: Number, n: Optional[int] = None) -> float:
+    def derivative(self, t: int | float, n: Optional[int] = None) -> float:
         """
         self.derivative(t, n) -> Float.
         The n'th derivative at time 't'. If n is less than 1 it returns evaluate(t).
@@ -123,7 +126,7 @@ class AnimationCurve(object):
         """
         ...
 
-    def integrate(self, t1: Number, t2: Number) -> float:
+    def integrate(self, t1: int | float, t2: int | float) -> float:
         """
         self.integrate(t1, t2) -> Float.
         Calculate the area underneath the curve from t1 to t2.
@@ -133,7 +136,7 @@ class AnimationCurve(object):
         """
         ...
 
-    def setKey(self, t: Number, y) -> Any:
+    def setKey(self, t: int | float, y) -> Any:
         """
         self.setKey(t, y) -> Key.
         Set a key at time t and value y. If there is no key

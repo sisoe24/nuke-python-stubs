@@ -1,7 +1,10 @@
+"""Stubs generated automatically from Nuke's internal interpreter."""
+import typing
 from typing import *
-from numbers import Number
 
 import nuke
+import PySide2
+from PySide2.QtWidgets import *
 
 from . import *
 
@@ -29,7 +32,7 @@ class PythonCustomKnob(Script_Knob):
         """
         ...
 
-    def getObject(self, *args, **kwargs) -> None:
+    def getObject(self, *args: typing.Any, **kwargs: typing.Any) -> None:
         """
         Returns the custom knob object as created in the by the 'command' argument to the PyCuston_Knob constructor.
         """

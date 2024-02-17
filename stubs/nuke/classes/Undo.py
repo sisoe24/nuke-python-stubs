@@ -1,7 +1,10 @@
+"""Stubs generated automatically from Nuke's internal interpreter."""
+import typing
 from typing import *
-from numbers import Number
 
 import nuke
+import PySide2
+from PySide2.QtWidgets import *
 
 from . import *
 
@@ -23,121 +26,121 @@ class Undo(object):
         """
         ...
 
-    def begin(self, *args, **kwargs) -> None:
+    def begin(self, *args: typing.Any, **kwargs: typing.Any) -> None:
         """
         Begin a new user-visible group of undo actions.
         """
         ...
 
-    def name(self, *args, **kwargs) -> None:
+    def name(self, *args: typing.Any, **kwargs: typing.Any) -> None:
         """
         Name current undo set.
         """
         ...
 
-    def end(self, *args, **kwargs) -> None:
+    def end(self, *args: typing.Any, **kwargs: typing.Any) -> None:
         """
         Complete current undo set and add it to the undo list.
         """
         ...
 
-    def new(self, *args, **kwargs) -> None:
+    def new(self, *args: typing.Any, **kwargs: typing.Any) -> None:
         """
         Same as end();begin().
         """
         ...
 
-    def cancel(self, *args, **kwargs) -> None:
+    def cancel(self, *args: typing.Any, **kwargs: typing.Any) -> None:
         """
         Undoes any actions recorded in the current set and throws it away.
         """
         ...
 
-    def undoSize(self, *args, **kwargs) -> None:
+    def undoSize(self, *args: typing.Any, **kwargs: typing.Any) -> None:
         """
         Number of undo's that can be done.
         """
         ...
 
-    def redoSize(self, *args, **kwargs) -> None:
+    def redoSize(self, *args: typing.Any, **kwargs: typing.Any) -> None:
         """
         Number of redo's that can be done.
         """
         ...
 
-    def undoTruncate(self, *args, **kwargs) -> None:
+    def undoTruncate(self, *args: typing.Any, **kwargs: typing.Any) -> None:
         """
         Destroy any undo's greater or equal to n.
         """
         ...
 
-    def redoTruncate(self, *args, **kwargs) -> None:
+    def redoTruncate(self, *args: typing.Any, **kwargs: typing.Any) -> None:
         """
         Destroy any redo's greater or equal to n.
         """
         ...
 
-    def undoDescribe(self, *args, **kwargs) -> None:
+    def undoDescribe(self, *args: typing.Any, **kwargs: typing.Any) -> None:
         """
         Return short description of undo n.
         """
         ...
 
-    def redoDescribe(self, *args, **kwargs) -> None:
+    def redoDescribe(self, *args: typing.Any, **kwargs: typing.Any) -> None:
         """
         Return short description of redo n.
         """
         ...
 
-    def undoDescribeFully(self, *args, **kwargs) -> None:
+    def undoDescribeFully(self, *args: typing.Any, **kwargs: typing.Any) -> None:
         """
         Return long description of undo n.
         """
         ...
 
-    def redoDescribeFully(self, *args, **kwargs) -> None:
+    def redoDescribeFully(self, *args: typing.Any, **kwargs: typing.Any) -> None:
         """
         Return long description of redo n.
         """
         ...
 
-    def undo(self, *args, **kwargs) -> None:
+    def undo(self, *args: typing.Any, **kwargs: typing.Any) -> None:
         """
         Undoes 0'th undo.
         """
         ...
 
-    def redo(self, *args, **kwargs) -> None:
+    def redo(self, *args: typing.Any, **kwargs: typing.Any) -> None:
         """
         Redoes 0'th redo.
         """
         ...
 
-    def disable(self, *args, **kwargs) -> None:
+    def disable(self, *args: typing.Any, **kwargs: typing.Any) -> None:
         """
         Prevent recording undos until matching enable()
         """
         ...
 
-    def enable(self, *args, **kwargs) -> None:
+    def enable(self, *args: typing.Any, **kwargs: typing.Any) -> None:
         """
         Undoes the previous disable()
         """
         ...
 
-    def disabled(self, *args, **kwargs) -> None:
+    def disabled(self, *args: typing.Any, **kwargs: typing.Any) -> None:
         """
         True if disable() has been called
         """
         ...
 
-    def __enter__(self, *args, **kwargs) -> None:
+    def __enter__(self, *args: typing.Any, **kwargs: typing.Any) -> None:
         """
 
         """
         ...
 
-    def __exit__(self, *args, **kwargs) -> None:
+    def __exit__(self, *args: typing.Any, **kwargs: typing.Any) -> None:
         """
 
         """

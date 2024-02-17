@@ -1,7 +1,10 @@
+"""Stubs generated automatically from Nuke's internal interpreter."""
+import typing
 from typing import *
-from numbers import Number
 
 import nuke
+import PySide2
+from PySide2.QtWidgets import *
 
 from . import *
 
@@ -41,13 +44,13 @@ class ViewerWindow(object):
         """
         ...
 
-    def play(self, *args, **kwargs) -> None:
+    def play(self, *args: typing.Any, **kwargs: typing.Any) -> None:
         """
         Play forward (1) or reverse (0).
         """
         ...
 
-    def stop(self, *args, **kwargs) -> None:
+    def stop(self, *args: typing.Any, **kwargs: typing.Any) -> None:
         """
         Stop playing.
         """

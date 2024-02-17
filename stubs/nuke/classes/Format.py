@@ -1,7 +1,10 @@
+"""Stubs generated automatically from Nuke's internal interpreter."""
+import typing
 from typing import *
-from numbers import Number
 
 import nuke
+import PySide2
+from PySide2.QtWidgets import *
 
 from . import *
 
@@ -165,7 +168,7 @@ class Format(object):
         """
         ...
 
-    def fromUV(self, u: Number, v: Number) -> Iterable:
+    def fromUV(self, u: int | float, v: int | float) -> Iterable:
         """
         self.fromUV(u, v) -> [x, y]
 
@@ -177,7 +180,7 @@ class Format(object):
         """
         ...
 
-    def toUV(self, x: Number, y: Number) -> Iterable:
+    def toUV(self, x: int | float, y: int | float) -> Iterable:
         """
         self.toUV(x, y) -> (u, v)
 
@@ -189,7 +192,7 @@ class Format(object):
         """
         ...
 
-    def scaled(self, sx: Number, sy, tx, ty) -> Format:
+    def scaled(self, sx: int | float, sy, tx, ty) -> Format:
         """
         scaled(sx, sy, tx, ty) -> Format
 

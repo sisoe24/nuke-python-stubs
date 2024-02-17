@@ -1,7 +1,10 @@
+"""Stubs generated automatically from Nuke's internal interpreter."""
+import typing
 from typing import *
-from numbers import Number
 
 import nuke
+import PySide2
+from PySide2.QtWidgets import *
 
 from . import *
 
@@ -49,25 +52,25 @@ class Keyer_Knob(Array_Knob):
         """
         ...
 
-    def lowSoft(self, *args, **kwargs) -> None:
+    def lowSoft(self, *args: typing.Any, **kwargs: typing.Any) -> None:
         """
 
         """
         ...
 
-    def lowTol(self, *args, **kwargs) -> None:
+    def lowTol(self, *args: typing.Any, **kwargs: typing.Any) -> None:
         """
 
         """
         ...
 
-    def highTol(self, *args, **kwargs) -> None:
+    def highTol(self, *args: typing.Any, **kwargs: typing.Any) -> None:
         """
 
         """
         ...
 
-    def highSoft(self, *args, **kwargs) -> None:
+    def highSoft(self, *args: typing.Any, **kwargs: typing.Any) -> None:
         """
 
         """

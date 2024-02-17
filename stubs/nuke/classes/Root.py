@@ -1,7 +1,10 @@
+"""Stubs generated automatically from Nuke's internal interpreter."""
+import typing
 from typing import *
-from numbers import Number
 
 import nuke
+import PySide2
+from PySide2.QtWidgets import *
 
 from . import *
 
@@ -41,7 +44,7 @@ class Root(Group):
         """
         ...
 
-    def clones(self,) -> Number:
+    def clones(self,) -> int | float:
         """
         self.clones() -> Number of clones.
         @return: Number of clones.
@@ -55,7 +58,7 @@ class Root(Group):
         """
         ...
 
-    def input(self, i: Number) -> int:
+    def input(self, i: int | float) -> int:
         """
         self.input(i) -> The i'th input.
         @param i: Input number.
@@ -63,7 +66,7 @@ class Root(Group):
         """
         ...
 
-    def setInput(self, i: Number, node: Node) -> bool:
+    def setInput(self, i: int | float, node: Node) -> bool:
         """
         self.setInput(i, node) -> bool
         Connect input i to node if canSetInput() returns true.
@@ -73,35 +76,35 @@ class Root(Group):
         """
         ...
 
-    def optionalInput(self,) -> Number:
+    def optionalInput(self,) -> int | float:
         """
         self.optionalInput() -> Number of first optional input.
         @return: Number of first optional input.
         """
         ...
 
-    def minimumInputs(self,) -> Number:
+    def minimumInputs(self,) -> int | float:
         """
         self.minimumInputs() -> Minimum number of inputs this node can have.
         @return: Minimum number of inputs this node can have.
         """
         ...
 
-    def maximumInputs(self,) -> Number:
+    def maximumInputs(self,) -> int | float:
         """
         self.maximumInputs() -> Maximum number of inputs this node can have.
         @return: Maximum number of inputs this node can have.
         """
         ...
 
-    def maximumOutputs(self,) -> Number:
+    def maximumOutputs(self,) -> int | float:
         """
         self.maximumOutputs() -> Maximum number of outputs this node can have.
         @return: Maximum number of outputs this node can have.
         """
         ...
 
-    def connectInput(self, i: Number, node: Node) -> bool:
+    def connectInput(self, i: int | float, node: Node) -> bool:
         """
         self.connectInput(i, node) -> bool
         Connect the output of 'node' to the i'th input or the next available unconnected input. The requested input is tried first, but if it is already set then subsequent inputs are tried until an unconnected one is found, as when you drop a connection arrow onto a node in the GUI.
@@ -111,7 +114,7 @@ class Root(Group):
         """
         ...
 
-    def canSetInput(self, i: Number, node: Node) -> bool:
+    def canSetInput(self, i: int | float, node: Node) -> bool:
         """
         self.canSetInput(i, node) -> bool
         Check whether the output of 'node' can be connected to input i.
@@ -185,7 +188,7 @@ class Root(Group):
         """
         ...
 
-    def mergeFrameRange(self, a: Number, b: Number) -> None:
+    def mergeFrameRange(self, a: int | float, b: int | float) -> None:
         """
         self.mergeFrameRange(a, b) -> None.
         Merge frame range.

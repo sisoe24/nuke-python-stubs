@@ -1,7 +1,10 @@
+"""Stubs generated automatically from Nuke's internal interpreter."""
+import typing
 from typing import *
-from numbers import Number
 
 import nuke
+import PySide2
+from PySide2.QtWidgets import *
 
 from . import *
 
@@ -71,7 +74,7 @@ class Array_Knob(Knob):
         """
         ...
 
-    def resize(self, w: Number, h: Optional[Number] = None) -> bool:
+    def resize(self, w: int | float, h: Optional[int | float] = None) -> bool:
         """
         self.resize(w, h) -> True if successful, False otherwise.
         Resize the array.
@@ -122,35 +125,35 @@ class Array_Knob(Knob):
         """
         ...
 
-    def min(self,) -> Number:
+    def min(self,) -> int | float:
         """
         self.min() -> Minimum value.
         @return: Minimum value.
         """
         ...
 
-    def min(self,) -> Number:
+    def min(self,) -> int | float:
         """
         self.min() -> Minimum value.
         @return: Minimum value.
         """
         ...
 
-    def max(self,) -> Number:
+    def max(self,) -> int | float:
         """
         self.max() -> Maximum value.
         @return: Maximum value.
         """
         ...
 
-    def max(self,) -> Number:
+    def max(self,) -> int | float:
         """
         self.max() -> Maximum value.
         @return: Maximum value.
         """
         ...
 
-    def setRange(self, f1: Number, f2: Number) -> None:
+    def setRange(self, f1: int | float, f2: int | float) -> None:
         """
         self.setRange(f1, f2) -> None.
         Set range of values.
@@ -185,7 +188,7 @@ class Array_Knob(Knob):
         """
         ...
 
-    def setValue(self, value: float, index: Optional[int] = None, time: Optional[Number] = None, view=None) -> bool:
+    def setValue(self, value: float, index: Optional[int] = None, time: Optional[int | float] = None, view=None) -> bool:
         """
         self.setValue(value, index, time, view) -> True if value changed, False otherwise. Safe to ignore.
         Set index to value at time and view.
@@ -197,7 +200,7 @@ class Array_Knob(Knob):
         """
         ...
 
-    def setValueAt(self, value: float, time: Number, index: Optional[int] = None, view=None) -> bool:
+    def setValueAt(self, value: float, time: int | float, index: Optional[int] = None, view=None) -> bool:
         """
         self.setValueAt(value, time, index, view) -> bool.
         Set value of element 'index' at time for view. If the knob is animated, it will set a new keyframe or change an existing one. Index and view are optional. Return True if successful.
@@ -209,7 +212,7 @@ class Array_Knob(Knob):
         """
         ...
 
-    def value(self, index: Optional[int] = None, view=None, time: Optional[Number] = None) -> list:
+    def value(self, index: Optional[int] = None, view=None, time: Optional[int | float] = None) -> list:
         """
         self.value(index, view, time) -> Floating point or List of floating point values (in case some are different).
         @param index: Optional index. Default is 0.
@@ -219,7 +222,7 @@ class Array_Knob(Knob):
         """
         ...
 
-    def value(self, index: Optional[int] = None, view=None, time: Optional[Number] = None) -> list:
+    def value(self, index: Optional[int] = None, view=None, time: Optional[int | float] = None) -> list:
         """
         self.value(index, view, time) -> Floating point or List of floating point values (in case some are different).
         @param index: Optional index. Default is 0.
@@ -229,7 +232,7 @@ class Array_Knob(Knob):
         """
         ...
 
-    def valueAt(self, time: Number, index: Optional[int] = None, view=None) -> list:
+    def valueAt(self, time: int | float, index: Optional[int] = None, view=None) -> list:
         """
         self.valueAt(time, index, view) -> Floating point or List of floating point values (in case some are different).
         Return value for this knob at specified time, optional index and view.
@@ -240,7 +243,7 @@ class Array_Knob(Knob):
         """
         ...
 
-    def valueAt(self, time: Number, index: Optional[int] = None, view=None) -> list:
+    def valueAt(self, time: int | float, index: Optional[int] = None, view=None) -> list:
         """
         self.valueAt(time, index, view) -> Floating point or List of floating point values (in case some are different).
         Return value for this knob at specified time, optional index and view.
@@ -251,7 +254,7 @@ class Array_Knob(Knob):
         """
         ...
 
-    def setKeyAt(self, time: Number, index: Optional[int] = None, view=None) -> None:
+    def setKeyAt(self, time: int | float, index: Optional[int] = None, view=None) -> None:
         """
         self.setKeyAt(time, index, view) -> None.
         Set a key on element 'index', at time and view.
@@ -272,7 +275,7 @@ class Array_Knob(Knob):
         """
         ...
 
-    def removeKeyAt(self, time: Number, index: Optional[int] = None, view=None) -> bool:
+    def removeKeyAt(self, time: int | float, index: Optional[int] = None, view=None) -> bool:
         """
         self.removeKeyAt(time, index, view) -> True if succeeded, False otherwise.
         Remove keyframe at specified time, optional index and view. Return True if successful.
@@ -292,7 +295,7 @@ class Array_Knob(Knob):
         """
         ...
 
-    def isKeyAt(self, time: Number, index: Optional[int] = None, view=None) -> bool:
+    def isKeyAt(self, time: int | float, index: Optional[int] = None, view=None) -> bool:
         """
         self.isKeyAt(time, index, view) -> True if succeeded, False otherwise.
         Returns True if there is a keyframe at specified time, optional index and view, otherwise returns False.
@@ -303,37 +306,37 @@ class Array_Knob(Knob):
         """
         ...
 
-    def getNumKeys(self, *args, **kwargs) -> None:
+    def getNumKeys(self, *args: typing.Any, **kwargs: typing.Any) -> None:
         """
         Return number of keys at channel 'c'.
         """
         ...
 
-    def getKeyIndex(self, *args, **kwargs) -> None:
+    def getKeyIndex(self, *args: typing.Any, **kwargs: typing.Any) -> None:
         """
         Return index of the keyframe at time 't' and channel 'c'.
         """
         ...
 
-    def getKeyTime(self, *args, **kwargs) -> None:
+    def getKeyTime(self, *args: typing.Any, **kwargs: typing.Any) -> None:
         """
         Return time of the keyframe at time 't' and channel 'c'.
         """
         ...
 
-    def getDerivative(self, *args, **kwargs) -> None:
+    def getDerivative(self, *args: typing.Any, **kwargs: typing.Any) -> None:
         """
         Return derivative at time 't' and index 'i'.
         """
         ...
 
-    def getNthDerivative(self, *args, **kwargs) -> None:
+    def getNthDerivative(self, *args: typing.Any, **kwargs: typing.Any) -> None:
         """
         Return n'th derivative at time 't' and index 'i'.
         """
         ...
 
-    def getIntegral(self, *args, **kwargs) -> None:
+    def getIntegral(self, *args: typing.Any, **kwargs: typing.Any) -> None:
         """
         Return integral at time interval [t1, t2] and index 'i'.
         """

@@ -1,7 +1,10 @@
+"""Stubs generated automatically from Nuke's internal interpreter."""
+import typing
 from typing import *
-from numbers import Number
 
 import nuke
+import PySide2
+from PySide2.QtWidgets import *
 
 from . import *
 
@@ -55,37 +58,37 @@ class GlobalsEnvironment(object):
         """
         ...
 
-    def __contains__(self, *args, **kwargs) -> None:
+    def __contains__(self, *args: typing.Any, **kwargs: typing.Any) -> None:
         """
 
         """
         ...
 
-    def keys(self, *args, **kwargs) -> None:
+    def keys(self, *args: typing.Any, **kwargs: typing.Any) -> None:
         """
 
         """
         ...
 
-    def has_key(self, *args, **kwargs) -> None:
+    def has_key(self, *args: typing.Any, **kwargs: typing.Any) -> None:
         """
 
         """
         ...
 
-    def values(self, *args, **kwargs) -> None:
+    def values(self, *args: typing.Any, **kwargs: typing.Any) -> None:
         """
 
         """
         ...
 
-    def get(self, *args, **kwargs) -> None:
+    def get(self, *args: typing.Any, **kwargs: typing.Any) -> None:
         """
 
         """
         ...
 
-    def items(self, *args, **kwargs) -> None:
+    def items(self, *args: typing.Any, **kwargs: typing.Any) -> None:
         """
 
         """
