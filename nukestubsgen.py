@@ -13,6 +13,9 @@ from hiero import ui, core
 
 StubsData = namedtuple('StubsData', ['builtin', 'constants', 'classes'])
 
+# TODO: Convert arbitrarly strings eg. Object -> object
+# TODO: Allow post-fix to work on a regex match
+
 
 class StubsRuntimeSettings:
     stubs_path = None
@@ -106,18 +109,18 @@ HIERO_CORE_POST_FIX = {
     ],
     'VideoTrack': [
         {
-            'old': 'def _VideoTrack_addToNukeScript(self, script=None, additionalNodes=*args, disconnected=False, includeAnnotations=False, includeEffects=True):',
-            'new': 'def addToNukeScript(self, script=None, additionalNodes=list, disconnected=False, includeAnnotations=False, includeEffects=True):'
+            'old': 'def _VideoTrack_addToNukeScript(self, script=None, additionalNodes=*args, disconnected=False, includeAnnotations=False, includeEffects=True) -> None:',
+            'new': 'def addToNukeScript(self, script: hiero.core.nuke.ScriptWriter, additionalNodes=list, disconnected=False, includeAnnotations=False, includeEffects=True):'
         },
         {
             'old': 'def items(self) -> object:',
-            'new': 'def items(self) -> Tuple[core.TrackItem, ...]:'
-        }
+            'new': 'def items(self) -> Tuple[hiero.core.TrackItem, ...]:'
+        },
     ],
     'Sequence': [
         {
             'old': 'def _Sequence_addToNukeScript(self, script=None, additionalNodes=*args, disconnected=False, masterTrackItem=None, includeAnnotations=False, includeEffects=True, outputToFormat=None) -> None:',
-            'new': 'def addToNukeScript(self, script=None, additionalNodes=list, disconnected=False, masterTrackItem=None, includeAnnotations=False, includeEffects=True, outputToFormat=None):'
+            'new': 'def addToNukeScript(self, script: hiero.core.nuke.ScriptWriter, additionalNodes=list, disconnected=False, masterTrackItem=None, includeAnnotations=False, includeEffects=True, outputToFormat=None):'
         },
         {
             'old': 'def _addClip(self, clip, time:Number, videoTrackIndex=0, audioTrackIndex=-1) -> list:',
@@ -126,37 +129,41 @@ HIERO_CORE_POST_FIX = {
         {
             'old': 'def videoTracks(self) -> object:',
             'new': 'def videoTracks(self) -> Tuple[core.VideoTrack, ...]:'
+        },
+        {
+            'old': 'def items(self) -> object:',
+            'new': 'def items(self) -> tuple[hiero.core.VideoTrack, hiero.core.AudioTrack]:',
         }
     ],
     'Clip': [
         {
-            'old': 'def _Clip_addAnnotationsToNukeScript(self, script, firstFrame, trimmed, trimStart=None, trimEnd=None):',
+            'old': 'def _Clip_addAnnotationsToNukeScript(self, script, firstFrame, trimmed, trimStart=None, trimEnd=None) -> None:',
             'new': 'def addAnnotationsToNukeScript(self, script, firstFrame, trimmed, trimStart=None, trimEnd=None):'
         },
         {
-            'old': 'def _Clip_getReadInfo(self, firstFrame=None):',
+            'old': 'def _Clip_getReadInfo(self, firstFrame=None) -> None:',
             'new': 'def getReadInfo(self, firstFrame=None):'
         },
         {
-            'old': 'def _Clip_addToNukeScript(self, script:str, additionalNodes=None, additionalNodesCallback=None, firstFrame=None, trimmed=True, trimStart=None, trimEnd=None, colourTransform=None, metadataNode=None, includeMetadataNode=True, nodeLabel=None, enabled=True, includeEffects=True, beforeBehaviour=None, afterBehaviour=None, project=None, readNodes={}, addEffectsLifetime=True):',
-            'new': 'def addToNukeScript(self, script: str, additionalNodes=list, additionalNodesCallback=None, firstFrame=None, trimmed=True, trimStart=None, trimEnd=None, colourTransform=None, metadataNode=None, includeMetadataNode=True, nodeLabel=None, enabled=True, includeEffects=True, beforeBehaviour=None, afterBehaviour=None, project=None, readNodes={}, addEffectsLifetime=True):'
+            'old': 'def _Clip_addToNukeScript(self, script:str, additionalNodes=None, additionalNodesCallback=None, firstFrame=None, trimmed=True, trimStart=None, trimEnd=None, colourTransform=None, metadataNode=None, includeMetadataNode=True, nodeLabel=None, enabled=True, includeEffects=True, beforeBehaviour=None, afterBehaviour=None, project=None, readNodes={}, addEffectsLifetime=True) -> None:',
+            'new': 'def addToNukeScript(self, script: hiero.core.nuke.ScriptWriter, additionalNodes=list, additionalNodesCallback=None, firstFrame=None, trimmed=True, trimStart=None, trimEnd=None, colourTransform=None, metadataNode=None, includeMetadataNode=True, nodeLabel=None, enabled=True, includeEffects=True, beforeBehaviour=None, afterBehaviour=None, project=None, readNodes={}, addEffectsLifetime=True):'
         }
     ],
     'EffectTrackItem': [
         {
-            'old': 'def _EffectTrackItem_addToNukeScript(self, script, offset=0, inputs=1, startHandle=0, endHandle=0, addLifetime=True):',
-            'new': 'def addToNukeScript(self, script, offset=0, inputs=1, startHandle=0, endHandle=0, addLifetime=True):'
+            'old': 'def _EffectTrackItem_addToNukeScript(self, script, offset=0, inputs=1, startHandle=0, endHandle=0, addLifetime=True) -> None:',
+            'new': 'def addToNukeScript(self, script: hiero.core.nuke.ScriptWriter, offset=0, inputs=1, startHandle=0, endHandle=0, addLifetime=True):'
         },
         {
-            'old': 'def _EffectTrackItem_isRetimeEffect(self):',
+            'old': 'def _EffectTrackItem_isRetimeEffect(self) -> None:',
             'new': 'def isRetimeEffect(self):'
         },
         {
-            'old': 'def __EffectTrackItem_name(self):',
+            'old': 'def __EffectTrackItem_name(self) -> None:',
             'new': 'def name(self):'
         },
         {
-            'old': 'def __EffectTrackItem_setName(self, name):',
+            'old': 'def __EffectTrackItem_setName(self, name) -> None:',
             'new': 'def setName(self, name: str):'
         }
     ],
@@ -166,12 +173,16 @@ HIERO_CORE_POST_FIX = {
             'new': 'def source(self) -> Clip | Sequence | MediaSource: '
         },
         {
-            'old': 'def __TrackItem_unlinkAll(self):',
+            'old': 'def __TrackItem_unlinkAll(self) -> None:',
             'new': 'def unlinkAll(self):'
         },
         {
-            'old': 'def _TrackItem_addToNukeScript(self, script=None, firstFrame=None, additionalNodes=[], additionalNodesCallback=None, includeRetimes=False, retimeMethod=None, startHandle=None, endHandle=None, colourTransform=None, offset=0, nodeLabel=None, includeAnnotations=False, includeEffects=True, outputToSequenceFormat=False):',
-            'new': 'def addToNukeScript(self, script=None, firstFrame=None, additionalNodes=[], additionalNodesCallback=None, includeRetimes=False, retimeMethod=None, startHandle=None, endHandle=None, colourTransform=None, offset=0, nodeLabel=None, includeAnnotations=False, includeEffects=True, outputToSequenceFormat=False):'
+            'old': 'def _TrackItem_addToNukeScript(self, script=None, firstFrame=None, additionalNodes=[], additionalNodesCallback=None, includeRetimes=False, retimeMethod=None, startHandle=None, endHandle=None, colourTransform=None, offset=0, nodeLabel=None, includeAnnotations=False, includeEffects=True, outputToSequenceFormat=False) -> None:',
+            'new': 'def addToNukeScript(self, script: hiero.core.nuke.ScriptWriter, firstFrame=None, additionalNodes=[], additionalNodesCallback=None, includeRetimes=False, retimeMethod=None, startHandle=None, endHandle=None, colourTransform=None, offset=0, nodeLabel=None, includeAnnotations=False, includeEffects=True, outputToSequenceFormat=False):'
+        },
+        {
+            'old': 'def thumbnail(self, index: int = 0, layer: str = Default(self, Hiero.Python.String)) -> PySide2.QtGui.QImage:',
+            'new': 'def thumbnail(self, index: int = 0, layer: str = None) -> PySide2.QtGui.QImage:'
         }
     ],
     'Bin': [
