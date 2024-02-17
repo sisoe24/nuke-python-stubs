@@ -199,7 +199,7 @@ def Initialise() -> None:
     ...
 
 
-def activeSequence() -> Iterable:
+def activeSequence() -> hiero.core.Sequence:
     """
     hiero.ui.activeSequence() -> gets the currently active sequence.
 
@@ -288,7 +288,7 @@ def getFlipbook() -> ui.Viewer:
     ...
 
 
-def getTimelineEditor(sequence: Iterable, creationFlag: Optional[Iterable] = None) -> int | float:
+def getTimelineEditor(sequence: hiero.core.Sequence, creationFlag: Optional[hiero.ui.TimelineEditorCreationFlag] = None) -> hiero.ui.TimelineEditor:
     """
     hiero.ui.getTimelineEditor(sequence, creationFlag) -> Find the TimelineEditor for the given Sequence. A new TimelineEditor may be created or an existing one may be recycled depending on the creationFlag parameter, see hiero.ui.TimelineEditorCreationFlag. If the optional creationFlag is not specified, the default behavior will recycle an existing TimelineEditor or create one i.e. hiero.ui.TimelineEditorCreationFlag.kRecycleOrCreate.
 

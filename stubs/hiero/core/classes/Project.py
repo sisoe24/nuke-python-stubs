@@ -473,7 +473,7 @@ class Project:
         """
         ...
 
-    def setOutputFormat(self, *args: typing.Any, **kwargs: typing.Any) -> Iterable:
+    def setOutputFormat(self, format: hiero.core.Format) -> None:
         """
         setOutputFormat(Format) -> sets project's default output format for new sequences.
         setOutputFormat(width, height, pixelAspect, name) -> sets project's default output format for new sequences. This will persist when the application is restarted

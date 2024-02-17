@@ -859,7 +859,7 @@ def project(arg__1: str) -> Project:
     ...
 
 
-def projects(*args: typing.Any, **kwargs: typing.Any) -> tuple:
+def projects(*args, **kwargs) -> Tuple[Project, ...]:
     """
     hiero.core.projects() -> returns a tuple of currently loaded projects which are user projects (not startup). Same effect as calling the method below passing Project.kUserProjects.
     hiero.core.projects(projectTypes) -> returns a tuple of currently loaded projects, filtered according to projectTypes. Use hiero.core.projects()[-1] to get the last loaded project.

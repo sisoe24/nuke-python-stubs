@@ -84,7 +84,7 @@ class VideoTrack(TrackBase):
         """
         ...
 
-    def addTrackItem(self, *args: typing.Any, **kwargs: typing.Any) -> TrackItem:
+    def addTrackItem(self, clip: hiero.core.Clip, position: Optional[int] = None) -> hiero.core.TrackItem:
         """
         self.addTrackItem(clip, position) -> if the first parameter is a Clip object, the second parameter must be specified and this method creates a new track item and adds it to this video track at the given position.
         If the first parameter is a TrackItem, then this method just adds the track item specified.
