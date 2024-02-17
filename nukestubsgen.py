@@ -3,6 +3,7 @@ from __future__ import annotations
 import os
 import re
 import pprint
+import random
 import inspect
 import logging
 import pathlib
@@ -33,24 +34,31 @@ PostFixes = Dict[str, List[Dict[str, str]]]
 
 def _setup_logger():
 
-    logger = logging.getLogger(__name__)
+    logger = logging.getLogger(__name__ + str(random.randint(0, 100)))
+    logger.setLevel(logging.DEBUG)
+    logger.propagate = False
 
     def console_handler():
-        console = logging.StreamHandler()
-        console.setLevel(logging.DEBUG)
-        console.setFormatter(logging.Formatter('%(levelname)s - %(message)s'))
-        return console
+        handler = logging.StreamHandler()
+        handler.setLevel(logging.INFO)
+        handler.setFormatter(logging.Formatter('%(levelname)s - %(message)s'))
+        return handler
 
     def file_handler():
-        file = logging.FileHandler(LOG_FILE)
-        file.setLevel(logging.DEBUG)
-        file.setFormatter(logging.Formatter('%(levelname)s - %(message)s'))
-        return file
+        handler = logging.FileHandler(LOG_FILE)
+        handler.setLevel(logging.DEBUG)
+        handler.setFormatter(logging.Formatter('%(levelname)s - %(message)s'))
+        return handler
 
     logger.addHandler(console_handler())
     logger.addHandler(file_handler())
 
     return logger
+
+
+def _log_unknown_type(**kwargs: Any):
+    """Log unknown types."""
+    LOGGER.debug('  Unknown type: %s', {pprint.pformat(kwargs, indent=4, width=120)})
 
 
 LOGGER = _setup_logger()
@@ -167,7 +175,7 @@ HIERO_CORE_POST_FIX = {
             'new': 'def addToNukeScript(self, script: hiero.core.nuke.ScriptWriter, additionalNodes=list, disconnected=False, masterTrackItem=None, includeAnnotations=False, includeEffects=True, outputToFormat=None):'
         },
         {
-            'old': 'def _addClip(self, clip, time:Number, videoTrackIndex=0, audioTrackIndex=-1) -> list:',
+            'old': 'def _addClip(self, clip, time, videoTrackIndex=0, audioTrackIndex=-1) -> list:',
             'new': 'def addClip(self, clip: Clip, time: Number, videoTrackIndex=0, audioTrackIndex=-1) -> list[core.TrackItem]:'
         },
         {
@@ -289,6 +297,10 @@ HIERO_UI_POST_FIX = {
             'old': 'def activeSequence():',
             'new': 'def activeSequence() -> hiero.core.Sequence:'
         },
+        {
+            'old': 'def getTimelineEditor(sequence, creationFlag) -> int | float:',
+            'new': 'def getTimelineEditor(sequence: hiero.core.Sequence, creationFlag: Optional[hiero.ui.TimelineEditorCreationFlag] = None) -> hiero.ui.TimelineEditor:'
+        }
     ],
 }
 
@@ -323,7 +335,7 @@ def post_fixes(filename: str, old_header: str):
             if func_header == header['old']:
 
                 new = header['new']
-                LOGGER.debug('Post-Mod: %s -> %s', func_header, new)
+                LOGGER.debug('    Post-Mod: %s -> %s', func_header, new)
 
                 func_header = new
 
@@ -348,17 +360,18 @@ def is_valid_object(obj: str) -> Optional[str]:
     At first method will try to check if object is callbale, if it fails will
     try to evaluate  if is simple object.
     """
+    LOGGER.debug('    Checking object: %s', obj)
     try:
         # check if return could be a callable object eg. a class
         callable(getattr(RuntimeSettings.module, obj))
     except AttributeError as err:
         # if is not then check if is a valid object
-        LOGGER.debug('Invalid object: %s - %s', obj, err)
+        LOGGER.debug('      Invalid object: %s', err)
 
         try:
             eval(obj)
         except (NameError, SyntaxError) as err:
-            LOGGER.debug('Second check (eval) failed: %s - %s', obj, err)
+            LOGGER.debug('      Second check (eval) failed: %s', err)
             # some returns are descriptions, so return None
             return None
 
@@ -454,7 +467,7 @@ class GuessType:
         if guess_type:
             return f'Optional[{guess_type}] = None'
 
-        unknown_type(text=self.string, _type='Optionals')
+        _log_unknown_type(text=self.string, _type='Optionals')
         return 'None'
 
 
@@ -483,15 +496,19 @@ class ArgsParser:
 
     def guess_data_type(self):
         """Guessed data type of arguments inside function."""
+        LOGGER.debug('    Guessing type for arguments: %s', self.fn_header)
         try:
             args = self._extract_args()
+            LOGGER.debug('      Found: %s', args)
         except AttributeError:
-            # no arguments
             pass
         else:
             guessed_args = self._guess_args(args)
             if guessed_args:
+                LOGGER.debug('      Guessed: %s', guessed_args)
                 return self.args_regex.sub(guessed_args, self.fn_header)
+
+        LOGGER.debug('      Cannot guess.')
 
         return self.fn_header
 
@@ -502,7 +519,7 @@ class ArgsParser:
         m = self.args_regex.search(self.fn_header)
 
         if not m:
-            LOGGER.debug('No arguments found in: %s', self.fn_header)
+            LOGGER.debug('      No arguments found in: %s', self.fn_header)
             return []
 
         return [_.strip() for _ in m.group().split(',')]
@@ -523,13 +540,15 @@ class ArgsParser:
             return None
 
         for arg in args:
+            LOGGER.debug('    Guessing for: %s', arg)
             if arg in docs_args:
 
                 guessed_type = GuessType(docs_args[arg]).auto_guess()
 
                 if not guessed_type:
-                    unknown_type(_type='Args', args=self._extract_args(),
-                                 arg=arg, value=docs_args[arg])
+                    _log_unknown_type(_type='Args', args=self._extract_args(),
+                                      arg=arg, value=docs_args[arg])
+                    LOGGER.debug('    No guess found for: %s', arg)
                     continue
 
                 index = args.index(arg)
@@ -551,6 +570,7 @@ class ReturnExtractor:
 
     def extract(self) -> str:
         """Parse the return value from the docs if any."""
+        LOGGER.debug('    Guessing return value for: %s', self.header_obj.obj.__name__)
         if not RuntimeSettings.guess:
             return 'Any'
 
@@ -558,6 +578,7 @@ class ReturnExtractor:
         if self.header_obj.return_argument:
             return_value = self._guess_type(self.header_obj.return_argument)
             if return_value:
+                LOGGER.debug('    Guessed return value: %s', return_value)
                 return return_value
 
         # 2. search for return value inside the function signature
@@ -579,20 +600,26 @@ class ReturnExtractor:
             # clean the extra last dot
             return_value = re.sub(r'\.$', '',  return_value)
         except AttributeError:
+            LOGGER.debug('      No return value found for: %s',
+                         self.header_obj.obj.__name__)
             return 'None'
         else:
             # a list of object that should not be valid even if nuke this that are
             not_valid = ['name']
 
             if is_valid_object(return_value) and return_value not in not_valid:
+                LOGGER.debug('      Found return value: %s', return_value)
                 return return_value
 
             last_check = self._guess_type(return_value)
             if last_check:
+                LOGGER.debug('      Guessed return value: %s', last_check)
                 return last_check
 
-            unknown_type(_type='Returns',
-                         function=self.header_obj.obj.__name__, value=return_value)
+            _log_unknown_type(_type='Returns',
+                              function=self.header_obj.obj.__name__, value=return_value)
+            LOGGER.debug('      No return value found for: %s',
+                         self.header_obj.obj.__name__)
             return 'Any'
 
 
@@ -629,8 +656,9 @@ class FunctionObject:
 
     @property
     def docs_arguments(self) -> Union[Dict[str, str], None]:
-        # docs_args = re.findall(r'(?<=(?:@|:)param(?:\s|:))(?:\s?)(\w+)(?:\:|\s)(.+)', self.docs)
-        docs_args = re.findall(r'(?<=[@:]param[\s:])\s(\w+)[\s:](.+)', self.docs)
+        # docs_args = re.findall(
+        # r'(?<=(?:@|:)param(?:\s|:))(?:\s?)(\w+)(?:\:|\s)(.+)', self.docs)
+        docs_args = re.findall(r'(?<=[@:]param[\s:])\s?(\w+)[\s:](.+)', self.docs)
         return dict(docs_args) or None
 
     @property
@@ -738,10 +766,7 @@ class FnHeaderExtractor:
 
     def _unknown_header(self, err: Optional[Exception] = '') -> str:
         # most likely some dunder methods that can be safely ignored
-        log(
-            f'Failed to extract func header for {self.obj_name}. '
-            f'Fallback on object name. Traceback: {err}'
-        )
+        LOGGER.debug('    Failed to extract func header for %s. %s', self.obj_name, err)
         return self.simple_header()
 
 
@@ -847,20 +872,21 @@ def parse_modules() -> StubsData:
         obj = getattr(RuntimeSettings.module, attr)
 
         if inspect.isclass(obj):
-            log('Class:', attr)
+            LOGGER.debug('  Class: %s', attr)
             classes += f'from .{attr} import {attr}\n'
             ClassExtractor(obj).write()
 
         elif inspect.isbuiltin(obj):
-            log('Built-in method:', attr)
+            LOGGER.debug('  Built-in method: %s', attr)
             builtin += func_constructor(FunctionObject(obj, attr, False), '__init__')
 
         elif attr.isupper():
-            log('Constants:', attr)
+            LOGGER.debug('  Constant: %s - %s', attr, obj)
             constants += f'{attr} = {repr(obj)}\n'
 
         elif attr == 'env':
             constants += f"env = {repr({k: '' for k, _ in obj.items()})}"
+            LOGGER.debug('  Constant: env - %s', obj)
 
     return StubsData(builtin, constants, classes)
 
@@ -940,17 +966,17 @@ def generate_nuke_stubs():
     # Built-in methods
     {}
     """).format(stubs_data.constants, stubs_data.builtin).strip()
-    print('  Generating __init__.py')
+    LOGGER.info('  Generating __init__.py')
     with open(RuntimeSettings.path / '__init__.py', 'w') as file:
         file.write(init_file)
 
-    print('  Generating class imports.')
+    LOGGER.info('  Generating class imports.')
     with open(RuntimeSettings.path / 'classes' / '__init__.py', 'w') as file:
         file.write(stubs_data.classes)
 
 
 def generate_hiero_stubs():
-    LOGGER.info('Generate Hiero Stubs...')
+    LOGGER.info('  Generate Hiero Stubs...')
 
     def get_hiero_included_modules():
         """Copy the internal hiero module to the stubs path."""
@@ -1016,16 +1042,7 @@ def generate_hiero_stubs():
     generate_stubs(ui, 'ui', HIERO_UI_POST_FIX)
 
 
-def unknown_type(**kwargs: Any):
-    """Log unknown types."""
-    log(f'  Unknown type: {pprint.pformat(kwargs, indent=4, width=120)}')
-
-
-def log(*args: Any, **kwargs: Any):
-    LOGGER.debug(*args, **kwargs)
-
-
-def main():
+def nukestubsgen():
 
     LOGGER.info('Starting Stub Generation...')
 
@@ -1036,4 +1053,4 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    nukestubsgen()
