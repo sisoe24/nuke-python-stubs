@@ -335,7 +335,7 @@ class Sequence(SequenceBase):
     ePlayheadDisabled: Any = None
     ePlayheadInvalid: Any = None
 
-    def _addClip(self, clip, time: int | float, videoTrackIndex=0, audioTrackIndex=-1) -> list:
+    def addClip(self, clip: Clip, time: int | float, videoTrackIndex=0, audioTrackIndex=-1) -> list[core.TrackItem]:
         """
         Add a clip to a sequence, creating a TrackItem for each video/audio channel in the clip,
         adding them to the appropriate tracks and linking them together.  This has the same effect
