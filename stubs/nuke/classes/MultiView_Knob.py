@@ -45,13 +45,13 @@ class MultiView_Knob(Knob):
         """
         ...
 
-    def toScriptPrefix(self, *args, **kwargs) -> None:
+    def toScriptPrefix(self, *args: typing.Any, **kwargs: typing.Any) -> None:
         """
 
         """
         ...
 
-    def toScriptPrefixUserKnob(self, *args, **kwargs) -> None:
+    def toScriptPrefixUserKnob(self, *args: typing.Any, **kwargs: typing.Any) -> None:
         """
 
         """
