@@ -34,7 +34,7 @@ PostFixes = Dict[str, List[Dict[str, str]]]
 
 def _setup_logger():
 
-    logger = logging.getLogger(__name__ + str(random.randint(0, 100)))
+    logger = logging.getLogger(__name__ + str(random.randint(0, 100000)))
     logger.setLevel(logging.DEBUG)
     logger.propagate = False
 
@@ -92,46 +92,58 @@ def get_classes_names() -> list[str]:
 NUKE_POST_FIXES = {
     '__init__': [
         {
-            'old': 'def createNode(node:str, args:Optional[list] = None, inpanel:Optional[bool] = None) -> Node:',
+            'old': r'def createNode\(.+',
             'new': 'def createNode(node:str, args:Optional[str] = None, inpanel:Optional[bool] = None) -> Node:'
         },
         {
-            'old': "def tprint(value, sep=' ', end='\\', file=sys.stdout) -> None:",
+            'old': r'def tprint\(.+',
             'new': "def tprint(value, sep=' ', end='\\n', file=sys.stdout) -> None:"
         },
         {
-            'old': "def executeBackgroundNuke(exe_path:str, nodes:list, frameRange, views:list, limits:dict, continueOnError = False, flipbookToRun = \", flipbookOptions = {}) -> int:",
+            'old': r'def executeBackgroundNuke\(.+',
             'new': "def executeBackgroundNuke(exe_path:str, nodes:list, frameRange, views:list, limits:dict, continueOnError = False, flipbookToRun = '', flipbookOptions = {}) -> int:"
         },
         {
-            'old': 'def allNodes(filter:Optional[str] = None, group=None) -> list:',
+            'old': r'def allNodes\(.+',
             'new': 'def allNodes(filter: Optional[str] = None, group: Optional[str] = None) -> list[Node]:'
         },
         {
-            'old': 'def formats() -> list:',
+            'old': r'def formats\(.+',
             'new': 'def format() -> list[Format]:'
         },
         {
-            'old': 'def layers(node=None) -> list:',
+            'old': r'def layers\(.+',
             'new': 'def layers(node: Optional[Any] = None) -> list[str]:'
         },
         {
-            'old': 'def selectedNodes(filter:Optional[str] = None) -> list:',
+            'old': r'def selectedNodes\(.+',
             'new': 'def selectedNodes(filter:Optional[str] = None) -> list[Node]:'
         }
     ],
     'Node': [
         {
-            'old': 'def knob(self, p:int, follow_link=None):',
+            'old': r'def knob\(.+',
             'new': 'def knob(self, p:Union[str, int], follow_link=None):'
         },
         {
-            'old': 'def dependencies(self, what) -> list:',
+            'old': r'def dependencies\(.+',
             'new': 'def dependencies(self, what: Any=None) -> list[Node]:'
         },
         {
-            'old': 'def dependent(self, what, forceEvaluate:bool) -> list:',
+            'old': r'def dependent\(.+',
             'new': 'def dependent(self, what: Any=None, forceEvaluate:bool=None) -> list[Node]:'
+        },
+        {
+            'old': r'def rootNode\(.+',
+            'new': 'def rootNode(self) -> Node:'
+        },
+        {
+            'old': r'def allKnobs\(.+',
+            'new': 'def allKnobs(self) -> list[Knob]:'
+        },
+        {
+            'old': r'def knobs\(.+',
+            'new': 'def knobs(self) -> dict[str, Knob]:'
         }
     ]
 }
@@ -376,18 +388,18 @@ def is_valid_object(obj: str) -> Optional[str]:
     At first method will try to check if object is callbale, if it fails will
     try to evaluate  if is simple object.
     """
-    LOGGER.debug('    Checking object: %s', obj)
+    LOGGER.debug('      Trying to validate object: %s', obj)
     try:
         # check if return could be a callable object eg. a class
         callable(getattr(RuntimeSettings.module, obj))
     except AttributeError as err:
         # if is not then check if is a valid object
-        LOGGER.debug('      Invalid object: %s', err)
+        LOGGER.debug('        Invalid object: %s', err)
 
         try:
             eval(obj)
         except (NameError, SyntaxError) as err:
-            LOGGER.debug('      Second check (eval) failed: %s', err)
+            LOGGER.debug('        Second check (eval) failed: %s', err)
             # some returns are descriptions, so return None
             return None
 
@@ -439,6 +451,9 @@ class GuessType:
         #         return x
 
         for match_type, pattern in self.types_match.items():
+
+            LOGGER.debug('      Checking: %s', match_type)
+
             if exclude and match_type in exclude:
                 continue
 
@@ -446,10 +461,14 @@ class GuessType:
             if match:
 
                 if match_type == 'union':
+                    LOGGER.debug('      Checking union: %s', self.string)
                     return self.is_union(match)
 
                 if match_type == 'optional':
+                    LOGGER.debug('      Checking optional: %s', self.string)
                     return self.is_optional()
+
+                LOGGER.debug('       * Guessed: %s', match_type)
 
                 return match_type
 
@@ -497,12 +516,12 @@ class ArgsParser:
     def fix_args(self):
         """Fix/Clean some text from the arguments."""
         patterns: Dict[str, Union[str, Callable[[Match[str]], str]]] = {
-            r'(false|true)': lambda m: is_valid_object(m.expand(r'\1')) or 'None',
-            r'(?<==)(\w+)(?=[^\.])\b': lambda m: m.expand(r'\1').title(),
+            r'(false|true)': lambda m: m.expand(r'\1').title(),
+            r'(?<==)(\w+)(?=[^\.])\b': lambda m: is_valid_object(m.expand(r'\1')) or 'None',
             r'\.\.\.,?': '',                   # dots
             r'/,?': '',                        # positional syntax
             r'\[,(.+)\]': r',\1=None',         # optionals
-            r'(?<!\w)\[.+\]': '*args',                # list args
+            r'(?<!\w)\[.+\]': '*args',         # list args
             r'=(?=\s+,|\s+\)|,)': '=None',     # empty args
             r'\\(\w)': r'\\\\\1',              # escape chars
         }
@@ -512,16 +531,15 @@ class ArgsParser:
 
     def guess_data_type(self):
         """Guessed data type of arguments inside function."""
-        LOGGER.debug('    Guessing type for arguments: %s', self.fn_header)
+        LOGGER.debug('    Guessing type for header: %s', self.fn_header)
         try:
             args = self._extract_args()
-            LOGGER.debug('      Found: %s', args)
-        except AttributeError:
-            pass
+            LOGGER.debug('      Args found: %s', args)
+        except AttributeError as err:
+            LOGGER.debug('      No args found: %s', err)
         else:
             guessed_args = self._guess_args(args)
             if guessed_args:
-                LOGGER.debug('      Guessed: %s', guessed_args)
                 return self.args_regex.sub(guessed_args, self.fn_header)
 
         LOGGER.debug('      Cannot guess.')
@@ -558,13 +576,14 @@ class ArgsParser:
         for arg in args:
             LOGGER.debug('    Guessing for: %s', arg)
             if arg in docs_args:
+                LOGGER.debug('      Parsing doc: %s', docs_args[arg])
 
                 guessed_type = GuessType(docs_args[arg]).auto_guess()
 
                 if not guessed_type:
                     _log_unknown_type(_type='Args', args=self._extract_args(),
                                       arg=arg, value=docs_args[arg])
-                    LOGGER.debug('    No guess found for: %s', arg)
+                    LOGGER.debug('      No guess found for: %s', arg)
                     continue
 
                 index = args.index(arg)
@@ -572,6 +591,11 @@ class ArgsParser:
 
                 # remove and replace the argument with the guessed one
                 args.insert(index, f'{args.pop(index)}{arg}')
+
+                LOGGER.debug('      Guessed types: %s', args)
+                continue
+
+            LOGGER.debug('      No guess found for: %s', arg)
 
         return ', '.join(args)
 
@@ -592,6 +616,11 @@ class ReturnExtractor:
 
         # 1. search for the return argument inside the docs
         if self.header_obj.return_argument:
+
+            # if is_valid_object(self.header_obj.return_argument):
+            #     LOGGER.debug('      Found return value: %s', return_value)
+            #     return self.header_obj.return_argument
+
             return_value = self._guess_type(self.header_obj.return_argument)
             if return_value:
                 LOGGER.debug('    Guessed return value: %s', return_value)
@@ -672,8 +701,6 @@ class FunctionObject:
 
     @property
     def docs_arguments(self) -> Union[Dict[str, str], None]:
-        # docs_args = re.findall(
-        # r'(?<=(?:@|:)param(?:\s|:))(?:\s?)(\w+)(?:\:|\s)(.+)', self.docs)
         docs_args = re.findall(r'(?<=[@:]param[\s:])\s?(\w+)[\s:](.+)', self.docs)
         return dict(docs_args) or None
 
@@ -692,6 +719,7 @@ class FunctionObject:
         args_parser.fix_args()
 
         guessing_header = args_parser.guess_data_type()
+        LOGGER.debug('    Guessing header: %s', guessing_header)
         if re.search(r'\):', guessing_header):
             guessing_header = guessing_header.replace('):', f') -> {self.return_}:')
 
@@ -957,10 +985,19 @@ def generate_nuke_stubs():
         fix_init()
         fix_nukescripts()
 
+    imports_header = dedent('''
+    """Stubs generated automatically from Nuke's internal interpreter."""
+    import nuke
+    import typing
+    import PySide2
+    from typing import *
+    from PySide2.QtWidgets import *
+    ''').strip()
+
     RuntimeSettings(
         module=nuke,
         path=STUBS_PATH / 'nuke',
-        class_imports_header='import nuke',
+        class_imports_header=imports_header,
         post_fixes=NUKE_POST_FIXES
     )
     get_nuke_included_modules()
@@ -969,7 +1006,6 @@ def generate_nuke_stubs():
 
     init_file = dedent("""
     '''Stubs generated automatically from Nuke's internal interpreter.'''
-    from numbers import Number
     import typing
     from typing import *
 
@@ -982,6 +1018,7 @@ def generate_nuke_stubs():
     # Built-in methods
     {}
     """).format(stubs_data.constants, stubs_data.builtin).strip()
+
     LOGGER.info('  Generating __init__.py')
     with open(RuntimeSettings.path / '__init__.py', 'w') as file:
         file.write(init_file)
@@ -1062,8 +1099,8 @@ def nukestubsgen():
 
     LOGGER.info('Starting Stub Generation...')
 
-    # generate_nuke_stubs()
-    generate_hiero_stubs()
+    generate_nuke_stubs()
+    # generate_hiero_stubs()
     global_post_fixes()
 
     LOGGER.info(f'Generation completed: "{STUBS_PATH}"')
