@@ -10,6 +10,7 @@ A quick and dirty script to create Nuke Python file stubs to support auto-comple
   - [1.3. Type guess](#13-type-guess)
   - [1.4. Contributing](#14-contributing)
   - [1.5. Acknowledgment](#15-acknowledgment)
+  - [1.6 TODO](#16-todo)
   - [1.6. Screenshot](#16-screenshot)
 
 ## 1.1. Description
@@ -42,16 +43,15 @@ Alternatively, you can use Visual Studio Code [NukeTools](https://marketplace.vi
 
 The script tries to guess the data type by parsing the function signature/documentation. This method is not 100% precise, and some types are unknown or wrong.
 
-- The type `Any` means **it could be any we don't know** and not: **any type is valid**.
-- The type  `int|float` means **it could be a float or an int we don't know** and not: **any number type is valid**.
-
-> If arguments do not have any type annotation, it probably means that it was not possible to parse the function documentation.
+- The type `Any` means it could be any we don't know and not any type is valid.
+- The type  `int|float` means it could be a float or an int we don't know and not any number type is valid.
+- No types means that is not possible to guess the type.
 
 The wrong types are likely due to the parser identifying valid keywords inside the documentation, which uses them to make a guess.
 
 Example:
 
-In the string: `-> switch to next view in settings Views list`, the parser will identify `list` as a match.
+In the return value from the docs: `-> switch to next view in settings Views list`, the parser will wrongly guess the type as `list` instead of `list[View]`.
 
 > You can also disable the guess filter by setting `StubsRuntimeSettings.guess` to `False`.
 
@@ -68,6 +68,10 @@ For convenience, place the repo inside `~/.nuke` since the stubs are created ins
 ## 1.5. Acknowledgment
 
 Pycharm Stub generator inspired the creation of this script.
+
+## 1.6 TODO
+
+- [ ] Make pre-commit on a pull request.
 
 ## 1.6. Screenshot
 
