@@ -876,7 +876,7 @@ def error(message: str) -> None:
     ...
 
 
-def execute(nameOrNode: str, start: Optional[int] = None, end: Optional[int] = None, incr: Optional[int] = None, views: Optional[list] = None, continueOnError=False) -> None:
+def execute(nameOrNode: Node | str, start: Optional[int] = None, end: Optional[int] = None, incr: Optional[int] = None, views: Optional[list[View]] = None, continueOnError=False) -> None:
     """
     execute(nameOrNode, start, end, incr, views, continueOnError = False) -> None.
     execute(nameOrNode, frameRangeSet, views, continueOnError = False) -> None.\n
@@ -904,7 +904,7 @@ def execute(nameOrNode: str, start: Optional[int] = None, end: Optional[int] = N
     ...
 
 
-def executeBackgroundNuke(exe_path: str, nodes: list, frameRange, views: list, limits: dict, continueOnError=False, flipbookToRun='', flipbookOptions={}) -> int:
+def executeBackgroundNuke(exe_path: str, nodes: list[Node], frameRange: list, views: list[View], limits: dict, continueOnError=False, flipbookToRun: str = '', flipbookOptions: dict = {}) -> int:
     """
     executeBackgroundNuke(exe_path, nodes, frameRange, views, limits, continueOnError = False, flipbookToRun = ", flipbookOptions = {}) -> None
 
@@ -922,7 +922,7 @@ def executeBackgroundNuke(exe_path: str, nodes: list, frameRange, views: list, l
     ...
 
 
-def executeMultiple(nodes: list, ranges: Optional[int] = None, views: Optional[list] = None, continueOnError=False) -> None:
+def executeMultiple(nodes: list[Node], ranges: Optional[int] = None, views: Optional[list[View]] = None, continueOnError=False) -> None:
     """
     executeMultiple(nodes, ranges, views, continueOnError=False) -> None
 
@@ -2030,7 +2030,7 @@ def removeFavoriteDir(name: str, type: Optional[str] = None) -> None:
     ...
 
 
-def execute(nameOrNode: str, start: Optional[int] = None, end: Optional[int] = None, incr: Optional[int] = None, views: Optional[list] = None, continueOnError=False) -> None:
+def execute(nameOrNode: Node | str, start: Optional[int] = None, end: Optional[int] = None, incr: Optional[int] = None, views: Optional[list[View]] = None, continueOnError=False) -> None:
     """
     execute(nameOrNode, start, end, incr, views, continueOnError = False) -> None.
     execute(nameOrNode, frameRangeSet, views, continueOnError = False) -> None.\n
