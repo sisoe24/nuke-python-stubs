@@ -7,6 +7,7 @@ from typing import *
 
 import ui
 import core
+import nuke
 import _nuke
 import hiero
 import PySide2
