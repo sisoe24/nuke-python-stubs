@@ -354,6 +354,10 @@ GLOBAL_POST_FIXES = [
         'old': r'\(Object\):',
         'new': ':',
     },
+    {
+        'old': r'(->|:)\s?((?:core|ui)\.[^,):]+)',  # -> core.Sequence or : core.Sequence
+        'new': r'\1hiero.\2',
+    }
 ]
 
 
