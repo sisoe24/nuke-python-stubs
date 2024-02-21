@@ -4,14 +4,17 @@ version = "0.3.0"
 description = "Create Nuke Python Stubs"
 authors = ["virgilsisoe <sisoe24@gmail.com>"]
 
+[tool.poetry.group.dev.dependencies]
+pre-commit = "^3.6.2"
+
 [tool.isort]
 length_sort = true
 
 [tool.autopep8]
-max_line_length = 90
+max_line_length = 100
 
 [tool.poetry.dependencies]
-python = "~3.7"
+python = "~3.10"
 
 [tool.poetry.dev-dependencies]
 
