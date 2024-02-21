@@ -4,6 +4,7 @@ from typing import *
 
 import ui
 import core
+import nuke
 import hiero
 import PySide2
 from PySide2.QtCore import Signal
@@ -214,7 +215,7 @@ class Clip(SequenceBase):
         """
         ...
 
-    def readNode(self) -> object:
+    def readNode(self) -> nuke.Node:
         """
         self.readNode() -> returns the Read node representing the Clip's media
 

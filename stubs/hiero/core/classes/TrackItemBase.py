@@ -201,7 +201,7 @@ class TrackItemBase:
         """
         ...
 
-    def project(self) -> object:
+    def project(self) -> hiero.core.Project:
         """
         self.project() -> returns the Project object that this is attached to, or None if the object is not attached to a project.
 

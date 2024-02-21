@@ -385,7 +385,7 @@ class TrackItem(TrackItemBase):
         """
         ...
 
-    def source(self) -> Clip | Sequence | MediaSource:
+    def source(self) -> Clip:
         """
         self.source() -> depending on the underlying type of the track item, returns a hiero.core.Clip object, a hiero.core.Sequence object or a hiero.core.MediaSource object.
 
