@@ -44,7 +44,7 @@ class IExporterRegistry:
         """
         ...
 
-    def assignPresetToProject(self, preset: core.ITaskPreset, project: core.Project) -> None:
+    def assignPresetToProject(self, preset: hiero.core.ITaskPreset, project: hiero.core.Project) -> None:
         """
         self.assignPresetToProject(hiero.core.TaskPreset, hiero.core.Project) -> Called by the C++ application to assign a TaskPreset to .
         a null hiero.core.Project will remove the project assignment and revernt the preset to local ownership.
@@ -54,7 +54,7 @@ class IExporterRegistry:
         """
         ...
 
-    def copyAndAddProcessorPreset(self, preset: core.ITaskPreset) -> hiero.core.ITaskPreset:
+    def copyAndAddProcessorPreset(self, preset: hiero.core.ITaskPreset) -> hiero.core.ITaskPreset:
         """
         self.copyAndAddProcessorPreset() -> Called by the C++ application to duplicate a preset.
 
@@ -63,7 +63,7 @@ class IExporterRegistry:
         """
         ...
 
-    def copyAndAddProjectPreset(self, preset: core.ITaskPreset, project: core.Project) -> hiero.core.ITaskPreset:
+    def copyAndAddProjectPreset(self, preset: hiero.core.ITaskPreset, project: hiero.core.Project) -> hiero.core.ITaskPreset:
         """
         copyAndAddProjectPreset() -> Called by the C++ application to duplicate a preset and assign it to a new project.
 
@@ -73,7 +73,7 @@ class IExporterRegistry:
         """
         ...
 
-    def createAndAddProcessorPreset(self, preset: str, typetemplate: core.ITaskPreset) -> hiero.core.ITaskPreset:
+    def createAndAddProcessorPreset(self, preset: str, typetemplate: hiero.core.ITaskPreset) -> hiero.core.ITaskPreset:
         """
         self.createAndAddProcessorPreset(string, hiero.core.TaskPreset) -> Called by the C++ application to create a new preset, using typetemplate as a template.
 
@@ -82,7 +82,7 @@ class IExporterRegistry:
         """
         ...
 
-    def createAndExecuteProcessor(self, preset: core.ITaskPreset, items: typing.List[core.ItemWrapper], submissionName: str) -> None:
+    def createAndExecuteProcessor(self, preset: hiero.core.ITaskPreset, items: typing.List[core.ItemWrapper], submissionName: str) -> None:
         """
         self.createAndExecuteProcessor(hiero.core.TaskPreset, [hiero.core.ItemWrapper], string) -> Called by the C++ application to instantiate the Processor associated with specified preset and execute on the selected items.
 
@@ -92,7 +92,7 @@ class IExporterRegistry:
         """
         ...
 
-    def discardPresetChanges(self, project: core.Project) -> None:
+    def discardPresetChanges(self, project: hiero.core.Project) -> None:
         """
         self.startPresetChanges(hiero.core.Project) -> Discard any changes to the presets since startPresetChanges() was called.
 
@@ -124,7 +124,7 @@ class IExporterRegistry:
         """
         ...
 
-    def nukeShotExportPresets(self, project: core.Project) -> typing.List[core.ITaskPreset]:
+    def nukeShotExportPresets(self, project: hiero.core.Project) -> typing.List[core.ITaskPreset]:
         """
         self.nukeShotExportPresets(hiero.core.Project) -> Get a list of presets which are contain Nuke shot exports.
 
@@ -141,7 +141,7 @@ class IExporterRegistry:
         """
         ...
 
-    def presetToPrettyXml(self, preset: core.ITaskPreset) -> str:
+    def presetToPrettyXml(self, preset: hiero.core.ITaskPreset) -> str:
         """
         self.presetToPrettyXml(hiero.core.TaskPreset) -> Called by the C++ application to ask the TaskRegistry to serialize a Task preset to human friendly formatted xml.
 
@@ -150,7 +150,7 @@ class IExporterRegistry:
         """
         ...
 
-    def presetToXml(self, preset: core.ITaskPreset) -> str:
+    def presetToXml(self, preset: hiero.core.ITaskPreset) -> str:
         """
         self.presetToXml(hiero.core.TaskPreset) -> Called by the C++ application to ask the TaskRegistry to serialize a Task preset to xml.
 
@@ -165,7 +165,7 @@ class IExporterRegistry:
         """
         ...
 
-    def projectDuplicated(self, project: core.Project, newProject: core.Project) -> None:
+    def projectDuplicated(self, project: hiero.core.Project, newProject: hiero.core.Project) -> None:
         """
         projectDuplicated(hiero.core.Project, hiero.core.Project) -> Called by the C++ application to notify the TaskRegistry that a project has been duplicated and its associated Presets should be duplicated and assigned to the new project.
 
@@ -174,7 +174,7 @@ class IExporterRegistry:
         """
         ...
 
-    def projectExportHistoryXml(self, project: core.Project) -> typing.List[str]:
+    def projectExportHistoryXml(self, project: hiero.core.Project) -> typing.List[str]:
         """
         self.projectExportHistoryXml(hiero.core.Project) -> Returns a list of XML fragments containing the project export history.
 
@@ -183,7 +183,7 @@ class IExporterRegistry:
         """
         ...
 
-    def projectPresets(self, project: core.Project) -> typing.List[core.ITaskPreset]:
+    def projectPresets(self, project: hiero.core.Project) -> typing.List[core.ITaskPreset]:
         """
         self.projectPresets(hiero.core.Project) -> Returns a list of project presets assigned to the specified Project.
 
@@ -192,7 +192,7 @@ class IExporterRegistry:
         """
         ...
 
-    def projectPresetsChanged(self, project: core.Project) -> bool:
+    def projectPresetsChanged(self, project: hiero.core.Project) -> bool:
         """
         self.projectPresetsChanged(hiero.core.Project) -> Called by the C++ application to check whether project presets have changed since project last save.
 
@@ -200,7 +200,7 @@ class IExporterRegistry:
         """
         ...
 
-    def projectUnloaded(self, project: core.Project) -> None:
+    def projectUnloaded(self, project: hiero.core.Project) -> None:
         """
         self.projectUnloaded(hiero.core.Project) -> Called by the C++ application to notify the TaskRegistry that a project has been unloaded and its associated Presets should be released.
 
@@ -214,7 +214,7 @@ class IExporterRegistry:
         """
         ...
 
-    def removeProcessorPreset(self, preset: core.ITaskPreset) -> None:
+    def removeProcessorPreset(self, preset: hiero.core.ITaskPreset) -> None:
         """
         self.removeProcessorPreset(hiero.core.TaskPreset) -> Called by the C++ application to remove a preset from the registry.
 
@@ -222,7 +222,7 @@ class IExporterRegistry:
         """
         ...
 
-    def renameProcessorPreset(self, preset: core.ITaskPreset, newname: str) -> None:
+    def renameProcessorPreset(self, preset: hiero.core.ITaskPreset, newname: str) -> None:
         """
         self.renameProcessorPreset(hiero.core.TaskPreset, string) -> Called by the C++ application to rename a preset in the registry.
 
@@ -230,7 +230,7 @@ class IExporterRegistry:
         """
         ...
 
-    def restoreProjectExportHistoryXml(self, project: core.Project, history: typing.List[str]) -> None:
+    def restoreProjectExportHistoryXml(self, project: hiero.core.Project, history: typing.List[str]) -> None:
         """
         self.restoreProjectExportHistoryXml(hiero.core.Project, list) -> Restore the export history for a project.
 
@@ -255,7 +255,7 @@ class IExporterRegistry:
         """
         ...
 
-    def startPresetChanges(self, project: core.Project) -> None:
+    def startPresetChanges(self, project: hiero.core.Project) -> None:
         """
         self.startPresetChanges(hiero.core.Project) -> Called when the user might start editing the presets, so the changes can be reverted if necessary.
 
@@ -279,7 +279,7 @@ class IExporterRegistry:
         """
         ...
 
-    def validateExport(self, preset: core.ITaskPreset, items: typing.List[core.ItemWrapper]) -> str:
+    def validateExport(self, preset: hiero.core.ITaskPreset, items: typing.List[core.ItemWrapper]) -> str:
         """
         self.validateExport(hiero.core.TaskPreset, [hiero.core.ItemWrapper]) -> Called by the C++ application to determinate if preset and selected items have valid resolution according the application mode.
         A warning message will be shown in case of any invalid output resolution.

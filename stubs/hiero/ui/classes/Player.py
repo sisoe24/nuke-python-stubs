@@ -143,7 +143,7 @@ class Player:
         """
         ...
 
-    def setChannels(self, channels: ui.Player.Channels) -> None:
+    def setChannels(self, channels: hiero.ui.Player.Channels) -> None:
         """
         self.setChannels(channels) -> sets the channels to display in the player. It's currently either one of the channels or red, green and blue.
 
@@ -199,7 +199,7 @@ class Player:
         """
         ...
 
-    def setMaskOverlayStyle(self, maskOverlayStyle: ui.Player.MaskOverlayStyle) -> None:
+    def setMaskOverlayStyle(self, maskOverlayStyle: hiero.ui.Player.MaskOverlayStyle) -> None:
         """
         self.setMaskOverlayStyle(style) -> sets the drawing style of the mask overlay.
 
@@ -207,7 +207,7 @@ class Player:
         """
         ...
 
-    def setProxyResolution(self, resolution: ui.Player.ProxyResolution) -> None:
+    def setProxyResolution(self, resolution: hiero.ui.Player.ProxyResolution) -> None:
         """
         self.setProxyResolution(resolution) -> set the player proxy resolution.
 
@@ -215,13 +215,13 @@ class Player:
         """
         ...
 
-    def setSequence(self, sequence: core.SequenceBase) -> None:
+    def setSequence(self, sequence: hiero.core.SequenceBase) -> None:
         """
         self.setSequence(clip) -> deprecated; use Viewer.setSequence instead
         """
         ...
 
-    def setWarningOverlay(self, warningOverlay: ui.Player.WarningOverlay) -> None:
+    def setWarningOverlay(self, warningOverlay: hiero.ui.Player.WarningOverlay) -> None:
         """
         self.setWarningOverlay(warningOverlay) -> sets the warning overlay.
 
@@ -229,7 +229,7 @@ class Player:
         """
         ...
 
-    def setZoomMode(self, mode: ui.Player.ZoomMode) -> None:
+    def setZoomMode(self, mode: hiero.ui.Player.ZoomMode) -> None:
         """
         self.setZoomMode(mode) -> Change the current zoom mode. Use zoomAbsolute or zoomRelative for eZoomFixed instead of this method.
 

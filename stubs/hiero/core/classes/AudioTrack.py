@@ -66,7 +66,7 @@ class AudioTrack(TrackBase):
         """
         ...
 
-    def addTag(self, tag: core.Tag) -> hiero.core.Tag:
+    def addTag(self, tag: hiero.core.Tag) -> hiero.core.Tag:
         """
         self.addTag(tag) -> adds a tag to the audio track item.
 
@@ -133,7 +133,7 @@ class AudioTrack(TrackBase):
         """
         ...
 
-    def removeTag(self, tag: core.Tag) -> None:
+    def removeTag(self, tag: hiero.core.Tag) -> None:
         """
         self.removeTag(tag) -> removes the tag from the audio track.
 

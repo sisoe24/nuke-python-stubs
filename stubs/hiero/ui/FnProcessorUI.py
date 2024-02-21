@@ -272,9 +272,9 @@ class ProcessorUIBase(IProcessorUI):
         self._editMode = IProcessorUI.ReadOnly if self._preset.readOnly() else IProcessorUI.Full
 
         # The same enums are declared in 2 classes.  They should have the same values but to be sure, map between them
-        editModeMap = {IProcessorUI.ReadOnly: ui.ExportStructureViewer.ReadOnly,
-                       IProcessorUI.Limited: ui.ExportStructureViewer.Limited,
-                       IProcessorUI.Full: ui.ExportStructureViewer.Full}
+        editModeMap = {IProcessorUI.ReadOnly: hiero.ui.ExportStructureViewer.ReadOnly,
+                       IProcessorUI.Limited: hiero.ui.ExportStructureViewer.Limited,
+                       IProcessorUI.Full: hiero.ui.ExportStructureViewer.Full}
 
         structureViewerMode = editModeMap[self._editMode]
 

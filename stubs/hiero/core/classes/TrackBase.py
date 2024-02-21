@@ -95,7 +95,7 @@ class TrackBase:
         """
         ...
 
-    def addItem(self, trackItem: core.TrackItem) -> hiero.core.TrackItem:
+    def addItem(self, trackItem: hiero.core.TrackItem) -> hiero.core.TrackItem:
         """
         self.addItem(item) -> deprecated; use addTrackItem instead. Adds a track item to this track. Throws an exception if the item overlaps any existing items on the track.
 
@@ -104,7 +104,7 @@ class TrackBase:
         """
         ...
 
-    def addTag(self, tag: core.Tag) -> hiero.core.Tag:
+    def addTag(self, tag: hiero.core.Tag) -> hiero.core.Tag:
         """
         self.addTag(tag) -> adds the specified tag to the Track.
 
@@ -113,7 +113,7 @@ class TrackBase:
         """
         ...
 
-    def addTransition(self, transition: core.Transition) -> hiero.core.Transition:
+    def addTransition(self, transition: hiero.core.Transition) -> hiero.core.Transition:
         """
         self.addTransition(transition) -> adds a transition to the timeline for the track.  Can only be called when the track has been added to a Sequence.
 
@@ -213,7 +213,7 @@ class TrackBase:
         """
         ...
 
-    def removeItem(self, trackItem: core.TrackItem, option: int = 'eRemoveLinkedItems') -> None:
+    def removeItem(self, trackItem: hiero.core.TrackItem, option: int = 'eRemoveLinkedItems') -> None:
         """
         self.removeItem(trackItem, option=eRemoveLinkedItems) -> removes a track item from this track.
 
@@ -222,7 +222,7 @@ class TrackBase:
         """
         ...
 
-    def removeTag(self, tag: core.Tag) -> None:
+    def removeTag(self, tag: hiero.core.Tag) -> None:
         """
         self.removeTag(tag) -> removes the tag from the track.
 
@@ -230,7 +230,7 @@ class TrackBase:
         """
         ...
 
-    def removeTransition(self, transition: core.Transition) -> None:
+    def removeTransition(self, transition: hiero.core.Transition) -> None:
         """
         self.removeTransition(transition) -> removes a transition from the timeline of this track.
 

@@ -440,7 +440,7 @@ class Project:
         """
         ...
 
-    def setFramerate(self, framerate: core.TimeBase) -> None:
+    def setFramerate(self, framerate: hiero.core.TimeBase) -> None:
         """
         setFramerate(TimeBase) -> sets project's default framerate for new sequences.This will persist when the application is restarted
 
@@ -492,7 +492,7 @@ class Project:
         """
         ...
 
-    def setPosterFrameSettings(self, mode: core.Project.PosterFrameSetting, customFrame: int = 0) -> None:
+    def setPosterFrameSettings(self, mode: hiero.core.Project.PosterFrameSetting, customFrame: int = 0) -> None:
         """
         setPosterFrameSettings() -> Set the poster frame settings used for clips added to the project.
         @param setting: the mode for setting poster frames
@@ -530,7 +530,7 @@ class Project:
         """
         ...
 
-    def setTimeDisplayFormat(self, displayType: core.Timecode.DisplayType) -> None:
+    def setTimeDisplayFormat(self, displayType: hiero.core.Timecode.DisplayType) -> None:
         """
         setTimeDisplayFormat() -> sets project's default displayType for new sequences.  This will persist when the application is restarted
 

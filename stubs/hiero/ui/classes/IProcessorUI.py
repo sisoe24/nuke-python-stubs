@@ -84,7 +84,7 @@ class IProcessorUI:
         """
         ...
 
-    def setPreset(self, preset: core.ITaskPreset) -> None:
+    def setPreset(self, preset: hiero.core.ITaskPreset) -> None:
         """
         self.setPreset() -> called by Hiero to set the TaskPreset which this TaskUI will reflect.
 

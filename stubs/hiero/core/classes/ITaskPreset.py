@@ -106,7 +106,7 @@ class ITaskPreset:
         """
         ...
 
-    def setProject(self, project: core.Project) -> None:
+    def setProject(self, project: hiero.core.Project) -> None:
         """
         self.setProject() -> called by Hiero to assign a preset to a Project.
         """

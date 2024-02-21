@@ -187,8 +187,8 @@ class SequenceAutoDiskCacheMode(object):
         """
         ...
 
-    values = {'eUnknown': core.SequenceAutoDiskCacheMode.eUnknown, 'eManual': core.SequenceAutoDiskCacheMode.eManual,
-              'eAuto': core.SequenceAutoDiskCacheMode.eAuto, 'eDefault': core.SequenceAutoDiskCacheMode.eDefault}
+    values = {'eUnknown': hiero.core.SequenceAutoDiskCacheMode.eUnknown, 'eManual': hiero.core.SequenceAutoDiskCacheMode.eManual,
+              'eAuto': hiero.core.SequenceAutoDiskCacheMode.eAuto, 'eDefault': hiero.core.SequenceAutoDiskCacheMode.eDefault}
     eUnknown: Any = None
     eManual: Any = None
     eAuto: Any = None

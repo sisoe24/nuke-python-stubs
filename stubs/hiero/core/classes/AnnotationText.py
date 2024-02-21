@@ -130,7 +130,7 @@ class AnnotationText(AnnotationElement):
         """
         ...
 
-    def setHorizontalJustification(self, justify: core.AnnotationText.HorizontalJustification) -> None:
+    def setHorizontalJustification(self, justify: hiero.core.AnnotationText.HorizontalJustification) -> None:
         """
         self.setHorizontalJustification -> None
 
@@ -160,7 +160,7 @@ class AnnotationText(AnnotationElement):
         """
         ...
 
-    def setVerticalJustification(self, justify: core.AnnotationText.VerticalJustification) -> None:
+    def setVerticalJustification(self, justify: hiero.core.AnnotationText.VerticalJustification) -> None:
         """
         self.setVerticalJustification -> None
 

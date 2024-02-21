@@ -47,7 +47,7 @@ class FlipbookManager:
         """
         ...
 
-    def createSequence(self, frameRate: core.TimeBase, outputFormat: core.Format, views: typing.List[str]) -> hiero.core.Sequence:
+    def createSequence(self, frameRate: hiero.core.TimeBase, outputFormat: hiero.core.Format, views: typing.List[str]) -> hiero.core.Sequence:
         """
         self.createSequence(framerate, outputformat) -> creates and returns a flipbook sequence with the defined framerate and ouput formar.
 

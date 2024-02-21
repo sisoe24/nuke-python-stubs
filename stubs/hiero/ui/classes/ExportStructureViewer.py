@@ -132,7 +132,7 @@ class ExportStructureViewer(QWidget):
         """
         ...
 
-    def refreshContentField(self, element: core.IExportStructureElement) -> None:
+    def refreshContentField(self, element: hiero.core.IExportStructureElement) -> None:
         """
 
         """
@@ -180,19 +180,19 @@ class ExportStructureViewer(QWidget):
         """
         ...
 
-    def setExportStructure(self, exportStructure: core.IExportStructure) -> None:
+    def setExportStructure(self, exportStructure: hiero.core.IExportStructure) -> None:
         """
 
         """
         ...
 
-    def setItemTypes(self, types: core.ITaskPreset.ItemTypes) -> None:
+    def setItemTypes(self, types: hiero.core.ITaskPreset.ItemTypes) -> None:
         """
 
         """
         ...
 
-    def setProject(self, project: core.Project) -> None:
+    def setProject(self, project: hiero.core.Project) -> None:
         """
 
         """

@@ -66,7 +66,7 @@ class VideoTrack(TrackBase):
         """
         ...
 
-    def addSubTrackItem(self, subTrackItem: core.SubTrackItem, subTrackIndex: int) -> hiero.core.SubTrackItem:
+    def addSubTrackItem(self, subTrackItem: hiero.core.SubTrackItem, subTrackIndex: int) -> hiero.core.SubTrackItem:
         """
         self.addSubTrackItem(subTrackItem, subTrackIndex) -> Add a subtrack item to the track on the given sub-track index.
         This method will cut or delete sub-track items that overlap with the one being added.
@@ -77,7 +77,7 @@ class VideoTrack(TrackBase):
         """
         ...
 
-    def addTag(self, tag: core.Tag) -> hiero.core.Tag:
+    def addTag(self, tag: hiero.core.Tag) -> hiero.core.Tag:
         """
         self.addTag(tag) -> adds a tag to the video track item.
 
@@ -166,7 +166,7 @@ class VideoTrack(TrackBase):
         """
         ...
 
-    def removeSubTrackItem(self, subTrackItem: core.SubTrackItem, option: int = 'eRemoveLinkedItems') -> None:
+    def removeSubTrackItem(self, subTrackItem: hiero.core.SubTrackItem, option: int = 'eRemoveLinkedItems') -> None:
         """
         self.removeSubTrackItem(subTrackItem, option=eRemoveLinkedItems) -> removes a sub-track item from this track.
 
@@ -175,7 +175,7 @@ class VideoTrack(TrackBase):
         """
         ...
 
-    def removeTag(self, tag: core.Tag) -> None:
+    def removeTag(self, tag: hiero.core.Tag) -> None:
         """
         self.removeTag(tag) -> removes the tag from the video track.
 

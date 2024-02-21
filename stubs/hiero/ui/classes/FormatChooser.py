@@ -48,13 +48,13 @@ class FormatChooser(QComboBox):
         """
         ...
 
-    def setCurrentFormat(self, arg__1: core.Format) -> None:
+    def setCurrentFormat(self, arg__1: hiero.core.Format) -> None:
         """
 
         """
         ...
 
-    def setProject(self, arg__1: core.Project) -> None:
+    def setProject(self, arg__1: hiero.core.Project) -> None:
         """
 
         """

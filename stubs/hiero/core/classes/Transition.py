@@ -62,7 +62,7 @@ class Transition(TrackItemBase):
         """
         ...
 
-    def createAudioCrossfadeTransition(self, item1: core.TrackItem, item2: core.TrackItem, duration1: int, duration2: int) -> hiero.core.Transition:
+    def createAudioCrossfadeTransition(self, item1: hiero.core.TrackItem, item2: hiero.core.TrackItem, duration1: int, duration2: int) -> hiero.core.Transition:
         """
         staticmethod(function) -> method
 
@@ -85,7 +85,7 @@ class Transition(TrackItemBase):
         """
         ...
 
-    def createAudioFadeInTransition(self, item: core.TrackItem, duration: int) -> hiero.core.Transition:
+    def createAudioFadeInTransition(self, item: hiero.core.TrackItem, duration: int) -> hiero.core.Transition:
         """
         staticmethod(function) -> method
 
@@ -108,7 +108,7 @@ class Transition(TrackItemBase):
         """
         ...
 
-    def createAudioFadeOutTransition(self, item: core.TrackItem, duration: int) -> hiero.core.Transition:
+    def createAudioFadeOutTransition(self, item: hiero.core.TrackItem, duration: int) -> hiero.core.Transition:
         """
         staticmethod(function) -> method
 
@@ -131,7 +131,7 @@ class Transition(TrackItemBase):
         """
         ...
 
-    def createDissolveTransition(self, item1: core.TrackItem, item2: core.TrackItem, duration1: int, duration2: int) -> hiero.core.Transition:
+    def createDissolveTransition(self, item1: hiero.core.TrackItem, item2: hiero.core.TrackItem, duration1: int, duration2: int) -> hiero.core.Transition:
         """
         staticmethod(function) -> method
 
@@ -154,7 +154,7 @@ class Transition(TrackItemBase):
         """
         ...
 
-    def createFadeInTransition(self, item: core.TrackItem, duration: int) -> hiero.core.Transition:
+    def createFadeInTransition(self, item: hiero.core.TrackItem, duration: int) -> hiero.core.Transition:
         """
         staticmethod(function) -> method
 
@@ -177,7 +177,7 @@ class Transition(TrackItemBase):
         """
         ...
 
-    def createFadeOutTransition(self, item: core.TrackItem, duration: int) -> hiero.core.Transition:
+    def createFadeOutTransition(self, item: hiero.core.TrackItem, duration: int) -> hiero.core.Transition:
         """
         staticmethod(function) -> method
 
@@ -246,7 +246,7 @@ class Transition(TrackItemBase):
         """
         ...
 
-    def setAlignment(self, alignment: core.Transition.Alignments) -> None:
+    def setAlignment(self, alignment: hiero.core.Transition.Alignments) -> None:
         """
         self.setAlignment(alignment) -> sets the alignment mode on this transition.
 

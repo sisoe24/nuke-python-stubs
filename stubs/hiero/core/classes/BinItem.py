@@ -123,7 +123,7 @@ class BinItem:
         """
         ...
 
-    def addVersion(self, version: core.Version, position: int = -1) -> hiero.core.Version:
+    def addVersion(self, version: hiero.core.Version, position: int = -1) -> hiero.core.Version:
         """
         self.addVersion(version) -> adds the version parameter to the bin item.
 
@@ -200,7 +200,7 @@ class BinItem:
         """
         ...
 
-    def isClipVersion(self, clip: core.Clip) -> bool:
+    def isClipVersion(self, clip: hiero.core.Clip) -> bool:
         """
         self.isClipVersion(index) -> checks if a given clip belongs to this BinItem as a version.
 
@@ -297,7 +297,7 @@ class BinItem:
         """
         ...
 
-    def removeVersion(self, version: core.Version) -> None:
+    def removeVersion(self, version: hiero.core.Version) -> None:
         """
         self.removeVersion(version) -> remove a version from the BinItem. The version must not currently be in use in the project.
 
@@ -319,7 +319,7 @@ class BinItem:
         """
         ...
 
-    def setActiveVersion(self, version: core.Version) -> hiero.core.Version:
+    def setActiveVersion(self, version: hiero.core.Version) -> hiero.core.Version:
         """
         self.setActiveVersion(version) -> sets the active version to the version parameter.
         @return: hiero.core.Version object

@@ -74,7 +74,7 @@ class TimeBase:
         """
         ...
 
-    def convert(self, t: int, from_: core.TimeBase, to: core.TimeBase) -> int:
+    def convert(self, t: int, from_: hiero.core.TimeBase, to: hiero.core.TimeBase) -> int:
         """
         staticmethod(function) -> method
 
@@ -97,7 +97,7 @@ class TimeBase:
         """
         ...
 
-    def convertTime(self, t: int, toRate: core.TimeBase) -> int:
+    def convertTime(self, t: int, toRate: hiero.core.TimeBase) -> int:
         """
         self.convertTime(t, toRate) -> returns the time specified by the first parameter converted from this object's time base into the second parameter's time base.
         If either of the time bases is invalid, this method returns the t parameter unchanged.

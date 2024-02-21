@@ -36,7 +36,7 @@ class ViewerWipeTool(ViewerTool):
         """
         ...
 
-    def setWipeToolState(self, wipeToolState: ui.WipeToolState) -> None:
+    def setWipeToolState(self, wipeToolState: hiero.ui.WipeToolState) -> None:
         """
 
         """

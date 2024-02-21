@@ -97,7 +97,7 @@ class Sequence(SequenceBase):
         """
         ...
 
-    def changeFramerateKeepFrames(self, toTimebase: core.TimeBase) -> None:
+    def changeFramerateKeepFrames(self, toTimebase: hiero.core.TimeBase) -> None:
         """
         self.changeFramerateKeepFrames(toTimebase) -> changes the timebase of the sequence, keeping frames of track items the same
 
@@ -105,7 +105,7 @@ class Sequence(SequenceBase):
         """
         ...
 
-    def changeFramerateKeepTimecodes(self, toTimebase: core.TimeBase, roundingMode: core.TimeBase.RoundingMode) -> None:
+    def changeFramerateKeepTimecodes(self, toTimebase: hiero.core.TimeBase, roundingMode: hiero.core.TimeBase.RoundingMode) -> None:
         """
         self.changeFramerateKeepTimecodes(toTimebase, roundingMode) -> changes the timebase of the sequence, keeping timecodes of track items the same, according to the specified rounding mode
 
@@ -157,7 +157,7 @@ class Sequence(SequenceBase):
         """
         ...
 
-    def importTracksFromTimeBaseKeepFrames(self, path: str, toTimebase: core.TimeBase) -> typing.List[core.TrackBase]:
+    def importTracksFromTimeBaseKeepFrames(self, path: str, toTimebase: hiero.core.TimeBase) -> typing.List[core.TrackBase]:
         """
         self.importTracksFromTimeBaseKeepFrames(filePath, srcTimebase) -> imports all of the tracks from the file specified by the filePath argument using the specified timebase.
 
@@ -167,7 +167,7 @@ class Sequence(SequenceBase):
         """
         ...
 
-    def importTracksFromTimeBaseKeepTimecodes(self, path: str, toTimebase: core.TimeBase, roundingMode: core.TimeBase.RoundingMode) -> typing.List[core.TrackBase]:
+    def importTracksFromTimeBaseKeepTimecodes(self, path: str, toTimebase: hiero.core.TimeBase, roundingMode: hiero.core.TimeBase.RoundingMode) -> typing.List[core.TrackBase]:
         """
         self.importTracksFromTimeBaseKeepTimecodes(filePath, srcTimebase, roundingMode) -> imports all of the tracks from the file specified by the filePath argument using the specified timebase.
 

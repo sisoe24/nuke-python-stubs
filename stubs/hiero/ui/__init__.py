@@ -377,7 +377,7 @@ def openInOSShell(arg__1: str) -> object:
     ...
 
 
-def openInSpreadsheet(sequence: core.Sequence) -> hiero.ui.SpreadsheetView:
+def openInSpreadsheet(sequence: hiero.core.Sequence) -> hiero.ui.SpreadsheetView:
     """
     hiero.ui.openInSpreadsheet( hiero.core.Sequence ) -> Opens a Sequence in a Spreadsheet.
     @return: hiero.ui.SpreadsheetView object
@@ -493,7 +493,7 @@ def unregisterBinViewCustomMimeDataType(arg__1: str) -> object:
     ...
 
 
-def updateViewer(oldClip: core.Clip, newClip: core.Clip) -> None:
+def updateViewer(oldClip: hiero.core.Clip, newClip: hiero.core.Clip) -> None:
     """
 
     """

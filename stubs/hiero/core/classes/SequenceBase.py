@@ -90,7 +90,7 @@ class SequenceBase:
         """
         ...
 
-    def addTag(self, tag: core.Tag) -> hiero.core.Tag:
+    def addTag(self, tag: hiero.core.Tag) -> hiero.core.Tag:
         """
         self.addTag(tag) -> adds a hiero.core.Tag object to the Clip or Sequence.
 
@@ -99,7 +99,7 @@ class SequenceBase:
         """
         ...
 
-    def addTagToRange(self, tag: core.Tag, inTime: int, outTime: int) -> hiero.core.Tag:
+    def addTagToRange(self, tag: hiero.core.Tag, inTime: int, outTime: int) -> hiero.core.Tag:
         """
         self.addTagToRange(tag, inTime, outTime) -> adds a hiero.core.Tag object to the specified range of the Clip or Sequence.
 
@@ -297,7 +297,7 @@ class SequenceBase:
         """
         ...
 
-    def removeTag(self, tag: core.Tag) -> None:
+    def removeTag(self, tag: hiero.core.Tag) -> None:
         """
         self.removeTag(tag) -> removes the tag from the track.
 
@@ -305,7 +305,7 @@ class SequenceBase:
         """
         ...
 
-    def setAutoDiskCacheMode(self, autoDiskCacheMode: core.SequenceAutoDiskCacheMode) -> None:
+    def setAutoDiskCacheMode(self, autoDiskCacheMode: hiero.core.SequenceAutoDiskCacheMode) -> None:
         """
         self.setAutoDiskCacheMode(autoDiskCacheMode) -> set the auto disk cache mode of the Sequence or Clip.
 
@@ -319,7 +319,7 @@ class SequenceBase:
         """
         ...
 
-    def setFormat(self, format: core.Format) -> None:
+    def setFormat(self, format: hiero.core.Format) -> None:
         """
         self.setFormat(format) -> set the format of the Sequence or Clip.
 
@@ -329,7 +329,7 @@ class SequenceBase:
         """
         ...
 
-    def setFramerate(self, timeBase: core.TimeBase) -> None:
+    def setFramerate(self, timeBase: hiero.core.TimeBase) -> None:
         """
         self.setFramerate(framerate) -> set the framerate of the Sequence or Clip.
 

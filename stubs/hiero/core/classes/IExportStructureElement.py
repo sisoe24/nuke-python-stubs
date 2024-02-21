@@ -42,7 +42,7 @@ class IExportStructureElement:
         """
         ...
 
-    def addChild(self, child: core.IExportStructureElement) -> None:
+    def addChild(self, child: hiero.core.IExportStructureElement) -> None:
         """
 
         """
@@ -60,7 +60,7 @@ class IExportStructureElement:
         """
         ...
 
-    def childIndex(self, child: core.IExportStructureElement) -> int:
+    def childIndex(self, child: hiero.core.IExportStructureElement) -> int:
         """
 
         """
@@ -120,7 +120,7 @@ class IExportStructureElement:
         """
         ...
 
-    def removeChild(self, child: core.IExportStructureElement) -> None:
+    def removeChild(self, child: hiero.core.IExportStructureElement) -> None:
         """
 
         """
@@ -132,7 +132,7 @@ class IExportStructureElement:
         """
         ...
 
-    def setPreset(self, preset: core.ITaskPreset) -> None:
+    def setPreset(self, preset: hiero.core.ITaskPreset) -> None:
         """
 
         """

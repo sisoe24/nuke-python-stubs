@@ -287,7 +287,7 @@ class Viewer(QObject):
         """
         ...
 
-    def setChannels(self, channels: ui.Player.Channels) -> None:
+    def setChannels(self, channels: hiero.ui.Player.Channels) -> None:
         """
         self.setChannels(channels) -> Sets the channels in the viewer. Can only be called from the user interface thread. Use hiero.core.executeInMainThread if you need to call it from a non-ui thread.
 
@@ -295,7 +295,7 @@ class Viewer(QObject):
         """
         ...
 
-    def setCompareMode(self, mode: ui.Viewer.CompareMode) -> None:
+    def setCompareMode(self, mode: hiero.ui.Viewer.CompareMode) -> None:
         """
         self.setCompareMode(mode) -> changes the compare mode for the viewer. Can only be called from the user interface thread. Use hiero.core.executeInMainThread if you need to call it from a non-ui thread.
 
@@ -360,7 +360,7 @@ class Viewer(QObject):
         """
         ...
 
-    def setLayoutMode(self, layoutMode: ui.Viewer.LayoutMode) -> None:
+    def setLayoutMode(self, layoutMode: hiero.ui.Viewer.LayoutMode) -> None:
         """
         self.setLayoutMode(mode) -> changes the layout mode for the viewer. Can only be called from the user interface thread. Use hiero.core.executeInMainThread if you need to call it from a non-ui thread.
 
@@ -376,7 +376,7 @@ class Viewer(QObject):
         """
         ...
 
-    def setMaskOverlayStyle(self, pyStyle: ui.Player.MaskOverlayStyle) -> None:
+    def setMaskOverlayStyle(self, pyStyle: hiero.ui.Player.MaskOverlayStyle) -> None:
         """
         self.setMaskOverlayStyle() -> Sets the channels in the viewer. Can only be called from the user interface thread. Use hiero.core.executeInMainThread if you need to call it from a non-ui thread.
 
@@ -392,7 +392,7 @@ class Viewer(QObject):
         """
         ...
 
-    def setPlaybackMode(self, mode: ui.Viewer.PlaybackMode) -> None:
+    def setPlaybackMode(self, mode: hiero.ui.Viewer.PlaybackMode) -> None:
         """
         self.setCompareMode(mode) -> changes the playback mode for the viewer. Can only be called from the user interface thread. Use hiero.core.executeInMainThread if you need to call it from a non-ui thread.
 
@@ -414,7 +414,7 @@ class Viewer(QObject):
         """
         ...
 
-    def setSequence(self, sequence: core.SequenceBase, indexOfPlayer: int) -> None:
+    def setSequence(self, sequence: hiero.core.SequenceBase, indexOfPlayer: int) -> None:
         """
         self.setSequence() -> set the sequence for this viewer
 
@@ -440,7 +440,7 @@ class Viewer(QObject):
         """
         ...
 
-    def setTracksMask(self, indexOfPlayer: int, tracksMask: ui.TracksMask) -> None:
+    def setTracksMask(self, indexOfPlayer: int, tracksMask: hiero.ui.TracksMask) -> None:
         """
         self.setTracksMask() -> modify the status of the tracks of one of the buffers. Can only be called from the user interface thread. Use hiero.core.executeInMainThread if you need to call it from a non-ui thread.
 

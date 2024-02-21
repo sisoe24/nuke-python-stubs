@@ -60,7 +60,7 @@ class Clip(SequenceBase):
         """
         ...
 
-    def addTag(self, tag: core.Tag) -> hiero.core.Tag:
+    def addTag(self, tag: hiero.core.Tag) -> hiero.core.Tag:
         """
         self.addTag() -> adds the tag to the set of tags attached to the Clip.
 
@@ -69,7 +69,7 @@ class Clip(SequenceBase):
         """
         ...
 
-    def addTagToRange(self, tag: core.Tag, inTime: int, outTime: int) -> hiero.core.Tag:
+    def addTagToRange(self, tag: hiero.core.Tag, inTime: int, outTime: int) -> hiero.core.Tag:
         """
         self.addTagToRange(tag, inTime, outTime) -> adds the tag to the specified range of the Clip.
 
@@ -237,7 +237,7 @@ class Clip(SequenceBase):
         """
         ...
 
-    def removeTag(self, tag: core.Tag) -> None:
+    def removeTag(self, tag: hiero.core.Tag) -> None:
         """
         self.removeTag(tag) -> removes the tag from the clip.
 
@@ -273,7 +273,7 @@ class Clip(SequenceBase):
         """
         ...
 
-    def setLocalizationPolicy(self, policy: core.Clip.LocalizationPolicy) -> None:
+    def setLocalizationPolicy(self, policy: hiero.core.Clip.LocalizationPolicy) -> None:
         """
         self.setLocalizationPolicy( policy ) -> sets the localization policy to the clip.
 

@@ -68,7 +68,7 @@ class ConformRule:
         """
         ...
 
-    def compare(self, media: core.DataCollection, candidateMedia: core.DataCollection) -> bool:
+    def compare(self, media: hiero.core.DataCollection, candidateMedia: hiero.core.DataCollection) -> bool:
         """
         self.compare(media, candidateMedia) -> should compare media against candidateMedia, and return True if they match, according to this conform rule.
 

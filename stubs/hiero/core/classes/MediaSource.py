@@ -92,7 +92,7 @@ class MediaSource:
         """
         ...
 
-    def createOfflineVideoMediaSource(self, path: str, start: int, duration: int, frameRate: core.TimeBase, startTimecode: int = 0) -> hiero.core.MediaSource:
+    def createOfflineVideoMediaSource(self, path: str, start: int, duration: int, frameRate: hiero.core.TimeBase, startTimecode: int = 0) -> hiero.core.MediaSource:
         """
         staticmethod(function) -> method
 
@@ -242,7 +242,7 @@ class MediaSource:
         """
         ...
 
-    def numChannels(self, mediaType: core.MediaSource.MediaType) -> int:
+    def numChannels(self, mediaType: hiero.core.MediaSource.MediaType) -> int:
         """
 
         """

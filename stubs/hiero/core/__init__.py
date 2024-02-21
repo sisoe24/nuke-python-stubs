@@ -686,7 +686,7 @@ def SequenceAutoDiskCacheModeFromString(str: str) -> hiero.core.SequenceAutoDisk
     ...
 
 
-def SequenceAutoDiskCacheModeToString(mode: core.SequenceAutoDiskCacheMode) -> str:
+def SequenceAutoDiskCacheModeToString(mode: hiero.core.SequenceAutoDiskCacheMode) -> str:
     """
 
     """

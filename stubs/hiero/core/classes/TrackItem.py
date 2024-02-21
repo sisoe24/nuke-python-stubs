@@ -50,7 +50,7 @@ class TrackItem(TrackItemBase):
         """
         ...
 
-    def addTag(self, tag: core.Tag) -> hiero.core.Tag:
+    def addTag(self, tag: hiero.core.Tag) -> hiero.core.Tag:
         """
         self.addTag(tag) -> adds a new tag to the track item.
 
@@ -131,7 +131,7 @@ class TrackItem(TrackItemBase):
         """
         ...
 
-    def link(self, trackItem: core.TrackItem) -> None:
+    def link(self, trackItem: hiero.core.TrackItem) -> None:
         """
         self.link(trackItem) -> Links track item with another track item. Both track items must point to the same source.
 
@@ -253,7 +253,7 @@ class TrackItem(TrackItemBase):
         """
         ...
 
-    def removeTag(self, tag: core.Tag) -> None:
+    def removeTag(self, tag: hiero.core.Tag) -> None:
         """
         self.removeTag(tag) -> removes the tag from the track item.
 
@@ -277,7 +277,7 @@ class TrackItem(TrackItemBase):
         """
         ...
 
-    def setCurrentVersion(self, version: core.Version) -> None:
+    def setCurrentVersion(self, version: hiero.core.Version) -> None:
         """
         self.setCurrentVersion(version) -> sets the current version (by object) on this track item. Note that this method doesn't check that the versioned media source exists on disk.
 
@@ -458,7 +458,7 @@ class TrackItem(TrackItemBase):
         """
         ...
 
-    def unlink(self, trackItem: core.TrackItem) -> None:
+    def unlink(self, trackItem: hiero.core.TrackItem) -> None:
         """
         self.unlink(trackItem) -> Unlinks this track item from given track item.
 

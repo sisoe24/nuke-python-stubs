@@ -186,7 +186,7 @@ class Bin:
         """
         ...
 
-    def importSequence(self, filename: str, timeBase: core.TimeBase, frameRate: float = 0.0, dropFrame: bool = False) -> hiero.core.Sequence:
+    def importSequence(self, filename: str, timeBase: hiero.core.TimeBase, frameRate: float = 0.0, dropFrame: bool = False) -> hiero.core.Sequence:
         """
         self.importSequence(filename, timeBase=None, frameRate=None, dropFrame=False) -> imports the sequence stored in filename into this bin (needs a project).  If the timebase/frame rate for the sequence isnot specified, the project defaults will be used.
 

@@ -60,7 +60,7 @@ class ITaskUI:
         """
         ...
 
-    def populateUI(self, widget: PySide2.QtWidgets.QWidget, exportTemplate: core.IExportStructure) -> None:
+    def populateUI(self, widget: PySide2.QtWidgets.QWidget, exportTemplate: hiero.core.IExportStructure) -> None:
         """
         self.populateUI() -> called by Hiero to allow the TaskUI to populate a QWidget with the ui widgets neccessary to reflect the current preset.
 
@@ -77,7 +77,7 @@ class ITaskUI:
         """
         ...
 
-    def setPreset(self, preset: core.ITaskPreset) -> None:
+    def setPreset(self, preset: hiero.core.ITaskPreset) -> None:
         """
         self.setPreset() -> called by Hiero to set the TaskPreset which this TaskUI will reflect.
 
