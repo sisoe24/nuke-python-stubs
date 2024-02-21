@@ -66,7 +66,7 @@ class Link_Knob(Knob):
         """
         ...
 
-    def getLink(self,) -> s:
+    def getLink(self,) -> Any:
         """
         getLink() -> s
         """
