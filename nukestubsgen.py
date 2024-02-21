@@ -1042,6 +1042,7 @@ def generate_nuke_stubs():
     import typing
     from typing import *
 
+    import nuke
     from .classes import *
     from .nuke_internal import *
 
@@ -1080,6 +1081,7 @@ def generate_hiero_stubs():
         imports_header = dedent('''
         """Stubs generated automatically from Nuke's internal interpreter."""
         import ui
+        import nuke
         import core
         import hiero
         import typing
@@ -1101,6 +1103,7 @@ def generate_hiero_stubs():
         init_file = dedent("""
         '''Stubs generated automatically from Nuke's internal interpreter.'''
         import ui
+        import nuke
         import core
         import hiero
         import typing
