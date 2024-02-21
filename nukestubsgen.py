@@ -118,6 +118,22 @@ NUKE_POST_FIXES = {
         {
             'old': r'def selectedNodes\(.+',
             'new': 'def selectedNodes(filter:Optional[str] = None) -> list[Node]:'
+        },
+        {
+            'old': r'def execute\(.+',
+            'new': 'def execute(nameOrNode: Node | str, start: Optional[int] = None, end: Optional[int] = None, incr: Optional[int] = None, views: Optional[list[View]] = None, continueOnError=False) -> None:'
+        },
+        {
+            'old': r'def executeMultiple\(.+',
+            'new': 'def executeMultiple(nodes: list[Node], ranges: Optional[int] = None, views: Optional[list[View]] = None, continueOnError=False) -> None:'
+        },
+        {
+            'old': r'def executeBackgroundNuke\(.+',
+            'new': 'def executeBackgroundNuke(exe_path: str, nodes: list[Node], frameRange: list, views: list[View], limits: dict, continueOnError=False, flipbookToRun: str="", flipbookOptions:dict={}) -> int:'
+        },
+        {
+            'old': r'def stripFrameRange\(.+',
+            'new': 'def stripFrameRange(clipname: str) -> str:'
         }
     ],
     'Node': [
@@ -145,6 +161,13 @@ NUKE_POST_FIXES = {
             'old': r'def knobs\(.+',
             'new': 'def knobs(self) -> dict[str, Knob]:'
         }
+    ]
+}
+
+NUKE_POST_INJECT = {
+    '__init__': [
+        '@overload\ndef execute(nameOrNode: Node | str, frameRangeSet: FrameRange, views: Optional[list[View]] = None, continueOnError=False) -> None:',
+        '@overload\ndef execute(nameOrNode: Node | str, start: Optional[int] = None, end: Optional[int] = None, incr: Optional[int] = None, views: Optional[list[View]] = None, continueOnError=False) -> None:',
     ]
 }
 
@@ -211,6 +234,10 @@ HIERO_CORE_POST_FIX = {
         {
             'old': r'def _Clip_addToNukeScript\(.+',
             'new': 'def addToNukeScript(self, script: hiero.core.nuke.ScriptWriter, additionalNodes=list, additionalNodesCallback=None, firstFrame=None, trimmed=True, trimStart=None, trimEnd=None, colourTransform=None, metadataNode=None, includeMetadataNode=True, nodeLabel=None, enabled=True, includeEffects=True, beforeBehaviour=None, afterBehaviour=None, project=None, readNodes={}, addEffectsLifetime=True):'
+        },
+        {
+            'old': r'def readNode\(.+',
+            'new': 'def readNode(self) -> nuke.Node:'
         }
     ],
     'EffectTrackItem': [
@@ -231,10 +258,16 @@ HIERO_CORE_POST_FIX = {
             'new': 'def setName(self, name: str):'
         }
     ],
+    'TrackItemBase': [
+        {
+            'old': r'def project\(.+',
+            'new': 'def project(self) -> hiero.core.Project:'
+        },
+    ],
     'TrackItem': [
         {
             'old': r'def source\(.+',
-            'new': 'def source(self) -> Clip | Sequence | MediaSource: '
+            'new': 'def source(self) -> Clip:'
         },
         {
             'old': r'def __TrackItem_unlinkAll\(.+',
@@ -418,7 +451,7 @@ class GuessType:
         'list': r'list|array',
         'tuple': r'tuple',
         'int': r'\b(int|integer|index|frame|i\'th|\d)\b',
-        'str': r'\b(str|string|class|prompt|clipboard|message|name|label|tooltip|text|file(\w+)?|path|code|script|shortcut|title)\b',
+        'str': r'\b(str|string|class|prompt|clipboard|clipname|message|name|label|tooltip|text|file(\w+)?|path|code|script|shortcut|title)\b',
         'bool': r'bool|true|false',
         'dict': r'dict',
         'Iterable': r'sequence|(\(|\[)\w+, \w+(\)|\])',
@@ -610,7 +643,7 @@ class ReturnExtractor:
 
     def extract(self) -> str:
         """Parse the return value from the docs if any."""
-        LOGGER.debug('    Guessing return value for: %s', self.header_obj.obj.__name__)
+        LOGGER.debug('    Guessing return value: %s', self.header_obj.return_argument)
         if not RuntimeSettings.guess:
             return 'Any'
 
@@ -1021,6 +1054,8 @@ def generate_nuke_stubs():
 
     LOGGER.info('  Generating __init__.py')
     with open(RuntimeSettings.path / '__init__.py', 'w') as file:
+        if NUKE_POST_INJECT.get('__init__'):
+            init_file += '\n\n' + '\n\n'.join(NUKE_POST_INJECT['__init__'])
         file.write(init_file)
 
     LOGGER.info('  Generating class imports.')
