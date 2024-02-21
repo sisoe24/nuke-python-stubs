@@ -4,7 +4,6 @@ from typing import *
 
 import ui
 import core
-import nuke
 import hiero
 import PySide2
 from PySide2.QtCore import Signal

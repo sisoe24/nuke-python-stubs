@@ -2493,7 +2493,7 @@ def stopPerformanceTimers() -> None:
     ...
 
 
-def stripFrameRange(clipname) -> int:
+def stripFrameRange(clipname: str) -> str:
     """
     stripFrameRange(clipname) -> string
 
