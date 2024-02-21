@@ -87,8 +87,7 @@ class LocalNukeRenderTask(hiero.core.TaskBase):
                     # subprocess.Popen.terminate only kills the top level process, child processes are not killed.
                     # On Windows launching a single socket export creates several processes, the last of which is Nuke.
                     # Killing the parent does not kill Nuke, so we need to explicitly kill the whole tree.
-                    subprocess.call(['taskkill', '/F', '/T', '/PID',
-                                    str(self._nukeProcess.pid)])
+                    subprocess.call(['taskkill', '/F', '/T', '/PID', str(self._nukeProcess.pid)])
                 else:
                     self._nukeProcess.terminate()
 
@@ -169,8 +168,7 @@ class LocalNukeRenderTask(hiero.core.TaskBase):
 
             # If there were no errors in the log file check if Nuke exited with an
             # unexpected code (meaning it probably crashed).
-            unexpectedReturnCode = (self._returnCode is not None) and (
-                self._returnCode != 0)
+            unexpectedReturnCode = (self._returnCode is not None) and (self._returnCode != 0)
             if not errorString and unexpectedReturnCode:
                 errorString = 'Nuke process closed unexpectedly, exit code: %s' % self._returnCode
 

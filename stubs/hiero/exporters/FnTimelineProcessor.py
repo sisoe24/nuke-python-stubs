@@ -29,8 +29,7 @@ class TimelineProcessor(hiero.core.ProcessorBase):
         self._exportTemplate = hiero.core.ExportStructure2()
         self._exportTemplate.restore(self._preset.properties()['exportTemplate'])
         if self._preset.properties()['exportRoot'] != 'None':
-            self._exportTemplate.setExportRootPath(
-                self._preset.properties()['exportRoot'])
+            self._exportTemplate.setExportRootPath(self._preset.properties()['exportRoot'])
 
     def sequenceRange(self, sequence):
         # Calculate the actual range of a sequence
@@ -70,8 +69,8 @@ class TimelineProcessor(hiero.core.ProcessorBase):
         # Add tags to the copied sequence
         self._tagCopiedSequence(sequence, sequenceCopy)
 
-        trackCopyPairs = list(zip(sequence.videoTracks(), sequenceCopy.videoTracks(
-        ))) + list(zip(sequence.audioTracks(), sequenceCopy.audioTracks()))
+        trackCopyPairs = list(zip(sequence.videoTracks(), sequenceCopy.videoTracks())) + \
+            list(zip(sequence.audioTracks(), sequenceCopy.audioTracks()))
         for track, trackCopy in trackCopyPairs:
             # Filter excluded tracks
             if track in excludedTracks:
@@ -89,8 +88,7 @@ class TimelineProcessor(hiero.core.ProcessorBase):
                 # Apply the filter function if given
                 itemFiltered = itemFilter(trackItem) if itemFilter else False
                 if itemFiltered:
-                    trackCopy.removeItem(
-                        trackItemCopy, hiero.core.TrackBase.eDontRemoveLinkedItems)
+                    trackCopy.removeItem(trackItemCopy, hiero.core.TrackBase.eDontRemoveLinkedItems)
                 elif offset:
                     # Transpose clip according to start frame offset
                     trackItemCopy.move(offset)
@@ -104,8 +102,7 @@ class TimelineProcessor(hiero.core.ProcessorBase):
 
                         # Filter out items which are not valid. At the moment, this means
                         # effects which are not aligned with track items as they should be.
-                        isEffectItem = isinstance(
-                            subTrackItemCopy, hiero.core.EffectTrackItem)
+                        isEffectItem = isinstance(subTrackItemCopy, hiero.core.EffectTrackItem)
                         itemValid = subTrackItem.isValid() if isEffectItem and not preview else True
 
                         removeItem = itemFiltered or (not itemValid)
@@ -229,8 +226,7 @@ class TimelineProcessor(hiero.core.ProcessorBase):
         excludedTracks = [track for track in sequence if track.guid()
                           in self._preset._excludedTrackIDs]
         sequenceData = []
-        s = self.exportSequenceForTrackItem(
-            firstTrackItem, exportItems, excludedTracks, preview)
+        s = self.exportSequenceForTrackItem(firstTrackItem, exportItems, excludedTracks, preview)
         if not s[1]:
             raise Exception('TimelineProcessor.startProcessing no sequence given!')
         sequenceData.append(s)
@@ -243,8 +239,8 @@ class TimelineProcessor(hiero.core.ProcessorBase):
             if not item.sequence():
                 continue
 
-            excludedTracks = [track for track in item.sequence(
-            ) if track.guid() in self._preset._excludedTrackIDs]
+            excludedTracks = [track for track in item.sequence() if track.guid()
+                              in self._preset._excludedTrackIDs]
             s = self.exportSequenceForSequence(item.sequence(), excludedTracks, preview)
             if not s[1]:
                 raise Exception('TimelineProcessor.startProcessing no sequence given!')
@@ -333,8 +329,7 @@ class TimelineProcessor(hiero.core.ProcessorBase):
 
     def startProcessing(self, exportItems, preview=False):
 
-        hiero.core.log.debug(
-            'TimelineProcessor::startProcessing(' + str(exportItems) + ')')
+        hiero.core.log.debug('TimelineProcessor::startProcessing(' + str(exportItems) + ')')
 
         # exportItems should either be a list of TrackItems or a list of Sequences, check the first
         # item to determine which
@@ -363,8 +358,7 @@ class TimelineProcessorPreset(hiero.core.ProcessorPreset):
         self.properties().update(properties)
 
         # This remaps the project root if os path remapping has been set up in the preferences
-        self.properties()['exportRoot'] = hiero.core.remapPath(
-            self.properties()['exportRoot'])
+        self.properties()['exportRoot'] = hiero.core.remapPath(self.properties()['exportRoot'])
 
     def addCustomResolveEntries(self, resolver):
         """addDefaultResolveEntries(self, resolver)

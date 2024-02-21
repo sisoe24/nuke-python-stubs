@@ -12,8 +12,7 @@ class BinProcessorUI(hiero.ui.ProcessorUIBase, QtCore.QObject):
 
     def __init__(self, preset):
         QtCore.QObject.__init__(self)
-        hiero.ui.ProcessorUIBase.__init__(
-            self, preset, itemTypes=hiero.core.TaskPresetBase.kClip)
+        hiero.ui.ProcessorUIBase.__init__(self, preset, itemTypes=hiero.core.TaskPresetBase.kClip)
 
     def displayName(self):
         return 'Process as Clips'

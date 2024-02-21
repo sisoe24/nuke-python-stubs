@@ -147,8 +147,7 @@ class TrackItemScriptWriter(object):
             self._retimeRate = self._trackItem.playbackSpeed()
 
         # Check for transitions
-        inTransition, outTransition = FnNukeHelpers._TrackItem_getTransitions(
-            self._trackItem)
+        inTransition, outTransition = FnNukeHelpers._TrackItem_getTransitions(self._trackItem)
         self._inTransitionHandle, self._outTransitionHandle = 0, 0
 
         # Adjust the clips to cover dissolve transition
@@ -180,10 +179,8 @@ class TrackItemScriptWriter(object):
             unclampedReadStartHandle = startHandle + self._outTransitionHandle
             unclampedReadEndHandle = endHandle + self._inTransitionHandle
 
-        unclampedReadStartHandle = math.ceil(
-            unclampedReadStartHandle * abs(self._retimeRate))
-        unclampedReadEndHandle *= math.ceil(unclampedReadEndHandle *
-                                            abs(self._retimeRate))
+        unclampedReadStartHandle = math.ceil(unclampedReadStartHandle * abs(self._retimeRate))
+        unclampedReadEndHandle *= math.ceil(unclampedReadEndHandle * abs(self._retimeRate))
 
         # Recalculate handles clamping to available media range
         clip = self._trackItem.source()
@@ -200,8 +197,8 @@ class TrackItemScriptWriter(object):
         # If no first frame is given, things will be written according the TrackItem's
         # position on it's sequence, plus any offset
         if firstFrame is None:
-            self._readNodeFirstFrame = self._trackItem.timelineIn(
-            ) - min(min(self._trackItem.sourceIn(), self._trackItem.sourceOut()), readStartHandle)
+            self._readNodeFirstFrame = self._trackItem.timelineIn() - min(min(self._trackItem.sourceIn(),
+                                                                              self._trackItem.sourceOut()), readStartHandle)
             self._readNodeFirstFrame += offset
 
             self._last_frame = self._trackItem.timelineIn() + (self._trackItem.duration() - 1) + \
@@ -279,8 +276,7 @@ class TrackItemScriptWriter(object):
     def getClipColorTransform(self, projectSettings, clip):
         colourspaceKnob = clip.readNode()['colorspace']
         if projectSettings and not projectSettings['lutUseOCIOForExport'] and colourspaceKnob.notDefault():
-            colorspaceDisplayStr = colourspaceKnob.getDisplayStrFromID(
-                colourspaceKnob.value())
+            colorspaceDisplayStr = colourspaceKnob.getDisplayStrFromID(colourspaceKnob.value())
             colourTransform = self.getColorspaceFromProperty(colorspaceDisplayStr)
             return FnNukeHelpers.nukeColourTransformNameFromHiero(colourTransform, projectSettings)
         return None
@@ -327,8 +323,8 @@ class TrackItemScriptWriter(object):
 
             metadataNode.addMetadata([('hiero/project', clip.project().name()),
                                       ('hiero/sequence/frame_rate', seq.framerate()),
-                                      ('hiero/sequence/timecode', '[make_timecode %s %s %d]' % (
-                                          seqTimecode, str(seq.framerate()), self._first_frame))
+                                      ('hiero/sequence/timecode', '[make_timecode %s %s %d]' %
+                                       (seqTimecode, str(seq.framerate()), self._first_frame))
                                       ])
 
         # Add Tags to metadata
@@ -338,8 +334,7 @@ class TrackItemScriptWriter(object):
         if self._trackItem.parent():
             metadataNode.addMetadata([('hiero/track', self._trackItem.parent().name()),
                                      ('hiero/track_guid', FnNukeHelpers._guidFromCopyTag(self._trackItem.parent()))])
-            metadataNode.addMetadataFromTags(
-                self._trackItem.parent().tags(), 'track/tags/')
+            metadataNode.addMetadataFromTags(self._trackItem.parent().tags(), 'track/tags/')
             if self._trackItem.parentSequence():
                 metadataNode.addMetadata([('hiero/sequence', self._trackItem.parentSequence().name(
                 )), ('hiero/sequence_guid', FnNukeHelpers._guidFromCopyTag(self._trackItem.parentSequence()))])
@@ -461,8 +456,7 @@ class TrackItemScriptWriter(object):
 
             # Offset keyFrames, so that they match the input range (source times) and produce expected output range (timeline times)
             # timeline values must start at first_frame
-            tOffset = (self._first_frame + self._outputStartHandle) - \
-                self._trackItem.timelineIn()
+            tOffset = (self._first_frame + self._outputStartHandle) - self._trackItem.timelineIn()
             tIn += tOffset
             tOut += tOffset
             sOffset = self._readNodeFirstFrame
@@ -507,8 +501,7 @@ class TrackItemScriptWriter(object):
 
     def writeFadeInAndOutTransitions(self, script, added_nodes):
         # Fade in/out. Create Dissolve and Constant nodes for these, placed in Groups
-        inTransition, outTransition = FnNukeHelpers._TrackItem_getTransitions(
-            self._trackItem)
+        inTransition, outTransition = FnNukeHelpers._TrackItem_getTransitions(self._trackItem)
 
         def makeConstant():
             return nuke.ConstantNode(self._first_frame, self._last_frame, channels='rgba', format=str(self.outputFormat()))
@@ -527,8 +520,7 @@ class TrackItemScriptWriter(object):
 
             fadeInWhichExpression = '{{curve K x0 0 x%d 1}}' % (
                 inTransition.timelineOut() + self._keyFrameOffset)
-            fadeInGroup.addNode(nuke.Node('Switch', inputs=2,
-                                which=fadeInWhichExpression))
+            fadeInGroup.addNode(nuke.Node('Switch', inputs=2, which=fadeInWhichExpression))
 
             fadeInGroup.addNode(nuke.Node('Output'))
             added_nodes.append(fadeInGroup)
@@ -548,8 +540,7 @@ class TrackItemScriptWriter(object):
 
             fadeOutWhichExpression = ('{{curve K x0 1 x%d 0 }}' % (
                 outTransition.timelineIn() + self._keyFrameOffset))
-            fadeOutGroup.addNode(nuke.Node('Switch', inputs=2,
-                                 which=fadeOutWhichExpression))
+            fadeOutGroup.addNode(nuke.Node('Switch', inputs=2, which=fadeOutWhichExpression))
 
             fadeOutGroup.addNode(nuke.Node('Output'))
             added_nodes.append(fadeOutGroup)
@@ -595,8 +586,7 @@ class TrackItemScriptWriter(object):
         # If includeRetimes is False, do not include retime effects in the export.  Note that clip-level Timewarps will still be included.
         # That's a lot trickier to deal with (how do we copy those when doing Build Track?), so leaving that for now.
         if not self._params.includeRetimes():
-            linkedEffects = [
-                effect for effect in linkedEffects if not effect.isRetimeEffect()]
+            linkedEffects = [effect for effect in linkedEffects if not effect.isRetimeEffect()]
 
         # Make sure the effects are in the correct order.  They should be written from lowest sub-track to highest
         linkedEffects.sort(key=lambda effect: effect.subTrackIndex())
@@ -612,8 +602,7 @@ class TrackItemScriptWriter(object):
         clipFormat = self._trackItem.source().format()
         reformatState = self._trackItem.reformatState()
         formatChange = FormatChange(clipFormat, seqFormat, clipFormat, reformatState)
-        invertFormatChange = FormatChange(
-            seqFormat, clipFormat, clipFormat, reformatState)
+        invertFormatChange = FormatChange(seqFormat, clipFormat, clipFormat, reformatState)
         # Write the linked effects
         for effect in linkedEffects:
             # Burn-in nodes should be applied after the reformat node. They need to be postponed
@@ -628,8 +617,7 @@ class TrackItemScriptWriter(object):
             # apply the invert soft effect transformation or else, the soft effect
             # transformation will be carried over to the following track items
             if not addLater and transformToClipFormat:
-                transformNodeToFormatChange(
-                    effect.node(), invertFormatChange, lambda x: None)
+                transformNodeToFormatChange(effect.node(), invertFormatChange, lambda x: None)
             added_nodes.extend(effectNodes)
         # Write sequence-level effects. Because the timeline in/out for these don't
         # match the track item, the node lifetime needs to be set.
@@ -640,8 +628,7 @@ class TrackItemScriptWriter(object):
                                                  effectOffset,
                                                  addLifetime=True)
             if transformToClipFormat:
-                transformNodeToFormatChange(
-                    effect.node(), invertFormatChange, lambda x: None)
+                transformNodeToFormatChange(effect.node(), invertFormatChange, lambda x: None)
             added_nodes.extend(effectNodes)
         return added_nodes
 
@@ -783,14 +770,12 @@ class VideoTrackScriptWriter(object):
             hiero.core.log.debug('  - ' + str(trackItem))
 
             # Check for transitions
-            inTransition, outTransition = FnNukeHelpers._TrackItem_getTransitions(
-                trackItem)
+            inTransition, outTransition = FnNukeHelpers._TrackItem_getTransitions(trackItem)
 
             script.pushLayoutContext('clip', trackItem.name() +
                                      str(trackItem.eventNumber()), label=trackItem.name())
 
-            trackItemWriter = TrackItemScriptWriter(
-                trackItem, self._params, offset=offset)
+            trackItemWriter = TrackItemScriptWriter(trackItem, self._params, offset=offset)
 
             trackitem_nodes = trackItemWriter.writeToScript(
                 script, addChannelNode=needToAddChannelNode, readNodes=readNodes, projectSettings=projectSettings)
@@ -920,8 +905,7 @@ class ReadNodeInstanceInfo:
         self.startAt = startAt
         self.totalInstances = totalInstances
         self.instancesUsed = instancesUsed
-        # Unique ID for this ReadNode (Read0, Read1 etc)
-        self.readNodeID = readNodeID
+        self.readNodeID = readNodeID        # Unique ID for this ReadNode (Read0, Read1 etc)
 
 
 class ReadNodeUsageCollator:
@@ -946,8 +930,7 @@ class ReadNodeUsageCollator:
             for trackItem in list(track.items()):
                 # Need to get all ReadNode information for this track item
                 if trackItem.isEnabled():
-                    trackItemWriter = TrackItemScriptWriter(
-                        trackItem, params, offset=offset)
+                    trackItemWriter = TrackItemScriptWriter(trackItem, params, offset=offset)
                     readNodeInfo = trackItemWriter.getReadNodeInfo()
 
                     for read in readNodeInfo:
@@ -1064,8 +1047,8 @@ class SequenceScriptWriter(object):
             trackItems = list(track.items())
             if len(trackItems) > 0:
                 # Add the track and whether it is disconnected as data to the layout context
-                script.pushLayoutContext('track', track.name(
-                ), track=track, disconnected=trackDisconnected)
+                script.pushLayoutContext('track', track.name(), track=track,
+                                         disconnected=trackDisconnected)
 
                 # Check if we'll need to add an AddChannels node to each track item in this track
                 addChannelNode = not (
@@ -1202,8 +1185,8 @@ class SequenceScriptWriter(object):
                 script.popLayoutContext()
 
             elif trackDisconnected:
-                script.pushLayoutContext('track', track.name(
-                ), track=track, disconnected=trackDisconnected)
+                script.pushLayoutContext('track', track.name(), track=track,
+                                         disconnected=trackDisconnected)
 
                 added_nodes.extend(FnNukeHelpers._addEffectsAnnotationsForTrack(track,
                                                                                 self._params.includeEffects(),
@@ -1259,8 +1242,7 @@ class SequenceScriptWriter(object):
                         merge.setKnob('bbox', 'A')
 
                         # This Merge node should use the custom alpha channel created on the A input track
-                        merge.setKnob(
-                            'Achannels', '{rgba.red rgba.green rgba.blue Track_Alpha.a}')
+                        merge.setKnob('Achannels', '{rgba.red rgba.green rgba.blue Track_Alpha.a}')
                     if previousTrack:
                         merge.setKnob('label', track.name()+' over '+previousTrack.name())
 
@@ -1283,8 +1265,8 @@ class SequenceScriptWriter(object):
                         for start, end in lastLifetimeRange[track]:
                             merge.addEnabledRange(start, end, firstCompFrame)
 
-                    script.pushLayoutContext('merge', 'Merge ' + previousTrack.name(
-                    ) + ' ' + track.name(), track=previousTrack, inputA=track, inputB=previousTrack)
+                    script.pushLayoutContext('merge', 'Merge ' + previousTrack.name() + ' ' +
+                                             track.name(), track=previousTrack, inputA=track, inputB=previousTrack)
 
                     inputAWriter = None
                     inputBWriter = None
@@ -1323,8 +1305,8 @@ class SequenceScriptWriter(object):
                     script.popLayoutContext()
                 # If there were no clips on the track, write the effects and annotations after the merge so they get applied to the tracks below
                 else:
-                    script.pushLayoutContext('effectsTrack', track.name(
-                    ), track=track, disconnected=trackDisconnected)
+                    script.pushLayoutContext('effectsTrack', track.name(),
+                                             track=track, disconnected=trackDisconnected)
 
                     effectInputs = 1
                     if trackDisconnected:
@@ -1428,8 +1410,8 @@ class SequenceScriptWriter(object):
         masterTracks = masterTracks or []
 
         if self.needJoinViews():
-            self.writeTracksWithJoinViews(
-                script, offset, skipOffline, mediaToSkip, disconnected, masterTracks)
+            self.writeTracksWithJoinViews(script, offset, skipOffline,
+                                          mediaToSkip, disconnected, masterTracks)
         else:
             script.pushLayoutContext('view', 'main')
             # If layout is disconnected, only the 'master' track is connected to the Write node, any others

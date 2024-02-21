@@ -56,5 +56,4 @@ kSampleRates = OrderedDict([(k44100Key, 44100), (k48khzKey, 48000), (k96khzKey, 
 # 96k not supported by mp2/ac3
 kCompressedSampleRates = OrderedDict([(k44100Key, 44100), (k48khzKey, 48000)])
 kBitDepths = OrderedDict([(k16bitKey, 16), (k24bitKey, 24), (k32bitKey, 32)])
-kBitRates = OrderedDict(
-    [(k192kbpsKey, 192000), (k256kbpsKey, 256000), (k320kbpsKey, 320000)])
+kBitRates = OrderedDict([(k192kbpsKey, 192000), (k256kbpsKey, 256000), (k320kbpsKey, 320000)])

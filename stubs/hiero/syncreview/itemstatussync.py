@@ -16,13 +16,12 @@ class SyncItemStatusTool(SyncTool):
         super(SyncItemStatusTool, self).__init__(messageDispatcher)
         self.messageDispatcher._registerCallback(
             messages.ItemStatusChange, self._onRemoteItemStatusChanged)
-        self.registerEventCallback(
-            events.EventType.kTrackEnabledChanged, self._onLocalTrackStatusChanged)
+        self.registerEventCallback(events.EventType.kTrackEnabledChanged,
+                                   self._onLocalTrackStatusChanged)
 
     @localCallback
     def _onLocalTrackStatusChanged(self, event):
-        msg = messages.ItemStatusChange(
-            itemGuids=[event.track.guid()], enabled=event.enable)
+        msg = messages.ItemStatusChange(itemGuids=[event.track.guid()], enabled=event.enable)
         self.messageDispatcher.sendMessage(msg)
 
     @remoteCallback
@@ -31,7 +30,6 @@ class SyncItemStatusTool(SyncTool):
         for itemGuid in msg.itemGuids:
             item = findItemByGuid(itemGuid, filter=itemTypes)
             if not item:
-                logMessage(
-                    'onRemoteItemStatusChanged finding item failed {}'.format(itemGuid))
+                logMessage('onRemoteItemStatusChanged finding item failed {}'.format(itemGuid))
                 continue
             item.setEnabled(msg.enabled)

@@ -5,8 +5,7 @@ from hiero.ui import findMenuAction, findRegisteredAction
 from PySide2.QtGui import QIcon
 from PySide2.QtWidgets import QAction
 
-forceUpdateSelected = findRegisteredAction(
-    'foundry.project.localcacheforceupdateselectedNuke')
+forceUpdateSelected = findRegisteredAction('foundry.project.localcacheforceupdateselectedNuke')
 forceUpdateSelected.triggered.connect(nuke_internal.localization.forceUpdateSelectedNodes)
 
 localisation = findRegisteredAction('foundry.menu.localizationNuke')

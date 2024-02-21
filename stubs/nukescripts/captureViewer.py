@@ -52,8 +52,7 @@ class CaptureViewer(object):
             self._performCleanup()
 
         try:
-            nuke.executeMultiple((self._viewer,), self._frameRange,
-                                 self._selectedViews, False)
+            nuke.executeMultiple((self._viewer,), self._frameRange, self._selectedViews, False)
         except RuntimeError as msg:
             if msg.args[0][0:9] == 'Cancelled':
                 splitMsg = string.split(msg.args[0])
@@ -77,5 +76,4 @@ class CaptureViewer(object):
 
             options = {}
             options['lut'] = 'sRGB'
-            self._flipbook.run(playbackPath, self._frameRange,
-                               self._selectedViews, options)
+            self._flipbook.run(playbackPath, self._frameRange, self._selectedViews, options)

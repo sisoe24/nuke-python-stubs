@@ -137,8 +137,7 @@ class TranscodeExporterUI(FnExternalRenderUI.NukeRenderTaskUI):
         formLayout.addRow('Keep Nuke Script:', keepNukeScriptCheckbox)
 
         # create checkbox for whether exports should read all lines from the input in one go (where possible).
-        self._codecTypeComboBox.currentIndexChanged.connect(
-            self._enableReadAllLinesForCodec)
+        self._codecTypeComboBox.currentIndexChanged.connect(self._enableReadAllLinesForCodec)
         self._readAllLinesCheckbox = QtWidgets.QCheckBox()
         checkBoxState = QtCore.Qt.Checked if self._preset.properties(
         )['readAllLinesForExport'] else QtCore.Qt.Unchecked
@@ -203,8 +202,7 @@ class TranscodeExporterUI(FnExternalRenderUI.NukeRenderTaskUI):
 
         # If delete audio is valid, that would imply a mov container, which does not support
         # non PCM codecs yet
-        self._audioLayout.setWidgetEnabled(
-            self._codecProperty, enabled and not deleteAudioValid)
+        self._audioLayout.setWidgetEnabled(self._codecProperty, enabled and not deleteAudioValid)
         if (deleteAudioValid):
             self._preset.properties(
             )[FnAudioConstants.kCodecKey] = FnAudioConstants.kNonCompressedCodec
@@ -213,5 +211,4 @@ class TranscodeExporterUI(FnExternalRenderUI.NukeRenderTaskUI):
         FnAudioHelper.createCodecSpecificProperties(self, self._audioLayout, enabled)
 
 
-hiero.ui.taskUIRegistry.registerTaskUI(
-    FnTranscodeExporter.TranscodePreset, TranscodeExporterUI)
+hiero.ui.taskUIRegistry.registerTaskUI(FnTranscodeExporter.TranscodePreset, TranscodeExporterUI)

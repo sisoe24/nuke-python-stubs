@@ -16,8 +16,7 @@ class VersionWidget(QtWidgets.QSpinBox):
         QtWidgets.QSpinBox.__init__(self)
         self._padding = 2
         self.setRange(0, 99999)
-        self.setSizePolicy(QtWidgets.QSizePolicy.Preferred,
-                           QtWidgets.QSizePolicy.Preferred)
+        self.setSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Preferred)
 
     def setPadding(self, padding):
         if padding == self._padding:

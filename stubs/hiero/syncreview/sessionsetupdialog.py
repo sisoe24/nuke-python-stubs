@@ -99,8 +99,7 @@ class SessionSetupDialog(QDialog):
         self._hostNameComboBox.addItem('Other')
         italicFont = self.font()
         italicFont.setItalic(True)
-        self._hostNameComboBox.setItemData(
-            self._otherHostNameIndex, italicFont, Qt.FontRole)
+        self._hostNameComboBox.setItemData(self._otherHostNameIndex, italicFont, Qt.FontRole)
         self._otherHostNameEdit = QLineEdit()
         self._otherHostNameEdit.setMinimumWidth(100)
         self._otherHostNameEdit.textEdited.connect(self._updateConnectionInfo)
@@ -120,8 +119,7 @@ class SessionSetupDialog(QDialog):
         self._initConnectionInfoWidgets()
         layout.addRow('Connection Info', self._connectionInfoLayout)
         self._updateConnectionInfo()
-        self._hostNameComboBox.currentTextChanged.connect(
-            self._onHostNameSelectionChanged)
+        self._hostNameComboBox.currentTextChanged.connect(self._onHostNameSelectionChanged)
         self._port.valueChanged.connect(self._updateConnectionInfo)
 
         self._buttonBox = QDialogButtonBox(QDialogButtonBox.Cancel | QDialogButtonBox.Ok)
@@ -165,8 +163,7 @@ class SessionSetupDialog(QDialog):
         """ User selected an entry in the host name combo box. If this was 'Other'
         show the line edit for that
         """
-        otherSelected = (self._hostNameComboBox.currentIndex()
-                         == self._otherHostNameIndex)
+        otherSelected = (self._hostNameComboBox.currentIndex() == self._otherHostNameIndex)
         self._otherHostNameEdit.setVisible(otherSelected)
         # If other is selected, make the combo box show it italic
         font = self.font()
@@ -201,8 +198,7 @@ class SessionSetupDialog(QDialog):
     def _copyConnectionInfo(self):
         QApplication.clipboard().setText(self._connectionInfo.text())
         toolTipPosition = self.mapToGlobal(self._connectionInfoButton.pos())
-        # Adjust tooltip position so it doesn't cover the button.
-        toolTipPosition += QPoint(0, 10)
+        toolTipPosition += QPoint(0, 10)  # Adjust tooltip position so it doesn't cover the button.
         QToolTip.showText(toolTipPosition,
                           'Connection info successfully copied to clipboard',
                           self._connectionInfoButton,

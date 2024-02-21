@@ -78,8 +78,7 @@ class AddTagMenuDialog(QtWidgets.QDialog):
     def updateTagComboBox(self):
         # Build a list of Tags from Hiero's Preset Tags Bin...
         self.tags = []
-        presetTags = hiero.core.find_items.findProjectTags(
-            hiero.core.project('Tag Presets'))
+        presetTags = hiero.core.find_items.findProjectTags(hiero.core.project('Tag Presets'))
         hiero.core.log.debug('Refreshing TagComboBox')
 
         # Finally, try to add in any Tags used in the project tagsBin...
@@ -156,10 +155,8 @@ class TagsMenu:
         # Grab hold of the C++ Clear Tags method...
         self._projectClearTags = findMenuAction('foundry.project.clearTags')
 
-        hiero.core.events.registerInterest(
-            'kShowContextMenu/kViewer', self.viewerEventHandler)
-        hiero.core.events.registerInterest(
-            'kShowContextMenu/kBin', self.binViewEventHandler)
+        hiero.core.events.registerInterest('kShowContextMenu/kViewer', self.viewerEventHandler)
+        hiero.core.events.registerInterest('kShowContextMenu/kBin', self.binViewEventHandler)
         hiero.core.events.registerInterest(
             'kShowContextMenu/kTimeline', self.timelineSpreadsheetEventHandler)
         hiero.core.events.registerInterest(
@@ -294,8 +291,7 @@ class TagsMenu:
         hiero.core.log.debug('Adding Tags to Selection of Track Items')
 
         # Check we have a valid selection of Shots...
-        shots = [shot for shot in self._selection if isinstance(
-            shot, hiero.core.TrackItem)]
+        shots = [shot for shot in self._selection if isinstance(shot, hiero.core.TrackItem)]
         if len(shots) < 1:
             return
         else:
@@ -307,8 +303,7 @@ class TagsMenu:
         hiero.core.log.debug('Adding Tags to Selection of Tracks')
 
         # Check we have a valid selection of Shots...
-        shotSelection = [shot for shot in self._selection if isinstance(
-            shot, hiero.core.TrackItem)]
+        shotSelection = [shot for shot in self._selection if isinstance(shot, hiero.core.TrackItem)]
 
         # Or Tracks..
         trackSelection = [track for track in self._selection if isinstance(
@@ -407,8 +402,8 @@ class TagsMenu:
             return
         else:
             sequence.append(self.currentClipSequence.binItem().activeItem())
-            hiero.core.log.debug(
-                'Adding Tag to Current Clip/Sequence: '+str(self.currentClipSequence))
+            hiero.core.log.debug('Adding Tag to Current Clip/Sequence: ' +
+                                 str(self.currentClipSequence))
             self.showDialogAndAddTagCurrentViewerFrame()
 
     # This clears Tags from the Clip/Sequence in the Current Viewer
@@ -444,8 +439,7 @@ class TagsMenu:
                 # We don't include 'Shot Tag' if it's a Clip, only for a Sequeunce.
                 if isinstance(self.currentClipSequence.binItem().activeItem(), hiero.core.Sequence):
                     self._addTagToCurrentViewerShot.setVisible(True)
-                    self._addTagToCurrentViewerClipOrSequence.setText(
-                        'Tag whole Sequence')
+                    self._addTagToCurrentViewerClipOrSequence.setText('Tag whole Sequence')
                 elif isinstance(self.currentClipSequence.binItem().activeItem(), hiero.core.Clip):
                     self._addTagToCurrentViewerShot.setVisible(False)
                     self._addTagToCurrentViewerClipOrSequence.setText('Tag whole Clip')
@@ -479,8 +473,7 @@ class TagsMenu:
         if len(self._selection) > 0:
             self._tagMenu = self.createTagMenuForView('kBin')
             # Insert the Tags menu with the Clear Tags Option
-            insertMenuAction(self._tagMenu.menuAction(), event.menu,
-                             after='foundry.menu.version')
+            insertMenuAction(self._tagMenu.menuAction(), event.menu, after='foundry.menu.version')
 
         return
 
@@ -513,8 +506,7 @@ class TagsMenu:
                 self._addTagToShotSelection.setVisible(True)
 
             # Insert the Tags menu with the Clear Tags Option
-            insertMenuAction(self._tagMenu.menuAction(), event.menu,
-                             after='foundry.menu.version')
+            insertMenuAction(self._tagMenu.menuAction(), event.menu, after='foundry.menu.version')
         return
 
 

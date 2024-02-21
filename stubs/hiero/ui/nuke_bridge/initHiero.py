@@ -41,8 +41,7 @@ class OpenInNukeAction(QtWidgets.QAction):
 
         self.triggered.connect(self.doOpen)
         self.hieroEventHandler = hieroEventHandler
-        hiero.core.events.registerInterest(
-            'kShowContextMenu/kTimeline', self.eventHandler)
+        hiero.core.events.registerInterest('kShowContextMenu/kTimeline', self.eventHandler)
         hiero.core.events.registerInterest('kShowContextMenu/kBin', self.eventHandler)
 
     def doOpen(self):
@@ -71,8 +70,7 @@ class OpenInNukeAction(QtWidgets.QAction):
 
         for a in event.menu.actions():
             if a.text().lower().strip() == 'open in':
-                hiero.ui.insertMenuAction(
-                    self, a.menu(), before='foundry.project.openInViewer')
+                hiero.ui.insertMenuAction(self, a.menu(), before='foundry.project.openInViewer')
 
 
 class HieroEventHandler:

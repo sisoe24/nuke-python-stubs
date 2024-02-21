@@ -245,8 +245,8 @@ class AdditionalNodesDialog (QtWidgets.QDialog):
             self.beginResetModel()
 
             for location, tags, script in self._data:
-                element = self.Element(self._root, location=location,
-                                       tags=tags, script=script, available_tags=available_tags)
+                element = self.Element(self._root, location=location, tags=tags,
+                                       script=script, available_tags=available_tags)
                 element.removeClicked.connect(self.removeItem)
                 self._root.addChild(element)
 
@@ -393,8 +393,7 @@ class AdditionalNodesDialog (QtWidgets.QDialog):
 
         self._standardButtons = QtWidgets.QDialogButtonBox(
             QtWidgets.QDialogButtonBox.Ok | QtWidgets.QDialogButtonBox.Cancel)
-        addButton = self._standardButtons.addButton(
-            '+', QtWidgets.QDialogButtonBox.ActionRole)
+        addButton = self._standardButtons.addButton('+', QtWidgets.QDialogButtonBox.ActionRole)
         addButton.clicked.connect(self._addEntry)
 
         clearButton = self._standardButtons.addButton(

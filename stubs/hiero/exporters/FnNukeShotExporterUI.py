@@ -16,8 +16,7 @@ from .FnNukeExporterWidgets import (TimelineWriteNodeWidget,
 class NukeShotExporterUI(hiero.ui.TaskUIBase):
     def __init__(self, preset):
         """UI for NukeShotExporter task."""
-        hiero.ui.TaskUIBase.__init__(
-            self, preset.parentType(), preset, 'Nuke Project File')
+        hiero.ui.TaskUIBase.__init__(self, preset.parentType(), preset, 'Nuke Project File')
 
         self._uiProperties = []
         self._tags = []
@@ -30,8 +29,7 @@ class NukeShotExporterUI(hiero.ui.TaskUIBase):
     def readPresetChanged(self, topLeft, bottomRight):
         hiero.core.log.debug('readPresetChanged')
         presetValue = self._preset.properties()['readPaths'] = []
-        model = self._nodeSelectionWidget.getModel(
-            NukeProjectNodeSelectionWidget.kReadNode)
+        model = self._nodeSelectionWidget.getModel(NukeProjectNodeSelectionWidget.kReadNode)
         for row in range(0, model.rowCount()):
             item = model.item(row, 0)
             if item.data(QtCore.Qt.CheckStateRole) == QtCore.Qt.Checked:
@@ -57,8 +55,7 @@ class NukeShotExporterUI(hiero.ui.TaskUIBase):
         hiero.core.log.debug('writePresetChanged')
         presetValue = self._preset.properties()['writePaths'] = []
 
-        model = self._nodeSelectionWidget.getModel(
-            NukeProjectNodeSelectionWidget.kWriteNode)
+        model = self._nodeSelectionWidget.getModel(NukeProjectNodeSelectionWidget.kWriteNode)
         for row in range(0, model.rowCount()):
             item = model.item(row, 0)
             if item.data(QtCore.Qt.CheckStateRole) == QtCore.Qt.Checked:
@@ -71,8 +68,7 @@ class NukeShotExporterUI(hiero.ui.TaskUIBase):
 
     def annotationsPreCompPresetChanged(self, topLeft, bottomRight):
         presetValue = self._preset.properties()['annotationsPreCompPaths'] = []
-        model = self._nodeSelectionWidget.getModel(
-            NukeProjectNodeSelectionWidget.kAnnotationsNode)
+        model = self._nodeSelectionWidget.getModel(NukeProjectNodeSelectionWidget.kAnnotationsNode)
         for row in range(0, model.rowCount()):
             item = model.item(row, 0)
             if item.data(QtCore.Qt.CheckStateRole) == QtCore.Qt.Checked:
@@ -96,8 +92,7 @@ class NukeShotExporterUI(hiero.ui.TaskUIBase):
             as appropriate. """
         text = self._reformatCombo.currentText()
         widgetEnabledMap = ((self._formatChooser, text == nuke.ReformatNode.kCompReformatToFormat),
-                            (self._resizeWidget, text ==
-                             nuke.ReformatNode.kCompReformatToFormat),
+                            (self._resizeWidget, text == nuke.ReformatNode.kCompReformatToFormat),
                             (self._filterWidget, text != nuke.ReformatNode.kCompFormatAsPlate))
 
         for widget, enabled in widgetEnabledMap:
@@ -127,8 +122,7 @@ class NukeShotExporterUI(hiero.ui.TaskUIBase):
         self._preset._properties['reformat']['pixelAspect'] = float(format.pixelAspect())
 
     def createNodeSelectionWidget(self, layout, exportTemplate):
-        self._nodeSelectionWidget = NukeProjectNodeSelectionWidget(
-            exportTemplate, self._preset)
+        self._nodeSelectionWidget = NukeProjectNodeSelectionWidget(exportTemplate, self._preset)
         self._nodeSelectionWidget.addNodeSelector(
             NukeProjectNodeSelectionWidget.kReadNode, 'Read Nodes', 'readPaths',
             'Select multiple entries within the shot template to be used as inputs '
@@ -168,8 +162,7 @@ class NukeShotExporterUI(hiero.ui.TaskUIBase):
                 NukeProjectNodeSelectionWidget.kWriteNode)
             self._timelineWriteNode = TimelineWriteNodeWidget(writeModel, self._preset)
             formLayout.addRow('Timeline Write Node:', self._timelineWriteNode)
-            self._timelineWriteNode.timelineWriteNodeChanged.connect(
-                self.timelineWriteNodeChanged)
+            self._timelineWriteNode.timelineWriteNodeChanged.connect(self.timelineWriteNodeChanged)
 
             # Relative paths widget
             key, value, label = 'useRelativePaths', False, 'Use Relative Paths:'
@@ -213,8 +206,7 @@ class NukeShotExporterUI(hiero.ui.TaskUIBase):
             additionalNodesLayout = QtWidgets.QHBoxLayout()
             additionalNodesCheckbox = QtWidgets.QCheckBox()
             additionalNodesCheckbox.setToolTip(additionalNodesToolTip)
-            additionalNodesCheckbox.stateChanged.connect(
-                self._additionalNodesEnableClicked)
+            additionalNodesCheckbox.stateChanged.connect(self._additionalNodesEnableClicked)
             if self._preset.properties()['additionalNodesEnabled']:
                 additionalNodesCheckbox.setCheckState(QtCore.Qt.Checked)
             additionalNodesButton = QtWidgets.QPushButton('Edit')
@@ -303,8 +295,7 @@ class NukeShotExporterUI(hiero.ui.TaskUIBase):
         uiProperty.propertyChanged.connect(self.propertyChanged)
 
         self._resizeWidget = containerWidget
-        self._reformatPropertyLabels[self._resizeWidget] = layout.labelForField(
-            self._resizeWidget)
+        self._reformatPropertyLabels[self._resizeWidget] = layout.labelForField(self._resizeWidget)
         self._resizeCombo = uiProperty._widget
 
         key, value, label = 'center', True, 'Center'
@@ -326,8 +317,7 @@ class NukeShotExporterUI(hiero.ui.TaskUIBase):
         uiProperty.update()
         uiProperty.propertyChanged.connect(self.propertyChanged)
         self._filterWidget = uiProperty
-        self._reformatPropertyLabels[self._filterWidget] = layout.labelForField(
-            self._filterWidget)
+        self._reformatPropertyLabels[self._filterWidget] = layout.labelForField(self._filterWidget)
 
         self.reformatChanged()
 
@@ -384,7 +374,5 @@ class NukeShotExporterUI(hiero.ui.TaskUIBase):
 
 # Register the UI for NukeShotPreset and NukeSequencePreset. It's shared between
 # them, with a bit of different behaviour in the class depending on which is used.
-hiero.ui.taskUIRegistry.registerTaskUI(
-    FnNukeShotExporter.NukeShotPreset, NukeShotExporterUI)
-hiero.ui.taskUIRegistry.registerTaskUI(
-    FnNukeShotExporter.NukeSequencePreset, NukeShotExporterUI)
+hiero.ui.taskUIRegistry.registerTaskUI(FnNukeShotExporter.NukeShotPreset, NukeShotExporterUI)
+hiero.ui.taskUIRegistry.registerTaskUI(FnNukeShotExporter.NukeSequencePreset, NukeShotExporterUI)

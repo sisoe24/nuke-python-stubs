@@ -33,8 +33,7 @@ class NukeProfiler:
             xmlString += '\n'
         self._indent += 1
         for dictKey, dictValue in optionsDict.items():
-            xmlString += self.indentString() + '<' + dictKey + '>' + \
-                str(dictValue) + '</' + dictKey + '>\n'
+            xmlString += self.indentString() + '<' + dictKey + '>' + str(dictValue) + '</' + dictKey + '>\n'
         if closeTag:
             self._indent -= 1
             xmlString += self.indentString() + '</' + tagName + '>\n'
@@ -48,8 +47,7 @@ class NukeProfiler:
     def WriteDictInner(self, dictToWrite):
         xmlString = ''
         for dictKey, dictValue in dictToWrite.items():
-            xmlString += self.indentString() + '<' + dictKey + '>' + \
-                str(dictValue) + '</' + dictKey + '>\n'
+            xmlString += self.indentString() + '<' + dictKey + '>' + str(dictValue) + '</' + dictKey + '>\n'
         return xmlString
 
     def NodeProfile(self, nukeNode, maxEngineVal):
@@ -94,8 +92,7 @@ class NukeProfiler:
 
     def writeXMLInfo(self):
         self._file.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n")
-        self._file.write(
-            "<?xml-stylesheet type=\"text/xsl\" href=\"testStylesheet.xsl\"?>\n")
+        self._file.write("<?xml-stylesheet type=\"text/xsl\" href=\"testStylesheet.xsl\"?>\n")
 
     def resetTimersAndStartProfile(self):
         nuke.resetPerformanceTimers()

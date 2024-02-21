@@ -88,8 +88,8 @@ class RenameShotsDialog(QtWidgets.QDialog):
                                    lambda keyword, task: task.parent().parent().name())
         self._resolver.addResolver(
             '{event}', 'Event Number of the shot being processed', lambda keyword, task: str(task.eventNumber()))
-        self._resolver.addResolver('{fps}', 'Frame rate of the Sequence', lambda keyword, task: str(
-            task.parent().parent().framerate()))
+        self._resolver.addResolver('{fps}', 'Frame rate of the Sequence',
+                                   lambda keyword, task: str(task.parent().parent().framerate()))
         self._resolver.addResolver('{filename}', 'Source filename of the TrackItem',
                                    lambda keyword, task: task.source().mediaSource().filename())
 
@@ -188,8 +188,7 @@ class RenameShotsDialog(QtWidgets.QDialog):
         sequentialRenameLayout.addRow('Start #:', self._startField)
 
         self._incField = QtWidgets.QLineEdit()
-        self._incField.setToolTip(
-            'The increment applied to the number inserted in each shot name.')
+        self._incField.setToolTip('The increment applied to the number inserted in each shot name.')
         self._incField.setValidator(numval)
         self._incField.textChanged.connect(self._textChanged)
         sequentialRenameLayout.addRow('Increment:', self._incField)
@@ -205,8 +204,7 @@ class RenameShotsDialog(QtWidgets.QDialog):
         self._matchSequenceListWidget = QtWidgets.QListWidget()
         self._matchSequenceListWidget.setToolTip(
             "Search the selected sequence for shots that use the same clip and a range from that clip that overlaps. Rename to the best matching shot's name.")
-        self._matchSequenceListWidget.itemSelectionChanged.connect(
-            self._updateOkButtonState)
+        self._matchSequenceListWidget.itemSelectionChanged.connect(self._updateOkButtonState)
         matchSequenceLayout.addRow('', self._matchSequenceListWidget)
         matchSequencePage.setLayout(matchSequenceLayout)
 
@@ -230,8 +228,7 @@ class RenameShotsDialog(QtWidgets.QDialog):
         changeCaseLayout.addRow('Case:', self._changeCaseModeComboBox)
         changeCasePage.setLayout(changeCaseLayout)
 
-        hieroModes = [sequentialRenamePage,
-                      matchSequencePage, clipNamePage, changeCasePage]
+        hieroModes = [sequentialRenamePage, matchSequencePage, clipNamePage, changeCasePage]
         if not hiero.core.isHieroPlayer():
             for mode in hieroModes:
                 self._stackedWidget.addWidget(mode)
@@ -240,8 +237,7 @@ class RenameShotsDialog(QtWidgets.QDialog):
         layout.addWidget(self._stackedWidget)
 
         # Checkbox for renaming Audio Tracks
-        self._renameAudioTracksCheckbox = QtWidgets.QCheckBox(
-            'Include Clips From Audio Tracks')
+        self._renameAudioTracksCheckbox = QtWidgets.QCheckBox('Include Clips From Audio Tracks')
         self._renameAudioTracksCheckbox.setToolTip(
             'Enable this option to rename shots on Audio Tracks.')
         layout.addWidget(self._renameAudioTracksCheckbox)
@@ -520,10 +516,8 @@ class RenameTimelineShotsAction(QtWidgets.QAction):
         self._selection = ()
         self._dialog = None
         self.triggered.connect(self.doit)
-        hiero.core.events.registerInterest(
-            'kShowContextMenu/kTimeline', self.eventHandler)
-        hiero.core.events.registerInterest(
-            'kShowContextMenu/kSpreadsheet', self.eventHandler)
+        hiero.core.events.registerInterest('kShowContextMenu/kTimeline', self.eventHandler)
+        hiero.core.events.registerInterest('kShowContextMenu/kSpreadsheet', self.eventHandler)
         self.setObjectName('foundry.timeline.renameshots')
         self.setShortcut('Alt+Shift+/')
 
@@ -536,8 +530,7 @@ class RenameTimelineShotsAction(QtWidgets.QAction):
         else:
             return
         # remove any non-trackitem entries (ie transitions)
-        shots = [item for item in self._selection if isinstance(
-            item, hiero.core.TrackItem)]
+        shots = [item for item in self._selection if isinstance(item, hiero.core.TrackItem)]
 
         if len(shots) < 1:
             # Do nothing if len(shots)==0
@@ -633,14 +626,13 @@ class RenameTimelineShotsAction(QtWidgets.QAction):
                             # the greatest overlap, or the first one with an overlap that covers the whole clip.
                             clip = shot.source()
                             shotInTC = shot.sourceIn() + clip.timecodeStart()
-                            # If we get 0 overlap but name matches, we'll take it.
-                            bestOverlap = -1
+                            bestOverlap = -1  # If we get 0 overlap but name matches, we'll take it.
                             bestMatchShot = None
                             for (matchShot, matchClip, matchInTC) in matchShotList:
                                 if clip.name() == matchClip.name():
                                     overlapStart = max(shotInTC, matchInTC)
-                                    overlapEnd = min(
-                                        shotInTC + shot.duration(), matchInTC + matchShot.duration())
+                                    overlapEnd = min(shotInTC + shot.duration(),
+                                                     matchInTC + matchShot.duration())
                                     overlap = max(0, overlapEnd - overlapStart)
                                     if overlap > bestOverlap:
                                         bestOverlap = overlap
@@ -711,8 +703,7 @@ class RenameTimelineShotsAction(QtWidgets.QAction):
 
         for a in event.menu.actions():
             if a.text().lower().strip() == 'editorial':
-                hiero.ui.insertMenuAction(
-                    self, a.menu(), after='foundry.timeline.enableItem')
+                hiero.ui.insertMenuAction(self, a.menu(), after='foundry.timeline.enableItem')
 
 
 # Instantiate the action to get it to register itself.

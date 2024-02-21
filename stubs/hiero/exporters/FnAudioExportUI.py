@@ -20,8 +20,7 @@ class AudioExportUI(hiero.ui.TaskUIBase):
         formLayout = TaskUIFormLayout()
         self._formLayout = formLayout
 
-        FnAudioHelper.createCodecProperty(
-            self, formLayout, self.codecChanged, ('Audio Codec.'))
+        FnAudioHelper.createCodecProperty(self, formLayout, self.codecChanged, ('Audio Codec.'))
 
         FnAudioHelper.createCodecSpecificProperties(self, self._formLayout, True)
 

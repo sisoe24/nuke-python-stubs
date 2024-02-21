@@ -23,8 +23,7 @@ class RushRenderTask(hiero.core.TaskBase):
         self._scriptPath = scriptPath
         self._logFileName = os.path.splitext(self._scriptPath)[0] + '.log'
         self._jobDoneFile = os.path.splitext(self._scriptPath)[0] + '.done'
-        self._jobDoneCmd = os.path.join(
-            os.path.dirname(self._scriptPath), 'jobdonecommand')
+        self._jobDoneCmd = os.path.join(os.path.dirname(self._scriptPath), 'jobdonecommand')
         self._logFile = None
         self._finished = False
         self._progress = 0.0

@@ -36,8 +36,7 @@ def createCamera(unrealReaderNode):
 
     if link:
         # Set camera values as links to what's stored in the Unreal Reader node
-        camera.knob('projection_mode').setExpression(
-            unrealReaderNode.name() + '.projectionMode')
+        camera.knob('projection_mode').setExpression(unrealReaderNode.name() + '.projectionMode')
         camera.knob('focal').setExpression(unrealReaderNode.name() + '.focalLength')
         camera.knob('haperture').setExpression(unrealReaderNode.name() + '.aperture.x')
         camera.knob('vaperture').setExpression(unrealReaderNode.name() + '.aperture.y')
@@ -46,12 +45,9 @@ def createCamera(unrealReaderNode):
     else:
         camera.knob('projection_mode').fromScript(
             unrealReaderNode.knob('projectionMode').toScript(False))
-        camera.knob('focal').fromScript(
-            unrealReaderNode.knob('focalLength').toScript(False))
-        camera.knob('translate').fromScript(
-            unrealReaderNode.knob('camTranslate').toScript(False))
-        camera.knob('rotate').fromScript(
-            unrealReaderNode.knob('camRotate').toScript(False))
+        camera.knob('focal').fromScript(unrealReaderNode.knob('focalLength').toScript(False))
+        camera.knob('translate').fromScript(unrealReaderNode.knob('camTranslate').toScript(False))
+        camera.knob('rotate').fromScript(unrealReaderNode.knob('camRotate').toScript(False))
 
         numKeys = unrealReaderNode['aperture'].getNumKeys()
         camera.knob('haperture').setAnimated()

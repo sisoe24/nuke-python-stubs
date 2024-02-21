@@ -24,14 +24,14 @@ from hiero.core import Clip, BinItem, MediaSource, newProject
 def findResourcePath():
 
     hieroExecutablePath = QtCore.QCoreApplication.applicationDirPath()
-    resourcesPath = str(os.path.abspath(os.path.join(
-        hieroExecutablePath, 'Documentation', 'PythonDevGuide', 'Hiero', 'Resources')))
+    resourcesPath = str(os.path.abspath(os.path.join(hieroExecutablePath,
+                        'Documentation', 'PythonDevGuide', 'Hiero', 'Resources')))
 
     # OS X paths are a bit different...
     if sys.platform.startswith('darwin'):
         hieroExecutablePath = os.path.join(hieroExecutablePath, '..', '..', '..')
-        resourcesPath = str(os.path.abspath(os.path.join(
-            hieroExecutablePath, 'Resources', 'PythonDevGuide', 'Hiero', 'Resources')))
+        resourcesPath = str(os.path.abspath(os.path.join(hieroExecutablePath,
+                            'Resources', 'PythonDevGuide', 'Hiero', 'Resources')))
 
     return resourcesPath
 
@@ -159,8 +159,7 @@ else:
 
             # check if the path exists now
             if os.path.exists(writeNodeOutput):
-                print('%s successfully rendered (from %s)' %
-                      (writeNodeOutput, scriptPath))
+                print('%s successfully rendered (from %s)' % (writeNodeOutput, scriptPath))
             else:
                 print('%s failed to render' % writeNodeOutput)
 

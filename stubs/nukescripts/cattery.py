@@ -73,7 +73,7 @@ class CatInfo:
     def nuke_script(self):
         if self.filepath.endswith('.gizmo'):
             _, filename = os.path.split(self.filepath)
-            return f'import nuke; nuke.createNode({filename!r})'
+            return f"import nuke; nuke.createNode({filename!r})"
 
         elif self.filepath.endswith('.cat'):
             # we are creating a temp nk file so we can setup the knob on inference pointing to the
@@ -102,8 +102,7 @@ class PackageInfo:
     @classmethod
     def from_dict(cls, data):
         self = cls()
-        self.minimum_nuke_version_required = data.get(
-            'minimum_nuke_version_required', 13.1)
+        self.minimum_nuke_version_required = data.get('minimum_nuke_version_required', 13.1)
         self.version = data.get('version', 1)
         self.category = data.get('category', '')
         self.description = data.get('description', '')
@@ -180,7 +179,7 @@ def discover_packages(repository, target_version):
 
 
 def register_cats():
-    nuke_version = float(f'{nuke.NUKE_VERSION_MAJOR}.{nuke.NUKE_VERSION_MINOR}')
+    nuke_version = float(f"{nuke.NUKE_VERSION_MAJOR}.{nuke.NUKE_VERSION_MINOR}")
     for repository in find_repositories():
         for package in discover_packages(repository, nuke_version):
             for cat in package.cats:
@@ -193,7 +192,7 @@ def register_cats():
 
 def populate_menu(menu):
     register_cats()
-    nuke_version = float(f'{nuke.NUKE_VERSION_MAJOR}.{nuke.NUKE_VERSION_MINOR}')
+    nuke_version = float(f"{nuke.NUKE_VERSION_MAJOR}.{nuke.NUKE_VERSION_MINOR}")
 
     packages_by_category = dict()
     for repository in find_repositories():
@@ -207,8 +206,7 @@ def populate_menu(menu):
         submenu = menu
         if category != '_':
             icon = ICONS.get(category.lower(), ICONS['other'])
-            submenu = menu.menu(category) if menu.menu(
-                category) else menu.addMenu(category, icon)
+            submenu = menu.menu(category) if menu.menu(category) else menu.addMenu(category, icon)
 
         cats = [c for p in packages_by_category[category] for c in p.cats]
         cats.sort(key=lambda k: k.name)

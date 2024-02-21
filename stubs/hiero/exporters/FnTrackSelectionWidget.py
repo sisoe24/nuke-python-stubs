@@ -104,8 +104,7 @@ class TrackSelectionWidget(QtWidgets.QWidget):
                 if isinstance(track, hiero.core.VideoTrack):
                     item.setIcon(QtGui.QIcon('icons:VideoOnlyWarning.png'))
                 item.setText(item.text() + '  ( Media Offline )')
-                item.setToolTip('Offline Items will be ignored:\n' +
-                                '\n'.join(offlineItems))
+                item.setToolTip('Offline Items will be ignored:\n' + '\n'.join(offlineItems))
 
             # If tracks are disabled or empty we disable the checkbox and change
             # the tooltip to inform the user why they are disabled
@@ -170,8 +169,7 @@ class TrackSelectionWidget(QtWidgets.QWidget):
         for trackitem in track:
             if not trackitem.isMediaPresent():
                 try:
-                    sourcepath = trackitem.source().mediaSource().fileinfos()[
-                        0].filename()
+                    sourcepath = trackitem.source().mediaSource().fileinfos()[0].filename()
                 except:
                     sourcepath = 'Unknown Source'
                 offlineMedia.append(' : '.join([trackitem.name(), sourcepath]))

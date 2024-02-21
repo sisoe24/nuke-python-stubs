@@ -179,8 +179,7 @@ class ResolveTable:
         # Any {tokens} which match directly, just do a simple replace
         for (resolverName, resolvedValue) in resolved.items():
             if resolvedValue is not None:
-                value = self.pathSensitiveReplace(
-                    value, resolverName, resolvedValue, isPath)
+                value = self.pathSensitiveReplace(value, resolverName, resolvedValue, isPath)
 
         # Rebuild the dictionary with the {} stripped from the tokens
         # These tokens form the local variables in the eval call
@@ -220,8 +219,7 @@ class ResolveTable:
 # SE - unit tests - these are here to aid in unit test discovery
 
 testTokens = [['foo', 'foo'], ['bar', 'bar'], ['foobar', 'foobar'], ['x', 'expanded']]
-testPathyTokens = [['foo', '/foo'], ['bar', 'bar/'],
-                   ['foobar', '/foobar/'], ['x', 'expanded']]
+testPathyTokens = [['foo', '/foo'], ['bar', 'bar/'], ['foobar', '/foobar/'], ['x', 'expanded']]
 
 
 class ResolveTableTests(unittest.TestCase):
@@ -284,10 +282,8 @@ class ResolveTableTests(unittest.TestCase):
 
                 testCase = prefix + '===---{' + testCase + '}---===' + suffix
 
-                self.assertRaises(RuntimeError, resolver.resolve,
-                                  None, testCase, isPath=False)
-                self.assertRaises(RuntimeError, resolver.resolve,
-                                  None, testCase, isPath=True)
+                self.assertRaises(RuntimeError, resolver.resolve, None, testCase, isPath=False)
+                self.assertRaises(RuntimeError, resolver.resolve, None, testCase, isPath=True)
 
     def testBadTokensInString(self):
         """ Make sure we throw an exception if the string contains multiple unexpected tokens. """
@@ -307,12 +303,10 @@ class ResolveTableTests(unittest.TestCase):
                 if random.randrange(0, 10) > 3:
                     suffix = self.randomLowercaseString(random.randrange(4, 10))
 
-                badToken = self.randomLowercaseString(
-                    random.randrange(7, 10))  # avoid foobar
+                badToken = self.randomLowercaseString(random.randrange(7, 10))  # avoid foobar
                 testCase = testCase + prefix + '===---{' + badToken + '}---===' + suffix
 
-            self.assertRaises(RuntimeError, resolver.resolve,
-                              None, testCase, isPath=False)
+            self.assertRaises(RuntimeError, resolver.resolve, None, testCase, isPath=False)
             self.assertRaises(RuntimeError, resolver.resolve, None, testCase, isPath=True)
 
     def testGoodTokenInString(self):
@@ -333,10 +327,8 @@ class ResolveTableTests(unittest.TestCase):
                 testCase = prefix + '{' + tokenData[0] + '}' + suffix
                 expectedResult = prefix + tokenData[1] + suffix
 
-                self.assertEqual(expectedResult, resolver.resolve(
-                    None, testCase, isPath=False))
-                self.assertEqual(expectedResult, resolver.resolve(
-                    None, testCase, isPath=True))
+                self.assertEqual(expectedResult, resolver.resolve(None, testCase, isPath=False))
+                self.assertEqual(expectedResult, resolver.resolve(None, testCase, isPath=True))
 
     def testGoodTokensInString(self):
         """ Make sure we get the expected result when substituting multiple tokens. """
@@ -360,10 +352,8 @@ class ResolveTableTests(unittest.TestCase):
                 testCase = testCase + prefix + '{' + tokenData[0] + '}' + suffix
                 expectedResult = expectedResult + prefix + tokenData[1] + suffix
 
-            self.assertEqual(expectedResult, resolver.resolve(
-                None, testCase, isPath=False))
-            self.assertEqual(expectedResult, resolver.resolve(
-                None, testCase, isPath=True))
+            self.assertEqual(expectedResult, resolver.resolve(None, testCase, isPath=False))
+            self.assertEqual(expectedResult, resolver.resolve(None, testCase, isPath=True))
 
     def testTP155479(self):
         """ Check that when isPath=True paths are normalised and don't have repeated /'s. """

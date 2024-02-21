@@ -96,8 +96,7 @@ class CustomLUTCorrection(LUTCorrection):
                         try:
                             family = rootNode.getOCIOColorspaceFamily(workingSpace)
                             if family:
-                                workingSpace = (
-                                    'Colorspaces/%s/%s') % (family, workingSpace)
+                                workingSpace = ('Colorspaces/%s/%s') % (family, workingSpace)
                         except ValueError:
                             print("  Error: working space '" + str(workingSpace) +
                                   "' not found in config's colorspaces")
@@ -105,8 +104,7 @@ class CustomLUTCorrection(LUTCorrection):
                             print('  Error finding working space family')
 
             if addColorspace:
-                colorspaceEffect = self._manager.createEffectItem(
-                    'OCIOColorSpace', first, last)
+                colorspaceEffect = self._manager.createEffectItem('OCIOColorSpace', first, last)
                 colorspaceNode = colorspaceEffect.node()
                 log.debug('Setting in_colorspace to %s' % inColorspace)
                 colorspaceNode['in_colorspace'].setValue(inColorspace)
@@ -146,8 +144,7 @@ class NukeDefaultLUTCorrection(LUTCorrection):
 
         shouldApplyColorTranform = inColorspace != '' and inColorspace != 'linear'
         if shouldApplyColorTranform:
-            colorspaceEffect = self._manager.createEffectItem(
-                'OCIOColorSpace', first, last)
+            colorspaceEffect = self._manager.createEffectItem('OCIOColorSpace', first, last)
             colorspaceNode = colorspaceEffect.node()
             colorspaceNode['in_colorspace'].setValue(inColorspace)
 
@@ -308,8 +305,7 @@ class FlipbookNuke(flipbooking.FlipbookApplication):
         try:
 
             # Build and configure a new sequence
-            newSequence = self._manager.createSequence(
-                nuke.Root().fps(), outputFormat, views)
+            newSequence = self._manager.createSequence(nuke.Root().fps(), outputFormat, views)
 
             startAtTime = 1  # nuke start at 1 so default value is 1
             # define clip start time if it is defined
@@ -543,8 +539,8 @@ class FlipbookNuke(flipbooking.FlipbookApplication):
                 trackItemIn = videoTrack[index]
                 trackItemOut = videoTrack[index + 1]
 
-                tempDissolveTime = min(
-                    dissolveTime, trackItemIn.duration(), trackItemOut.duration())
+                tempDissolveTime = min(dissolveTime, trackItemIn.duration(),
+                                       trackItemOut.duration())
 
                 trackItemIn.setTimelineOut(trackItemIn.timelineOut() - tempDissolveTime)
                 trackItemIn.setSourceOut(trackItemIn.sourceOut() - tempDissolveTime)
@@ -574,8 +570,7 @@ class FlipbookNuke(flipbooking.FlipbookApplication):
         }
 
         try:
-            options['pixelAspect'] = float(nuke.value(
-                nodeToFlipbook.name()+'.pixel_aspect'))
+            options['pixelAspect'] = float(nuke.value(nodeToFlipbook.name()+'.pixel_aspect'))
         except:
             pass
 
@@ -643,19 +638,16 @@ class FlipbookNuke(flipbooking.FlipbookApplication):
         # get start at frame number
         if flipbookDialog._node.Class() == 'Read':
             try:
-                hasStartAtDefined = flipbookDialog._node['frame_mode'].value(
-                ) == 'start at'
+                hasStartAtDefined = flipbookDialog._node['frame_mode'].value() == 'start at'
                 if hasStartAtDefined:
                     # 'frame_mode' knob is a string knob, so '20.0' will raise an exception
                     # if converted directly to integer
-                    options['start_at'] = int(
-                        float(flipbookDialog._node['frame'].value()))
+                    options['start_at'] = int(float(flipbookDialog._node['frame'].value()))
             except:
                 pass
         elif flipbookDialog._node.Class() == 'AppendClip':
             try:
-                options['start_at'] = int(
-                    float(flipbookDialog._node['firstFrame'].value()))
+                options['start_at'] = int(float(flipbookDialog._node['firstFrame'].value()))
             except:
                 pass
 
@@ -743,8 +735,7 @@ def _requireIntermediateNodeNew(self, nodeToTest):
     # This only works for this flipbook application, otherwise it will fallback to the _requireIntermediateNode
     # method defined in the FlipbookDialog class
 
-    flipbookToRun = flipbooking.gFlipbookFactory.getApplication(
-        self._flipbookEnum.value())
+    flipbookToRun = flipbooking.gFlipbookFactory.getApplication(self._flipbookEnum.value())
     if isinstance(flipbookToRun, FlipbookNuke):
         if nodeToTest.Class() == 'Read' or nodeToTest.Class() == 'Write':
             if not flipbookToRun.isLUTAvailableForNode(nodeToTest):
@@ -753,8 +744,7 @@ def _requireIntermediateNodeNew(self, nodeToTest):
             allInputNodesAreRead = True
             for index in range(nodeToTest.inputs()):
                 inputNode = nodeToTest.input(index)
-                isValidReadNode = inputNode.Class(
-                ) == 'Read' and not flipbookDialogRequiredIntermediateNode(self, inputNode)
+                isValidReadNode = inputNode.Class() == 'Read' and not flipbookDialogRequiredIntermediateNode(self, inputNode)
                 allInputNodesAreRead = allInputNodesAreRead and isValidReadNode and flipbookToRun.isLUTAvailableForNode(
                     inputNode)
 

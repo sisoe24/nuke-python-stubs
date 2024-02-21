@@ -44,7 +44,7 @@ class IExporterUIRegistry:
         """
         ...
 
-    def aquireProcessorUI(self, preset: core.ITaskPreset) -> ui.IProcessorUI:
+    def aquireProcessorUI(self, preset: core.ITaskPreset) -> hiero.ui.IProcessorUI:
         """
         self.aquireProcessorUI() -> Called from Hiero Application to aquire a reference to an instance of the ProcessorUI object related to the specified hiero.core.TaskPreset.
 
@@ -52,25 +52,25 @@ class IExporterUIRegistry:
         """
         ...
 
-    def getProcessorUI(self, index: int) -> ui.IProcessorUI:
+    def getProcessorUI(self, index: int) -> hiero.ui.IProcessorUI:
         """
 
         """
         ...
 
-    def getProcessorUIForPreset(self, preset: core.ITaskPreset) -> ui.IProcessorUI:
+    def getProcessorUIForPreset(self, preset: core.ITaskPreset) -> hiero.ui.IProcessorUI:
         """
 
         """
         ...
 
-    def getTaskUI(self, index: int) -> ui.ITaskUI:
+    def getTaskUI(self, index: int) -> hiero.ui.ITaskUI:
         """
 
         """
         ...
 
-    def getTaskUIForPreset(self, preset: core.ITaskPreset) -> ui.ITaskUI:
+    def getTaskUIForPreset(self, preset: core.ITaskPreset) -> hiero.ui.ITaskUI:
         """
 
         """

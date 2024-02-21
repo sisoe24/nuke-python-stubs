@@ -70,8 +70,7 @@ class PartialNameConformRule(ConformRule):
     def compare(self, media, candidateMedia):
         try:
             (sourcePath, sourceName) = os.path.split(media[Keys.kMediaName].lower())
-            (candidatePath, candidateName) = os.path.split(
-                candidateMedia[Keys.kMediaName].lower())
+            (candidatePath, candidateName) = os.path.split(candidateMedia[Keys.kMediaName].lower())
             (sourceRoot, sourceExt) = os.path.splitext(sourceName)
             (candidateRoot, candidateExt) = os.path.splitext(candidateName)
 

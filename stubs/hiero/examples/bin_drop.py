@@ -23,8 +23,7 @@ class BinViewDropHandler:
         # More complicated way of getting text data.
         if event.mimeData.hasFormat(BinViewDropHandler.kTextMimeType):
             byteArray = event.mimeData.data(BinViewDropHandler.kTextMimeType)
-            print('mimeData data as a string: {}'.format(
-                byteArray.data().decode('utf-8')))
+            print('mimeData data as a string: {}'.format(byteArray.data().decode('utf-8')))
 
             # Signal that we've handled the event here.
             event.dropEvent.accept()

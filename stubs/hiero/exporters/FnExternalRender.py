@@ -330,8 +330,7 @@ class NukeRenderTask(ExternalRenderTask):
                     for token, metadatakey in NukeRenderTask.burninKeys:
                         value = value.replace(token, metadatakey)
 
-                burninNodeData = burninNodeData.replace(
-                    '%s_value' % key, "\"%s\"" % str(value))
+                burninNodeData = burninNodeData.replace('%s_value' % key, "\"%s\"" % str(value))
 
             burninNode = nuke.UserDefinedNode(burninNodeData)
             if script is not None:

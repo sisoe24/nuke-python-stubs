@@ -19,8 +19,7 @@ def setlocalizationPolicyOnTrack(track, policy=hiero.core.Clip.kOnLocalize):
     @param: track - a list of hiero.core.Clip objects
     @param: policy - the localization policy (kOnLocalize,kAutoLocalize,kOffLocalize)"""
     if not isinstance(track, (hiero.core.VideoTrack, hiero.core.AudioTrack)):
-        hiero.core.log.info(
-            'First argument must be a hiero.core.VideoTrack/hiero.core.AudioTrack')
+        hiero.core.log.info('First argument must be a hiero.core.VideoTrack/hiero.core.AudioTrack')
         return
     else:
         for ti in track:
@@ -86,8 +85,7 @@ def setlocalizationPolicyOnClipWithExtension(clip, extensionList=[None], policy=
     @param: policy - the localization policy (kOnLocalize,kAutoLocalize,kOnDemandLocalize,kOffLocalize)"""
 
     if type(extensionList) != list:
-        print(
-            "Please supply a list of file extensions, e.g. extensionList=['dpx','exr','mov']")
+        print("Please supply a list of file extensions, e.g. extensionList=['dpx','exr','mov']")
         return
     else:
         clipPath = clip.mediaSource().filename()
@@ -136,8 +134,7 @@ class CustomLocalizationDialog(QtWidgets.QDialog):
             hiero.core.log.info('No valid selected Items can be localized')
             return
 
-        clips = [item for item in self._itemSelection if isinstance(
-            item, hiero.core.Clip)]
+        clips = [item for item in self._itemSelection if isinstance(item, hiero.core.Clip)]
 
         if len(clips) == 0:
             return
@@ -171,8 +168,7 @@ class CustomLocalizeMenu:
         self._localizeThisShot = createMenuAction(
             'This Shot', self.localizeTimelineSpreadsheetSelection, icon='icons:Mask.png')
 
-        hiero.core.events.registerInterest(
-            'kShowContextMenu/kBin', self.binViewEventHandler)
+        hiero.core.events.registerInterest('kShowContextMenu/kBin', self.binViewEventHandler)
         hiero.core.events.registerInterest(
             'kShowContextMenu/kTimeline', self.timelineSpreadsheetEventHandler)
         hiero.core.events.registerInterest(
@@ -215,8 +211,7 @@ class CustomLocalizeMenu:
                 clips += hiero.core.findItemsInBin(bin, filter=hiero.core.Clip)
             # Present Custom Localize Dialog:
             if len(clips) >= 1:
-                CustomLocalizationDialog(
-                    itemSelection=clips).showDialogAndLocalizeSelection()
+                CustomLocalizationDialog(itemSelection=clips).showDialogAndLocalizeSelection()
 
     # Called from the Spreadsheet or Timeline View, to localize all Clips in the Shot or Track
     def localizeTimelineSpreadsheetSelection(self):
@@ -272,8 +267,7 @@ class CustomLocalizeMenu:
         sequencesSelected = len(sequenceSelection) >= 1
 
         if binsSelected and sequencesSelected:
-            hiero.core.log.debug(
-                'Selection must either be a Bin selection or Sequence Selection')
+            hiero.core.log.debug('Selection must either be a Bin selection or Sequence Selection')
             return
 
         # Only add the Menu if Bins or Sequences are selected (this ensures menu isn't added in the Tags Pane)
@@ -306,8 +300,7 @@ class CustomLocalizeMenu:
             item, (hiero.core.VideoTrack, hiero.core.AudioTrack))]
 
         if len(shotSelection) >= 1 and len(trackSelection) >= 1:
-            hiero.core.log.debug(
-                'Selection must either be a Shot selection or a Track Selection')
+            hiero.core.log.debug('Selection must either be a Shot selection or a Track Selection')
             return
 
         # We don't currently get a mixture of TrackItem and Tracks but combine the two lists to make a selection

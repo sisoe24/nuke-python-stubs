@@ -43,8 +43,7 @@ class ExportStructure2 (IExportStructure):
         self._exportRootPath = taskRegistry._loadPresetElement(element.find('exportPath'))
 
     def _toXml(self, parent):
-        rootElement = etree.Element(
-            'root', valuetype=classBasename(ExportStructureElement))
+        rootElement = etree.Element('root', valuetype=classBasename(ExportStructureElement))
         self._rootElement._toXml(rootElement)
         taskRegistry._savePresetElement('exportPath', self._exportRootPath, parent)
 
@@ -274,8 +273,7 @@ class ExportStructureElement (IExportStructureElement):
             # If creating a folder, look for an existing one with this name. Duplicate
             # task names are allowed
             if childIsFolder:
-                child = next((c for c in parent.children()
-                             if c.name() == childName), None)
+                child = next((c for c in parent.children() if c.name() == childName), None)
             if not child:
                 child = ExportStructureElement(childName, childIsFolder)
                 parent.addChild(child)

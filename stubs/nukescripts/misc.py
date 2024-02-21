@@ -12,8 +12,7 @@ def copy_knobs(args):
     thisGroup = nuke.thisGroup()
 
     if (thisGroup is not nuke.root() and (thisGroup.locked() or thisGroup.subgraphLocked())):
-        raise RuntimeError("Can't paste knob values because " +
-                           thisGroup.name() + ' is locked')
+        raise RuntimeError("Can't paste knob values because " + thisGroup.name() + ' is locked')
 
     selNodes = thisGroup.selectedNodes()
 
@@ -150,8 +149,7 @@ def swapAB(n):
     thisGroup = nuke.thisGroup()
     if thisGroup is not nuke.root() and (thisGroup.locked() or thisGroup.subgraphLocked()):
         lockedReason = 'published' if thisGroup.subgraphLocked() else 'locked'
-        raise RuntimeError("Can't swap nodes because " +
-                           thisGroup.name() + ' is ' + lockedReason)
+        raise RuntimeError("Can't swap nodes because " + thisGroup.name() + ' is ' + lockedReason)
 
     if max(n.inputs(), n.minimumInputs()) > 1:
         a = n.input(0)

@@ -49,8 +49,7 @@ def chooseObjectName(amfNode):
 
 def _getName(geo):
     """Given a GeoInfo object, return the value of its 'name' attribute. If there is no such attribute, return None."""
-    attrCtx = geo.attribContext(
-        'name', 3, 7)  # 3 = per-object attribute, 7 = std::string type
+    attrCtx = geo.attribContext('name', 3, 7)  # 3 = per-object attribute, 7 = std::string type
     if attrCtx is None:
         # 3 = per-object attribute, 6 = c-string (char*) type
         attrCtx = geo.attribContext('name', 3, 6)

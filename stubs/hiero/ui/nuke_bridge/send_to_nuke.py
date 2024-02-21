@@ -108,8 +108,8 @@ class SendToNukeHandler:
 
         # For a Bin, return child Clips and Sequences searched recursively
         if isinstance(container, hiero.core.Bin):
-            ret.extend([c.activeItem() for c in itertools.chain(
-                container.clips(), container.sequences())])
+            ret.extend([c.activeItem()
+                       for c in itertools.chain(container.clips(), container.sequences())])
             childBins = container.bins()
             for i in childBins:
                 ret.extend(self._findBinItemsRecursive(i))
@@ -174,8 +174,7 @@ class SendToNukeHandler:
         # check if this is an iterable item, that may contain multiple things
         if isinstance(container, (list, tuple)):
             for i in container:
-                self._findItems(i, clips, sequences, trackItems,
-                                bins, effectItems, annotations)
+                self._findItems(i, clips, sequences, trackItems, bins, effectItems, annotations)
         else:
             # it's not a bin, or an iterable, so check if it's a BinItem
             if hasattr(container, 'activeItem'):
@@ -196,8 +195,7 @@ class SendToNukeHandler:
             if hasattr(container, 'items'):
                 items = list(container.items())
                 for i in items:
-                    self._findItems(i, clips, sequences, trackItems,
-                                    bins, effectItems, annotations)
+                    self._findItems(i, clips, sequences, trackItems, bins, effectItems, annotations)
 
     def _addAction(self, action, menu):
         self._actions.append(action)

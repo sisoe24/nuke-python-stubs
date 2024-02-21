@@ -223,8 +223,7 @@ class TaskBase(ITask):
                 self._clip = item
 
             assert self._clip, 'Null clip.'
-            assert isinstance(
-                self._clip, Clip), 'Track item does not contain a source clip.'
+            assert isinstance(self._clip, Clip), 'Track item does not contain a source clip.'
             self._source = self._clip.mediaSource()
             assert self._source, 'Null source.'
 
@@ -501,8 +500,8 @@ class TaskBase(ITask):
         startHandle, endHandle = self._outputHandles(ignoreRetimes)
 
         if startHandle < 0 or endHandle < 0:
-            raise RuntimeError('TaskBase.outputHandles error, values must not be negative %s %s' % (
-                startHandle, endHandle))
+            raise RuntimeError(
+                'TaskBase.outputHandles error, values must not be negative %s %s' % (startHandle, endHandle))
 
         return startHandle, endHandle
 
@@ -560,8 +559,7 @@ class TaskBase(ITask):
                 if outTransition is not None and not outTransition.isNull():
                     if outTransition.alignment() == Transition.kDissolve:
                         # Calculate the delta required to move the end of the clip to cover the disolve transition
-                        outTransitionHandle = (
-                            outTransition.timelineOut() - ti.timelineOut())
+                        outTransitionHandle = (outTransition.timelineOut() - ti.timelineOut())
                         outHandle += outTransitionHandle
                         log.debug('  outTransitionHandle = ' + str(outTransitionHandle))
                 if inTransition is not None and not inTransition.isNull():
@@ -628,8 +626,8 @@ class TaskBase(ITask):
         end = 0
         if isinstance(self._item, (TrackItem, Clip)):
             # Get input frame range
-            start, end = self.inputRange(
-                ignoreHandles=ignoreHandles, ignoreRetimes=ignoreRetimes, clampToSource=clampToSource)
+            start, end = self.inputRange(ignoreHandles=ignoreHandles,
+                                         ignoreRetimes=ignoreRetimes, clampToSource=clampToSource)
 
             start = int(math.floor(start))
             end = int(math.ceil(end))
@@ -682,8 +680,7 @@ class TaskBase(ITask):
 
                 # Ensure write access to this path
                 if not util.filesystem.access(dirPath, os.W_OK | os.X_OK):
-                    self.setError(
-                        "Insufficient permissions to write to directory '%s'" % dirPath)
+                    self.setError("Insufficient permissions to write to directory '%s'" % dirPath)
             # Set error in case of exceptions
             except Exception as e:
                 self.setError("Failed to create directory '%s'\n%s" % (dirPath, str(e)))
@@ -1048,8 +1045,7 @@ class TaskPresetBase(ITaskPreset):
         resolver.addResolver('{YYYY}', 'Year with century as a decimal number',
                              lambda keyword, task: task.timeStamp().strftime('%Y'))
 
-        resolver.addResolver('{user}', 'Current username',
-                             lambda keyword, task: getpass.getuser())
+        resolver.addResolver('{user}', 'Current username', lambda keyword, task: getpass.getuser())
 
     def addCustomResolveEntries(self, resolver):
         """addCustomResolveEntries(self, resolver)
@@ -1313,8 +1309,7 @@ class RenderTaskPreset(TaskPresetBase):
         self._setCodecSettings('cin', 'cin', 'Cineon', False, OrderedDict())
         self._setCodecSettings('jpeg', 'jpg', 'JPEG', False, {(
             'quality', '_jpeg_quality'): FloatRange(0.0, 1.0, 0.75)})
-        self._setCodecSettings('png', 'png', 'PNG', False, {
-                               'datatype': ('8 bit', '16 bit')})
+        self._setCodecSettings('png', 'png', 'PNG', False, {'datatype': ('8 bit', '16 bit')})
         self._setCodecSettings('sgi', 'sgi', 'SGI', False, OrderedDict(
             [('datatype', ('8 bit', '16 bit')), ('compression', ('none', Default('RLE')))]))
         self._setCodecSettings('tiff', 'tif', 'TIFF', False, OrderedDict(
@@ -1465,8 +1460,8 @@ def tagsFromSelection(selection, includeChildren=False, includeParents=False):
             # Collect all tags from trackItem
             tags.extend([(tag, TrackItem) for tag in item.tags()])
             if includeParents:
-                tags.extend(tagsFromSelection(
-                    [item.parent()], includeChildren=False, includeParents=True))
+                tags.extend(tagsFromSelection([item.parent()],
+                            includeChildren=False, includeParents=True))
 
         elif isinstance(item, (VideoTrack, AudioTrack)):
             tags.extend([(tag, type(item)) for tag in item.tags()])
@@ -1474,8 +1469,8 @@ def tagsFromSelection(selection, includeChildren=False, includeParents=False):
                 for trackItem in item:
                     tags.extend(tagsFromSelection([trackItem,], includeChildren))
             elif includeParents:
-                tags.extend(tagsFromSelection(
-                    [item.parent()], includeChildren=False, includeParents=True))
+                tags.extend(tagsFromSelection([item.parent()],
+                            includeChildren=False, includeParents=True))
 
         elif isinstance(item, Sequence):
             # Traverse sequence and collect any tags

@@ -23,8 +23,7 @@ def reformatSettingsFromPreset(preset):
 
     if type == ReformatNode.kToFormat:
         if 'width' in rf and 'height' in rf and 'pixelAspect' in rf and 'name' in rf and 'resize' in rf:
-            format = hiero.core.Format(
-                rf['width'], rf['height'], rf['pixelAspect'], rf['name'])
+            format = hiero.core.Format(rf['width'], rf['height'], rf['pixelAspect'], rf['name'])
             center = rf['center']
         else:
             raise RuntimeError(

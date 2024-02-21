@@ -99,8 +99,7 @@ def _transformArrayKnobValueFromKnob(knob, index, transform, knobDep, indexDep, 
         keyFrameList = list(keyFrames)
         keyFrameList.sort()
         # get a copy of the values to transform them
-        originalValueList = [knob.getValueAt(keyFrame, index)
-                             for keyFrame in keyFrameList]
+        originalValueList = [knob.getValueAt(keyFrame, index) for keyFrame in keyFrameList]
         for (frame, originalValue) in zip(keyFrameList, originalValueList):
             newValue = transform(originalValue, knobDep.getValueAt(frame, indexDep))
             knob.setValueAt(newValue, frame, index)
@@ -188,16 +187,12 @@ def _transformTextEffect(node, formatChange, errorCallback):
         def boxYFunc(y, t): return y+transformYFunc(t)-t
         # transform the box in terms of the center knob
         for i in (0, 2):
-            _transformArrayKnobValueFromKnob(
-                boxKnob, i, boxXFunc, transformKnob, 2, errorCallback)
+            _transformArrayKnobValueFromKnob(boxKnob, i, boxXFunc, transformKnob, 2, errorCallback)
         for i in (1, 3):
-            _transformArrayKnobValueFromKnob(
-                boxKnob, i, boxYFunc, transformKnob, 3, errorCallback)
+            _transformArrayKnobValueFromKnob(boxKnob, i, boxYFunc, transformKnob, 3, errorCallback)
 
-        _transformArrayKnobValue(transformKnob, 2, transformXFunc,
-                                 errorCallback)  # center
-        _transformArrayKnobValue(transformKnob, 3, transformYFunc,
-                                 errorCallback)  # center
+        _transformArrayKnobValue(transformKnob, 2, transformXFunc, errorCallback)  # center
+        _transformArrayKnobValue(transformKnob, 3, transformYFunc, errorCallback)  # center
 
         _transformArrayKnobValue(transformKnob, 6, scaleXFunc, errorCallback)  # scalex
         _transformArrayKnobValue(transformKnob, 7, scaleYFunc, errorCallback)  # scaley
@@ -210,10 +205,8 @@ def _transformTextEffect(node, formatChange, errorCallback):
         transformXFunc = transform.translateAndScaleX
         transformYFunc = transform.translateAndScaleY
         centerKnob = node['animation_layers']
-        _transformArrayKnobValue(centerKnob, 4, transformXFunc,
-                                 errorCallback)  # translate
-        _transformArrayKnobValue(centerKnob, 5, transformYFunc,
-                                 errorCallback)  # translate
+        _transformArrayKnobValue(centerKnob, 4, transformXFunc, errorCallback)  # translate
+        _transformArrayKnobValue(centerKnob, 5, transformYFunc, errorCallback)  # translate
 
 
 def _transformBurnInEffect(node, formatChange, errorCallback):
@@ -327,10 +320,8 @@ class FormatChange(object):
         # Note, we use a scale value of 1 (corresponding to the Scale knob on the reformat),
         # since it doesn't matter - we only return the ratio of new/old scale, and so any
         # contribution from the scale knob would be cancelled out
-        oldScaleX, oldScaleY = _calculateScaleHelper(
-            self.clipFormat, self.oldFormat, resizeType, 1)
-        newScaleX, newScaleY = _calculateScaleHelper(
-            self.clipFormat, self.newFormat, resizeType, 1)
+        oldScaleX, oldScaleY = _calculateScaleHelper(self.clipFormat, self.oldFormat, resizeType, 1)
+        newScaleX, newScaleY = _calculateScaleHelper(self.clipFormat, self.newFormat, resizeType, 1)
         return (newScaleX / oldScaleX, newScaleY / oldScaleY)
 
     def getTransformForReformatState(self):
@@ -455,10 +446,9 @@ def executeEffectNode(effectNode, frames):
     @param frames: a sequence of frame numbers to execute
     """
     allEffectItems = findItemsInAllProjects(filter=EffectTrackItem)
-    effectForNode = next(
-        (item for item in allEffectItems if item.node() == effectNode), None)
+    effectForNode = next((item for item in allEffectItems if item.node() == effectNode), None)
     if not effectForNode:
-        raise RuntimeError(f'Could not find effect item for node {effectNode.name()}')
+        raise RuntimeError(f"Could not find effect item for node {effectNode.name()}")
     effectForNode.executeNode(frames)
 
 
@@ -477,10 +467,8 @@ def effectInputSourceCoods(effectItem):
 
     reformatState = linkedTrackItem.reformatState()
     sourceFormat = linkedTrackItem.source().format()
-    resizeType = reformatState.resizeType() if reformatState.originalType(
-    ) == ReformatNode.kToFormat else 'scale'
-    center = reformatState.resizeCenter() if reformatState.originalType(
-    ) == ReformatNode.kToFormat else True
+    resizeType = reformatState.resizeType() if reformatState.originalType() == ReformatNode.kToFormat else 'scale'
+    center = reformatState.resizeCenter() if reformatState.originalType() == ReformatNode.kToFormat else True
     scale = reformatState.scale()
 
     (x, y, r, t) = calculateReformat(sourceFormat, sequenceFormat, resizeType, center, scale)

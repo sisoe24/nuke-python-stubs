@@ -99,8 +99,7 @@ class UDIMErrorDialog(QtWidgets.QDialog):
         self.Text.setText(error_msg)
 
         # Add buttons signal
-        self.OkButton.setSizePolicy(QtWidgets.QSizePolicy.Fixed,
-                                    QtWidgets.QSizePolicy.Fixed)
+        self.OkButton.setSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         self.OkButton.clicked.connect(self.accept)
 
 
@@ -180,12 +179,9 @@ class UDIMOptionsDialog(QtWidgets.QDialog):
         self.Separator.setFrameShape(QtWidgets.QFrame.HLine)
         self.Separator.setFrameShadow(QtWidgets.QFrame.Sunken)
 
-        self.AddFilesButton.setSizePolicy(
-            QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
-        self.OkButton.setSizePolicy(QtWidgets.QSizePolicy.Fixed,
-                                    QtWidgets.QSizePolicy.Fixed)
-        self.CancelButton.setSizePolicy(
-            QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
+        self.AddFilesButton.setSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
+        self.OkButton.setSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
+        self.CancelButton.setSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         self.ReadModeComboBox.setSizePolicy(
             QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
 

@@ -147,8 +147,7 @@ def ScanVersionsAndCallbackTrackItems(trackItems, callback):
     """ Helper function for track items version changes.  Does the scan and
     calls callback on each item.
     """
-    VersionScanner.VersionScanLogger().info(
-        'trackItems={} callback={}'.format(trackItems, callback))
+    VersionScanner.VersionScanLogger().info('trackItems={} callback={}'.format(trackItems, callback))
 
     # Build a set of versions so we're not scanning the same version multiple times
     versionsToScan = set()

@@ -249,10 +249,8 @@ def mergeMenus():
     setContext(workspaceMenuItem, hiero.ui.kContextStudio, False)
     # Add the some nuke actions
     workspaceMenu.addSeparator()
-    nukeToggleFloatingItem = nukeMenuBar.findItem(
-        'Workspace/Toggle Hide Floating Viewers')
-    insertNukeAction(nukeToggleFloatingItem, workspaceMenu,
-                     before='foundry.menu.navigation')
+    nukeToggleFloatingItem = nukeMenuBar.findItem('Workspace/Toggle Hide Floating Viewers')
+    insertNukeAction(nukeToggleFloatingItem, workspaceMenu, before='foundry.menu.navigation')
     insertNukeAction(nukeMenuBar.findItem('Workspace/Show Curve Editor'),
                      workspaceMenu, before='foundry.menu.navigation')
     insertNukeAction(nukeMenuBar.findItem('Workspace/Close Tab'),
@@ -281,8 +279,8 @@ def mergeMenus():
     setContext(helpMenuItem, hiero.ui.kContextStudio, True)
     # Add nuke items to help menu
     nukeShortcutsItem = nukeMenuBar.findItem('Help/Comp Keyboard Shortcuts')
-    insertNukeAction(nukeShortcutsItem, helpMenu,
-                     after='foundry.help.shortcuts', context=hiero.ui.kContextStudio)
+    insertNukeAction(nukeShortcutsItem, helpMenu, after='foundry.help.shortcuts',
+                     context=hiero.ui.kContextStudio)
     nukePlugInInstallerItem = nukeMenuBar.findItem('Help/Nuke Plug-ins')
     insertNukeAction(nukePlugInInstallerItem, helpMenu, context=hiero.ui.kContextStudio)
 
@@ -320,8 +318,7 @@ def appendNukeUserMenus():
     # Nuke Menus used to filter the list given by nuke.menu('Nuke').items()
     nukeMenusName = ('File', 'Edit', 'Workspace', 'Viewer', 'Render', 'Cache', 'Help')
     # create list with User Menus
-    nukeUserMenus = [i for i in list(
-        nuke.menu('Nuke').items()) if i.name() not in nukeMenusName]
+    nukeUserMenus = [i for i in list(nuke.menu('Nuke').items()) if i.name() not in nukeMenusName]
 
     # add User Menus to the end of MenuBar
     mainMenuBar = menuBar()
@@ -439,15 +436,13 @@ class OpenInNodeGraphAction(QtWidgets.QAction):
 
         self.triggered.connect(self.doOpen)
         self.studioEventHandler = studioEventHandler
-        hiero.core.events.registerInterest(
-            'kShowContextMenu/kTimeline', self.eventHandler)
+        hiero.core.events.registerInterest('kShowContextMenu/kTimeline', self.eventHandler)
         hiero.core.events.registerInterest('kShowContextMenu/kBin', self.eventHandler)
         self.fork = fork
 
     def doOpen(self):
 
-        filePath = self.studioEventHandler.getNukeScriptPathFromItem(
-            self.shotSelection[0])
+        filePath = self.studioEventHandler.getNukeScriptPathFromItem(self.shotSelection[0])
 
         if filePath:
             self.studioEventHandler.openDAG(filePath, self.fork)
@@ -464,16 +459,14 @@ class OpenInNodeGraphAction(QtWidgets.QAction):
         if len(self.shotSelection) != 1:
             return
 
-        filePath = self.studioEventHandler.getNukeScriptPathFromItem(
-            self.shotSelection[0])
+        filePath = self.studioEventHandler.getNukeScriptPathFromItem(self.shotSelection[0])
 
         if not filePath:
             return
 
         for a in event.menu.actions():
             if a.text().lower().strip() == 'open in':
-                hiero.ui.insertMenuAction(
-                    self, a.menu(), before='foundry.project.openInViewer')
+                hiero.ui.insertMenuAction(self, a.menu(), before='foundry.project.openInViewer')
 
 
 class NukeStudioEventHandler:

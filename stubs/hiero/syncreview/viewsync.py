@@ -12,12 +12,10 @@ from .synctool import SyncTool, localCallback, remoteCallback
 Classes for syncing the view state between connected clients.
 """
 
-messages.defineMessageType(
-    'SyncViewerSequence', ('sequenceAGuid', str), ('sequenceBGuid', str))
+messages.defineMessageType('SyncViewerSequence', ('sequenceAGuid', str), ('sequenceBGuid', str))
 messages.defineMessageType('SyncViewerTime', ('time', int))
 messages.defineMessageType('SyncViewerPlaybackSpeed', ('speed', int))
-messages.defineMessageType('SyncViewerTargetFrameRate',
-                           ('numerator', int), ('denominator', int))
+messages.defineMessageType('SyncViewerTargetFrameRate', ('numerator', int), ('denominator', int))
 messages.defineMessageType('SyncViewerShuttleTargetFPS', ('fps', float))
 messages.defineMessageType('SyncViewerAnnotationsTool', ('active', messages.Bool))
 
@@ -180,8 +178,7 @@ class SyncViewerGainTool(SyncViewerSubTool):
 
     def __init__(self, syncViewerTool):
         super(SyncViewerGainTool, self).__init__(syncViewerTool)
-        self.messageDispatcher._registerCallback(
-            messages.SyncViewerGain, self._onRemoteGainChanged)
+        self.messageDispatcher._registerCallback(messages.SyncViewerGain, self._onRemoteGainChanged)
 
     def viewerChanged(self, viewer, oldViewer):
         if oldViewer:
@@ -281,8 +278,8 @@ class SyncViewerLayoutModeTool(SyncViewerSubTool):
 # Each buffer is a list containing the following:
 # * TracksMask's visibleByDefault attribute.
 # * TracksMask's list of tracks Guids.
-messages.defineMessageType(
-    'SyncViewerBuffer', ('bufferA', messages.Json), ('bufferB', messages.Json))
+messages.defineMessageType('SyncViewerBuffer', ('bufferA', messages.Json),
+                           ('bufferB', messages.Json))
 
 
 class SyncViewerBufferTool(SyncViewerSubTool):
@@ -308,11 +305,9 @@ class SyncViewerBufferTool(SyncViewerSubTool):
             return
         # Get track Guids from both buffers and send them.
         tracksMaskA = viewer.tracksMask(0)
-        bufferA = [tracksMaskA.visibleByDefault(), [track.guid()
-                                                    for track in tracksMaskA.tracks()]]
+        bufferA = [tracksMaskA.visibleByDefault(), [track.guid() for track in tracksMaskA.tracks()]]
         tracksMaskB = viewer.tracksMask(1)
-        bufferB = [tracksMaskB.visibleByDefault(), [track.guid()
-                                                    for track in tracksMaskB.tracks()]]
+        bufferB = [tracksMaskB.visibleByDefault(), [track.guid() for track in tracksMaskB.tracks()]]
         msg = messages.SyncViewerBuffer(bufferA=bufferA, bufferB=bufferB)
         self._syncViewerTool.sendMessage(msg)
 
@@ -684,10 +679,8 @@ class SyncViewerTool(SyncTool):
             SyncViewerMaskOverlayStyleTool(self),
         ]
 
-        self.messageDispatcher._registerCallback(
-            messages.SyncViewerSequence, self._onSyncSequence)
-        self.messageDispatcher._registerCallback(
-            messages.SyncViewerTime, self._onSyncTime)
+        self.messageDispatcher._registerCallback(messages.SyncViewerSequence, self._onSyncSequence)
+        self.messageDispatcher._registerCallback(messages.SyncViewerTime, self._onSyncTime)
         self.messageDispatcher._registerCallback(
             messages.SyncViewerPlaybackSpeed, self._onSyncPlaybackSpeed)
         self.messageDispatcher._registerCallback(
@@ -756,8 +749,7 @@ class SyncViewerTool(SyncTool):
                 self.currentViewer.setSequence(hiero.core.Sequence(), 0)
 
             # Set the B buffer. Use sendToViewerB() to try and keep consistency with the UI behaviour
-            oldSeqB = self.currentViewer.player(
-                1).sequence() if self.currentViewer else None
+            oldSeqB = self.currentViewer.player(1).sequence() if self.currentViewer else None
             if seqB != oldSeqB:
                 if seqB:
                     hiero.ui.sendToViewerB(seqB)
@@ -841,8 +833,7 @@ class SyncViewerTool(SyncTool):
 
     def _onTargetFrameRateChanged(self, numerator, denominator):
         """ Callback executed when the target frame rate of the current viewer changes. """
-        msg = messages.SyncViewerTargetFrameRate(
-            numerator=numerator, denominator=denominator)
+        msg = messages.SyncViewerTargetFrameRate(numerator=numerator, denominator=denominator)
         self.sendMessage(msg)
 
     def _onShuttleTargetFPS(self, fps):
@@ -895,8 +886,7 @@ class SyncViewerTool(SyncTool):
                 oldViewer.sequenceChanged.disconnect(self._onSequenceChanged)
                 oldViewer.timeChanged.disconnect(self._onTimeChanged)
                 oldViewer.playbackSpeedChanged.disconnect(self._onPlaybackSpeedChanged)
-                oldViewer.targetFrameRateChanged.disconnect(
-                    self._onTargetFrameRateChanged)
+                oldViewer.targetFrameRateChanged.disconnect(self._onTargetFrameRateChanged)
                 oldViewer.shuttleTargetFPSChanged.disconnect(self._onShuttleTargetFPS)
             except RuntimeError:
                 # Sometimes this gets called when the c++ object for the viewer has been
@@ -914,8 +904,7 @@ class SyncViewerTool(SyncTool):
             self.currentViewer.sequenceChanged.connect(self._onSequenceChanged)
             self.currentViewer.timeChanged.connect(self._onTimeChanged)
             self.currentViewer.playbackSpeedChanged.connect(self._onPlaybackSpeedChanged)
-            self.currentViewer.targetFrameRateChanged.connect(
-                self._onTargetFrameRateChanged)
+            self.currentViewer.targetFrameRateChanged.connect(self._onTargetFrameRateChanged)
             self.currentViewer.shuttleTargetFPSChanged.connect(self._onShuttleTargetFPS)
             self._onSequenceChanged()
 

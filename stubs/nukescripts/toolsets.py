@@ -6,8 +6,7 @@ import nuke_internal as nuke
 
 class CreateToolsetsPanel(nukescripts.PythonPanel):
     def __init__(self):
-        nukescripts.PythonPanel.__init__(
-            self, 'Create ToolSet', 'uk.co.thefoundry.CreateToolset')
+        nukescripts.PythonPanel.__init__(self, 'Create ToolSet', 'uk.co.thefoundry.CreateToolset')
 
         # CREATE KNOBS
         # Loop through and find all user folders
@@ -109,8 +108,7 @@ def refreshToolsetsMenu():
 
 def createToolsetsMenu(toolbar):
     m = toolbar.addMenu('ToolSets', 'ToolbarToolsets.png')
-    m.addCommand('Create', 'nukescripts.toolsets.addToolsetsPanel()',
-                 '', icon='ToolsetCreate.png')
+    m.addCommand('Create', 'nukescripts.toolsets.addToolsetsPanel()', '', icon='ToolsetCreate.png')
     m.addCommand('-', '', '')
     if populateToolsetsMenu(m, False):
         m.addCommand('-', '', '')
@@ -196,8 +194,8 @@ def createToolsetMenuItems(m, rootPath, fullPath, delete, allToolsetsList, isLoc
                 if extPos != -1 and extPos == len(group) - 3:
                     group = group.replace('.nk', '')
                     if delete:
-                        m.addCommand(group, 'nukescripts.toolsets.deleteToolset("%s", "%s")' % (
-                            rootPath, fullFileName), '')
+                        m.addCommand(group, 'nukescripts.toolsets.deleteToolset("%s", "%s")' %
+                                     (rootPath, fullFileName), '')
                         retval = True
                     else:
                         # get the filename below toolsets

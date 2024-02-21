@@ -137,10 +137,8 @@ class HardwareInfo:
                        ['model name', gCPUType],
                        ['cache size', gL2Cache]]
             self.MapDictionaries(itemDict, self._standardDict, mapping, '/proc/cpuinfo')
-            self._standardDict[gL2Cache] = ConvertMemSizeToKb(
-                self._standardDict[gL2Cache])
-            self._standardDict[gCPUSpeed] = ConvertSpeedUnitsToMhZ(
-                self._standardDict[gCPUSpeed])
+            self._standardDict[gL2Cache] = ConvertMemSizeToKb(self._standardDict[gL2Cache])
+            self._standardDict[gCPUSpeed] = ConvertSpeedUnitsToMhZ(self._standardDict[gCPUSpeed])
             self._standardDict[gNumCores] = len(itemDict)
 
     def ParseProcVersion(self):
@@ -294,14 +292,12 @@ class HardwareInfo:
             fixMacChangingThingsMapping = [['l2_cache_share', gL2Cache]]
             self.MapDictionaries(itemDicts, self._standardDict,
                                  fixMacChangingThingsMapping, 'SPHardwareDataType')
-        self._standardDict[gCPUSpeed] = ConvertSpeedUnitsToMhZ(
-            self._standardDict[gCPUSpeed])
+        self._standardDict[gCPUSpeed] = ConvertSpeedUnitsToMhZ(self._standardDict[gCPUSpeed])
         self._standardDict[gL2Cache] = ConvertMemSizeToKb(self._standardDict[gL2Cache])
         self._standardDict[gRAM] = ConvertMemSizeToKb(self._standardDict[gRAM])
         extendedMapping = [['boot_rom_version', gBootROMVersion],
                            ['machine_model', gMachineName]]
-        self.MapDictionaries(itemDicts, self._extendedDict,
-                             extendedMapping, 'SPHardwareDataType')
+        self.MapDictionaries(itemDicts, self._extendedDict, extendedMapping, 'SPHardwareDataType')
 
     def initMacSoftware(self, itemDicts):
         mapping = [['os_version', gOSVersion],

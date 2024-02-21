@@ -16,12 +16,10 @@ class CameraFilmBackPresets:
         self.addPreset('Film/35mm/2 perf 2.40 v2', {'filmBackSize': '20.96 8.76'})
         self.addPreset('Film/35mm/3 perf 1.78', {'filmBackSize': '24.92 13.87'})
         self.addPreset('Film/35mm/4 perf 1.33 TV Safe', {'filmBackSize': '20.12 15.09'})
-        self.addPreset('Film/35mm/4 perf 1.33 Large TV Transmit',
-                       {'filmBackSize': '21.13 15.85'})
+        self.addPreset('Film/35mm/4 perf 1.33 Large TV Transmit', {'filmBackSize': '21.13 15.85'})
         self.addPreset('Film/35mm/4 perf 1.78', {'filmBackSize': '24 13.5'})
         self.addPreset('Film/35mm/4 perf 1.85 Extract', {'filmBackSize': '24 12.98'})
-        self.addPreset('Film/35mm/4 perf 1.85 Projection',
-                       {'filmBackSize': '20.96 11.33'})
+        self.addPreset('Film/35mm/4 perf 1.85 Projection', {'filmBackSize': '20.96 11.33'})
         self.addPreset('Film/35mm/4 perf 2.40 Anamorphic Projection',
                        {'filmBackSize': '20.96 17.53'})
         self.addPreset('Film/35mm/4 perf 2.40 Extract', {'filmBackSize': '20.96 10.4'})
@@ -50,8 +48,7 @@ class CameraFilmBackPresets:
         self.addPreset('Arri/Alexa 4:3 2.39 Flat', {'filmBackSize': '23.76 9.95'})
         self.addPreset('Black Magic/Pocket Cinema Camera', {'filmBackSize': '12.48 7.02'})
         self.addPreset('Black Magic/Cinema Camera 2k', {'filmBackSize': '15.81 8.88'})
-        self.addPreset('Black Magic/Production Camera 4k',
-                       {'filmBackSize': '21.12 11.88'})
+        self.addPreset('Black Magic/Production Camera 4k', {'filmBackSize': '21.12 11.88'})
         self.addPreset('Canon/DSLR/M Still', {'filmBackSize': '22.3 14.9'})
         self.addPreset('Canon/DSLR/M Video', {'filmBackSize': '22.3 12.54'})
         self.addPreset('Canon/DSLR/1D MKIV Still', {'filmBackSize': '27.9 18.6'})
@@ -102,8 +99,7 @@ class CameraFilmBackPresets:
         self.addPreset('Phantom/65 4k', {'filmBackSize': '52.1 31.04'})  # 4096x2440
         self.addPreset('Phantom/65 4k 16:9', {'filmBackSize': '52.1 29.31'})  # 4096x2304
         self.addPreset('Phantom/65 UHD', {'filmBackSize': '48.84 27.47'})  # 3840x2160
-        self.addPreset('Phantom/65 2k Square',
-                       {'filmBackSize': '26.05 26.05'})  # 2048x2048
+        self.addPreset('Phantom/65 2k Square', {'filmBackSize': '26.05 26.05'})  # 2048x2048
         self.addPreset('Phantom/65 2k 1.85', {'filmBackSize': '26.05 14.04'})  # 2048x1104
         self.addPreset('Phantom/65 2k 2.35', {'filmBackSize': '26.05 11.09'})  # 2048x872
         self.addPreset('Phantom/65 1080p', {'filmBackSize': '24.42 13.74'})
@@ -173,10 +169,8 @@ class CameraFilmBackPresets:
         self.addPreset('Sony/DSR-400', {'filmBackSize': '8.8 6.6'})
         self.addPreset('Sony/EX1', {'filmBackSize': '6.97 3.92'})
         self.addPreset('Sony/F3', {'filmBackSize': '24.7 13.1'})
-        # Exmor Super35 CMOS Sensor
-        self.addPreset('Sony/FS100U', {'filmBackSize': '23.6 13.3'})
-        # Exmor Super35 CMOS Sensor
-        self.addPreset('Sony/FS700', {'filmBackSize': '23.6 13.3'})
+        self.addPreset('Sony/FS100U', {'filmBackSize': '23.6 13.3'})  # Exmor Super35 CMOS Sensor
+        self.addPreset('Sony/FS700', {'filmBackSize': '23.6 13.3'})  # Exmor Super35 CMOS Sensor
         self.addPreset('Sony/F35 1.78', {'filmBackSize': '23.62 13.28'})
         self.addPreset('Sony/F35 1.85', {'filmBackSize': '22.45 12.14'})
         self.addPreset('Sony/F35 2.39', {'filmBackSize': '22.45 9.4'})
@@ -214,5 +208,4 @@ def getFilmBackSize(index):
 
 def addPreset(label, haperture, vaperture):
     """Adds a preset to the global list of presets."""
-    _gFilmBackPresets.addPreset(
-        label, {'filmBackSize': str(haperture)+' '+str(vaperture)})
+    _gFilmBackPresets.addPreset(label, {'filmBackSize': str(haperture)+' '+str(vaperture)})

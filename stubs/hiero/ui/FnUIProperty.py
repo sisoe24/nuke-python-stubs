@@ -151,8 +151,7 @@ class ComboProperty(UIPropertyBase):
             self._widget.setCurrentIndex(defaultIndex)
 
         if commit:
-            self._dictionary[self._key] = str(
-                self._widget.itemData(self._widget.currentIndex()))
+            self._dictionary[self._key] = str(self._widget.itemData(self._widget.currentIndex()))
 
     def setAvailableValues(self, value):
         self._value = value
@@ -167,8 +166,7 @@ class ComboProperty(UIPropertyBase):
         self._widget.blockSignals(False)
 
     def comboChanged(self, index):
-        self._dictionary[self._key] = str(
-            self._widget.itemData(self._widget.currentIndex()))
+        self._dictionary[self._key] = str(self._widget.itemData(self._widget.currentIndex()))
         self.propertyChanged.emit()
 
     def setFloatValue(self, newValue, floatTolerance=0.01):
@@ -326,12 +324,12 @@ class TextProperty(UIPropertyBase):
         propertyType = type(self._value)
         if propertyType is int:
             self._widget.setValidator(QtGui.QIntValidator(self._widget))
-            self._widget.setSizePolicy(
-                QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Preferred)
+            self._widget.setSizePolicy(QtWidgets.QSizePolicy.Preferred,
+                                       QtWidgets.QSizePolicy.Preferred)
         if propertyType is float:
             self._widget.setValidator(QtGui.QDoubleValidator(self._widget))
-            self._widget.setSizePolicy(
-                QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Preferred)
+            self._widget.setSizePolicy(QtWidgets.QSizePolicy.Preferred,
+                                       QtWidgets.QSizePolicy.Preferred)
 
     def update(self, commit=False):
 
@@ -446,8 +444,7 @@ class SliderProperty(UIPropertyBase):
         if self.isIntRange():
             self._slider.setRange(self._value.min(), self._value.max())
         else:
-            self._slider.setRange(SliderProperty.__floatSliderMin,
-                                  SliderProperty.__floatSliderMax)
+            self._slider.setRange(SliderProperty.__floatSliderMin, SliderProperty.__floatSliderMax)
 
         layout.addWidget(self._slider)
         layout.addWidget(QtWidgets.QLabel(str(self._value.max())))
@@ -478,8 +475,7 @@ class SliderProperty(UIPropertyBase):
         value = self._slider.value()
         # If representing a float range, map the slider value
         if not self.isIntRange():
-            value = self._value.min() + ((float(value) / float(SliderProperty.__floatSliderMax))
-                                         * self._value.range())
+            value = self._value.min() + ((float(value) / float(SliderProperty.__floatSliderMax)) * self._value.range())
         return value
 
     def setSliderValue(self, value):
@@ -621,8 +617,7 @@ class ViewsPropertyWidget(UIPropertyBase):
             action.toggled.connect(self.onViewToggled)
 
         self._button = QtWidgets.QToolButton()
-        self._button.setSizePolicy(QtWidgets.QSizePolicy.Expanding,
-                                   QtWidgets.QSizePolicy.Preferred)
+        self._button.setSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Preferred)
         self._button.setPopupMode(QtWidgets.QToolButton.InstantPopup)
         self._button.setMenu(self._menu)
         layout.addWidget(self._button)
@@ -635,8 +630,7 @@ class ViewsPropertyWidget(UIPropertyBase):
     def update(self, commit=False):
         if commit:
             # Store the selected views. If all are selected store 'all' rather than the individual views
-            selectedViews = [v for v, a in zip(
-                self.views(), self._actions) if a.isChecked()]
+            selectedViews = [v for v, a in zip(self.views(), self._actions) if a.isChecked()]
             if len(selectedViews) == len(self.views()):
                 selectedViews = hiero.core.RenderTaskPreset.AllViews()
             self._dictionary[self._key] = selectedViews

@@ -70,8 +70,7 @@ class SendToNukeDialog(QtWidgets.QDialog):
 
         self._scriptPathWidget = foundry.ui.FnFilenameField(
             isDirectory=False, isSaveFile=True, caption='Save file as', filter='Nuke Scripts (*.nk)')
-        self._scriptPathWidget.setFilename(
-            settings.value(self.kSendToNukeScriptPathKey, ''))
+        self._scriptPathWidget.setFilename(settings.value(self.kSendToNukeScriptPathKey, ''))
         self._scriptPathWidget.setToolTip(
             'Use this field to set the location and name of the output Nuke script.')
         layout.addRow('Nuke Script Path:', self._scriptPathWidget)
@@ -94,8 +93,7 @@ class SendToNukeDialog(QtWidgets.QDialog):
 
         self._outputPathWidget = foundry.ui.FnFilenameField(
             isDirectory=False, isSaveFile=True, caption='Save to file', filter=('Image Files (%s)' % imageFilter))
-        self._outputPathWidget.setFilename(
-            settings.value(self.kSendToNukeWritePathKey, ''))
+        self._outputPathWidget.setFilename(settings.value(self.kSendToNukeWritePathKey, ''))
         self._outputPathWidget.setToolTip(
             "Use this field to set the directory where you'd like the Nuke output to be written to.")
         layout.addRow('Nuke Write Path:', self._outputPathWidget)
@@ -130,8 +128,7 @@ class SendToNukeDialog(QtWidgets.QDialog):
 
         self._retimeBox.setDisabled(force32Mode)
 
-        self._retimeBox.setSizePolicy(
-            QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
+        self._retimeBox.setSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         self._retimeBox.currentIndexChanged.connect(self.retimeChanged)
 
         import hiero.core.FnExporterBase
@@ -139,13 +136,11 @@ class SendToNukeDialog(QtWidgets.QDialog):
         self._retimeFpsBox = QtWidgets.QComboBox()
         for f in fps:
             self._retimeFpsBox.addItem('%0.2f' % f)
-        self._retimeFpsBox.setSizePolicy(
-            QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
+        self._retimeFpsBox.setSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         self._retimeFpsLabel = QtWidgets.QLabel('fps')
 
         self._retimeSpeedBox = QtWidgets.QLineEdit()
-        self._retimeSpeedBox.setSizePolicy(
-            QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
+        self._retimeSpeedBox.setSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         self._retimePercentageLabel = QtWidgets.QLabel('%')
 
         retimeWidget = PySide2.QtWidgets.QWidget()
@@ -165,10 +160,8 @@ class SendToNukeDialog(QtWidgets.QDialog):
 
         self._buttonbox = QtWidgets.QDialogButtonBox(
             QtWidgets.QDialogButtonBox.StandardButton.Ok | QtWidgets.QDialogButtonBox.StandardButton.Cancel)
-        self._buttonbox.button(
-            QtWidgets.QDialogButtonBox.StandardButton.Ok).setText('Launch Nuke')
-        self._buttonbox.button(
-            QtWidgets.QDialogButtonBox.StandardButton.Ok).setDefault(True)
+        self._buttonbox.button(QtWidgets.QDialogButtonBox.StandardButton.Ok).setText('Launch Nuke')
+        self._buttonbox.button(QtWidgets.QDialogButtonBox.StandardButton.Ok).setDefault(True)
         self._buttonbox.accepted.connect(self.accept)
         self._buttonbox.rejected.connect(self.reject)
         layout.addRow('', self._buttonbox)
@@ -268,8 +261,7 @@ class SendToNukeDialog(QtWidgets.QDialog):
         settings.setValue(self.kSendToNukeScriptPathKey, self.scriptPath())
         settings.setValue(self.kSendToNukeWritePathKey, self.outputPath())
         if self._ui != None:
-            settings.setValue(self.kSendToNukePresetKey,
-                              pickle.dumps(self._ui._preset._properties))
+            settings.setValue(self.kSendToNukePresetKey, pickle.dumps(self._ui._preset._properties))
         settings.setValue(self.kSendToNukeRetimeSettingKey,
                           self._retimeBox.itemText(self._retimeBox.currentIndex()))
         settings.setValue(self.kSendToNukeRetimeFpsKey,
@@ -395,8 +387,7 @@ class SendToNukeDialog(QtWidgets.QDialog):
         if type == SendToNukeDialog.kRetimeSpeedText:
             node = Node('OFXuk.co.thefoundry.time.oflow_v100')
             node.setKnob('timing', 'Speed')
-            node.setKnob('timingSpeed', "{{\"%s / 100.0\"}}" %
-                         str(self._retimeSpeedBox.text()))
+            node.setKnob('timingSpeed', "{{\"%s / 100.0\"}}" % str(self._retimeSpeedBox.text()))
         return node
 
     def addReformatNode(self, rootNode):
@@ -405,8 +396,7 @@ class SendToNukeDialog(QtWidgets.QDialog):
         # If the reformat field has been set, create a reformat node imediately before the write.
         if str(rf['to_type']) == ReformatNode.kToFormat:
             if 'width' in rf and 'height' in rf and 'pixelAspect' in rf and 'name' in rf and 'resize' in rf:
-                format = hiero.core.Format(
-                    rf['width'], rf['height'], rf['pixelAspect'], rf['name'])
+                format = hiero.core.Format(rf['width'], rf['height'], rf['pixelAspect'], rf['name'])
                 resize = rf['resize']
                 reformat = format.addToNukeScript(None, resize=resize)
                 rootNode.setKnob('format', reformat.knob('format'))
@@ -687,8 +677,8 @@ class SendToNukeAction(QtWidgets.QAction):
                 # create the write node and set stuff up
                 try:
                     projectsettings = clip.project().extractSettings()
-                    writeNode = d.addWriteNode(
-                        outputPath, writeNodeInput, fpsForNewSource, projectsettings)
+                    writeNode = d.addWriteNode(outputPath, writeNodeInput,
+                                               fpsForNewSource, projectsettings)
                 except Exception as e:
                     msgBox = QtWidgets.QMessageBox(
                         QtWidgets.QMessageBox.Critical, 'Failed to Extract Project Settings', str(e), QtWidgets.QMessageBox.Ok)
@@ -715,12 +705,10 @@ class SendToNukeAction(QtWidgets.QAction):
                         if (movOnRead):
                             newStart += 1
                             newEnd += 1
-                        mediaSourcePath = str(outputPath) + \
-                            (' %d-%d' % (newStart, newEnd))
+                        mediaSourcePath = str(outputPath) + (' %d-%d' % (newStart, newEnd))
                     newMediaSource = hiero.core.MediaSource.createOfflineVideoMediaSource(
                         mediaSourcePath, newStart, newEnd - newStart + 1, fpsForNewSource)
-                    parents[clip].addItem(hiero.core.BinItem(
-                        hiero.core.Clip(newMediaSource)))
+                    parents[clip].addItem(hiero.core.BinItem(hiero.core.Clip(newMediaSource)))
 
             viewerNode = Node('Viewer', inputNodes=writeNodes)
             if fps != None:
@@ -753,8 +741,7 @@ class SendToNukeAction(QtWidgets.QAction):
                 # tell the user what we're looking for
                 msgBox = QtWidgets.QMessageBox()
                 msgBox.setText('The Nuke Path specified in the Application Preferences can not be found.\n\nPlease set the Nuke Path setting in the Application Preferences to a valid Nuke executable path.\n\nClick OK to open the Preferences dialog.')
-                msgBox.setStandardButtons(
-                    QtWidgets.QMessageBox.Ok | QtWidgets.QMessageBox.Cancel)
+                msgBox.setStandardButtons(QtWidgets.QMessageBox.Ok | QtWidgets.QMessageBox.Cancel)
                 msgBox.setDefaultButton(QtWidgets.QMessageBox.Ok)
                 if msgBox.exec_() == QtWidgets.QMessageBox.Ok:
                     # find the preferences menu action so that we can trigger it
@@ -778,8 +765,7 @@ class SendToNukeAction(QtWidgets.QAction):
                     parents = {}
                     self.findClips(selection, clips, parents)
                     if len(clips) > 0:
-                        hiero.ui.insertMenuAction(
-                            self, event.menu, after='foundry.project.export')
+                        hiero.ui.insertMenuAction(self, event.menu, after='foundry.project.export')
 
 
 class Convert32Action(SendToNukeAction):
@@ -820,5 +806,4 @@ class Convert32Action(SendToNukeAction):
 if not hiero.core.isHieroPlayer():
     sendToNukeAction = SendToNukeAction('Advanced Send To Nuke...')
     add32Action = Convert32Action('Add 3:2...', 'Add32/', TimeBase.k24, TimeBase.k24NTSC)
-    remove32Action = Convert32Action(
-        'Remove 3:2...', 'Remove32/', TimeBase.k30, TimeBase.k30NTSC)
+    remove32Action = Convert32Action('Remove 3:2...', 'Remove32/', TimeBase.k30, TimeBase.k30NTSC)

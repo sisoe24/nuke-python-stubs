@@ -194,12 +194,11 @@ class LayoutBase(object):
 
         # If creating a backdrop, include the height of the label
         if self.shouldCreateBackdrop:
-            ypos += self.getBackdropLabelHeight(
-                self.layoutContext.getLabel(), self.getLayoutWidth())
+            ypos += self.getBackdropLabelHeight(self.layoutContext.getLabel(),
+                                                self.getLayoutWidth())
 
         if self.childLayouts:
-            childContextsRect = self.layoutChildContexts(
-                self.childLayouts, xpos, ypos, zorder)
+            childContextsRect = self.layoutChildContexts(self.childLayouts, xpos, ypos, zorder)
             self.rect |= childContextsRect
             ypos = childContextsRect.bottom() + self.childLayoutSpacing
 
@@ -312,8 +311,8 @@ class TracksLayout(LayoutBase):
 
         # If creating a backdrop, include the height of the label
         if self.shouldCreateBackdrop:
-            ypos += self.getBackdropLabelHeight(
-                self.layoutContext.getLabel(), self.getLayoutWidth())
+            ypos += self.getBackdropLabelHeight(self.layoutContext.getLabel(),
+                                                self.getLayoutWidth())
 
          # Each track has a horizontal part and a vertical part which need to be drawn in the correct order.
          # First we draw all of the horizontal parts starting from the left across to the right.
@@ -374,8 +373,8 @@ class TracksLayout(LayoutBase):
 
         xpos = horzontalRect.bottom() + self.childLayoutSpacing
 
-        nodesRect = self.layoutNodes(
-            self.layoutContext.getNodes(), xpos, ypos, LayoutBase.kAlignLeft)
+        nodesRect = self.layoutNodes(self.layoutContext.getNodes(),
+                                     xpos, ypos, LayoutBase.kAlignLeft)
         self.rect |= nodesRect
         self.rect.adjust(0, 0, self.rightMargin, self.bottomMargin)
 
@@ -474,12 +473,10 @@ class TrackLayout(LayoutBase):
 
         xpos += self.leftMargin
         ypos += self.topMargin
-        ypos += self.getBackdropLabelHeight(self.layoutContext.getLabel(),
-                                            self.getLayoutWidth())
+        ypos += self.getBackdropLabelHeight(self.layoutContext.getLabel(), self.getLayoutWidth())
 
         if self.childLayouts:
-            childContextsRect = self.layoutChildContexts(
-                self.childLayouts, xpos, ypos, zorder)
+            childContextsRect = self.layoutChildContexts(self.childLayouts, xpos, ypos, zorder)
 
             # Make sure we keep the margin on the left side of the child rect
             self.rect.setLeft(childContextsRect.left() - self.leftMargin)
@@ -503,12 +500,12 @@ class TrackLayout(LayoutBase):
             else:
                 nodeAlignX = alignToLayout.rect.center().x()
 
-            nodesRect = self.layoutNodes(
-                self.layoutContext.getNodes(), nodeAlignX, ypos, LayoutBase.kAlignCenter)
+            nodesRect = self.layoutNodes(self.layoutContext.getNodes(),
+                                         nodeAlignX, ypos, LayoutBase.kAlignCenter)
         # No child layouts on the track, this occurs if the track only has effects/annotations
         else:
-            nodesRect = self.layoutNodes(
-                self.layoutContext.getNodes(), xpos, ypos, LayoutBase.kAlignLeft)
+            nodesRect = self.layoutNodes(self.layoutContext.getNodes(),
+                                         xpos, ypos, LayoutBase.kAlignLeft)
             self.rect.setLeft(nodesRect.left() - self.leftMargin)
             self.rect.setRight(nodesRect.right())
 
@@ -516,8 +513,7 @@ class TrackLayout(LayoutBase):
 
         self.rect.adjust(0, 0, self.rightMargin, self.bottomMargin)
 
-        self.createBackdrop(self.backdropColor, self.rect,
-                            self.layoutContext.getLabel(), zorder)
+        self.createBackdrop(self.backdropColor, self.rect, self.layoutContext.getLabel(), zorder)
 
         return self.rect
 
@@ -576,8 +572,8 @@ class ClipLayout(LayoutBase):
 
         # If creating a backdrop, include the height of the label
         if self.shouldCreateBackdrop:
-            ypos += self.getBackdropLabelHeight(
-                self.layoutContext.getLabel(), self.getLayoutWidth())
+            ypos += self.getBackdropLabelHeight(self.layoutContext.getLabel(),
+                                                self.getLayoutWidth())
 
         if self.constantNodes:
             mainNodesXPos = xpos + 80 + self.nodeSpacing
@@ -595,8 +591,7 @@ class ClipLayout(LayoutBase):
             self.rect |= combinedRect
 
         else:
-            nodesRect = self.layoutNodes(
-                self.clipNodes, xpos, ypos, LayoutBase.kAlignLeft)
+            nodesRect = self.layoutNodes(self.clipNodes, xpos, ypos, LayoutBase.kAlignLeft)
 
             self.rect.setLeft(nodesRect.left() - self.leftMargin)
             self.rect.setRight(nodesRect.right())
@@ -665,8 +660,7 @@ class WriteLayout(TrackLayout):
                 ypos += yoffset
 
                 # position the node
-                xpos, ypos = self.layoutNode(
-                    node, xpos, ypos, LayoutBase.kAlignCenter, rect)
+                xpos, ypos = self.layoutNode(node, xpos, ypos, LayoutBase.kAlignCenter, rect)
 
                 # Undo the x correction
                 xpos -= xoffset

@@ -76,8 +76,7 @@ class ConnectDialog(QDialog):
         settings = hiero.core.ApplicationSettings()
 
         self._connectionManager = connectionManager
-        self._connectionManager.connectionState.changed.connect(
-            self.onConnectionStateChanged)
+        self._connectionManager.connectionState.changed.connect(self.onConnectionStateChanged)
         self._connectionManager.connectionState.error.connect(self.onConnectError)
 
         self._pasteFilter = _PasteFilter(self._connectionInfoFromClipboard, self)

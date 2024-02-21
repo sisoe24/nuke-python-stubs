@@ -42,8 +42,8 @@ class ShotProcessorUI(hiero.ui.ProcessorUIBase, QtCore.QObject):
         # Look for selected items which arent of the correct type
         for item in exportItems:
             if not item.sequence() and not item.trackItem():
-                invalidItems.append(
-                    item.item().name() + " <span style='color: #CC0000'>(Not a Sequence)</span>")
+                invalidItems.append(item.item().name() +
+                                    " <span style='color: #CC0000'>(Not a Sequence)</span>")
         # Found invalid items
         if invalidItems:
             # Show warning
@@ -140,8 +140,7 @@ class ShotProcessorUI(hiero.ui.ProcessorUIBase, QtCore.QObject):
         self._startFrameSource = QtWidgets.QComboBox()
         self._startFrameSource.setToolTip(startFrameToolTip)
 
-        startFrameSourceItems = (ShotProcessor.kStartFrameSource,
-                                 ShotProcessor.kStartFrameCustom)
+        startFrameSourceItems = (ShotProcessor.kStartFrameSource, ShotProcessor.kStartFrameCustom)
         for index, item in zip(list(range(0, len(startFrameSourceItems))), startFrameSourceItems):
             self._startFrameSource.addItem(item)
             if item == str(self._preset.properties()['startFrameSource']):
@@ -205,10 +204,8 @@ class ShotProcessorUI(hiero.ui.ProcessorUIBase, QtCore.QObject):
                 sequences.append(sequence)
 
         trackWidget = TrackSelectionWidget(sequences,
-                                           self._preset.nonPersistentProperties()[
-                                               'hiddenTracks'],
-                                           self._preset.nonPersistentProperties()[
-                                               'excludedTracks'],
+                                           self._preset.nonPersistentProperties()['hiddenTracks'],
+                                           self._preset.nonPersistentProperties()['excludedTracks'],
                                            excludedTrackIDs=self._preset._excludedTrackIDs)
         hLayout.addWidget(trackWidget)
 
@@ -217,10 +214,10 @@ class ShotProcessorUI(hiero.ui.ProcessorUIBase, QtCore.QObject):
         tagsLabel = QtWidgets.QLabel('Filter by tag:')
         tagsLayout.addWidget(tagsLabel)
 
-        include_tags = [tag for tag, objecttype in self._tags if tag.name(
-        ) in self._preset.properties()['includeTags']]
-        exclude_tags = [tag for tag, objecttype in self._tags if tag.name(
-        ) in self._preset.properties()['excludeTags']]
+        include_tags = [tag for tag, objecttype in self._tags if tag.name() in self._preset.properties()[
+            'includeTags']]
+        exclude_tags = [tag for tag, objecttype in self._tags if tag.name() in self._preset.properties()[
+            'excludeTags']]
 
         tagsWidget = TagFilterWidget([tag for tag, objecttype in self._tags if objecttype in (
             hiero.core.TrackItem, )], include_tags, exclude_tags)
@@ -326,8 +323,7 @@ class ShotProcessorUI(hiero.ui.ProcessorUIBase, QtCore.QObject):
         for trackitem in track:
             if not trackitem.isMediaPresent():
                 try:
-                    sourcepath = trackitem.source().mediaSource().fileinfos()[
-                        0].filename()
+                    sourcepath = trackitem.source().mediaSource().fileinfos()[0].filename()
                 except:
                     sourcepath = 'Unknown Source'
                 offlineMedia.append(' : '.join([trackitem.name(), sourcepath]))
@@ -378,10 +374,8 @@ class ShotProcessorUI(hiero.ui.ProcessorUIBase, QtCore.QObject):
         if existingExportVersionsFound:
             text = 'Previous export(s) found.  Do you want to create a new version or overwrite the existing files?'
             msgBox = QtWidgets.QMessageBox(QtWidgets.QMessageBox.Question, title, text)
-            overwriteButton = msgBox.addButton(
-                'Overwrite', QtWidgets.QMessageBox.AcceptRole)
-            newVersionButton = msgBox.addButton(
-                'New Version', QtWidgets.QMessageBox.AcceptRole)
+            overwriteButton = msgBox.addButton('Overwrite', QtWidgets.QMessageBox.AcceptRole)
+            newVersionButton = msgBox.addButton('New Version', QtWidgets.QMessageBox.AcceptRole)
             msgBox.setDefaultButton(newVersionButton)
             msgBox.addButton(QtWidgets.QMessageBox.Cancel)
             msgBox.exec_()

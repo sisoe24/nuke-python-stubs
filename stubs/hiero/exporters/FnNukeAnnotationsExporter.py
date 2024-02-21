@@ -52,8 +52,7 @@ class NukeAnnotationsExporter(NukeShotExporter):
 
             # Map to sequence time.  If the mapped annotation start time is before the track item timeline in, use the track item's timeline in
             if toSequenceTime:
-                time = max(int(trackItem.mapSourceToTimeline(time)),
-                           trackItem.timelineIn())
+                time = max(int(trackItem.mapSourceToTimeline(time)), trackItem.timelineIn())
 
             keyFrames.add(time + offset)
 
@@ -75,8 +74,7 @@ class NukeAnnotationsExporter(NukeShotExporter):
         for track in connectedTracks:
             # Add clip-level annotations for each item on the track
             for item in list(track.items()):
-                keyFrames.update(
-                    self.getAnnotationKeyFramesForTrackItem(item, offset, True))
+                keyFrames.update(self.getAnnotationKeyFramesForTrackItem(item, offset, True))
 
             # Add sequence-level annotations
             trackAnnotations = [item for item in itertools.chain(
@@ -146,8 +144,7 @@ class NukeAnnotationsExporter(NukeShotExporter):
 
         # Set up the user knobs
         annotationsNoOp.addTabKnob('Annotations')
-        annotationsNoOp.addRawKnob(
-            'addUserKnob {3 annotation_key l annotation -STARTLINE}')
+        annotationsNoOp.addRawKnob('addUserKnob {3 annotation_key l annotation -STARTLINE}')
         annotationsNoOp.addRawKnob('addUserKnob {3 annotation_count l of -STARTLINE}')
         annotationsNoOp.addRawKnob(
             'addUserKnob {22 prev l @KeyLeft -STARTLINE T "k = nuke.thisNode()\[\'annotation_key\']\\ncurFrame = nuke.frame()  \\nnewFrame = curFrame\\ncurve = k.animation(0)\\nfor key in reversed(curve.keys()):\\n  if key.x < curFrame:\\n    newFrame = key.x\\n    break\\nnuke.frame( newFrame )\\n"}')

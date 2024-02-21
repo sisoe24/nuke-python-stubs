@@ -43,8 +43,7 @@ class AudioExportTask(TaskBase):
                 self.setExportSettings()
 
                 if isinstance(self._item, Sequence):
-                    start, end = self.sequenceInOutPoints(
-                        self._item, 0, self._item.duration() - 1)
+                    start, end = self.sequenceInOutPoints(self._item, 0, self._item.duration() - 1)
 
                     # If sequence, write out full length
                     self._item.writeAudioToFile(self._audioFile,
@@ -89,8 +88,7 @@ class AudioExportTask(TaskBase):
     def setExportSettings(self):
         self._audioFile = self.resolvedExportPath()
 
-        extension = FnAudioConstants.kCodecs[self._preset.properties()[
-            FnAudioConstants.kCodecKey]]
+        extension = FnAudioConstants.kCodecs[self._preset.properties()[FnAudioConstants.kCodecKey]]
 
         filename, ext = os.path.splitext(self._audioFile)
         if ext.lower() != extension:

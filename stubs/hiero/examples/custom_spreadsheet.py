@@ -288,8 +288,7 @@ class CustomSpreadsheetColumns(QtCore.QObject):
                     imageView = QtGui.QImage('icons:Offline.png')
                     pen.setColor(QtGui.QColor(QtCore.Qt.red))
 
-            QtGui.QIcon(QtGui.QPixmap.fromImage(imageView)).paint(
-                painter, r, QtCore.Qt.AlignCenter)
+            QtGui.QIcon(QtGui.QPixmap.fromImage(imageView)).paint(painter, r, QtCore.Qt.AlignCenter)
             painter.setPen(pen)
             painter.drawRoundedRect(r, 1, 1)
             painter.restore()
@@ -449,8 +448,7 @@ def _updateArtistTag(self, artistDict):
         artistTag.setIcon(artistDict['artistIcon'])
         artistTag.metadata().setValue('tag.artistID', str(artistDict['artistID']))
         artistTag.metadata().setValue('tag.artistName', str(artistDict['artistName']))
-        artistTag.metadata().setValue('tag.artistDepartment',
-                                      str(artistDict['artistDepartment']))
+        artistTag.metadata().setValue('tag.artistDepartment', str(artistDict['artistDepartment']))
         self.sequence().editFinished()
         self.addTag(artistTag)
         self.sequence().editFinished()
@@ -459,8 +457,7 @@ def _updateArtistTag(self, artistDict):
     artistTag.setIcon(artistDict['artistIcon'])
     artistTag.metadata().setValue('tag.artistID', str(artistDict['artistID']))
     artistTag.metadata().setValue('tag.artistName', str(artistDict['artistName']))
-    artistTag.metadata().setValue('tag.artistDepartment',
-                                  str(artistDict['artistDepartment']))
+    artistTag.metadata().setValue('tag.artistDepartment', str(artistDict['artistDepartment']))
     self.sequence().editFinished()
     return
 
@@ -580,10 +577,8 @@ class SetStatusMenu(QtWidgets.QMenu):
         for act in self.menuActions:
             self.addAction(act)
 
-        hiero.core.events.registerInterest(
-            'kShowContextMenu/kTimeline', self.eventHandler)
-        hiero.core.events.registerInterest(
-            'kShowContextMenu/kSpreadsheet', self.eventHandler)
+        hiero.core.events.registerInterest('kShowContextMenu/kTimeline', self.eventHandler)
+        hiero.core.events.registerInterest('kShowContextMenu/kSpreadsheet', self.eventHandler)
 
     def createStatusMenuActions(self):
         self.menuActions = []
@@ -674,10 +669,8 @@ class AssignArtistMenu(QtWidgets.QMenu):
         for act in self.menuActions:
             self.addAction(act)
 
-        hiero.core.events.registerInterest(
-            'kShowContextMenu/kTimeline', self.eventHandler)
-        hiero.core.events.registerInterest(
-            'kShowContextMenu/kSpreadsheet', self.eventHandler)
+        hiero.core.events.registerInterest('kShowContextMenu/kTimeline', self.eventHandler)
+        hiero.core.events.registerInterest('kShowContextMenu/kSpreadsheet', self.eventHandler)
 
     def createAssignArtistMenuActions(self):
         self.menuActions = []

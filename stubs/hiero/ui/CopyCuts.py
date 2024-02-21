@@ -108,15 +108,13 @@ class CutDataCopier:
         dstEffects = findLinkedEffects(dstItem)
         if effectBehavior == EffectAndTagBehavior.eReplace:
             for effect in dstEffects:
-                dstTrack.removeSubTrackItem(
-                    effect, hiero.core.TrackBase.eDontRemoveLinkedItems)
+                dstTrack.removeSubTrackItem(effect, hiero.core.TrackBase.eDontRemoveLinkedItems)
             insertIndex = 0
         else:
             insertIndex = len(dstEffects)
         srcEffects = findLinkedEffects(srcItem)
         for subTrackIndex, effect in enumerate(srcEffects, start=insertIndex):
-            dstTrack.createEffect(copyFrom=effect, trackItem=dstItem,
-                                  subTrackIndex=subTrackIndex)
+            dstTrack.createEffect(copyFrom=effect, trackItem=dstItem, subTrackIndex=subTrackIndex)
 
     def _copyTags(self, srcItem, dstItem, tagBehavior):
         """ Apply the specified tag copying behavior from a source trackitem to
@@ -195,10 +193,8 @@ class CopyCutsFromTrack(QtWidgets.QDialog):
         self._copyTaskType.setToolTip(
             'Choose to copy all cuts on the From Track or only selected cuts.')
         self.groupLayout.addRow('', self._copyTaskType)
-        self._copyTaskType.addItem(
-            'Copy All Cuts', CutSelectionBehavior.eCopyAllFromTrack)
-        self._copyTaskType.addItem(
-            'Copy Selected Cuts', CutSelectionBehavior.eCopySelected)
+        self._copyTaskType.addItem('Copy All Cuts', CutSelectionBehavior.eCopyAllFromTrack)
+        self._copyTaskType.addItem('Copy Selected Cuts', CutSelectionBehavior.eCopySelected)
 
         self._copyNamesCheckBox = QtWidgets.QCheckBox('Copy Names')
         self._copyNamesCheckBox.setToolTip(
@@ -239,8 +235,7 @@ class CopyCutsFromTrack(QtWidgets.QDialog):
             # This ensures that the defaultIndex is the bottom most (non-empty) video track, if there is one
             if isinstance(track, hiero.core.VideoTrack):
                 defaultIndex += 1
-            self._fromTrackDropdown.addItem(
-                self.getIconForTrack(track), track.name(), track)
+            self._fromTrackDropdown.addItem(self.getIconForTrack(track), track.name(), track)
 
         self._fromTrackDropdown.setCurrentIndex(max(0, defaultIndex))
 
@@ -254,15 +249,13 @@ class CopyCutsFromTrack(QtWidgets.QDialog):
         self.groupLayout.addRow('', self.toggleAll)
         self.toggleAll.clicked.connect(self.toggleAllTracks)
 
-        self._fromTrackDropdown.currentIndexChanged.connect(
-            self.fromTrackSelectionChanged)
+        self._fromTrackDropdown.currentIndexChanged.connect(self.fromTrackSelectionChanged)
 
         # Add the standard ok/cancel buttons, default to ok.
         self._buttonbox = QtWidgets.QDialogButtonBox(
             QtWidgets.QDialogButtonBox.StandardButton.Ok | QtWidgets.QDialogButtonBox.StandardButton.Cancel)
         self._buttonbox.button(QtWidgets.QDialogButtonBox.StandardButton.Ok).setText('OK')
-        self._buttonbox.button(
-            QtWidgets.QDialogButtonBox.StandardButton.Ok).setDefault(True)
+        self._buttonbox.button(QtWidgets.QDialogButtonBox.StandardButton.Ok).setDefault(True)
         self._buttonbox.accepted.connect(self.accept)
         self._buttonbox.rejected.connect(self.reject)
         self.groupLayout.addWidget(self._buttonbox)
@@ -365,8 +358,7 @@ class CopyCutsFromTrackAction(QtWidgets.QAction):
     def __init__(self):
         QtWidgets.QAction.__init__(self, 'Copy Cuts', None)
         self.triggered.connect(self.doCuts)
-        hiero.core.events.registerInterest(
-            'kShowContextMenu/kTimeline', self.eventHandler)
+        hiero.core.events.registerInterest('kShowContextMenu/kTimeline', self.eventHandler)
 
     def toggleTrackLock(self, tracklist, lockstate=True):
         for track in tracklist:
@@ -424,15 +416,13 @@ class CopyCutsFromTrackAction(QtWidgets.QAction):
 
         self.enableSelectedCutsCopyMode = True
         if len(shotSelection) == 0:
-            # We disable the Selected Cuts option if no shots are selected
-            self.enableSelectedCutsCopyMode = False
+            self.enableSelectedCutsCopyMode = False  # We disable the Selected Cuts option if no shots are selected
         title = 'Copy Cuts...'
         self.setText(title)
 
         for a in event.menu.actions():
             if a.text().lower().strip() == 'editorial':
-                hiero.ui.insertMenuAction(
-                    self, a.menu(), after='foundry.timeline.enableItem')
+                hiero.ui.insertMenuAction(self, a.menu(), after='foundry.timeline.enableItem')
 
 
 # Instantiate the action to get it to register itself.

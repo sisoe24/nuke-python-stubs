@@ -184,8 +184,7 @@ class SyncStatusPanel(QWidget):
 
         # Create the push session button.
         connectInfoIcon = QIcon('icons:SyncCopyInfo.png')
-        connectInfoIcon.addFile('icons:SyncCopyInfo_disabled.png',
-                                QSize(), QIcon.Disabled)
+        connectInfoIcon.addFile('icons:SyncCopyInfo_disabled.png', QSize(), QIcon.Disabled)
         self._copyConnectionInfoButton = QPushButton(connectInfoIcon, '')
         self._copyConnectionInfoButton.setMaximumHeight(24)
         self._copyConnectionInfoButton.setToolTip(config.COPY_INFO_TOOL_TIP)
@@ -210,8 +209,7 @@ class SyncStatusPanel(QWidget):
         self._tableView.verticalHeader().setVisible(False)
         # Set the sizes of each column on the horizontal header.
         self._tableView.setColumnWidth(_Columns.color, _colorHeaderMinWidth())
-        self._tableView.setColumnWidth(
-            _Columns.participant, _participantsHeaderMinWidth())
+        self._tableView.setColumnWidth(_Columns.participant, _participantsHeaderMinWidth())
         self._tableView.horizontalHeader().setStretchLastSection(True)
         # Table style.
         self._tableView.setGridStyle(Qt.NoPen)
@@ -257,8 +255,7 @@ class SyncStatusPanel(QWidget):
         if newSortedColumn == _Columns.color:
             # If the user clicked on the color header, restore the sort indicator status from before the click.
             if self._lastSortedColumn in (_Columns.participant, _Columns.status):
-                self._tableView.horizontalHeader().setSortIndicator(
-                    self._lastSortedColumn, self._lastSortedOrder)
+                self._tableView.horizontalHeader().setSortIndicator(self._lastSortedColumn, self._lastSortedOrder)
             else:
                 self._setUnsorted()
         else:

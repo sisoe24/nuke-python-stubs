@@ -69,8 +69,7 @@ if fc_path == '':
             if nuke.env['WIN32']:
                 fc_path = os.path.join(fc_path+'Windows', 'bin', 'framecycler')
             elif not nuke.env['WIN32'] and not nuke.env['MACOS']:
-                fc_path = os.path.join(
-                    fc_path+framecycler_linux_version(), 'bin', 'framecycler')
+                fc_path = os.path.join(fc_path+framecycler_linux_version(), 'bin', 'framecycler')
             else:
                 fc_path = os.path.join(fc_path + 'OSX', 'bin', 'FrameCycler')
     if nuke.env['WIN32']:

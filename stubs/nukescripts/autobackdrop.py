@@ -9,13 +9,11 @@ def nodeIsInside(node, backdropNode):
     """Returns true if node geometry is inside backdropNode otherwise returns false"""
     topLeftNode = [node.xpos(), node.ypos()]
     topLeftBackDrop = [backdropNode.xpos(), backdropNode.ypos()]
-    bottomRightNode = [node.xpos() + node.screenWidth(),
-                       node.ypos() + node.screenHeight()]
+    bottomRightNode = [node.xpos() + node.screenWidth(), node.ypos() + node.screenHeight()]
     bottomRightBackdrop = [backdropNode.xpos() + backdropNode.screenWidth(),
                            backdropNode.ypos() + backdropNode.screenHeight()]
 
-    topLeft = (topLeftNode[0] >= topLeftBackDrop[0]) and (
-        topLeftNode[1] >= topLeftBackDrop[1])
+    topLeft = (topLeftNode[0] >= topLeftBackDrop[0]) and (topLeftNode[1] >= topLeftBackDrop[1])
     bottomRight = (bottomRightNode[0] <= bottomRightBackdrop[0]) and (
         bottomRightNode[1] <= bottomRightBackdrop[1])
 

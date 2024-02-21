@@ -19,8 +19,8 @@ def initPyQtRenderDialog(pyQtApp, appArgv=['pyQtRenderDialog']):
     class pyRenderDialog(object):
         def __init__(self):
             # Set up the user interface from Designer.
-            filepath = os.path.join(os.path.dirname(
-                nukescripts.__file__), 'pyQtExamples', 'pyQtRender.ui')
+            filepath = os.path.join(os.path.dirname(nukescripts.__file__),
+                                    'pyQtExamples', 'pyQtRender.ui')
             file = QtCore.QFile(filepath)
             file.open(QtCore.QIODevice.ReadOnly)
 

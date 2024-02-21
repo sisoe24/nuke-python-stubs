@@ -26,11 +26,9 @@ def loadProjectsFromFolder(path):
                     if verboseStartupProjects:
                         hiero.core.log.info(' - Opening startup project: ' + projectPath)
                     # Load as startup project
-                    hiero.core.openProject(
-                        projectPath, hiero.core.Project.kProjectOpenStartup)
+                    hiero.core.openProject(projectPath, hiero.core.Project.kProjectOpenStartup)
                 except Exception as detail:
-                    hiero.core.log.exception(
-                        'Project', projectPath, 'could not be loaded:', detail)
+                    hiero.core.log.exception('Project', projectPath, 'could not be loaded:', detail)
 
 
 # Load all Startup Projects

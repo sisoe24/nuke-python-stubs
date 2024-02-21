@@ -126,14 +126,11 @@ def createCamera(solver):
         camera.knob('focal').fromScript(solver.knob('focalLength').toScript(False))
         camera.knob('translate').fromScript(solver.knob('camTranslate').toScript(False))
         camera.knob('rotate').fromScript(solver.knob('camRotate').toScript(False))
-        camera.knob('win_translate').fromScript(
-            solver.knob('windowTranslate').toScript(False))
+        camera.knob('win_translate').fromScript(solver.knob('windowTranslate').toScript(False))
         camera.knob('win_scale').fromScript(solver.knob('windowScale').toScript(False))
         for i in range(numviews):
-            camera.knob('haperture').setValue(
-                solver.knob('aperture').getValue(0, i+1), 0, 0, i+1)
-            camera.knob('vaperture').setValue(
-                solver.knob('aperture').getValue(1, i+1), 0, 0, i+1)
+            camera.knob('haperture').setValue(solver.knob('aperture').getValue(0, i+1), 0, 0, i+1)
+            camera.knob('vaperture').setValue(solver.knob('aperture').getValue(1, i+1), 0, 0, i+1)
 
     return camera
 
@@ -166,21 +163,16 @@ def createCameraRig(solver):
         camera.setInput(0, None)
         if link:
             camera.knob('focal').setExpression(solver.name() + '.focalLength.' + viewStr)
-            camera.knob('haperture').setExpression(
-                solver.name() + '.aperture.' + viewStr + '.x')
-            camera.knob('vaperture').setExpression(
-                solver.name() + '.aperture.' + viewStr + '.y')
-            camera.knob('translate').setExpression(
-                solver.name() + '.camTranslate.' + viewStr)
+            camera.knob('haperture').setExpression(solver.name() + '.aperture.' + viewStr + '.x')
+            camera.knob('vaperture').setExpression(solver.name() + '.aperture.' + viewStr + '.y')
+            camera.knob('translate').setExpression(solver.name() + '.camTranslate.' + viewStr)
             camera.knob('rotate').setExpression(solver.name() + '.camRotate.' + viewStr)
             camera.knob('win_translate').setExpression(
                 solver.name() + '.windowTranslate.' + viewStr)
-            camera.knob('win_scale').setExpression(
-                solver.name() + '.windowScale.' + viewStr)
+            camera.knob('win_scale').setExpression(solver.name() + '.windowScale.' + viewStr)
         else:
             if solver.knob('focalLength').isAnimated():
-                camera.knob('focal').copyAnimation(
-                    0, solver.knob('focalLength').animation(0, i+1))
+                camera.knob('focal').copyAnimation(0, solver.knob('focalLength').animation(0, i+1))
             else:
                 camera.knob('focal').setValue(solver.knob(
                     'focalLength').getValue(0, i+1), 0, 0, i+1)
@@ -199,27 +191,19 @@ def createCameraRig(solver):
                 camera.knob('translate').setValue(solver.knob(
                     'camTranslate').getValue(2, i+1), 2, 0, i+1)
             if solver.knob('camRotate').isAnimated():
-                camera.knob('rotate').copyAnimation(
-                    0, solver.knob('camRotate').animation(0, i+1))
-                camera.knob('rotate').copyAnimation(
-                    1, solver.knob('camRotate').animation(1, i+1))
-                camera.knob('rotate').copyAnimation(
-                    2, solver.knob('camRotate').animation(2, i+1))
+                camera.knob('rotate').copyAnimation(0, solver.knob('camRotate').animation(0, i+1))
+                camera.knob('rotate').copyAnimation(1, solver.knob('camRotate').animation(1, i+1))
+                camera.knob('rotate').copyAnimation(2, solver.knob('camRotate').animation(2, i+1))
             else:
-                camera.knob('rotate').setValue(solver.knob(
-                    'camRotate').getValue(0, i+1), 0, 0, i+1)
-                camera.knob('rotate').setValue(solver.knob(
-                    'camRotate').getValue(1, i+1), 1, 0, i+1)
-                camera.knob('rotate').setValue(solver.knob(
-                    'camRotate').getValue(2, i+1), 2, 0, i+1)
+                camera.knob('rotate').setValue(solver.knob('camRotate').getValue(0, i+1), 0, 0, i+1)
+                camera.knob('rotate').setValue(solver.knob('camRotate').getValue(1, i+1), 1, 0, i+1)
+                camera.knob('rotate').setValue(solver.knob('camRotate').getValue(2, i+1), 2, 0, i+1)
             camera.knob('win_translate').setValue(solver.knob(
                 'windowTranslate').getValue(0, i+1), 0, 0, i+1)
             camera.knob('win_scale').setValue(solver.knob(
                 'windowScale').getValue(0, i+1), 0, 0, i+1)
-            camera.knob('haperture').setValue(
-                solver.knob('aperture').getValue(0, i+1), 0, 0, i+1)
-            camera.knob('vaperture').setValue(
-                solver.knob('aperture').getValue(1, i+1), 0, 0, i+1)
+            camera.knob('haperture').setValue(solver.knob('aperture').getValue(0, i+1), 0, 0, i+1)
+            camera.knob('vaperture').setValue(solver.knob('aperture').getValue(1, i+1), 0, 0, i+1)
         camera.setXYpos(m + 2*w + w*i, y)
         if numviews == 2:
             if i == 0:
@@ -300,12 +284,9 @@ def createCameraSet(solver):
                 exprStr + ".knob('camRotate').getValueAt(" + str(frame) + ',2)}]', 2)
         else:
             camera.knob('focal').setValue(solver.knob('focalLength').getValueAt(frame))
-            camera.knob('haperture').setValue(
-                solver.knob('aperture').getValueAt(frame, 0))
-            camera.knob('vaperture').setValue(
-                solver.knob('aperture').getValueAt(frame, 1))
-            camera.knob('translate').setValue(
-                solver.knob('camTranslate').getValueAt(frame))
+            camera.knob('haperture').setValue(solver.knob('aperture').getValueAt(frame, 0))
+            camera.knob('vaperture').setValue(solver.knob('aperture').getValueAt(frame, 1))
+            camera.knob('translate').setValue(solver.knob('camTranslate').getValueAt(frame))
             camera.knob('rotate').setValue(solver.knob('camRotate').getValueAt(frame))
     group.end()
     group.setInput(0, solver)
@@ -342,18 +323,15 @@ def createScene(cameraTracker):
         camera.knob('vaperture').setExpression(cameraTracker.name() + '.aperture.y')
         camera.knob('translate').setExpression(cameraTracker.name() + '.camTranslate')
         camera.knob('rotate').setExpression(cameraTracker.name() + '.camRotate')
-        camera.knob('win_translate').setExpression(
-            cameraTracker.name() + '.windowTranslate')
+        camera.knob('win_translate').setExpression(cameraTracker.name() + '.windowTranslate')
         camera.knob('win_scale').setExpression(cameraTracker.name() + '.windowScale')
     else:
         camera.knob('focal').fromScript(cameraTracker.knob('focalLength').toScript(False))
-        camera.knob('translate').fromScript(
-            cameraTracker.knob('camTranslate').toScript(False))
+        camera.knob('translate').fromScript(cameraTracker.knob('camTranslate').toScript(False))
         camera.knob('rotate').fromScript(cameraTracker.knob('camRotate').toScript(False))
         camera.knob('win_translate').fromScript(
             cameraTracker.knob('windowTranslate').toScript(False))
-        camera.knob('win_scale').fromScript(
-            cameraTracker.knob('windowScale').toScript(False))
+        camera.knob('win_scale').fromScript(cameraTracker.knob('windowScale').toScript(False))
         for i in range(numviews):
             camera.knob('haperture').setValue(
                 cameraTracker.knob('aperture').getValue(0, i+1), 0, 0, i+1)
@@ -398,8 +376,7 @@ def createEverything(cameraTracker):
     scanline.setXYpos(m - int(w/2), y + 3*vspacing)
     # setting dot positions
     cameraToSceneDot.setXYpos(m - hspacing - int(dw/2), y + 2*vspacing + int((h-dh)/2))
-    cameraToScanlineRenderDot.setXYpos(
-        m - hspacing - int(dw/2), y + 3*vspacing + int((h-dh)/2))
+    cameraToScanlineRenderDot.setXYpos(m - hspacing - int(dw/2), y + 3*vspacing + int((h-dh)/2))
     lensToScanlineDot.setXYpos(m + hspacing - int(dw/2), y + 3*vspacing + int((h-dh)/2))
     # setting dot connections
     cameraToSceneDot.setInput(0, camera)
@@ -545,12 +522,9 @@ def createCards(solver):
                 exprStr + ".knob('camRotate').getValueAt(" + str(frame) + ',2)}]', 2)
         else:
             camera.knob('focal').setValue(solver.knob('focalLength').getValueAt(frame))
-            camera.knob('haperture').setValue(
-                solver.knob('aperture').getValueAt(frame, 0))
-            camera.knob('vaperture').setValue(
-                solver.knob('aperture').getValueAt(frame, 1))
-            camera.knob('translate').setValue(
-                solver.knob('camTranslate').getValueAt(frame))
+            camera.knob('haperture').setValue(solver.knob('aperture').getValueAt(frame, 0))
+            camera.knob('vaperture').setValue(solver.knob('aperture').getValueAt(frame, 1))
+            camera.knob('translate').setValue(solver.knob('camTranslate').getValueAt(frame))
             camera.knob('rotate').setValue(solver.knob('camRotate').getValueAt(frame))
         camera.setXYpos(m + w*i - int(sw/2), y + 3*w)
         card = nuke.createNode(cardClass(solver), '', False)
@@ -583,13 +557,11 @@ def _copyKnobIdx(fromNode, fromKnobName, fromKnobIdx, toNode, toKnobName, toKnob
     fromKnob = fromNode[fromKnobName]
     toKnob = toNode[toKnobName]
     if link:
-        toKnob.setExpression(fromKnob.fullyQualifiedName() +
-                             '.' + str(fromKnobIdx), toKnobIdx)
+        toKnob.setExpression(fromKnob.fullyQualifiedName() + '.' + str(fromKnobIdx), toKnobIdx)
     else:
         if fromKnob.isAnimated(fromKnobIdx):
             if fromKnob.hasExpression(fromKnobIdx):
-                toKnob.setExpression(fromKnob.animation(
-                    fromKnobIdx).expression(), toKnobIdx)
+                toKnob.setExpression(fromKnob.animation(fromKnobIdx).expression(), toKnobIdx)
             else:
                 toKnob.copyAnimation(toKnobIdx, fromKnob.animation(fromKnobIdx))
         else:
@@ -651,8 +623,8 @@ class LinkableImportPanel(nukescripts.PythonPanel):
         nukescripts.PythonPanel.__init__(
             self, 'Select Tracker to Import From', 'uk.co.thefoundry.FramePanel')
         # Show a list of trackers in the project.
-        self._trackers = [n.name() for n in nuke.allNodes()
-                          if n.linkableKnobs(nuke.KnobType.eXYKnob)]
+        self._trackers = [n.name()
+                          for n in nuke.allNodes() if n.linkableKnobs(nuke.KnobType.eXYKnob)]
         self._tracker = nuke.Enumeration_Knob('trackers', 'tracker node', self._trackers)
         self._tracker.setTooltip('The Tracker node to import from.')
         self.addKnob(self._tracker)

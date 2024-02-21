@@ -11,8 +11,7 @@ from nukescripts import panels, execute_panel
 
 class PrecompOptionsDialog(panels.PythonPanel):
     def __init__(self):
-        panels.PythonPanel.__init__(self, 'Precomp Nodes',
-                                    'uk.co.thefoundry.PrecompOptionsDialog')
+        panels.PythonPanel.__init__(self, 'Precomp Nodes', 'uk.co.thefoundry.PrecompOptionsDialog')
         self.scriptPath = nuke.File_Knob('script', 'Precomp script path ')
         self.renderPath = nuke.File_Knob('render', 'Precomp render path ')
         self.channels = nuke.Channel_Knob('channels', 'Channels ')
@@ -207,8 +206,7 @@ def precomp_selected():
                 expressionDeps.append(d)
 
     if len(inputDeps) > 1:
-        nuke.message(
-            'You cannot precomp the selected nodes because there are multiple outputs.')
+        nuke.message('You cannot precomp the selected nodes because there are multiple outputs.')
         return
 
     addLinkedExpressionNodes = False

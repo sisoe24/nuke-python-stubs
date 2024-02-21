@@ -21,8 +21,7 @@ class ExternalRenderTaskUI(hiero.ui.TaskUIBase):
         pass
 
 
-hiero.ui.taskUIRegistry.registerTaskUI(
-    FnExternalRender.ExternalRenderPreset, ExternalRenderTaskUI)
+hiero.ui.taskUIRegistry.registerTaskUI(FnExternalRender.ExternalRenderPreset, ExternalRenderTaskUI)
 
 
 class NukeRenderTaskUI(hiero.ui.RenderTaskUIBase):
@@ -145,8 +144,7 @@ class KnobEditDialog(QtWidgets.QDialog):
         if result:
             QtWidgets.QDialog.accept(self)
         else:
-            QtWidgets.QMessageBox.warning(
-                self, 'Validation Error', 'Mismatched brackets.')
+            QtWidgets.QMessageBox.warning(self, 'Validation Error', 'Mismatched brackets.')
 
     def initUI(self):
         self._dialogLayout = QtWidgets.QVBoxLayout()
@@ -173,5 +171,4 @@ class KnobEditDialog(QtWidgets.QDialog):
         self._dialogLayout.addWidget(self._standardButtons)
 
 
-hiero.ui.taskUIRegistry.registerTaskUI(
-    FnExternalRender.NukeRenderPreset, NukeRenderTaskUI)
+hiero.ui.taskUIRegistry.registerTaskUI(FnExternalRender.NukeRenderPreset, NukeRenderTaskUI)

@@ -36,7 +36,7 @@ class Event:
     def __str__(self):
         attrs = ' '.join([f'{k}={v}' for k, v in self.__dict__.items()
                          if not k.startswith('_') and k not in ('type', 'subtype')])
-        return f'Event(type={self.type} subtype={self.subtype} {attrs})'
+        return f"Event(type={self.type} subtype={self.subtype} {attrs})"
 
 # Enum of connection types
 
@@ -99,8 +99,8 @@ def _splitType(type, methodName):
     if len(type) == 1:
         type.append('*')
     if len(type) != 2 or len(type[0]) == 0 or len(type[0]) == 1:
-        raise RuntimeError(
-            "%s event type '%s' must be of the form 'type/subtype'" % (methodName, type))
+        raise RuntimeError("%s event type '%s' must be of the form 'type/subtype'" %
+                           (methodName, type))
     return type
 
 # Public APIs
@@ -193,8 +193,7 @@ registerEventType('kShowContextMenu')
 registerEventType('kSelectionChanged')
 registerEventType('kDrop')  # triggered when something is dropped into the view
 registerEventType('kDoubleClick')  # Not intended for external use.
-# triggered when a paste action occurs in the bin or timeline view
-registerEventType('kPaste')
+registerEventType('kPaste')  # triggered when a paste action occurs in the bin or timeline view
 
 # Event subtypes (for use in conjunction with View EventTypes)
 registerEventType('kTimeline')

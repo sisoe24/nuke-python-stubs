@@ -5,8 +5,7 @@
 import guides
 
 # SimpleGuide( name, r, g, b, amount, coords = kGuideSequence, aspect = 0.0, crosshairs = True)
-titleSafeGuide = guides.SimpleGuide(
-    'Custom Title Safe', 0.0, 1.0, 0.1, 1, guides.kGuideMasked)
+titleSafeGuide = guides.SimpleGuide('Custom Title Safe', 0.0, 1.0, 0.1, 1, guides.kGuideMasked)
 actionSafeGuide = guides.SimpleGuide(
     'Custom Action Safe', 1, 1, 1, 1, guides.kGuideMasked, crosshairs=True)
 sequenceFormatGuide = guides.SimpleGuide(

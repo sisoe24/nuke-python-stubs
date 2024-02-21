@@ -97,8 +97,7 @@ def _Clip_addAnnotationsToNukeScript(self, script, firstFrame, trimmed, trimStar
     annotations = [item for item in itertools.chain(
         *itertools.chain(*self.subTrackItems())) if isinstance(item, Annotation)]
 
-    annotationNodes = createAnnotationsGroup(
-        script, annotations, subTrackItemsOffset, inputs=1)
+    annotationNodes = createAnnotationsGroup(script, annotations, subTrackItemsOffset, inputs=1)
 
     return annotationNodes
 
@@ -295,8 +294,8 @@ def _Clip_addToNukeScript(self,
     @param afterBehaviour: What to do for frames after the last ([hold|loop|bounce|black])
     """
 
-    hiero.core.log.debug('trimmed=%s, trimStart=%s, trimEnd=%s, firstFrame=%s' % (
-        str(trimmed), str(trimStart), str(trimEnd), str(firstFrame)))
+    hiero.core.log.debug('trimmed=%s, trimStart=%s, trimEnd=%s, firstFrame=%s' %
+                         (str(trimmed), str(trimStart), str(trimEnd), str(firstFrame)))
     # Check that we are on the right type of object, just to be safe.
     assert isinstance(self, Clip), 'This function can only be punched into a Clip object.'
 
@@ -375,8 +374,7 @@ def _Clip_addToNukeScript(self,
                                       format.pixelAspect(),
                                       round(start),
                                       round(end),)
-            read_node.setKnob('localizationPolicy',
-                              localisationMap[self.localizationPolicy()])
+            read_node.setKnob('localizationPolicy', localisationMap[self.localizationPolicy()])
 
             if firstFrame is not None:
                 read_node.setKnob('frame_mode', 'start at')
@@ -448,16 +446,14 @@ def _Clip_addToNukeScript(self,
                 fractpart, intpart = math.modf(originalFirstFrame)
                 if fractpart is None:
                     fractpart = 0
-                timeOffset = nuke.TimeOffsetNode(
-                    firstFrame - originalFirstFrame + fractpart)
+                timeOffset = nuke.TimeOffsetNode(firstFrame - originalFirstFrame + fractpart)
                 if script is not None:
                     script.addNode(timeOffset)
                 added_nodes.append(timeOffset)
 
     if not isRead and not isPostageStamp and firstFrame is not None:
 
-        timeClip = nuke.TimeClipNode(round(start), round(
-            end), start, end, round(firstFrame))
+        timeClip = nuke.TimeClipNode(round(start), round(end), start, end, round(firstFrame))
         added_nodes.append(timeClip)
 
     if not enabled:
@@ -492,8 +488,7 @@ def _Clip_addToNukeScript(self,
         # Add clip internal soft effects
         effects = [item for item in itertools.chain(
             *itertools.chain(*self.subTrackItems())) if isinstance(item, EffectTrackItem)]
-        hiero.core.log.info('Clip.addToNukeScript effects %s %s' %
-                            (effects, self.subTrackItems()))
+        hiero.core.log.info('Clip.addToNukeScript effects %s %s' % (effects, self.subTrackItems()))
         for effect in effects:
             added_nodes.extend(effect.addToNukeScript(
                 script, effectOrMetadataOffset, addLifetime=addEffectsLifetime))
@@ -573,8 +568,7 @@ def _TrackItem_addToNukeScript(self,
     """
 
     # Check that we are on the right type of object, just to be safe.
-    assert isinstance(
-        self, TrackItem), 'This function can only be punched into a TrackItem object.'
+    assert isinstance(self, TrackItem), 'This function can only be punched into a TrackItem object.'
 
     hiero.core.log.debug('Add TrackItem (%s) to script, startHandle = %s, endHandle = %s, firstFrame=%s' % (
         self.name(), str(startHandle), str(endHandle), str(firstFrame)))
@@ -622,11 +616,9 @@ def _TrackItem_addToNukeScript(self,
     clip = self.source()
     # Recalculate handles clamping to available media range
     readStartHandle = min(start,  math.ceil(inHandle * abs(retimeRate)))
-    readEndHandle = min((clip.duration() - 1) - end,
-                        math.ceil(outHandle * abs(retimeRate)))
+    readEndHandle = min((clip.duration() - 1) - end,  math.ceil(outHandle * abs(retimeRate)))
 
-    hiero.core.log.debug('readStartHandle', readStartHandle,
-                         'readEndHandle', readEndHandle)
+    hiero.core.log.debug('readStartHandle', readStartHandle, 'readEndHandle', readEndHandle)
 
     # Add handles to source range
     start -= readStartHandle
@@ -695,8 +687,7 @@ def _TrackItem_addToNukeScript(self,
         if self.parentSequence():
             metadataNode.addMetadata([('hiero/sequence', self.parentSequence().name()),
                                      ('hiero/sequence_guid', _guidFromCopyTag(self.parentSequence()))])
-            metadataNode.addMetadataFromTags(
-                self.parentSequence().tags(), 'sequence/tags/')
+            metadataNode.addMetadataFromTags(self.parentSequence().tags(), 'sequence/tags/')
             nuke.appendMetadataNodesForPerFrameTagsToList(
                 self.parentSequence().tags(), 'sequence/tags/', sequencePerFrameMetadataNodes)
 
@@ -799,8 +790,7 @@ def _TrackItem_addToNukeScript(self,
         # first_frame is max of first_frame and readNodeFirstFrame because when
         # using a dissolve with a still clip first_frame is the first frame of 2
         # clips, which is lower than readNodeFirstFrame.
-        frameHoldNode = nuke.Node('FrameHold', first_frame=max(
-            first_frame, readNodeFirstFrame))
+        frameHoldNode = nuke.Node('FrameHold', first_frame=max(first_frame, readNodeFirstFrame))
         added_nodes.append(frameHoldNode)
         script.addNode(frameHoldNode)
 
@@ -842,8 +832,7 @@ def _TrackItem_addToNukeScript(self,
         # If includeRetimes is False, do not include retime effects in the export.  Note that clip-level Timewarps will still be included.
         # That's a lot trickier to deal with (how do we copy those when doing Build Track?), so leaving that for now.
         if not includeRetimes:
-            linkedEffects = [
-                effect for effect in linkedEffects if not effect.isRetimeEffect()]
+            linkedEffects = [effect for effect in linkedEffects if not effect.isRetimeEffect()]
 
         # Make sure the effects are in the correct order.  They should be written from lowest sub-track to highest
         linkedEffects.sort(key=lambda effect: effect.subTrackIndex())
@@ -1251,8 +1240,7 @@ def _Sequence_addToNukeScript(self,
     If there are no clips in the Sequence, nothing is added."""
 
     # Check that we are on the right type of object, just to be safe.
-    assert isinstance(
-        self, Sequence), 'This function can only be punched into a Sequence object.'
+    assert isinstance(self, Sequence), 'This function can only be punched into a Sequence object.'
 
     added_nodes = []
 
@@ -1298,8 +1286,7 @@ def _Sequence_addToNukeScript(self,
         trackDisconnected = track in disconnectedTracks
 
         # Add the track and whether it is disconnected as data to the layout context
-        script.pushLayoutContext('track', track.name(), track=track,
-                                 disconnected=trackDisconnected)
+        script.pushLayoutContext('track', track.name(), track=track, disconnected=trackDisconnected)
 
         # If the track has any clips, write them and the effects out.
         trackItems = list(track.items())
@@ -1347,8 +1334,8 @@ def _Sequence_addToNukeScript(self,
         if previousTrack:
             # If we have a previous track, we will be creating a Merge node. In this case we don't want to
             # use the Track's Layout context, since Merges representing track blends should be on their own.
-            script.pushLayoutContext(
-                'merge', 'Merge ' + previousTrack.name() + ' ' + track.name(), track=previousTrack)
+            script.pushLayoutContext('merge', 'Merge ' + previousTrack.name() +
+                                     ' ' + track.name(), track=previousTrack)
         else:
             script.pushLayoutContext('track', track.name(), track=track)
 
@@ -1481,8 +1468,7 @@ def _Annotation_addToNukeScript(self, script, offset=0, inputs=0, cliptype=None)
     strokes = []
     for element in self.elements():
         if isinstance(element, AnnotationText):
-            added_nodes.extend(_AnnotationText_addToNukeScript(
-                element, script, **knobSettings))
+            added_nodes.extend(_AnnotationText_addToNukeScript(element, script, **knobSettings))
             inputs = 1  # Once we've added a node, any following should take their input from it
         elif isinstance(element, AnnotationStroke):
             strokes.append(element)
@@ -1490,8 +1476,7 @@ def _Annotation_addToNukeScript(self, script, offset=0, inputs=0, cliptype=None)
             assert False
 
     if strokes:
-        added_nodes.extend(_AnnotationStrokes_addToNukeScript(
-            strokes, script, **knobSettings))
+        added_nodes.extend(_AnnotationStrokes_addToNukeScript(strokes, script, **knobSettings))
 
     return added_nodes
 
@@ -1520,8 +1505,7 @@ def _AnnotationText_addToNukeScript(self, script, **knobs):
 
     textNode = nuke.Node('Text',
                          message=self.text(),
-                         box='{%s %s %s %s}' % (
-                             box[0], box[1], box[0]+box[2], box[1]+box[3]),
+                         box='{%s %s %s %s}' % (box[0], box[1], box[0]+box[2], box[1]+box[3]),
                          font=_defaultFontExpression,
                          # Alpha value is set on the opacity knob rather than color
                          color='{%s %s %s 1}' % (r, g, b),
@@ -1530,8 +1514,7 @@ def _AnnotationText_addToNukeScript(self, script, **knobs):
                          yjustify=_vJustifyTable[self.verticalJustification()],
                          size=self.fontSize(),
                          rotate=self.rotation(),
-                         # Need to set the center point for rotation
-                         center='{%s %s}' % (center),
+                         center='{%s %s}' % (center),  # Need to set the center point for rotation
                          **knobs
                          )
 
@@ -1652,7 +1635,7 @@ def _EffectTrackItem_addToNukeScript(self, script, offset=0, inputs=1, startHand
     for colorKnobName in ('tile_color', 'gl_color'):
         colorKnob = node[colorKnobName]
         if colorKnob.notDefault():
-            additionalKnobs.append(f'{colorKnobName} {colorKnob.toScript()}')
+            additionalKnobs.append(f"{colorKnobName} {colorKnob.toScript()}")
 
     if addLifetime:
         additionalKnobs.append('lifetimeStart %s' % startFrame)

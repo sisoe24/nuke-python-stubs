@@ -288,15 +288,12 @@ class RenderTaskUIBase(TaskUIBase):
         presetDictionaries = self._preset._properties[file_type]
         if file_type in ['mov', 'mxf']:
             self.setWriteNodeFileType(file_type)
-            widget = NodePropertyWidget(
-                self.writeNode(), propertyDictionaries, presetDictionaries)
+            widget = NodePropertyWidget(self.writeNode(), propertyDictionaries, presetDictionaries)
         else:
             if file_type == 'exr':
-                widget = EXRCodecUIController(
-                    file_type, propertyDictionaries, presetDictionaries)
+                widget = EXRCodecUIController(file_type, propertyDictionaries, presetDictionaries)
             else:
-                widget = CodecUIController(
-                    file_type, propertyDictionaries, presetDictionaries)
+                widget = CodecUIController(file_type, propertyDictionaries, presetDictionaries)
             widget.propertyChanged.connect(self.propertyChanged)
 
         return widget
@@ -452,8 +449,7 @@ class RenderTaskUIBase(TaskUIBase):
         uiProperty.update()
         uiProperty.propertyChanged.connect(self.propertyChanged)
         self._scaleWidget = uiProperty
-        self._reformatPropertyLabels[self._scaleWidget] = layout.labelForField(
-            self._scaleWidget)
+        self._reformatPropertyLabels[self._scaleWidget] = layout.labelForField(self._scaleWidget)
 
         # Reformat resize mode option.
         key, value, label = 'resize', (nuke.ReformatNode.kResizeNone, nuke.ReformatNode.kResizeWidth, nuke.ReformatNode.kResizeHeight,
@@ -469,8 +465,7 @@ class RenderTaskUIBase(TaskUIBase):
         uiProperty.update()
         uiProperty.propertyChanged.connect(self.propertyChanged)
         self._resizeWidget = containerWidget
-        self._reformatPropertyLabels[self._resizeWidget] = layout.labelForField(
-            self._resizeWidget)
+        self._reformatPropertyLabels[self._resizeWidget] = layout.labelForField(self._resizeWidget)
         self._resizeCombo = uiProperty._widget
 
         key, value, label = 'center', True, 'Center'
@@ -492,7 +487,6 @@ class RenderTaskUIBase(TaskUIBase):
         uiProperty.update()
         uiProperty.propertyChanged.connect(self.propertyChanged)
         self._filterWidget = uiProperty
-        self._reformatPropertyLabels[self._filterWidget] = layout.labelForField(
-            self._filterWidget)
+        self._reformatPropertyLabels[self._filterWidget] = layout.labelForField(self._filterWidget)
 
         self.reformatChanged()

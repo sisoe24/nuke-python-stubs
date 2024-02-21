@@ -29,8 +29,7 @@ class WebBrowserWidget(QWidget):
         self.locationEdit.setSizePolicy(
             QSizePolicy.Expanding, self.locationEdit.sizePolicy().verticalPolicy())
 
-        QObject.connect(self.locationEdit, SIGNAL(
-            'returnPressed()'),  self.changeLocation)
+        QObject.connect(self.locationEdit, SIGNAL('returnPressed()'),  self.changeLocation)
 
         self.layout().addWidget(self.locationEdit)
 

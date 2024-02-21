@@ -89,8 +89,7 @@ class LocalNukeEngineRenderTask(hiero.core.TaskBase):
         if 'success' in str(opgraph_render_return).rstrip().lower():
             self._opgraphCreated = True
         else:
-            raise OpgraphRenderError(opgraph_render_return,
-                                     OpgraphRenderError.RENDER_ERROR)
+            raise OpgraphRenderError(opgraph_render_return, OpgraphRenderError.RENDER_ERROR)
 
     def _renderOpgraphLocally(self):
         log.debug('Rendering opgraph on a new process')
@@ -121,8 +120,8 @@ class LocalNukeEngineRenderTask(hiero.core.TaskBase):
         # and a message with where to find the nk script that studio has generated
 
         connection_established = self._tryToConnectToOpgraphServer()
-        hiero.core.log.debug('First attempt to connect to Opgraph server: %s' % (
-            'Established' if connection_established else 'No connection'))
+        hiero.core.log.debug('First attempt to connect to Opgraph server: %s' %
+                             ('Established' if connection_established else 'No connection'))
 
         if not connection_established:
             # The opgraph server wasn't already running try and start one and flag this as an error later if we were expecting it to
@@ -151,8 +150,7 @@ class LocalNukeEngineRenderTask(hiero.core.TaskBase):
         opgraph_path = '.'.join(self._scriptPath.split('.')[:-1])+'.opgraph'
 
         if not os.path.exists(opgraph_path):
-            raise Exception(
-                'Exporting the Nuke Engine opgraph failed - no opgraph file was found')
+            raise Exception('Exporting the Nuke Engine opgraph failed - no opgraph file was found')
 
         self._logFile = util.filesystem.openFile(self._logFileName, 'w')
 
@@ -236,8 +234,7 @@ class LocalNukeEngineRenderTask(hiero.core.TaskBase):
                     # subprocess.Popen.terminate only kills the top level process, child processes are not killed.
                     # On Windows launching a single socket export creates several processes, the last of which is Nuke.
                     # Killing the parent does not kill Nuke, so we need to explicitly kill the whole tree.
-                    subprocess.call(['taskkill', '/F', '/T', '/PID',
-                                    str(self._nukeProcess.pid)])
+                    subprocess.call(['taskkill', '/F', '/T', '/PID', str(self._nukeProcess.pid)])
                 else:
                     self._nukeProcess.terminate()
                 self._nukeProcess.wait()

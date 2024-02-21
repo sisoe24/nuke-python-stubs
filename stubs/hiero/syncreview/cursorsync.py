@@ -28,27 +28,22 @@ class SyncClientCursor(SyncTool):
             # Get the cursor tool and subscribe to its signals.
             self.cursorTool = currentViewer.cursorTool()
             if self.cursorTool:
-                self.cursorTool.cursorPositionChanged.connect(
-                    self._onCursorPositionChanged)
+                self.cursorTool.cursorPositionChanged.connect(self._onCursorPositionChanged)
                 self.cursorTool.cursorLeave.connect(self._onCursorLeave)
 
         # Register for the event emitted when the Viewer changes
         self.registerEventCallback('kCurrentViewerChanged', self._onViewerChanged)
 
-        self.messageDispatcher._registerCallback(
-            messages.SyncCursorPosition, self._onSyncPosition)
-        self.messageDispatcher._registerCallback(
-            messages.SyncCursorLeave, self._onSyncLeave)
-        self.messageDispatcher._registerCallback(
-            messages.Disconnected, self._onClientDisconnected)
+        self.messageDispatcher._registerCallback(messages.SyncCursorPosition, self._onSyncPosition)
+        self.messageDispatcher._registerCallback(messages.SyncCursorLeave, self._onSyncLeave)
+        self.messageDispatcher._registerCallback(messages.Disconnected, self._onClientDisconnected)
 
     def _onViewerChanged(self, event):
         self._setViewer(event.viewer)
 
     def _setViewer(self, viewer):
         if self.cursorTool:
-            self.cursorTool.cursorPositionChanged.disconnect(
-                self._onCursorPositionChanged)
+            self.cursorTool.cursorPositionChanged.disconnect(self._onCursorPositionChanged)
             self.cursorTool.cursorLeave.disconnect(self._onCursorLeave)
             self.cursorTool = None
 
@@ -56,8 +51,7 @@ class SyncClientCursor(SyncTool):
             # Get the cursor tool and subscribe to its signals.
             self.cursorTool = viewer.cursorTool()
             if self.cursorTool:
-                self.cursorTool.cursorPositionChanged.connect(
-                    self._onCursorPositionChanged)
+                self.cursorTool.cursorPositionChanged.connect(self._onCursorPositionChanged)
                 self.cursorTool.cursorLeave.connect(self._onCursorLeave)
 
     def _onCursorPositionChanged(self, point):

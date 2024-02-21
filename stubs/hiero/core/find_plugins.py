@@ -56,8 +56,7 @@ def loadPluginsFromFolder(path):
                             module = __import__(packageName)
                             setattr(hiero.plugins, packageName, module)
                         except Exception as detail:
-                            exception('Plugin %s could not be loaded: %s' %
-                                      (p, str(detail)))
+                            exception('Plugin %s could not be loaded: %s' % (p, str(detail)))
 
 
 def loadPluginsFromPluginPath(suffix):

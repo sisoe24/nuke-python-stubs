@@ -31,8 +31,7 @@ def _readOpenTimelineIOFile(filePath):
         hiero.core.log.error('{} import error {}'.format(filePath, e))
     except:
         # Unknown exception type.
-        hiero.core.log.exception(
-            'Unknown exception raised while importing {}.'.format(filePath))
+        hiero.core.log.exception('Unknown exception raised while importing {}.'.format(filePath))
 
     return timeline
 

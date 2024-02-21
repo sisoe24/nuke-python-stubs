@@ -12,8 +12,7 @@ class PlaybackEventsHandler:
     def __init__(self):
         registerInterest((EventType.kPlayheadAtStart, EventType.kPlayback),
                          self.playheadAtStartHandler)
-        registerInterest((EventType.kPlayheadAtEnd, EventType.kPlayback),
-                         self.playheadAtEndHandler)
+        registerInterest((EventType.kPlayheadAtEnd, EventType.kPlayback), self.playheadAtEndHandler)
 
     def playheadAtStartHandler(self, event):
         self.startTime = datetime.now()
@@ -24,8 +23,8 @@ class PlaybackEventsHandler:
         print('Time spent = ' + str((datetime.now() - self.startTime)))
 
     def unregister(self):
-        unregisterInterest((EventType.kPlayheadAtStart,
-                           EventType.kPlayback), self.playheadAtStartHandler)
+        unregisterInterest((EventType.kPlayheadAtStart, EventType.kPlayback),
+                           self.playheadAtStartHandler)
         unregisterInterest((EventType.kPlayheadAtEnd, EventType.kPlayback),
                            self.playheadAtEndHandler)
 

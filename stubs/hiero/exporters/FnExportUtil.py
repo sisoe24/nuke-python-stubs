@@ -113,8 +113,8 @@ class TrackItemExportScriptWriter(object):
         accordingly.
         """
         self._startHandle = int(self._trackItem.sourceIn())
-        self._endHandle = int(
-            (self._trackItem.source().duration() - self._trackItem.sourceOut()) - 1)
+        self._endHandle = int((self._trackItem.source().duration() -
+                              self._trackItem.sourceOut()) - 1)
 
     def setIncludeRetimes(self, includeRetimes, retimeMethod):
         """ Set whether retime nodes should be written and the retime method knob
@@ -322,8 +322,7 @@ def writeSequenceAudioWithHandles(filePath,
                 itemSrcOut = item.sourceOut()
                 newItemSrcOut = itemSrcOut
                 if itemOutTime >= outTime and itemOutTime < outTimeHandle:
-                    newItemOutTime = min(
-                        outTimeHandle, itemOutTime + item.handleOutLength())
+                    newItemOutTime = min(outTimeHandle, itemOutTime + item.handleOutLength())
                     newItemSrcOut = itemSrcOut + (newItemOutTime - itemOutTime)
 
                 # Offset all the times by the inHandle. This is to ensure we can add
@@ -340,5 +339,5 @@ def writeSequenceAudioWithHandles(filePath,
 
     # Write the audio including handles. All the items have been shifted, so start
     # at the in time, and put the extra frames for the in handle at the end
-    sequenceCopy.writeAudioToFile(
-        filePath, inTime, outTime+inHandle+outHandle, numChannels, sampleRate, bitDepth, bitRate)
+    sequenceCopy.writeAudioToFile(filePath, inTime, outTime+inHandle +
+                                  outHandle, numChannels, sampleRate, bitDepth, bitRate)

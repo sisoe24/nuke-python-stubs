@@ -36,7 +36,7 @@ class Viewer(QObject):
         """
         ...
 
-    def annotationTool(self) -> ui.ViewerTool:
+    def annotationTool(self) -> hiero.ui.ViewerTool:
         """
         self.annotationTool() -> return the annotation tool for this viewer.
         """
@@ -58,7 +58,7 @@ class Viewer(QObject):
         """
         ...
 
-    def channels(self) -> ui.Player.Channels:
+    def channels(self) -> hiero.ui.Player.Channels:
         """
         self.channels() -> returns the current channels in the viewer. Can only be called from the user interface thread. Use hiero.core.executeInMainThread if you need to call it from a non-ui thread.
 
@@ -66,7 +66,7 @@ class Viewer(QObject):
         """
         ...
 
-    def compareMode(self) -> ui.Viewer.CompareMode:
+    def compareMode(self) -> hiero.ui.Viewer.CompareMode:
         """
         self.compareMode() -> returns the compare mode for the viewer. Can only be called from the user interface thread. Use hiero.core.executeInMainThread if you need to call it from a non-ui thread.
 
@@ -82,7 +82,7 @@ class Viewer(QObject):
         """
         ...
 
-    def cursorTool(self) -> ui.ViewerCursorTool:
+    def cursorTool(self) -> hiero.ui.ViewerCursorTool:
         """
 
         """
@@ -194,7 +194,7 @@ class Viewer(QObject):
         """
         ...
 
-    def layoutMode(self) -> ui.Viewer.LayoutMode:
+    def layoutMode(self) -> hiero.ui.Viewer.LayoutMode:
         """
         self.layoutMode() -> returns the layout mode the viewer is currently in.
 
@@ -210,7 +210,7 @@ class Viewer(QObject):
         """
         ...
 
-    def maskOverlayStyle(self) -> ui.Player.MaskOverlayStyle:
+    def maskOverlayStyle(self) -> hiero.ui.Player.MaskOverlayStyle:
         """
         self.maskOverlayStyle() -> returns the current mask overlay style set in the viewer. Can only be called from the user interface thread. Use hiero.core.executeInMainThread if you need to call it from a non-ui thread.
 
@@ -250,7 +250,7 @@ class Viewer(QObject):
         """
         ...
 
-    def playbackMode(self) -> ui.Viewer.PlaybackMode:
+    def playbackMode(self) -> hiero.ui.Viewer.PlaybackMode:
         """
         self.playbackMode() -> returns the compare mode for the viewer. Can only be called from the user interface thread. Use hiero.core.executeInMainThread if you need to call it from a non-ui thread.
 
@@ -264,7 +264,7 @@ class Viewer(QObject):
         """
         ...
 
-    def player(self, index: int = 0) -> ui.Player:
+    def player(self, index: int = 0) -> hiero.ui.Player:
         """
         self.player(index) -> returns the player object attached to this viewer, based on the input index.
 
@@ -498,7 +498,7 @@ class Viewer(QObject):
         """
         ...
 
-    def tracksMask(self, indexOfPlayer: int) -> ui.TracksMask:
+    def tracksMask(self, indexOfPlayer: int) -> hiero.ui.TracksMask:
         """
         self.tracksMask() -> returns status of the tracks of one of the buffers. Can only be called from the user interface thread. Use hiero.core.executeInMainThread if you need to call it from a non-ui thread.
 
@@ -520,7 +520,7 @@ class Viewer(QObject):
         """
         ...
 
-    def wipeTool(self) -> ui.ViewerWipeTool:
+    def wipeTool(self) -> hiero.ui.ViewerWipeTool:
         """
         self.wipeTool() -> return the wipe tool for this viewer
         """

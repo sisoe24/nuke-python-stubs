@@ -59,8 +59,8 @@ class CreateNodePresetsPanel(nukescripts.PythonPanel):
                         newFileName = newFileName[1:]
                     newFileList.append(newFileName)
 
-        nukescripts.PythonPanel.__init__(
-            self, 'Create Node Preset', 'uk.co.thefoundry.CreateNodePreset')
+        nukescripts.PythonPanel.__init__(self, 'Create Node Preset',
+                                         'uk.co.thefoundry.CreateNodePreset')
 
         self.menuItemChoice = nuke.CascadingEnumeration_Knob(
             'menuItemChoice', 'Presets menu', ['root'] + newFileList)
@@ -99,13 +99,12 @@ class CreateNodePresetsPanel(nukescripts.PythonPanel):
 
 class UserPresetsLoadPanel(nukescripts.PythonPanel):
     def __init__(self):
-        nukescripts.PythonPanel.__init__(
-            self, 'Load User Preset', 'uk.co.thefoundry.LoadUserPreset')
+        nukescripts.PythonPanel.__init__(self, 'Load User Preset',
+                                         'uk.co.thefoundry.LoadUserPreset')
         self.presets = []
         self.presets = nuke.getUserPresets()
 
-        self.menuItemChoice = nuke.Enumeration_Knob(
-            'menuItemChoice', 'Menu item', self.presets)
+        self.menuItemChoice = nuke.Enumeration_Knob('menuItemChoice', 'Menu item', self.presets)
         self.okButton = nuke.PyScript_Knob('load', 'Load')
         self.okButton.setFlag(0x00001000)
         self.cancelButton = nuke.PyScript_Knob('cancel', 'Cancel')
@@ -128,13 +127,12 @@ class UserPresetsLoadPanel(nukescripts.PythonPanel):
 
 class UserPresetsDeletePanel(nukescripts.PythonPanel):
     def __init__(self):
-        nukescripts.PythonPanel.__init__(
-            self, 'Delete User Preset', 'uk.co.thefoundry.DeleteUserPreset')
+        nukescripts.PythonPanel.__init__(self, 'Delete User Preset',
+                                         'uk.co.thefoundry.DeleteUserPreset')
         self.presets = []
         self.presets = nuke.getUserPresets()
 
-        self.menuItemChoice = nuke.Enumeration_Knob(
-            'menuItemChoice', 'Menu item', self.presets)
+        self.menuItemChoice = nuke.Enumeration_Knob('menuItemChoice', 'Menu item', self.presets)
         self.okButton = nuke.PyScript_Knob('delete', 'Delete')
         self.okButton.setFlag(0x00001000)
         self.cancelButton = nuke.PyScript_Knob('cancel', 'Cancel')
@@ -157,13 +155,11 @@ class UserPresetsDeletePanel(nukescripts.PythonPanel):
 
 class PresetsLoadPanel(nukescripts.PythonPanel):
     def __init__(self):
-        nukescripts.PythonPanel.__init__(
-            self, 'Load Preset', 'uk.co.thefoundry.LoadPreset')
+        nukescripts.PythonPanel.__init__(self, 'Load Preset', 'uk.co.thefoundry.LoadPreset')
         self.presets = []
         self.presets = nuke.getPresets()
 
-        self.menuItemChoice = nuke.Enumeration_Knob(
-            'menuItemChoice', 'Menu item', self.presets)
+        self.menuItemChoice = nuke.Enumeration_Knob('menuItemChoice', 'Menu item', self.presets)
         self.okButton = nuke.PyScript_Knob('load', 'Load')
         self.okButton.setFlag(0x00001000)
         self.cancelButton = nuke.PyScript_Knob('cancel', 'Cancel')
@@ -186,13 +182,11 @@ class PresetsLoadPanel(nukescripts.PythonPanel):
 
 class PresetsDeletePanel(nukescripts.PythonPanel):
     def __init__(self):
-        nukescripts.PythonPanel.__init__(
-            self, 'Delete Preset', 'uk.co.thefoundry.DeletePreset')
+        nukescripts.PythonPanel.__init__(self, 'Delete Preset', 'uk.co.thefoundry.DeletePreset')
         self.presets = []
         self.presets = nuke.getPresets()
 
-        self.menuItemChoice = nuke.Enumeration_Knob(
-            'menuItemChoice', 'Menu item', self.presets)
+        self.menuItemChoice = nuke.Enumeration_Knob('menuItemChoice', 'Menu item', self.presets)
         self.okButton = nuke.PyScript_Knob('delete', 'Delete')
         self.okButton.setFlag(0x00001000)
         self.cancelButton = nuke.PyScript_Knob('cancel', 'Cancel')
@@ -283,8 +277,8 @@ def populatePresetsMenu(nodeName, className):
         m.addCommand('-', '', '')
         n = m.addMenu('Delete Preset')
         for k in userpresets:
-            n.addCommand(
-                '[User] ' + k, 'nukescripts.deleteUserNodePreset("%s", "%s")\n' % (className, k))
+            n.addCommand('[User] ' + k, 'nukescripts.deleteUserNodePreset("%s", "%s")\n' %
+                         (className, k))
         for k in presets:
             n.addCommand(k, 'nukescripts.deleteNodePreset("%s", "%s")\n' % (className, k))
 
@@ -389,8 +383,7 @@ def saveNodePresets():
                 outfile.write('def nodePresetsStartup():\n')
                 for k in deletedPresets:
                     namePair = k
-                    outfile.write('  nuke.deletePreset("%s", "%s")\n' %
-                                  (namePair[0], namePair[1]))
+                    outfile.write('  nuke.deletePreset("%s", "%s")\n' % (namePair[0], namePair[1]))
 
 
 def createNodePreset(node, name):

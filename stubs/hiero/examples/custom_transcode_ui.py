@@ -50,5 +50,4 @@ class CustomTranscodeUI(FnTranscodeExporterUI.TranscodeExporterUI):
             layout.addRow('Insert Audio Where Possible:', audioCheckbox)
 
 
-hiero.ui.taskUIRegistry.registerTaskUI(
-    custom_transcode.CustomTranscodePreset, CustomTranscodeUI)
+hiero.ui.taskUIRegistry.registerTaskUI(custom_transcode.CustomTranscodePreset, CustomTranscodeUI)

@@ -209,8 +209,7 @@ class HieroState:
                         # print "track guid not found %s" % (mediaDesc.track_guid())
                         # return None, None
 
-                hiero.core.log.debug('Sequence guid not found %s' %
-                                     (mediaDesc.sequence_guid()))
+                hiero.core.log.debug('Sequence guid not found %s' % (mediaDesc.sequence_guid()))
                 return None, None
 
         hiero.core.log.debug('Project guid not found [%s not in %s]' % (
@@ -253,14 +252,14 @@ class HieroState:
             if not mediaDesc.shot():
                 try:
                     if (mediaDesc.clip() != self._originalTrackItems[trackItem].source().name()):
-                        hiero.core.log.debug('Clip name and source mismatch %s - %s' % (
-                            mediaDesc.clip(), self._originalTrackItems[trackItem].source().name()))
+                        hiero.core.log.debug('Clip name and source mismatch %s - %s' %
+                                             (mediaDesc.clip(), self._originalTrackItems[trackItem].source().name()))
                         continue
                 except:
                     continue
             elif mediaDesc.shot() != trackItem.name():
-                hiero.core.log.debug(
-                    'Shot name and TrackItem name mismatch %s - %s' % (mediaDesc.shot(), trackItem.name()))
+                hiero.core.log.debug('Shot name and TrackItem name mismatch %s - %s' %
+                                     (mediaDesc.shot(), trackItem.name()))
                 continue
 
             if mediaDesc.project() and (trackItem.project().name() != mediaDesc.project()):

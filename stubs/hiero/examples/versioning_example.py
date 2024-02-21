@@ -62,8 +62,7 @@ def findNewVersionsWithArtistName(self, version):
 
     # Substitute version index with * wildcard.
     # This will also allow for artist names to appear right after the version index
-    # e.g.: "v1", "v002Alex", "v100Bella", "v3Clark42", "v4a"
-    versionRegex = 'v\\d+[a-zA-Z]*'
+    versionRegex = 'v\\d+[a-zA-Z]*'  # e.g.: "v1", "v002Alex", "v100Bella", "v3Clark42", "v4a"
     globExpression = re.sub(versionRegex, 'v*', globExpression)
 
     # Substitute extension with * wildcard.

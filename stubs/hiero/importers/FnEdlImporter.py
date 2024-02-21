@@ -121,8 +121,7 @@ class EdlImporter:
         speed = 1.0
         fps = FnCyclone.getImportOption(name=FnCyclone.kOptionFramerate)
         srcDuration = edlElement.srcExit().toFrames(fps) - edlElement.srcEntry().toFrames(fps)
-        timelineDuration = edlElement.syncExit().toFrames(
-            fps) - edlElement.syncEntry().toFrames(fps)
+        timelineDuration = edlElement.syncExit().toFrames(fps) - edlElement.syncEntry().toFrames(fps)
 
         retimeFromSourceDuration = FnCyclone.getImportOption(
             name=FnCyclone.kOptionEDLRetimeFromSourceDuration)
@@ -195,8 +194,8 @@ class EdlImporter:
             data[FnCyclone.kClipEdlSrcTimecode] = startTC
 
         # Read comments and add them as separate metadata
-        edlComments = CRLF.join([line[1:].strip() for line in edlSource.splitlines(
-        ) if line.startswith('*')])  # Extract comment lines
+        edlComments = CRLF.join([line[1:].strip() for line in edlSource.splitlines()
+                                if line.startswith('*')])  # Extract comment lines
         if edlComments:
             data[FnCyclone.kClipEdlComments] = edlComments
 
@@ -214,15 +213,14 @@ class EdlImporter:
             filename = hiero.core.util.SequenceifyFilename(filename, False)
 
         forceStartTimecode = False
-        mediaStartTimecode = min(edlElement.srcEntry().toFrames(
-            fps), edlElement.srcExit().toFrames(fps))
+        mediaStartTimecode = min(edlElement.srcEntry().toFrames(fps),
+                                 edlElement.srcExit().toFrames(fps))
         if startTC is not None:
             mediaStartTimecode = startTC
             forceStartTimecode = True
 
         data = {FnCyclone.kMediaUrl: filename,
-                # Don't set the name here, it will be done automatically when the Sequence is created
-                FnCyclone.kMediaName: '',
+                FnCyclone.kMediaName: '',  # Don't set the name here, it will be done automatically when the Sequence is created
                 FnCyclone.kMediaTapeName: edlElement.name(),
                 FnCyclone.kMediaAudioChannels: '0',
                 FnCyclone.kMediaStartTime: mediaStartTimecode,
@@ -377,8 +375,7 @@ class EdlImporter:
             speed, srcDuration = self.getTrackItemSpeedAndDuration(element)
 
             # Add new clip (track item)
-            clipData = self.getClipData(
-                clipname, element, speed, track.getTrackType(), startTC)
+            clipData = self.getClipData(clipname, element, speed, track.getTrackType(), startTC)
             clipId = FnCyclone.addClip(parentTrack=trackId, data=clipData)
 
             if index == VIDEO1:
@@ -386,8 +383,8 @@ class EdlImporter:
 
             clipIds.append(clipId)
 
-            mediaidentifier = filename + \
-                str(element.srcEntry()) + str(element.srcExit()) + str(srcDuration)
+            mediaidentifier = filename + str(element.srcEntry()) + \
+                str(element.srcExit()) + str(srcDuration)
 
             # debug( "FnEdlImporter.createClipAndMedia adding media: " + mediaidentifier )
 
@@ -469,13 +466,11 @@ class EdlImporter:
 
             # We must have a preceding Key Background event
             if not eventElements or not eventElements[-1].effectfield().isKeyBackground():
-                raise Exception(
-                    'EdlImporter.prepassCheckKeyEvent Key events in unexpected order!')
+                raise Exception('EdlImporter.prepassCheckKeyEvent Key events in unexpected order!')
 
             # We must have a KEYCLIPNAME
             if not element.hasElement(KEYCLIPNAME):
-                raise Exception(
-                    'EdlImporter.prepassCheckKeyEvent key event missing KEY CLIP NAME!')
+                raise Exception('EdlImporter.prepassCheckKeyEvent key event missing KEY CLIP NAME!')
 
             # Move FROMCLIPNAME to previous elements
             if element.hasElement(FROMCLIPNAME):
@@ -519,8 +514,7 @@ class EdlImporter:
                         # debug( "reshuffling clip data" )
                         fromclipvalues = element.getElement(FROMCLIPNAME)
                         if not prevelement.hasElement(FROMCLIPNAME):
-                            prevelement.addElement(NamedElement(
-                                FROMCLIPNAME, fromclipvalues))
+                            prevelement.addElement(NamedElement(FROMCLIPNAME, fromclipvalues))
                         element.removeElement(FROMCLIPNAME)
                 # If an element is blank but has a FROMCLIPNAME, it's a fade out. Move it to the previous element.
                 elif element.isBlank() and element.hasElement(FROMCLIPNAME) and prevelement:
@@ -618,8 +612,7 @@ class EdlImporter:
                     if isinstance(element, EditDecision):
                         # debug( "importFile element: " + str(element) + " isBlank: " + str(element.isBlank()) )
                         if not element.isBlank():
-                            clipid = self.createClipAndMedia(
-                                element, mediaDict, trackDict)
+                            clipid = self.createClipAndMedia(element, mediaDict, trackDict)
                             if clipid:
                                 clipDict[element] = clipid
                         hasVideo = element.mode().hasVideo()
@@ -628,8 +621,8 @@ class EdlImporter:
                         if hasVideo:
                             previouselement = element
                 except Exception as e:
-                    hiero.core.log.exception(
-                        'Exception handling element\n', element.getSource(), '\n', e)
+                    hiero.core.log.exception('Exception handling element\n',
+                                             element.getSource(), '\n', e)
         except Exception as e:
             hiero.core.log.exception(e)
             raise e

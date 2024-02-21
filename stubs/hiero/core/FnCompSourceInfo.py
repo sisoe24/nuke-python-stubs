@@ -63,8 +63,7 @@ class CompSourceInfo(object):
                 self.nkPath = sourcePath
                 metadata = self.compSource.metadata()
                 self.writePath = metadata.value(CompSourceInfo.kNkWritePathKey)
-                # Make sure path remapping is applied
-                self.writePath = remapPath(self.writePath)
+                self.writePath = remapPath(self.writePath)  # Make sure path remapping is applied
 
                 # Get the unexpanded write path key. This might not exist in projects created
                 # before it was added, so fall back to the writePath, which will be the same

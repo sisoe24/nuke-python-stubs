@@ -16,8 +16,7 @@ class TaskUILayoutDivider(QtWidgets.QWidget):
         hLayout.addWidget(self._label)
         divider = QtWidgets.QFrame()
         divider.setFrameStyle(QtWidgets.QFrame.HLine | QtWidgets.QFrame.Sunken)
-        divider.setSizePolicy(QtWidgets.QSizePolicy.Expanding,
-                              QtWidgets.QSizePolicy.Expanding)
+        divider.setSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
         hLayout.addWidget(divider)
         self.setLayout(hLayout)
 

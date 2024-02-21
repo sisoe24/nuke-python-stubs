@@ -113,8 +113,7 @@ class SystemInfo(object):
         elif self._platformIsWindows():
             return _windowsStartAffinityLaunchArguments(self.coresPerSocket())
         else:
-            raise OSError(
-                'Launching on a single socket is not supported on this platform')
+            raise OSError('Launching on a single socket is not supported on this platform')
 
     def coresPerSocket(self):
         '''

@@ -322,8 +322,7 @@ def selClipsToSgPlaylist(playlistname, projectname):
 
     playlist = sgPlaylistFind(playlistname, projectname)
     if playlist:
-        raise ValueError(
-            '*** SG Playlist already exists with this name and Project combo.')
+        raise ValueError('*** SG Playlist already exists with this name and Project combo.')
 
     listVersions = []
     seq = hiero.ui.activeSequence()
@@ -339,8 +338,7 @@ def selClipsToSgPlaylist(playlistname, projectname):
             clipTask = shot.name().split('_')[1]
             a = shot.currentVersion().name()
             clipVersion = int(re.search('_v(\d{2,5})', a).group(1))
-            listVersions.append(sgVersionFind(
-                clipShot, projectName, clipTask, clipVersion))
+            listVersions.append(sgVersionFind(clipShot, projectName, clipTask, clipVersion))
 
     curPlaylist = sgPlaylistCreate(playlistname, projectName, listVersions)
     return curPlaylist
@@ -522,8 +520,7 @@ def findSgCompliantTag(clip):
 ############################################################################
 ########## Menu setup ######################################################
 def menu_selClipsToSgPlaylist():
-    playlistname = nuke.getInput(
-        'Enter a new name for a Shotgun playlist:', 'New Playlist')
+    playlistname = nuke.getInput('Enter a new name for a Shotgun playlist:', 'New Playlist')
     selClipsToSgPlaylist(playlistname, projectName)
 
 

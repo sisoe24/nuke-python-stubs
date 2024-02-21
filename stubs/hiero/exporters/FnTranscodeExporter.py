@@ -119,8 +119,7 @@ class TranscodeExporter(FnExternalRender.NukeRenderTask):
           This gives the task an opportunity to modify the original item on the main thread, rather than the clone."""
 
         timestamp = self.timeStampString(localtime)
-        tagName = str('Transcode {0} {1}').format(
-            self._preset.properties()['file_type'], timestamp)
+        tagName = str('Transcode {0} {1}').format(self._preset.properties()['file_type'], timestamp)
         tag = hiero.core.Tag(tagName, 'icons:Nuke.png', False)
 
         tag.metadata().setValue('tag.pathtemplate', self._exportPath)
@@ -181,8 +180,8 @@ class TranscodeExporter(FnExternalRender.NukeRenderTask):
                     clips.add(trackItem.source())
         # Find clips which have an error. If they have no media, don't treat that as
         # an error, as it can be handled.
-        errorClips = [clip.name() for clip in clips if clip.mediaSource(
-        ).isMediaPresent() and clip.hasError()]
+        errorClips = [clip.name()
+                      for clip in clips if clip.mediaSource().isMediaPresent() and clip.hasError()]
         if errorClips:
             raise RuntimeError('Unable to transcode, some clips being transcoded are in '
                                'error state (perhaps colorspace is invalid):\n' + '\n'.join(errorClips))
@@ -296,8 +295,7 @@ class TranscodeExporter(FnExternalRender.NukeRenderTask):
         """ If reformat options are selected on the preset, create a ReformatNode.  Otherwise returns None. """
         try:
             seqFormat = self._sequence.format() if self._sequence else None
-            trackItem = self._item if isinstance(
-                self._item, hiero.core.TrackItem) else None
+            trackItem = self._item if isinstance(self._item, hiero.core.TrackItem) else None
             return reformatNodeFromPreset(self._preset, seqFormat, trackItem=trackItem)
         except Exception as e:
             self.setError(str(e))
@@ -347,8 +345,7 @@ class TranscodeExporter(FnExternalRender.NukeRenderTask):
             views=self.views())
 
         script.pushLayoutContext('sequence', self._sequence.name(), disconnected=False)
-        sequenceWriter = FnNukeHelpersV2.SequenceScriptWriter(
-            self._sequence, scriptParams)
+        sequenceWriter = FnNukeHelpersV2.SequenceScriptWriter(self._sequence, scriptParams)
         sequenceWriter.writeToScript(script,
                                      offset=0,
                                      skipOffline=self._skipOffline,
@@ -360,8 +357,8 @@ class TranscodeExporter(FnExternalRender.NukeRenderTask):
         script.pushLayoutContext('write', '%s_Render' % self._item.name())
 
         # Create metadata node
-        metadataNode = nuke.MetadataNode(metadatavalues=[(
-            'hiero/project', self._projectName), ('hiero/project_guid', self._project.guid())])
+        metadataNode = nuke.MetadataNode(
+            metadatavalues=[('hiero/project', self._projectName), ('hiero/project_guid', self._project.guid())])
 
         # Apply timeline offset to nuke output
         script.addNode(nuke.AddTimeCodeNode(timecodeStart=self._sequence.timecodeStart(
@@ -469,17 +466,14 @@ class TranscodeExporter(FnExternalRender.NukeRenderTask):
                                        firstFrame=firstFrame,
                                        trimmed=True,
                                        includeEffects=self.includeEffects(),
-                                       # _clip has no project set, but one is needed by addToNukeScript to do colorpsace conversions
-                                       project=self._project)
+                                       project=self._project)  # _clip has no project set, but one is needed by addToNukeScript to do colorpsace conversions
             if self.includeAnnotations():
-                self._clip.addAnnotationsToNukeScript(
-                    script, firstFrame=firstFrame, trimmed=True)
+                self._clip.addAnnotationsToNukeScript(script, firstFrame=firstFrame, trimmed=True)
             script.popLayoutContext()
         else:
             # If there are separate track items for each view, write them out (in reverse
             # order so the inputs are correct) then add a JoinViews
-            items = self._multiViewTrackItems if self._multiViewTrackItems else [
-                self._item]
+            items = self._multiViewTrackItems if self._multiViewTrackItems else [self._item]
             for item in reversed(items):
                 script.pushLayoutContext('clip', item.name())
                 # Construct a TrackItemExportScriptWriter and write the track item
@@ -487,8 +481,7 @@ class TranscodeExporter(FnExternalRender.NukeRenderTask):
                 trackItemWriter.setAdditionalNodesCallback(self._buildAdditionalNodes)
                 # Find sequence level effects/annotations which apply to the track item.
                 # Annotations are not currently included by the transcode exporter
-                effects, annotations = FnEffectHelpers.findEffectsAnnotationsForTrackItems([
-                                                                                           item])
+                effects, annotations = FnEffectHelpers.findEffectsAnnotationsForTrackItems([item])
                 trackItemWriter.setEffects(self.includeEffects(), effects)
                 trackItemWriter.setAnnotations(self.includeAnnotations(), annotations)
 
@@ -500,8 +493,7 @@ class TranscodeExporter(FnExternalRender.NukeRenderTask):
                 else:
                     trackItemWriter.setOutputHandles(*self.outputHandles())
 
-                trackItemWriter.setIncludeRetimes(
-                    self._retime, self._preset.properties()['method'])
+                trackItemWriter.setIncludeRetimes(self._retime, self._preset.properties()['method'])
                 trackItemWriter.setFirstFrame(firstFrame)
                 trackItemWriter.writeToScript(script, pendingNodesScript)
                 script.popLayoutContext()
@@ -512,8 +504,8 @@ class TranscodeExporter(FnExternalRender.NukeRenderTask):
 
         script.pushLayoutContext('write', '%s_Render' % self._item.name())
 
-        metadataNode = nuke.MetadataNode(metadatavalues=[(
-            'hiero/project', self._projectName), ('hiero/project_guid', self._project.guid())])
+        metadataNode = nuke.MetadataNode(
+            metadatavalues=[('hiero/project', self._projectName), ('hiero/project_guid', self._project.guid())])
 
         # Need a framerate inorder to create a timecode
         if framerate:
@@ -525,8 +517,8 @@ class TranscodeExporter(FnExternalRender.NukeRenderTask):
                 timeCodeNodeStartFrame = trackItemTimeCodeNodeStartFrame(
                     unclampedStart, self._item, startHandle, endHandle)
 
-            script.addNode(nuke.AddTimeCodeNode(timecodeStart=self._clip.timecodeStart(
-            ), fps=framerate, dropFrames=dropFrames, frame=timeCodeNodeStartFrame))
+            script.addNode(nuke.AddTimeCodeNode(timecodeStart=self._clip.timecodeStart(),
+                           fps=framerate, dropFrames=dropFrames, frame=timeCodeNodeStartFrame))
 
             # The AddTimeCode field will insert an integer framerate into the metadata, if the framerate is floating point, we need to correct this
             metadataNode.addMetadata([('input/frame_rate', framerate.toFloat())])
@@ -625,8 +617,8 @@ class TranscodeExporter(FnExternalRender.NukeRenderTask):
             # Get input frame range
 
             ignoreRetimes = self._preset.properties()['method'] != 'None'
-            start, end = self.inputRange(
-                ignoreHandles=ignoreHandles, ignoreRetimes=ignoreRetimes, clampToSource=clampToSource)
+            start, end = self.inputRange(ignoreHandles=ignoreHandles,
+                                         ignoreRetimes=ignoreRetimes, clampToSource=clampToSource)
 
             if self._retime and isinstance(self._item, hiero.core.TrackItem) and ignoreRetimes:
                 srcDuration = abs(self._item.sourceDuration())
@@ -713,8 +705,7 @@ class TranscodeExporter(FnExternalRender.NukeRenderTask):
         return item == self._item or item in self._multiViewTrackItems
 
     def setAudioExportSettings(self):
-        extension = FnAudioConstants.kCodecs[self._preset.properties()[
-            FnAudioConstants.kCodecKey]]
+        extension = FnAudioConstants.kCodecs[self._preset.properties()[FnAudioConstants.kCodecKey]]
         self._audioFile = self._root + extension
 
         FnAudioHelper.setAudioExportSettings(self)
@@ -755,8 +746,7 @@ class TranscodePreset(hiero.core.RenderTaskPreset):
         '''
         readAllLines = False
 
-        movDetails = self.properties()['mov'] if self.properties()[
-            'file_type'] == 'mov' else None
+        movDetails = self.properties()['mov'] if self.properties()['file_type'] == 'mov' else None
         if movDetails:
             codecProfile = movDetails.get('mov_prores_codec_profile')
             if codecProfile:

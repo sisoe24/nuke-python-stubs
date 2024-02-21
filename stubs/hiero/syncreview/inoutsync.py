@@ -3,8 +3,7 @@ from hiero.core import Clip, Sequence, events, findItemByGuid
 from . import messages
 from .synctool import SyncTool, localCallback, remoteCallback
 
-messages.defineMessageType('InOutChange', ('sequenceGuid', str),
-                           ('inTime', int), ('outTime', int))
+messages.defineMessageType('InOutChange', ('sequenceGuid', str), ('inTime', int), ('outTime', int))
 messages.defineMessageType('InOutLockEnabledChange',
                            ('sequenceGuid', str), ('enabled', messages.Bool))
 
@@ -14,14 +13,12 @@ class SyncInOutTool(SyncTool):
 
     def __init__(self, messageDispatcher):
         super(SyncInOutTool, self).__init__(messageDispatcher)
-        self.messageDispatcher._registerCallback(
-            messages.InOutChange, self._onRemoteInOutChanged)
+        self.messageDispatcher._registerCallback(messages.InOutChange, self._onRemoteInOutChanged)
         self.messageDispatcher._registerCallback(
             messages.InOutLockEnabledChange, self._remoteInOutLockEnabledChanged)
-        self.registerEventCallback(
-            events.EventType.kInOutPointsChanged, self._onLocalInOutChanged)
-        self.registerEventCallback(
-            events.EventType.kInOutLockEnabledChanged, self._onLocalInOutLockEnabledChanged)
+        self.registerEventCallback(events.EventType.kInOutPointsChanged, self._onLocalInOutChanged)
+        self.registerEventCallback(events.EventType.kInOutLockEnabledChanged,
+                                   self._onLocalInOutLockEnabledChanged)
 
     @localCallback
     def _onLocalInOutChanged(self, event):

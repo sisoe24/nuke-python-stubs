@@ -14,16 +14,14 @@ class SyncReviewStatusWidget(QWidget):
 
         self.connectionManager = connectionManager
         self.numberOfClients = 0
-        self.connectionManager.connectionState.changed.connect(
-            self._updateConnectionState)
+        self.connectionManager.connectionState.changed.connect(self._updateConnectionState)
         self.connectionManager.numberOfClientsChanged.connect(self._updateNumberOfClients)
 
         self.connectionState = QLabel('')
         self.connectionState.setToolTip('Sync review connection state')
 
         self.clientsConnected = QLabel('')
-        self.clientsConnected.setToolTip(
-            'Number of clients connected to your sync review session')
+        self.clientsConnected.setToolTip('Number of clients connected to your sync review session')
 
         hLayout = QHBoxLayout()
         hLayout.setContentsMargins(0, 0, 0, 0)

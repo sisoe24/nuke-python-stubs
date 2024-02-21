@@ -10,8 +10,7 @@ from . import FnEDLExportTask
 class EDLExportUI(hiero.ui.TaskUIBase):
     def __init__(self, preset):
         """Initialize"""
-        hiero.ui.TaskUIBase.__init__(
-            self, FnEDLExportTask.EDLExportTask, preset, 'EDL Exporter')
+        hiero.ui.TaskUIBase.__init__(self, FnEDLExportTask.EDLExportTask, preset, 'EDL Exporter')
         self._fromClipLineEdit = None
 
     def absPathCheckboxChanged(self, state):

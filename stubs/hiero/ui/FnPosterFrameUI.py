@@ -97,14 +97,12 @@ class PosterFrameDialog(QDialog):
         try:
             # Determine the available ranges. If the selected clips don't overlap an exception
             # will be thrown, in which case this option is disabled.
-            clipAbsRanges = [(clip.sourceIn(), clip.sourceIn()+clip.duration()-1)
-                             for clip in clips]
+            clipAbsRanges = [(clip.sourceIn(), clip.sourceIn()+clip.duration()-1) for clip in clips]
             availableAbsRange = findIntersectingFrameRange(clipAbsRanges)
             startFrame = availableAbsRange[0]
             if len(clips) == 1:
                 startFrame = clips[0].posterFrame() + clips[0].sourceIn()
-            self._absoluteWidgets.setRange(
-                availableAbsRange[0], availableAbsRange[1], startFrame)
+            self._absoluteWidgets.setRange(availableAbsRange[0], availableAbsRange[1], startFrame)
         except:
             availableAbsRange = None
 
@@ -135,8 +133,7 @@ class PosterFrameDialog(QDialog):
     def accept(self):
         # Set the absolute or relative poster frame values on each clip
         if self._comboBox.currentIndex() == PosterFrameDialog.kAbsolute:
-            def posterFrameFunc(
-                clip): return self._absoluteWidgets.value() - clip.sourceIn()
+            def posterFrameFunc(clip): return self._absoluteWidgets.value() - clip.sourceIn()
         else:
             def posterFrameFunc(clip): return self._relativeWidgets.value()
         setPosterFrames(self._clips, posterFrameFunc)
@@ -199,8 +196,8 @@ def binContextMenuEvent(event):
     posterFrameMenu = QMenu('Set Poster Frame')
     try:
         # Find the localization menu and insert before it
-        localizationMenuAction = next(
-            action for action in menu.actions() if action.text() == 'Localization Policy')
+        localizationMenuAction = next(action for action in menu.actions()
+                                      if action.text() == 'Localization Policy')
         menu.insertMenu(localizationMenuAction, posterFrameMenu)
     except:
         # Fall back to adding at the end if the localization menu wasn't found
@@ -222,16 +219,14 @@ def binContextMenuEvent(event):
 
         # Set an orange tick if all selected clips match the selection, and a grey one
         # if some do
-        matchingClips = [clip for clip in clips if clip.posterFrame() ==
-                         posterFrameFunc(clip)]
+        matchingClips = [clip for clip in clips if clip.posterFrame() == posterFrameFunc(clip)]
         nonCustomClips.update(matchingClips)
         if len(matchingClips) == len(clips):
             action.setIcon(tickIconOrange)
         elif len(matchingClips) > 0:
             action.setIcon(tickIconGrey)
 
-        action.triggered.connect(functools.partial(
-            setPosterFrames, clips, posterFrameFunc))
+        action.triggered.connect(functools.partial(setPosterFrames, clips, posterFrameFunc))
 
     # Add the custom action which shows the dialog, and set the tick icon on it if needed
     customAction = posterFrameMenu.addAction('Custom...')

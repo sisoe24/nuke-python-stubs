@@ -54,8 +54,8 @@ class PlayerFlipbookApplication(flipbooking.FlipbookApplication):
         frameRange = '{}-{}'.format(frameRanges.minFrame(), frameRanges.maxFrame())
 
         burnIn = options.get('burnIn', False)
-        viewerLut = mapViewerLUTString(options.get(
-            'viewerlut', '')) if not burnIn else getRawViewerLUT()
+        viewerLut = mapViewerLUTString(options.get('viewerlut', '')
+                                       ) if not burnIn else getRawViewerLUT()
 
         params = {}
         params[kFilepathKey] = path
@@ -135,13 +135,11 @@ class PlayerFlipbookApplication(flipbooking.FlipbookApplication):
         # get start at frame number
         if flipbookDialog._node.Class() == 'Read':
             try:
-                hasStartAtDefined = flipbookDialog._node['frame_mode'].value(
-                ) == 'start at'
+                hasStartAtDefined = flipbookDialog._node['frame_mode'].value() == 'start at'
                 if hasStartAtDefined:
                     # 'frame_mode' knob is a string knob, so '20.0' will raise an exception
                     # if converted directly to integer
-                    options[kStartAtKey] = int(
-                        float(flipbookDialog._node['frame'].value()))
+                    options[kStartAtKey] = int(float(flipbookDialog._node['frame'].value()))
             except:
                 pass
 
@@ -328,8 +326,7 @@ class PlayerFlipbookManager(object):
         else:
             clipFrameRange = None
             timelineIn = 0
-        videoClip = self._createClip(
-            bin, filepath, clipFrameRange, namer.videoName(), colorspace)
+        videoClip = self._createClip(bin, filepath, clipFrameRange, namer.videoName(), colorspace)
         audioClip = self._createClip(bin, audioPath, None, namer.audioName(), None)
         seq = hiero.core.Sequence(namer.sequenceName())
         seq.setFormat(videoClip.format())

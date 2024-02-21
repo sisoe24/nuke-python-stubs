@@ -9,15 +9,11 @@ from . import FnAudioConstants
 
 
 def defineExportPresetProperties(exportPreset):
-    exportPreset.properties(
-    )[FnAudioConstants.kNumChannelsKey] = FnAudioConstants.kDefaultChannels
+    exportPreset.properties()[FnAudioConstants.kNumChannelsKey] = FnAudioConstants.kDefaultChannels
     exportPreset.properties()[FnAudioConstants.kCodecKey] = FnAudioConstants.kDefaultCodec
-    exportPreset.properties(
-    )[FnAudioConstants.kSampleRateKey] = FnAudioConstants.kDefaultSampleRate
-    exportPreset.properties(
-    )[FnAudioConstants.kBitDepthKey] = FnAudioConstants.kDefaultBitDepth
-    exportPreset.properties(
-    )[FnAudioConstants.kBitRateKey] = FnAudioConstants.kDefaultBitRate
+    exportPreset.properties()[FnAudioConstants.kSampleRateKey] = FnAudioConstants.kDefaultSampleRate
+    exportPreset.properties()[FnAudioConstants.kBitDepthKey] = FnAudioConstants.kDefaultBitDepth
+    exportPreset.properties()[FnAudioConstants.kBitRateKey] = FnAudioConstants.kDefaultBitRate
 
 # Sets the audio export settings from the preset to the current export task
 
@@ -37,8 +33,7 @@ def setAudioExportSettings(exportTask):
 
 def createCodecProperty(exportUI, formLayout, callback, tooltip):
     codecToolTip = tooltip
-    codecKey, codecValue = FnAudioConstants.kCodecKey, list(
-        FnAudioConstants.kCodecs.keys())
+    codecKey, codecValue = FnAudioConstants.kCodecKey, list(FnAudioConstants.kCodecs.keys())
     codecProperty = UIPropertyFactory.create(type(
         codecValue), key=codecKey, value=codecValue, dictionary=exportUI._preset._properties, label='Codec')
     codecProperty.setToolTip(codecToolTip)
@@ -73,8 +68,7 @@ def createCodecSpecificProperties(exportUI, formLayout, enabled):
     # If the previous sample rate is no longer supported, select the next highest sample rate
     compressedSampleRates = list(FnAudioConstants.kCompressedSampleRates.keys())
     if exportUI._preset.properties()[FnAudioConstants.kSampleRateKey] not in compressedSampleRates:
-        exportUI._preset.properties(
-        )[FnAudioConstants.kSampleRateKey] = compressedSampleRates[-1]
+        exportUI._preset.properties()[FnAudioConstants.kSampleRateKey] = compressedSampleRates[-1]
         sampleRateProperty.update()
 
     if hasattr(exportUI, '_bitDepthProperty'):
@@ -87,20 +81,18 @@ def createCodecSpecificProperties(exportUI, formLayout, enabled):
     # Bit depth is only relevant for PCM export, while bit rate is only relevant for the compressed formats
     if exportUI._preset.properties()[FnAudioConstants.kCodecKey] == FnAudioConstants.kNonCompressedCodec:
         bitDepthToolTip = ('Audio Bit Depth.')
-        bdKey, bdValue = FnAudioConstants.kBitDepthKey, list(
-            FnAudioConstants.kBitDepths.keys())
-        bitDepthProperty = UIPropertyFactory.create(type(
-            bdValue), key=bdKey, value=bdValue, dictionary=exportUI._preset._properties, label='Bit Depth')
+        bdKey, bdValue = FnAudioConstants.kBitDepthKey, list(FnAudioConstants.kBitDepths.keys())
+        bitDepthProperty = UIPropertyFactory.create(
+            type(bdValue), key=bdKey, value=bdValue, dictionary=exportUI._preset._properties, label='Bit Depth')
         bitDepthProperty.setToolTip(bitDepthToolTip)
         formLayout.addRow('Bit Depth:', bitDepthProperty)
         formLayout.setWidgetEnabled(bitDepthProperty, enabled)
         exportUI._bitDepthProperty = bitDepthProperty
     else:
         bitRateToolTip = ('Audio Bit Rate.')
-        brKey, brValue = FnAudioConstants.kBitRateKey, list(
-            FnAudioConstants.kBitRates.keys())
-        bitRateProperty = UIPropertyFactory.create(type(
-            brValue), key=brKey, value=brValue, dictionary=exportUI._preset._properties, label='Bit Rate')
+        brKey, brValue = FnAudioConstants.kBitRateKey, list(FnAudioConstants.kBitRates.keys())
+        bitRateProperty = UIPropertyFactory.create(
+            type(brValue), key=brKey, value=brValue, dictionary=exportUI._preset._properties, label='Bit Rate')
         bitRateProperty.setToolTip(bitRateToolTip)
         formLayout.addRow('Bit Rate:', bitRateProperty)
         formLayout.setWidgetEnabled(bitRateProperty, enabled)
@@ -112,8 +104,7 @@ def createCodecSpecificProperties(exportUI, formLayout, enabled):
 
     audioChannelToolTip = (
         'The audio channel configuration. Supports up to 7.1 surround for PCM, \nup to 5.1 surround for AC-3, and stereo for MP2')
-    cKey, cValue = FnAudioConstants.kNumChannelsKey, list(
-        FnAudioConstants.kChannels.keys())
+    cKey, cValue = FnAudioConstants.kNumChannelsKey, list(FnAudioConstants.kChannels.keys())
 
     channelsProperty = UIPropertyFactory.create(type(
         cValue), key=cKey, value=cValue, dictionary=exportUI._preset._properties, label='Output Channels')

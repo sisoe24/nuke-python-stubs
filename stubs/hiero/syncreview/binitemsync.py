@@ -9,8 +9,7 @@ messages.defineMessageType('BinItemAdded', ('parentGuid', str),
                            ('index', int), ('data', messages.Compressed))
 messages.defineMessageType('BinItemRemoved', ('guid', str))
 messages.defineMessageType('BinItemRenamed', ('guid', str), ('name', str))
-messages.defineMessageType('BinItemMoved', ('guid', str),
-                           ('parentGuid', str), ('index', int))
+messages.defineMessageType('BinItemMoved', ('guid', str), ('parentGuid', str), ('index', int))
 
 
 def _getItemParent(item):
@@ -42,22 +41,16 @@ class SyncBinItemTool(SyncTool):
 
     def __init__(self, messageDispatcher):
         super(SyncBinItemTool, self).__init__(messageDispatcher)
-        self.registerEventCallback(
-            events.EventType.kBinItemAdded, self.onLocalBinItemAdded)
-        self.registerEventCallback(
-            events.EventType.kBinItemRemoved, self.onLocalBinItemRemoved)
-        self.registerEventCallback(
-            events.EventType.kBinItemRenamed, self.onLocalBinItemRenamed)
-        self.registerEventCallback(
-            events.EventType.kBinItemMoved, self.onLocalBinItemMoved)
-        self.messageDispatcher._registerCallback(
-            messages.BinItemAdded, self.onRemoteBinItemAdded)
+        self.registerEventCallback(events.EventType.kBinItemAdded, self.onLocalBinItemAdded)
+        self.registerEventCallback(events.EventType.kBinItemRemoved, self.onLocalBinItemRemoved)
+        self.registerEventCallback(events.EventType.kBinItemRenamed, self.onLocalBinItemRenamed)
+        self.registerEventCallback(events.EventType.kBinItemMoved, self.onLocalBinItemMoved)
+        self.messageDispatcher._registerCallback(messages.BinItemAdded, self.onRemoteBinItemAdded)
         self.messageDispatcher._registerCallback(
             messages.BinItemRemoved, self.onRemoteBinItemRemoved)
         self.messageDispatcher._registerCallback(
             messages.BinItemRenamed, self.onRemoteBinItemRenamed)
-        self.messageDispatcher._registerCallback(
-            messages.BinItemMoved, self.onRemoteBinItemMoved)
+        self.messageDispatcher._registerCallback(messages.BinItemMoved, self.onRemoteBinItemMoved)
 
     @localCallback
     def onLocalBinItemAdded(self, event):
@@ -82,8 +75,7 @@ class SyncBinItemTool(SyncTool):
         """ Receive new bin items from a remote participant. """
         parentItem = findItemByGuid(msg.parentGuid, filter=(Bin, BinItem))
         if not parentItem:
-            logMessage(
-                'onRemoteBinItemAdded: parent item {} not found!'.format(msg.parentGuid))
+            logMessage('onRemoteBinItemAdded: parent item {} not found!'.format(msg.parentGuid))
             return
 
         parentItem.deserializeChildItem(msg.data, msg.index)

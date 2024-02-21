@@ -26,14 +26,12 @@ class FramecyclerFlipbook(flipbooking.FlipbookApplication):
             except:
                 self._fcPath = os.path.join(os.path.dirname(nuke.EXE_PATH), 'FrameCycler')
                 if nuke.env['WIN32']:
-                    self._fcPath = os.path.join(
-                        self._fcPath+'Windows', 'bin', 'framecycler')
+                    self._fcPath = os.path.join(self._fcPath+'Windows', 'bin', 'framecycler')
                 elif not nuke.env['WIN32'] and not nuke.env['MACOS']:
                     self._fcPath = os.path.join(
                         self._fcPath+self.linux_version(), 'bin', 'framecycler')
                 else:
-                    self._fcPath = os.path.join(
-                        self._fcPath + 'OSX', 'bin', 'FrameCycler')
+                    self._fcPath = os.path.join(self._fcPath + 'OSX', 'bin', 'FrameCycler')
         if nuke.env['WIN32']:
             self._fcPath = self._fcPath + '.exe'
         self._fcPath = os.path.normpath(self._fcPath)

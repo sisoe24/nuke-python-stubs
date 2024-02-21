@@ -35,8 +35,7 @@ PRINTABLE_CHARACTER = (AnyOf('!"#%&()*+-/<=>?@[\\]^_\'{|}~:;,.$') | ALPHA | DIGI
 
 PRINTABLE_STRING = (Word(PRINTABLE_CHARACTER))
 
-HEXADECIMAL_NUMBER = Optional(Literal('0x') | Literal('0X')
-                              ).hide() + Word(HEXADECIMAL_DIGIT)
+HEXADECIMAL_NUMBER = Optional(Literal('0x') | Literal('0X')).hide() + Word(HEXADECIMAL_DIGIT)
 
 NUMBER = Word(DIGIT)
 
@@ -47,8 +46,7 @@ INTEGER = Combine(SIGNED_NUMBER).setAction(lambda x: int(x[0]))
 REAL_NUMBER = Combine((Optional(SIGNED_NUMBER) + Literal('.') + NUMBER)
                       | SIGNED_NUMBER).setAction(lambda x: float(x[0]))
 
-LEADING_RADIX_NUMBER = (Combine(DIGIT + DIGIT) | Combine(DIGIT)
-                        ).setAction(lambda x: int(x[0]))
+LEADING_RADIX_NUMBER = (Combine(DIGIT + DIGIT) | Combine(DIGIT)).setAction(lambda x: int(x[0]))
 
 RADIX_NUMBER = Combine(DIGIT + DIGIT).setAction(lambda x: int(x[0]))
 
@@ -116,10 +114,8 @@ SOURCE_IDENTIFICATION_FIELD = IDENTIFIER
 # IDENTIFIER | IDENTIFIER + Literal('.') + MODE_AUDIO_SUBFIELD
 
 # DLELD Elements
-DLEDL_EDIT_FILENAME_ELEMENT = (
-    Literal('FILENAME') + Literal(':').hide() + Word(NoneOf('\n\r')))
-DLEDL_EDIT_RESOLUTION_ELEMENT = (
-    Literal('RESOLUTION') + Literal(':').hide() + PRINTABLE_STRING)
+DLEDL_EDIT_FILENAME_ELEMENT = (Literal('FILENAME') + Literal(':').hide() + Word(NoneOf('\n\r')))
+DLEDL_EDIT_RESOLUTION_ELEMENT = (Literal('RESOLUTION') + Literal(':').hide() + PRINTABLE_STRING)
 DLEDL_EDIT_FRAME_ELEMENT = Literal('FRAME') + Literal(':').hide() + HEXADECIMAL_NUMBER
 
 DLEDL_EDIT_ELEMENT = Combine(Literal('EDIT:') + NUMBER).hide() + \
@@ -129,8 +125,7 @@ DLEDL_EDIT_ELEMENT = Combine(Literal('EDIT:') + NUMBER).hide() + \
 
 DLEDL_PATH_ELEMENT = Literal('PATH') + Literal(':').hide() + PRINTABLE_STRING
 
-DLEDL_START_ELEMENT = Combine(
-    Literal('START') + Literal('TC') + Literal(':').hide()) + TIME_CODE
+DLEDL_START_ELEMENT = Combine(Literal('START') + Literal('TC') + Literal(':').hide()) + TIME_CODE
 
 
 def NamedElementAction(x):
@@ -274,10 +269,10 @@ SYSTEM_DIRECTIVE = ((Literal('TITLE') | Literal('FCM')) + Optional(Literal(':')
 
 FROMCLIP_ELEMENT = (Combine(Literal('FROM') + Literal('CLIP') +
                     Literal('NAME') + Literal(':').hide()) + Word(NoneOf('\n\r')))
-TOCLIP_ELEMENT = (Combine(Literal('TO') + Literal('CLIP') +
-                  Literal('NAME') + Literal(':').hide()) + Word(NoneOf('\n\r')))
-KEYCLIP_ELEMENT = (Combine(Literal('KEY') + Literal('CLIP') +
-                   Literal('NAME') + Literal(':').hide()) + Word(NoneOf('\n\r')))
+TOCLIP_ELEMENT = (Combine(Literal('TO') + Literal('CLIP') + Literal('NAME') +
+                  Literal(':').hide()) + Word(NoneOf('\n\r')))
+KEYCLIP_ELEMENT = (Combine(Literal('KEY') + Literal('CLIP') + Literal('NAME') +
+                   Literal(':').hide()) + Word(NoneOf('\n\r')))
 FCP_ELEMENT = (Literal('FINAL') + Literal('CUT') + Literal('PRO') + Word(NoneOf('\n\r')))
 
 # This might be 'SOURCE FILE:' or 'SOURCE FILE PATH:'.
@@ -324,8 +319,8 @@ INDEXED_EDIT_ELEMENT = ((INDEXED_SOURCE_ELEMENT) +
 
 EDIT_ELEMENT = ((SOURCE_ELEMENT) + ZeroOrMore(EDIT_SUB_ELEMENT)) | (SOURCE_ELEMENT)
 
-EDIT_LIST = (TERMINATOR | EDIT_ELEMENT | INDEXED_EDIT_ELEMENT | RETIME_DIRECTIVE | (
-    SYSTEM_DIRECTIVE) | INFORMATIONAL_DIRECTIVE) | Word(NoneOf('\n\r'))
+EDIT_LIST = (TERMINATOR | EDIT_ELEMENT | INDEXED_EDIT_ELEMENT | RETIME_DIRECTIVE |
+             (SYSTEM_DIRECTIVE) | INFORMATIONAL_DIRECTIVE) | Word(NoneOf('\n\r'))
 
 EDL = ZeroOrMore(EDIT_LIST)
 

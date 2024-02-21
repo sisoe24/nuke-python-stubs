@@ -115,8 +115,7 @@ class ExecuteDialog(nukescripts.PythonPanel):
         self._exceptOnError = exceptOnError
         self._dialogKnobs = None
 
-        nukescripts.PythonPanel.__init__(
-            self, self._titleString(), self._idString(), False)
+        nukescripts.PythonPanel.__init__(self, self._titleString(), self._idString(), False)
 
         self._viewers = {}
         for n in nuke.allNodes('Viewer', groupContext):
@@ -217,8 +216,8 @@ class ExecuteDialog(nukescripts.PythonPanel):
         views = self._selectedViews()
         try:
             nuke.Undo().disable()
-            nuke.executeMultiple(self._nodeSelection, frame_ranges,
-                                 views, continueOnError=self._continueOnError.value())
+            nuke.executeMultiple(self._nodeSelection, frame_ranges, views,
+                                 continueOnError=self._continueOnError.value())
         except RuntimeError as e:
             # TO DO: change this to an exception type
             if self._exceptOnError or e.args[0][0:9] != 'Cancelled':
@@ -245,13 +244,11 @@ class RenderDialog(ExecuteDialog):
                  exceptOnError=True,
                  allowFrameServer=True):
         self._allowFrameServer = allowFrameServer
-        ExecuteDialog.__init__(self, dialogState, groupContext,
-                               nodeSelection, exceptOnError)
+        ExecuteDialog.__init__(self, dialogState, groupContext, nodeSelection, exceptOnError)
 
     def _addPreKnobs(self):
         if self.isTimelineWrite():
-            self._timelineRender = nuke.Boolean_Knob(
-                'timeline_render', 'Render to timeline')
+            self._timelineRender = nuke.Boolean_Knob('timeline_render', 'Render to timeline')
             self._state.setKnob(self._timelineRender, True)
             self._timelineRender.setFlag(nuke.STARTLINE)
             self.addKnob(self._timelineRender)
@@ -273,8 +270,7 @@ class RenderDialog(ExecuteDialog):
         self._frameserverRender = nuke.Boolean_Knob(
             'frameserver_render', 'Render using frame server')
         self._frameserverRender.setTooltip('Render using frame server')
-        select_frame_server = nuke.toNode('preferences').knob(
-            'RenderWithFrameServer').getValue()
+        select_frame_server = nuke.toNode('preferences').knob('RenderWithFrameServer').getValue()
         self._state.setKnob(self._frameserverRender, select_frame_server)
         self._frameserverRender.setVisible(self.frameserverRenderAvailable())
         self._frameserverRender.setFlag(nuke.STARTLINE)
@@ -291,8 +287,7 @@ class RenderDialog(ExecuteDialog):
         self._state.setKnob(self._numThreads, max(int(nuke.NUM_CPUS / 2), 1))
         self.addKnob(self._numThreads)
         self._maxMem = nuke.String_Knob('max_memory', 'Memory limit')
-        self._state.setKnob(self._maxMem, str(
-            max(int(memory.maxUsage() / 2097152), 16)) + 'M')
+        self._state.setKnob(self._maxMem, str(max(int(memory.maxUsage() / 2097152), 16)) + 'M')
         self._maxMem.setVisible(self.isBackgrounded())
         self.addKnob(self._maxMem)
         if self.isBackgrounded():
@@ -302,8 +297,7 @@ class RenderDialog(ExecuteDialog):
         # Deprecated
         if re.search('^(?<![\d.])[0-9]+(?![\d.])[kmgt]', self._maxMem.value(), re.IGNORECASE) == None:
             # regex to match a string that starts with an int not float followed by letter kmgt, any training string or spaces are ignored.
-            raise Exception(
-                'The memory limit specified does not match the required format.')
+            raise Exception('The memory limit specified does not match the required format.')
         return {
             'maxThreads': self._numThreads.value(),
             'maxCache': self._maxMem.value()}
@@ -494,16 +488,14 @@ class RenderDialog(ExecuteDialog):
             hasPadding = nuke.filename(
                 node, nuke.REPLACE) != path or node['file_type'].value() == 'mov'
             if needsPadding and not hasPadding:
-                nuke.message('%s cannot be executed for multiple frames.' %
-                             node.fullName())
+                nuke.message('%s cannot be executed for multiple frames.' % node.fullName())
                 return
             # there's no way to find if writer can write multiple views per file in python
             needsViews = (len(views) != 1 or views[0] != 'main')
             hasViews = path.find('%v') != -1 or path.find('%V') != - \
                 1 or node['file_type'].value() == 'exr'
             if needsViews and not hasViews:
-                nuke.message('%s cannot be executed for multiple views.' %
-                             node.fullName())
+                nuke.message('%s cannot be executed for multiple views.' % node.fullName())
                 return
 
         # if there's any container to be rendered, show a warning, render synchronously later
@@ -511,8 +503,8 @@ class RenderDialog(ExecuteDialog):
             if RenderDialog.ShowWarning:
                 from PySide2.QtWidgets import QCheckBox, QMessageBox
                 message = 'It is currently not possible to render container formats using the frame server. Select Continue to render in the current Nuke session.\n\nPlease see the user guide for more information.'
-                messageBox = QMessageBox(
-                    QMessageBox.Warning, 'Warning', message, QMessageBox.Cancel)
+                messageBox = QMessageBox(QMessageBox.Warning, 'Warning',
+                                         message, QMessageBox.Cancel)
                 messageBox.addButton('Continue', QMessageBox.AcceptRole)
                 dontShowCheckBox = QCheckBox("Don't show this message again")
                 dontShowCheckBox.blockSignals(True)
@@ -541,8 +533,8 @@ class RenderDialog(ExecuteDialog):
 
         if containerNodesToRender:
             containerNodesToRender.sort(key=sortRenderOrder)
-            nuke.executeMultiple(containerNodesToRender, frame_ranges,
-                                 views, continueOnError=self._continueOnError.value())
+            nuke.executeMultiple(containerNodesToRender, frame_ranges, views,
+                                 continueOnError=self._continueOnError.value())
 
     def run(self):
         # this will render the full framerange of the script
@@ -563,8 +555,8 @@ class RenderDialog(ExecuteDialog):
                 nuke.executeBackgroundNuke(nuke.EXE_PATH, self._nodeSelection,
                                            frame_ranges, views, self._getBackgroundLimits(), continueOnError=self._continueOnError.value())
             else:
-                nuke.executeMultiple(self._nodeSelection, frame_ranges,
-                                     views, continueOnError=self._continueOnError.value())
+                nuke.executeMultiple(self._nodeSelection, frame_ranges, views,
+                                     continueOnError=self._continueOnError.value())
         except RuntimeError as e:
             # TO DO: change this to an exception type
             if self._exceptOnError or e.args[0][0:9] != 'Cancelled':
@@ -608,8 +600,8 @@ class FlipbookDialog(RenderDialog):
         self._state.setKnob(self._flipbookEnum, defaultFlipbook)
         self.addKnob(self._flipbookEnum)
 
-        self._viewerForSettings = nuke.Enumeration_Knob('viewer_settings', 'Use Settings From', list(
-            self._viewers.keys()) + [_USE_SETTINGS_FROM_CUSTOM])
+        self._viewerForSettings = nuke.Enumeration_Knob(
+            'viewer_settings', 'Use Settings From', list(self._viewers.keys()) + [_USE_SETTINGS_FROM_CUSTOM])
         self._viewerForSettings.setTooltip('Select your viewer setting for the flipbook')
         if not self._takeNodeSettings:
             self._viewerForSettings.setValue(_USE_SETTINGS_FROM_CUSTOM)
@@ -639,12 +631,10 @@ class FlipbookDialog(RenderDialog):
 
     def _addPostKnobs(self):
         # LUT knobs
-        self._luts = nuke.Enumeration_Knob(
-            'lut', 'LUT', nuke.ViewerProcess.registeredNames())
+        self._luts = nuke.Enumeration_Knob('lut', 'LUT', nuke.ViewerProcess.registeredNames())
         self._luts.setTooltip('Select LUT for the flipbook')
         if self._takeNodeSettings:
-            self._state.setKnob(self._luts, self._lutFromViewer(
-                self._viewerForSettings.value()))
+            self._state.setKnob(self._luts, self._lutFromViewer(self._viewerForSettings.value()))
         else:
             self._state.setKnob(self._luts, self._lutFromViewer())
         self.addKnob(self._luts)
@@ -671,8 +661,7 @@ class FlipbookDialog(RenderDialog):
     def flipbookKnobs(self):
         try:
             beforeKnobs = self.knobs()
-            flipbookToRun = flipbooking.gFlipbookFactory.getApplication(
-                self._flipbookEnum.value())
+            flipbookToRun = flipbooking.gFlipbookFactory.getApplication(self._flipbookEnum.value())
             flipbookToRun.dialogKnobs(self)
             afterKnobs = self.knobs()
             self._customKnobs = list(set(beforeKnobs.values()) ^ set(afterKnobs.values()))
@@ -741,8 +730,7 @@ class FlipbookDialog(RenderDialog):
                 self._setKnobAndStore(self._useProxy, nuke.root().proxy())
                 self._frameRangeFromViewer(viewer.name(), _FRAME_RANGE_INOUT)
                 self._state.save(self._frameRange)
-                self._setKnobAndStore(
-                    self._rangeEnum, viewer.name() + '/' + _FRAME_RANGE_INOUT)
+                self._setKnobAndStore(self._rangeEnum, viewer.name() + '/' + _FRAME_RANGE_INOUT)
                 self._roi.setVisible(self._useRoi.value())
                 self._setKnobAndStore(self._luts, self._lutFromViewer(viewer.name()))
         elif (knob == self._useRoi):
@@ -803,8 +791,7 @@ class FlipbookDialog(RenderDialog):
 
     def _requireIntermediateNode(self, nodeToTest):
         if nodeToTest.Class() == 'Read' or nodeToTest.Class() == 'Write':
-            flipbookToRun = flipbooking.gFlipbookFactory.getApplication(
-                self._flipbookEnum.value())
+            flipbookToRun = flipbooking.gFlipbookFactory.getApplication(self._flipbookEnum.value())
             flipbookCapabilities = flipbookToRun.capabilities()
 
             # Check if we can read it in directly..
@@ -826,8 +813,7 @@ class FlipbookDialog(RenderDialog):
                 return True
 
             # Not all flipbooks can handle weird channels
-            flipbookSupportsArbitraryChannels = flipbookCapabilities.get(
-                'arbitraryChannels', False)
+            flipbookSupportsArbitraryChannels = flipbookCapabilities.get('arbitraryChannels', False)
             if self._channels.value() not in set(['rgb', 'rgba', 'alpha']) and not flipbookSupportsArbitraryChannels:
                 return True
             channelKnob = nodeToTest.knob('channels')
@@ -939,8 +925,7 @@ class FlipbookDialog(RenderDialog):
             if self._useRoi.value():
                 crop = nuke.createNode('Crop', inpanel=False)
                 crop['box'].fromScript(self._roi.toScript())
-            write = nuke.createNode(
-                'Write', fieldname+' {'+flipbooktmp+'}', inpanel=False)
+            write = nuke.createNode('Write', fieldname+' {'+flipbooktmp+'}', inpanel=False)
             write.knob('file_type').setValue(self._getIntermediateFileType())
             selectedViews = self._selectedViews()
             write.knob('views').fromScript(' '.join(selectedViews))
@@ -1001,8 +986,7 @@ class FlipbookDialog(RenderDialog):
         }
 
         try:
-            options['pixelAspect'] = float(nuke.value(
-                nodeToFlipbook.name()+'.pixel_aspect'))
+            options['pixelAspect'] = float(nuke.value(nodeToFlipbook.name()+'.pixel_aspect'))
         except:
             pass
 
@@ -1048,8 +1032,7 @@ class FlipbookDialog(RenderDialog):
         return options
 
     def run(self):
-        flipbookToRun = flipbooking.gFlipbookFactory.getApplication(
-            self._flipbookEnum.value())
+        flipbookToRun = flipbooking.gFlipbookFactory.getApplication(self._flipbookEnum.value())
         if (flipbookToRun):
             if not os.access(flipbookToRun.path(), os.X_OK):
                 raise RuntimeError('%s cannot be executed (%s).' %
@@ -1064,8 +1047,7 @@ class FlipbookDialog(RenderDialog):
 
                 calledOnNode = self._node
                 if self._node.Class() == 'Viewer':
-                    self._node = self._node.input(
-                        int(self._node.knob('input_number').value()))
+                    self._node = self._node.input(int(self._node.knob('input_number').value()))
 
                 renderer = getFlipbookRenderer(self, flipbookToRun)
                 renderer.doFlipbook()
@@ -1161,8 +1143,7 @@ class ViewerCaptureDialog(FlipbookDialog):
         """
         flipbook = flipbooking.gFlipbookFactory.getApplication(self._flipbookEnum.value())
         if flipbook and not os.access(flipbook.path(), os.X_OK):
-            raise RuntimeError('%s cannot be executed (%s).' %
-                               (flipbook.name(), flipbook.path(),))
+            raise RuntimeError('%s cannot be executed (%s).' % (flipbook.name(), flipbook.path(),))
 
         # build up the args
         frameRange = self._frameRange.value()
@@ -1206,8 +1187,7 @@ def _getFlipbookDialog(node, takeNodeSettings=False):
     if node is None:
         raise RuntimeError("Can't launch flipbook, require a node.")
     if node.Class() == 'Viewer' and node.inputs() == 0:
-        raise RuntimeError(
-            "Can't launch flipbook, there is nothing connected to the viewed input.")
+        raise RuntimeError("Can't launch flipbook, there is nothing connected to the viewed input.")
 
     if not (nuke.canCreateNode('Write')):
         nuke.message('Flipbooking is not permitted in Nuke Assist')

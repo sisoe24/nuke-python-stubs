@@ -8,8 +8,7 @@ from .synctool import SyncTool, localCallback, remoteCallback
 # if the change was on the bin item
 messages.defineMessageType('VersionChange', ('itemGuid', str),
                            ('binItemGuid', str), ('versionGuid', str))
-messages.defineMessageType('VersionLinkedChange',
-                           ('itemGuid', str), ('linked', messages.Bool))
+messages.defineMessageType('VersionLinkedChange', ('itemGuid', str), ('linked', messages.Bool))
 
 
 class SyncVersionsTool(SyncTool):
@@ -21,10 +20,9 @@ class SyncVersionsTool(SyncTool):
             messages.VersionChange, self._onRemoteVersionChanged)
         self.messageDispatcher._registerCallback(
             messages.VersionLinkedChange, self._onRemoteVersionLinkedChanged)
-        self.registerEventCallback(
-            events.EventType.kVersionChanged, self._onLocalVersionChanged)
-        self.registerEventCallback(
-            events.EventType.kVersionLinkedChanged, self._onLocalVersionLinkedChanged)
+        self.registerEventCallback(events.EventType.kVersionChanged, self._onLocalVersionChanged)
+        self.registerEventCallback(events.EventType.kVersionLinkedChanged,
+                                   self._onLocalVersionLinkedChanged)
 
     @localCallback
     def _onLocalVersionChanged(self, event):
@@ -50,15 +48,12 @@ class SyncVersionsTool(SyncTool):
             and needs to be synced locally """
         binItem = findItemByGuid(msg.binItemGuid, filter=(BinItem,))
         if not binItem:
-            logMessage(
-                '_onRemoteVersionChanged: bin item {} not found!'.format(msg.binItemGuid))
+            logMessage('_onRemoteVersionChanged: bin item {} not found!'.format(msg.binItemGuid))
             return
 
-        version = next((item for item in binItem.items()
-                       if item.guid() == msg.versionGuid), None)
+        version = next((item for item in binItem.items() if item.guid() == msg.versionGuid), None)
         if not version:
-            logMessage(
-                'onRemoteVersion changed: version {} not found!'.format(msg.versionGuid))
+            logMessage('onRemoteVersion changed: version {} not found!'.format(msg.versionGuid))
             return
 
         # If the itemGuid and binItemGuid are the same the version change was on that
@@ -70,8 +65,7 @@ class SyncVersionsTool(SyncTool):
             if item:
                 item.setCurrentVersion(version)
             else:
-                logMessage(
-                    'onRemoteVersion changed: trackitem {} not found!'.format(msg.itemGuid))
+                logMessage('onRemoteVersion changed: trackitem {} not found!'.format(msg.itemGuid))
 
     @remoteCallback
     def _onRemoteVersionLinkedChanged(self, msg):

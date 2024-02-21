@@ -47,8 +47,7 @@ def setLocalisationPolicyOnTrack(track, policy, forceUpdate=False):
     @param: forceUpdate - if set to True the clip files will be forced to update in case the localization mode is set to 'Manual'
     """
     if not isinstance(track, (hiero.core.VideoTrack, hiero.core.AudioTrack)):
-        raise Exception(
-            'First argument must be a hiero.core.VideoTrack/hiero.core.AudioTrack')
+        raise Exception('First argument must be a hiero.core.VideoTrack/hiero.core.AudioTrack')
     else:
         for ti in track:
             setLocalisationPolicyOnTrackItem(ti, policy, forceUpdate)

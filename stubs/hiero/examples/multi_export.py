@@ -26,8 +26,7 @@ class MultiExportAction(QAction):
             layout = QVBoxLayout()
             formLayout = QFormLayout()
 
-            presetNames = [preset.name()
-                           for preset in hiero.core.taskRegistry.localPresets()]
+            presetNames = [preset.name() for preset in hiero.core.taskRegistry.localPresets()]
 
             # List box for track selection
             presetListModel = QStandardItemModel()
@@ -52,8 +51,7 @@ class MultiExportAction(QAction):
             layout.addLayout(formLayout)
 
             self._exportTemplate = hiero.core.ExportStructure2()
-            self._exportTemplateViewer = hiero.ui.ExportStructureViewer(
-                self._exportTemplate)
+            self._exportTemplateViewer = hiero.ui.ExportStructureViewer(self._exportTemplate)
 
             layout.addWidget(self._exportTemplateViewer)
 
@@ -81,11 +79,9 @@ class MultiExportAction(QAction):
                 self._preset = hiero.core.taskRegistry.processorPresetByName(presetName)
                 self._exportTemplate.restore(self._preset._properties['exportTemplate'])
                 if self._preset._properties['exportRoot'] != 'None':
-                    self._exportTemplate.setExportRootPath(
-                        self._preset._properties['exportRoot'])
+                    self._exportTemplate.setExportRootPath(self._preset._properties['exportRoot'])
                 self._exportTemplateViewer.setExportStructure(self._exportTemplate)
-                self._resolver = self._preset.createResolver(
-                ).addEntriesToExportStructureViewer(self._exportTemplateViewer)
+                self._resolver = self._preset.createResolver().addEntriesToExportStructureViewer(self._exportTemplateViewer)
 
         def presets(self):
             presets = []

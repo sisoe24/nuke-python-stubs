@@ -42,7 +42,7 @@ class ViewerWipeTool(ViewerTool):
         """
         ...
 
-    def wipeToolState(self) -> ui.WipeToolState:
+    def wipeToolState(self) -> hiero.ui.WipeToolState:
         """
 
         """

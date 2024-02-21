@@ -66,8 +66,7 @@ def convertToType(type):
             return type
 
     allowedStrings = [typeName(filter.__name__) for filter in allowedFilters]
-    raise Exception(
-        'The item filter must be set to a valid hiero.core object, e.g. hiero.core.Clip')
+    raise Exception('The item filter must be set to a valid hiero.core object, e.g. hiero.core.Clip')
 
 
 def findItemsInProject(proj=None, filter=None, partialName=None, verbose=0):
@@ -102,8 +101,7 @@ def findItemsInProject(proj=None, filter=None, partialName=None, verbose=0):
 
     # Check for a valid project now
     if type(proj) != hiero.core.Project:
-        raise Exception(
-            'findItems requires a valid valid project object search for items.')
+        raise Exception('findItems requires a valid valid project object search for items.')
 
     # If it's only one filter or none, make it into a list anyways
     if isinstance(filter, str) or filter == None:
@@ -406,8 +404,7 @@ def findProjectTags(proj=None, tagName=None, iconName=None, verbose=0):
 
     # Check for a valid project now
     if type(proj) != hiero.core.Project:
-        raise Exception(
-            'findProjectTags requires a valid valid project object search for items.')
+        raise Exception('findProjectTags requires a valid valid project object search for items.')
 
     # We're just going to filter for Tags...
     filter = hiero.core.Tag

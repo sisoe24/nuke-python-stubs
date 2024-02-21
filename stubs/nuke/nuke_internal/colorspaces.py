@@ -167,16 +167,14 @@ def defaultColorspaceMapper(colorspace, dataTypeHint):
     if colorspaceCbs:
         nodeErrMsg = ("Colorspace Filter on Node '%s' returned invalid type,"
                       'expected string or None' % (nuke.thisClass()))
-        colorspace = _doColorSpaceCallbacks(
-            colorspace, dataTypeHint, colorspaceCbs, nodeErrMsg)
+        colorspace = _doColorSpaceCallbacks(colorspace, dataTypeHint, colorspaceCbs, nodeErrMsg)
 
     # Do global manipulations afterwards
     globalCbs = defaultLUTMappers.get('*')
     if globalCbs:
         globalErrMsg = ('Global Colorspace Filter returned invalid type,'
                         'expected string or None')
-        colorspace = _doColorSpaceCallbacks(
-            colorspace, dataTypeHint, globalCbs, globalErrMsg)
+        colorspace = _doColorSpaceCallbacks(colorspace, dataTypeHint, globalCbs, globalErrMsg)
 
     return colorspace
 

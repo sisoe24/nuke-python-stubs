@@ -28,14 +28,12 @@ class NukeAnnotationsExporterUI(hiero.ui.TaskUIBase):
 
     def readPresetChanged(self, topLeft, bottomRight):
         presetValue = self._preset.properties()['readPaths'] = []
-        model = self._nodeSelectionWidget.getModel(
-            NukeProjectNodeSelectionWidget.kReadNode)
+        model = self._nodeSelectionWidget.getModel(NukeProjectNodeSelectionWidget.kReadNode)
         self.updatePreset(presetValue, model, topLeft, bottomRight)
 
     def writePresetChanged(self, topLeft, bottomRight):
         presetValue = self._preset.properties()['writePaths'] = []
-        model = self._nodeSelectionWidget.getModel(
-            NukeProjectNodeSelectionWidget.kWriteNode)
+        model = self._nodeSelectionWidget.getModel(NukeProjectNodeSelectionWidget.kWriteNode)
         self.updatePreset(presetValue, model, topLeft, bottomRight)
 
     def timelineWriteNodeChanged(self, text):
@@ -48,8 +46,7 @@ class NukeAnnotationsExporterUI(hiero.ui.TaskUIBase):
             layout = widget.layout()
 
             # Node selection widget
-            self._nodeSelectionWidget = NukeProjectNodeSelectionWidget(
-                exportTemplate, self._preset)
+            self._nodeSelectionWidget = NukeProjectNodeSelectionWidget(exportTemplate, self._preset)
             self._nodeSelectionWidget.addNodeSelector(
                 NukeProjectNodeSelectionWidget.kReadNode, 'Read Nodes', 'readPaths',
                 'Select multiple entries within the shot template to be used as inputs '
@@ -75,8 +72,7 @@ class NukeAnnotationsExporterUI(hiero.ui.TaskUIBase):
 
             self._timelineWriteNode = TimelineWriteNodeWidget(writeModel, self._preset)
             formLayout.addRow('Timeline Write Node:', self._timelineWriteNode)
-            self._timelineWriteNode.timelineWriteNodeChanged.connect(
-                self.timelineWriteNodeChanged)
+            self._timelineWriteNode.timelineWriteNodeChanged.connect(self.timelineWriteNodeChanged)
 
             # Retime
             formLayout.addDivider('Retiming')
@@ -106,8 +102,7 @@ class NukeAnnotationsExporterUI(hiero.ui.TaskUIBase):
             additionalNodesLayout = QtWidgets.QHBoxLayout()
             additionalNodesCheckbox = QtWidgets.QCheckBox()
             additionalNodesCheckbox.setToolTip(additionalNodesToolTip)
-            additionalNodesCheckbox.stateChanged.connect(
-                self._additionalNodesEnableClicked)
+            additionalNodesCheckbox.stateChanged.connect(self._additionalNodesEnableClicked)
             if self._preset.properties()['additionalNodesEnabled']:
                 additionalNodesCheckbox.setCheckState(QtCore.Qt.Checked)
             additionalNodesButton = QtWidgets.QPushButton('Edit')

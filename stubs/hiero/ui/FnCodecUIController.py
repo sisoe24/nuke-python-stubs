@@ -164,11 +164,9 @@ class EXRCodecUIController(CodecUIController):
         self._truncateLayerNamesWidget = self.createProperty(
             properties, self.kTruncateChannelNames, presetDictionary)
         layout.addRow(self._interleavingWidget._label+':', self._interleavingWidget)
-        layout.addRow(self._standardLayerNameWidget._label +
-                      ':', self._standardLayerNameWidget)
+        layout.addRow(self._standardLayerNameWidget._label+':', self._standardLayerNameWidget)
         layout.addRow(self._fullLayerNamesWidget._label+':', self._fullLayerNamesWidget)
-        layout.addRow(self._truncateLayerNamesWidget._label +
-                      ':', self._truncateLayerNamesWidget)
+        layout.addRow(self._truncateLayerNamesWidget._label+':', self._truncateLayerNamesWidget)
         self.interleaveChanged()
 
     # Slots

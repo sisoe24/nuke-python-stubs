@@ -560,8 +560,7 @@ def __VideoTrack_addMethods():
         """
 
         if not effectType and not cloneFrom and not copyFrom:
-            raise RuntimeError(
-                'No effect type or existing effect to clone from specified.')
+            raise RuntimeError('No effect type or existing effect to clone from specified.')
 
         # If a TimeWarp is being created, it must be linked to a track item.  Check this and raise an exception
         if effectType == 'TimeWarp' and not trackItem:
@@ -594,8 +593,7 @@ def __VideoTrack_addMethods():
 
         if cloneFrom:
             if cloneFrom.project() != self.project():
-                raise RuntimeError(
-                    'Can only clone from effects which belong to the same project.')
+                raise RuntimeError('Can only clone from effects which belong to the same project.')
 
             assert not copyFrom and not effectType, 'Only one of effectType, cloneFrom or copyFrom can be specified.'
 
@@ -681,7 +679,7 @@ def LUTs(*args: typing.Any, **kwargs: typing.Any) -> tuple:
     ...
 
 
-def SequenceAutoDiskCacheModeFromString(str: str) -> core.SequenceAutoDiskCacheMode:
+def SequenceAutoDiskCacheModeFromString(str: str) -> hiero.core.SequenceAutoDiskCacheMode:
     """
 
     """
@@ -822,7 +820,7 @@ def newProject(*args: typing.Any, **kwargs: typing.Any) -> Project:
     ...
 
 
-def openProject(path: str, flags: int = 'Hiero.Python.Project.kProjectOpenNoFlags') -> core.Project:
+def openProject(path: str, flags: int = 'Hiero.Python.Project.kProjectOpenNoFlags') -> hiero.core.Project:
     """
     hiero.core.openProject(path)
 

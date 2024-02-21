@@ -58,8 +58,7 @@ def setup_toolbars():
                      icon='Read.png', shortcutContext=dagContext)
     m.addCommand('UnrealReader', "nuke.createNode(\"UnrealReader\")", icon='Read.png')
     m.addCommand('Constant', "nuke.createNode(\"Constant\")", icon='Constant.png')
-    m.addCommand('CheckerBoard', "nuke.createNode(\"CheckerBoard2\")",
-                 icon='CheckerBoard.png')
+    m.addCommand('CheckerBoard', "nuke.createNode(\"CheckerBoard2\")", icon='CheckerBoard.png')
     m.addCommand('ColorBars', "nuke.createNode(\"ColorBars\")", icon='ColorBars.png')
     m.addCommand('ColorWheel', "nuke.createNode(\"ColorWheel\")", icon='ColorWheel.png')
     if not assist:
@@ -74,22 +73,19 @@ def setup_toolbars():
     m.addCommand('RotoPaint', "nuke.createNode(\"RotoPaint\")", 'p',
                  icon='RotoPaint.png', shortcutContext=dagContext)
 
-    m.addCommand('@;RotoBranch', "nuke.createNode(\"Roto\")",
-                 '+o', shortcutContext=dagContext)
+    m.addCommand('@;RotoBranch', "nuke.createNode(\"Roto\")", '+o', shortcutContext=dagContext)
     m.addCommand('@;RotoPaintBranch', "nuke.createNode(\"RotoPaint\")",
                  '+p', shortcutContext=dagContext)
 
     m.addCommand('Dither', "nuke.createNode(\"Dither\")", icon='Dither.png')
     m.addCommand('DustBust', "nuke.createNode(\"DustBust\")", icon='DustBust.png')
     m.addCommand('Grain', "nuke.createNode(\"Grain2\")", icon='Grain.png')
-    m.addCommand('ScannedGrain', "nuke.createNode(\"ScannedGrain\")",
-                 icon='ScannedGrain.png')
+    m.addCommand('ScannedGrain', "nuke.createNode(\"ScannedGrain\")", icon='ScannedGrain.png')
     m.addCommand('Glint', "nuke.createNode(\"Glint\")", icon='Glint.png')
     m.addCommand('Grid', "nuke.createNode(\"Grid\")", icon='Grid.png')
     m.addCommand('Flare', "nuke.createNode(\"Flare\")", icon='Flare.png')
     m.addCommand('LightWrap', "nuke.createNode(\"LightWrap\")", icon='LightWrap.png')
-    m.addCommand('MarkerRemoval', "nuke.createNode(\"MarkerRemoval\")",
-                 icon='MarkerRemoval.png')
+    m.addCommand('MarkerRemoval', "nuke.createNode(\"MarkerRemoval\")", icon='MarkerRemoval.png')
     m.addCommand('Noise', "nuke.createNode(\"Noise\")", icon='Noise.png')
     m.addCommand('Radial', "nuke.createNode(\"Radial\")", icon='Radial.png')
     m.addCommand('Ramp', "nuke.createNode(\"Ramp\")", icon='Ramp.png')
@@ -99,8 +95,7 @@ def setup_toolbars():
 
     m = toolbar.addMenu('Time', 'ToolbarTime.png')
     m.addCommand('Add 3:2 pulldown', "nuke.createNode(\"add32p\")", icon='Add32.png')
-    m.addCommand('Remove 3:2 pulldown',
-                 "nuke.createNode(\"remove32p\")", icon='Remove32.png')
+    m.addCommand('Remove 3:2 pulldown', "nuke.createNode(\"remove32p\")", icon='Remove32.png')
     m.addCommand('AppendClip', "nuke.createNode(\"AppendClip\")", icon='AppendClip.png')
     m.addCommand('FrameBlend', "nuke.createNode(\"FrameBlend\")", icon='FrameBlend.png')
     m.addCommand('FrameHold', "nuke.createNode(\"FrameHold\")", icon='FrameHold.png')
@@ -109,8 +104,7 @@ def setup_toolbars():
         m.addCommand('Kronos', 'nukescripts.createKronos()', icon='Oflow.png')
     m.addCommand('OFlow', 'nukescripts.createOFlow()', icon='Oflow.png')
     m.addCommand('Retime', "nuke.createNode(\"Retime\")", icon='Retime.png')
-    m.addCommand('TemporalMedian', "nuke.createNode(\"TemporalMedian\")",
-                 icon='TemporalMedian.png')
+    m.addCommand('TemporalMedian', "nuke.createNode(\"TemporalMedian\")", icon='TemporalMedian.png')
     m.addCommand('TimeBlur', "nuke.createNode(\"TimeBlur\")", icon='TimeBlur.png')
     m.addCommand('NoTimeBlur', "nuke.createNode(\"NoTimeBlur\")", icon='NoTimeBlur.png')
     m.addCommand('TimeEcho', "nuke.createNode(\"TimeEcho\")", icon='TimeEcho.png')
@@ -120,10 +114,8 @@ def setup_toolbars():
         m.addCommand('TimeWarp', 'nukescripts.create_time_warp()', icon='TimeWarp.png')
     m.addCommand('TimeClip')
 
-    m.addCommand('SmartVector', "nuke.createNode(\"SmartVector\")",
-                 icon='SmartVector.png')
-    m.addCommand('VectorToMotion', "nuke.createNode(\"VectorToMotion\")",
-                 icon='VectorToMotion.png')
+    m.addCommand('SmartVector', "nuke.createNode(\"SmartVector\")", icon='SmartVector.png')
+    m.addCommand('VectorToMotion', "nuke.createNode(\"VectorToMotion\")", icon='VectorToMotion.png')
     m.addCommand('VectorGenerator', "nuke.createNode(\"VectorGenerator\")")
 
     # The "Channel" menu
@@ -131,10 +123,8 @@ def setup_toolbars():
     m.addCommand('Shuffle', "nuke.createNode(\"Shuffle2\")", icon='Shuffle.png')
     m.addCommand('Copy', "nuke.createNode(\"Copy\")", 'k',
                  icon='CopyNode.png', shortcutContext=dagContext)
-    m.addCommand('@;CopyBranch', "nuke.createNode(\"Copy\")",
-                 '+k', shortcutContext=dagContext)
-    m.addCommand('ChannelMerge', "nuke.createNode(\"ChannelMerge\")",
-                 icon='ChannelMerge.png')
+    m.addCommand('@;CopyBranch', "nuke.createNode(\"Copy\")", '+k', shortcutContext=dagContext)
+    m.addCommand('ChannelMerge', "nuke.createNode(\"ChannelMerge\")", icon='ChannelMerge.png')
     m.addCommand('Add', "nuke.createNode(\"AddChannels\")", icon='Add.png')
     m.addCommand('Remove', "nuke.createNode(\"Remove\")", icon='Remove.png')
 
@@ -146,37 +136,29 @@ def setup_toolbars():
     n.addCommand('Multiply', "nuke.createNode(\"Multiply\")", icon='ColorMult.png')
     n.addCommand('Gamma', "nuke.createNode(\"Gamma\")", icon='ColorGamma.png')
     n.addCommand('ClipTest', "nuke.createNode(\"ClipTest\")", icon='ClipTest.png')
-    n.addCommand('ColorMatrix', "nuke.createNode(\"ColorMatrix\")",
-                 icon='ColorMatrix.png')
+    n.addCommand('ColorMatrix', "nuke.createNode(\"ColorMatrix\")", icon='ColorMatrix.png')
     n.addCommand('Expression', "nuke.createNode(\"Expression\")", icon='Expression.png')
 
     n = m.addMenu('OCIO', 'OCIO.png')
-    n.addCommand('OCIO CDLTransform',
-                 "nuke.createNode(\"OCIOCDLTransform\")", icon='OCIO.png')
+    n.addCommand('OCIO CDLTransform', "nuke.createNode(\"OCIOCDLTransform\")", icon='OCIO.png')
     n.addCommand('OCIO ColorSpace', "nuke.createNode(\"OCIOColorSpace\")", icon='OCIO.png')
     n.addCommand('OCIO Display', "nuke.createNode(\"OCIODisplay\")", icon='OCIO.png')
-    n.addCommand('OCIO FileTransform',
-                 "nuke.createNode(\"OCIOFileTransform\")", icon='OCIO.png')
+    n.addCommand('OCIO FileTransform', "nuke.createNode(\"OCIOFileTransform\")", icon='OCIO.png')
     n.addCommand('OCIO LogConvert', "nuke.createNode(\"OCIOLogConvert\")", icon='OCIO.png')
-    n.addCommand('OCIO LookTransform',
-                 "nuke.createNode(\"OCIOLookTransform\")", icon='OCIO.png')
+    n.addCommand('OCIO LookTransform', "nuke.createNode(\"OCIOLookTransform\")", icon='OCIO.png')
     n.addCommand('OCIO NamedTransform', "nuke.createNode(\"OCIONamedTransform\")",
                  icon='OCIO.png', nodeClass='OCIONamedTransform')
 
     n = m.addMenu('3D LUT', 'Toolbar3DLUT.png')
-    n.addCommand('CMSTestPattern', "nuke.createNode(\"CMSTestPattern\")",
-                 icon='CMSTestPattern.png')
-    n.addCommand('GenerateLUT', "nuke.createNode(\"GenerateLUT\")",
-                 icon='GenerateLUT.png')
+    n.addCommand('CMSTestPattern', "nuke.createNode(\"CMSTestPattern\")", icon='CMSTestPattern.png')
+    n.addCommand('GenerateLUT', "nuke.createNode(\"GenerateLUT\")", icon='GenerateLUT.png')
     n.addCommand('Vectorfield (Apply 3D LUT)',
                  "nuke.createNode(\"Vectorfield\")", icon='Vectorfield.png')
 
     m.addCommand('Clamp', "nuke.createNode(\"Clamp\")", icon='Clamp.png')
-    m.addCommand('ColorLookup', "nuke.createNode(\"ColorLookup\")",
-                 icon='ColorLookup.png')
+    m.addCommand('ColorLookup', "nuke.createNode(\"ColorLookup\")", icon='ColorLookup.png')
     m.addCommand('Colorspace', "nuke.createNode(\"Colorspace\")", icon='ColorSpace.png')
-    m.addCommand('ColorTransfer', "nuke.createNode(\"ColorTransfer\")",
-                 icon='ColorTransfer.png')
+    m.addCommand('ColorTransfer', "nuke.createNode(\"ColorTransfer\")", icon='ColorTransfer.png')
     m.addCommand('ColorCorrect', "nuke.createNode(\"ColorCorrect\")",
                  'c', icon='ColorCorrect.png', shortcutContext=dagContext)
     m.addCommand('@;ColorCorrectBranch', "nuke.createNode(\"ColorCorrect\")", '+c')
@@ -184,8 +166,7 @@ def setup_toolbars():
     m.addCommand('Exposure', "nuke.createNode(\"EXPTool\")", icon='Exposure.png')
     m.addCommand('Grade', "nuke.createNode(\"Grade\")", 'g',
                  icon='Grade.png', shortcutContext=dagContext)
-    m.addCommand('@;GradeBranch', "nuke.createNode(\"Grade\")",
-                 '+g', shortcutContext=dagContext)
+    m.addCommand('@;GradeBranch', "nuke.createNode(\"Grade\")", '+g', shortcutContext=dagContext)
     m.addCommand('Histogram', "nuke.createNode(\"Histogram\")", icon='Histogram.png')
     m.addCommand('HistEQ', "nuke.createNode(\"HistEQ\")", icon='HistEQ.png')
     m.addCommand('HueCorrect', "nuke.createNode(\"HueCorrect\")", icon='HueCorrect.png')
@@ -208,28 +189,23 @@ def setup_toolbars():
     m = toolbar.addMenu('Filter', 'ToolbarFilter.png')
     m.addCommand('Blur', "nuke.createNode(\"Blur\")", 'b',
                  icon='Blur.png', shortcutContext=dagContext)
-    m.addCommand('@;BlurBranch', "nuke.createNode(\"Blur\")",
-                 '+b', shortcutContext=dagContext)
+    m.addCommand('@;BlurBranch', "nuke.createNode(\"Blur\")", '+b', shortcutContext=dagContext)
     m.addCommand('Bilateral', "nuke.createNode(\"Bilateral2\")", icon='Bilateral.png')
     m.addCommand('Bokeh', "nuke.createNode(\"Bokeh\")", icon='pgBokeh.png')
     m.addCommand('BumpBoss', "nuke.createNode(\"BumpBoss\")", icon='BumpBoss.png')
     m.addCommand('Convolve', "nuke.createNode(\"Convolve2\")", icon='Convolve.png')
     m.addCommand('Defocus', "nuke.createNode(\"Defocus\")", icon='Defocus.png')
-    m.addCommand('DegrainBlue', "nuke.createNode(\"DegrainBlue\")",
-                 icon='DegrainBlue.png')
-    m.addCommand('DegrainSimple', "nuke.createNode(\"DegrainSimple\")",
-                 icon='DegrainSimple.png')
+    m.addCommand('DegrainBlue', "nuke.createNode(\"DegrainBlue\")", icon='DegrainBlue.png')
+    m.addCommand('DegrainSimple', "nuke.createNode(\"DegrainSimple\")", icon='DegrainSimple.png')
     m.addCommand('Denoise', "nuke.createNode(\"Denoise2\")", icon='denoise.png')
     m.addCommand('DirBlur', "nuke.createNode(\"DirBlurWrapper\")", icon='DirBlur.png')
     m.addCommand('DropShadow', "nuke.createNode(\"DropShadow\")", icon='DropShadow.png')
     m.addCommand('EdgeBlur', "nuke.createNode(\"EdgeBlur\")", icon='EdgeBlur.png')
-    m.addCommand('EdgeDetect', "nuke.createNode(\"EdgeDetectWrapper\")",
-                 icon='EdgeDetect.png')
+    m.addCommand('EdgeDetect', "nuke.createNode(\"EdgeDetectWrapper\")", icon='EdgeDetect.png')
     m.addCommand('EdgeExtend', "nuke.createNode(\"EdgeExtend\")", icon='EdgeExtend.png')
     m.addCommand('Emboss', "nuke.createNode(\"Emboss\")", icon='Emboss.png')
     m.addCommand('Erode (fast)', "nuke.createNode(\"Dilate\")", icon='ErodeFast.png')
-    m.addCommand('Erode (filter)', "nuke.createNode(\"FilterErode\")",
-                 icon='FilterErode.png')
+    m.addCommand('Erode (filter)', "nuke.createNode(\"FilterErode\")", icon='FilterErode.png')
     m.addCommand('Erode (blur)', "nuke.createNode(\"Erode\")", icon='ErodeBlur.png')
     m.addCommand('Glow', "nuke.createNode(\"Glow2\")", icon='Glow.png')
     m.addCommand('GodRays', "nuke.createNode(\"GodRays\")", icon='GodRays.png')
@@ -241,10 +217,8 @@ def setup_toolbars():
         m.addCommand('Matrix...', 'nukescripts.create_matrix()', icon='Matrix.png')
     m.addCommand('Median', "nuke.createNode(\"Median\")", icon='Median.png')
     m.addCommand('MotionBlur', "nuke.createNode(\"MotionBlur\")", icon='MotionBlur2D.png')
-    m.addCommand('MotionBlur2D', "nuke.createNode(\"MotionBlur2D\")",
-                 icon='MotionBlur2D.png')
-    m.addCommand('MotionBlur3D', "nuke.createNode(\"MotionBlur3D\")",
-                 icon='MotionBlur3D.png')
+    m.addCommand('MotionBlur2D', "nuke.createNode(\"MotionBlur2D\")", icon='MotionBlur2D.png')
+    m.addCommand('MotionBlur3D', "nuke.createNode(\"MotionBlur3D\")", icon='MotionBlur3D.png')
     m.addCommand('Sharpen', "nuke.createNode(\"Sharpen\")", icon='Sharpen.png')
     m.addCommand('Soften', "nuke.createNode(\"Soften\")", icon='Soften.png')
     m.addCommand('VectorBlur', "nuke.createNode(\"VectorBlur2\")", icon='VectorBlur.png')
@@ -254,14 +228,10 @@ def setup_toolbars():
 
     # The "Keyer" menu
     m = toolbar.addMenu('Keyer', 'ToolbarKeyer.png')
-    m.addCommand('ChromaKeyer', "nuke.createNode(\"ChromaKeyer\")",
-                 icon='ChromaKeyer.png')
-    m.addCommand('Cryptomatte', "nuke.createNode(\"Cryptomatte\")",
-                 icon='Cryptomatte.png')
-    m.addCommand('Encryptomatte', "nuke.createNode(\"Encryptomatte\")",
-                 icon='Encryptomatte.png')
-    m.addCommand('Difference', "nuke.createNode(\"Difference\")",
-                 icon='DifferenceKeyer.png')
+    m.addCommand('ChromaKeyer', "nuke.createNode(\"ChromaKeyer\")", icon='ChromaKeyer.png')
+    m.addCommand('Cryptomatte', "nuke.createNode(\"Cryptomatte\")", icon='Cryptomatte.png')
+    m.addCommand('Encryptomatte', "nuke.createNode(\"Encryptomatte\")", icon='Encryptomatte.png')
+    m.addCommand('Difference', "nuke.createNode(\"Difference\")", icon='DifferenceKeyer.png')
     m.addCommand('HueKeyer', "nuke.createNode(\"HueKeyer\")", icon='HueKeyer.png')
     if not assist:
         m.addCommand('IBKColour', "nuke.tcl(\"IBKColourV3\")", icon='IBKColour.png')
@@ -277,18 +247,15 @@ def setup_toolbars():
     m.addCommand('AddMix', "nuke.createNode(\"AddMix\")", '+a',
                  icon='AddMix.png', shortcutContext=dagContext)
     m.addCommand('KeyMix', "nuke.createNode(\"Keymix\")", icon='Keymix.png')
-    m.addCommand('ContactSheet', "nuke.createNode(\"ContactSheet\")",
-                 icon='ContactSheet.png')
+    m.addCommand('ContactSheet', "nuke.createNode(\"ContactSheet\")", icon='ContactSheet.png')
     m.addCommand('CopyBBox', "nuke.createNode(\"CopyBBox\")", icon='CopyBBox.png')
-    m.addCommand('CopyRectangle', "nuke.createNode(\"CopyRectangle\")",
-                 icon='CopyRectangle.png')
+    m.addCommand('CopyRectangle', "nuke.createNode(\"CopyRectangle\")", icon='CopyRectangle.png')
     m.addCommand('Dissolve', "nuke.createNode(\"Dissolve\")", icon='Dissolve.png')
     m.addCommand('LayerContactSheet', "nuke.createNode(\"LayerContactSheet\")",
                  icon='LayerContactSheet.png')
     m.addCommand('Merge', "nuke.createNode(\"Merge2\")", 'm',
                  icon='Merge.png', shortcutContext=dagContext)
-    m.addCommand('@;MergeBranch', "nuke.createNode(\"Merge2\")",
-                 '+m', shortcutContext=dagContext)
+    m.addCommand('@;MergeBranch', "nuke.createNode(\"Merge2\")", '+m', shortcutContext=dagContext)
 
     n = m.addMenu('Merges', 'Merge.png')
     if not assist:
@@ -314,8 +281,7 @@ def setup_toolbars():
                      icon='MergeExpression.png')
     m.addCommand('Switch', "nuke.createNode(\"Switch\")", icon='Switch.png')
     if not assist:
-        m.addCommand('TimeDissolve', "nuke.createNode(\"TimeDissolve\")",
-                     icon='TimeDissolve.png')
+        m.addCommand('TimeDissolve', "nuke.createNode(\"TimeDissolve\")", icon='TimeDissolve.png')
     m.addCommand('Premult', "nuke.createNode(\"Premult\")", icon='Premult.png')
     m.addCommand('Unpremult', "nuke.createNode(\"Unpremult\")", icon='Unpremult.png')
     if not assist:
@@ -328,33 +294,26 @@ def setup_toolbars():
                  't', icon='2D.png', shortcutContext=dagContext)
     m.addCommand('@;Transform Branch', "nuke.createNode(\"Transform\")",
                  '+t', shortcutContext=dagContext)
-    m.addCommand('TransformMasked', "nuke.createNode(\"TransformMasked\")",
-                 icon='2DMasked.png')
+    m.addCommand('TransformMasked', "nuke.createNode(\"TransformMasked\")", icon='2DMasked.png')
     m.addCommand('Card3D', "nuke.createNode(\"Card3D\")", icon='3D.png')
     m.addCommand('AdjustBBox', "nuke.createNode(\"AdjBBox\")", icon='AdjBBox.png')
-    m.addCommand('BlackOutside', "nuke.createNode(\"BlackOutside\")",
-                 icon='BlackOutside.png')
-    m.addCommand('CameraShake', "nuke.createNode(\"CameraShake3\")",
-                 icon='CameraShake.png')
+    m.addCommand('BlackOutside', "nuke.createNode(\"BlackOutside\")", icon='BlackOutside.png')
+    m.addCommand('CameraShake', "nuke.createNode(\"CameraShake3\")", icon='CameraShake.png')
     m.addCommand('Crop', "nuke.createNode(\"Crop\")", icon='Crop.png')
     m.addCommand('CornerPin', "nuke.createNode(\"CornerPin2D\")", icon='CornerPin.png')
     m.addCommand('VectorCornerPin', "nuke.createNode(\"VectorCornerPin\")",
                  icon='VectorCornerPin.png')
-    m.addCommand('SphericalTransform',
-                 "nuke.createNode(\"SphericalTransform2\")", icon='EnvironMaps.png')
+    m.addCommand('SphericalTransform', "nuke.createNode(\"SphericalTransform2\")",
+                 icon='EnvironMaps.png')
     m.addCommand('IDistort', "nuke.createNode(\"IDistort\")", icon='IDistort.png')
-    m.addCommand('VectorDistort', "nuke.createNode(\"VectorDistort\")",
-                 icon='VectorDistort.png')
-    m.addCommand('LensDistortion', "nuke.createNode(\"LensDistortion2\")",
-                 icon='LensDistort.png')
+    m.addCommand('VectorDistort', "nuke.createNode(\"VectorDistort\")", icon='VectorDistort.png')
+    m.addCommand('LensDistortion', "nuke.createNode(\"LensDistortion2\")", icon='LensDistort.png')
     m.addCommand('Mirror', "nuke.createNode(\"Mirror2\")", icon='Mirror.png')
     m.addCommand('Position', "nuke.createNode(\"Position\")", icon='Position.png')
     m.addCommand('Reformat', "nuke.createNode(\"Reformat\")", icon='Reformat.png')
-    m.addCommand('Reconcile3D', "nuke.createNode(\"Reconcile3D\")",
-                 icon='Reconcile3D.png')
+    m.addCommand('Reconcile3D', "nuke.createNode(\"Reconcile3D\")", icon='Reconcile3D.png')
     m.addCommand('PointsTo3D', "nuke.createNode(\"PointsTo3D\")", icon='PointsTo3D.png')
-    m.addCommand('PlanarTracker', 'nukescripts.createPlanartracker()',
-                 icon='planar_tracker.png')
+    m.addCommand('PlanarTracker', 'nukescripts.createPlanartracker()', icon='planar_tracker.png')
     m.addCommand('Tracker', "nuke.createNode(\"Tracker4\")", icon='Tracker.png')
     m.addCommand('TVIScale', "nuke.createNode(\"TVIscale\")", icon='TVIScale.png')
     m.addCommand('GridWarp', "nuke.createNode(\"GridWarp3\")", icon='GridWarp.png')
@@ -458,8 +417,8 @@ def setup_toolbars():
 
     m3D.addCommand('Axis', "nuke.createNode(\"Axis4\")", icon='Axis_3D.png',
                    tag=MenuItemTag.Beta, nodeClass='Axis4')
-    m3D.addCommand('Camera', "nuke.createNode(\"Camera4\")",
-                   icon='Camera_3D.png', tag=MenuItemTag.Beta, nodeClass='Camera4')
+    m3D.addCommand('Camera', "nuke.createNode(\"Camera4\")", icon='Camera_3D.png',
+                   tag=MenuItemTag.Beta, nodeClass='Camera4')
     m3D.addCommand('CameraTracker', "nuke.createNode(\"CameraTracker\", \"new3D True\")",
                    icon='CameraTracker_3D.png')
     m3D.addCommand('DepthGenerator', "nuke.createNode(\"DepthGenerator\", \"new3D True\")",
@@ -615,8 +574,7 @@ def setup_toolbars():
     m.addCommand('ParticleCache', icon='ParticleCache.png')
     m.addCommand('ParticleCurve')
     m.addCommand('ParticleDirectionalForce')
-    m.addCommand('ParticleDrag', "nuke.createNode('ParticleDrag2')",
-                 icon='ParticleDrag.png')
+    m.addCommand('ParticleDrag', "nuke.createNode('ParticleDrag2')", icon='ParticleDrag.png')
     m.addCommand('ParticleExpression')
     m.addCommand('ParticleMerge')
     m.addCommand('ParticleMotionAlign')
@@ -686,22 +644,16 @@ def setup_toolbars():
 
     m.addCommand('JoinViews', "nuke.createNode(\"JoinViews\")", icon='JoinViews.png')
     m.addCommand('OneView', "nuke.createNode(\"OneView\")", icon='OneView.png')
-    m.addCommand('ShuffleViews', "nuke.createNode(\"ShuffleViews\")",
-                 icon='ShuffleViews.png')
-    m.addCommand('Split and Join', 'nukescripts.create_viewsplitjoin()',
-                 icon='SplitAndJoin.png')
+    m.addCommand('ShuffleViews', "nuke.createNode(\"ShuffleViews\")", icon='ShuffleViews.png')
+    m.addCommand('Split and Join', 'nukescripts.create_viewsplitjoin()', icon='SplitAndJoin.png')
 
     m = toolbar.addMenu('MetaData', 'MetaData.png')
-    m.addCommand('ViewMetaData', "nuke.createNode(\"ViewMetaData\")",
-                 icon='ViewMetaData.png')
+    m.addCommand('ViewMetaData', "nuke.createNode(\"ViewMetaData\")", icon='ViewMetaData.png')
     m.addCommand('CompareMetaData', "nuke.createNode(\"CompareMetaData\")",
                  icon='CompareMetaData.png')
-    m.addCommand('ModifyMetaData', "nuke.createNode(\"ModifyMetaData\")",
-                 icon='ModifyMetaData.png')
-    m.addCommand('CopyMetaData', "nuke.createNode(\"CopyMetaData\")",
-                 icon='CopyMetaData.png')
-    m.addCommand('AddTimeCode', "nuke.createNode(\"AddTimeCode\")",
-                 icon='AddTimeCode.png')
+    m.addCommand('ModifyMetaData', "nuke.createNode(\"ModifyMetaData\")", icon='ModifyMetaData.png')
+    m.addCommand('CopyMetaData', "nuke.createNode(\"CopyMetaData\")", icon='CopyMetaData.png')
+    m.addCommand('AddTimeCode', "nuke.createNode(\"AddTimeCode\")", icon='AddTimeCode.png')
 
     import nukescripts.toolsets
     nukescripts.toolsets.createToolsetsMenu(toolbar)
@@ -712,8 +664,7 @@ def setup_toolbars():
     m.addCommand('AudioRead', "nuke.createNode(\"AudioRead\")", icon='Read.png')
     m.addCommand('Assert', "nuke.createNode(\"Assert\")", icon='Assert.png')
     m.addCommand('Backdrop', 'nukescripts.autoBackdrop()', icon='Backdrop.png')
-    m.addCommand('BlinkScript', "nuke.createNode(\"BlinkScript\")",
-                 icon='BlinkScript.png')
+    m.addCommand('BlinkScript', "nuke.createNode(\"BlinkScript\")", icon='BlinkScript.png')
     m.addCommand('DiskCache', "nuke.createNode(\"DiskCache\")", '.',
                  icon='DiskCache.png', shortcutContext=dagContext)
     m.addCommand('Dot', "nuke.createNode(\"Dot\", inpanel=False)",
@@ -721,8 +672,7 @@ def setup_toolbars():
     m.addCommand('Input', "nuke.createNode(\"Input\")", icon='Input.png')
     m.addCommand('Output', "nuke.createNode(\"Output\")", icon='Output.png')
     m.addCommand('NoOp', "nuke.createNode(\"NoOp\")", icon='NoOp.png')
-    m.addCommand('PostageStamp', "nuke.createNode(\"PostageStamp\")",
-                 icon='PostageStamp.png')
+    m.addCommand('PostageStamp', "nuke.createNode(\"PostageStamp\")", icon='PostageStamp.png')
     m.addCommand('Group', 'nuke.collapseToGroup()', icon='Group.png')
     if not assist:
         m.addCommand('Precomp', 'nukescripts.precomp_selected()', '^+p',
@@ -772,8 +722,7 @@ def setup_toolbars():
     m.addCommand('Inference', "nuke.createNode(\"Inference\")", icon='Inference.png')
     m.addCommand('Deblur', "nuke.createNode(\"Deblur\")", icon='Deblur.png')
     m.addCommand('Upscale', "nuke.createNode(\"Upscale\")", icon='Upscale.png')
-    m.addCommand('CatFileCreator', "nuke.createNode(\"CatFileCreator\")",
-                 icon='CatFileCreator.png')
+    m.addCommand('CatFileCreator', "nuke.createNode(\"CatFileCreator\")", icon='CatFileCreator.png')
 
     import nukescripts.cattery
     nukescripts.cattery.create_menu()  # create cattery menu
@@ -862,8 +811,7 @@ def createUVTile():
 
 def createPlanartracker():
 
-    rotoNode = nuke.createNode(
-        'Roto', 'output {rgba.alpha none none mask_planartrack.a}', False)
+    rotoNode = nuke.createNode('Roto', 'output {rgba.alpha none none mask_planartrack.a}', False)
     rotoLayerId = 1
     rotoLayerName = 'PlanarTrackLayer'+str(rotoLayerId)
 
@@ -875,8 +823,7 @@ def createPlanartracker():
     rotoCurveRoot.append(planarLayer)
     atr = planarLayer.getAttributes()
     planarLayer.name = rotoLayerName
-    planarLayer.getAttributes().set(
-        nuke.rotopaint.AnimAttributes.kPlanarTrackLayerAttribute, rotoLayerId)
+    planarLayer.getAttributes().set(nuke.rotopaint.AnimAttributes.kPlanarTrackLayerAttribute, rotoLayerId)
 
     rotoNode.showControlPanel()
     planarLayer.setFlag(nuke.rotopaint.FlagType.eSelectedFlag, 1)

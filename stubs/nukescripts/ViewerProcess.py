@@ -45,8 +45,7 @@ def register_default_viewer_processes():
     # can apply a 1D LUT defined in the project LUTs. ViewerLUT features both
     # software (CPU) and GPU implementations.
 
-    nuke.ViewerProcess.register('sRGB', nuke.createNode,
-                                ('ViewerProcess_1DLUT', 'current sRGB'))
+    nuke.ViewerProcess.register('sRGB', nuke.createNode, ('ViewerProcess_1DLUT', 'current sRGB'))
     nuke.ViewerProcess.register('rec709', nuke.createNode,
                                 ('ViewerProcess_1DLUT', 'current rec709'))
     # NOTE: If you change this mapping you'll need to update FlipbookDialog._getBurninWriteColorspace.

@@ -21,8 +21,7 @@ class FrameServerRenderTask(TaskBase, RenderQueueObserverMixin):
 
     def startTask(self):
         # Register for render progress notifications
-        hiero.ui.nuke_bridge.FnNsFrameServer.backgroundRenderer.addBackgroundRenderObserver(
-            self)
+        hiero.ui.nuke_bridge.FnNsFrameServer.backgroundRenderer.addBackgroundRenderObserver(self)
 
         # Add the script to the render queue
         try:
@@ -43,8 +42,7 @@ class FrameServerRenderTask(TaskBase, RenderQueueObserverMixin):
             self.deleteTemporaryFile(self._scriptPath)
 
         # Remove self from the observers list
-        hiero.ui.nuke_bridge.FnNsFrameServer.backgroundRenderer.removeBackgroundRenderObserver(
-            self)
+        hiero.ui.nuke_bridge.FnNsFrameServer.backgroundRenderer.removeBackgroundRenderObserver(self)
 
     def forcedAbort(self):
         self.cancelRenders()

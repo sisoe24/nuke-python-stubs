@@ -13,8 +13,7 @@ hiero.core.log.debug('Loading Python hiero.exporters package')
 try:
     registry = hiero.core.taskRegistry
 except AttributeError:
-    raise ImportError('hiero.exporters module not available in %s' %
-                      hiero.core.env['ProductName'])
+    raise ImportError('hiero.exporters module not available in %s' % hiero.core.env['ProductName'])
 
 try:
     # Tasks
@@ -142,13 +141,10 @@ def GetDefaultMxfPreset():
                                            transcodePreset)
 
     mxfPresets = dict()
-    OP1aSequencePreset = makeMxfSequenceTemplate(
-        MakeTranscodePreset('mxf', getOP1aSettings()))
-    OPAtomSequencePreset = makeMxfSequenceTemplate(
-        MakeTranscodePreset('mxf', getOPAtomSettings()))
+    OP1aSequencePreset = makeMxfSequenceTemplate(MakeTranscodePreset('mxf', getOP1aSettings()))
+    OPAtomSequencePreset = makeMxfSequenceTemplate(MakeTranscodePreset('mxf', getOPAtomSettings()))
     OP1aClipPreset = makeMxfClipTemplate(MakeTranscodePreset('mxf', getOP1aSettings()))
-    OPAtomClipPreset = makeMxfClipTemplate(
-        MakeTranscodePreset('mxf', getOPAtomSettings()))
+    OPAtomClipPreset = makeMxfClipTemplate(MakeTranscodePreset('mxf', getOPAtomSettings()))
 
     mxfPresets['DNxHR MXF codec (OP-1a - HQX 422 12bit) - 24 FPS'] = OP1aSequencePreset
     mxfPresets['DNxHR MXF codec (OP-Atom - HQX 422 12bit) - 24 FPS'] = OPAtomSequencePreset
@@ -234,15 +230,11 @@ def AddDefaultPresets(overwrite):
         ('{sequence}_{version}_%v/{sequence}_{version}_%v.####.{ext}', registry.copyPreset(dpxTranscodePreset)), )
 
     if not nukeEnv['ple']:
-        edltemplate = (('{sequence}/{track}.edl',
-                       FnEDLExportTask.EDLExportPreset('', {})),)
-        xmltemplate = (('{sequence}/{sequence}.xml',
-                       FnXMLExportTask.XMLExportPreset('', {})),)
-        otiotemplate = (('{sequence}/{sequence}.otio',
-                        FnOTIOExportTask.OTIOExportPreset('', {})),)
+        edltemplate = (('{sequence}/{track}.edl', FnEDLExportTask.EDLExportPreset('', {})),)
+        xmltemplate = (('{sequence}/{sequence}.xml', FnXMLExportTask.XMLExportPreset('', {})),)
+        otiotemplate = (('{sequence}/{sequence}.otio', FnOTIOExportTask.OTIOExportPreset('', {})),)
 
-    clipstemplate = (('{binpath}/{clip}.####.{ext}',
-                     registry.copyPreset(dpxTranscodePreset)), )
+    clipstemplate = (('{binpath}/{clip}.####.{ext}', registry.copyPreset(dpxTranscodePreset)), )
 
     processorPresets = {'Basic Nuke Shot':
                         (FnShotProcessor.ShotProcessorPreset, {

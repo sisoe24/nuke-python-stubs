@@ -20,5 +20,4 @@ C.setIncludePatterns(['*.dpx', '*.exr', '*.mov', '*.ari', '*.jpg'])
 C.setUseBestTimecodeMatch(True)
 # Sets option for 'Ignore Clips with non-overlapping timecode'
 C.setExcludeNonOverlappingTimecode(False)
-# Sets option for 'Conform shots that already have media'
-C.setIncludeAlreadyMatched(True)
+C.setIncludeAlreadyMatched(True)  # Sets option for 'Conform shots that already have media'

@@ -34,8 +34,7 @@ class Message(object):
         """ Get the serialized representation of a message. This is in the form:
         [classname, sender, target, data...].
         """
-        data = [asBytes(self.__class__.__name__), asBytes(
-            self.sender), asBytes(self.target)]
+        data = [asBytes(self.__class__.__name__), asBytes(self.sender), asBytes(self.target)]
         msgData = self._serializeMessageData()
         if msgData:
             data.extend(msgData)

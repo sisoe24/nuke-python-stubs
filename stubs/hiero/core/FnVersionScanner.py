@@ -86,8 +86,7 @@ class VersionScanner():
 
         # Add versions to binitem, respecting the sorting
         newVersions = self.insertVersions(binitem, foundVersionFiles)
-        VersionScanner.VersionScanLogger().info(
-            'ScanForVersions - Versions found for %s: %s', version, newVersions)
+        VersionScanner.VersionScanLogger().info('ScanForVersions - Versions found for %s: %s', version, newVersions)
 
         return newVersions
 
@@ -264,8 +263,7 @@ class VersionScanner():
 
                 # #mat: This is where we're filtering ONLY on our active version index
                 if int(index) == versionIndex:
-                    filename = filename[:match.start()] + prefix + \
-                        '*' + filename[match.end():]
+                    filename = filename[:match.start()] + prefix + '*' + filename[match.end():]
 
         # Replace sequence padding.
         matches = [match for match in re.finditer(
@@ -327,8 +325,7 @@ class VersionScanner():
             # Obtain new version index
             newVersionString = newVersionMatches[-1].group(2)
             if not newVersionString.isdigit():
-                VersionScanner.VersionScanLogger().debug(
-                    'checkNewVersion: new version is not digit %s', originalFile)
+                VersionScanner.VersionScanLogger().debug('checkNewVersion: new version is not digit %s', originalFile)
                 return False
             newVersionIndex = int(newVersionString)
 
@@ -431,8 +428,7 @@ class VersionScanner():
         """
         extension = os.path.splitext(newVersionFile)[1]
 
-        movieformats = set(['.mov', '.mp4', '.m4a', '.m4p',
-                           '.m4b', '.m4r', '.m4v', '.r3d'])
+        movieformats = set(['.mov', '.mp4', '.m4a', '.m4p', '.m4b', '.m4r', '.m4v', '.r3d'])
 
         ismovieformat = extension.lower() in movieformats
         isorigmovieformat = self._origextension.lower() in movieformats
@@ -496,16 +492,14 @@ class VersionScanner():
             if versionString1.isdigit():
                 versionIndex1 = int(versionString1)
             else:
-                VersionScanner.VersionScanLogger().debug(
-                    'versionLessThan: version is not digit %s', filename1)
+                VersionScanner.VersionScanLogger().debug('versionLessThan: version is not digit %s', filename1)
                 versionIndex1 = -1
 
             versionString2 = newVersionMatches2[-1].group(2)
             if versionString2.isdigit():
                 versionIndex2 = int(versionString2)
             else:
-                VersionScanner.VersionScanLogger().debug(
-                    'versionLessThan: version is not digit %s', filename2)
+                VersionScanner.VersionScanLogger().debug('versionLessThan: version is not digit %s', filename2)
                 versionIndex2 = -1
 
             if versionIndex1 != versionIndex2:
@@ -592,8 +586,7 @@ class VersionScanner():
         @return: A sorted list of all the version indicies found in the given path.
         """
         versionFiles = self.findNewVersionsInPath(path)
-        versionIndices = sorted([self.getActiveIndexFromPath(path)
-                                for path in versionFiles])
+        versionIndices = sorted([self.getActiveIndexFromPath(path) for path in versionFiles])
         return versionIndices
 
     def getNewVersionIndexForPath(self, path):

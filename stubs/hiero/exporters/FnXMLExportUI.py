@@ -12,8 +12,7 @@ from . import FnXMLExportTask
 class XMLExportUI(hiero.ui.TaskUIBase):
     def __init__(self, preset):
         """Initialize"""
-        hiero.ui.TaskUIBase.__init__(
-            self, FnXMLExportTask.XMLExportTask, preset, 'XML Exporter')
+        hiero.ui.TaskUIBase.__init__(self, FnXMLExportTask.XMLExportTask, preset, 'XML Exporter')
 
     def includeMarkersCheckboxChanged(self, state):
         # Slot to handle change of checkbox state
@@ -31,8 +30,7 @@ class XMLExportUI(hiero.ui.TaskUIBase):
         self.includeMarkersCheckbox.setCheckState(QtCore.Qt.Unchecked)
         if self._preset.properties()['includeMarkers']:
             self.includeMarkersCheckbox.setCheckState(QtCore.Qt.Checked)
-        self.includeMarkersCheckbox.stateChanged.connect(
-            self.includeMarkersCheckboxChanged)
+        self.includeMarkersCheckbox.stateChanged.connect(self.includeMarkersCheckboxChanged)
 
         # Add Checkbox to layout
         formLayout.addRow('Include Markers:', self.includeMarkersCheckbox)

@@ -22,8 +22,7 @@ class WebBrowserWidget(QWidget):
         self.locationEdit.setSizePolicy(
             QSizePolicy.Expanding, self.locationEdit.sizePolicy().verticalPolicy())
 
-        QObject.connect(self.locationEdit, SIGNAL(
-            'returnPressed()'),  self.changeLocation)
+        QObject.connect(self.locationEdit, SIGNAL('returnPressed()'),  self.changeLocation)
 
         self.layout().addWidget(self.locationEdit)
 
@@ -50,8 +49,7 @@ class WebBrowserKnob():
 class WebBrowserPanel(nukescripts.PythonPanel):
 
     def __init__(self):
-        super(WebBrowserPanel, self).__init__(
-            'Web Browser', 'uk.co.thefoundry.WebBrowserPanel')
+        super(WebBrowserPanel, self).__init__('Web Browser', 'uk.co.thefoundry.WebBrowserPanel')
         self.webBrowserKnob = nuke.PyCustom_Knob(
             'web', '', 'nukescripts.pyQtExamples.webBrowser.WebBrowserKnob()')
         self.addKnob(self.webBrowserKnob)

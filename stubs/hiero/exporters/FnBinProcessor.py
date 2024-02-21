@@ -163,16 +163,15 @@ class BinProcessorPreset(hiero.core.ProcessorPreset):
         self.properties().update(properties)
 
         # This remaps the project root if os path remapping has been set up in the preferences
-        self.properties()['exportRoot'] = hiero.core.remapPath(
-            self.properties()['exportRoot'])
+        self.properties()['exportRoot'] = hiero.core.remapPath(self.properties()['exportRoot'])
 
     def addCustomResolveEntries(self, resolver):
         """addDefaultResolveEntries(self, resolver)
         Create resolve entries for default resolve tokens shared by all task types.
         @param resolver : ResolveTable object"""
 
-        resolver.addResolver(
-            '{filename}', 'Filename of the media being processed', lambda keyword, task: task.fileName())
+        resolver.addResolver('{filename}', 'Filename of the media being processed',
+                             lambda keyword, task: task.fileName())
         resolver.addResolver(
             kFileBaseKeyword, KeywordTooltips[kFileBaseKeyword], lambda keyword, task: task.filebase())
         resolver.addResolver(
@@ -187,8 +186,7 @@ class BinProcessorPreset(hiero.core.ProcessorPreset):
             '{clip}', 'Name of the clip used in the shot being processed', lambda keyword, task: task.clipName())
         resolver.addResolver(
             '{binpath}', 'Path within the bin, up to the selected BinItem. If no BinItem selected, path up to project', '')
-        resolver.addResolver(
-            '{fullbinpath}', 'Path within the bin, up to the project', '')
+        resolver.addResolver('{fullbinpath}', 'Path within the bin, up to the project', '')
 
 
 hiero.core.taskRegistry.registerProcessor(BinProcessorPreset, BinProcessor)

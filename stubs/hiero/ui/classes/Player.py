@@ -46,7 +46,7 @@ class Player:
         """
         ...
 
-    def channels(self) -> ui.Player.Channels:
+    def channels(self) -> hiero.ui.Player.Channels:
         """
         self.channels() -> returns channel(s) that the player is currently displaying.
 
@@ -94,7 +94,7 @@ class Player:
         """
         ...
 
-    def maskOverlayStyle(self) -> ui.Player.MaskOverlayStyle:
+    def maskOverlayStyle(self) -> hiero.ui.Player.MaskOverlayStyle:
         """
         self.maskOverlayStyle() -> returns the current drawing style of the mask overlay used by the player.
 
@@ -111,7 +111,7 @@ class Player:
         """
         ...
 
-    def proxyResolution(self) -> ui.Player.ProxyResolution:
+    def proxyResolution(self) -> hiero.ui.Player.ProxyResolution:
         """
         self.proxyResolution() -> get the current proxy resolution setting for the player
 
@@ -253,7 +253,7 @@ class Player:
         """
         ...
 
-    def warningOverlay(self) -> ui.Player.WarningOverlay:
+    def warningOverlay(self) -> hiero.ui.Player.WarningOverlay:
         """
         self.warningOverlay() -> returns player's warningOverlay.
 
@@ -279,7 +279,7 @@ class Player:
         """
         ...
 
-    def zoomMode(self) -> ui.Player.ZoomMode:
+    def zoomMode(self) -> hiero.ui.Player.ZoomMode:
         """
         self.zoomMode() -> current zoom mode.
 

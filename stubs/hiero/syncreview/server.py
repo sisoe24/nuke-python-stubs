@@ -71,8 +71,7 @@ class Server(QObject):
             self._handleConnectRequest(clientSocketId, msg)
         elif clientId in self._clients:
             if isinstance(msg, messages.Disconnect):
-                logMessage(
-                    "Server._onDataReceived: client disconnected '{}'".format(clientId))
+                logMessage("Server._onDataReceived: client disconnected '{}'".format(clientId))
                 self._clientDisconnected(clientId)
                 self._broadcastNumberOfClients()
             elif isinstance(msg, messages.Ping):
@@ -80,8 +79,8 @@ class Server(QObject):
             else:
                 self._processInterClientMessage(clientId, msg)
         else:
-            logMessage("Server._onDataReceived: Error unexpected message from client '{}' '{}'".format(
-                clientId, msg))
+            logMessage(
+                "Server._onDataReceived: Error unexpected message from client '{}' '{}'".format(clientId, msg))
 
     def _handleConnectRequest(self, clientSocketId, msg):
         # Check if the client is using a compatible version. For now, only allow exactly
@@ -94,8 +93,7 @@ class Server(QObject):
                 config.APPLICATION_VERSION)
             responseMsg = messages.ConnectResponse(result=ConnectionState.ERROR_CONNECT_INCOMPATIBLE_VERSION,
                                                    responseText=errorText)
-            logMessage(
-                'Server._handleConnectRequest: Failed connection {}'.format(responseMsg))
+            logMessage('Server._handleConnectRequest: Failed connection {}'.format(responseMsg))
             self._sendMessageToClient(clientSocketId, responseMsg)
             return
 
@@ -116,8 +114,7 @@ class Server(QObject):
         connection = ClientConnection(clientSocketId, allowClientTimeout(clientId))
         self._clients[clientId] = connection
         if connection.allowTimeout:
-            connection.heartbeatTimer.timeout.connect(
-                lambda: self._onClientTimeout(clientId))
+            connection.heartbeatTimer.timeout.connect(lambda: self._onClientTimeout(clientId))
             connection.resetHeartbeatTimer()
 
     def _processInterClientMessage(self, clientId, msg):

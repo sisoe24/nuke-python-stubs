@@ -29,8 +29,8 @@ class SyncEffectItemKnobsTool(SyncTool):
         """ Process a remote knob changed message """
         item = findItemByGuid(msg.itemGuid, filter=[EffectTrackItem])
         if not item:
-            logMessage('SyncEffectItemKnobsTool._onRemoteKnobChanged effect item {} not found!'.format(
-                msg.itemGuid))
+            logMessage(
+                'SyncEffectItemKnobsTool._onRemoteKnobChanged effect item {} not found!'.format(msg.itemGuid))
             return
         knob = item.node().knob(msg.knobName)
         if not knob:

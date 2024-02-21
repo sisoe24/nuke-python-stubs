@@ -16,8 +16,7 @@ class MessageDispatcher(QObject):
     def __init__(self, messageClient):
         super(MessageDispatcher, self).__init__()
         self._messageClient = messageClient
-        self._messageClient.messageReceived.connect(
-            self._onMessageReceived, Qt.QueuedConnection)
+        self._messageClient.messageReceived.connect(self._onMessageReceived, Qt.QueuedConnection)
         self.messageSend.connect(self._messageClient.sendMessage, Qt.QueuedConnection)
         self._incomingMessages = []
         self._handlingIncomingMessages = False

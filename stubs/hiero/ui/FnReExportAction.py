@@ -178,8 +178,7 @@ class ReExportAction(QAction):
         preset.properties()['versionIndex'] = newVersionIndex
 
         setEnabledTasks(preset, enableShots=True, enableAnnotations=enableAnnotations)
-        hiero.core.taskRegistry.createAndExecuteProcessor(
-            preset, exportItems, synchronous=True)
+        hiero.core.taskRegistry.createAndExecuteProcessor(preset, exportItems, synchronous=True)
 
     def postProcess(self, postProcessScripts):
         """ After re-exporting tagged track items, finish by performing
@@ -303,8 +302,7 @@ class ReExportAnnotationsAction(QAction):
         # Disable the main shot task in the export preset
         setEnabledTasks(preset, enableShots=False, enableAnnotations=True)
 
-        hiero.core.taskRegistry.createAndExecuteProcessor(
-            preset, exportItems, synchronous=True)
+        hiero.core.taskRegistry.createAndExecuteProcessor(preset, exportItems, synchronous=True)
         return True
 
 
@@ -336,8 +334,7 @@ class ReExportEventListener(object):
 
                     # If the original export had annotations, add the re-export annotations option
                     if originalTag.metadata().hasKey('tag.scriptannotations'):
-                        reExportAnnotationTrackItems.append(
-                            (item, originalTrackItem, originalTag))
+                        reExportAnnotationTrackItems.append((item, originalTrackItem, originalTag))
 
         # Iterate over the selection, and determine if there are any track items which are suitable for
         # re-export.  We keep a list of invalid items, which will be passed to the exporter so they can be included
@@ -367,8 +364,7 @@ class ReExportEventListener(object):
 
             # Create Re-Export Annotations action
             if len(reExportAnnotationTrackItems) > 0:
-                reExportAnnotationsAction = ReExportAnnotationsAction(
-                    reExportAnnotationTrackItems)
+                reExportAnnotationsAction = ReExportAnnotationsAction(reExportAnnotationTrackItems)
                 exportMenu.insertAction(None, reExportAnnotationsAction)
 
 

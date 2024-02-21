@@ -250,8 +250,7 @@ class NukeShotExporter(FnShotExporter.ShotTask):
             newSequence.setFormat(self._sequence.format())
             newSequence.setFramerate(self._sequence.framerate())
             newSequence.setDropFrame(self._sequence.dropFrame())
-            newSequence.setTimecodeStart(
-                self._sequence.timecodeStart() - (headRoomOffset + offset))
+            newSequence.setTimecodeStart(self._sequence.timecodeStart() - (headRoomOffset + offset))
 
             sequenceIn, sequenceOut = sys.maxsize, 0
             for trackitem in self._collatedItems:
@@ -315,8 +314,8 @@ class NukeShotExporter(FnShotExporter.ShotTask):
                     transitions.add(trackitem.outTransition())
 
                 # Get the item's linked effects to be copied
-                linkedEffects.extend([item for item in trackitem.linkedItems(
-                ) if isinstance(item, hiero.core.EffectTrackItem)])
+                linkedEffects.extend([item for item in trackitem.linkedItems()
+                                     if isinstance(item, hiero.core.EffectTrackItem)])
 
                 trackItemCopy = trackitem.copy()
 
@@ -399,11 +398,9 @@ class NukeShotExporter(FnShotExporter.ShotTask):
                 transitionCopy = transition.copy()
                 transitionCopy.setTimelineOut(
                     transitionCopy.timelineOut() + headRoomOffset + offset)
-                transitionCopy.setTimelineIn(
-                    transitionCopy.timelineIn() + headRoomOffset + offset)
+                transitionCopy.setTimelineIn(transitionCopy.timelineIn() + headRoomOffset + offset)
                 newTrack.addTransition(transitionCopy)
-                offsetNodeAnimationFrames(
-                    transitionCopy.dissolveNode(), headRoomOffset + offset)
+                offsetNodeAnimationFrames(transitionCopy.dissolveNode(), headRoomOffset + offset)
 
             def copySubTrackItems(subTrackItems):
                 """ Helper function to copy sub-track items and add them to the new
@@ -427,8 +424,7 @@ class NukeShotExporter(FnShotExporter.ShotTask):
                     # Offset the soft effects key frames by 1000
                     if isinstance(subTrackItemCopy, EffectTrackItem):
                         effectTrackNode = subTrackItemCopy.node()
-                        offsetNodeAnimationFrames(
-                            effectTrackNode, headRoomOffset + offset)
+                        offsetNodeAnimationFrames(effectTrackNode, headRoomOffset + offset)
                     try:
                         newTrack.addSubTrackItem(subTrackItemCopy, subTrackIndex)
                         copiedItems.append(subTrackItemCopy)
@@ -475,8 +471,7 @@ class NukeShotExporter(FnShotExporter.ShotTask):
                     customFormatChange = FormatChange(
                         format, masterItemFormat, masterItemFormat, reformatState)
                     for effect in copiedEffects:
-                        transformNodeToFormatChange(
-                            effect.node(), customFormatChange, None)
+                        transformNodeToFormatChange(effect.node(), customFormatChange, None)
 
             # Use in/out point to constrain output framerange to track item range
             newSequence.setInTime(max(0, (sequenceIn + offset) - sequenceInHandle))
@@ -545,8 +540,7 @@ class NukeShotExporter(FnShotExporter.ShotTask):
             resolvedPath = task.resolvedExportPath()
 
             # Ensure enough padding for output range
-            output_start, output_end = task.outputRange(
-                ignoreRetimes=False, clampToSource=False)
+            output_start, output_end = task.outputRange(ignoreRetimes=False, clampToSource=False)
             count = len(str(max(output_start, output_end)))
             resolvedPath = hiero.core.util.ResizePadding(resolvedPath, count)
 
@@ -660,8 +654,7 @@ class NukeShotExporter(FnShotExporter.ShotTask):
                                                    resolver=self._resolver,
                                                    skipOffline=self._skipOffline,
                                                    shotNameIndex=self._shotNameIndex)
-                    task = hiero.core.taskRegistry.createTaskFromPreset(
-                        itemPreset, taskData)
+                    task = hiero.core.taskRegistry.createTaskFromPreset(itemPreset, taskData)
                     tasks.append((task, itemPath, itemPreset))
         return tasks
 
@@ -737,8 +730,7 @@ class NukeShotExporter(FnShotExporter.ShotTask):
                     localWriteNodeGroup.append(nuke.SetNode(stackId, 0))
 
                 try:
-                    trackItem = self._item if isinstance(
-                        self._item, hiero.core.TrackItem) else None
+                    trackItem = self._item if isinstance(self._item, hiero.core.TrackItem) else None
                     reformatNode = reformatNodeFromPreset(
                         writePreset, self._parentSequence.format(), trackItem=trackItem)
                     if reformatNode:
@@ -792,8 +784,7 @@ class NukeShotExporter(FnShotExporter.ShotTask):
         # Set the write node name to the root
         if mainWriteStack:
             timelineWriteNodeName = mainWriteStack.getWriteNodeName()
-            rootNode.setKnob(nuke.RootNode.kTimelineWriteNodeKnobName,
-                             timelineWriteNodeName)
+            rootNode.setKnob(nuke.RootNode.kTimelineWriteNodeKnobName, timelineWriteNodeName)
 
         # Flatten the groups as a list
         for nodeStack in writeNodeGroups:
@@ -947,8 +938,7 @@ class NukeShotExporter(FnShotExporter.ShotTask):
                 itemStart = 0
             else:
                 # File is image sequence, so specify frame range
-                newSource = hiero.core.MediaSource(
-                    readNodePath + (' %i-%i' % task.outputRange()))
+                newSource = hiero.core.MediaSource(readNodePath + (' %i-%i' % task.outputRange()))
 
             # Try to determine the colorspace setting. If the task is a transcode, it
             # will have a 'colourspace' property on the preset and we can use that.
@@ -975,8 +965,7 @@ class NukeShotExporter(FnShotExporter.ShotTask):
                                         colourTransform=colourspace)
             else:
                 # Copy track item and replace source with new clip (which may be offline)
-                newTrackItem = hiero.core.TrackItem(
-                    self._item.name(), self._item.mediaType())
+                newTrackItem = hiero.core.TrackItem(self._item.name(), self._item.mediaType())
 
                 for tag in self._item.tags():
                     newTrackItem.addTag(tag)
@@ -1005,8 +994,7 @@ class NukeShotExporter(FnShotExporter.ShotTask):
                 newTrackItem.addToNukeScript(script,
                                              firstFrame=itemFirstFrame,
                                              includeRetimes=self._retime,
-                                             retimeMethod=self._preset.properties()[
-                                                 'method'],
+                                             retimeMethod=self._preset.properties()['method'],
                                              startHandle=self._cutHandles,
                                              endHandle=self._cutHandles,
                                              nodeLabel=self._item.parent().name(),
@@ -1139,8 +1127,8 @@ class NukeShotExporter(FnShotExporter.ShotTask):
 
         script.pushLayoutContext('write', '%s_Render' % self._item.name())
 
-        metadataNode = nuke.MetadataNode(metadatavalues=[(
-            'hiero/project', self._projectName), ('hiero/project_guid', self._project.guid())])
+        metadataNode = nuke.MetadataNode(
+            metadatavalues=[('hiero/project', self._projectName), ('hiero/project_guid', self._project.guid())])
 
         # Add sequence Tags to metadata
         metadataNode.addMetadataFromTags(self._sequence.tags(), 'sequence/tags/')
@@ -1229,8 +1217,7 @@ class NukeShotExporter(FnShotExporter.ShotTask):
                 nodePath = node.knob('file')
                 try:
                     # Get relative path, ensuring generic path format (no backslashes)
-                    nodeRelPath = os.path.relpath(
-                        nodePath, scriptDirPath).replace(os.sep, '/')
+                    nodeRelPath = os.path.relpath(nodePath, scriptDirPath).replace(os.sep, '/')
                     node.setKnob('file', nodeRelPath)
                 except ValueError:
                     errorStr = f"Unable to create relative path for {
@@ -1279,8 +1266,8 @@ class NukeShotExporter(FnShotExporter.ShotTask):
 
         # Get input frame range
         ignoreRetimes = self._preset.properties()['method'] != 'None'
-        start, end = self.inputRange(
-            ignoreHandles=ignoreHandles, ignoreRetimes=ignoreRetimes, clampToSource=clampToSource)
+        start, end = self.inputRange(ignoreHandles=ignoreHandles,
+                                     ignoreRetimes=ignoreRetimes, clampToSource=clampToSource)
 
         if self._retime and isinstance(self._item, hiero.core.TrackItem) and ignoreRetimes:
             # end should always be > start.  abs these values to ensure we don't report a -ve duration.
@@ -1290,8 +1277,7 @@ class NukeShotExporter(FnShotExporter.ShotTask):
             # If the clip is a freeze frame, then playbackSpeed will be 0.  Handle the resulting divide-by-zero error and set output range to duration
             # of the clip.
             try:
-                end = (end - srcDuration) + (srcDuration /
-                                             playbackSpeed) + (playbackSpeed - 1.0)
+                end = (end - srcDuration) + (srcDuration / playbackSpeed) + (playbackSpeed - 1.0)
             except:
                 end = start + self._item.duration() - 1
 
@@ -1329,8 +1315,7 @@ class NukeShotExporter(FnShotExporter.ShotTask):
         if isinstance(self._item, hiero.core.Sequence) or self._collate:
             start, end = self.outputRangeForCollatedSequence(ignoreHandles)
         elif isinstance(self._item, hiero.core.TrackItem):
-            start, end = self.outputRangeForTrackItem(
-                ignoreHandles, ignoreRetimes, clampToSource)
+            start, end = self.outputRangeForTrackItem(ignoreHandles, ignoreRetimes, clampToSource)
 
         return (start, end)
 
@@ -1381,10 +1366,8 @@ class NukeShotPresetBase(hiero.core.TaskPresetBase):
         self.properties()['connectTracks'] = False
 
         # Not exposed in UI
-        # Collate all trackitems within sequence
-        self.properties()['collateSequence'] = False
-        # Start frame is inclusive of handles
-        self.properties()['collateCustomStart'] = True
+        self.properties()['collateSequence'] = False    # Collate all trackitems within sequence
+        self.properties()['collateCustomStart'] = True  # Start frame is inclusive of handles
 
         self.properties()['additionalNodesEnabled'] = False
         self.properties()['additionalNodesData'] = []

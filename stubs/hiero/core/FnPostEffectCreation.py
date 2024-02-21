@@ -17,8 +17,7 @@ def overrideKnobDefaults(effectItem):
     @param effectItem: the effect who's knob will be overriden
     """
     effectItemNode = effectItem.node()
-    overrideKnobDefaultsFunc = OverrideEffectKnobDefaults.get(
-        effectItemNode.Class(), None)
+    overrideKnobDefaultsFunc = OverrideEffectKnobDefaults.get(effectItemNode.Class(), None)
     if overrideKnobDefaultsFunc:
         overrideKnobDefaultsFunc(effectItemNode)
 
@@ -45,7 +44,6 @@ def afterEffectCreated(effectItem):
     """
     overrideKnobDefaults(effectItem)
 
-    afterEffectCreatedFunc = AfterEffectCreatedOperations.get(
-        effectItem.node().Class(), None)
+    afterEffectCreatedFunc = AfterEffectCreatedOperations.get(effectItem.node().Class(), None)
     if afterEffectCreatedFunc:
         afterEffectCreatedFunc(effectItem)

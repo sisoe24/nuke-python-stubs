@@ -160,8 +160,7 @@ def restorePanel(id):
     try:
         return _panels[id]()
     except:
-        log.debug("Can't restore panel '" + str(id) +
-                  "' because it hasn't been registered.")
+        log.debug("Can't restore panel '" + str(id) + "' because it hasn't been registered.")
         return None
 
 
@@ -239,7 +238,7 @@ def currentContextMenuView() -> object:
     ...
 
 
-def currentViewer() -> ui.Viewer:
+def currentViewer() -> hiero.ui.Viewer:
     """
     hiero.ui.currentViewer() -> returns the current viewer window.
 
@@ -282,7 +281,7 @@ def flushAllViewersCache() -> None:
     ...
 
 
-def getFlipbook() -> ui.Viewer:
+def getFlipbook() -> hiero.ui.Viewer:
     """
 
     """
@@ -378,7 +377,7 @@ def openInOSShell(arg__1: str) -> object:
     ...
 
 
-def openInSpreadsheet(sequence: core.Sequence) -> ui.SpreadsheetView:
+def openInSpreadsheet(sequence: core.Sequence) -> hiero.ui.SpreadsheetView:
     """
     hiero.ui.openInSpreadsheet( hiero.core.Sequence ) -> Opens a Sequence in a Spreadsheet.
     @return: hiero.ui.SpreadsheetView object
@@ -408,7 +407,7 @@ def openInViewer(*args: typing.Any, **kwargs: typing.Any) -> Viewer:
     ...
 
 
-def openProject(path: str, flags: int = 'Hiero.Python.Project.kProjectOpenNoFlags') -> core.Project:
+def openProject(path: str, flags: int = 'Hiero.Python.Project.kProjectOpenNoFlags') -> hiero.core.Project:
     """
 
     """

@@ -188,8 +188,7 @@ class R3DLggParamConverter(object):
     def _xyToRgb(x, y, bias, isLift):
         radius = math.sqrt(math.pow(x, 2) + math.pow(y, 2))
         theta = math.atan2(y, x)
-        hsv_x = (R3DLggParamConverter._kHueAngleOffset +
-                 360.0 * (theta / (2 * math.pi))) / 360.0
+        hsv_x = (R3DLggParamConverter._kHueAngleOffset + 360.0 * (theta / (2 * math.pi))) / 360.0
         hsv_y = 2.0 * radius
         hsv_z = 1.0
         r, g, b = colorsys.hsv_to_rgb(hsv_x, hsv_y, hsv_z)
@@ -292,8 +291,7 @@ def _findElemByGuid(guid, path, root):
     for elem in _findAllInElem(root, path):
         if elem.attribute('guid') == guid:
             return elem
-    raise RuntimeError('Failed to find element with guid %s in path %s %s' %
-                       (guid, root, path))
+    raise RuntimeError('Failed to find element with guid %s in path %s %s' % (guid, root, path))
 
 
 def _findTrackItemByGuid(guid, root):

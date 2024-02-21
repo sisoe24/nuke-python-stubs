@@ -197,8 +197,8 @@ class OTIOExportPreset(hiero.core.TaskPresetBase):
         return hiero.core.TaskPresetBase.kSequence
 
     def addCustomResolveEntries(self, resolver):
-        resolver.addResolver(
-            '{ext}', 'Extension of the file to be output', lambda keyword, task: 'otio')
+        resolver.addResolver('{ext}', 'Extension of the file to be output',
+                             lambda keyword, task: 'otio')
 
     def supportsAudio(self):
         return True

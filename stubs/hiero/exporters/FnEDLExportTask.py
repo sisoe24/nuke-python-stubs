@@ -37,8 +37,8 @@ class EDLExportAudioTrackTask:
             trackIndex += 1
             for trackItem in track:
                 # If the track items are just different channels then source, sourceIn, sourceOut, timelineIn and timelineOut should be the same.
-                data = (trackItem.source(), trackItem.sourceIn(), trackItem.sourceOut(
-                ), trackItem.timelineIn(), trackItem.timelineOut())
+                data = (trackItem.source(), trackItem.sourceIn(), trackItem.sourceOut(),
+                        trackItem.timelineIn(), trackItem.timelineOut())
                 if not data in addedItems:
                     self._trackItems.append((trackItem, trackIndex))
                     addedItems.add(data)
@@ -253,13 +253,12 @@ class EDLExportTrackTask:
 
         mode = ModeField(False, True, [])
         effect = EffectField(EffectField.CUT, 0)
-        clipEdit = EditDecision(self._eventIndex, editName, mode,
-                                effect, srcEntry, srcExit, syncEntry, transitionStart)
+        clipEdit = EditDecision(self._eventIndex, editName, mode, effect,
+                                srcEntry, srcExit, syncEntry, transitionStart)
 
         effect = EffectField(EffectField.DISSOLVE, transitionDuration)
         transitionSrcStart = TimeCode.createFromFrames(0, self._fps, self._dropFrame)
-        transitionSrcEnd = TimeCode.createFromFrames(
-            transitionDuration, self._fps, self._dropFrame)
+        transitionSrcEnd = TimeCode.createFromFrames(transitionDuration, self._fps, self._dropFrame)
         transitionEdit = EditDecision(self._eventIndex, 'BL', mode, effect,
                                       transitionSrcStart, transitionSrcEnd, transitionStart, syncExit)
         # toEdit.addElement( NamedElement("* EFFECT NAME:", "FADE IN FADE OUT DISSOLVE") )
@@ -299,16 +298,14 @@ class EDLExportTrackTask:
             trackItem), mode, effect, srcEntry, srcExit, syncEntry, syncExit)
         edits.append(fromEdit)
 
-        toSrcEntry, toSrcExit, toSyncEntry, toSyncExit = self.trackItemTimes(
-            nextTrackItem)
+        toSrcEntry, toSrcExit, toSyncEntry, toSyncExit = self.trackItemTimes(nextTrackItem)
         toSrcEntry = toSrcEntry.addFrames(-transitionOffset, self._fps)
         toSyncEntry = transitionStart
 
         # If the next track has an out transition, end the clip at the start of that transition
         nextOutTransition = nextTrackItem.outTransition()
         if nextOutTransition:
-            offset = (nextOutTransition.timelineOut() -
-                      nextOutTransition.timelineIn() + 1)
+            offset = (nextOutTransition.timelineOut() - nextOutTransition.timelineIn() + 1)
             if nextOutTransition.alignment() == Transition.kDissolve:
                 offset = offset / 2
             toSrcExit = toSrcExit.addFrames(-offset, self._fps)
@@ -473,8 +470,7 @@ class EDLExportTask(hiero.core.TaskBase):
     def resolveFromTrackItem(self, trackItem, presetName):
         resolvedString = None
         propertyString = self._preset.properties()[presetName]
-        resolver = EDLExportTask.ShotResolveTable(
-            trackItem, self._preset.properties()['abspath'])
+        resolver = EDLExportTask.ShotResolveTable(trackItem, self._preset.properties()['abspath'])
         try:
             resolvedString = resolver.resolve(propertyString)
         except Exception as e:
@@ -627,8 +623,8 @@ class EDLExportPreset(hiero.core.TaskPresetBase):
         return hiero.core.TaskPresetBase.kSequence
 
     def addCustomResolveEntries(self, resolver):
-        resolver.addResolver(
-            '{ext}', 'Extension of the file to be output', lambda keyword, task: 'edl')
+        resolver.addResolver('{ext}', 'Extension of the file to be output',
+                             lambda keyword, task: 'edl')
         resolver.addResolver('{track}', 'Name of the track being processed',
                              lambda keyword, task: task.currentTrackName())
 

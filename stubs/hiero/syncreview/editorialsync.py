@@ -15,10 +15,8 @@ class SyncSequenceEditsTool(SyncTool):
 
     def __init__(self, messageDispatcher, viewerSyncTool):
         super(SyncSequenceEditsTool, self).__init__(messageDispatcher)
-        self.registerEventCallback(
-            events.EventType.kSequenceEdited, self.onLocalSequenceEdited)
-        self.messageDispatcher._registerCallback(
-            messages.SequenceEdit, self.onRemoteSequenceEdited)
+        self.registerEventCallback(events.EventType.kSequenceEdited, self.onLocalSequenceEdited)
+        self.messageDispatcher._registerCallback(messages.SequenceEdit, self.onRemoteSequenceEdited)
         self._viewerSyncTool = viewerSyncTool
 
     @localCallback
@@ -43,7 +41,6 @@ class SyncSequenceEditsTool(SyncTool):
         """ Receive sequence edit data from a remote """
         sequence = findItemByGuid(msg.sequenceGuid, filter=(Sequence,))
         if not sequence:
-            logMessage('onRemoteSequenceEdited: sequence {} not found!'.format(
-                msg.sequenceGuid))
+            logMessage('onRemoteSequenceEdited: sequence {} not found!'.format(msg.sequenceGuid))
             return
         sequence.deserialize(msg.data, msg.rangeMin, msg.rangeMax)

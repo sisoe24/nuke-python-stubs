@@ -128,23 +128,19 @@ class XMLExportTask(hiero.core.TaskBase):
             videoElem = etree.SubElement(mediaElem, 'video')
             etree.SubElement(videoElem, 'duration').text = str(
                 self.sourceTime(source, source.duration()))
-            sampleCharacteristicsElem = etree.SubElement(
-                videoElem, 'samplecharacteristics')
-            etree.SubElement(sampleCharacteristicsElem,
-                             'width').text = str(source.width())
-            etree.SubElement(sampleCharacteristicsElem,
-                             'height').text = str(source.height())
+            sampleCharacteristicsElem = etree.SubElement(videoElem, 'samplecharacteristics')
+            etree.SubElement(sampleCharacteristicsElem, 'width').text = str(source.width())
+            etree.SubElement(sampleCharacteristicsElem, 'height').text = str(source.height())
 
         if source.hasAudio():
             audioElem = etree.SubElement(mediaElem, 'audio')
-            self.addElementFromMetadata(
-                audioElem, 'channelcount', metadata, Keys.kSourceNumAudioChannels)
-            sampleCharacteristicsElem = etree.SubElement(
-                audioElem, 'samplecharacteristics')
-            self.addElementFromMetadata(
-                sampleCharacteristicsElem, 'depth', metadata, Keys.kSourceAudioBitDepth)
-            self.addElementFromMetadata(
-                sampleCharacteristicsElem, 'samplerate', metadata, Keys.kSourceSamplerate)
+            self.addElementFromMetadata(audioElem, 'channelcount',
+                                        metadata, Keys.kSourceNumAudioChannels)
+            sampleCharacteristicsElem = etree.SubElement(audioElem, 'samplecharacteristics')
+            self.addElementFromMetadata(sampleCharacteristicsElem, 'depth',
+                                        metadata, Keys.kSourceAudioBitDepth)
+            self.addElementFromMetadata(sampleCharacteristicsElem,
+                                        'samplerate', metadata, Keys.kSourceSamplerate)
 
     # <file id="...">
     #   <name>...</name>
@@ -495,8 +491,7 @@ class XMLExportTask(hiero.core.TaskBase):
         etree.SubElement(sequenceElem, 'name').text = sequence.name()
         etree.SubElement(sequenceElem, 'duration').text = str(sequence.duration())
         self.addRateElem(sequenceElem, self._framerate)
-        self.addTimecodeElem(sequenceElem, self._framerate,
-                             self._sequence.timecodeStart())
+        self.addTimecodeElem(sequenceElem, self._framerate, self._sequence.timecodeStart())
         mediaElem = etree.SubElement(sequenceElem, 'media')
         videoElem = etree.SubElement(mediaElem, 'video')
         self.addVideoFormat(videoElem, sequence)
@@ -508,8 +503,7 @@ class XMLExportTask(hiero.core.TaskBase):
             self.addAudioTracks(audioElem, sequence)
 
         if self._preset.properties()['includeMarkers']:
-            markers = [tag for tag in sequence.tags() if tag.visible()
-                       and tag.outTime() > -1]
+            markers = [tag for tag in sequence.tags() if tag.visible() and tag.outTime() > -1]
             for marker in markers:
                 markerElem = etree.SubElement(sequenceElem, 'marker')
                 self.addMarker(markerElem, marker)
@@ -570,8 +564,8 @@ class XMLExportPreset(hiero.core.TaskPresetBase):
         return hiero.core.TaskPresetBase.kSequence
 
     def addCustomResolveEntries(self, resolver):
-        resolver.addResolver(
-            '{ext}', 'Extension of the file to be output', lambda keyword, task: 'xml')
+        resolver.addResolver('{ext}', 'Extension of the file to be output',
+                             lambda keyword, task: 'xml')
 
     def supportsAudio(self):
         return True

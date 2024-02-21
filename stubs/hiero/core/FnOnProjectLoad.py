@@ -18,8 +18,7 @@ def shiftLinkedSubTrackItems(trackItem):
     effects can be inserted at the bottom.
     """
     track = trackItem.parentTrack()
-    subTrackItems = [i for i in trackItem.linkedItems(
-    ) if isinstance(i, hiero.core.SubTrackItem)]
+    subTrackItems = [i for i in trackItem.linkedItems() if isinstance(i, hiero.core.SubTrackItem)]
     # Sort in descending order so they can be shifted up
     subTrackItems.sort(cmp=lambda x, y: -cmp(x.subTrackIndex(), y.subTrackIndex()))
     for subTrackItem in subTrackItems:
@@ -71,8 +70,7 @@ def fixDeprecatedReformatStateProperties(project):
                     scale = reformatState.scale()
 
                     # Obtain the location of the sourceFormat within the sequence format
-                    (x, y, w, h) = calculateReformat(
-                        sourceFormat, seqFormat, resizeType, center, scale)
+                    (x, y, w, h) = calculateReformat(sourceFormat, seqFormat, resizeType, center, scale)
 
                     if resizeType == 'width':
                         scalex = scaley = w / float(h)
@@ -149,8 +147,7 @@ def fixDeprecatedReformatStateProperties(project):
                     scale = reformatState.scale()
 
                     # Obtain the location of the sourceFormat within the sequence format
-                    (x, y, w, h) = calculateReformat(
-                        sourceFormat, seqFormat, resizeType, center, scale)
+                    (x, y, w, h) = calculateReformat(sourceFormat, seqFormat, resizeType, center, scale)
 
                     # Flip/flop either about the centre of the sequence, or the centre of the clip,
                     # depending on whether or not we're centreing

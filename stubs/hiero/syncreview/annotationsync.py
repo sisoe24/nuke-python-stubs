@@ -16,8 +16,7 @@ messages.defineMessageType('AnnotationAdd', ('sequenceGuid', str),
                            ('subTrack', int), ('annotation', messages.Compressed))
 messages.defineMessageType('AnnotationChange', ('sequenceGuid', str),
                            ('annotationGuid', str), ('annotation', messages.Compressed))
-messages.defineMessageType(
-    'AnnotationRemove', ('sequenceGuid', str), ('annotationGuid', str))
+messages.defineMessageType('AnnotationRemove', ('sequenceGuid', str), ('annotationGuid', str))
 
 
 def _findAnnotation(sequenceGuid, annotationGuid):
@@ -43,8 +42,8 @@ class SyncAnnotationsTool(SyncTool):
     def __init__(self, messageDispatcher):
         super(SyncAnnotationsTool, self).__init__(messageDispatcher)
 
-        self.registerEventCallback(
-            events.EventType.kAnnotationChanged, self.onLocalAnnotationChange)
+        self.registerEventCallback(events.EventType.kAnnotationChanged,
+                                   self.onLocalAnnotationChange)
 
         self.messageDispatcher._registerCallback(
             messages.AnnotationAdd, self.onRemoteAnnotationAdded)
@@ -91,8 +90,7 @@ class SyncAnnotationsTool(SyncTool):
         """ Handle message to create an annotation """
         sequence = hiero.core.findItemByGuid(msg.sequenceGuid, filter=(Clip, Sequence))
         if not sequence:
-            logMessage('onRemoteAnnotationAdded: sequence {} not found!'.format(
-                msg.sequenceGuid))
+            logMessage('onRemoteAnnotationAdded: sequence {} not found!'.format(msg.sequenceGuid))
             return
         annotation = Annotation()
         annotation.deserialize(asUnicode(msg.annotation))

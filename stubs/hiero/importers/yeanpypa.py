@@ -392,8 +392,8 @@ class Literal(Rule):
             string = input_reader.getString(len(self.__string))
             if string != self.__string:
                 input_reader.rollback()
-                raise ParseException("Expected '%s' at position %d. Got '%s'" % (
-                    self.__string, input_reader.getPos(), string))
+                raise ParseException("Expected '%s' at position %d. Got '%s'" %
+                                     (self.__string, input_reader.getPos(), string))
         except EndOfStringException:
             input_reader.rollback()
             raise ParseException("Expected '%s' at end of string" % self.__string)

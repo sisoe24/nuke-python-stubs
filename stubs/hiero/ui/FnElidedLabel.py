@@ -14,8 +14,7 @@ class ElidedLabel(QtWidgets.QFrame):
         QtWidgets.QFrame.__init__(self, parent)
         self._elideMode = QtCore.Qt.ElideMiddle
         self._text = ''
-        self.setSizePolicy(QtWidgets.QSizePolicy.Expanding,
-                           QtWidgets.QSizePolicy.Preferred)
+        self.setSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Preferred)
 
     def text(self):
         """ Get the text being displayed. """

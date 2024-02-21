@@ -37,8 +37,7 @@ def _keepUnsavedWork():
         msgBox = QMessageBox(QMessageBox.Warning,
                              _UNSAVED_WORK_MSGBOX_TITLE,
                              _UNSAVED_WORK_MSGBOX_TEXT)
-        continueButton = msgBox.addButton(
-            _UNSAVED_WORK_MSGBOX_CONTINUE, QMessageBox.AcceptRole)
+        continueButton = msgBox.addButton(_UNSAVED_WORK_MSGBOX_CONTINUE, QMessageBox.AcceptRole)
         msgBox.addButton(QMessageBox.Cancel)
         msgBox.setDefaultButton(QMessageBox.Cancel)
         dontShowCheckBox = QCheckBox(_UNSAVED_WORK_MSGBOX_DONT_SHOW)
@@ -189,8 +188,7 @@ class MenuBuilder(QObject):
     def __init__(self, connectionManager):
         super(MenuBuilder, self).__init__()
         self.connectionManager = connectionManager
-        self.connectionManager.connectionState.changed.connect(
-            self.updateMenuEnabledStates)
+        self.connectionManager.connectionState.changed.connect(self.updateMenuEnabledStates)
         self.hostSessionAction = None
         self.endSessionAction = None
         self.connectSessionAction = None
@@ -224,14 +222,14 @@ class MenuBuilder(QObject):
             action.setProperty(hiero.ui.kContextProperty, hiero.ui.kContextTimeline)
         if (not nuke.env.get('hiero')):
             for action in syncSessionActions:
-                hiero.ui.insertMenuAction(
-                    action, fileMenu.menu(), after='foundry.project.importOtio')
+                hiero.ui.insertMenuAction(action, fileMenu.menu(),
+                                          after='foundry.project.importOtio')
             fileMenu.menu().insertSeparator(self.hostSessionAction)
         else:
-            hiero.ui.insertMenuAction(self.hostSessionAction,
-                                      fileMenu.menu(), before='foundry.application.quit')
-            hiero.ui.insertMenuAction(self.endSessionAction,
-                                      fileMenu.menu(), before='foundry.application.quit')
+            hiero.ui.insertMenuAction(self.hostSessionAction, fileMenu.menu(),
+                                      before='foundry.application.quit')
+            hiero.ui.insertMenuAction(self.endSessionAction, fileMenu.menu(),
+                                      before='foundry.application.quit')
             hiero.ui.insertMenuAction(self.connectSessionAction,
                                       fileMenu.menu(), before='foundry.application.quit')
             hiero.ui.insertMenuAction(self.disconnectSessionAction,
@@ -240,8 +238,7 @@ class MenuBuilder(QObject):
 
         # Create a shortcut for pushing the session state, it doesn't appear in the menu
         # but should be enabled globally whenever connected to a session
-        self.pushSessionShortcut = QShortcut(
-            QKeySequence('Ctrl+P'), hiero.ui.mainWindow())
+        self.pushSessionShortcut = QShortcut(QKeySequence('Ctrl+P'), hiero.ui.mainWindow())
         self.pushSessionShortcut.setContext(Qt.ApplicationShortcut)
         self.pushSessionShortcut.activated.connect(self.connectionManager.pushSession)
 
@@ -253,7 +250,6 @@ class MenuBuilder(QObject):
         self.hostSessionAction.setEnabled(connectState == ConnectionState.DISCONNECTED)
         self.endSessionAction.setEnabled(connectState == ConnectionState.SERVER_RUNNING)
         self.connectSessionAction.setEnabled(connectState == ConnectionState.DISCONNECTED)
-        self.disconnectSessionAction.setEnabled(
-            connectState == ConnectionState.CLIENT_CONNECTED)
+        self.disconnectSessionAction.setEnabled(connectState == ConnectionState.CLIENT_CONNECTED)
         self.pushSessionShortcut.setEnabled(connectState in (
             ConnectionState.SERVER_RUNNING, ConnectionState.CLIENT_CONNECTED))

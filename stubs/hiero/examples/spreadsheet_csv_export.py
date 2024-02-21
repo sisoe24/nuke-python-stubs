@@ -146,8 +146,7 @@ def writeCSVFromSequence(seq):
 class SpreadsheetExportCSVMenu:
 
     def __init__(self):
-        hiero.core.events.registerInterest(
-            'kShowContextMenu/kSpreadsheet', self.eventHandler)
+        hiero.core.events.registerInterest('kShowContextMenu/kSpreadsheet', self.eventHandler)
         self._exportAllSpreadsheetToCSV = self.createMenuAction(
             'Spreadsheet To CSV', self.exportCSV)
         self._exportCSVMenu = QMenu('Export...')
@@ -180,8 +179,7 @@ class SpreadsheetExportCSVMenu:
         print('exporting CSV...')
 
         # Ignore transitions from the selection
-        self.selection = [item for item in self.selection if isinstance(
-            item, hiero.core.TrackItem)]
+        self.selection = [item for item in self.selection if isinstance(item, hiero.core.TrackItem)]
         seq = self.selection[0].parent().parent()
         print('seq is', seq)
         if isinstance(seq, hiero.core.Sequence):

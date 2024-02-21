@@ -135,10 +135,8 @@ class LinkToTrackPanel(nukescripts.PythonPanel):
             self._expressionX.setValue(self._tracker.value() + '.translate.x')
             self._expressionY.setValue(self._tracker.value() + '.translate.y')
         elif self._link_to.value() == 'translate as offset':
-            self._expressionX.setValue(
-                'curve + ' + self._tracker.value() + '.translate.x')
-            self._expressionY.setValue(
-                'curve + ' + self._tracker.value() + '.translate.y')
+            self._expressionX.setValue('curve + ' + self._tracker.value() + '.translate.x')
+            self._expressionY.setValue('curve + ' + self._tracker.value() + '.translate.y')
         else:
             pointCount = 0
             exprX = ' + '.join([self._tracker.value() + '.' + point.name() +

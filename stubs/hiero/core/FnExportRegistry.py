@@ -65,8 +65,8 @@ class TaskRegistry (IExporterRegistry):
 
         # Mapping of string type names to the types. This is used for serializing values
         # in presets
-        self._typeDict = dict((classBasename(valuetype), valuetype) for valuetype in (
-            int, tuple, bool, str, float, list, dict, type(None)))
+        self._typeDict = dict((classBasename(valuetype), valuetype)
+                              for valuetype in (int, tuple, bool, str, float, list, dict, type(None)))
 
         # In Python 2 Nuke, strings might have been saved as 'str' or 'unicode' make
         # sure they get loaded
@@ -141,8 +141,8 @@ class TaskRegistry (IExporterRegistry):
         if not util.filesystem.exists(path):
             return False
 
-        dictionary = dict([(preset.name(), preset) for preset in list if not preset.project(
-        ) and not preset.markedForDeletion()])
+        dictionary = dict([(preset.name(), preset)
+                          for preset in list if not preset.project() and not preset.markedForDeletion()])
         # for each file in each subdirectory
         for dir in os.listdir(path):
 
@@ -162,8 +162,7 @@ class TaskRegistry (IExporterRegistry):
                 try:
                     preset = self.presetFromXml(file.read(), False)
                 except Exception as e:
-                    log.exception('Failed to build preset from file: %s\n%s',
-                                  filepath, str(e))
+                    log.exception('Failed to build preset from file: %s\n%s',  filepath, str(e))
 
                 # if preset was successfully created
                 if preset:
@@ -323,8 +322,7 @@ class TaskRegistry (IExporterRegistry):
 
             if not newPath:
                 # build a path <root>/<taskname>/<presetname>.xml
-                newPath = os.path.join(path, classBasename(
-                    preset.parentType()), presetName+'.xml')
+                newPath = os.path.join(path, classBasename(preset.parentType()), presetName+'.xml')
 
             if preset.markedForDeletion():
                 # Preset has been marked for deletion, remove file and skip xml generation
@@ -415,8 +413,7 @@ class TaskRegistry (IExporterRegistry):
             else:
                 element.text = str(value)
         else:
-            log.error('Warning: Invalid property Name: ' +
-                      str(key) + ' of Type: ' + str(valueType))
+            log.error('Warning: Invalid property Name: ' + str(key) + ' of Type: ' + str(valueType))
 
     def presetsSubDirectory(self):
         # Task presets are now versioned. They are stored in a sub-directory with
@@ -472,8 +469,8 @@ class TaskRegistry (IExporterRegistry):
 
     def createAndAddProcessorPreset(self, name, typeTemplate):
         project = None
-        dictionary = dict([(p.name(), p) for p in self._processorPresets if p.project(
-        ) == project and not p.markedForDeletion()])
+        dictionary = dict([(p.name(), p) for p in self._processorPresets if p.project()
+                          == project and not p.markedForDeletion()])
         fixedName = util.uniqueKey(name, dictionary)
         preset = type(typeTemplate)(fixedName, dict())
         self._processorPresets.append(preset)
@@ -491,8 +488,8 @@ class TaskRegistry (IExporterRegistry):
 
     def copyAndAddProcessorPreset(self, preset):
         project = preset.project()
-        dictionary = dict([(p.name(), p) for p in self._processorPresets if p.project(
-        ) == project and not p.markedForDeletion()])
+        dictionary = dict([(p.name(), p) for p in self._processorPresets if p.project()
+                          == project and not p.markedForDeletion()])
         fixedName = util.uniqueKey(preset.name(), dictionary)
 
         newpreset = self.copyPreset(preset)
@@ -511,8 +508,8 @@ class TaskRegistry (IExporterRegistry):
 
     def addProcessorPreset(self, name, preset):
         """Register Processor Preset Instance"""
-        dictionary = dict([(p.name(), p) for p in self._processorPresets if p.project(
-        ) == project and not p.markedForDeletion()])
+        dictionary = dict([(p.name(), p) for p in self._processorPresets if p.project()
+                          == project and not p.markedForDeletion()])
         uniqueName = util.uniqueKey(name, dictionary)
         preset.setName(uniqueName)
         self._processorPresets.append(preset)
@@ -536,14 +533,13 @@ class TaskRegistry (IExporterRegistry):
         if preset in self._processorPresets:
             self._processorPresets.remove(preset)
         else:
-            log.info("Preset '%s' cannot be deleted as it is not registered" %
-                     (presetName, ))
+            log.info("Preset '%s' cannot be deleted as it is not registered" % (presetName, ))
 
     def renameProcessorPreset(self, preset, newName):
         """Validate and update name of Processor Preset"""
         project = preset.project()
-        presets = dict([(p.name(), p) for p in self._processorPresets if p.project(
-        ) == project and not p.markedForDeletion()])
+        presets = dict([(p.name(), p) for p in self._processorPresets if p.project()
+                       == project and not p.markedForDeletion()])
 
         fixedName = util.uniqueKey(newName, presets)
         preset.setName(fixedName)
@@ -553,8 +549,8 @@ class TaskRegistry (IExporterRegistry):
         if project and project.isNull():
             project = None
         # Build a dictionary of presets already assigned to specified project (Even if project is None)
-        presets = dict([(p.name(), p) for p in self._processorPresets if p.project(
-        ) == project and not p.markedForDeletion()])
+        presets = dict([(p.name(), p) for p in self._processorPresets if p.project()
+                       == project and not p.markedForDeletion()])
 
         # If preset name already exists within this subset
         if preset.name() in presets:
@@ -731,8 +727,8 @@ class TaskRegistry (IExporterRegistry):
                     Format(toFormat['width'], toFormat['height'],
                            toFormat['pixelAspect'], toFormat['name'])
                 except ValueError as e:
-                    raise ValueError("The selected Preset '%s' has an invalid output resolution.\n%s" % (
-                        presetName, e.message))
+                    raise ValueError(
+                        "The selected Preset '%s' has an invalid output resolution.\n%s" % (presetName, e.message))
 
     def _getToScaleFromPreset(self, exportTemplate):
         """Returns a list of scale options defined in 'exportTemplate'
@@ -780,15 +776,13 @@ class TaskRegistry (IExporterRegistry):
                 try:
                     itemFormat = item.format()
                     # create format to know if it's allowed
-                    itemFormat = Format(itemFormat.width(), itemFormat.height(
-                    ), itemFormat.pixelAspect(), itemFormat.name())
+                    itemFormat = Format(itemFormat.width(), itemFormat.height(),
+                                        itemFormat.pixelAspect(), itemFormat.name())
                 except ValueError as e:
-                    raise ValueError('Unable to export item %s.\n%s' %
-                                     (item.name(), e.message))
+                    raise ValueError('Unable to export item %s.\n%s' % (item.name(), e.message))
 
                 # checks scalled item format
-                self._checkToScaleForSequence(
-                    presetName, presetToScale, item.name(), itemFormat)
+                self._checkToScaleForSequence(presetName, presetToScale, item.name(), itemFormat)
 
     def validateExport(self, preset, items):
         """ Implements IExporterRegistry.validateExport """
@@ -825,8 +819,7 @@ class TaskRegistry (IExporterRegistry):
 
         submission.initialise()
 
-        processor = self._processors[preset.ident()](
-            preset, submission, synchronous=synchronous)
+        processor = self._processors[preset.ident()](preset, submission, synchronous=synchronous)
         processor.setPreset(preset)
         return processor
 

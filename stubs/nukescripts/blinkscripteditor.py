@@ -45,8 +45,7 @@ class ScriptInputArea(PySide2.QtWidgets.QPlainTextEdit, PySide2.QtCore.QObject):
         # Setup completer
         self._completer = PySide2.QtWidgets.QCompleter(self)
         self._completer.setWidget(self)
-        self._completer.setCompletionMode(
-            PySide2.QtWidgets.QCompleter.UnfilteredPopupCompletion)
+        self._completer.setCompletionMode(PySide2.QtWidgets.QCompleter.UnfilteredPopupCompletion)
         self._completer.setCaseSensitivity(PySide2.QtCore.Qt.CaseSensitive)
         self._completer.setModel(PySide2.QtCore.QStringListModel())
 
@@ -91,8 +90,7 @@ class ScriptInputArea(PySide2.QtWidgets.QPlainTextEdit, PySide2.QtCore.QObject):
         if (dy):
             self._lineNumberArea.scroll(0, dy)
         else:
-            self._lineNumberArea.update(
-                0, rect.y(), self._lineNumberArea.width(), rect.height())
+            self._lineNumberArea.update(0, rect.y(), self._lineNumberArea.width(), rect.height())
 
         if (rect.contains(self.viewport().rect())):
             self.updateLineNumberAreaWidth()
@@ -116,8 +114,7 @@ class ScriptInputArea(PySide2.QtWidgets.QPlainTextEdit, PySide2.QtCore.QObject):
 
     def getFontFromNukePrefs(self):
         # Get the font from the preferences for Nuke's Script Editor
-        font = PySide2.QtGui.QFont(nuke.toNode(
-            'preferences').knob('ScriptEditorFont').value())
+        font = PySide2.QtGui.QFont(nuke.toNode('preferences').knob('ScriptEditorFont').value())
         # Set the size, also according to the Script Editor Preferences
         fontSize = nuke.toNode('preferences').knob('ScriptEditorFontSize').getValue()
         font.setPixelSize(fontSize)
@@ -145,8 +142,7 @@ class ScriptInputArea(PySide2.QtWidgets.QPlainTextEdit, PySide2.QtCore.QObject):
 
         block = self.firstVisibleBlock()
         blockNumber = block.blockNumber()
-        top = int(self.blockBoundingGeometry(
-            block).translated(self.contentOffset()).top())
+        top = int(self.blockBoundingGeometry(block).translated(self.contentOffset()).top())
         bottom = top + int(self.blockBoundingRect(block).height())
         currentLine = self.document().findBlock(self.textCursor().position()).blockNumber()
 
@@ -174,8 +170,8 @@ class ScriptInputArea(PySide2.QtWidgets.QPlainTextEdit, PySide2.QtCore.QObject):
                     painter.setFont(font)
 
                 number = '%s' % str(blockNumber + 1)
-                painter.drawText(0, top, self._lineNumberArea.width(
-                ), self.fontMetrics().height(), PySide2.QtCore.Qt.AlignRight, number)
+                painter.drawText(0, top, self._lineNumberArea.width(),
+                                 self.fontMetrics().height(), PySide2.QtCore.Qt.AlignRight, number)
 
             # Move to the next block
             block = block.next()
@@ -193,8 +189,7 @@ class ScriptInputArea(PySide2.QtWidgets.QPlainTextEdit, PySide2.QtCore.QObject):
             lineColor = PySide2.QtGui.QColor(255, 255, 255, 40)
 
             selection.format.setBackground(lineColor)
-            selection.format.setProperty(
-                PySide2.QtGui.QTextFormat.FullWidthSelection, True)
+            selection.format.setProperty(PySide2.QtGui.QTextFormat.FullWidthSelection, True)
             selection.cursor = self.textCursor()
             selection.cursor.clearSelection()
 
@@ -214,8 +209,7 @@ class ScriptInputArea(PySide2.QtWidgets.QPlainTextEdit, PySide2.QtCore.QObject):
                 selection.format.setBackground(PySide2.QtGui.QColor(255, 0, 0, 40))
                 selection.format.setProperty(PySide2.QtGui.QTextFormat.OutlinePen, PySide2.QtGui.QPen(
                     PySide2.QtGui.QColor(127, 0, 0, 0)))
-                selection.format.setProperty(
-                    PySide2.QtGui.QTextFormat.FullWidthSelection, True)
+                selection.format.setProperty(PySide2.QtGui.QTextFormat.FullWidthSelection, True)
 
                 pos = self.document().findBlockByLineNumber(int(self._errorLine)-1).position()
                 cursor = self.textCursor()
@@ -231,8 +225,7 @@ class ScriptInputArea(PySide2.QtWidgets.QPlainTextEdit, PySide2.QtCore.QObject):
 
         lScriptEditorMod = ((event.modifiers() and (
             PySide2.QtCore.Qt.ControlModifier or PySide2.QtCore.Qt.AltModifier)) == PySide2.QtCore.Qt.ControlModifier)
-        lScriptEditorShift = ((event.modifiers() and (
-            PySide2.QtCore.Qt.ShiftModifier)) != 0)
+        lScriptEditorShift = ((event.modifiers() and (PySide2.QtCore.Qt.ShiftModifier)) != 0)
         lKey = event.key()
 
         # TODO Query Completer Showing

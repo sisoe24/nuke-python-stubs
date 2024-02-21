@@ -139,8 +139,7 @@ def translateRotateSelectionToPoints(nodeToSnap, vertexSelection):
 
 def translateRotateScaleSelectionToPoints(nodeToSnap, vertexSelection):
     try:
-        verifyNodeToSnap(nodeToSnap, ['translate', 'rotate',
-                         'scaling', 'xform_order', 'rot_order'])
+        verifyNodeToSnap(nodeToSnap, ['translate', 'rotate', 'scaling', 'xform_order', 'rot_order'])
         verifyVertexSelection(vertexSelection, 3)
         translateRotateScaleToPointsVerified(nodeToSnap, vertexSelection)
     except ValueError as e:
@@ -154,8 +153,8 @@ def verifyVertexSelection(vertexSelection, minLen):
 
 def translatePivotSelectionToPoints(nodeToSnap, vertexSelection):
     try:
-        verifyNodeToSnap(nodeToSnap, ['pivot_translate',
-                         'translate', 'rotate', 'xform_order', 'rot_order'])
+        verifyNodeToSnap(nodeToSnap, ['pivot_translate', 'translate',
+                         'rotate', 'xform_order', 'rot_order'])
         verifyVertexSelection(vertexSelection, 1)
         translatePivotToPointsVerified(nodeToSnap, vertexSelection)
     except ValueError as e:
@@ -411,8 +410,7 @@ def rotatePivotToPointsVerified(nodeToSnap, vertexSelection):
     # it to object space as pivot rotation should be we need to remove the object
     # rotation from it and then extract the rotation in XYZ order.
     R = rotateMatrixZXY(radians(nodeToSnap['rotate'].getValue()))
-    pivotRotate = _nukemath.Vector3(
-        *((R.inverse() * rotateMatrixZXY(pivotRotate)).rotationsXYZ()))
+    pivotRotate = _nukemath.Vector3(*((R.inverse() * rotateMatrixZXY(pivotRotate)).rotationsXYZ()))
 
     pt = nodeToSnap['pivot_translate'].getValue()
     pivotTranslate = _nukemath.Vector3(pt[0], pt[1], pt[2])
@@ -677,8 +675,7 @@ def anySelectedPoint(selectionThreshold=0.5):
             for p in range(len(objSelection)):
                 if objSelection[p] >= selectionThreshold:
                     pos = objs[o].points()[p]
-                    tPos = objs[o].transform() * _nukemath.Vector4(pos.x,
-                                                                   pos.y, pos.z, 1.0)
+                    tPos = objs[o].transform() * _nukemath.Vector4(pos.x, pos.y, pos.z, 1.0)
                     return _nukemath.Vector3(tPos.x, tPos.y, tPos.z)
     return None
 
@@ -818,12 +815,12 @@ def allNodes(node=nuke.root()):
 
 def allNodesWithGeoSelectKnob():
     if nuke.activeViewer():
-        preferred_nodes = [n for n in nuke.activeViewer(
-        ).getGeometryNodes() if 'geo_select' in n.knobs()]
+        preferred_nodes = [n for n in nuke.activeViewer().getGeometryNodes()
+                           if 'geo_select' in n.knobs()]
     else:
         preferred_nodes = []
-    nodes = preferred_nodes + \
-        [n for n in allNodes() if 'geo_select' in n.knobs() and n not in preferred_nodes]
+    nodes = preferred_nodes + [n for n in allNodes() if 'geo_select' in n.knobs()
+                               and n not in preferred_nodes]
     return nodes
 
 

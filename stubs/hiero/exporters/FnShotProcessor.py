@@ -109,16 +109,14 @@ class ShotProcessor(hiero.core.ProcessorBase):
         self._exportTemplate = hiero.core.ExportStructure2()
         self._exportTemplate.restore(self._preset.properties()['exportTemplate'])
         if self._preset.properties()['exportRoot'] != 'None':
-            self._exportTemplate.setExportRootPath(
-                self._preset.properties()['exportRoot'])
+            self._exportTemplate.setExportRootPath(self._preset.properties()['exportRoot'])
 
     def offlineTrackItems(self, track):
         offlineMedia = []
         for trackitem in track:
             if not trackitem.isMediaPresent():
                 try:
-                    sourcepath = trackitem.source().mediaSource().fileinfos()[
-                        0].filename()
+                    sourcepath = trackitem.source().mediaSource().fileinfos()[0].filename()
                 except:
                     sourcepath = 'Unknown Source'
                 offlineMedia.append(' : '.join([trackitem.name(), sourcepath]))
@@ -178,10 +176,10 @@ class ShotProcessor(hiero.core.ProcessorBase):
         self._tags = buildTagsData(exportItems)
 
         # Filter the include/exclude tags incase the previous tag selection is not included in the current selection
-        included_tag_names = [tag.name() for tag, objectType in self._tags if tag.name(
-        ) in self._preset.properties()['includeTags']]
-        excluded_tag_names = [tag.name() for tag, objectType in self._tags if tag.name(
-        ) in self._preset.properties()['excludeTags']]
+        included_tag_names = [tag.name() for tag, objectType in self._tags if tag.name()
+                              in self._preset.properties()['includeTags']]
+        excluded_tag_names = [tag.name() for tag, objectType in self._tags if tag.name()
+                              in self._preset.properties()['excludeTags']]
 
         # This flag controls whether items which havent been explicitly included in the export,
         # should be removed from the copied sequence. This primarily affects the collate functionality in nuke script generation.
@@ -206,8 +204,7 @@ class ShotProcessor(hiero.core.ProcessorBase):
 
         else:
             # Items were selected in the project panel. Build a list of selected sequences
-            sequences = [item.sequence()
-                         for item in exportItems if item.sequence() is not None]
+            sequences = [item.sequence() for item in exportItems if item.sequence() is not None]
 
         if ignoredTrackItems:
             # A set of track items have been explicitly marked as ignored.
@@ -216,8 +213,8 @@ class ShotProcessor(hiero.core.ProcessorBase):
             exclusiveCopy = True
 
         for sequence in sequences:
-            excludedTracks.extend(
-                [track for track in sequence if track.guid() in self._preset._excludedTrackIDs])
+            excludedTracks.extend([track for track in sequence if track.guid()
+                                  in self._preset._excludedTrackIDs])
 
         localtime = time.localtime(time.time())
 
@@ -308,10 +305,10 @@ class ShotProcessor(hiero.core.ProcessorBase):
                             continue
 
                         # Check tags for excluded tags
-                        excludedTags = [tag for tag in trackitem.tags(
-                        ) if tag.name() in excluded_tag_names]
-                        includedTags = [tag for tag in trackitem.tags(
-                        ) if tag.name() in included_tag_names]
+                        excludedTags = [tag for tag in trackitem.tags() if tag.name()
+                                        in excluded_tag_names]
+                        includedTags = [tag for tag in trackitem.tags() if tag.name()
+                                        in included_tag_names]
 
                         if included_tag_names:
                             # If not included, or explictly excluded
@@ -321,8 +318,8 @@ class ShotProcessor(hiero.core.ProcessorBase):
                                 ignoredTrackItems.add(trackitem)
                                 continue
                             else:
-                                hiero.core.log.debug('%s has include tag %s.' % (
-                                    str(trackitemCopy), str(included_tag_names)))
+                                hiero.core.log.debug('%s has include tag %s.' %
+                                                     (str(trackitemCopy), str(included_tag_names)))
 
                         elif excludedTags:
                             hiero.core.log.debug('%s contains excluded tag %s, skipping.' % (
@@ -335,18 +332,15 @@ class ShotProcessor(hiero.core.ProcessorBase):
                             exportTrackItems.append((trackitem, trackitemCopy))
 
                         else:
-                            hiero.core.log.debug(
-                                '%s is offline. Removing.' % str(trackitem))
+                            hiero.core.log.debug('%s is offline. Removing.' % str(trackitem))
                             trackItemsToRemove.append(trackitemCopy)
                     else:
                         # Either remove the track item entirely, or mark it as ignored, so that no tasks are spawned to export it.
                         if exclusiveCopy:
-                            hiero.core.log.debug(
-                                '%s is not selected. Removing.' % str(trackitem))
+                            hiero.core.log.debug('%s is not selected. Removing.' % str(trackitem))
                             trackItemsToRemove.append(trackitemCopy)
                         else:
-                            hiero.core.log.debug(
-                                '%s is not selected. Ignoring.' % str(trackitem))
+                            hiero.core.log.debug('%s is not selected. Ignoring.' % str(trackitem))
                             ignoredTrackItems.add(trackitem)
 
                 for item in trackItemsToRemove:
@@ -477,16 +471,15 @@ class ShotProcessorPreset(hiero.core.ProcessorPreset):
         self.properties().update(properties)
 
         # This remaps the project root if os path remapping has been set up in the preferences
-        self.properties()['exportRoot'] = hiero.core.remapPath(
-            self.properties()['exportRoot'])
+        self.properties()['exportRoot'] = hiero.core.remapPath(self.properties()['exportRoot'])
 
     def addCustomResolveEntries(self, resolver):
         """addDefaultResolveEntries(self, resolver)
         Create resolve entries for default resolve tokens shared by all task types.
         @param resolver : ResolveTable object"""
 
-        resolver.addResolver(
-            '{filename}', 'Filename of the media being processed', lambda keyword, task: task.fileName())
+        resolver.addResolver('{filename}', 'Filename of the media being processed',
+                             lambda keyword, task: task.fileName())
         resolver.addResolver(
             kFileBaseKeyword, KeywordTooltips[kFileBaseKeyword], lambda keyword, task: task.filebase())
         resolver.addResolver(
@@ -514,8 +507,7 @@ class ShotProcessorPreset(hiero.core.ProcessorPreset):
     def isValid(self):
         allNukeShotsHaveWriteNodes = True
         for itemPath, itemPreset in self.properties()['exportTemplate']:
-            isNukeShot = isinstance(
-                itemPreset, hiero.exporters.FnNukeShotExporter.NukeShotPreset)
+            isNukeShot = isinstance(itemPreset, hiero.exporters.FnNukeShotExporter.NukeShotPreset)
             if isNukeShot and not itemPreset.properties()['writePaths']:
                 allNukeShotsHaveWriteNodes = False
                 return (False, 'Your Export Structure has no Write Nodes defined.')

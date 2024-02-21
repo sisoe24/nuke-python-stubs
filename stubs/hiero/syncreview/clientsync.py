@@ -24,8 +24,7 @@ class ClientDataProvider(SyncTool):
     def __init__(self, messageDispatcher):
         super(ClientDataProvider, self).__init__(messageDispatcher)
         self.clientData = dict()
-        self.messageDispatcher._registerCallback(
-            messages.Disconnected, self._onGuestDisconnected)
+        self.messageDispatcher._registerCallback(messages.Disconnected, self._onGuestDisconnected)
         self.clientDataChanged.emit()
 
     def _onGuestDisconnected(self, msg):
@@ -60,8 +59,7 @@ class ClientSyncGuest(ClientDataProvider):
 
     def __init__(self, messageDispatcher):
         super(ClientSyncGuest, self).__init__(messageDispatcher)
-        self.messageDispatcher._registerCallback(
-            messages.SyncClientData, self._onSyncClientData)
+        self.messageDispatcher._registerCallback(messages.SyncClientData, self._onSyncClientData)
 
     def _onSyncClientData(self, msg):
         self.clientData = msg.clientData

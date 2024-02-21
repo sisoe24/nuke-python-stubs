@@ -9,8 +9,7 @@ class FrameRangePanel(nukescripts.PythonPanel):
     def __init__(self, initalStart, initialEnd):
         """Constructor that takes 2 arguments for the initial start and end frame numbers"""
 
-        nukescripts.PythonPanel.__init__(
-            self, 'Set frame range', 'uk.co.thefoundry.FramePanel')
+        nukescripts.PythonPanel.__init__(self, 'Set frame range', 'uk.co.thefoundry.FramePanel')
         self.fromFrame = nuke.Int_Knob('fromFrame', 'from:')
         self.addKnob(self.fromFrame)
         self.fromFrame.setValue(int(initalStart))

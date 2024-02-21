@@ -74,8 +74,7 @@ def startServer():
     frameserverErrorHandler = errorhandler.FrameserverErrorHandler(onFatalError, onError)
 
     global frameServer
-    frameServer.start(nukeWorkerThreads, nukeWorkerMemory,
-                      pathRemappings, frameserverErrorHandler)
+    frameServer.start(nukeWorkerThreads, nukeWorkerMemory, pathRemappings, frameserverErrorHandler)
 
 
 def stopServer(event):

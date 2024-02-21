@@ -68,8 +68,7 @@ class TrackFinderByNameWithDialog(object):
             sequence = track.parent()
             uniqueTrackName = track.name()
             if sequence:
-                trackNames = [t.name()
-                              for t in sequence.videoTracks() + sequence.audioTracks()]
+                trackNames = [t.name() for t in sequence.videoTracks() + sequence.audioTracks()]
                 uniqueTrackName = hiero.core.util.uniqueKey(track.name(), trackNames)
 
             dialog = TrackItemCollisionDialog(len(srcCollisions), track, uniqueTrackName)
@@ -177,8 +176,7 @@ class TrackFinderByTag(object):
         if track is None:
             # create new track
             numberTaggedTracks = TrackFinderByTag.NumberTaggedTracks(sequence, tagName)
-            track = hiero.core.VideoTrack(
-                str('{0} {1}'.format(tagName, numberTaggedTracks + 1)))
+            track = hiero.core.VideoTrack(str('{0} {1}'.format(tagName, numberTaggedTracks + 1)))
             track.addTag(hiero.core.Tag(tagName, 'icons:NukeVFX.png', False))
             sequence.addTrack(track)
             isNewTrack = True
@@ -253,8 +251,7 @@ class BuildTrack(QtWidgets.QMenu):
     def __init__(self):
         QtWidgets.QMenu.__init__(self, 'Build Track', None)
 
-        hiero.core.events.registerInterest(
-            'kShowContextMenu/kTimeline', self.eventHandler)
+        hiero.core.events.registerInterest('kShowContextMenu/kTimeline', self.eventHandler)
 
         self._actionStructure = BuildExternalMediaTrackAction()
         self._actionTag = BuildTrackFromExportTagAction()
@@ -284,8 +281,7 @@ class BuildTrack(QtWidgets.QMenu):
             return
 
         # filter out the Audio Tracks
-        selection = [item for item in selection if isinstance(
-            item.parent(), hiero.core.VideoTrack)]
+        selection = [item for item in selection if isinstance(item.parent(), hiero.core.VideoTrack)]
 
         if selection is None:
             selection = ()  # We disable on empty selection.
@@ -521,8 +517,7 @@ class TrackItemCollisionDialog(QtWidgets.QDialog):
         label = QtWidgets.QLabel(labelText)
         layout.addWidget(label)
 
-        self._newTrackButton = QtWidgets.QRadioButton(
-            'Choose a different destination track.')
+        self._newTrackButton = QtWidgets.QRadioButton('Choose a different destination track.')
         self._newTrackButton.setChecked(True)
         self._newTrackButton.toggled.connect(self.optionChanged)
         layout.addWidget(self._newTrackButton)
@@ -551,8 +546,7 @@ class TrackItemCollisionDialog(QtWidgets.QDialog):
         else:
             self._findVersionsButton = None
 
-        self._skipButton = QtWidgets.QRadioButton(
-            'Skip the %s colliding items.' % numCollisions)
+        self._skipButton = QtWidgets.QRadioButton('Skip the %s colliding items.' % numCollisions)
         self._skipButton.toggled.connect(self.optionChanged)
         layout.addWidget(self._skipButton)
 
@@ -597,8 +591,7 @@ class BuildTrackActionBase(QtWidgets.QAction):
 
         self._processorPreset = None
         self._errors = []
-        # Auto-scan to max version of imported/existing clips.
-        self._useMaxVersions = True
+        self._useMaxVersions = True  # Auto-scan to max version of imported/existing clips.
 
     def configure(self, project, selection):
         return False
@@ -651,8 +644,8 @@ class BuildTrackActionBase(QtWidgets.QAction):
                 # Due to a quirk in the way MediaSources are handled, this can end up with the MediaSource having a logical frame range which is the union
                 # of the range actually on disk and the one specified here.  See Bug 45955.
                 if file != files[-1] and not self.buildingFromExternalRender():
-                    file = file + ' ' + str(expectedStartTime) + \
-                        '-' + str(expectedStartTime+expectedDuration-1)
+                    file = file + ' ' + str(expectedStartTime) + '-' + \
+                        str(expectedStartTime+expectedDuration-1)
 
                 # Replace version wildcard with version information from preset
                 if self._processorPreset:
@@ -848,8 +841,7 @@ class BuildTrackActionBase(QtWidgets.QAction):
         try:
             # Get the track to build on.  findTrack() may filter items out of the selection if they collide with items on
             # the target track, so use the returned selection
-            track, selection = self.trackFinder.findTrack(
-                self.trackName(), selection, sequence)
+            track, selection = self.trackFinder.findTrack(self.trackName(), selection, sequence)
 
             # If there's nothing to do, stop doing things.
             if len(selection) == 0:
@@ -931,8 +923,7 @@ class BuildTrackFromExportTagDialog(QtWidgets.QDialog):
         layout = QtWidgets.QVBoxLayout()
         formLayout = QtWidgets.QFormLayout()
         formLayout.setRowWrapPolicy(QtWidgets.QFormLayout.WrapAllRows)
-        self._tracknameField = QtWidgets.QLineEdit(
-            BuildTrack.ProjectTrackNameDefault(selection))
+        self._tracknameField = QtWidgets.QLineEdit(BuildTrack.ProjectTrackNameDefault(selection))
         self._tracknameField.setToolTip('Name of new track')
         validator = hiero.ui.trackNameValidator()
         self._tracknameField.setValidator(validator)
@@ -974,8 +965,7 @@ class BuildTrackFromExportTagDialog(QtWidgets.QDialog):
             item.setData(tagIdentifier)
             item.setEditable(False)
             itemlist = tagData['itemnames']
-            item.setToolTip('%i Items with this tag: \n%s' %
-                            (len(itemlist), '\n'.join(itemlist)))
+            item.setToolTip('%i Items with this tag: \n%s' % (len(itemlist), '\n'.join(itemlist)))
             item.setIcon(QtGui.QIcon(tagData['icon']))
             self._tagListModel.appendRow(item)
 
@@ -1004,10 +994,8 @@ class BuildTrackFromExportTagDialog(QtWidgets.QDialog):
         # Add the standard ok/cancel buttons, default to ok.
         self._buttonbox = QtWidgets.QDialogButtonBox(
             QtWidgets.QDialogButtonBox.StandardButton.Ok | QtWidgets.QDialogButtonBox.StandardButton.Cancel)
-        self._buttonbox.button(
-            QtWidgets.QDialogButtonBox.StandardButton.Ok).setText('Build')
-        self._buttonbox.button(
-            QtWidgets.QDialogButtonBox.StandardButton.Ok).setAutoDefault(True)
+        self._buttonbox.button(QtWidgets.QDialogButtonBox.StandardButton.Ok).setText('Build')
+        self._buttonbox.button(QtWidgets.QDialogButtonBox.StandardButton.Ok).setAutoDefault(True)
         self._buttonbox.button(QtWidgets.QDialogButtonBox.StandardButton.Ok).setToolTip(
             'Resolves the exported item from the selected export tags.')
         self._buttonbox.accepted.connect(self.acceptTest)
@@ -1036,8 +1024,7 @@ class BuildTrackFromExportTagDialog(QtWidgets.QDialog):
             if 'pathtemplate' in tagData:
                 notes = notes + 'Path:\n' + tagData['pathtemplate'] + '\n\n'
 
-            notes = notes + \
-                '%i Shots with this Tag:\n%s' % (len(itemlist), ', '.join(itemlist))
+            notes = notes + '%i Shots with this Tag:\n%s' % (len(itemlist), ', '.join(itemlist))
             self._notesView.setText(notes)
 
     def trackName(self):
@@ -1091,8 +1078,7 @@ class BuildTrackFromExportTagAction(BuildTrackActionBase):
             self._createCompClips = dialog.createCompClips()
 
             # Write the create comp clips choice to the preferences
-            settings.setBoolValue(self.kCreateCompClipsPreferenceKey,
-                                  self._createCompClips)
+            settings.setBoolValue(self.kCreateCompClipsPreferenceKey, self._createCompClips)
 
             return True
         else:
@@ -1143,8 +1129,7 @@ class BuildTrackFromExportTagAction(BuildTrackActionBase):
                 linkedRetimeEffects = [item for item in originalTrackItem.linkedItems() if isinstance(
                     item, hiero.core.EffectTrackItem) and item.isRetimeEffect()]
                 for effect in linkedRetimeEffects:
-                    effectCopy = track.createEffect(
-                        copyFrom=effect, trackItem=newTrackItem)
+                    effectCopy = track.createEffect(copyFrom=effect, trackItem=newTrackItem)
                     effectCopy.setEnabled(effect.isEnabled())
 
     def _findTagWithMetadataKeys(self, trackItem, keys):
@@ -1202,8 +1187,7 @@ class BuildTrackFromExportTagAction(BuildTrackActionBase):
         # This is no longer added, as the exporters now use the separate start and end handle keys above.  But older projects
         # might still contain it.
         if tag and tag.metadata().hasKey('handles'):
-            starthandle = endhandle = int(math.floor(
-                float(tag.metadata().value('handles'))))
+            starthandle = endhandle = int(math.floor(float(tag.metadata().value('handles'))))
 
         return start, duration, starthandle, endhandle, offset
 
@@ -1219,8 +1203,7 @@ class BuildTrackFromExportTagAction(BuildTrackActionBase):
         timelineIn = trackItem.timelineIn()
         timelineOut = timelineIn + duration - 1 - starthandle - endhandle
 
-        inTransitionLength, outTransitionLength = BuildTrack.CalcTransitionExtraLengths(
-            trackItem)
+        inTransitionLength, outTransitionLength = BuildTrack.CalcTransitionExtraLengths(trackItem)
         timelineOut -= (inTransitionLength + outTransitionLength)
         return (timelineIn, timelineOut)
 
@@ -1294,8 +1277,8 @@ class BuildTrackFromExportTagAction(BuildTrackActionBase):
             # Otherwise it should have the same source duration as the original, and thus the same retime percentage.
             else:
                 # First add the abs src duration to get the source out
-                sourceOut = sourceIn + \
-                    abs(originalTrackItem.sourceOut() - originalTrackItem.sourceIn())
+                sourceOut = sourceIn + abs(originalTrackItem.sourceOut() -
+                                           originalTrackItem.sourceIn())
 
                 # Then, for a negative retime, src in/out need to be reversed
                 if originalTrackItem.playbackSpeed() < 0.0:
@@ -1319,8 +1302,7 @@ class BuildExternalMediaTrackDialog(QtWidgets.QDialog):
         layout = QtWidgets.QVBoxLayout()
         formLayout = QtWidgets.QFormLayout()
 
-        self._tracknameField = QtWidgets.QLineEdit(
-            BuildTrack.ProjectTrackNameDefault(selection))
+        self._tracknameField = QtWidgets.QLineEdit(BuildTrack.ProjectTrackNameDefault(selection))
         self._tracknameField.setToolTip('Name of new track')
         validator = hiero.ui.trackNameValidator()
         self._tracknameField.setValidator(validator)
@@ -1329,8 +1311,8 @@ class BuildExternalMediaTrackDialog(QtWidgets.QDialog):
         project = None
         if self._selection:
             project = self.itemProject(self._selection[0])
-        presetNames = [preset.name() for preset in hiero.core.taskRegistry.localPresets(
-        ) + hiero.core.taskRegistry.projectPresets(project)]
+        presetNames = [preset.name() for preset in hiero.core.taskRegistry.localPresets() +
+                       hiero.core.taskRegistry.projectPresets(project)]
         presetCombo = QtWidgets.QComboBox()
         for name in sorted(presetNames):
             presetCombo.addItem(name)
@@ -1351,10 +1333,8 @@ class BuildExternalMediaTrackDialog(QtWidgets.QDialog):
         # Add the standard ok/cancel buttons, default to ok.
         self._buttonbox = QtWidgets.QDialogButtonBox(
             QtWidgets.QDialogButtonBox.StandardButton.Ok | QtWidgets.QDialogButtonBox.StandardButton.Cancel)
-        self._buttonbox.button(
-            QtWidgets.QDialogButtonBox.StandardButton.Ok).setText('Build')
-        self._buttonbox.button(
-            QtWidgets.QDialogButtonBox.StandardButton.Ok).setDefault(True)
+        self._buttonbox.button(QtWidgets.QDialogButtonBox.StandardButton.Ok).setText('Build')
+        self._buttonbox.button(QtWidgets.QDialogButtonBox.StandardButton.Ok).setDefault(True)
         self._buttonbox.button(QtWidgets.QDialogButtonBox.StandardButton.Ok).setToolTip(
             'Builds the selected entry in the export template. Only enabled if an entry is selected in the view above.')
         self._buttonbox.accepted.connect(self.acceptTest)
@@ -1399,8 +1379,7 @@ class BuildExternalMediaTrackDialog(QtWidgets.QDialog):
             self._preset = presetsDict[value]
             self._exportTemplate.restore(self._preset._properties['exportTemplate'])
             if self._preset._properties['exportRoot'] != 'None':
-                self._exportTemplate.setExportRootPath(
-                    self._preset._properties['exportRoot'])
+                self._exportTemplate.setExportRootPath(self._preset._properties['exportRoot'])
             self._exportTemplateViewer.setExportStructure(self._exportTemplate)
             self._resolver = self._preset.createResolver()
             self._resolver.addEntriesToExportStructureViewer(self._exportTemplateViewer)

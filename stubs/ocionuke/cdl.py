@@ -88,8 +88,7 @@ def SelectCCCIDPanel(*args, **kwargs):
                 for cur in allcdl:
                     self.available[cur.getID()] = cur
 
-                self.addKnob(nuke.Enumeration_Knob(
-                    'cccid', 'cccid', list(self.available.keys())))
+                self.addKnob(nuke.Enumeration_Knob('cccid', 'cccid', list(self.available.keys())))
                 self.addKnob(nuke.Text_Knob('divider'))
                 self.addKnob(nuke.Color_Knob('slope'))
                 self.addKnob(nuke.Color_Knob('offset'))
@@ -157,8 +156,7 @@ def import_cc_from_xml(node=None, filename=None):
         node = nuke.thisNode()
 
     if filename is None:
-        filename = nuke.getFilename('Color Correction filename',
-                                    pattern='*.cc *.ccc *.cdl')
+        filename = nuke.getFilename('Color Correction filename', pattern='*.cc *.ccc *.cdl')
         if filename is None:
             # User clicked cancel
             return
@@ -208,8 +206,7 @@ def import_multiple_from_ccc(filename=None):
     """
 
     if filename is None:
-        filename = nuke.getFilename('Color Correction XML file',
-                                    pattern='*.cc *.ccc *.cdl')
+        filename = nuke.getFilename('Color Correction XML file', pattern='*.cc *.ccc *.cdl')
         if filename is None:
             # User clicked cancel
             return

@@ -108,7 +108,7 @@ class ExportStructureViewer(QWidget):
         """
         ...
 
-    def itemTypes(self) -> core.ITaskPreset.ItemTypes:
+    def itemTypes(self) -> hiero.core.ITaskPreset.ItemTypes:
         """
 
         """
@@ -156,7 +156,7 @@ class ExportStructureViewer(QWidget):
         """
         ...
 
-    def selection(self) -> core.IExportStructureElement:
+    def selection(self) -> hiero.core.IExportStructureElement:
         """
 
         """

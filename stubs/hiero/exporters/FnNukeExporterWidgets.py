@@ -33,8 +33,7 @@ class NukeProjectNodeSelectionWidget(QtWidgets.QWidget):
 
         self._nodeSelectionComboBox = QtWidgets.QComboBox()
         self._nodeSelectionComboBox.currentIndexChanged.connect(self.nodeSelectionChanged)
-        self._nodeSelectionComboBox.setSizeAdjustPolicy(
-            QtWidgets.QComboBox.AdjustToContents)
+        self._nodeSelectionComboBox.setSizeAdjustPolicy(QtWidgets.QComboBox.AdjustToContents)
         comboBoxLayout = QtWidgets.QHBoxLayout(containerWidget)
         comboBoxLayout.setContentsMargins(0, 0, 0, 0)
         comboBoxLayout.addWidget(self._nodeSelectionComboBox)
@@ -46,8 +45,7 @@ class NukeProjectNodeSelectionWidget(QtWidgets.QWidget):
     def addNodeSelector(self, id, name, propertyName, tooltip, select=False):
         self._nodeSelectionComboBox.addItem(name)
         listView = QtWidgets.QListView()
-        listView.setSizePolicy(QtWidgets.QSizePolicy.Preferred,
-                               QtWidgets.QSizePolicy.Minimum)
+        listView.setSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Minimum)
         self._list.insert(id, listView)
         self._model.insert(id, QtGui.QStandardItemModel())
 
@@ -86,8 +84,7 @@ class NukeProjectNodeSelectionWidget(QtWidgets.QWidget):
         self._list[id].setToolTip(tooltip)
         self._stackedWidget.addWidget(self._list[id])
         if select:
-            self._nodeSelectionComboBox.setCurrentIndex(
-                self._nodeSelectionComboBox.count()-1)
+            self._nodeSelectionComboBox.setCurrentIndex(self._nodeSelectionComboBox.count()-1)
 
 
 class TimelineWriteNodeWidget(QtWidgets.QWidget):
@@ -157,8 +154,7 @@ class TimelineWriteNodeWidget(QtWidgets.QWidget):
 
     def dataModelChanged(self, topLeft, bottomRight):
         # a writeNode was included/excluded to the script
-        isIncluded = self._model.data(
-            topLeft, QtCore.Qt.CheckStateRole) == QtCore.Qt.Checked
+        isIncluded = self._model.data(topLeft, QtCore.Qt.CheckStateRole) == QtCore.Qt.Checked
         # get corresponding item in selector model
         item = self._comboboxModel.item(topLeft.row())
         # enable/disable on our combo box

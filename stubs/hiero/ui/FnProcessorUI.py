@@ -151,8 +151,7 @@ class ProcessorUIBase(IProcessorUI):
                            ' Do you want to render them now, or skip them?')
             messageBox = QtWidgets.QMessageBox(
                 QtWidgets.QMessageBox.Question, 'Export', messageText, QtWidgets.QMessageBox.NoButton, hiero.ui.mainWindow())
-            cancelButton = messageBox.addButton(
-                'Cancel export', QtWidgets.QMessageBox.RejectRole)
+            cancelButton = messageBox.addButton('Cancel export', QtWidgets.QMessageBox.RejectRole)
             messageBox.setDefaultButton(cancelButton)
             renderButton = messageBox.addButton('Render', QtWidgets.QMessageBox.YesRole)
             skipButton = messageBox.addButton('Skip', QtWidgets.QMessageBox.YesRole)
@@ -230,10 +229,8 @@ class ProcessorUIBase(IProcessorUI):
         messageBox.setDefaultButton(noButton)
         skipButton = None
         if hasOnline:
-            skipButton = messageBox.addButton(
-                'Skip offline', QtWidgets.QMessageBox.YesRole)
-        includeButton = messageBox.addButton(
-            'Export offline', QtWidgets.QMessageBox.YesRole)
+            skipButton = messageBox.addButton('Skip offline', QtWidgets.QMessageBox.YesRole)
+        includeButton = messageBox.addButton('Export offline', QtWidgets.QMessageBox.YesRole)
         messageBox.exec_()
         if messageBox.clickedButton() == skipButton:
             self._preset.setSkipOffline(True)
@@ -293,15 +290,12 @@ class ProcessorUIBase(IProcessorUI):
         if self._project:
             self._exportStructureViewer.setProject(self._project)
 
-        self._exportStructureViewer.destroyed.connect(
-            self.onExportStructureViewerDestroyed)
+        self._exportStructureViewer.destroyed.connect(self.onExportStructureViewerDestroyed)
 
         self._exportStructureViewer.setItemTypes(self._itemTypes)
         self._preset.createResolver().addEntriesToExportStructureViewer(self._exportStructureViewer)
-        self._exportStructureViewer.structureModified.connect(
-            self.onExportStructureModified)
-        self._exportStructureViewer.selectionChanged.connect(
-            self.onExportStructureSelectionChanged)
+        self._exportStructureViewer.structureModified.connect(self.onExportStructureModified)
+        self._exportStructureViewer.selectionChanged.connect(self.onExportStructureSelectionChanged)
 
         exportStructureLayout.addWidget(self.createVersionWidget())
 
@@ -326,8 +320,7 @@ class ProcessorUIBase(IProcessorUI):
         self._exportTemplate = hiero.core.ExportStructure2()
         self._exportTemplate.restore(self._preset.properties()['exportTemplate'])
         if self._preset.properties()['exportRoot'] != 'None':
-            self._exportTemplate.setExportRootPath(
-                self._preset.properties()['exportRoot'])
+            self._exportTemplate.setExportRootPath(self._preset.properties()['exportRoot'])
 
         # Must replace the Export Structure viewer structure object before old template is destroyed
         if self._exportStructureViewer is not None:

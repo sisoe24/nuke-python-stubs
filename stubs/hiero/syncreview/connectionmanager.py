@@ -117,8 +117,7 @@ class ClientSession(Session):
         try:
             self.client = Client(connectionState, config.MACHINE_ID)
             self.client.moveToThread(self._thread)
-            callInObjectsThread(self.client, self.client.connectToHost,
-                                hostname, port, clientData)
+            callInObjectsThread(self.client, self.client.connectToHost, hostname, port, clientData)
 
             self.messageDispatcher = MessageDispatcher(self.client)
 
@@ -188,8 +187,7 @@ class ConnectionManager(QObject):
             log.initLogger('syncsessionhost')
             self.session = ServerSession(port, clientData, project)
             self.connectionState.setState(ConnectionState.SERVER_RUNNING)
-            self.session.client.numberOfClientsChanged.connect(
-                self._onNumberOfClientsChanged)
+            self.session.client.numberOfClientsChanged.connect(self._onNumberOfClientsChanged)
         except:
             log.logException()
             self.connectionState.setError(ConnectionState.ERROR_BIND_FAILURE)
@@ -213,8 +211,7 @@ class ConnectionManager(QObject):
         try:
             log.initLogger('syncsessionclient')
             self.session = ClientSession(hostname, port, self.connectionState, clientData)
-            self.session.client.numberOfClientsChanged.connect(
-                self._onNumberOfClientsChanged)
+            self.session.client.numberOfClientsChanged.connect(self._onNumberOfClientsChanged)
         except:
             log.logException()
 

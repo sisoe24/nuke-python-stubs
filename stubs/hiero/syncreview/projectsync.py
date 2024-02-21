@@ -61,8 +61,7 @@ class ProjectPushTool(SyncTool):
             messages.ProjectPushBegin, self._onProjectPushBeginReceived)
         self.messageDispatcher._registerCallback(
             messages.ProjectPushEnd, self._onProjectPushEndReceived)
-        self.messageDispatcher._registerCallback(
-            messages.ProjectPush, self._onProjectPushReceived)
+        self.messageDispatcher._registerCallback(messages.ProjectPush, self._onProjectPushReceived)
         self.messageDispatcher._registerCallback(
             messages.ProjectClose, self._onProjectCloseReceived)
         self._clientData = clientData
@@ -107,8 +106,7 @@ class ProjectPushTool(SyncTool):
             version = int(oldPath[oldPath.rfind('v')+1:oldPath.rfind('.')]) + 1
         userName = self._clientData[0]
         timestamp = datetime.now().strftime('%Y%m%d_%H%M')
-        newFileName = '{}_{}_{}_v{:02d}.hrox'.format(
-            projName, userName, timestamp, version)
+        newFileName = '{}_{}_{}_v{:02d}.hrox'.format(projName, userName, timestamp, version)
         newPath = os.path.join(tempDir, newFileName)
         saveFlags = (hiero.core.Project.kProjectSaveKeepName |
                      hiero.core.Project.kProjectSaveDontAddToRecent |
@@ -131,8 +129,7 @@ class ProjectPushTool(SyncTool):
         self._state = ProjectPushTool.STATE_PUSHING_PROJECTS
         self.viewerSyncTool.stopPlayback()
         guids = [pd.projectGuid for pd in projectsData]
-        self.messageDispatcher.sendMessage(
-            messages.ProjectPushBegin(target=receiver, guids=guids))
+        self.messageDispatcher.sendMessage(messages.ProjectPushBegin(target=receiver, guids=guids))
         for projectData in projectsData:
             self._pushProject(receiver, projectData)
         self.messageDispatcher.sendMessage(messages.ProjectPushEnd(target=receiver))
@@ -202,15 +199,13 @@ class ProjectPushTool(SyncTool):
         with hiero.core.util.filesystem.openFile(projTempPath, 'wb') as projFile:
             projFile.write(msg.content)
 
-        proj = hiero.core.openProject(
-            projTempPath, hiero.core.Project.kProjectOpenDontAddToRecent)
+        proj = hiero.core.openProject(projTempPath, hiero.core.Project.kProjectOpenDontAddToRecent)
         # Try to find existing data about the project. If there isn't any, it's the first
         # time it's been pushed from the host and should be created. The project path
         # is cleared to remove the association with the temp file it was loaded from
         # (although this doesn't currently matter too much for clients because they're
         # not supposed to be saving synced projects)
-        projectData = next(
-            (pd for pd in self._projectsData if pd.projectGuid == msg.guid), None)
+        projectData = next((pd for pd in self._projectsData if pd.projectGuid == msg.guid), None)
         if not projectData:
             proj.setPath('')
             projectData = ProjectSyncData(proj)
@@ -231,11 +226,9 @@ class ProjectPushTool(SyncTool):
         """ Handle message sent when a synced project is closed on the host, and close
         it here.
         """
-        projectData = next(
-            (pd for pd in self._projectsData if pd.projectGuid == msg.guid), None)
+        projectData = next((pd for pd in self._projectsData if pd.projectGuid == msg.guid), None)
         if not projectData:
-            logMessage(
-                '_onProjectCloseReceived could not find project with id {}'.format(msg.guid))
+            logMessage('_onProjectCloseReceived could not find project with id {}'.format(msg.guid))
             return
         self._projectsData.remove(projectData)
         projectData.project.close()
@@ -252,8 +245,7 @@ class ProjectSyncProgressTool(SyncTool):
         super(ProjectSyncProgressTool, self).__init__(messageDispatcher)
         self.messageDispatcher._registerCallback(
             messages.ProjectLoadProgress, self._onClientLoadProgress)
-        self.messageDispatcher._registerCallback(
-            messages.Disconnected, self._onClientDisconnected)
+        self.messageDispatcher._registerCallback(messages.Disconnected, self._onClientDisconnected)
         self._loadingClients = dict()
         self._progressTask = None
 
@@ -305,8 +297,7 @@ class HostProjectSyncTool(SyncTool):
 
     def __init__(self, messageDispatcher, pushTool):
         super(HostProjectSyncTool, self).__init__(messageDispatcher)
-        self.messageDispatcher._registerCallback(
-            messages.Connect, self._onClientConnected)
+        self.messageDispatcher._registerCallback(messages.Connect, self._onClientConnected)
         self._pushTool = pushTool
 
         self.registerEventCallback('kAfterNewProjectCreated', self._onProjectLoadOrCreate)

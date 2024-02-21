@@ -25,8 +25,7 @@ def remove_inputs():
     thisGroup = nuke.thisGroup()
     if thisGroup is not nuke.root() and (thisGroup.locked() or thisGroup.subgraphLocked()):
         lockedReason = 'published' if thisGroup.subgraphLocked() else 'locked'
-        raise RuntimeError("Can't remove input because " +
-                           thisGroup.name() + ' is ' + lockedReason)
+        raise RuntimeError("Can't remove input because " + thisGroup.name() + ' is ' + lockedReason)
 
     nodes = nuke.selectedNodes()
     for i in nodes:
@@ -44,8 +43,7 @@ def branch():
     thisGroup = nuke.thisGroup()
     if thisGroup is not nuke.root() and (thisGroup.locked() or thisGroup.subgraphLocked()):
         lockedReason = 'published' if thisGroup.subgraphLocked() else 'locked'
-        raise RuntimeError("Can't branch because " +
-                           thisGroup.name() + ' is ' + lockedReason)
+        raise RuntimeError("Can't branch because " + thisGroup.name() + ' is ' + lockedReason)
 
     top_node = None
     selnodes = nuke.selectedNodes()

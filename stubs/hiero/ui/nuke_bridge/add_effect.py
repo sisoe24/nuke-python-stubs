@@ -171,8 +171,7 @@ def createEffectActions():
         transformsMenu = QMenu('Transformations')
         transformsMenu.setObjectName('foundry.timeline.effect.transformsMenuMain')
 
-        action = QAction(QIcon(gNukeIconPath + 'ToolbarTransform.png'),
-                         'Transformations', None)
+        action = QAction(QIcon(gNukeIconPath + 'ToolbarTransform.png'), 'Transformations', None)
         action.setObjectName('foundry.timeline.effect.transformsMenuAction')
         action.setToolTip('Transformations')
         action.setMenu(transformsMenu)
@@ -185,8 +184,7 @@ def createEffectActions():
         transformsMenu.addAction(action)
         registerAction(action)
 
-        action = QAction(QIcon(gNukeIconPath + '/LensDistort.png'),
-                         'LensDistortion', None)
+        action = QAction(QIcon(gNukeIconPath + '/LensDistort.png'), 'LensDistortion', None)
         action.setObjectName('foundry.timeline.effect.LensDistortion')
         action.setToolTip('LensDistortion')
         action.setData('LensDistortion2')
@@ -207,8 +205,7 @@ def createEffectActions():
         transformsMenu.addAction(action)
         registerAction(action)
 
-        action = QAction(QIcon(gNukeIconPath + '/ModifyMetaData.png'),
-                         'ModifyMetaData', None)
+        action = QAction(QIcon(gNukeIconPath + '/ModifyMetaData.png'), 'ModifyMetaData', None)
         action.setObjectName('foundry.timeline.effect.ModifyMetaData')
         action.setToolTip('ModifyMetaData')
         action.setData('ModifyMetaData')
@@ -257,8 +254,7 @@ class AddEffectHandler(SendToNukeHandler):
 
         fileMenu = hiero.ui.findMenuAction('foundry.menu.file')
         # Connect to the global 'Add Effect' action, which is added to the timeline toolbar
-        createCompGlobalAction = hiero.ui.findRegisteredAction(
-            'foundry.timeline.comp.createComp')
+        createCompGlobalAction = hiero.ui.findRegisteredAction('foundry.timeline.comp.createComp')
         createCompSpecialAction = hiero.ui.findRegisteredAction(
             'foundry.timeline.comp.createCompSpecial')
         if createCompGlobalAction:
@@ -304,8 +300,7 @@ class AddEffectHandler(SendToNukeHandler):
         effectItems = []
         bins = []
         annotations = []
-        self._findItems(selection, clips, sequences, trackItems,
-                        bins, effectItems, annotations)
+        self._findItems(selection, clips, sequences, trackItems, bins, effectItems, annotations)
         return objectType(trackItems, effectItems, annotations, title='Create Comp')
 
     # override

@@ -13,8 +13,8 @@ def animation_loop():
         for i in anim:
             loopstart = p.value('First frame of loop:')
             loopend = p.value('Last frame of loop:')
-            nuke.animation(i, 'expression', ('curve(((frame-'+loopstart +
-                           ')%('+loopend+'-'+loopstart+'+1))+'+loopstart+')',))
+            nuke.animation(
+                i, 'expression', ('curve(((frame-'+loopstart+')%('+loopend+'-'+loopstart+'+1))+'+loopstart+')',))
 
 
 def animation_move():

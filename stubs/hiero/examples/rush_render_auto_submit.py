@@ -94,8 +94,7 @@ class RushRenderTask(hiero.core.TaskBase):
 
     def parseProgressOutput(self):
         rushStatus = 'rush -lfi ' + self._jobID + " 2>&1 |awk '/Done/ {print $4}'"
-        rushProgress = subprocess.Popen(
-            rushStatus, shell=True, stdout=subprocess.PIPE, text=True)
+        rushProgress = subprocess.Popen(rushStatus, shell=True, stdout=subprocess.PIPE, text=True)
         try:
             doneProgress = rushProgress.stdout.readline().split('%')[1]
         except:

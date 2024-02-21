@@ -76,5 +76,4 @@ class DisclosureButton(QtWidgets.QCheckBox):
 
         subStyleOption.rect = style.subElementRect(
             QtWidgets.QStyle.SE_CheckBoxContents, styleOption, self)
-        style.drawControl(QtWidgets.QStyle.CE_PushButtonLabel,
-                          subStyleOption, painter, self)
+        style.drawControl(QtWidgets.QStyle.CE_PushButtonLabel, subStyleOption, painter, self)

@@ -113,8 +113,7 @@ class WriteNodeKnobFormatter:
 
 
 # special case serialization nodes
-_customKnobFormatters = {
-    'Read': ReadNodeKnobFormatter(), 'Write': WriteNodeKnobFormatter()}
+_customKnobFormatters = {'Read': ReadNodeKnobFormatter(), 'Write': WriteNodeKnobFormatter()}
 
 
 def RegisterCustomNukeKnobFormatter(nodeType, nodeKnobFormatter):
@@ -190,18 +189,15 @@ class Node(object):
 
     def addFilenameKnob(self, knobName, text=None, tooltip=None, value=None, visible=True):
         """ Add a filename knob. """
-        self._addUserKnob(Node.USER_KNOB_TYPE_FILENAME, knobName,
-                          text, tooltip, value, visible)
+        self._addUserKnob(Node.USER_KNOB_TYPE_FILENAME, knobName, text, tooltip, value, visible)
 
     def addInputTextKnob(self, knobName, text=None, tooltip=None, value=None, visible=True):
         """ Add an input text knob. """
-        self._addUserKnob(Node.USER_KNOB_TYPE_INPUTTEXT,
-                          knobName, text, tooltip, value, visible)
+        self._addUserKnob(Node.USER_KNOB_TYPE_INPUTTEXT, knobName, text, tooltip, value, visible)
 
     def addCheckboxKnob(self, knobName, text=None, tooltip=None, value=False, visible=True):
         """ Add a checkbox knob. """
-        self._addUserKnob(Node.USER_KNOB_TYPE_CHECKBOX, knobName,
-                          text, tooltip, value, visible)
+        self._addUserKnob(Node.USER_KNOB_TYPE_CHECKBOX, knobName, text, tooltip, value, visible)
 
     def addRawKnob(self, text):
         """ Add raw knob text to the node.  This is written directly to the script with no formatting. """
@@ -392,8 +388,7 @@ class PrecompNode(Node):
 
 class CompositeNode(Node):
     def __init__(self, nodeType, inputNode0=None, inputNodes=None, **keywords):
-        Node.__init__(self, nodeType, inputNode0=inputNode0,
-                      inputNodes=inputNodes, **keywords)
+        Node.__init__(self, nodeType, inputNode0=inputNode0, inputNodes=inputNodes, **keywords)
         self._nodes = []
 
     def getNodes(self):
@@ -493,8 +488,7 @@ class SetNode(Node):
         return False
 
     def serialize(self, serializer):
-        serializer._nodeOutput = 'set %s [stack %s]\n' % (
-            str(self._var), str(self._stack))
+        serializer._nodeOutput = 'set %s [stack %s]\n' % (str(self._var), str(self._stack))
 
 
 class PushNode(Node):
@@ -520,8 +514,7 @@ class UserDefinedNode (Node):
 
     def __init__(self, data):
         Node.__init__(self, '')
-        assert isinstance(data, str) and data, "unexpected data %s '%s'" % (
-            type(data), data)
+        assert isinstance(data, str) and data, "unexpected data %s '%s'" % (type(data), data)
 
         # Split into lines, so extra knobs can be inserted. If any further
         # functionality is added here it would probably be sensible to properly
@@ -607,8 +600,7 @@ class MergeNode(Node):
     def __init__(self, inputNodes=None):
         self._dotAInput = None
         self._dotMaskInput = None
-        Node.__init__(self, 'Merge2', inputs=2, metainput='All',
-                      operation='over', also_merge='all')
+        Node.__init__(self, 'Merge2', inputs=2, metainput='All', operation='over', also_merge='all')
 
     def setDotInputs(self, dotAInput=None, dotMaskInput=None):
         self._dotAInput = dotAInput
@@ -737,8 +729,8 @@ class ReformatNode(Node):
         self.setKnob('pbb', pbb)
         if to_type == self.kToFormat:
             if format is None or not str(format):
-                raise ValueError('to_type is set to kToFormat but format is not a format string (it is %s).' % (
-                    str(type(format)),))
+                raise ValueError(
+                    'to_type is set to kToFormat but format is not a format string (it is %s).' % (str(type(format)),))
             self.setKnob('format', format)
         elif to_type == self.kToScale:
             if scale is None or not float(scale) > 0:
@@ -922,16 +914,13 @@ else:
         self._setLUTKnob('monitorLut', hiero.core.ViewerProcessNameFromDisplayTransformName(
             projectSettings['lutSettingViewer']), convertRawToLinear)
         self._setLUTKnob('int8Lut', projectSettings['lutSetting8Bit'], convertRawToLinear)
-        self._setLUTKnob(
-            'int16Lut', projectSettings['lutSetting16Bit'], convertRawToLinear)
+        self._setLUTKnob('int16Lut', projectSettings['lutSetting16Bit'], convertRawToLinear)
         self._setLUTKnob('logLut', projectSettings['lutSettingLog'], convertRawToLinear)
-        self._setLUTKnob(
-            'floatLut', projectSettings['lutSettingFloat'], convertRawToLinear)
+        self._setLUTKnob('floatLut', projectSettings['lutSettingFloat'], convertRawToLinear)
 
     def setViewsConfiguration(self, viewsColors, heroView=None, showColors=None):
         """ Set the view related knobs on the Root node """
-        viewsString = '"' + '\n'.join(('{} {}'.format(v, c.name())
-                                      for v, c in viewsColors)) + '"'
+        viewsString = '"' + '\n'.join(('{} {}'.format(v, c.name()) for v, c in viewsColors)) + '"'
         self.setKnob('views',  viewsString)
         if heroView:
             self.setKnob('hero_view', heroView)
@@ -978,8 +967,7 @@ class ConstantNode(Node):
 
     def __init__(self, first, last, channels='none', **knobs):
         """ Construct the node with first and last frames. """
-        Node.__init__(self, 'Constant', first=first,
-                      last=last, channels=channels, **knobs)
+        Node.__init__(self, 'Constant', first=first, last=last, channels=channels, **knobs)
 
     def getNodeSize(self):
         """ Get the size of the node.  This is an estimate, since in Nuke the size can be affected by
@@ -1020,8 +1008,7 @@ class BackdropNode(Node):
 
     def __init__(self, xpos, ypos, width, height):
         """ Construct the backdrop with x, y, width, height. """
-        Node.__init__(self, 'BackdropNode', xpos=xpos,
-                      ypos=ypos, bdwidth=width, bdheight=height)
+        Node.__init__(self, 'BackdropNode', xpos=xpos, ypos=ypos, bdwidth=width, bdheight=height)
 
     def setLabel(self, text):
         """ Set the node label.  Adds the center tag to it. """

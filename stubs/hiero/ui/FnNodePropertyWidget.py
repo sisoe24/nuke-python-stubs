@@ -70,8 +70,7 @@ class NodePropertyWidget(QtWidgets.QWidget):
         except Exception:
             pass
         if knob.visible() and notDefault:
-            isInt = knob.getFlag(nuke.STORE_INTEGER) and not isinstance(
-                knob, nuke.Enumeration_Knob)
+            isInt = knob.getFlag(nuke.STORE_INTEGER) and not isinstance(knob, nuke.Enumeration_Knob)
             self._presetDictionary[knobName] = int(
                 actualKnob.value()) if isInt else actualKnob.toScript()
         else:
@@ -81,8 +80,7 @@ class NodePropertyWidget(QtWidgets.QWidget):
     def knobChanged(self):
         if nuke.thisNode().name() == self._node.name():
             # Check if the knob is one of the knobs that this widget is displaying
-            knobName = self._linkKnobMap.get(
-                nuke.thisKnob().name(), nuke.thisKnob().name())
+            knobName = self._linkKnobMap.get(nuke.thisKnob().name(), nuke.thisKnob().name())
             if knobName in [knobWidgetPair[0] for knobWidgetPair in self._knobs]:
                 self.updateProperties()
                 self.updatePresetValue(nuke.thisKnob())

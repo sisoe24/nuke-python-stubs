@@ -39,8 +39,7 @@ class LocaliseMenu:
         self._localiseShotSelectionAction = createMenuAction(
             'Shot', self.localiseTimelineSpreadsheetSelection, icon='icons:Mask.png')
 
-        hiero.core.events.registerInterest(
-            'kShowContextMenu/kBin', self.binViewEventHandler)
+        hiero.core.events.registerInterest('kShowContextMenu/kBin', self.binViewEventHandler)
         hiero.core.events.registerInterest(
             'kShowContextMenu/kTimeline', self.timelineSpreadsheetEventHandler)
         hiero.core.events.registerInterest(
@@ -143,8 +142,7 @@ class LocaliseMenu:
         hiero.core.log.info('selection is' + str(self._selection))
 
         if len(binSelection) >= 1 and len(sequenceSelection) >= 1:
-            hiero.core.log.debug(
-                'Selection must either be a Bin selection or Sequence Selection')
+            hiero.core.log.debug('Selection must either be a Bin selection or Sequence Selection')
             return
 
         # Only add the Menu if Bins or Sequences are selected
@@ -182,8 +180,7 @@ class LocaliseMenu:
             item, (hiero.core.VideoTrack, hiero.core.AudioTrack))]
 
         if len(shotSelection) >= 1 and len(trackSelection) >= 1:
-            hiero.core.log.debug(
-                'Selection must either be a Shot selection or a Track Selection')
+            hiero.core.log.debug('Selection must either be a Shot selection or a Track Selection')
             return
 
         # We don't currently get a mixture of TrackItem and Tracks but combine the two lists to make a selection
@@ -198,8 +195,8 @@ class LocaliseMenu:
                 localisationEnabled and len(trackSelection) >= 1)
 
             # Insert the Localise menu
-            hiero.ui.insertMenuAction(self._localiseMenu.menuAction(
-            ),  event.menu, after='foundry.timeline.clipMenu')
+            hiero.ui.insertMenuAction(self._localiseMenu.menuAction(),
+                                      event.menu, after='foundry.timeline.clipMenu')
         return
 
 

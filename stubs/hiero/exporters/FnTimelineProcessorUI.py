@@ -45,8 +45,8 @@ class TimelineProcessorUI(hiero.ui.ProcessorUIBase, QtCore.QObject):
         # Look for selected items which arent of the correct type
         for item in exportItems:
             if not item.sequence() and not item.trackItem():
-                invalidItems.append(
-                    item.item().name() + " <span style='color: #CC0000'>(Not a Sequence)</span>")
+                invalidItems.append(item.item().name() +
+                                    " <span style='color: #CC0000'>(Not a Sequence)</span>")
 
         # Found invalid items
         if invalidItems:
@@ -82,10 +82,8 @@ class TimelineProcessorUI(hiero.ui.ProcessorUIBase, QtCore.QObject):
                 sequences.append(sequence)
 
         trackWidget = TrackSelectionWidget(sequences,
-                                           self._preset.nonPersistentProperties()[
-                                               'hiddenTracks'],
-                                           self._preset.nonPersistentProperties()[
-                                               'excludedTracks'],
+                                           self._preset.nonPersistentProperties()['hiddenTracks'],
+                                           self._preset.nonPersistentProperties()['excludedTracks'],
                                            excludedTrackIDs=self._preset._excludedTrackIDs)
         hLayout.addWidget(trackWidget)
 

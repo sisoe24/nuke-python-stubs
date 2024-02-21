@@ -32,15 +32,12 @@ class NewSequenceFromSelectionAction(QtWidgets.QAction):
                                   \nAll clips will be stacked on separate layers starting at frame 0\
                                   \nunless Sequential Layers is checked.')
             self.radioSingle.setChecked(True)
-            self.radioMultiple = QtWidgets.QRadioButton(
-                'Multiple Sequences', self.groupBox)
+            self.radioMultiple = QtWidgets.QRadioButton('Multiple Sequences', self.groupBox)
             self.radioMultiple.setToolTip("Create multiple sequences, one for each clip.\
                                     \nIf 'Use Timecode' is checked each sequence will start at the clip timecode.\
                                     \nOtherwise each sequence will start at the default sequence start.")
-            self.groupLayout.setWidget(
-                0, QtWidgets.QFormLayout.SpanningRole, self.radioSingle)
-            self.groupLayout.setWidget(
-                1, QtWidgets.QFormLayout.SpanningRole, self.radioMultiple)
+            self.groupLayout.setWidget(0, QtWidgets.QFormLayout.SpanningRole, self.radioSingle)
+            self.groupLayout.setWidget(1, QtWidgets.QFormLayout.SpanningRole, self.radioMultiple)
 
             self.spacerItem = QtWidgets.QSpacerItem(
                 15, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
@@ -50,34 +47,29 @@ class NewSequenceFromSelectionAction(QtWidgets.QAction):
             self.sequenceLayers.setChecked(True)
             self.sequenceLayers.setToolTip(
                 'Place the selected items on one track back to back if Single Sequence is selected.\nOtherwise items are stacked on separate tracks.')
-            self.groupLayout.setWidget(
-                2, QtWidgets.QFormLayout.FieldRole, self.sequenceLayers)
+            self.groupLayout.setWidget(2, QtWidgets.QFormLayout.FieldRole, self.sequenceLayers)
 
             self.includeAudio = QtWidgets.QCheckBox('Include Audio', self.groupBox)
             self.includeAudio.setChecked(True)
             self.includeAudio.setToolTip(
                 'Include Audio Tracks from clips containing audio (R3D, QuickTime).')
-            self.groupLayout.setWidget(
-                3, QtWidgets.QFormLayout.SpanningRole, self.includeAudio)
+            self.groupLayout.setWidget(3, QtWidgets.QFormLayout.SpanningRole, self.includeAudio)
 
             self.useTimecode = QtWidgets.QCheckBox('Use Timecode', self.groupBox)
             self.useTimecode.setChecked(False)
             self.useTimecode.setToolTip(
                 "Place clips on the timeline using timecode from the clip's metadata.")
             self.useTimecode.clicked.connect(self.useTimecodeChanged)
-            self.groupLayout.setWidget(
-                4, QtWidgets.QFormLayout.SpanningRole, self.useTimecode)
+            self.groupLayout.setWidget(4, QtWidgets.QFormLayout.SpanningRole, self.useTimecode)
 
             self.timecodeHorizontalLayout = QtWidgets.QHBoxLayout()
             self.timecodeHorizontalLayout.setSpacing(-1)
-            self.timecodeHorizontalLayout.setSizeConstraint(
-                QtWidgets.QLayout.SetDefaultConstraint)
+            self.timecodeHorizontalLayout.setSizeConstraint(QtWidgets.QLayout.SetDefaultConstraint)
             self.timecodeHorizontalLayout.setObjectName('timecodeHorizontalLayout')
 
             self.TCspacerItem = QtWidgets.QSpacerItem(
                 15, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-            self.groupLayout.setItem(
-                5, QtWidgets.QFormLayout.LabelRole, self.TCspacerItem)
+            self.groupLayout.setItem(5, QtWidgets.QFormLayout.LabelRole, self.TCspacerItem)
 
             self.timecodeOptionsLabel = QtWidgets.QLabel()
             self.timecodeOptionsLabel.setText('Clips Without Timecode:')
@@ -95,8 +87,7 @@ class NewSequenceFromSelectionAction(QtWidgets.QAction):
                                        \n-Ignore will ignore these clips')
 
             self.timecodeOptions.currentIndexChanged.connect(self.timecodeOptionsChanged)
-            self.groupLayout.setWidget(
-                5, QtWidgets.QFormLayout.SpanningRole, self.timecodeOptions)
+            self.groupLayout.setWidget(5, QtWidgets.QFormLayout.SpanningRole, self.timecodeOptions)
             self.timecodeOptions.addItem('Add Stacked')
             self.timecodeOptions.addItem('Add To Single Track')
             self.timecodeOptions.addItem('Ignore')
@@ -104,19 +95,17 @@ class NewSequenceFromSelectionAction(QtWidgets.QAction):
                 self.useTimecode.isChecked() & self.radioSingle.isChecked())
             self.timecodeHorizontalLayout.addWidget(self.timecodeOptions)
 
-            self.groupLayout.setLayout(
-                5, QtWidgets.QFormLayout.SpanningRole, self.timecodeHorizontalLayout)
+            self.groupLayout.setLayout(5, QtWidgets.QFormLayout.SpanningRole,
+                                       self.timecodeHorizontalLayout)
 
             self.dividerline1 = QtWidgets.QFrame()
             self.dividerline1.setFrameShape(QtWidgets.QFrame.HLine)
             self.dividerline1.setFrameShadow(QtWidgets.QFrame.Sunken)
-            self.groupLayout.setWidget(
-                6, QtWidgets.QFormLayout.SpanningRole, self.dividerline1)
+            self.groupLayout.setWidget(6, QtWidgets.QFormLayout.SpanningRole, self.dividerline1)
 
             self.horizontalLayout = QtWidgets.QHBoxLayout()
             self.horizontalLayout.setSpacing(-1)
-            self.horizontalLayout.setSizeConstraint(
-                QtWidgets.QLayout.SetDefaultConstraint)
+            self.horizontalLayout.setSizeConstraint(QtWidgets.QLayout.SetDefaultConstraint)
             self.horizontalLayout.setObjectName('formatHorizontalLayout')
             self.formatLabel = QtWidgets.QLabel()
             self.formatLabel.setText('Format:')
@@ -127,13 +116,11 @@ class NewSequenceFromSelectionAction(QtWidgets.QAction):
             self.formatChooser.formatChanged.connect(self.formatChanged)
             self.horizontalLayout.addWidget(self.formatChooser)
             self.horizontalLayout.setStretch(1, 40)
-            self.groupLayout.setLayout(
-                7, QtWidgets.QFormLayout.SpanningRole, self.horizontalLayout)
+            self.groupLayout.setLayout(7, QtWidgets.QFormLayout.SpanningRole, self.horizontalLayout)
 
             self.horizontalLayout2 = QtWidgets.QHBoxLayout()
             self.horizontalLayout2.setSpacing(-1)
-            self.horizontalLayout2.setSizeConstraint(
-                QtWidgets.QLayout.SetDefaultConstraint)
+            self.horizontalLayout2.setSizeConstraint(QtWidgets.QLayout.SetDefaultConstraint)
             self.horizontalLayout2.setObjectName('framerateHorizontalLayout')
             self.framerateLabel = QtWidgets.QLabel()
             self.framerateLabel.setText('Frame Rate:')
@@ -153,8 +140,7 @@ class NewSequenceFromSelectionAction(QtWidgets.QAction):
             self.dividerline2 = QtWidgets.QFrame()
             self.dividerline2.setFrameShape(QtWidgets.QFrame.HLine)
             self.dividerline2.setFrameShadow(QtWidgets.QFrame.Sunken)
-            self.groupLayout.setWidget(
-                9, QtWidgets.QFormLayout.SpanningRole, self.dividerline2)
+            self.groupLayout.setWidget(9, QtWidgets.QFormLayout.SpanningRole, self.dividerline2)
 
             for fps in hiero.core.defaultFrameRates():
                 if fps.is_integer():
@@ -165,10 +151,8 @@ class NewSequenceFromSelectionAction(QtWidgets.QAction):
             # Add the standard ok/cancel buttons, default to ok.
             self.buttonBox = QtWidgets.QDialogButtonBox(
                 QDialogButtonBox.StandardButton.Cancel | QtWidgets.QDialogButtonBox.StandardButton.Ok)
-            self.buttonBox.button(
-                QtWidgets.QDialogButtonBox.StandardButton.Ok).setText('Ok')
-            self.buttonBox.button(
-                QtWidgets.QDialogButtonBox.StandardButton.Ok).setAutoDefault(True)
+            self.buttonBox.button(QtWidgets.QDialogButtonBox.StandardButton.Ok).setText('Ok')
+            self.buttonBox.button(QtWidgets.QDialogButtonBox.StandardButton.Ok).setAutoDefault(True)
             self.buttonBox.accepted.connect(self.accept)
             self.buttonBox.rejected.connect(self.reject)
             self.groupLayout.addWidget(self.buttonBox)
@@ -272,8 +256,7 @@ class NewSequenceFromSelectionAction(QtWidgets.QAction):
                 for i in range(clip.numAudioTracks()):
                     audioTrackName = 'Audio ' + str(i+1)
                     if not self.trackExists(sequence, audioTrackName):
-                        newAudioTrack = sequence.addTrack(
-                            hiero.core.AudioTrack(audioTrackName))
+                        newAudioTrack = sequence.addTrack(hiero.core.AudioTrack(audioTrackName))
                     else:
                         newAudioTrack = self.trackExists(sequence, audioTrackName)
                     audioClip = newAudioTrack.addTrackItem(clip, i, start)
@@ -325,8 +308,7 @@ class NewSequenceFromSelectionAction(QtWidgets.QAction):
             for i in range(clip.numAudioTracks()):
                 audioTrackName = 'Audio ' + str(i+1)
                 if not self.trackNameExists(sequence, audioTrackName):
-                    newAudioTrack = sequence.addTrack(
-                        hiero.core.AudioTrack(audioTrackName))
+                    newAudioTrack = sequence.addTrack(hiero.core.AudioTrack(audioTrackName))
                 else:
                     newAudioTrack = self.trackNameExists(sequence, audioTrackName)
                 audioClip = newAudioTrack.addTrackItem(clip, i, 0)
@@ -615,8 +597,7 @@ class NewSequenceFromSelectionAction(QtWidgets.QAction):
                             rightClip = pair[0]
                         try:
                             newName = leftrx.match(leftClip.name()).groups()[0]
-                            sequence = self.newStereoSequence(
-                                leftClip, rightClip, newName, False)
+                            sequence = self.newStereoSequence(leftClip, rightClip, newName, False)
                             bin = leftClip.binItem().parentBin()
                             if sequence:
                                 bin.addItem(hiero.core.BinItem(sequence))
@@ -631,8 +612,7 @@ class NewSequenceFromSelectionAction(QtWidgets.QAction):
             if dialog.exec_():
                 if dialog.radioSingle.isChecked() == True:
                     hiero.core.projects()[-1].beginUndo('New Sequence From Selection')
-                    newFPS = hiero.core.TimeBase.fromString(
-                        str(dialog.fpsChooser.currentText()))
+                    newFPS = hiero.core.TimeBase.fromString(str(dialog.fpsChooser.currentText()))
                     newResolution = dialog.formatChooser.currentFormat()
 
                     # If we want to stack clips on separate layers
@@ -643,8 +623,7 @@ class NewSequenceFromSelectionAction(QtWidgets.QAction):
 
                         if clip.mediaSource().hasVideo():
                             if clip.mediaSource().metadata()['foundry.source.framerate']:
-                                fps = clip.mediaSource().metadata()[
-                                    'foundry.source.framerate']
+                                fps = clip.mediaSource().metadata()['foundry.source.framerate']
                             else:
                                 fps = clip.framerate()
                             sequence.setFramerate(newFPS)
@@ -713,8 +692,7 @@ class NewSequenceFromSelectionAction(QtWidgets.QAction):
                                 if clip.mediaSource().hasVideo():
                                     for i in range(clip.numVideoTracks()):
                                         try:
-                                            videoClip = sequence.videoTrack(
-                                                0).addTrackItem(clip, k)
+                                            videoClip = sequence.videoTrack(0).addTrackItem(clip, k)
                                         except:
                                             print('Failed to add clip')
                                         outTime = clip.duration() - 1
@@ -741,8 +719,8 @@ class NewSequenceFromSelectionAction(QtWidgets.QAction):
                                             if len(linkedItems) > 0:
                                                 audioClip.link(linkedItems[0])
                                                 # Audio only duration is currently returned in samples so we need to convert to frames
-                                                outTime = (
-                                                    float(clip.duration() / 48000) * fps.toFloat()) - 1
+                                                outTime = (float(clip.duration() / 48000)
+                                                           * fps.toFloat()) - 1
                                 k += (outTime + 1)
                             bin.addItem(hiero.core.BinItem(sequence))
                             sequence.editFinished()
@@ -806,8 +784,7 @@ class NewSequenceFromSelectionAction(QtWidgets.QAction):
                                                     clipStart = self.convertStartTimecode(
                                                         clip.timecodeStart(), clipfps.toInt(), sequencefps.toInt())
                                                     if clipStart < sequence.timecodeStart():
-                                                        sequence.setTimecodeStart(
-                                                            clipStart)
+                                                        sequence.setTimecodeStart(clipStart)
                                                         start = sequence.timecodeStart() - clipStart
                                                     else:
                                                         start = clipStart - sequence.timecodeStart()
@@ -866,8 +843,7 @@ class NewSequenceFromSelectionAction(QtWidgets.QAction):
 
                 # Multiple Sequences from selection
                 if dialog.radioMultiple.isChecked():
-                    hiero.core.projects(
-                    )[-1].beginUndo('Multiple Sequences From Selection')
+                    hiero.core.projects()[-1].beginUndo('Multiple Sequences From Selection')
                     leftrx = re.compile('(.*)(_L(eft)?)$', re.IGNORECASE)
                     rightrx = re.compile('(.*)(_R(ight)?)$', re.IGNORECASE)
 
@@ -901,12 +877,10 @@ class NewSequenceFromSelectionAction(QtWidgets.QAction):
 
                         if clip.mediaSource().hasVideo():
                             if clip.mediaSource().metadata()['foundry.source.framerate']:
-                                fps = clip.mediaSource().metadata()[
-                                    'foundry.source.framerate']
+                                fps = clip.mediaSource().metadata()['foundry.source.framerate']
                             else:
                                 fps = clip.framerate()
-                            sequence.setFramerate(
-                                hiero.core.TimeBase.fromString(str(fps)))
+                            sequence.setFramerate(hiero.core.TimeBase.fromString(str(fps)))
                             sequence.setFormat(clip.format())
 
                             if dialog.useTimecode.isChecked():
@@ -915,11 +889,9 @@ class NewSequenceFromSelectionAction(QtWidgets.QAction):
                             else:
                                 start = 0
                             for i in range(clip.numVideoTracks()):
-                                sequence.addTrack(
-                                    hiero.core.VideoTrack('Video ' + str(i+1)))
+                                sequence.addTrack(hiero.core.VideoTrack('Video ' + str(i+1)))
                                 try:
-                                    videoClip = sequence.videoTrack(
-                                        i).addTrackItem(clip, start)
+                                    videoClip = sequence.videoTrack(i).addTrackItem(clip, start)
                                 except:
                                     print('Failed to add clip')
                                     videoClip = None
@@ -941,8 +913,7 @@ class NewSequenceFromSelectionAction(QtWidgets.QAction):
                                     newAudioTrack = sequence.addTrack(
                                         hiero.core.AudioTrack(audioTrackName))
                                 else:
-                                    newAudioTrack = self.trackNameExists(
-                                        sequence, audioTrackName)
+                                    newAudioTrack = self.trackNameExists(sequence, audioTrackName)
                                 audioClip = newAudioTrack.addTrackItem(clip, i, start)
                                 linkedItems.append(audioClip)
                                 if videoClip:

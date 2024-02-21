@@ -139,8 +139,7 @@ class CreateCompForTrackItemsDialog(QtWidgets.QDialog):
                           "to select a shot to use as the 'master' shot for this effect.\n"
                           'The master shot defines the start frame range from which other '
                           'shots are offset when merged down into a single effect shot')
-    kSelectPresetButtonTooltip = (
-        'Select or configure the preset to use for creating comps.')
+    kSelectPresetButtonTooltip = ('Select or configure the preset to use for creating comps.')
 
     def __init__(self, trackItems, preset, parent=None):
         QtWidgets.QDialog.__init__(self, parent)
@@ -165,8 +164,7 @@ class CreateCompForTrackItemsDialog(QtWidgets.QDialog):
         buttonLayout = QtWidgets.QVBoxLayout()
         topLayout.addLayout(buttonLayout)
         buttonLayout.addSpacing(6)
-        buttonLayout.addWidget(self.createLabel(
-            CreateCompForTrackItemsDialog.kCompTypeLabel))
+        buttonLayout.addWidget(self.createLabel(CreateCompForTrackItemsDialog.kCompTypeLabel))
         buttonLayout.addSpacing(5)
         singleCompButton, multiCompButton = self.createCompTypeButtons()
         buttonLayout.addWidget(singleCompButton)
@@ -174,16 +172,14 @@ class CreateCompForTrackItemsDialog(QtWidgets.QDialog):
 
         # Preset button
         selectPresetButton = self.createSelectPresetButton()
-        topLayout.addWidget(selectPresetButton, 0,
-                            QtCore.Qt.AlignRight | QtCore.Qt.AlignTop)
+        topLayout.addWidget(selectPresetButton, 0, QtCore.Qt.AlignRight | QtCore.Qt.AlignTop)
 
         # Table widget
         self._tableWidget = QtWidgets.QWidget()
         tableLayout = QtWidgets.QVBoxLayout(self._tableWidget)
         tableLayout.setContentsMargins(0, 0, 0, 0)
         tableLayout.addSpacing(15)
-        tableLayout.addWidget(self.createLabel(
-            CreateCompForTrackItemsDialog.kMasterTableLabel))
+        tableLayout.addWidget(self.createLabel(CreateCompForTrackItemsDialog.kMasterTableLabel))
         tableLayout.addSpacing(5)
         self._trackItemTable = self.createShotsTableWidget()
         tableLayout.addWidget(self._trackItemTable)
@@ -207,12 +203,10 @@ class CreateCompForTrackItemsDialog(QtWidgets.QDialog):
     def createCompTypeButtons(self):
         """ Create radio buttons for selecting between single/multi comp """
         buttonGroup = QtWidgets.QButtonGroup(self)
-        singleCompButton = QtWidgets.QRadioButton(
-            CreateCompForTrackItemsDialog.kSingleNukeText)
+        singleCompButton = QtWidgets.QRadioButton(CreateCompForTrackItemsDialog.kSingleNukeText)
         singleCompButton.setChecked(True)
         singleCompButton.clicked.connect(self._onsingleCompButtonClicked)
-        multiCompButton = QtWidgets.QRadioButton(
-            CreateCompForTrackItemsDialog.kMultiNukeText)
+        multiCompButton = QtWidgets.QRadioButton(CreateCompForTrackItemsDialog.kMultiNukeText)
         multiCompButton.clicked.connect(self._onmultiCompButtonClicked)
         buttonGroup.addButton(singleCompButton, 0)
         buttonGroup.addButton(multiCompButton, 1)
@@ -223,10 +217,8 @@ class CreateCompForTrackItemsDialog(QtWidgets.QDialog):
         """ Create the button for showing the Create Comp Special dialog """
         selectPresetButton = QtWidgets.QPushButton()
         selectPresetButton.setFlat(True)
-        selectPresetButton.setSizePolicy(
-            QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
-        selectPresetButton.setToolTip(
-            CreateCompForTrackItemsDialog.kSelectPresetButtonTooltip)
+        selectPresetButton.setSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
+        selectPresetButton.setToolTip(CreateCompForTrackItemsDialog.kSelectPresetButtonTooltip)
         selectPresetButton.setIcon(QtGui.QIcon('icons:SettingsButton.png'))
         selectPresetButton.clicked.connect(self._openCreateCompSpecialDialog)
         return selectPresetButton
@@ -247,8 +239,7 @@ class CreateCompForTrackItemsDialog(QtWidgets.QDialog):
             shotModelItem = QtGui.QStandardItem(item.name())
 
             try:
-                shotModelItem.setIcon(QtGui.QIcon(
-                    QtGui.QPixmap.fromImage(item.thumbnail())))
+                shotModelItem.setIcon(QtGui.QIcon(QtGui.QPixmap.fromImage(item.thumbnail())))
             except:
                 shotModelItem.setIcon(QtGui.QIcon(QtGui.QPixmap()))
 
@@ -392,8 +383,7 @@ class CreateCompActionBase(BuildTrackFromExportTagAction):
         self._compTrackItems = []
 
         # If taskRegistry is available, always enable because an export can be invoked to create the script
-        self.setEnabled((hasattr(hiero.core, 'taskRegistry')
-                        and (len(self._trackItems) > 0)))
+        self.setEnabled((hasattr(hiero.core, 'taskRegistry') and (len(self._trackItems) > 0)))
 
         self._progressTask = None
         self._success = False
@@ -420,8 +410,7 @@ class CreateCompActionBase(BuildTrackFromExportTagAction):
         # this is called when the new VFX track is created; keep track of the items
         self._compTrackItems.append(newTrackItem)
 
-        BuildTrackFromExportTagAction.trackItemAdded(
-            self, newTrackItem, track, originalTrackItem)
+        BuildTrackFromExportTagAction.trackItemAdded(self, newTrackItem, track, originalTrackItem)
 
     def _buildTrackItem(self, name, clip, originalTrackItem, expectedStartTime, expectedDuration, expectedStartHandle, expectedEndHandle, expectedOffset):
 
@@ -555,8 +544,7 @@ class CreateCompActionBase(BuildTrackFromExportTagAction):
             track with the comp clips on. """
 
         hiero.core.log.info('  laying out scripts')
-        layoutNodesThread = threading.Thread(
-            target=self._layoutScripts, args=(trackItemData,))
+        layoutNodesThread = threading.Thread(target=self._layoutScripts, args=(trackItemData,))
         layoutNodesThread.start()
 
         while layoutNodesThread.is_alive():
@@ -682,8 +670,7 @@ class CreateCompActionBase(BuildTrackFromExportTagAction):
 
         # Add in any effects selected effects to the exporter
         exportItems.extend([hiero.core.ItemWrapper(effect) for effect in effectItems])
-        exportItems.extend([hiero.core.ItemWrapper(annotation)
-                           for annotation in annotations])
+        exportItems.extend([hiero.core.ItemWrapper(annotation) for annotation in annotations])
 
         self._runExport(preset, exportItems)
 
@@ -705,8 +692,7 @@ class CreateCompActionBase(BuildTrackFromExportTagAction):
         """ Export track items as separate clips. """
 
         exportEffectList = [hiero.core.ItemWrapper(effect) for effect in effectItems]
-        exportAnnotationList = [hiero.core.ItemWrapper(
-            annotation) for annotation in annotations]
+        exportAnnotationList = [hiero.core.ItemWrapper(annotation) for annotation in annotations]
 
         for trackItem, tag, version in trackItemData:
             QtCore.QCoreApplication.processEvents()
@@ -744,8 +730,7 @@ class CreateCompActionBase(BuildTrackFromExportTagAction):
             raise RuntimeError(errorString)
 
         # Perform the export
-        hiero.core.taskRegistry.createAndExecuteProcessor(
-            preset, exportItems, synchronous=True)
+        hiero.core.taskRegistry.createAndExecuteProcessor(preset, exportItems, synchronous=True)
 
     def _findMultiViewTrackItems(self, mainTrackItem):
         """ For multi-view projects, if the given track item is on a track which
@@ -1013,8 +998,7 @@ class CreateCompAction(CreateCompActionBase):
     """ Action for Create Comp.  Uses the project shot preset for export. """
 
     def __init__(self, trackItems, effectItems, annotations, title='Create Comp'):
-        super(CreateCompAction, self).__init__(
-            trackItems, effectItems, annotations, title)
+        super(CreateCompAction, self).__init__(trackItems, effectItems, annotations, title)
 
     def getExportPreset(self, project):
         return getProjectShotPreset(project)
@@ -1024,8 +1008,7 @@ class CreateCompSpecialAction(CreateCompActionBase):
     """ Action for Create Comp Special.  Shows the export dialog for the user to choose and configure their preset. """
 
     def __init__(self, trackItems, effectItems, annotations, title='Create Comp Special..'):
-        super(CreateCompSpecialAction, self).__init__(
-            trackItems, effectItems, annotations, title)
+        super(CreateCompSpecialAction, self).__init__(trackItems, effectItems, annotations, title)
 
     def getExportPreset(self, project):
         preset = showCreateCompSpecialDialog(self._trackItems)
