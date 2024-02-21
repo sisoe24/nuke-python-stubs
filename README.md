@@ -51,7 +51,7 @@ The wrong types are likely due to the parser identifying valid keywords inside t
 
 Example:
 
-In the return value from the docs: `-> switch to next view in settings Views list`, the parser will wrongly guess the type as `list` instead of `list[View]`.
+In the return value from the docs: `-> switch to next view in settings Views list`, the parser will guess the type as `list` since it found the word `list` in the documentation and not because it knows the type.
 
 > You can also disable the guess filter by setting `StubsRuntimeSettings.guess` to `False`.
 
@@ -72,6 +72,7 @@ Pycharm Stub generator inspired the creation of this script.
 ## 1.6 TODO
 
 - [ ] Make pre-commit on a pull request.
+- [ ] Make it available via pip.
 
 ## 1.6. Screenshot
 
