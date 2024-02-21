@@ -73,7 +73,7 @@ class CatInfo:
     def nuke_script(self):
         if self.filepath.endswith('.gizmo'):
             _, filename = os.path.split(self.filepath)
-            return f"import nuke; nuke.createNode({filename!r})"
+            return f'import nuke; nuke.createNode({filename!r})'
 
         elif self.filepath.endswith('.cat'):
             # we are creating a temp nk file so we can setup the knob on inference pointing to the
@@ -180,7 +180,7 @@ def discover_packages(repository, target_version):
 
 
 def register_cats():
-    nuke_version = float(f"{nuke.NUKE_VERSION_MAJOR}.{nuke.NUKE_VERSION_MINOR}")
+    nuke_version = float(f'{nuke.NUKE_VERSION_MAJOR}.{nuke.NUKE_VERSION_MINOR}')
     for repository in find_repositories():
         for package in discover_packages(repository, nuke_version):
             for cat in package.cats:
@@ -193,7 +193,7 @@ def register_cats():
 
 def populate_menu(menu):
     register_cats()
-    nuke_version = float(f"{nuke.NUKE_VERSION_MAJOR}.{nuke.NUKE_VERSION_MINOR}")
+    nuke_version = float(f'{nuke.NUKE_VERSION_MAJOR}.{nuke.NUKE_VERSION_MINOR}')
 
     packages_by_category = dict()
     for repository in find_repositories():

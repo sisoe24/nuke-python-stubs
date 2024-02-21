@@ -458,7 +458,7 @@ def executeEffectNode(effectNode, frames):
     effectForNode = next(
         (item for item in allEffectItems if item.node() == effectNode), None)
     if not effectForNode:
-        raise RuntimeError(f"Could not find effect item for node {effectNode.name()}")
+        raise RuntimeError(f'Could not find effect item for node {effectNode.name()}')
     effectForNode.executeNode(frames)
 
 

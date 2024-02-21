@@ -1652,7 +1652,7 @@ def _EffectTrackItem_addToNukeScript(self, script, offset=0, inputs=1, startHand
     for colorKnobName in ('tile_color', 'gl_color'):
         colorKnob = node[colorKnobName]
         if colorKnob.notDefault():
-            additionalKnobs.append(f"{colorKnobName} {colorKnob.toScript()}")
+            additionalKnobs.append(f'{colorKnobName} {colorKnob.toScript()}')
 
     if addLifetime:
         additionalKnobs.append('lifetimeStart %s' % startFrame)
