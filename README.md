@@ -27,7 +27,7 @@ A stub file generator for Nuke & Hiero Python 3. Besides including the public AP
 
 ### 1.2.1. Generate the stubs
 
-You can use the stub files inside the repository, but if you want to generate them, copy the `nukestubsgen.py` file inside the Nuke Script Editor and run it.
+You can use the stub files inside the [repository](https://github.com/sisoe24/nuke-python-stubs/releases), but if you want to generate them, copy the `nukestubsgen.py` file inside the Nuke Script Editor and run it.
 
 > When generating the stubs, it is preferable to use Nuke Studio, as doing it inside Nuke will cause the Hiero stubs to be incomplete.
 
@@ -61,9 +61,7 @@ As a workaround, there is a post-fix mechanism which allows you to "manually" po
 
 Although the script is a mess, you can still contribute by adding post-fixes information when you find wrong values.
 
-If you would like to add some code, you need `pre-commit` installed in your repo.
-
-For convenience, place the repo inside `~/.nuke` since the stubs are created inside `~/.nuke/nuke-python-stubs/stubs`. This way, `git` catches any change in the stubs files. Once you generate the stubs, run `pre-commit run -a` to apply the pre-commit hooks to each file to see the "real" difference of your new commits.
+TODO: Add a section on how to contribute to the project.
 
 ## 1.5. Acknowledgment
 
@@ -73,6 +71,7 @@ Pycharm Stub generator inspired the creation of this script.
 
 - [ ] Make pre-commit on a pull request.
 - [ ] Make it available via pip.
+- [ ] Find duplicates
 
 ## 1.6. Screenshot
 
