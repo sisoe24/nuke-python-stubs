@@ -115,7 +115,7 @@ class TimeBase:
         """
         ...
 
-    def fromRational(self, numerator: int, denominator: int) -> core.TimeBase:
+    def fromRational(self, numerator: int, denominator: int) -> hiero.core.TimeBase:
         """
         staticmethod(function) -> method
 
@@ -138,7 +138,7 @@ class TimeBase:
         """
         ...
 
-    def fromString(self, str: str) -> core.TimeBase:
+    def fromString(self, str: str) -> hiero.core.TimeBase:
         """
         staticmethod(function) -> method
 

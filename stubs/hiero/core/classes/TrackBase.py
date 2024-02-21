@@ -95,7 +95,7 @@ class TrackBase:
         """
         ...
 
-    def addItem(self, trackItem: core.TrackItem) -> core.TrackItem:
+    def addItem(self, trackItem: core.TrackItem) -> hiero.core.TrackItem:
         """
         self.addItem(item) -> deprecated; use addTrackItem instead. Adds a track item to this track. Throws an exception if the item overlaps any existing items on the track.
 
@@ -104,7 +104,7 @@ class TrackBase:
         """
         ...
 
-    def addTag(self, tag: core.Tag) -> core.Tag:
+    def addTag(self, tag: core.Tag) -> hiero.core.Tag:
         """
         self.addTag(tag) -> adds the specified tag to the Track.
 
@@ -113,7 +113,7 @@ class TrackBase:
         """
         ...
 
-    def addTransition(self, transition: core.Transition) -> core.Transition:
+    def addTransition(self, transition: core.Transition) -> hiero.core.Transition:
         """
         self.addTransition(transition) -> adds a transition to the timeline for the track.  Can only be called when the track has been added to a Sequence.
 
@@ -165,7 +165,7 @@ class TrackBase:
         """
         ...
 
-    def metadata(self) -> core.DataCollection:
+    def metadata(self) -> hiero.core.DataCollection:
         """
         self.metadata() -> returns the metadata for this Track.
 

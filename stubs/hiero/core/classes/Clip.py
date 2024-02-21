@@ -60,7 +60,7 @@ class Clip(SequenceBase):
         """
         ...
 
-    def addTag(self, tag: core.Tag) -> core.Tag:
+    def addTag(self, tag: core.Tag) -> hiero.core.Tag:
         """
         self.addTag() -> adds the tag to the set of tags attached to the Clip.
 
@@ -69,7 +69,7 @@ class Clip(SequenceBase):
         """
         ...
 
-    def addTagToRange(self, tag: core.Tag, inTime: int, outTime: int) -> core.Tag:
+    def addTagToRange(self, tag: core.Tag, inTime: int, outTime: int) -> hiero.core.Tag:
         """
         self.addTagToRange(tag, inTime, outTime) -> adds the tag to the specified range of the Clip.
 
@@ -159,7 +159,7 @@ class Clip(SequenceBase):
         """
         ...
 
-    def localizationPolicy(self) -> core.Clip.LocalizationPolicy:
+    def localizationPolicy(self) -> hiero.core.Clip.LocalizationPolicy:
         """
         self.localizationPolicy() -> returns the localization policy of the clip.
 
@@ -183,7 +183,7 @@ class Clip(SequenceBase):
         """
         ...
 
-    def mediaSource(self) -> core.MediaSource:
+    def mediaSource(self) -> hiero.core.MediaSource:
         """
         self.mediaSource() -> returns the clip's media source.
 
@@ -191,7 +191,7 @@ class Clip(SequenceBase):
         """
         ...
 
-    def metadata(self) -> core.DataCollection:
+    def metadata(self) -> hiero.core.DataCollection:
         """
         self.isNull() -> returns a *copy* of the clip's metadata.
 

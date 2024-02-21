@@ -54,7 +54,7 @@ class IExporterRegistry:
         """
         ...
 
-    def copyAndAddProcessorPreset(self, preset: core.ITaskPreset) -> core.ITaskPreset:
+    def copyAndAddProcessorPreset(self, preset: core.ITaskPreset) -> hiero.core.ITaskPreset:
         """
         self.copyAndAddProcessorPreset() -> Called by the C++ application to duplicate a preset.
 
@@ -63,7 +63,7 @@ class IExporterRegistry:
         """
         ...
 
-    def copyAndAddProjectPreset(self, preset: core.ITaskPreset, project: core.Project) -> core.ITaskPreset:
+    def copyAndAddProjectPreset(self, preset: core.ITaskPreset, project: core.Project) -> hiero.core.ITaskPreset:
         """
         copyAndAddProjectPreset() -> Called by the C++ application to duplicate a preset and assign it to a new project.
 
@@ -73,7 +73,7 @@ class IExporterRegistry:
         """
         ...
 
-    def createAndAddProcessorPreset(self, preset: str, typetemplate: core.ITaskPreset) -> core.ITaskPreset:
+    def createAndAddProcessorPreset(self, preset: str, typetemplate: core.ITaskPreset) -> hiero.core.ITaskPreset:
         """
         self.createAndAddProcessorPreset(string, hiero.core.TaskPreset) -> Called by the C++ application to create a new preset, using typetemplate as a template.
 
@@ -132,7 +132,7 @@ class IExporterRegistry:
         """
         ...
 
-    def presetFromXml(self, xml: str) -> core.ITaskPreset:
+    def presetFromXml(self, xml: str) -> hiero.core.ITaskPreset:
         """
         self.presetFromXml(string) -> Called by the C++ application to ask the TaskRegistry to deserialize a Task preset from xml.
 

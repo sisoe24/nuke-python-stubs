@@ -92,7 +92,7 @@ class MediaSource:
         """
         ...
 
-    def createOfflineVideoMediaSource(self, path: str, start: int, duration: int, frameRate: core.TimeBase, startTimecode: int = 0) -> core.MediaSource:
+    def createOfflineVideoMediaSource(self, path: str, start: int, duration: int, frameRate: core.TimeBase, startTimecode: int = 0) -> hiero.core.MediaSource:
         """
         staticmethod(function) -> method
 
@@ -234,7 +234,7 @@ class MediaSource:
         """
         ...
 
-    def metadata(self) -> core.DataCollection:
+    def metadata(self) -> hiero.core.DataCollection:
         """
         self.metadata() -> returns a hiero.core.Metadata object with metadata for the MediaSource.
 

@@ -120,7 +120,7 @@ class Version:
         """
         ...
 
-    def parent(self) -> core.BinItem:
+    def parent(self) -> hiero.core.BinItem:
         """
         self.parent() -> returns the bin item that contains this version.
 

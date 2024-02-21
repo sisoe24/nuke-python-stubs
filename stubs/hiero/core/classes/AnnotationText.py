@@ -74,7 +74,7 @@ class AnnotationText(AnnotationElement):
         """
         ...
 
-    def horizontalJustification(self) -> core.AnnotationText.HorizontalJustification:
+    def horizontalJustification(self) -> hiero.core.AnnotationText.HorizontalJustification:
         """
         self.horizontalJustification
 
@@ -186,7 +186,7 @@ class AnnotationText(AnnotationElement):
         """
         ...
 
-    def verticalJustification(self) -> core.AnnotationText.VerticalJustification:
+    def verticalJustification(self) -> hiero.core.AnnotationText.VerticalJustification:
         """
         self.verticalJustification
 

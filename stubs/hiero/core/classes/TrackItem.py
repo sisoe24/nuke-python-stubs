@@ -50,7 +50,7 @@ class TrackItem(TrackItemBase):
         """
         ...
 
-    def addTag(self, tag: core.Tag) -> core.Tag:
+    def addTag(self, tag: core.Tag) -> hiero.core.Tag:
         """
         self.addTag(tag) -> adds a new tag to the track item.
 
@@ -59,7 +59,7 @@ class TrackItem(TrackItemBase):
         """
         ...
 
-    def currentVersion(self) -> core.Version:
+    def currentVersion(self) -> hiero.core.Version:
         """
         self.currentVersion() -> returns a version object for the current version set on this track item.
 
@@ -115,7 +115,7 @@ class TrackItem(TrackItemBase):
         """
         ...
 
-    def inTransition(self) -> core.Transition:
+    def inTransition(self) -> hiero.core.Transition:
         """
         self.inTransition() -> returns the in transition for this track item.
 
@@ -157,7 +157,7 @@ class TrackItem(TrackItemBase):
         """
         ...
 
-    def maxVersion(self) -> core.Version:
+    def maxVersion(self) -> hiero.core.Version:
         """
         self.maxVersion() -> sets the highest available version on this TrackItem. If versionLinkedToBin() is set, changes the version on all linked objects.
 
@@ -165,7 +165,7 @@ class TrackItem(TrackItemBase):
         """
         ...
 
-    def mediaType(self) -> core.TrackItem.MediaType:
+    def mediaType(self) -> hiero.core.TrackItem.MediaType:
         """
         self.mediaType() -> returns media type for the track item.
 
@@ -173,7 +173,7 @@ class TrackItem(TrackItemBase):
         """
         ...
 
-    def metadata(self) -> core.DataCollection:
+    def metadata(self) -> hiero.core.DataCollection:
         """
         self.metadata() -> returns the metadata for the track item.
 
@@ -181,7 +181,7 @@ class TrackItem(TrackItemBase):
         """
         ...
 
-    def minVersion(self) -> core.Version:
+    def minVersion(self) -> hiero.core.Version:
         """
         self.minVersion() -> sets the lowest available version on this TrackItem. If versionLinkedToBin() is set, changes the version on all linked objects.
 
@@ -197,7 +197,7 @@ class TrackItem(TrackItemBase):
         """
         ...
 
-    def nextVersion(self) -> core.Version:
+    def nextVersion(self) -> hiero.core.Version:
         """
         self.nextVersion() -> sets the next available version on this TrackItem. If versionLinkedToBin() is set, changes the version on all linked objects.
 
@@ -213,7 +213,7 @@ class TrackItem(TrackItemBase):
         """
         ...
 
-    def outTransition(self) -> core.Transition:
+    def outTransition(self) -> hiero.core.Transition:
         """
         self.outTransition() -> returns the out transition for this track item.
 
@@ -229,7 +229,7 @@ class TrackItem(TrackItemBase):
         """
         ...
 
-    def prevVersion(self) -> core.Version:
+    def prevVersion(self) -> hiero.core.Version:
         """
         self.prevVersion() -> sets the next available version on this TrackItem. If versionLinkedToBin() is set, changes the version on all linked objects.
 
@@ -245,7 +245,7 @@ class TrackItem(TrackItemBase):
         """
         ...
 
-    def reformatState(self) -> core.ReformatState:
+    def reformatState(self) -> hiero.core.ReformatState:
         """
         self.reformatState() -> returns the reformat state for the track item.
 

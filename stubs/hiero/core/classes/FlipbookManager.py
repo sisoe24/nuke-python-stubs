@@ -30,7 +30,7 @@ class FlipbookManager:
         """
         ...
 
-    def createClip(self, filepath: str) -> core.Clip:
+    def createClip(self, filepath: str) -> hiero.core.Clip:
         """
         self.createClip(filepath) -> creates and return a flipbook clip for the defined filepath.
 
@@ -38,7 +38,7 @@ class FlipbookManager:
         """
         ...
 
-    def createEffectItem(self, effectType: bytes, timelineIn: int, timelineOut: int) -> core.EffectTrackItem:
+    def createEffectItem(self, effectType: bytes, timelineIn: int, timelineOut: int) -> hiero.core.EffectTrackItem:
         """
         self.createEffectItem(effectType, timelineIn, timelineOut) -> creates and return a flipbook Soft Effect with defiend effectType,
         covering the specified timeline in and out range.
@@ -47,7 +47,7 @@ class FlipbookManager:
         """
         ...
 
-    def createSequence(self, frameRate: core.TimeBase, outputFormat: core.Format, views: typing.List[str]) -> core.Sequence:
+    def createSequence(self, frameRate: core.TimeBase, outputFormat: core.Format, views: typing.List[str]) -> hiero.core.Sequence:
         """
         self.createSequence(framerate, outputformat) -> creates and returns a flipbook sequence with the defined framerate and ouput formar.
 

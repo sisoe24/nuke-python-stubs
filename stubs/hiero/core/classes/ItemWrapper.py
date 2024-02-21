@@ -36,7 +36,7 @@ class ItemWrapper:
         """
         ...
 
-    def bin(self) -> core.Bin:
+    def bin(self) -> hiero.core.Bin:
         """
         self.bin() -> converts this ItemWrapper to a hiero.core.Bin object. If the item wrapper isn't wrapping a Bin object, it will return a non-functioning (isNull returns True) TrackItem object (meaning that it has all of the methods of a Bin object, but the methods don't do anything)
 
@@ -44,7 +44,7 @@ class ItemWrapper:
         """
         ...
 
-    def binItem(self) -> core.BinItem:
+    def binItem(self) -> hiero.core.BinItem:
         """
         self.binItem() -> converts this ItemWrapper to a hiero.core.BinItem object. If the item wrapper isn't wrapping a BinItem object, it will return a non-functioning (isNull returns True) TrackItem object (meaning that it has all of the methods of a BinItem object, but the methods don't do anything)
 
@@ -52,7 +52,7 @@ class ItemWrapper:
         """
         ...
 
-    def clip(self) -> core.Clip:
+    def clip(self) -> hiero.core.Clip:
         """
         self.clip() -> converts this ItemWrapper to a hiero.core.Clip object. If the item wrapper isn't wrapping a Clip object, it will return a non-functioning (isNull returns True) Clip object (meaning that it has all of the methods of a Clip object, but the methods don't do anything)
 
@@ -90,7 +90,7 @@ class ItemWrapper:
         """
         ...
 
-    def root(self) -> core.Bin:
+    def root(self) -> hiero.core.Bin:
         """
         self.root() -> the root is the highest level in the bin selected for export, Root may be null.
 
@@ -98,7 +98,7 @@ class ItemWrapper:
         """
         ...
 
-    def sequence(self) -> core.Sequence:
+    def sequence(self) -> hiero.core.Sequence:
         """
         self.sequence() -> converts this ItemWrapper to a hiero.core.Sequence object. If the item wrapper isn't wrapping a Sequence object, it will return a non-functioning (isNull returns True) Sequence object (meaning that it has all of the methods of a Sequence object, but the methods don't do anything)
 
@@ -112,7 +112,7 @@ class ItemWrapper:
         """
         ...
 
-    def trackItem(self) -> core.TrackItemBase:
+    def trackItem(self) -> hiero.core.TrackItemBase:
         """
         self.trackItem() -> converts this ItemWrapper to a hiero.core.TrackItemBase object. If the item wrapper isn't wrapping a TrackItem object, it will return a non-functioning (isNull returns True) TrackItem object (meaning that it has all of the methods of a TrackItem object, but the methods don't do anything)
 

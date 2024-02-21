@@ -42,7 +42,7 @@ class IExportStructure:
         """
         ...
 
-    def childElement(self, path: str) -> core.IExportStructureElement:
+    def childElement(self, path: str) -> hiero.core.IExportStructureElement:
         """
 
         """
@@ -54,7 +54,7 @@ class IExportStructure:
         """
         ...
 
-    def rootElement(self) -> core.IExportStructureElement:
+    def rootElement(self) -> hiero.core.IExportStructureElement:
         """
 
         """

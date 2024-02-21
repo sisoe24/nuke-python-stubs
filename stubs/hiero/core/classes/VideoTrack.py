@@ -66,7 +66,7 @@ class VideoTrack(TrackBase):
         """
         ...
 
-    def addSubTrackItem(self, subTrackItem: core.SubTrackItem, subTrackIndex: int) -> core.SubTrackItem:
+    def addSubTrackItem(self, subTrackItem: core.SubTrackItem, subTrackIndex: int) -> hiero.core.SubTrackItem:
         """
         self.addSubTrackItem(subTrackItem, subTrackIndex) -> Add a subtrack item to the track on the given sub-track index.
         This method will cut or delete sub-track items that overlap with the one being added.
@@ -77,7 +77,7 @@ class VideoTrack(TrackBase):
         """
         ...
 
-    def addTag(self, tag: core.Tag) -> core.Tag:
+    def addTag(self, tag: core.Tag) -> hiero.core.Tag:
         """
         self.addTag(tag) -> adds a tag to the video track item.
 
@@ -125,7 +125,7 @@ class VideoTrack(TrackBase):
         """
         ...
 
-    def createTrackItem(self, name: str) -> core.TrackItem:
+    def createTrackItem(self, name: str) -> hiero.core.TrackItem:
         """
         self.createTrackItem(name) -> creates a new track item.
 

@@ -104,7 +104,7 @@ class BinItem:
         """
         ...
 
-    def activeVersion(self) -> core.Version:
+    def activeVersion(self) -> hiero.core.Version:
         """
         self.activeVersion() -> gets the currently active Version object of the bin item.
 
@@ -123,7 +123,7 @@ class BinItem:
         """
         ...
 
-    def addVersion(self, version: core.Version, position: int = -1) -> core.Version:
+    def addVersion(self, version: core.Version, position: int = -1) -> hiero.core.Version:
         """
         self.addVersion(version) -> adds the version parameter to the bin item.
 
@@ -225,7 +225,7 @@ class BinItem:
         """
         ...
 
-    def maxVersion(self) -> core.Version:
+    def maxVersion(self) -> hiero.core.Version:
         """
         self.maxVersion() -> finds the maximum (last) version and sets it as the active version on this bin item and any linked TrackItems. Offline versions and hidden versions will be ignored during the search.
 
@@ -233,7 +233,7 @@ class BinItem:
         """
         ...
 
-    def minVersion(self) -> core.Version:
+    def minVersion(self) -> hiero.core.Version:
         """
         self.minVersion() -> finds the minimum (first) version and sets it as the active version on this bin item and any linked TrackItems. Offline versions and hidden versions will be ignored during the search.
 
@@ -249,7 +249,7 @@ class BinItem:
         """
         ...
 
-    def nextVersion(self) -> core.Version:
+    def nextVersion(self) -> hiero.core.Version:
         """
         self.nextVersion() -> finds the next version and sets it as the active version on this bin item and any linked TrackItems. Offline versions and hidden versions will be ignored during the search.
 
@@ -281,7 +281,7 @@ class BinItem:
         """
         ...
 
-    def prevVersion(self) -> core.Version:
+    def prevVersion(self) -> hiero.core.Version:
         """
         self.prevVersion() -> finds the previous version and sets it as the active version on this bin item and any linked TrackItems. Offline versions and hidden versions will be ignored during the search.
 
@@ -319,7 +319,7 @@ class BinItem:
         """
         ...
 
-    def setActiveVersion(self, version: core.Version) -> core.Version:
+    def setActiveVersion(self, version: core.Version) -> hiero.core.Version:
         """
         self.setActiveVersion(version) -> sets the active version to the version parameter.
         @return: hiero.core.Version object

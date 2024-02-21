@@ -53,7 +53,7 @@ class Timecode:
         """
         ...
 
-    def displayTypeFromString(self, s: str) -> core.Timecode.DisplayType:
+    def displayTypeFromString(self, s: str) -> hiero.core.Timecode.DisplayType:
         """
         staticmethod(function) -> method
 

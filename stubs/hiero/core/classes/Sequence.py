@@ -80,7 +80,7 @@ class Sequence(SequenceBase):
         """
         ...
 
-    def audioTrack(self, index: int) -> core.AudioTrack:
+    def audioTrack(self, index: int) -> hiero.core.AudioTrack:
         """
         self.audioTrack(index) -> returns the audio track for the specified index.
 
@@ -216,7 +216,7 @@ class Sequence(SequenceBase):
         """
         ...
 
-    def playheadState(self, index: int) -> core.Sequence.PlayheadState:
+    def playheadState(self, index: int) -> hiero.core.Sequence.PlayheadState:
         """
         playheadState(index) -> The state of the given playhead index.
         The available states are:  ePlayheadActive : is the active playhead
@@ -288,7 +288,7 @@ class Sequence(SequenceBase):
         """
         ...
 
-    def trackItemAt(self, t: int) -> core.TrackItem:
+    def trackItemAt(self, t: int) -> hiero.core.TrackItem:
         """
         self.trackItemAt(time) -> returns the top-most video track item for the specified time that is enabled and has media.
 
@@ -307,7 +307,7 @@ class Sequence(SequenceBase):
         """
         ...
 
-    def videoTrack(self, index: int) -> core.VideoTrack:
+    def videoTrack(self, index: int) -> hiero.core.VideoTrack:
         """
         self.videoTrack(index) -> returns the video track for the specified index.
 

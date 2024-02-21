@@ -51,7 +51,7 @@ class Annotation(SubTrackItem):
         """
         ...
 
-    def addElement(self, element: core.AnnotationElement) -> core.AnnotationElement:
+    def addElement(self, element: core.AnnotationElement) -> hiero.core.AnnotationElement:
         """
         self.addElement() -> Adds the specified AnnotationElement, which should be an instance of an AnnotationElement sub-class, i.e. either
         an AnnotationStroke or an AnnotationText object.

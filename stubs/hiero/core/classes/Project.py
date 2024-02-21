@@ -114,7 +114,7 @@ class Project:
         """
         ...
 
-    def beginUndo(self, arg__1: str) -> core.UndoGroup:
+    def beginUndo(self, arg__1: str) -> hiero.core.UndoGroup:
         """
         self.beginUndo(name) -> starts a new undo action, which will group all other undo actions until self.endUndo() is called. Be aware that this method only works on the main thread, and will throw an exception otherwise.
         Note that for operations inside the undo to work Project.endUndo() must be called.  It is recommended that you use this in a with block to ensure that this happens.  For example:
@@ -143,7 +143,7 @@ class Project:
         """
         ...
 
-    def clipsBin(self) -> core.Bin:
+    def clipsBin(self) -> hiero.core.Bin:
         """
         self.clipsBin() -> returns the bin object containing the top level clips, sequences and bins for this project.
 
@@ -209,7 +209,7 @@ class Project:
         """
         ...
 
-    def framerate(self) -> core.TimeBase:
+    def framerate(self) -> hiero.core.TimeBase:
         """
         framerate() -> project's default framerate for new sequences
 
@@ -356,7 +356,7 @@ class Project:
         """
         ...
 
-    def outputFormat(self) -> core.Format:
+    def outputFormat(self) -> hiero.core.Format:
         """
         outputFormat() -> gets project's default outputFormat for new sequences.
 
@@ -587,7 +587,7 @@ class Project:
         """
         ...
 
-    def tagsBin(self) -> core.Bin:
+    def tagsBin(self) -> hiero.core.Bin:
         """
         self.tagsBin() -> returns the bin object containing the top level tags for this project.
 
@@ -595,7 +595,7 @@ class Project:
         """
         ...
 
-    def timeDisplayFormat(self) -> core.Timecode.DisplayType:
+    def timeDisplayFormat(self) -> hiero.core.Timecode.DisplayType:
         """
         timeDisplayFormat() -> gets project's default displayType for new sequences. @return: DisplayType
         """

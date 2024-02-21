@@ -90,7 +90,7 @@ class SequenceBase:
         """
         ...
 
-    def addTag(self, tag: core.Tag) -> core.Tag:
+    def addTag(self, tag: core.Tag) -> hiero.core.Tag:
         """
         self.addTag(tag) -> adds a hiero.core.Tag object to the Clip or Sequence.
 
@@ -99,7 +99,7 @@ class SequenceBase:
         """
         ...
 
-    def addTagToRange(self, tag: core.Tag, inTime: int, outTime: int) -> core.Tag:
+    def addTagToRange(self, tag: core.Tag, inTime: int, outTime: int) -> hiero.core.Tag:
         """
         self.addTagToRange(tag, inTime, outTime) -> adds a hiero.core.Tag object to the specified range of the Clip or Sequence.
 
@@ -110,7 +110,7 @@ class SequenceBase:
         """
         ...
 
-    def autoDiskCacheMode(self) -> core.SequenceAutoDiskCacheMode:
+    def autoDiskCacheMode(self) -> hiero.core.SequenceAutoDiskCacheMode:
         """
         self.autoDiskCacheMode() -> returns the auto disk cache mode of the Sequence or Clip.
 
@@ -118,7 +118,7 @@ class SequenceBase:
         """
         ...
 
-    def binItem(self) -> core.BinItem:
+    def binItem(self) -> hiero.core.BinItem:
         """
         self.binItem() -> returns the parent BinItem this Sequence or Clip belongs to, if any.
 
@@ -189,7 +189,7 @@ class SequenceBase:
         """
         ...
 
-    def format(self) -> core.Format:
+    def format(self) -> hiero.core.Format:
         """
         self.format() -> returns the output Format object for this Sequence or Clip.
 
@@ -197,7 +197,7 @@ class SequenceBase:
         """
         ...
 
-    def framerate(self) -> core.TimeBase:
+    def framerate(self) -> hiero.core.TimeBase:
         """
         self.framerate() -> returns the framerate of the Sequence or Clip.
 
@@ -205,7 +205,7 @@ class SequenceBase:
         """
         ...
 
-    def getAnnotationsTrack(self) -> core.VideoTrack:
+    def getAnnotationsTrack(self) -> hiero.core.VideoTrack:
         """
         self.getAnnotationsTrack() -> Returns the annotations track for the Clip or Sequence. If one does not already exist, it will be created.
         """
@@ -235,7 +235,7 @@ class SequenceBase:
         """
         ...
 
-    def metadata(self) -> core.DataCollection:
+    def metadata(self) -> hiero.core.DataCollection:
         """
         self.metadata() -> returns a collection of metadata for the object.
 

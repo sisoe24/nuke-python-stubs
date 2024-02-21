@@ -79,7 +79,7 @@ class Tag:
         """
         ...
 
-    def copy(self) -> core.Tag:
+    def copy(self) -> hiero.core.Tag:
         """
 
         """
@@ -118,7 +118,7 @@ class Tag:
         """
         ...
 
-    def metadata(self) -> core.DataCollection:
+    def metadata(self) -> hiero.core.DataCollection:
         """
         self.metadata() -> returns the clip's metadata.
 

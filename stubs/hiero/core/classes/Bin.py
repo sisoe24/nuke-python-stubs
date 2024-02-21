@@ -177,7 +177,7 @@ class Bin:
         """
         ...
 
-    def importFolder(self, arg__1: str) -> core.Bin:
+    def importFolder(self, arg__1: str) -> hiero.core.Bin:
         """
         self.importFolder(path) -> imports the media in the path into this bin (needs a project).
 
@@ -186,7 +186,7 @@ class Bin:
         """
         ...
 
-    def importSequence(self, filename: str, timeBase: core.TimeBase, frameRate: float = 0.0, dropFrame: bool = False) -> core.Sequence:
+    def importSequence(self, filename: str, timeBase: core.TimeBase, frameRate: float = 0.0, dropFrame: bool = False) -> hiero.core.Sequence:
         """
         self.importSequence(filename, timeBase=None, frameRate=None, dropFrame=False) -> imports the sequence stored in filename into this bin (needs a project).  If the timebase/frame rate for the sequence isnot specified, the project defaults will be used.
 

@@ -210,7 +210,7 @@ class TrackItemBase:
         """
         ...
 
-    def sequence(self) -> core.Sequence:
+    def sequence(self) -> hiero.core.Sequence:
         """
         self.sequence() -> returns the Sequence object that this is attached to, or None if the object is not attached to a project.
 
