@@ -92,6 +92,14 @@ def get_classes_names() -> list[str]:
 NUKE_POST_FIXES = {
     '__init__': [
         {
+            'old': r'def root\(.+',
+            'new': 'def root() -> Node:'
+        },
+        {
+            'old': r'def recentFile\(.+',
+            'new': 'def recentFile(index: int) -> str:'
+        },
+        {
             'old': r'def createNode\(.+',
             'new': 'def createNode(node:str, args:Optional[str] = None, inpanel:Optional[bool] = None) -> Node:'
         },
@@ -134,6 +142,18 @@ NUKE_POST_FIXES = {
         {
             'old': r'def stripFrameRange\(.+',
             'new': 'def stripFrameRange(clipname: str) -> str:'
+        }
+    ],
+    'Menu': [
+        {
+            'old': r'def addCommand\(.+',
+            'new': 'def addCommand(self, name: str, command: Optional[str] = None, shortcut: Optional[str] = None, icon: Optional[str] = None, tooltip: Optional[str] = None, index: Optional[int | float] = None, readonly: Optional[bool] = None, shortcutContext: Optional[int] = None, tag: Optional[int] = None, tagTarget: Optional[int] = None, nodeClass: Optional[str] = "") -> Any:'
+        }
+    ],
+    'MenuBar': [
+        {
+            'old': r'def addCommand\(.+',
+            'new': 'def addCommand(self, name: str, command: Optional[str] = None, shortcut: Optional[str] = None, icon: Optional[str] = None, tooltip: Optional[str] = None, index: Optional[int | float] = None, readonly: Optional[bool] = None, shortcutContext: Optional[int] = None, tag: Optional[int] = None, tagTarget: Optional[int] = None, nodeClass: Optional[str] = "") -> Any:'
         }
     ],
     'Node': [
