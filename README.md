@@ -59,7 +59,7 @@ As a workaround, there is a post-fix mechanism which allows you to "manually" po
 
 ## 1.4. Contributing
 
-Although the script is a mess, you can still contribute by adding post-fixes information when you find wrong values.
+In order to make the stubs as accurate as possible, feel free to open a new issue if you find any wrong values or missing information. Also, you can contribute by adding post-fixes information to the `*_POST_FIXES` dictionary.
 
 TODO: Add a section on how to contribute to the project.
 
