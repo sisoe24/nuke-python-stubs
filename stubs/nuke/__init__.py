@@ -1982,7 +1982,7 @@ def plugins(switches=0, *pattern) -> list:
     ...
 
 
-def recentFile(index: list) -> str:
+def recentFile(index: int) -> str:
     """
     recentFile(index) -> str
 
@@ -2092,7 +2092,7 @@ def resumePathProcessing() -> None:
     ...
 
 
-def root() -> None:
+def root() -> Node:
     """
     root() -> node
 

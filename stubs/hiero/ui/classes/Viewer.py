@@ -546,25 +546,25 @@ class Viewer(QObject):
     ePlaybackBounce: Any = None
     ePlaybackStop: Any = None
     ePlaybackContinue: Any = None
-    playbackSpeedChanged = Signal()
     compareModeChanged = Signal()
+    timeChanged = Signal()
     sequenceChanged = Signal()
-    frameDisplayed = Signal()
-    transformChanged = Signal()
+    playbackSpeedChanged = Signal()
+    gammaChanged = Signal()
     channelsChanged = Signal()
-    currentLayerChanged = Signal()
     layoutModeChanged = Signal()
     gainChanged = Signal()
-    timeChanged = Signal()
+    trackSelectionChanged = Signal()
+    maskOverlayStyleChanged = Signal()
+    maskOverlayChanged = Signal()
     guideOverlayChanged = Signal()
     targetFrameRateChanged = Signal()
-    gammaChanged = Signal()
     playbackModeChanged = Signal()
-    maskOverlayChanged = Signal()
-    maskOverlayStyleChanged = Signal()
-    trackSelectionChanged = Signal()
     timeDisplayFormatChanged = Signal()
+    frameDisplayed = Signal()
     shuttleTargetFPSChanged = Signal()
+    currentLayerChanged = Signal()
+    transformChanged = Signal()
     staticMetaObject: Any = None
 
     def _goToTag(self, tag: str) -> None:
