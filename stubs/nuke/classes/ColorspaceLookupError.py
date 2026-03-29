@@ -14,13 +14,13 @@ class ColorspaceLookupError(Exception):
     an excpetion that should be thrown when looking up the colorspace
     """
     @property
-    def __weakref__(self) -> typing.Any:
+    def __weakref__(self) -> typing.List[typing.Any]:
         """
         list of weak references to the object (if defined)
         """
         ...
 
-    def __init__(self,  *args, **kwargs) -> None:
+    def __init__(self, *args: typing.Any, **kwargs: typing.Any) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """

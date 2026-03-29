@@ -18,31 +18,31 @@ class RenderProgressObserver:
     Observer for tracking the progress of renders on the frame server.
     """
 
-    def __new__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs) -> RenderProgressObserver:
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
         ...
 
-    def __setattr__(self, name, value, ) -> None:
+    def __setattr__(self, name: str, value: typing.Any) -> None:
         """
         Implement setattr(self, name, value).
         """
         ...
 
-    def __delattr__(self, name, ) -> None:
+    def __delattr__(self, name: str) -> None:
         """
         Implement delattr(self, name).
         """
         ...
 
-    def __init__(self,  *args, **kwargs) -> None:
+    def __init__(self, *args: object, **kwargs: object) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """
         ...
 
-    def __bool__(self, ) -> None:
+    def __bool__(self) -> bool:
         """
         True if self else False
         """
@@ -54,7 +54,7 @@ class RenderProgressObserver:
         """
         ...
 
-    def updateProgress(self, progressList: typing.Sequence[typing.Any]) -> None:
+    def updateProgress(self, progressList: typing.Sequence[typing.List[typing.Any]]) -> None:
         """
         RenderProgressObserver.updateProgress() -> called on progress of frame renders
         @param progressList: list of lists containing [filePath, frame, progress]

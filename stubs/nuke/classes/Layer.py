@@ -14,13 +14,13 @@ class Layer(object):
     A layer is a set of channels.
     """
 
-    def __new__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs) -> Layer:
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
         ...
 
-    def __hash__(self, ) -> None:
+    def __hash__(self) -> int:
         """
         Return hash(self).
         """
@@ -53,7 +53,7 @@ class Layer(object):
         """
         ...
 
-    def channels(self,) -> list:
+    def channels(self) -> list[str]:
         """
         self.channels() -> [string, ...]
         Get a list of the channels in this layer.
@@ -62,7 +62,7 @@ class Layer(object):
         """
         ...
 
-    def __init__(self,  *args, **kwargs) -> None:
+    def __init__(self, *args, **kwargs) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """

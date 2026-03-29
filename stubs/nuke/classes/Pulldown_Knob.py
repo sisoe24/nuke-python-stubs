@@ -14,13 +14,13 @@ class Pulldown_Knob(Enumeration_Knob):
     Pulldown_Knob
     """
 
-    def __new__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs) -> Pulldown_Knob:
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
         ...
 
-    def __hash__(self, ) -> None:
+    def __hash__(self) -> int:
         """
         Return hash(self).
         """
@@ -40,7 +40,7 @@ class Pulldown_Knob(Enumeration_Knob):
         """
         ...
 
-    def itemName(self, n) -> str:
+    def itemName(self, n: int) -> str:
         """
         itemName(n) -> string
 
@@ -48,7 +48,7 @@ class Pulldown_Knob(Enumeration_Knob):
         """
         ...
 
-    def commands(self, n) -> str:
+    def commands(self, n: int) -> str:
         """
         commands(n) -> string
 
@@ -68,7 +68,7 @@ class Pulldown_Knob(Enumeration_Knob):
         """
         ...
 
-    def setValues(self, items: str) -> None:
+    def setValues(self, items: dict[str, str], sort: bool = False) -> None:
         """
         self.setValues(items) -> None.
         (Re)initialise knob to the list of items.

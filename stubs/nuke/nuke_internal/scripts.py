@@ -5,7 +5,7 @@ nuke.scriptSaveAndClear will call nuke.scriptSave() if any changes were made and
 import nuke_internal as nuke
 
 
-def scriptSaveAndClear(filename=None, ignoreUnsavedChanges=False):
+def scriptSaveAndClear(filename: str | None = None, ignoreUnsavedChanges: bool = False) -> bool:
     """ scriptSaveAndClear(filename=None, ignoreUnsavedChanges=False) -> None
     Calls nuke.scriptSave and nuke.scriptClear
     @param filename: Save to this file name without changing the script name in the

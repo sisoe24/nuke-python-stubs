@@ -18,7 +18,7 @@ class WipeToolState:
 
     """
 
-    def __new__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs) -> WipeToolState:
         """
         Create and return a new object.  See help(type) for accurate signature.
         """

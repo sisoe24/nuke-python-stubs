@@ -32,49 +32,49 @@ class Format:
     Examples: F = hiero.core.Format(2048, 400, 2.37, 'MyFormat'), F = hiero.core.Format('2048 400 0 0 2048 400 2.37 MyFormat')
     """
 
-    def __new__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs) -> Format:
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
         ...
 
-    def __repr__(self) -> object:
+    def __repr__(self) -> str:
         """
         Return repr(self).
         """
         ...
 
-    def __lt__(self, value, ) -> None:
+    def __lt__(self, value: 'Format') -> bool:
         """
         Return self<value.
         """
         ...
 
-    def __le__(self, value, ) -> None:
+    def __le__(self, value: 'Format') -> bool:
         """
         Return self<=value.
         """
         ...
 
-    def __eq__(self, value, ) -> None:
+    def __eq__(self, value: 'Format') -> bool:
         """
         Return self==value.
         """
         ...
 
-    def __ne__(self, value, ) -> None:
+    def __ne__(self, value: 'Format') -> bool:
         """
         Return self!=value.
         """
         ...
 
-    def __gt__(self, value, ) -> None:
+    def __gt__(self, value: 'Format') -> bool:
         """
         Return self>value.
         """
         ...
 
-    def __ge__(self, value, ) -> None:
+    def __ge__(self, value: 'Format') -> bool:
         """
         Return self>=value.
         """
@@ -94,7 +94,7 @@ class Format:
         """
         ...
 
-    def cleanAperture(self) -> object:
+    def cleanAperture(self) -> tuple:
         """
         self.cleanAperture() -> returns a 4 element tuple with the rectangle (x1, y1, x2, y2) of the clean aperture.
 
@@ -134,7 +134,7 @@ class Format:
         """
         ...
 
-    def productionAperture(self) -> object:
+    def productionAperture(self) -> tuple:
         """
         self.productionAperture() -> returns a 4 element tuple with the rectangle (x1, y1, x2, y2) of the production aperture.
 
@@ -166,7 +166,7 @@ class Format:
 
     __hash__: Any = None
 
-    def _Format_addToNukeScript(self, script=None, resize='width', black_outside=True) -> None:
+    def _Format_addToNukeScript(self, script=None, resize='width', black_outside=True) -> 'hiero.core.nuke.ReformatNode':
         """
         self.addToNukeScript(self, script, to_type) -> adds a Reformat node matching this Format to the specified script and returns the nuke node object.     @param script: Nuke script object to add nodes to, or None to just generate and return the node.   @param resize: Type of resize (use constants from nuke.ReformatNode, default is kResizeWidth).   @parm black_outside: Value for the black_outside knob.   @return: hiero.core.nuke.ReformatNode object
 

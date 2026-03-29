@@ -14,25 +14,25 @@ class String_Knob(Knob):
     A knob which holds a string value. Appears as a text entry field in a Node panel.
     """
 
-    def __new__(self, *args, **kwargs) -> None:
+    def __new__(cls: type, *args: object, **kwargs: object) -> 'String_Knob':
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
         ...
 
-    def __hash__(self, ) -> None:
+    def __hash__(self) -> int:
         """
         Return hash(self).
         """
         ...
 
-    def __init__(self,  *args, **kwargs) -> None:
+    def __init__(self, *args: object, **kwargs: object) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """
         ...
 
-    def getText(self, oc=None) -> str:
+    def getText(self, oc: object | None = None) -> str:
         """
         self.getText(oc) -> string
 
@@ -63,7 +63,7 @@ class String_Knob(Knob):
         """
         ...
 
-    def value(self, oc=None) -> str:
+    def value(self, oc: object | None = None) -> str:
         """
         self.value(oc) -> str
 
@@ -73,7 +73,7 @@ class String_Knob(Knob):
         """
         ...
 
-    def setValue(self, val, view='default') -> None:
+    def setValue(self, val: str, view: str = 'default') -> None:
         """
         self.setValue(val, view='default') -> None
 
@@ -84,7 +84,7 @@ class String_Knob(Knob):
         """
         ...
 
-    def splitView(self, view=None) -> None:
+    def splitView(self, view: object | None = None) -> None:
         """
         self.splitView(view) -> None.
         Split the view away from the current knob value.
@@ -93,7 +93,7 @@ class String_Knob(Knob):
         """
         ...
 
-    def unsplitView(self, view=None) -> None:
+    def unsplitView(self, view: object | None = None) -> None:
         """
         self.unsplitView(view) -> None.
         Unsplit the view so that it shares a value with other views.

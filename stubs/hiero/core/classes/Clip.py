@@ -24,37 +24,37 @@ class Clip(SequenceBase):
     mediaSource may be a MediaSource object or a string containing the media path.  If first and last are given, the Clip only plays frames within this range.
     """
 
-    def __new__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs) -> Self:
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
         ...
 
-    def __repr__(self) -> object:
+    def __repr__(self) -> str:
         """
         Return repr(self).
         """
         ...
 
-    def __setattr__(self, name, value, ) -> None:
+    def __setattr__(self, name: str, value: typing.Any) -> None:
         """
         Implement setattr(self, name, value).
         """
         ...
 
-    def __delattr__(self, name, ) -> None:
+    def __delattr__(self, name: str) -> None:
         """
         Implement delattr(self, name).
         """
         ...
 
-    def __init__(self,  *args, **kwargs) -> None:
+    def __init__(self, *args: typing.Any, **kwargs: typing.Any) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """
         ...
 
-    def __bool__(self, ) -> None:
+    def __bool__(self) -> bool:
         """
         True if self else False
         """
@@ -91,7 +91,7 @@ class Clip(SequenceBase):
         """
         ...
 
-    def copy(self) -> object:
+    def copy(self) -> Clip:
         """
         self.copy() -> returns a deep copy of this object.
 
@@ -107,7 +107,7 @@ class Clip(SequenceBase):
         """
         ...
 
-    def getAvailableOcioColourTransforms(self) -> typing.List[str]:
+    def getAvailableOcioColourTransforms(self) -> str:
         """
         self.getAvailableOcioColourTransforms() -> returns colour transform for the source media.
 
@@ -191,7 +191,7 @@ class Clip(SequenceBase):
         """
         ...
 
-    def metadata(self) -> hiero.core.DataCollection:
+    def metadata(self) -> hiero.core.Metadata:
         """
         self.isNull() -> returns a *copy* of the clip's metadata.
 
@@ -251,7 +251,7 @@ class Clip(SequenceBase):
         """
         ...
 
-    def setCameraColourTransform(self, arg__1: str) -> None:
+    def setCameraColourTransform(self, colourTransform: str) -> None:
         """
         self.setCameraColourTransform(colourTransform) -> sets the camera colour transform for the source media.
 
@@ -289,7 +289,7 @@ class Clip(SequenceBase):
         """
         ...
 
-    def setSourceMediaColourTransform(self, arg__1: str) -> None:
+    def setSourceMediaColourTransform(self, colourTransform: str) -> None:
         """
         self.setSourceMediaColourTransform(colourTransform) -> sets the input colour transform for the source media.
 
@@ -349,7 +349,7 @@ class Clip(SequenceBase):
     kNeverLocalize: Any = None
     kAlwaysLocalize: Any = None
 
-    def addAnnotationsToNukeScript(self, script, firstFrame, trimmed, trimStart=None, trimEnd=None):
+    def addAnnotationsToNukeScript(self, script: hiero.core.nuke.ScriptWriter, firstFrame: int, trimmed: bool, trimStart: typing.Optional[int] = None, trimEnd: typing.Optional[int] = None) -> None:
         """
         Add the annotations inside a clip to a Nuke script.  This is separated from Clip.addToNukeScript()
         so it's easier to control where in the script the annotations are placed.  The parameters are used to determine
@@ -357,7 +357,7 @@ class Clip(SequenceBase):
         """
         ...
 
-    def getReadInfo(self, firstFrame=None):
+    def getReadInfo(self, firstFrame: typing.Optional[int] = None) -> typing.List[typing.Tuple[str, int]]:
         """
         Get information (filename and start at value) for any Read Node in this clip.
 
@@ -365,7 +365,7 @@ class Clip(SequenceBase):
         """
         ...
 
-    def addToNukeScript(self, script: hiero.core.nuke.ScriptWriter, additionalNodes=list, additionalNodesCallback=None, firstFrame=None, trimmed=True, trimStart=None, trimEnd=None, colourTransform=None, metadataNode=None, includeMetadataNode=True, nodeLabel=None, enabled=True, includeEffects=True, beforeBehaviour=None, afterBehaviour=None, project=None, readNodes={}, addEffectsLifetime=True):
+    def addToNukeScript(self, script: hiero.core.nuke.ScriptWriter, additionalNodes: typing.Optional[typing.List[typing.Any]] = None, additionalNodesCallback: typing.Optional[typing.Callable[..., typing.Any]] = None, firstFrame: typing.Optional[int] = None, trimmed: bool = True, trimStart: typing.Optional[int] = None, trimEnd: typing.Optional[int] = None, colourTransform: typing.Optional[str] = None, metadataNode: typing.Optional[typing.Any] = None, includeMetadataNode: bool = True, nodeLabel: typing.Optional[str] = None, enabled: bool = True, includeEffects: bool = True, beforeBehaviour: typing.Optional[str] = None, afterBehaviour: typing.Optional[str] = None, project: typing.Optional[typing.Any] = None, readNodes: typing.Optional[typing.Dict[str, typing.Any]] = None, addEffectsLifetime: bool = True) -> None:
         """
         addToNukeScript(self, script, trimmed=True, trimStart=None, trimEnd=None)
 

@@ -41,19 +41,19 @@ def _formatMessage(message, *args):
     return result
 
 
-def setLogLevel(level):
+def setLogLevel(level: str) -> None:
     """ Set the logging output level.  Possible values are: kDebug, kInfo, kError """
     global _logLevel
     _logLevel = level
     _logger.setLevel(_levelMap[level])
 
 
-def logLevel():
+def logLevel() -> str:
     """ Get the current log output level.  Possible values are: kDebug, kInfo, kError """
     return _logLevel
 
 
-def debug(message, *args):
+def debug(message: str, *args: object) -> None:
     """
     Log message at kDebug level. If the message is a string containing formatting placeholders, args will  be merged into it using the string formatting operator.
     Otherwise the arguments will be concatenated into a string with spaces separating them.
@@ -61,19 +61,19 @@ def debug(message, *args):
     _logger.debug(_formatMessage(message, *args))
 
 
-def info(message, *args):
+def info(message: str, *args: object) -> None:
     """ Log message at kInfo level. If the message is a string containing formatting placeholders, args will  be merged into it using the string formatting operator.
     Otherwise the arguments will be concatenated into a string with spaces separating them. """
     _logger.info(_formatMessage(message, *args))
 
 
-def error(message, *args):
+def error(message: str, *args: object) -> None:
     """ Log message at kError level. If the message is a string containing formatting placeholders, args will  be merged into it using the string formatting operator.
     Otherwise the arguments will be concatenated into a string with spaces separating them. """
     _logger.error(_formatMessage(message, *args))
 
 
-def exception(message, *args):
+def exception(message: str, *args: object) -> None:
     """ The same as error(), but also prints a stack trace.  Only call from an exception handler. """
     _logger.exception(_formatMessage(message, *args))
 
@@ -82,7 +82,7 @@ _fileLoggers = {}
 _logDir = os.path.join(os.environ['NUKE_TEMP_DIR'], 'logs')
 
 
-def getFileLogger(name):
+def getFileLogger(name: str) -> 'logging.Logger':
     """ Get a logger which writes to a file in the user's NUKE_TEMP_DIR """
     try:
         return _fileLoggers[name]

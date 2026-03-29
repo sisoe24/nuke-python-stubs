@@ -12,7 +12,7 @@ _envRegEx = re.compile('\{\$(.*?)\}')
 _evalRegEx = re.compile('\{.*?\}')
 
 
-def _findEnvironmentVariable(matchobj):
+def _findEnvironmentVariable(matchobj: 're.Match[str]') -> str:
     """
     Callback from regex substitution which looks up the environment variable named in the matched text.
     Throws an exception if the variable doesn't exist.
@@ -25,7 +25,7 @@ def _findEnvironmentVariable(matchobj):
         raise Exception('Invalid environment variable specified: %s' % name)
 
 
-def _resolveEnvironmentVariables(value):
+def _resolveEnvironmentVariables(value: str) -> str:
     """ Find patterns of the form '{$variable}' and replace with the environment value, returning the result. """
     return re.sub(_envRegEx, _findEnvironmentVariable, value)
 
@@ -81,15 +81,15 @@ class ResolveTable:
     def entries(self):
         return list(self._resolvers.keys())
 
-    def entryCount(self):
+    def entryCount(self) -> int:
         '''self.entryCount() -> returns the number of entries in this resolver.'''
         return len(list(self._resolvers.keys()))
 
-    def entryName(self, index):
+    def entryName(self, index: int) -> str:
         '''self.entryCount(index) -> returns the name of the entry based on the index.'''
         return list(self._resolvers.keys())[index]
 
-    def entryDescription(self, index):
+    def entryDescription(self, index: int) -> str:
         '''self.entryDescription(index) -> returns a description of the item, which can be used to populate a dialog to the user when they are picking keywords.'''
         return self._resolvers[self.entryName(index)].description()
 
@@ -240,7 +240,7 @@ class ResolveTableTests(unittest.TestCase):
     def randomLowercaseString(self, length):
         return ''.join(random.choice(string.lowercase) for i in range(length))
 
-    def testEmptyString(self):
+    def testEmptyString(self) -> None:
         """ Make sure we don't fall over on the empty string. """
 
         resolver = self.createSimpleResolveTable()
@@ -250,7 +250,7 @@ class ResolveTableTests(unittest.TestCase):
         self.assertEqual(testCase, resolver.resolve(None, testCase, isPath=False))
         self.assertEqual(testCase, resolver.resolve(None, testCase, isPath=True))
 
-    def testNoTokens(self):
+    def testNoTokens(self) -> None:
         """ Make sure we don't fall over if there are no tokens to resolve. """
 
         resolver = self.createSimpleResolveTable()
@@ -263,7 +263,7 @@ class ResolveTableTests(unittest.TestCase):
             self.assertEqual(testCase, resolver.resolve(None, testCase, isPath=False))
             self.assertEqual(testCase, resolver.resolve(None, testCase, isPath=True))
 
-    def testBadTokenInString(self):
+    def testBadTokenInString(self) -> None:
         """ Make sure we throw an exception if the string contains a single unexpected token. """
 
         resolver = self.createSimpleResolveTable()
@@ -285,7 +285,7 @@ class ResolveTableTests(unittest.TestCase):
                 self.assertRaises(RuntimeError, resolver.resolve, None, testCase, isPath=False)
                 self.assertRaises(RuntimeError, resolver.resolve, None, testCase, isPath=True)
 
-    def testBadTokensInString(self):
+    def testBadTokensInString(self) -> None:
         """ Make sure we throw an exception if the string contains multiple unexpected tokens. """
 
         resolver = self.createSimpleResolveTable()
@@ -309,7 +309,7 @@ class ResolveTableTests(unittest.TestCase):
             self.assertRaises(RuntimeError, resolver.resolve, None, testCase, isPath=False)
             self.assertRaises(RuntimeError, resolver.resolve, None, testCase, isPath=True)
 
-    def testGoodTokenInString(self):
+    def testGoodTokenInString(self) -> None:
         """ Make sure we get the expected result when substituting a single token. """
 
         resolver = self.createSimpleResolveTable()
@@ -330,7 +330,7 @@ class ResolveTableTests(unittest.TestCase):
                 self.assertEqual(expectedResult, resolver.resolve(None, testCase, isPath=False))
                 self.assertEqual(expectedResult, resolver.resolve(None, testCase, isPath=True))
 
-    def testGoodTokensInString(self):
+    def testGoodTokensInString(self) -> None:
         """ Make sure we get the expected result when substituting multiple tokens. """
 
         resolver = self.createSimpleResolveTable()
@@ -355,7 +355,7 @@ class ResolveTableTests(unittest.TestCase):
             self.assertEqual(expectedResult, resolver.resolve(None, testCase, isPath=False))
             self.assertEqual(expectedResult, resolver.resolve(None, testCase, isPath=True))
 
-    def testTP155479(self):
+    def testTP155479(self) -> None:
         """ Check that when isPath=True paths are normalised and don't have repeated /'s. """
 
         resolver = self.createPathyResolveTable()

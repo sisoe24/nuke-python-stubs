@@ -30,12 +30,7 @@ class EffectAndTagBehavior(Enum):
 class CutDataCopier:
     """ Class for performing the copying of cuts and related behaviors """
 
-    def execute(self,
-                nameBehavior: NameBehavior,
-                effectBehavior: EffectAndTagBehavior,
-                tagBehavior: EffectAndTagBehavior,
-                srcItems: Sequence[hiero.core.TrackItem],
-                dstTracks: Sequence[hiero.core.TrackBase]):
+    def execute(self, nameBehavior: NameBehavior, effectBehavior: EffectAndTagBehavior, tagBehavior: EffectAndTagBehavior, srcItems: Sequence[hiero.core.TrackItem], dstTracks: Sequence[hiero.core.TrackBase]) -> None:
         """ Main method for performing the cut copying. Will also copy names and
         effects depending on the specified parameters.
         """
@@ -64,11 +59,11 @@ class CutDataCopier:
             project.cancelUndo()
             raise
 
-    def _itemRanges(self, items):
+    def _itemRanges(self, items: Sequence[hiero.core.TrackItem]) -> list[tuple[int, int]]:
         """ Get the ranges of a list of track items as a list of tuples """
         return [(item.timelineIn(), item.timelineOut()) for item in items]
 
-    def _checkConflicts(self, srcRanges, dstTracks):
+    def _checkConflicts(self, srcRanges: list[tuple[int, int]], dstTracks: Sequence[hiero.core.TrackBase]) -> None:
         """ Check for conflicts in the copy cuts. The destination tracks should
         not have any cuts in the middle of the source edits.
         Raises RuntimeError if conflicts were found.
@@ -81,7 +76,7 @@ class CutDataCopier:
                         raise RuntimeError(
                             'The selected cuts conflict with existing cuts on Track %s.\nPlease choose a track with no conflicts.' % dstTrack.name())
 
-    def _applyCuts(self, srcRanges, dstTracks):
+    def _applyCuts(self, srcRanges: list[tuple[int, int]], dstTracks: Sequence[hiero.core.TrackBase]) -> None:
         """ Apply cuts to the destination tracks. The cuts are made at the start
         and end of each source track item.
         """
@@ -91,7 +86,7 @@ class CutDataCopier:
         for dstTrack in dstTracks:
             dstTrack.razorAt(cutPoints)
 
-    def _copyEffects(self, srcItem, dstItem, effectBehavior):
+    def _copyEffects(self, srcItem: hiero.core.TrackItem, dstItem: hiero.core.TrackItem, effectBehavior: EffectAndTagBehavior) -> None:
         """ Apply the specified effect copying behavior from a source trackitem to
         a destination one.
         """
@@ -116,7 +111,7 @@ class CutDataCopier:
         for subTrackIndex, effect in enumerate(srcEffects, start=insertIndex):
             dstTrack.createEffect(copyFrom=effect, trackItem=dstItem, subTrackIndex=subTrackIndex)
 
-    def _copyTags(self, srcItem, dstItem, tagBehavior):
+    def _copyTags(self, srcItem: hiero.core.TrackItem, dstItem: hiero.core.TrackItem, tagBehavior: EffectAndTagBehavior) -> None:
         """ Apply the specified tag copying behavior from a source trackitem to
         a destination one.
         """
@@ -272,11 +267,11 @@ class CopyCutsFromTrack(QtWidgets.QDialog):
             trackIcon = QtGui.QIcon('icons:VideoOnly.png')
         return trackIcon
 
-    def getCurrentFromTrack(self):
+    def getCurrentFromTrack(self) -> hiero.core.TrackBase:
         """ Get the selected source track """
         return self._fromTrackDropdown.itemData(self._fromTrackDropdown.currentIndex())
 
-    def getDestinationTracks(self):
+    def getDestinationTracks(self) -> list[hiero.core.TrackBase]:
         """ Get the selected destination tracks """
         tracks = []
         fromTrack = self.getCurrentFromTrack()
@@ -287,7 +282,7 @@ class CopyCutsFromTrack(QtWidgets.QDialog):
                 tracks.append(track)
         return tracks
 
-    def populateTrackListModel(self):
+    def populateTrackListModel(self) -> None:
         """ Build the model for the target track selection. Empty or locked tracks
         are disabled, all other video tracks are enabled by default.
         """

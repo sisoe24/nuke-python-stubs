@@ -23,61 +23,61 @@ class TrackBase:
      TrackBase.eDontCollapseSubTracks: removing a sub-track item will not cause empty sub-tracks to be removed
     """
 
-    def __new__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs) -> TrackBase:
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
         ...
 
-    def __hash__(self, ) -> None:
+    def __hash__(self) -> int:
         """
         Return hash(self).
         """
         ...
 
-    def __setattr__(self, name, value, ) -> None:
+    def __setattr__(self, name: str, value: typing.Any) -> None:
         """
         Implement setattr(self, name, value).
         """
         ...
 
-    def __delattr__(self, name, ) -> None:
+    def __delattr__(self, name: str) -> None:
         """
         Implement delattr(self, name).
         """
         ...
 
-    def __lt__(self, value, ) -> None:
+    def __lt__(self, value: TrackBase) -> bool:
         """
         Return self<value.
         """
         ...
 
-    def __le__(self, value, ) -> None:
+    def __le__(self, value: TrackBase) -> bool:
         """
         Return self<=value.
         """
         ...
 
-    def __eq__(self, value, ) -> None:
+    def __eq__(self, value: TrackBase) -> bool:
         """
         Return self==value.
         """
         ...
 
-    def __ne__(self, value, ) -> None:
+    def __ne__(self, value: TrackBase) -> bool:
         """
         Return self!=value.
         """
         ...
 
-    def __gt__(self, value, ) -> None:
+    def __gt__(self, value: TrackBase) -> bool:
         """
         Return self>value.
         """
         ...
 
-    def __ge__(self, value, ) -> None:
+    def __ge__(self, value: TrackBase) -> bool:
         """
         Return self>=value.
         """
@@ -89,7 +89,7 @@ class TrackBase:
         """
         ...
 
-    def __bool__(self, ) -> None:
+    def __bool__(self) -> bool:
         """
         True if self else False
         """
@@ -197,7 +197,7 @@ class TrackBase:
         """
         ...
 
-    def project(self) -> object:
+    def project(self) -> typing.Optional[hiero.core.Project]:
         """
         self.project() -> returns the Project object that this item is attached to or None if the object is not attached to a project.
 
@@ -205,7 +205,7 @@ class TrackBase:
         """
         ...
 
-    def razorAt(self, *args: typing.Any, **kwargs: typing.Any) -> int | float:
+    def razorAt(self, *args: typing.Any, **kwargs: typing.Any) -> int:
         """
         self.razorAt(time) -> Creates razor cuts on a track for the parameter time(s).
 
@@ -213,7 +213,7 @@ class TrackBase:
         """
         ...
 
-    def removeItem(self, trackItem: hiero.core.TrackItem, option: int = 'eRemoveLinkedItems') -> None:
+    def removeItem(self, trackItem: hiero.core.TrackItem, option: int = 0) -> None:
         """
         self.removeItem(trackItem, option=eRemoveLinkedItems) -> removes a track item from this track.
 
@@ -244,7 +244,7 @@ class TrackBase:
         """
         ...
 
-    def setLocked(self, locked: bool) -> None:
+    def setLocked(self, locked: bool) -> bool:
         """
         self.setLocked() -> locks or unlocks the Track.
 
@@ -260,7 +260,7 @@ class TrackBase:
         """
         ...
 
-    def tags(self) -> object:
+    def tags(self) -> typing.Tuple[hiero.core.Tag, ...]:
         """
         self.tags() -> returns a tuple of all of the tags applied to this object.
 
@@ -290,7 +290,7 @@ class TrackBase:
         """
         ...
 
-    def transitions(self) -> object:
+    def transitions(self) -> typing.Tuple[hiero.core.Transition, ...]:
         """
         self.transitions() -> returns a tuple of all of the transitions applied to this track object.
 

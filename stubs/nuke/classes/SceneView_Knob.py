@@ -16,13 +16,13 @@ class SceneView_Knob(Unsigned_Knob):
     to specify their level in the tree. Handles multiple selection of items within the tree.
     """
 
-    def __new__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs) -> SceneView_Knob:
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
         ...
 
-    def __hash__(self, ) -> None:
+    def __hash__(self) -> int:
         """
         Return hash(self).
         """
@@ -34,7 +34,7 @@ class SceneView_Knob(Unsigned_Knob):
         """
         ...
 
-    def getImportedItems(self,) -> list:
+    def getImportedItems(self) -> list[str]:
         """
         self.getImportedItems() -> list
 
@@ -42,7 +42,7 @@ class SceneView_Knob(Unsigned_Knob):
         """
         ...
 
-    def setImportedItems(self, items: list) -> None:
+    def setImportedItems(self, items: list[str]) -> None:
         """
         self.setImportedItems(items) -> None\n
 
@@ -53,7 +53,7 @@ class SceneView_Knob(Unsigned_Knob):
         """
         ...
 
-    def getAllItems(self,) -> list:
+    def getAllItems(self) -> list[str]:
         """
         self.getAllItems() -> list
 
@@ -61,7 +61,7 @@ class SceneView_Knob(Unsigned_Knob):
         """
         ...
 
-    def setAllItems(self, items: list, autoSelect: bool) -> None:
+    def setAllItems(self, items: list[str], autoSelect: bool) -> None:
         """
         self.setAllItems(items, autoSelect) -> None
 
@@ -90,7 +90,7 @@ class SceneView_Knob(Unsigned_Knob):
         """
         ...
 
-    def getSelectedItems(self,) -> list:
+    def getSelectedItems(self) -> list[str]:
         """
         self.getSelectedItems() -> list
 
@@ -98,7 +98,7 @@ class SceneView_Knob(Unsigned_Knob):
         """
         ...
 
-    def setSelectedItems(self,) -> None:
+    def setSelectedItems(self, items: list[str]) -> None:
         """
         self.setSelectedItems() -> None
 
@@ -106,7 +106,7 @@ class SceneView_Knob(Unsigned_Knob):
         """
         ...
 
-    def getHighlightedItem(self,) -> str:
+    def getHighlightedItem(self) -> str:
         """
         self.getHighlightedItem() -> string
 

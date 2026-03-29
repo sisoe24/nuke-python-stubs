@@ -17,13 +17,13 @@ class Knob(object):
     Knobs can be animated, have expressions, be disabled or hidden and more.
     """
 
-    def __new__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs) -> Knob:
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
         ...
 
-    def __hash__(self, ) -> None:
+    def __hash__(self) -> int:
         """
         Return hash(self).
         """
@@ -49,7 +49,7 @@ class Knob(object):
         """
         ...
 
-    def node(self,) -> Node:
+    def node(self) -> typing.Optional[Node]:
         """
         self.node() -> nuke.Node
         Return the node that this knob belongs to. If the node has been cloned, we'll always return a reference to the original.
@@ -134,7 +134,7 @@ class Knob(object):
         """
         ...
 
-    def setFlag(self, f) -> None:
+    def setFlag(self, f: int) -> None:
         """
         self.setFlag(f) -> None.
         Logical OR of the argument and existing knob flags.
@@ -143,7 +143,7 @@ class Knob(object):
         """
         ...
 
-    def getFlag(self, f) -> bool:
+    def getFlag(self, f: int) -> bool:
         """
         self.getFlag(f) -> Bool.
         Returns whether the input flag is set.
@@ -152,7 +152,7 @@ class Knob(object):
         """
         ...
 
-    def clearFlag(self, f) -> None:
+    def clearFlag(self, f: int) -> None:
         """
         self.clearFlag(f) -> None.
         Clear flag.
@@ -161,7 +161,7 @@ class Knob(object):
         """
         ...
 
-    def setValue(self, val, chan) -> bool:
+    def setValue(self, val: typing.Any, chan: int) -> bool:
         """
         self.setValue(val, chan) -> bool
 
@@ -170,7 +170,7 @@ class Knob(object):
         """
         ...
 
-    def setValueAt(self, val, time, chan) -> bool:
+    def setValueAt(self, val: typing.Any, time: int, chan: int) -> bool:
         """
         self.setValueAt(val, time, chan) -> bool
 
@@ -179,85 +179,85 @@ class Knob(object):
         """
         ...
 
-    def getValue(self, *args: typing.Any, **kwargs: typing.Any) -> None:
+    def getValue(self, *args: typing.Any, **kwargs: typing.Any) -> typing.Any:
         """
         Return value at the current frame for channel 'c'.
         """
         ...
 
-    def value(self, *args: typing.Any, **kwargs: typing.Any) -> None:
+    def value(self, *args: typing.Any, **kwargs: typing.Any) -> typing.Any:
         """
         Return value at the current frame for channel 'c'.
         """
         ...
 
-    def getValueAt(self, *args: typing.Any, **kwargs: typing.Any) -> None:
+    def getValueAt(self, *args: typing.Any, **kwargs: typing.Any) -> typing.Any:
         """
         Return value at time 't' for channel 'c'.
         """
         ...
 
-    def getKeyList(self, *args: typing.Any, **kwargs: typing.Any) -> None:
+    def getKeyList(self, *args: typing.Any, **kwargs: typing.Any) -> list:
         """
         Get all unique keys on the knob.  Returns list.
         """
         ...
 
-    def removeKey(self, *args: typing.Any, **kwargs: typing.Any) -> None:
+    def removeKey(self, *args: typing.Any, **kwargs: typing.Any) -> bool:
         """
         Remove key for channel 'c'. Return True if successful.
         """
         ...
 
-    def removeKeyAt(self, *args: typing.Any, **kwargs: typing.Any) -> None:
+    def removeKeyAt(self, *args: typing.Any, **kwargs: typing.Any) -> bool:
         """
         Remove key at time 't' for channel 'c'. Return True if successful.
         """
         ...
 
-    def isKey(self, *args: typing.Any, **kwargs: typing.Any) -> None:
+    def isKey(self, *args: typing.Any, **kwargs: typing.Any) -> bool:
         """
         Return True if there is a keyframe at the current frame for channel 'c'.
         """
         ...
 
-    def isKeyAt(self, *args: typing.Any, **kwargs: typing.Any) -> None:
+    def isKeyAt(self, *args: typing.Any, **kwargs: typing.Any) -> bool:
         """
         Return True if there is a keyframe at time 't' for channel 'c'.
         """
         ...
 
-    def getNumKeys(self, *args: typing.Any, **kwargs: typing.Any) -> None:
+    def getNumKeys(self, *args: typing.Any, **kwargs: typing.Any) -> int:
         """
         Return number of keyframes for channel 'c'.
         """
         ...
 
-    def getKeyIndex(self, *args: typing.Any, **kwargs: typing.Any) -> None:
+    def getKeyIndex(self, *args: typing.Any, **kwargs: typing.Any) -> int:
         """
         Return keyframe index at time 't' for channel 'c'.
         """
         ...
 
-    def getKeyTime(self, *args: typing.Any, **kwargs: typing.Any) -> None:
+    def getKeyTime(self, *args: typing.Any, **kwargs: typing.Any) -> int:
         """
         Return index of the keyframe at time 't' for channel 'c'.
         """
         ...
 
-    def getDerivative(self, *args: typing.Any, **kwargs: typing.Any) -> None:
+    def getDerivative(self, *args: typing.Any, **kwargs: typing.Any) -> typing.Any:
         """
         Return derivative at time 't' for channel 'c'.
         """
         ...
 
-    def getNthDerivative(self, *args: typing.Any, **kwargs: typing.Any) -> None:
+    def getNthDerivative(self, *args: typing.Any, **kwargs: typing.Any) -> typing.Any:
         """
         Return nth derivative at time 't' for channel 'c'.
         """
         ...
 
-    def getIntegral(self, *args: typing.Any, **kwargs: typing.Any) -> None:
+    def getIntegral(self, *args: typing.Any, **kwargs: typing.Any) -> typing.Any:
         """
         Return integral at the interval [t1, t2] for channel 'c'.
         """
@@ -269,19 +269,19 @@ class Knob(object):
         """
         ...
 
-    def isAnimated(self, *args: typing.Any, **kwargs: typing.Any) -> None:
+    def isAnimated(self, *args: typing.Any, **kwargs: typing.Any) -> bool:
         """
         Return True if channel 'c' is animated.
         """
         ...
 
-    def clearAnimated(self, *args: typing.Any, **kwargs: typing.Any) -> None:
+    def clearAnimated(self, *args: typing.Any, **kwargs: typing.Any) -> bool:
         """
         Clear animation for channel 'c'. Return True if successful.
         """
         ...
 
-    def hasExpression(self, index=-1) -> bool:
+    def hasExpression(self, index: int = -1) -> bool:
         """
         self.hasExpression(index=-1) -> bool
         Return True if animation at index 'index' has an expression.
@@ -290,7 +290,7 @@ class Knob(object):
         """
         ...
 
-    def setExpression(self, expression: str, channel=-1, view=None) -> bool:
+    def setExpression(self, expression: str, channel: int = -1, view: typing.Union[str, int, None] = None) -> bool:
         """
         self.setExpression(expression, channel=-1, view=None) -> bool
         Set the expression for a knob. You can optionally specify a channel to set the expression for.
@@ -302,7 +302,7 @@ class Knob(object):
         """
         ...
 
-    def toScript(self, quote, context=None) -> str:
+    def toScript(self, quote: bool, context: typing.Optional[typing.Any] = None) -> str:
         """
         toScript(quote, context=current) -> string.
 
@@ -318,7 +318,7 @@ class Knob(object):
         """
         ...
 
-    def fullyQualifiedName(self, channel=-1) -> str:
+    def fullyQualifiedName(self, channel: int = -1) -> str:
         """
         self.fullyQualifiedName(channel=-1) -> string
         Returns the fully-qualified name of the knob within the node. This can be useful for expression linking.
@@ -362,7 +362,7 @@ class Knob(object):
         """
         ...
 
-    def getAuthorModes(self,) -> list:
+    def getAuthorModes(self) -> list[str]:
         """
         self.getAuthorModes() -> List.
         Returns the names of the authoring modes of the knob if the knob is an authoring knob, otherwise an empty list.
@@ -370,7 +370,7 @@ class Knob(object):
         """
         ...
 
-    def getAuthorMode(self,) -> str:
+    def getAuthorMode(self) -> str:
         """
         self.getAuthorMode() -> Integer.
         Returns the authoring mode currently set on the knob. This is a unique string identifier of the option, which is also used for serialisation and deserialisation. It is not meant to change,thus one can rely on it.
@@ -378,7 +378,7 @@ class Knob(object):
         """
         ...
 
-    def setAuthorMode(self, authorMode: int) -> None:
+    def setAuthorMode(self, authorMode: typing.Union[str, int]) -> None:
         """
         self.setAuthorMode(authorMode) -> None.
         Sets the authoring mode on the knob. This accepts both the unique string identifier, which is also used for serialisation and deserialisation, or index of the option for convenience. These values are not meant to change, thus one can rely on them.
@@ -387,7 +387,7 @@ class Knob(object):
         """
         ...
 
-    def makeWidget(self,) -> Any:
+    def makeWidget(self) -> Optional[PySide2.QtWidgets.QWidget]:
         """
         self.makeWidget() -> PySide2.QtWidgets.QWidget.
         Returns an instance of the QWidget subclass used to edit the knob's value.

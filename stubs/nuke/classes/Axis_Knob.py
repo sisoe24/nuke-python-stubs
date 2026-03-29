@@ -14,13 +14,13 @@ class Axis_Knob(Knob):
     A knob which descibes a 3D affine transformation, by combining rotations around each principal axis, scaling, translation, skew and a pivot point.
     """
 
-    def __new__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs) -> Axis_Knob:
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
         ...
 
-    def __hash__(self, ) -> None:
+    def __hash__(self) -> int:
         """
         Return hash(self).
         """
@@ -80,7 +80,7 @@ class Axis_Knob(Knob):
         """
         ...
 
-    def value(self,) -> Any:
+    def value(self) -> _nukemath.Matrix4:
         """
         self.value() -> _nukemath.Matrix4
         Return the transform matrix formed by combining the input knob values for translate, rotate, scale, skew and pivot.

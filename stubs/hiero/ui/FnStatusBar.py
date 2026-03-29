@@ -20,13 +20,13 @@ import nuke_internal as nuke
 import nuke_internal.localization as localization
 
 
-def _bytesToMB(bytes):
+def _bytesToMB(bytes: int) -> float:
     """Returns byte value in megabytes"""
     MB = float(bytes)/float(1 << 20)
     return MB
 
 
-def _bytesToGB(bytes):
+def _bytesToGB(bytes: int) -> float:
     """Returns byte value in gigabytes"""
     GB = float(bytes)/float(1 << 30)
     return GB
@@ -40,28 +40,28 @@ class PSUtilProcessWrapper(object):
         # This should be the process of Nuke.
         self.nukeProcess = psutil.Process(os.getpid())
 
-    def nukeMemoryUsageAsPercentage(self):
+    def nukeMemoryUsageAsPercentage(self) -> float:
         """Returns Nuke's current memory usage as percentage of Total memory"""
         mem_percent = self.nukeProcess.memory_percent()
         return mem_percent
 
-    def nukeCPUUsageAsPercentage(self):
+    def nukeCPUUsageAsPercentage(self) -> float:
         """Returns Nuke's current CPU usage as percentage"""
         cpu_percent = self.nukeProcess.cpu_percent()
         return cpu_percent
 
-    def nukeMemoryUsageInGB(self):
+    def nukeMemoryUsageInGB(self) -> float:
         """Returns Nuke's current memory usage in GB"""
         nuke_mem_bytes = self.nukeProcess.memory_info().rss
         nuke_mem_GB = _bytesToGB(nuke_mem_bytes)
         return nuke_mem_GB
 
-    def numOpenFiles(self):
+    def numOpenFiles(self) -> int:
         """Returns the number of open files. Unused at present."""
         numOpenFiles = len(self.nukeProcess.get_open_files())
         return numOpenFiles
 
-    def totalSystemMemory(self):
+    def totalSystemMemory(self) -> float:
         """Returns the total System memory in GigaBytes"""
         return _bytesToGB(psutil.virtual_memory().total)
 
@@ -105,19 +105,19 @@ class MainStatusBar(object):
         # Begin monitoring after a few secs to give frame server time to start up properly
         QTimer.singleShot(3000, self.startMonitoring)
 
-    def hide(self):
+    def hide(self) -> None:
         """Hide the status bar"""
         self.bar.setHidden(True)
 
-    def show(self):
+    def show(self) -> None:
         """Show the status bar"""
         self.bar.setHidden(False)
 
-    def rendersExistInQueue(self):
+    def rendersExistInQueue(self) -> bool:
         """Return whether renders exist in the Frame server queue"""
         return len(self.frameServerInstance.renderQueue.requestsInProgress) > 0
 
-    def _handleServerUnreachable(self):
+    def _handleServerUnreachable(self) -> None:
         """This is called when the server becomes unreachable"""
 
         if not self.isHieroPlayer:
@@ -130,7 +130,7 @@ class MainStatusBar(object):
 
             self.restartServerButton.setHidden(False)
 
-    def _setResourcesLabelColour(self, memRatio, cpuUsage):
+    def _setResourcesLabelColour(self, memRatio: float, cpuUsage: float) -> None:
         """Sets the Resources label to be red if the memory usage gets too high"""
         if memRatio > 0.9:
             color = QColor(Qt.red)
@@ -150,14 +150,14 @@ class MainStatusBar(object):
         self.frameServerInstance.start()
         QTimer.singleShot(3000, self.startMonitoring)
 
-    def restartServer(self):
+    def restartServer(self) -> None:
         """Called to restart the Nuke Frame Server, done asynchronously"""
         self.stopMonitoring()
         self.restartServerButton.setHidden(True)
         self.nukeResourcesLabel.setText('Re-Starting Frame Server...')
         QTimer.singleShot(150, self.restartServerAsync)
 
-    def updateResourcesStatusLabel(self):
+    def updateResourcesStatusLabel(self) -> None:
         """Updates the Memory Label String"""
 
         if self.enableResourceMonitoring:
@@ -179,7 +179,7 @@ class MainStatusBar(object):
             # This little test makes the label red if the memory usage exceeds 90% of the maximum allowed
             self._setResourcesLabelColour(memRatio, currentCPUUsageAsPercentatge)
 
-    def _diskMBPerSec(self):
+    def _diskMBPerSec(self) -> float:
         """Returns Local Disk Read speed in MB/s"""
         oldBytes = self.currentDiskIOBytes
         newBytes = psutil.disk_io_counters().read_bytes
@@ -189,7 +189,7 @@ class MainStatusBar(object):
         MBPerSecond = _bytesToMB(bytesPerSecond)
         return MBPerSecond
 
-    def _networkMBPerSec(self):
+    def _networkMBPerSec(self) -> float:
         """Returns Local Disk Read speed in MB/s"""
         oldBytes = self.currentNetworkBytesReceived
         newBytes = psutil.net_io_counters().bytes_recv
@@ -199,7 +199,7 @@ class MainStatusBar(object):
         MBPerSecond = _bytesToMB(bytesPerSecond)
         return MBPerSecond
 
-    def setupUI(self):
+    def setupUI(self) -> None:
         """Initialise the UI"""
         self.bar.setHidden(False)  # Make sure the status bar is shown
         # Remove the border around widgets on the status bar
@@ -236,13 +236,13 @@ class MainStatusBar(object):
         self.restartServerButton.setToolTip('Click here to restart the Nuke Frameserver')
         self.bar.addPermanentWidget(self.restartServerButton)
 
-    def _updateUIForServerIsRunning(self):
+    def _updateUIForServerIsRunning(self) -> None:
         """Updates the UI for when the server is reachable"""
         self.frameserverStatusLabel.setToolTip('Nuke Frame Server is reachable')
         self.frameserverStatusLabel.setPixmap(QPixmap('icons:OK.png'))
         self.restartServerButton.setHidden(True)
 
-    def updateStatusBar(self):
+    def updateStatusBar(self) -> None:
         """Updates the Status bar widgets depending on whether the frameServer is reachable"""
         self.updateChannelCountLabel()
 
@@ -279,17 +279,17 @@ class MainStatusBar(object):
             self._handleServerUnreachable()
             self.updateResourcesStatusLabel()
 
-    def startMonitoring(self):
+    def startMonitoring(self) -> None:
         """This timer fires every X milliseconds to update the status."""
         self.timer.start(self.updateMonitorIntervalMS)
         self.isMonitoring = True
 
-    def stopMonitoring(self):
+    def stopMonitoring(self) -> None:
         """Stops the monitoring process"""
         self.timer.stop()
         self.isMonitoring = False
 
-    def updateChannelCountLabel(self):
+    def updateChannelCountLabel(self) -> None:
         """Update the channel count label on based on preferences and channelCount"""
         try:
             channelCount = len(nuke.channels())

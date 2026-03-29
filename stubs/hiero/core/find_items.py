@@ -69,7 +69,7 @@ def convertToType(type):
     raise Exception('The item filter must be set to a valid hiero.core object, e.g. hiero.core.Clip')
 
 
-def findItemsInProject(proj=None, filter=None, partialName=None, verbose=0):
+def findItemsInProject(proj: 'hiero.core.Project' = None, filter: 'str | type | list[str | type] | None' = None, partialName: 'str | None' = None, verbose: 'bool | None' = False) -> list:
     '''findItemsInProject -> Returns all items in a Project's clipsBin.
     User can filter by a specific type(s) or by partial name, and optionally print a verbose log to the output window.
     Takes up to 4 keyword arguments : Project object, a string, a type or an array of strings for filter type, partial name of item, and a bool to enable/disable verbose mode
@@ -264,7 +264,7 @@ def findItemsInProject(proj=None, filter=None, partialName=None, verbose=0):
 findItems = findItemsInProject
 
 
-def findItemsInBin(rootBin, filter=None, partialName=None, verbose=0):
+def findItemsInBin(rootBin: 'hiero.core.Bin', filter: 'str | type | list[str | type] | None' = None, partialName: 'str | None' = None, verbose: 'bool | None' = False) -> list:
     '''findItemsInBin(rootBin, filter=None, partialName=None, verbose=0) -> Returns all items recursively in a Bin, found in rootBin.
     @param rootBin: hiero.core.Bin object, to find the items on.
     @param filter: optional. Used to filter the returned list. Can be None, a case insensitive single string or type, or a list of case insensitive strings and types.
@@ -371,7 +371,7 @@ def findItemsInBin(rootBin, filter=None, partialName=None, verbose=0):
     return finalResults
 
 
-def findItemsInAllProjects(**kwargs):
+def findItemsInAllProjects(**kwargs) -> list:
     """ Search for items across all open projects. See findItemsInProject() for arguments.
     """
     def _inner():
@@ -380,7 +380,7 @@ def findItemsInAllProjects(**kwargs):
     return itertools.chain.from_iterable(_inner())
 
 
-def findProjectTags(proj=None, tagName=None, iconName=None, verbose=0):
+def findProjectTags(proj: 'hiero.core.Project' = None, tagName: 'str | None' = None, iconName: 'str | None' = None, verbose: 'bool | None' = False) -> list:
     '''findProjectTags -> Returns all Tags in a project. User can filter by tag name, icon name, and optionally print a verbose log to the output window.
     Takes up to 4 arguments : Project object, partial name of Tag, partial icon name, and a bool to enable/disable verbose mode
     Returns a list of Tag objects.
@@ -462,7 +462,7 @@ def findProjectTags(proj=None, tagName=None, iconName=None, verbose=0):
     return finalResults
 
 
-def findItemsByGuid(guids, *args, **kwargs):
+def findItemsByGuid(guids: list[str], *args, **kwargs) -> list:
     """ Find all items matching a list of guids. This searches all open projects.
     The other arguments are the same as those to findItemsInProject.
     """
@@ -479,7 +479,7 @@ def findItemsByGuid(guids, *args, **kwargs):
     return resultList
 
 
-def findItemByGuid(guid, *args, **kwargs):
+def findItemByGuid(guid: 'str', *args, **kwargs) -> object | None:
     """ Find an item matching a guid. This searches all open projects. The other
     arguments are the same as those to findItemsInProject.
     """

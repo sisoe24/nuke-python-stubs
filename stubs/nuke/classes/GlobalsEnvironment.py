@@ -16,31 +16,31 @@ class GlobalsEnvironment(object):
     nuke.env['threads'] = 4
     """
 
-    def __new__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs) -> GlobalsEnvironment:
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
         ...
 
-    def __repr__(self, ) -> None:
+    def __repr__(self) -> str:
         """
         Return repr(self).
         """
         ...
 
-    def __hash__(self, ) -> None:
+    def __hash__(self) -> int:
         """
         Return hash(self).
         """
         ...
 
-    def __len__(self, ) -> None:
+    def __len__(self) -> int:
         """
         Return len(self).
         """
         ...
 
-    def __getitem__(self, key, ) -> None:
+    def __getitem__(self, key) -> Any:
         """
         Return self[key].
         """

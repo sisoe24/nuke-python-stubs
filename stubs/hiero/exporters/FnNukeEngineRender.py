@@ -108,7 +108,7 @@ class LocalNukeEngineRenderTask(hiero.core.TaskBase):
         self._nukeProcess = subprocess.Popen(''.join(args), shell=True)
         self._nukeProcess.wait()
 
-    def startTask(self):
+    def startTask(self) -> None:
         """
         Start the NukeEngine process
         """
@@ -167,7 +167,7 @@ class LocalNukeEngineRenderTask(hiero.core.TaskBase):
         self._nukeEngineProcess = subprocess.Popen(
             ''.join(engine_args), stdout=self._logFile, stderr=subprocess.STDOUT, shell=True)
 
-    def _readLogFile(self):
+    def _readLogFile(self) -> List[str]:
         """
         Read the log file and return the output lines.  Returns an empty list if
         reading the file failed.
@@ -195,7 +195,7 @@ class LocalNukeEngineRenderTask(hiero.core.TaskBase):
         if write_finds > 0:
             self._progress = float(write_finds) / float(self._nFrames)
 
-    def taskStep(self):
+    def taskStep(self) -> bool:
         """
         Check the state of the NukeEngine process.  Returns True while it is running.
         NOTE: Given that we're trying to make things a bit more efficient by not spamming this method
@@ -250,7 +250,7 @@ class LocalNukeEngineRenderTask(hiero.core.TaskBase):
                     self._nukeEngineProcess.terminate()
                 self._nukeEngineProcess.wait()
 
-    def progress(self):
+    def progress(self) -> float:
         """
         Get the render progress.
         """

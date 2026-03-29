@@ -18,103 +18,103 @@ class Bin:
     Container object for hiero.core.BinItem objects (wrapping hiero.core.Clip and hiero.core.Sequence objects) and other hiero.core.Bin objects.
     """
 
-    def __new__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs) -> Bin:
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
         ...
 
-    def __repr__(self) -> object:
+    def __repr__(self) -> str:
         """
         Return repr(self).
         """
         ...
 
-    def __hash__(self, ) -> None:
+    def __hash__(self) -> int:
         """
         Return hash(self).
         """
         ...
 
-    def __setattr__(self, name, value, ) -> None:
+    def __setattr__(self, name: str, value: typing.Any) -> None:
         """
         Implement setattr(self, name, value).
         """
         ...
 
-    def __delattr__(self, name, ) -> None:
+    def __delattr__(self, name: str) -> None:
         """
         Implement delattr(self, name).
         """
         ...
 
-    def __lt__(self, value, ) -> None:
+    def __lt__(self, value: Bin) -> bool:
         """
         Return self<value.
         """
         ...
 
-    def __le__(self, value, ) -> None:
+    def __le__(self, value: Bin) -> bool:
         """
         Return self<=value.
         """
         ...
 
-    def __eq__(self, value, ) -> None:
+    def __eq__(self, value: Bin) -> bool:
         """
         Return self==value.
         """
         ...
 
-    def __ne__(self, value, ) -> None:
+    def __ne__(self, value: Bin) -> bool:
         """
         Return self!=value.
         """
         ...
 
-    def __gt__(self, value, ) -> None:
+    def __gt__(self, value: Bin) -> bool:
         """
         Return self>value.
         """
         ...
 
-    def __ge__(self, value, ) -> None:
+    def __ge__(self, value: Bin) -> bool:
         """
         Return self>=value.
         """
         ...
 
-    def __init__(self,  *args, **kwargs) -> None:
+    def __init__(self, *args: typing.Any, **kwargs: typing.Any) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """
         ...
 
-    def __bool__(self, ) -> None:
+    def __bool__(self) -> bool:
         """
         True if self else False
         """
         ...
 
-    def __getitem__(self, key, ) -> None:
+    def __getitem__(self, key: typing.Any) -> typing.Any:
         """
         Return self[key].
         """
         ...
 
-    def __len__(self, ) -> None:
+    def __len__(self) -> int:
         """
         Return len(self).
         """
         ...
 
-    def __contains__(self, key, ) -> None:
+    def __contains__(self, key: typing.Any) -> bool:
         """
         Return key in self.
         """
         ...
 
-    def addItem(self, *args: typing.Any, **kwargs: typing.Any) -> Any:
+    def addItem(self, obj: typing.Any) -> typing.Any:
         """
         self.addItem(object) -> adds the item to the bin object.
 
@@ -123,7 +123,7 @@ class Bin:
         """
         ...
 
-    def bins(self) -> object:
+    def bins(self) -> tuple:
         """
         self.bins() -> returns a tuple with all of the sub bins contained by this object.
 
@@ -131,7 +131,7 @@ class Bin:
         """
         ...
 
-    def clips(self) -> object:
+    def clips(self) -> tuple:
         """
         self.clips() -> returns a tuple with all of the BinItem's containing clips contained by this bin.
 
@@ -147,7 +147,7 @@ class Bin:
         """
         ...
 
-    def createClip(self, *args, **knobs) -> Clip:
+    def createClip(self, path: str, **knobs: typing.Any) -> 'Clip':
         """
         self.createClip(path, **knobs) -> Construct a clip from a path and optional knob values, and add it to the bin.
 
@@ -177,7 +177,7 @@ class Bin:
         """
         ...
 
-    def importFolder(self, arg__1: str) -> hiero.core.Bin:
+    def importFolder(self, path: str) -> hiero.core.Bin:
         """
         self.importFolder(path) -> imports the media in the path into this bin (needs a project).
 
@@ -186,7 +186,7 @@ class Bin:
         """
         ...
 
-    def importSequence(self, filename: str, timeBase: hiero.core.TimeBase, frameRate: float = 0.0, dropFrame: bool = False) -> hiero.core.Sequence:
+    def importSequence(self, filename: str, timeBase: typing.Optional[hiero.core.TimeBase], frameRate: typing.Optional[float] = None, dropFrame: bool = False) -> hiero.core.Sequence:
         """
         self.importSequence(filename, timeBase=None, frameRate=None, dropFrame=False) -> imports the sequence stored in filename into this bin (needs a project).  If the timebase/frame rate for the sequence isnot specified, the project defaults will be used.
 
@@ -205,7 +205,7 @@ class Bin:
         """
         ...
 
-    def items(self, *args: typing.Any, **kwargs: typing.Any) -> tuple:
+    def items(self, typeFilter: typing.Optional[int] = None) -> tuple:
         """
         self.items(typeFilter) -> returns a tuple with all of the objects contained by this bin, filtered by the typeFilter argument, if supplied.
 
@@ -236,7 +236,7 @@ class Bin:
         """
         ...
 
-    def parentBin(self) -> object:
+    def parentBin(self) -> Bin:
         """
         self.parentBin() -> returns the bin that contains this object.
 
@@ -244,7 +244,7 @@ class Bin:
         """
         ...
 
-    def project(self) -> object:
+    def project(self) -> typing.Optional[hiero.core.Project]:
         """
         self.project() -> returns the Project object that this is attached to, or None if the object is not attached to a project.
 
@@ -260,7 +260,7 @@ class Bin:
         """
         ...
 
-    def removeItem(self, *args: typing.Any, **kwargs: typing.Any) -> Any:
+    def removeItem(self, obj: typing.Any) -> None:
         """
         self.removeItem(object) -> removes the item from the bin object. If the object is not a child item of the bin object, throws an exception.
 
@@ -268,7 +268,7 @@ class Bin:
         """
         ...
 
-    def sequences(self) -> object:
+    def sequences(self) -> tuple:
         """
         self.sequences() -> returns a tuple with all of the BinItem's containing sequences contained by this bin.
 
@@ -282,7 +282,7 @@ class Bin:
         """
         ...
 
-    def setColor(self, arg__1: PySide2.QtGui.QColor) -> None:
+    def setColor(self, color: PySide2.QtGui.QColor) -> None:
         """
         self.setColor(color) -> Set the bin display color.
 

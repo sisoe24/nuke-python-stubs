@@ -12,13 +12,13 @@ from . import FnFrameExporter
 
 
 class CopyExporter(FnFrameExporter.FrameExporter):
-    def __init__(self, initDict):
+    def __init__(self, initDict: dict) -> None:
         """Initialize"""
         FnFrameExporter.FrameExporter.__init__(self, initDict)
         if self.nothingToDo():
             return
 
-    def _tryCopy(self, src, dst):
+    def _tryCopy(self, src: str, dst: str) -> bool:
         """Attempts to copy src file to dst, including the permission bits, last access time, last modification time, and flags"""
 
         hiero.core.log.info('Attempting to copy %s to %s' % (src, dst))

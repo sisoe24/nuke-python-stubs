@@ -14,19 +14,19 @@ class PanelNode(object):
     PanelNode
     """
 
-    def __new__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs) -> PanelNode:
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
         ...
 
-    def __hash__(self, ) -> None:
+    def __hash__(self) -> int:
         """
         Return hash(self).
         """
         ...
 
-    def __str__(self, ) -> None:
+    def __str__(self) -> str:
         """
         Return str(self).
         """
@@ -59,7 +59,7 @@ class PanelNode(object):
         """
         ...
 
-    def writeKnobs(self, i) -> str:
+    def writeKnobs(self, i: int) -> str:
         """
         self.writeKnobs(i) -> String in .nk form.
         Return a tcl list. If TO_SCRIPT | TO_VALUE is not on, this is a simple list
@@ -78,7 +78,7 @@ class PanelNode(object):
         """
         ...
 
-    def knobs(self,) -> dict:
+    def knobs(self) -> typing.Dict[str, Knob]:
         """
         self.knobs() -> dict
 
@@ -101,7 +101,7 @@ class PanelNode(object):
         """
         ...
 
-    def __init__(self,  *args, **kwargs) -> None:
+    def __init__(self, *args: typing.Any, **kwargs: typing.Any) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """

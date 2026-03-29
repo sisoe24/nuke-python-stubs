@@ -176,7 +176,7 @@ class FlipbookFrameServerTask(RenderQueueObserverMixin):
     def renderFinished(self):
         executeInMainThread(self.showFlipbookWindow)
 
-    def onFrameRendered(self, scriptPath, frame, nodeName):
+    def onFrameRendered(self, scriptPath: str, frame: int, nodeName: str) -> None:
         """ Callback when a frame is rendered.  If it's for the script being
         rendered, increment the count. """
         if scriptPath == self._scriptPath and nodeName == self._nodeName:
@@ -185,7 +185,7 @@ class FlipbookFrameServerTask(RenderQueueObserverMixin):
             if self._completedFrames == self._totalFrames:
                 self.renderFinished()
 
-    def onFrameRenderError(self, scriptPath, frame, nodeName, errorMsg):
+    def onFrameRenderError(self, scriptPath: str, frame: int, nodeName: str, errorMsg: str) -> None:
         """ Callback when there is an error rendering a frame.  Set the error state
         and cancel. """
         if scriptPath == self._scriptPath and nodeName == self._nodeName:

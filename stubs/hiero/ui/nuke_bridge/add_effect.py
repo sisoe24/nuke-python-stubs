@@ -291,7 +291,7 @@ class AddEffectHandler(SendToNukeHandler):
                 action = self.makeCreateCompAction(selection, CreateCompSpecialAction)
                 action.doit()
 
-    def makeCreateCompAction(self, selection, objectType):
+    def makeCreateCompAction(self, selection: list, objectType: str) -> CreateCompAction:
         """ Create an CreateCompAction from the given selection, and return it """
         # only handle selections of trackitems, clips, and sequence items
         clips = []

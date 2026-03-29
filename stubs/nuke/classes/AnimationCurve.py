@@ -14,26 +14,26 @@ class AnimationCurve(object):
     AnimationCurve
     """
 
-    def __new__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs) -> AnimationCurve:
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
         ...
 
-    def __hash__(self, ) -> None:
+    def __hash__(self) -> int:
         """
         Return hash(self).
         """
         ...
 
-    def size(self,) -> int | float:
+    def size(self) -> int:
         """
         self.size() -> Number of keys.
         @return: Number of keys.
         """
         ...
 
-    def keys(self,) -> list:
+    def keys(self) -> list:
         """
         self.keys() -> List of keys.
         @return: List of keys.
@@ -95,7 +95,7 @@ class AnimationCurve(object):
         """
         ...
 
-    def evaluate(self, t: int | float) -> int | float:
+    def evaluate(self, t: int | float) -> float:
         """
         self.evaluate(t) -> float
         Value at time 't'.
@@ -104,7 +104,7 @@ class AnimationCurve(object):
         """
         ...
 
-    def derivative(self, t: int | float, n: Optional[int] = None) -> float:
+    def derivative(self, t: int | float, n: int = 1) -> float:
         """
         self.derivative(t, n) -> Float.
         The n'th derivative at time 't'. If n is less than 1 it returns evaluate(t).
@@ -114,7 +114,7 @@ class AnimationCurve(object):
         """
         ...
 
-    def inverse(self, y) -> float:
+    def inverse(self, y: float) -> float:
         """
         self.inverse(y) -> Float.
         The inverse function at value y. This is the value of x such that evaluate(x)
@@ -136,7 +136,7 @@ class AnimationCurve(object):
         """
         ...
 
-    def setKey(self, t: int | float, y) -> Any:
+    def setKey(self, t: int | float, y: float) -> Key:
         """
         self.setKey(t, y) -> Key.
         Set a key at time t and value y. If there is no key
@@ -184,7 +184,7 @@ class AnimationCurve(object):
         """
         ...
 
-    def changeInterpolation(self, keys: Iterable, type) -> None:
+    def changeInterpolation(self, keys: Iterable, type: int) -> None:
         """
         self.changeInterpolation(keys, type) -> None.
         Change interpolation (and extrapolation) type for the keys.

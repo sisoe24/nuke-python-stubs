@@ -26,15 +26,15 @@ class TagFilterWidget (QtWidgets.QTableView):
     def _tagSelectionChanged(self):
         self.tagSelectionChanged.emit(self.include_subset(), self.exclude_subset())
 
-    def all_tags(self):
+    def all_tags(self) -> set[str]:
         """Return entire set of tags"""
         return self._alltags
 
-    def include_subset(self):
+    def include_subset(self) -> set[str]:
         """Return subset for tags marked to be included"""
         return self._include_subset
 
-    def exclude_subset(self):
+    def exclude_subset(self) -> set[str]:
         """Return subset of tags marked to be exclusion"""
         return self._exclude_subset
 

@@ -14,13 +14,13 @@ class Box3_Knob(Array_Knob):
     A 3-dimensional box.
     """
 
-    def __new__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs) -> Self:
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
         ...
 
-    def __hash__(self, ) -> None:
+    def __hash__(self) -> int:
         """
         Return hash(self).
         """
@@ -32,19 +32,19 @@ class Box3_Knob(Array_Knob):
         """
         ...
 
-    def names(self, *args: typing.Any, **kwargs: typing.Any) -> None:
+    def names(self, *args: int, **kwargs: typing.Any) -> str:
         """
         Return name for dimension 'i'
         """
         ...
 
-    def value(self, *args: typing.Any, **kwargs: typing.Any) -> None:
+    def value(self, *args: int, **kwargs: typing.Any) -> float:
         """
         Return value for dimension 'i'
         """
         ...
 
-    def x(self, *args: typing.Any, **kwargs: typing.Any) -> None:
+    def x(self, *args: typing.Any, **kwargs: typing.Any) -> float:
         """
         Return value for X position. X is the minimum horizontal extent of the box.
         """
@@ -56,7 +56,7 @@ class Box3_Knob(Array_Knob):
         """
         ...
 
-    def y(self, *args: typing.Any, **kwargs: typing.Any) -> None:
+    def y(self, *args: typing.Any, **kwargs: typing.Any) -> float:
         """
         Return value for Y position. Y is the minimum vertical extent of the box.
         """
@@ -68,7 +68,7 @@ class Box3_Knob(Array_Knob):
         """
         ...
 
-    def n(self, *args: typing.Any, **kwargs: typing.Any) -> None:
+    def n(self, *args: typing.Any, **kwargs: typing.Any) -> float:
         """
         Return value for N position. N (near) is the minimum Z extent of the box.
         """
@@ -80,7 +80,7 @@ class Box3_Knob(Array_Knob):
         """
         ...
 
-    def r(self, *args: typing.Any, **kwargs: typing.Any) -> None:
+    def r(self, *args: typing.Any, **kwargs: typing.Any) -> float:
         """
         Return value for R extent. R (right) is the right extent of the box.
         """
@@ -92,7 +92,7 @@ class Box3_Knob(Array_Knob):
         """
         ...
 
-    def t(self, *args: typing.Any, **kwargs: typing.Any) -> None:
+    def t(self, *args: typing.Any, **kwargs: typing.Any) -> float:
         """
         Return value for T extent. T (top) is the maximum vertical extent of the box.
         """
@@ -104,7 +104,7 @@ class Box3_Knob(Array_Knob):
         """
         ...
 
-    def f(self, *args: typing.Any, **kwargs: typing.Any) -> None:
+    def f(self, *args: typing.Any, **kwargs: typing.Any) -> float:
         """
         Return value for F extent. F (far) is the maximum Z extent of the box.
         """

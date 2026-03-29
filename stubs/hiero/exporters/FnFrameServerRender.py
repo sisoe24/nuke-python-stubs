@@ -56,17 +56,17 @@ class FrameServerRenderTask(TaskBase, RenderQueueObserverMixin):
             # Return render progress in range 0-1
             return float(self._renderedFrames) / float(self._totalFrames)
 
-    def cancelRenders(self):
+    def cancelRenders(self) -> None:
         """ Remove the script from the render queue. """
         hiero.ui.nuke_bridge.FnNsFrameServer.cancelFrames(self._scriptPath)
 
-    def onFrameRendered(self, path, frame, writeNode):
+    def onFrameRendered(self, path: str, frame: int, writeNode: object) -> None:
         """ Callback when a frame is rendered.  If it's for the script being
         rendered, increment the count. """
         if path == self._scriptPath:
             self._renderedFrames = self._renderedFrames + 1
 
-    def onFrameRenderError(self, path, frame, nodeName, errorMsg):
+    def onFrameRenderError(self, path: str, frame: int, nodeName: str, errorMsg: str) -> None:
         """ Callback when there is an error rendering a frame.  Set the error state
         and cancel. """
         self.setError('Render error in script: %s node: %s frame: %s\n%s' %
@@ -94,7 +94,7 @@ class FrameServerSubmission(Submission):
         else:
             raise Exception('FrameServerSubmission.addJob unknown type: ' + jobType)
 
-    def canRenderOnFrameServer(self, initDict):
+    def canRenderOnFrameServer(self, initDict: dict) -> bool:
         """ Check if this render can be done through the frame server.  Currently
         it can't be used to render video formats. """
 

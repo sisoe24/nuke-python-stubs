@@ -469,7 +469,7 @@ class RenameShotsDialog(QtWidgets.QDialog):
         else:
             return None
 
-    def matchSequence(self):
+    def matchSequence(self) -> Sequence | None:
         """Return the user's match Sequence selection against which we'll match shots to get new names.
            Return None if somehow there's no selection."""
         name = self._matchSequenceName()

@@ -20,7 +20,7 @@ class TaskPresetBase(ITaskPreset):
     and shared between the Task and TaskUI user interface component
     """
 
-    def __init__(self, parentType, presetName: str) -> None:
+    def __init__(self, parentType: type, presetName: str) -> None:
         """
         Initialise Exporter Preset Base Class
 
@@ -29,14 +29,14 @@ class TaskPresetBase(ITaskPreset):
         """
         ...
 
-    def initialiseCallbacks(self, exportStructure) -> None:
+    def initialiseCallbacks(self, exportStructure: 'ExportStructure') -> None:
         """
         When parent ExportStructure is opened in the ui, initialise is called
         for each preset. Register any callbacks here.
         """
         ...
 
-    def __eq__(self, other) -> None:
+    def __eq__(self, other: 'TaskPresetBase') -> bool:
         """
         Implement equal operator. This will compare the TaskPreset name
         and it's properties. This method will ignore difference between
@@ -45,19 +45,19 @@ class TaskPresetBase(ITaskPreset):
         """
         ...
 
-    def __ne__(self, other) -> None:
+    def __ne__(self, other: 'TaskPresetBase') -> bool:
         """
         Implements not equal operator using self.__eq__
         """
         ...
 
-    def __repr__(self) -> None:
+    def __repr__(self) -> str:
         """
         Return repr(self).
         """
         ...
 
-    def __exportTemplate__eq__(self, selfExportTemplate, otherExportTemplate) -> None:
+    def __exportTemplate__eq__(self, selfExportTemplate: list | tuple, otherExportTemplate: list | tuple) -> bool:
         """
         __eq__ method for the export template property. The export template is
         a list (or tuple) of pairs with format [ path , export template ], and
@@ -70,19 +70,19 @@ class TaskPresetBase(ITaskPreset):
         """
         ...
 
-    def name(self) -> None:
+    def name(self) -> str:
         """
         Return Preset Name
         """
         ...
 
-    def setName(self, name) -> None:
+    def setName(self, name: str) -> None:
         """
         Set Preset Name
         """
         ...
 
-    def summary(self) -> None:
+    def summary(self) -> str:
         """
         Called by Hiero to get a summary of the preset settings as a string.
         """
@@ -107,14 +107,14 @@ class TaskPresetBase(ITaskPreset):
         """
         ...
 
-    def ident(self) -> None:
+    def ident(self) -> str:
         """
         ident(self)
         Returns a string used for identifying the type of task
         """
         ...
 
-    def parentType(self) -> str:
+    def parentType(self) -> type:
         """
         parentType(self)
         Returns a the parent Task type for this TaskPreset.
@@ -152,7 +152,7 @@ class TaskPresetBase(ITaskPreset):
         """
         ...
 
-    def createResolver(self) -> None:
+    def createResolver(self) -> ResolveTable:
         """
         createResolver(self)
         Instantiate ResolveTable, add default and custom resolve entries
@@ -160,79 +160,79 @@ class TaskPresetBase(ITaskPreset):
         """
         ...
 
-    def getResolveEntryCount(self) -> None:
+    def getResolveEntryCount(self) -> int:
         """
         getResolveEntryCount(self) (DEPRICATED)
         Return the number of resolve entries in the resolve table
         """
         ...
 
-    def resolveEntryCount(self) -> None:
+    def resolveEntryCount(self) -> int:
         """
         resolveEntryCount(self)
         Return the number of resolve entries in the resolve table
         """
         ...
 
-    def resolveEntryName(self, index) -> None:
+    def resolveEntryName(self, index: int) -> str:
         """
         resolveEntryName(self, index)
         return ResolveEntry name/token by index
         """
         ...
 
-    def resolveEntryDescription(self, index) -> None:
+    def resolveEntryDescription(self, index: int) -> str:
         """
         resolveEntryDescription(self, index)
         return ResolveEntry description by index
         """
         ...
 
-    def setSavePath(self, path) -> None:
+    def setSavePath(self, path: str) -> None:
         """
         setSavePath(self, path)
         Set the save path of the preset in order to ensure it is saved to the path it was loaded from
         """
         ...
 
-    def savePath(self) -> None:
+    def savePath(self) -> str | None:
         """
         savePath(self)
         Return the path from which this preset was loaded. Will return None if this preset was not loaded from file
         """
         ...
 
-    def setProject(self, project) -> None:
+    def setProject(self, project: 'Project') -> None:
         """
         Set the Project() object which this preset is associated
         """
         ...
 
-    def project(self) -> None:
+    def project(self) -> Project | None:
         """
         Return the Project with which this preset is associated. If this is a local preset returns None
         """
         ...
 
-    def setReadOnly(self, readOnly) -> None:
+    def setReadOnly(self, readOnly: bool) -> None:
         """
         Set Read Only flag on preset, not enforced internally
         """
         ...
 
-    def readOnly(self) -> None:
+    def readOnly(self) -> bool:
         """
         Return the read only flag for this preset
         """
         ...
 
-    def markedForDeletion(self) -> None:
+    def markedForDeletion(self) -> bool:
         """
         Return True if this preset is marked for deletion. Delete will be performed at save
         """
         ...
 
-    def setMarkedForDeletion(self, markedForDeletion=True) -> None:
+    def setMarkedForDeletion(self, markedForDeletion: bool = True) -> None:
         """
         Set this preset as marked for deletion. Delete will be performed at save
         """
@@ -247,7 +247,7 @@ class TaskPresetBase(ITaskPreset):
         """
         ...
 
-    def setSkipOffline(self, skip) -> None:
+    def setSkipOffline(self, skip: bool) -> None:
         """
         skipOffline(bool)
         Set flag to skip offline TrackItems during export.
@@ -256,19 +256,19 @@ class TaskPresetBase(ITaskPreset):
         """
         ...
 
-    def setCompsToRender(self, comps) -> None:
+    def setCompsToRender(self, comps: list) -> None:
         """
         Set the list of comps to render.
         """
         ...
 
-    def setCompsToSkip(self, comps) -> None:
+    def setCompsToSkip(self, comps: list) -> None:
         """
         Set the list of comps to skip.
         """
         ...
 
-    def isDeprecated(self) -> None:
+    def isDeprecated(self) -> bool:
         """
         Determines whether the preset is deprecated. Any configuration that is deprecated
         should be tested here.

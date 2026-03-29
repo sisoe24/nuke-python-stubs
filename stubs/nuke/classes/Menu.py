@@ -14,13 +14,13 @@ class Menu(MenuItem):
     Menu
     """
 
-    def __hash__(self, ) -> None:
+    def __hash__(self) -> int:
         """
         Return hash(self).
         """
         ...
 
-    def addCommand(self, name: str, command: Optional[str] = None, shortcut: Optional[str] = None, icon: Optional[str] = None, tooltip: Optional[str] = None, index: Optional[int | float] = None, readonly: Optional[bool] = None, shortcutContext: Optional[int] = None, tag: Optional[int] = None, tagTarget: Optional[int] = None, nodeClass: Optional[str] = '') -> Any:
+    def addCommand(self, name: str, command: Optional[str] = None, shortcut: Optional[str] = None, icon: Optional[str] = None, tooltip: Optional[str] = None, index: Optional[int] = None, readonly: Optional[bool] = None, shortcutContext: Optional[int] = None, tag: Optional[int] = None, tagTarget: Optional[int] = None, nodeClass: Optional[str] = '') -> MenuItem:
         """
         self.addCommand(name, command, shortcut, icon, tooltip, index, readonly, shortcutContext, tag, tagTarget, node) -> The menu/toolbar item that was added to hold the command.
         Add a new command to this menu/toolbar. Note that when invoked, the command is automatically enclosed in an undo group, so that undo/redo functionality works. Optional arguments can be specified by name.
@@ -46,7 +46,7 @@ class Menu(MenuItem):
         """
         ...
 
-    def addMenu(self, **kwargs) -> Any:
+    def addMenu(self, **kwargs) -> Menu:
         """
         self.addMenu(**kwargs) -> The submenu that was added.
         Add a new submenu.
@@ -70,7 +70,7 @@ class Menu(MenuItem):
         """
         ...
 
-    def addSeparator(self, **kwargs) -> Any:
+    def addSeparator(self, **kwargs) -> MenuItem:
         """
         self.addSeparator(**kwargs) -> The separator that was created.
         Add a separator to this menu/toolbar.
@@ -80,7 +80,7 @@ class Menu(MenuItem):
         """
         ...
 
-    def findItem(self, name: str) -> None:
+    def findItem(self, name: str) -> Optional[Menu]:
         """
         self.findItem(name) -> Menu or None
         Finds a submenu or command with a particular name.
@@ -89,7 +89,7 @@ class Menu(MenuItem):
         """
         ...
 
-    def menu(self, name: str) -> None:
+    def menu(self, name: str) -> Optional[Menu]:
         """
         self.menu(name) -> Menu or None
         Finds a submenu or command with a particular name.
@@ -107,7 +107,7 @@ class Menu(MenuItem):
         """
         ...
 
-    def items(self,) -> None:
+    def items(self) -> list:
         """
         self.items() -> None
         Returns a list of sub menu items.
@@ -121,7 +121,7 @@ class Menu(MenuItem):
         """
         ...
 
-    def addAction(self, action) -> bool:
+    def addAction(self, action: 'QAction') -> bool:
         """
         self.addAction(action) -> bool
         Adds the QAction to the menu.

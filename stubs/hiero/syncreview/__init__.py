@@ -19,7 +19,7 @@ connectionManagerInstance = None
 menuBuilderInstance = None
 
 
-def initialise():
+def initialise() -> None:
     """ Initialise the objects and UI for the sync review functionality """
     global connectionManagerInstance
     global menuBuilderInstance

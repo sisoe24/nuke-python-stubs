@@ -12,7 +12,7 @@ from .FnExportKeywords import (KeywordTooltips, kFileBaseKeyword,
                                kFileHeadKeyword, kFilePathKeyword)
 
 
-def getShotNameIndex(trackItem):
+def getShotNameIndex(trackItem: 'TrackItem') -> str:
     """ Get the name index string for a track item.  This counts other items on the sequence
         with the same name and returns a string in the form '_{index}'.
         If this is the first item, or there are no others with the same name, returns an empty string. """
@@ -40,7 +40,7 @@ def getShotNameIndex(trackItem):
     return indexStr
 
 
-def findTrackItemExportTag(preset, item):
+def findTrackItemExportTag(preset, item) -> Optional[str]:
     """ Find a tag from a previous export. """
     presetId = hiero.core.taskRegistry.getPresetId(preset)
     foundTag = None
@@ -90,7 +90,7 @@ class ShotProcessor(hiero.core.ProcessorBase):
     # in a different instance than the one used for the export.
     _versionUpPreviousExports = False
 
-    def __init__(self, preset, submission=None, synchronous=False):
+    def __init__(self, preset: 'ShotProcessorPreset', submission: 'Submission' = None, synchronous: bool = False):
         """Initialize"""
         hiero.core.ProcessorBase.__init__(self, preset, submission, synchronous)
 
@@ -122,7 +122,7 @@ class ShotProcessor(hiero.core.ProcessorBase):
                 offlineMedia.append(' : '.join([trackitem.name(), sourcepath]))
         return offlineMedia
 
-    def _trackHasTrackOrSubTrackItems(self, track):
+    def _trackHasTrackOrSubTrackItems(self, track: 'Track') -> bool:
         """ Test if a track has any items or sub-track items. """
         if (
             len(list(track.items())) > 0 or
@@ -133,7 +133,7 @@ class ShotProcessor(hiero.core.ProcessorBase):
         else:
             return False
 
-    def _getTrackItemExistingExportVersionIndices(self, item, tag):
+    def _getTrackItemExistingExportVersionIndices(self, item: 'TrackItem', tag: 'str') -> list[int]:
         """ Get the indices of all the existing versions which were exported with the
             current preset from the given track item . """
         tagScriptPath = tag.metadata().value('tag.script')
@@ -142,7 +142,7 @@ class ShotProcessor(hiero.core.ProcessorBase):
             tagScriptPath)  # Get all the existing version indices
         return versionIndices
 
-    def _getTrackItemExportVersionIndex(self, item, version, tag):
+    def _getTrackItemExportVersionIndex(self, item: 'TrackItem', version: 'int', tag: 'str') -> int:
         """ Get the version index with which the track item should be exported.  The input is the version which is
             selected in the preset.  If the option was selected, we scan for existing versions, and if that version
             already exists, return a new one. """
@@ -153,7 +153,7 @@ class ShotProcessor(hiero.core.ProcessorBase):
                 newVersion = versionIndices[-1] + 1
         return newVersion
 
-    def _checkTrackItemExportExistingVersion(self, item, version, tag):
+    def _checkTrackItemExportExistingVersion(self, item: 'TrackItem', version: 'int', tag: 'str') -> bool:
         """ Check if a track item has already been exported with a given version. """
         versionIndices = self._getTrackItemExistingExportVersionIndices(item, tag)
         if not versionIndices:
@@ -473,7 +473,7 @@ class ShotProcessorPreset(hiero.core.ProcessorPreset):
         # This remaps the project root if os path remapping has been set up in the preferences
         self.properties()['exportRoot'] = hiero.core.remapPath(self.properties()['exportRoot'])
 
-    def addCustomResolveEntries(self, resolver):
+    def addCustomResolveEntries(self, resolver: 'ResolveTable') -> None:
         """addDefaultResolveEntries(self, resolver)
         Create resolve entries for default resolve tokens shared by all task types.
         @param resolver : ResolveTable object"""

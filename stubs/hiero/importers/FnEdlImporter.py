@@ -93,7 +93,7 @@ class track:
 
 
 class EdlImporter:
-    def __init__(self):
+    def __init__(self) -> None:
         """Initialize"""
         self.__title = None
 
@@ -106,7 +106,7 @@ class EdlImporter:
     def isOptionRequired(self, option):
         return option in EdlImporter.__options
 
-    def isValidFile(self, fileName):
+    def isValidFile(self, fileName: str) -> bool:
         """Return true if file is of correct type"""
         debug('isValidFile (' + fileName + ')')
 
@@ -446,7 +446,7 @@ class EdlImporter:
         FnCyclone.addTransition(inClip=inClipId, outClip=outClipId, data=data)
 
     @staticmethod
-    def prepassCheckKeyEvent(element, eventElements):
+    def prepassCheckKeyEvent(self, element: str, eventElements: list) -> None:
         """
         Handle Key events.  For example:
 
@@ -570,7 +570,7 @@ class EdlImporter:
         if eventcount == 0:
             raise Exception('EdlImporter.prepass Invalid or Empty File')
 
-    def importFile(self, fileName):
+    def importFile(self, fileName: str) -> bool:
         """Return true if file is succesfully parsed"""
         # debug( "parseFile (" + fileName + ")\n" )
 

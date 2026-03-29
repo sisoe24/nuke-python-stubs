@@ -18,7 +18,7 @@ class FolderTask(TaskBase):
     Task which just creates an empty folder.
     """
 
-    def __init__(self, initDict) -> None:
+    def __init__(self, initDict: dict) -> None:
         """
         __init__(self, initDictionary)
         Initialise TaskBase Class

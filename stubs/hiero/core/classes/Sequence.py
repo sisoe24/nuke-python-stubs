@@ -18,25 +18,25 @@ class Sequence(SequenceBase):
     Object for Sequences.
     """
 
-    def __new__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs) -> Sequence:
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
         ...
 
-    def __repr__(self) -> object:
+    def __repr__(self) -> str:
         """
         Return repr(self).
         """
         ...
 
-    def __setattr__(self, name, value, ) -> None:
+    def __setattr__(self, name: str, value: typing.Any) -> None:
         """
         Implement setattr(self, name, value).
         """
         ...
 
-    def __delattr__(self, name, ) -> None:
+    def __delattr__(self, name: str) -> None:
         """
         Implement delattr(self, name).
         """
@@ -48,19 +48,19 @@ class Sequence(SequenceBase):
         """
         ...
 
-    def __bool__(self, ) -> None:
+    def __bool__(self) -> bool:
         """
         True if self else False
         """
         ...
 
-    def __len__(self, ) -> None:
+    def __len__(self) -> int:
         """
         Return len(self).
         """
         ...
 
-    def __getitem__(self, key, ) -> None:
+    def __getitem__(self, key) -> Any:
         """
         Return self[key].
         """
@@ -72,7 +72,7 @@ class Sequence(SequenceBase):
         """
         ...
 
-    def addTrack(self, *args: typing.Any, **kwargs: typing.Any) -> Iterable:
+    def addTrack(self, track: typing.Any) -> None:
         """
         self.addTrack(track) -> adds a video or audio track to the Sequence.
 
@@ -89,7 +89,7 @@ class Sequence(SequenceBase):
         """
         ...
 
-    def audioTracks(self) -> object:
+    def audioTracks(self) -> tuple[hiero.core.AudioTrack, ...]:
         """
         self.audioTracks() -> returns a tuple with all of the audio tracks.
 
@@ -114,7 +114,7 @@ class Sequence(SequenceBase):
         """
         ...
 
-    def clone(self, *args, **kwargs) -> Iterable:
+    def clone(self) -> 'Sequence':
         """
         self.clone() -> returns a deep copy of this object.
 
@@ -125,7 +125,7 @@ class Sequence(SequenceBase):
         """
         ...
 
-    def copy(self) -> object:
+    def copy(self) -> 'Sequence':
         """
         self.copy() -> returns a deep copy of this object.
 
@@ -148,7 +148,7 @@ class Sequence(SequenceBase):
         """
         ...
 
-    def importTracks(self, path: str) -> typing.List[core.TrackBase]:
+    def importTracks(self, path: str) -> tuple:
         """
         self.importTracks(filePath) -> imports all of the tracks from the file specified by the filePath argument.
 
@@ -157,7 +157,7 @@ class Sequence(SequenceBase):
         """
         ...
 
-    def importTracksFromTimeBaseKeepFrames(self, path: str, toTimebase: hiero.core.TimeBase) -> typing.List[core.TrackBase]:
+    def importTracksFromTimeBaseKeepFrames(self, path: str, toTimebase: hiero.core.TimeBase) -> tuple:
         """
         self.importTracksFromTimeBaseKeepFrames(filePath, srcTimebase) -> imports all of the tracks from the file specified by the filePath argument using the specified timebase.
 
@@ -167,7 +167,7 @@ class Sequence(SequenceBase):
         """
         ...
 
-    def importTracksFromTimeBaseKeepTimecodes(self, path: str, toTimebase: hiero.core.TimeBase, roundingMode: hiero.core.TimeBase.RoundingMode) -> typing.List[core.TrackBase]:
+    def importTracksFromTimeBaseKeepTimecodes(self, path: str, toTimebase: hiero.core.TimeBase, roundingMode: hiero.core.TimeBase.RoundingMode) -> tuple:
         """
         self.importTracksFromTimeBaseKeepTimecodes(filePath, srcTimebase, roundingMode) -> imports all of the tracks from the file specified by the filePath argument using the specified timebase.
 
@@ -178,7 +178,7 @@ class Sequence(SequenceBase):
         """
         ...
 
-    def items(self) -> tuple[hiero.core.VideoTrack, hiero.core.AudioTrack]:
+    def items(self) -> tuple:
         """
         self.items() -> returns a tuple with all of the video tracks concatenated with all of the audio tracks. Can iterate over the video tracks first by using self.numVideoTracks. The audio tracks follow the video tracks in the tuple returned from this method.
 
@@ -241,7 +241,7 @@ class Sequence(SequenceBase):
         """
         ...
 
-    def removeTrack(self, *args: typing.Any, **kwargs: typing.Any) -> Iterable:
+    def removeTrack(self, track: typing.Any) -> None:
         """
         self.removeTrack(track) -> removes the track from the Sequence.
 
@@ -297,7 +297,7 @@ class Sequence(SequenceBase):
         """
         ...
 
-    def trackItemsAt(self, *args: typing.Any, **kwargs: typing.Any) -> tuple:
+    def trackItemsAt(self, time: int, mediaType: typing.Any) -> tuple:
         """
         self.trackItemsAt(time, mediaType) -> finds enabled track items for the specified time, ordered from top-track to bottom-track (or for audio, min channel to max channel).
 
@@ -316,7 +316,7 @@ class Sequence(SequenceBase):
         """
         ...
 
-    def videoTracks(self) -> Tuple[core.VideoTrack, ...]:
+    def videoTracks(self) -> tuple[hiero.core.VideoTrack, ...]:
         """
         self.videoTracks() -> returns a tuple with all of the video tracks.
 
@@ -336,7 +336,7 @@ class Sequence(SequenceBase):
     ePlayheadDisabled: Any = None
     ePlayheadInvalid: Any = None
 
-    def addClip(self, clip: Clip, time: int | float, videoTrackIndex=0, audioTrackIndex=-1) -> list[core.TrackItem]:
+    def addClip(self, clip: hiero.core.Clip, time: int | float, videoTrackIndex: int = 0, audioTrackIndex: int = -1) -> list[hiero.core.TrackItem]:
         """
         Add a clip to a sequence, creating a TrackItem for each video/audio channel in the clip,
         adding them to the appropriate tracks and linking them together.  This has the same effect
@@ -350,7 +350,7 @@ class Sequence(SequenceBase):
         """
         ...
 
-    def addToNukeScript(self, script: hiero.core.nuke.ScriptWriter, additionalNodes=list, disconnected=False, masterTrackItem=None, includeAnnotations=False, includeEffects=True, outputToFormat=None):
+    def addToNukeScript(self, script: hiero.core.nuke.ScriptWriter, additionalNodes: list | None = None, disconnected: bool = False, masterTrackItem: typing.Any = None, includeAnnotations: bool = False, includeEffects: bool = True, outputToFormat: typing.Any = None) -> None:
         """
         addToNukeScript(self, script)
         @param script: Nuke script object to add nodes to.

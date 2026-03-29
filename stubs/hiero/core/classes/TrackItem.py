@@ -20,31 +20,31 @@ class TrackItem(TrackItemBase):
     For an example of how to implement custom versioning scheme, see Plugins/site-packages/hiero/core/versioning_example.py.
     """
 
-    def __new__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs) -> TrackItem:
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
         ...
 
-    def __setattr__(self, name, value, ) -> None:
+    def __setattr__(self, name, value) -> None:
         """
         Implement setattr(self, name, value).
         """
         ...
 
-    def __delattr__(self, name, ) -> None:
+    def __delattr__(self, name) -> None:
         """
         Implement delattr(self, name).
         """
         ...
 
-    def __init__(self,  *args, **kwargs) -> None:
+    def __init__(self, *args, **kwargs) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """
         ...
 
-    def __bool__(self, ) -> None:
+    def __bool__(self) -> bool:
         """
         True if self else False
         """
@@ -75,7 +75,7 @@ class TrackItem(TrackItemBase):
         """
         ...
 
-    def getAvailableOcioColourTransforms(self) -> typing.List[str]:
+    def getAvailableOcioColourTransforms(self) -> str:
         """
         self.    getAvailableOcioColourTransforms() -> returns colour transform for the media source.
 
@@ -269,7 +269,7 @@ class TrackItem(TrackItemBase):
         """
         ...
 
-    def setCameraColourTransform(self, arg__1: str) -> None:
+    def setCameraColourTransform(self, colourTransform: str) -> None:
         """
         self.setCameraColourTransform(colourTransform) -> sets the camera colour transform for the source media.
 
@@ -285,7 +285,7 @@ class TrackItem(TrackItemBase):
         """
         ...
 
-    def setCurrentVersionIndex(self, *args, **kwargs) -> Version:
+    def setCurrentVersionIndex(self, index: int) -> hiero.core.Version:
         """
         self.setCurrentVersionIndex(index) -> sets the current version on this track item and returns the new version object. Creates a new version if there wasn't one before, but doesn't check that the versioned media source exists on disk.
 
@@ -313,7 +313,7 @@ class TrackItem(TrackItemBase):
         """
         ...
 
-    def setSource(self, *args: typing.Any, **kwargs: typing.Any) -> Clip:
+    def setSource(self, clip: hiero.core.Clip, trackIndex: int = 0) -> hiero.core.Clip:
         """
         self.setSource(clip, trackIndex=0) -> sets the source Clip for this TrackItem.
         If the TrackItem is not already in a Track, the duration will be set to the Clip's duration.
@@ -324,7 +324,7 @@ class TrackItem(TrackItemBase):
         """
         ...
 
-    def setSourceIn(self, arg__1: float) -> None:
+    def setSourceIn(self, time: float) -> None:
         """
         self.setSourceIn(time) -> sets the source in for the track item. This will shrink or grow the duration.
 
@@ -332,7 +332,7 @@ class TrackItem(TrackItemBase):
         """
         ...
 
-    def setSourceMediaColourTransform(self, arg__1: str) -> None:
+    def setSourceMediaColourTransform(self, colourTransform: str) -> None:
         """
         self.setSourceMediaColourTransform(colourTransform) -> sets the input colour transform for the source media.
 
@@ -340,7 +340,7 @@ class TrackItem(TrackItemBase):
         """
         ...
 
-    def setSourceOut(self, arg__1: float) -> None:
+    def setSourceOut(self, time: float) -> None:
         """
         self.setSourceOut(time) -> sets the source out for the track item. This will shrink or grow the duration.
 
@@ -350,7 +350,7 @@ class TrackItem(TrackItemBase):
         """
         ...
 
-    def setTimelineIn(self, arg__1: int) -> None:
+    def setTimelineIn(self, inTime: int) -> None:
         """
         self.setTimelineIn(inTime) -> sets the timeline in value. Shrinks or grows the timeline duration, as appropriate.
 
@@ -358,7 +358,7 @@ class TrackItem(TrackItemBase):
         """
         ...
 
-    def setTimelineOut(self, arg__1: int) -> None:
+    def setTimelineOut(self, outTime: int) -> None:
         """
         self.setTimelineOut(outTime) -> sets the timeline out value. Shrinks or grows the timeline duration, as appropriate.
 
@@ -386,7 +386,7 @@ class TrackItem(TrackItemBase):
         """
         ...
 
-    def source(self) -> Clip:
+    def source(self) -> typing.Union[hiero.core.Clip, hiero.core.Sequence, hiero.core.MediaSource]:
         """
         self.source() -> depending on the underlying type of the track item, returns a hiero.core.Clip object, a hiero.core.Sequence object or a hiero.core.MediaSource object.
 
@@ -432,7 +432,7 @@ class TrackItem(TrackItemBase):
         """
         ...
 
-    def tags(self) -> object:
+    def tags(self) -> tuple[hiero.core.Tag, ...]:
         """
         self.tags() -> returns a tuple of all of the tags applied to this object.
 
@@ -440,7 +440,7 @@ class TrackItem(TrackItemBase):
         """
         ...
 
-    def thumbnail(self, index: int = 0, layer: str = None) -> PySide2.QtGui.QImage:
+    def thumbnail(self, frame: int = 0, layer: str | None = None) -> PySide2.QtGui.QImage:
         """
         self.thumbnail(frame, layer) -> returns a thumbnail of the frame specified as a QImage object.
 
@@ -466,7 +466,7 @@ class TrackItem(TrackItemBase):
         """
         ...
 
-    def versionDown(self, *args, **kwargs) -> Version:
+    def versionDown(self, *args, **kwargs) -> hiero.core.Version:
         """
         self.versionDown() -> decrements the current version on this track item and returns the new version object. Creates a new version if there wasn't one before, but doesn't check that the versioned media source exists on disk.
 
@@ -485,7 +485,7 @@ class TrackItem(TrackItemBase):
         """
         ...
 
-    def versionMaxAvailable(self, *args, **kwargs) -> Version:
+    def versionMaxAvailable(self, *args, **kwargs) -> hiero.core.Version:
         """
         self.versionMaxAvailable() -> returns the highest discovered version on this track item.
 
@@ -496,7 +496,7 @@ class TrackItem(TrackItemBase):
         """
         ...
 
-    def versionMinAvailable(self, *args, **kwargs) -> Version:
+    def versionMinAvailable(self, *args, **kwargs) -> hiero.core.Version:
         """
         self.versionMinAvailable() -> returns the lowest discovered version on this track item.
 
@@ -507,7 +507,7 @@ class TrackItem(TrackItemBase):
         """
         ...
 
-    def versionNextAvailable(self, *args, **kwargs) -> Version:
+    def versionNextAvailable(self, *args, **kwargs) -> hiero.core.Version:
         """
         self.versionNextAvailable() -> returns the next highest available version on this track item that the application has discovered.
 
@@ -518,7 +518,7 @@ class TrackItem(TrackItemBase):
         """
         ...
 
-    def versionPrevAvailable(self, *args, **kwargs) -> Version:
+    def versionPrevAvailable(self, *args, **kwargs) -> hiero.core.Version:
         """
         self.versionPrevAvailable() -> returns the next lowest version on this track item that the application has discovered.
 
@@ -529,7 +529,7 @@ class TrackItem(TrackItemBase):
         """
         ...
 
-    def versionUp(self, *args, **kwargs) -> Version:
+    def versionUp(self, *args, **kwargs) -> hiero.core.Version:
         """
         self.versionUp() -> increments the current version on this track item and returns the new version object. Creates a new version if there wasn't one before, but doesn't check that the versioned media source exists on disk.
 
@@ -551,7 +551,7 @@ class TrackItem(TrackItemBase):
     kAudio: Any = None
     kUnknown: Any = None
 
-    def addToNukeScript(self, script: hiero.core.nuke.ScriptWriter, firstFrame=None, additionalNodes=[], additionalNodesCallback=None, includeRetimes=False, retimeMethod=None, startHandle=None, endHandle=None, colourTransform=None, offset=0, nodeLabel=None, includeAnnotations=False, includeEffects=True, outputToSequenceFormat=False):
+    def addToNukeScript(self, script: hiero.core.nuke.ScriptWriter, firstFrame: int | None = None, additionalNodes: list = [], additionalNodesCallback: object | None = None, includeRetimes: bool = False, retimeMethod: str | None = None, startHandle: int | None = None, endHandle: int | None = None, colourTransform: object | None = None, offset: int = 0, nodeLabel: str | None = None, includeAnnotations: bool = False, includeEffects: bool = True, outputToSequenceFormat: bool = False) -> None:
         """
         This is a variation on the Clip.addToNukeScript() method that remaps the
         Read frame range to the range of the this TrackItem rather than the Clip's
@@ -567,7 +567,7 @@ class TrackItem(TrackItemBase):
         """
         ...
 
-    def unlinkAll(self):
+    def unlinkAll(self) -> None:
         """
         self.unlinkAll() -> Unlink all track items that are linked to this one.
         """

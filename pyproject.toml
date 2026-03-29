@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "Nuke Python Stubs Generator"
-version = "0.3.0"
+version = "0.4.0"
 description = "Create Nuke Python Stubs"
 authors = ["virgilsisoe <sisoe24@gmail.com>"]
 
@@ -15,6 +15,9 @@ max_line_length = 100
 
 [tool.poetry.dependencies]
 python = "~3.10"
+openai = "^2.30.0"
+ollama = "^0.6.1"
+anthropic = "^0.86.0"
 
 [tool.poetry.dev-dependencies]
 

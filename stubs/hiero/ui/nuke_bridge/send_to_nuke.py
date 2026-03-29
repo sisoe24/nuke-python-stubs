@@ -15,7 +15,7 @@ class ProjectShotPresetDialog(QtWidgets.QDialog):
     """ Dialog for selecting a project shot preset. """
 
     @staticmethod
-    def getPresetFromDialog(project, text):
+    def getPresetFromDialog(self, project: "Project", text: str) -> Optional["ProjectShotPreset"]:
         """ Show a ProjectShotPresetDialog and return the selected preset, or None if the user cancelled. """
         dialog = ProjectShotPresetDialog(project, text)
         if dialog.exec_():
@@ -53,7 +53,7 @@ class ProjectShotPresetDialog(QtWidgets.QDialog):
         return self.comboBox.itemData(index)
 
 
-def getProjectShotPreset(project):
+def getProjectShotPreset(project: "Project") -> Optional["ProjectShotPreset"]:
     """ Get the project shot preset, prompting the user if the currently selected preset
         does not exist or is invalid. """
     name = project.shotPresetName()
@@ -102,7 +102,7 @@ class SendToNukeHandler:
         self._actions = []
         self._hieroState = hieroState
 
-    def _findBinItemsRecursive(self, container):
+    def _findBinItemsRecursive(self, container: "Bin") -> List[Tuple[str, List["BinItem"]]]:
         """ Recursively search for clips and sequences inside a bin hierarchy. """
         ret = []
 
@@ -134,7 +134,7 @@ class SendToNukeHandler:
 
         return ret
 
-    def _findBinItems(self, items):
+    def _findBinItems(self, items: List["BinItem"]) -> List[Tuple[str, List["BinItem"]]]:
         """ From items, get a list of tuples, each tuple containing a name (used for backdrop), and a list of clips/sequences to send to Nuke. """
         result = []
         for item in items:

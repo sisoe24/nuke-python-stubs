@@ -18,7 +18,7 @@ class ReformatState:
     Object representing a the reformatting settings for a track item.  This corresponds to the Nuke 'Reformat' node.
     """
 
-    def __new__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs) -> 'ReformatState':
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
@@ -30,7 +30,7 @@ class ReformatState:
         """
         ...
 
-    def __bool__(self, ) -> None:
+    def __bool__(self) -> bool:
         """
         True if self else False
         """
@@ -146,7 +146,7 @@ class ReformatState:
         """
         ...
 
-    def setBoxForceShape(self, force: bool) -> None:
+    def setBoxForceShape(self, setBoxForceShape: bool) -> None:
         """
         self.setBoxForceShape() -> sets the box 'force shape' flag if the reformat type is set to 'to box'.
 

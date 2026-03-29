@@ -14,31 +14,31 @@ class Text_Knob(Knob):
     A knob which holds a string value.
     """
 
-    def __new__(self, *args, **kwargs) -> None:
+    def __new__(self, *args, **kwargs) -> Text_Knob:
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
         ...
 
-    def __hash__(self, ) -> None:
+    def __hash__(self) -> int:
         """
         Return hash(self).
         """
         ...
 
-    def __init__(self,  *args, **kwargs) -> None:
+    def __init__(self, *args: typing.Any, **kwargs: typing.Any) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """
         ...
 
-    def value(self, *args: typing.Any, **kwargs: typing.Any) -> None:
+    def value(self, *args: typing.Any, **kwargs: typing.Any) -> str:
         """
         Return value at the current frame for channel 'c'.
         """
         ...
 
-    def setValue(self, val, chan) -> bool:
+    def setValue(self, val: typing.Any, chan: typing.Any) -> bool:
         """
         self.setValue(val, chan) -> bool
 

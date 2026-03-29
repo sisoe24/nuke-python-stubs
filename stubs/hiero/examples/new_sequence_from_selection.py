@@ -228,7 +228,7 @@ class NewSequenceFromSelectionAction(QtWidgets.QAction):
         hiero.core.events.registerInterest(
             hiero.core.events.EventType.kSelectionChanged, self.eventHandler)
 
-    def addClipToSequence(self, sequence, clip, start, trackindex, useTimecode=True, includeAudio=True):
+    def addClipToSequence(self, sequence: hiero.core.Sequence, clip: hiero.core.Clip, start: int, trackindex: int, useTimecode: bool = True, includeAudio: bool = True) -> None:
         '''Add a clip to a sequence on track number @trackindex starting at frame @start.
            Optionally add linked audio if it exists (i.e. QuickTime or R3D).
         '''
@@ -274,7 +274,7 @@ class NewSequenceFromSelectionAction(QtWidgets.QAction):
             except:
                 print('Failed to add clip')
 
-    def newSequence(self, selection):
+    def newSequence(self, selection: list[hiero.core.Clip]) -> tuple[hiero.core.Sequence, hiero.core.Bin]:
         '''Create a new sequence from a selection of clips
            @return hiero.core.Sequence, hiero.core.Bin
         '''
@@ -321,7 +321,7 @@ class NewSequenceFromSelectionAction(QtWidgets.QAction):
 
         return sequence, bin
 
-    def newStereoSequence(self, leftClip, rightClip, baseName, useTimecode):
+    def newStereoSequence(self, leftClip: hiero.core.Clip, rightClip: hiero.core.Clip, baseName: str, useTimecode: bool) -> hiero.core.Sequence:
         '''Create a stereo sequence with Left/Right tagged tracks.
            Eventually when full stereo support is implemented this can be changed.
            @return hiero.core.Sequence
@@ -357,7 +357,7 @@ class NewSequenceFromSelectionAction(QtWidgets.QAction):
 
         return sequence
 
-    def findStereoPairs(self, selection):
+    def findStereoPairs(self, selection: list[hiero.core.Clip]) -> tuple[list[hiero.core.Clip], list[hiero.core.Clip]]:
         ''' Look for matching stereo pairs in the selection and return a list.
             Also return the remaining unpaired clips as a list.
             @return list, list
@@ -417,7 +417,7 @@ class NewSequenceFromSelectionAction(QtWidgets.QAction):
 
         return stereoPairs, singleFiles
 
-    def earliestTimecode(self, sequence):
+    def earliestTimecode(self, sequence: hiero.core.Sequence) -> int:
         '''Find the earliest timeline timecode used in a sequence.
            @return long
         '''
@@ -429,7 +429,7 @@ class NewSequenceFromSelectionAction(QtWidgets.QAction):
         earliest = sorted(sequenceTimecodes)[0]
         return earliest
 
-    def convertStartTimecode(self, start, sourcerate, destrate):
+    def convertStartTimecode(self, start: int, sourcerate: float, destrate: float) -> int:
         '''Convert Start Timecode from @sourcerate to @destrate
            @return destination start timecode in frames
         '''
@@ -440,7 +440,7 @@ class NewSequenceFromSelectionAction(QtWidgets.QAction):
             startHMSF[0]), int(startHMSF[1]), int(startHMSF[2]), int(startHMSF[3]))
         return destFrames
 
-    def clipInfo(self, clip, fps):
+    def clipInfo(self, clip: hiero.core.Clip, fps: float) -> dict:
         '''Get a clip object and framerange
            @return dict
         '''
@@ -460,7 +460,7 @@ class NewSequenceFromSelectionAction(QtWidgets.QAction):
 
         return clipInfo
 
-    def buildTracksFromTimecode(self, selection, siftedselection, fps, tracks, trackindex=0, ignoreZeroStart=False, singleTrackZero=False):
+    def buildTracksFromTimecode(self, selection: list[hiero.core.Clip], siftedselection: list[hiero.core.Clip], fps: float, tracks: dict, trackindex: int = 0, ignoreZeroStart: bool = False, singleTrackZero: bool = False) -> tuple[dict, list]:
         '''Create a dictionary of tracks using clip timecode to check for overlaps.
            If timecode overlaps the clip is placed on a new track.
            @selection: the clips selected

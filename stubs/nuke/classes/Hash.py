@@ -16,73 +16,73 @@ class Hash(object):
     The append() method is used to add objects to the hash; the value will be recomputed efficiently as each new object is added.
     """
 
-    def __new__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs) -> Hash:
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
         ...
 
-    def __hash__(self, ) -> None:
+    def __hash__(self) -> int:
         """
         Return hash(self).
         """
         ...
 
-    def __getattribute__(self, name, ) -> None:
+    def __getattribute__(self, name: str) -> typing.Any:
         """
         Return getattr(self, name).
         """
         ...
 
-    def __setattr__(self, name, value, ) -> None:
+    def __setattr__(self, name: str, value: typing.Any) -> None:
         """
         Implement setattr(self, name, value).
         """
         ...
 
-    def __delattr__(self, name, ) -> None:
+    def __delattr__(self, name: str) -> None:
         """
         Implement delattr(self, name).
         """
         ...
 
-    def __lt__(self, value, ) -> None:
+    def __lt__(self, value: typing.Any) -> bool:
         """
         Return self<value.
         """
         ...
 
-    def __le__(self, value, ) -> None:
+    def __le__(self, value: typing.Any) -> bool:
         """
         Return self<=value.
         """
         ...
 
-    def __eq__(self, value, ) -> None:
+    def __eq__(self, value: typing.Any) -> bool:
         """
         Return self==value.
         """
         ...
 
-    def __ne__(self, value, ) -> None:
+    def __ne__(self, value: typing.Any) -> bool:
         """
         Return self!=value.
         """
         ...
 
-    def __gt__(self, value, ) -> None:
+    def __gt__(self, value: typing.Any) -> bool:
         """
         Return self>value.
         """
         ...
 
-    def __ge__(self, value, ) -> None:
+    def __ge__(self, value: typing.Any) -> bool:
         """
         Return self>=value.
         """
         ...
 
-    def getHash(self, *args: typing.Any, **kwargs: typing.Any) -> None:
+    def getHash(self, *args: typing.Any, **kwargs: typing.Any) -> int:
         """
         Get the current value of the hash.
         """
@@ -106,7 +106,7 @@ class Hash(object):
         """
         ...
 
-    def __init__(self,  *args, **kwargs) -> None:
+    def __init__(self, *args: typing.Any, **kwargs: typing.Any) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """

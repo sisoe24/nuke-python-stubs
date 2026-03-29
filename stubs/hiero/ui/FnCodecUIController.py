@@ -45,7 +45,7 @@ class CodecUIController(QtWidgets.QWidget):
         self._widgets = []
         self.initializeUI(propertyDictionaries, presetDictionary)
 
-    def connectProperty(self, propertyWidget):
+    def connectProperty(self, propertyWidget: object) -> None:
         """reimplement this to allow setup custom signals and slots"""
         propertyWidget.propertyChanged.connect(self.propertyChanged)
 
@@ -66,7 +66,7 @@ class CodecUIController(QtWidgets.QWidget):
             label, propertyKey = propertyKey
         return label, propertyKey
 
-    def initializeUI(self, propertyDictionaries, presetDictionary):
+    def initializeUI(self, propertyDictionaries: dict, presetDictionary: dict) -> None:
         """Creates all the properties from the propertyDictionaries"""
         layout = TaskUIFormLayout()
         self.setLayout(layout)
@@ -113,7 +113,7 @@ class EXRCodecUIController(CodecUIController):
         self.connectProperty(propertyWidget)
         return propertyWidget
 
-    def initializeUI(self, propertyDictionaries, presetDictionary):
+    def initializeUI(self, propertyDictionaries: dict, presetDictionary: dict) -> None:
         """Creates all the properties from the propertyDictionaries"""
         properties = dict()
         # construct a dictionary of tuples (label,propertyValue)

@@ -37,7 +37,7 @@ class CallInObjectsThreadHelper(QObject):
             self._exception = e
 
 
-def callInObjectsThread(obj, func, *args):
+def callInObjectsThread(obj: 'QObject', func: 'Callable[..., object]', *args) -> object:
     """ Make a function call on a QObject ensuring that the call happens in the
     QThread it belongs to (which must be running an event loop). Blocks until the
     call is finished.

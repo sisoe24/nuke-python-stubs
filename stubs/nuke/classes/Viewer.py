@@ -14,31 +14,31 @@ class Viewer(Node):
 
     """
 
-    def __repr__(self, ) -> None:
+    def __repr__(self) -> str:
         """
         Return repr(self).
         """
         ...
 
-    def __str__(self, ) -> None:
+    def __str__(self) -> str:
         """
         Return str(self).
         """
         ...
 
-    def __len__(self, ) -> None:
+    def __len__(self) -> int:
         """
         Return len(self).
         """
         ...
 
-    def __getitem__(self, key, ) -> None:
+    def __getitem__(self, key) -> Any:
         """
         Return self[key].
         """
         ...
 
-    def roi(self,) -> dict:
+    def roi(self) -> dict | None:
         """
         self.roi() -> dict
         Region of interest set in the viewer in pixel space coordinates.
@@ -47,7 +47,7 @@ class Viewer(Node):
         """
         ...
 
-    def roiEnabled(self,) -> Union[bool, None]:
+    def roiEnabled(self) -> bool | None:
         """
         self.roiEnabled() -> bool
         Whether the viewing of just a region of interest is enabled.
@@ -64,21 +64,21 @@ class Viewer(Node):
         """
         ...
 
-    def playbackRange(self,) -> int | float:
+    def playbackRange(self) -> FrameRange:
         """
         self.playbackRange() -> FrameRange.
         Return the frame range that's currently set to be played back in the viewer.@return: FrameRange.
         """
         ...
 
-    def visibleRange(self,) -> int | float:
+    def visibleRange(self) -> FrameRange:
         """
         self.visibleRange() -> FrameRange.
         Return the frame range that is currently visible in the viewer.@return: FrameRange.
         """
         ...
 
-    def frameCached(self, f) -> bool:
+    def frameCached(self, f: int) -> bool:
         """
         frameCached(f) -> Bool
 
@@ -86,7 +86,7 @@ class Viewer(Node):
         """
         ...
 
-    def sendMouseEvent(self,) -> bool:
+    def sendMouseEvent(self) -> bool:
         """
         sendMouseEvent() -> Bool
 
@@ -95,7 +95,7 @@ class Viewer(Node):
         """
         ...
 
-    def recordMouse(self,) -> bool:
+    def recordMouse(self) -> bool:
         """
         recordMouse() -> Bool
 
@@ -103,7 +103,7 @@ class Viewer(Node):
         """
         ...
 
-    def recordMouseStop(self,) -> None:
+    def recordMouseStop(self) -> None:
         """
         recordMouseStop()
 
@@ -111,7 +111,7 @@ class Viewer(Node):
         """
         ...
 
-    def replayMouseSync(self, xmlRecordingFilename) -> bool:
+    def replayMouseSync(self, xmlRecordingFilename: str) -> bool:
         """
         replayMouseSync(xmlRecordingFilename) -> Bool
 
@@ -119,7 +119,7 @@ class Viewer(Node):
         """
         ...
 
-    def replayMouseAsync(self, xmlRecordingFilename) -> bool:
+    def replayMouseAsync(self, xmlRecordingFilename: str) -> bool:
         """
         replayMouseAsync(xmlRecordingFilename) -> Bool
 
@@ -127,7 +127,7 @@ class Viewer(Node):
         """
         ...
 
-    def isPlayingOrRecording(self,) -> bool:
+    def isPlayingOrRecording(self) -> bool:
         """
         isPlayingOrRecording() -> Bool
 
@@ -135,7 +135,7 @@ class Viewer(Node):
         """
         ...
 
-    def toggleMouseTrails(self,) -> bool:
+    def toggleMouseTrails(self) -> bool:
         """
         toggleMouseTrails() -> Bool
 
@@ -143,7 +143,7 @@ class Viewer(Node):
         """
         ...
 
-    def toggleWaitOnEvents(self,) -> bool:
+    def toggleWaitOnEvents(self) -> bool:
         """
         toggleWaitOnEvents() -> Bool
 
@@ -152,7 +152,7 @@ class Viewer(Node):
         """
         ...
 
-    def capture(self, file) -> None:
+    def capture(self, file: str) -> None:
         """
         capture(file) -> None
 
@@ -160,7 +160,7 @@ class Viewer(Node):
         """
         ...
 
-    def __init__(self,  *args, **kwargs) -> None:
+    def __init__(self, *args, **kwargs) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """

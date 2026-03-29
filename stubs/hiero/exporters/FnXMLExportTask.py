@@ -49,7 +49,7 @@ def getPathUrl(source):
     return prefix + encodeUrl(path)
 
 
-def addBoolElement(parent, name, value):
+def addBoolElement(parent: object, name: str, value: bool) -> None:
     """ Create a child element of parent with name, and the text set to TRUE or FALSE. """
     elem = etree.SubElement(parent, name)
     elem.text = 'TRUE' if value else 'FALSE'
@@ -58,7 +58,7 @@ def addBoolElement(parent, name, value):
 
 class XMLExportTask(hiero.core.TaskBase):
 
-    def __init__(self, initDict):
+    def __init__(self, initDict: dict) -> None:
         """Initialize"""
         hiero.core.TaskBase.__init__(self, initDict)
 
@@ -553,7 +553,7 @@ class XMLExportTask(hiero.core.TaskBase):
 
 
 class XMLExportPreset(hiero.core.TaskPresetBase):
-    def __init__(self, name, properties):
+    def __init__(self, name: str, properties: dict) -> None:
         """Initialise presets to default values"""
         hiero.core.TaskPresetBase.__init__(self, XMLExportTask, name)
 

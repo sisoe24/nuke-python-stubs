@@ -122,7 +122,7 @@ class TaskCallbacks(object):
     onTaskFinish = 'onTaskFinish'
 
     @classmethod
-    def addCallback(cls, callbackType, callbackFn):
+    def addCallback(cls, callbackType: str, callbackFn: Callable) -> None:
         """
         Add the given callback function and callbackType.
         The callback will be executed when TaskCallbacks.call
@@ -131,7 +131,7 @@ class TaskCallbacks(object):
         cls._callbacks[callbackType].append(callbackFn)
 
     @classmethod
-    def call(cls, callbackType, task):
+    def call(cls, callbackType: str, task: Any) -> None:
         """
         Call all the callback functions for the given callbackType passing in
         task as the only argument.
@@ -143,7 +143,7 @@ class TaskCallbacks(object):
 class TaskBase(ITask):
     """TaskBase is the base class from which all Tasks must derrive."""
 
-    def __init__(self, initDictionary):
+    def __init__(self, initDictionary: dict) -> None:
         """__init__(self, initDictionary)
         Initialise TaskBase Class
 
@@ -258,12 +258,12 @@ class TaskBase(ITask):
 
         self._finished = False
 
-    def timeStampString(self, localtime):
+    def timeStampString(self, localtime: tuple | Any) -> str:
         """timeStampString(localtime)
            Convert a tuple or struct_time representing a time as returned by gmtime() or localtime() to a string formated YEAR/MONTH/DAY TIME."""
         return time.strftime('%Y/%m/%d %X', localtime)
 
-    def setError(self, desc):
+    def setError(self, desc: str) -> None:
         """setError(self, desc) Call to set the state of this task to error, with a description of the error.
            If the task is synchronous, raise exception"""
         ITask.setError(self, desc)
@@ -285,41 +285,41 @@ class TaskBase(ITask):
           This gives the task an opportunity to modify the original item on the main thread, rather than the clone."""
         pass
 
-    def timeStamp(self):
+    def timeStamp(self) -> datetime:
         """timeStamp(self)
         Returns the datetime object from time of task creation"""
         return self._timeStamp
 
-    def fileName(self):
+    def fileName(self) -> str | None:
         """filename(self)
         Returns the source items filename if applicable"""
         return self._filename
 
-    def fileext(self):
+    def fileext(self) -> str | None:
         """fileext(self)
         Returns the source items file extention if applicable"""
         return (self._fileext[1:] if self._fileext else '')
 
-    def filebase(self):
+    def filebase(self) -> str | None:
         """filebase(self)
         Returns the source items file path less extension if applicable"""
         return self._filebase
 
-    def filehead(self):
+    def filehead(self) -> str | None:
         """filehead(self)
         Returns the source filename excluding image sequence frame padding and extension, if applicable"""
         if self._source:
             return mediaSourceExportFileHead(self._source)
         return self._filebase
 
-    def filepath(self):
+    def filepath(self) -> str | None:
         """filepath(self)
         Returns the source file path, if applicable"""
         if self._source:
             return os.path.dirname(self._source.firstpath())
         return ''
 
-    def filepadding(self):
+    def filepadding(self) -> str:
         """filepadding(self)
         Returns the padding used in source file if an image sequence, empty string otherwise"""
         if self._source:
@@ -327,27 +327,27 @@ class TaskBase(ITask):
             return '%%0%id' % padding
         return ''
 
-    def shotName(self):
+    def shotName(self) -> str:
         """shotName(self)
         Returns the Tasks track item name"""
         return self._item.name()
 
-    def clipName(self):
+    def clipName(self) -> str:
         """clipName(self)
         Returns the name of the clip in the bin"""
         return self._clip.name()
 
-    def trackName(self):
+    def trackName(self) -> str:
         """trackName(self)
         Returns the name of the parent track"""
         return self._track.name()
 
-    def versionString(self):
+    def versionString(self) -> str:
         """versionString(self)
         Returns the version string used to resolve the {version} token"""
         return self._versionString
 
-    def sequenceName(self):
+    def sequenceName(self) -> str:
         """sequenceName(self)
         Returns the name of the sequence or parent sequence (if exporting a track item)"""
         if self._sequence:
@@ -355,7 +355,7 @@ class TaskBase(ITask):
         else:
             return ''
 
-    def shotNameIndex(self):
+    def shotNameIndex(self) -> str:
         """ shotNameIndex(self)
         Returns the index string for the shot, if there are multiple shots with the same name on the sequence. """
         return self._shotNameIndex
@@ -363,17 +363,17 @@ class TaskBase(ITask):
     def name(self):
         return str(type(self))
 
-    def projectName(self):
+    def projectName(self) -> str:
         """projectName(self)
         Returns the name of the project, used for resolving the {project} token)"""
         return str(self._projectName)
 
-    def projectRoot(self):
+    def projectRoot(self) -> str:
         """projectRoot(self)
         Returns the project root export path, used for resolving the {projectroot} token"""
         return self._projectRoot
 
-    def editId(self):
+    def editId(self) -> str:
         """ editId(self)
         Returns a str containing the id of this edit.  See hiero.core.TrackItem.eventNumber(). """
         if (self._item != None) and isinstance(self._item, TrackItem):
@@ -391,7 +391,7 @@ class TaskBase(ITask):
         else:
             return 'UnknownEditId'
 
-    def _editIdPadding(self):
+    def _editIdPadding(self) -> int:
         """ Get the padding for editId strings, based on the total number of track items in the sequence """
         if not self._sequence:
             return 0
@@ -401,7 +401,7 @@ class TaskBase(ITask):
         # Use at least 3 digits of padding, or more if there are more than 999 track items
         return max(3, len(str(totalTrackItems)))
 
-    def edlEditId(self):
+    def edlEditId(self) -> str:
         """ edlEditId(self)
         Returns the id taken from the EDL used to create this edit, if there was one. """
         if (self._item != None) and isinstance(self._item, TrackItem):
@@ -411,12 +411,12 @@ class TaskBase(ITask):
                 return metadata.value(key)
         return 'UnknownEditId'
 
-    def ident(self):
+    def ident(self) -> str:
         """ident(self)
         Returns a string used for identifying the type of export task"""
         return classBasename(type(self))
 
-    def addToQueue(self):
+    def addToQueue(self) -> None:
         """addToQueue(self)
         Called by the processor in order to add the Task to the ExportQueue
         If derrived classes impliment this function, this base function must be called.
@@ -431,7 +431,7 @@ class TaskBase(ITask):
                 self._preset.supportedItems() == TaskPresetBase.kSequence) else 'clip'
             self.setError('Task cannot be run, only valid for a %s' % itemTypeString)
 
-    def printState(self):
+    def printState(self) -> None:
         """Print summary of the task parameters"""
         print('TaskBase -- task state:')
         print('  - preset:', self._preset)
@@ -446,7 +446,7 @@ class TaskBase(ITask):
         print('  - exportPath:', self._exportPath)
         print(' - resolve table: ', str(self._resolver._resolvers))
 
-    def resolvePath(self, path):
+    def resolvePath(self, path: str) -> str:
         """Replace any recognized tokens in path with their current value."""
 
         # Replace Windows path separators before token resolve
@@ -473,12 +473,12 @@ class TaskBase(ITask):
 
         return path
 
-    def resolvedExportPath(self):
+    def resolvedExportPath(self) -> str:
         """resolvedExportPath()
         returns the output path with and tokens resolved"""
         return self.resolvePath(self._exportPath)
 
-    def _outputHandles(self, ignoreRetimes):
+    def _outputHandles(self, ignoreRetimes: bool) -> tuple[int, int] | None:
         """ Internal _outputHandles() method.  Should be reimplemented by sub-classes
             rather than outputHandles(). """
         startH, endH = self.inputRange(
@@ -488,7 +488,7 @@ class TaskBase(ITask):
 
         return int(start - startH), int(endH - end)
 
-    def outputHandles(self, ignoreRetimes=False):
+    def outputHandles(self, ignoreRetimes: bool = False) -> tuple[int, int]:
         """outputHandles( ignoreRetimes = False )
         Return a tuple of the in/out handles generated by this task.
         Handles may be cropped such as to prevent negative frame indexes.
@@ -505,7 +505,7 @@ class TaskBase(ITask):
 
         return startHandle, endHandle
 
-    def availableOutputHandles(self):
+    def availableOutputHandles(self) -> int:
         """ Get the available output handles, based on self._cutHandles.
             If outputting to sequence time, the start handle is clamped to prevent going into negative frames. """
         if self.outputSequenceTime() and isinstance(self._item, TrackItem):
@@ -513,7 +513,7 @@ class TaskBase(ITask):
         else:
             return self._cutHandles, self._cutHandles
 
-    def inputRange(self, ignoreHandles=False, ignoreRetimes=False, clampToSource=True):
+    def inputRange(self, ignoreHandles: bool = False, ignoreRetimes: bool = False, clampToSource: bool = True) -> tuple[int, int]:
         """inputRange()
         Returns the input frame range (as a tuple) for this task if applicable
 
@@ -609,7 +609,7 @@ class TaskBase(ITask):
 
         return (start, end)
 
-    def outputSequenceTime(self):
+    def outputSequenceTime(self) -> bool:
         """ Test if the output frame range should be in sequence time rather than source. This
             only applies when a TrackItem is being exported.
 
@@ -618,7 +618,7 @@ class TaskBase(ITask):
         return False
         # return (self._startFrameSource == "Sequence")
 
-    def outputRange(self, ignoreHandles=False, ignoreRetimes=False, clampToSource=True):
+    def outputRange(self, ignoreHandles: bool = False, ignoreRetimes: bool = False, clampToSource: bool = True) -> tuple[int, int]:
         """outputRange()
         Returns the output file range (as tuple) for this task, if applicable.
         This default implementation works if the task was initialised with a Clip or TrackItem"""
@@ -643,17 +643,17 @@ class TaskBase(ITask):
 
         return (start, end)
 
-    def preSequence(self):
+    def preSequence(self) -> None:
         """preSequence()
         This function serves as hook for custom scripts to add functionality before a task starts exporting anything with the sequence"""
         pass
 
-    def postSequence(self):
+    def postSequence(self) -> None:
         """preSequence()
         This function serves as hook for custom scripts to add functionality on completion of exporting the contents of the sequence"""
         pass
 
-    def startTask(self):
+    def startTask(self) -> None:
         """startTask()
         Called when task reaches head of the export queue and begins execution"""
         TaskCallbacks.call(TaskCallbacks.onTaskStart, self)
@@ -663,13 +663,13 @@ class TaskBase(ITask):
         # Build resolved path
         self._makePath()
 
-    def views(self):
+    def views(self) -> list[str]:
         """ Get the view names used by the task. Tasks which support exporting from
         multi-view projects should reimplement this to return a non-empty list.
         """
         return []
 
-    def _makePath(self):
+    def _makePath(self) -> str:
         """_makePath()
         Resolve export path and make directories as neccessary."""
 
@@ -698,7 +698,7 @@ class TaskBase(ITask):
         else:
             makeAndCheckDir(dirPath)
 
-    def taskStep(self):
+    def taskStep(self) -> bool:
         """taskStep()
         Called every frame until task completes.
         Return True value to indicate task requires more steps.
@@ -707,7 +707,7 @@ class TaskBase(ITask):
         """
         return False
 
-    def progress(self):
+    def progress(self) -> float:
         """progress()
         Returns a float value 0..1 to indicate progress of task.
         The task is considered complete once the progress is reported as 1.
@@ -741,7 +741,7 @@ class TaskBase(ITask):
                     return True
         return False
 
-    def hasValidItem(self):
+    def hasValidItem(self) -> bool:
         """Get if the task is able to run on the item it was initialised with."""
         supportedTypes = self._preset.supportedItems()
         supported = False
@@ -758,7 +758,7 @@ class TaskBase(ITask):
 
         return supported
 
-    def supportedType(self, item):
+    def supportedType(self, item: Any) -> bool:
         """Interface for defining what type of items a Task Supports.
         Return True to indicate item is of supported type"""
         # Derived classes must override to specify what types they support.
@@ -767,12 +767,12 @@ class TaskBase(ITask):
             return True
         return False
 
-    def isExportingItem(self, item):
+    def isExportingItem(self, item: Any) -> bool:
         """ Check if this task is already including an item in its export.
             Used for preventing duplicates when collating shots into a single script. """
         return False
 
-    def deleteTemporaryFile(self, filePath):
+    def deleteTemporaryFile(self, filePath: str) -> bool:
         """ Delete a file which is an artifact of the export, but should be removed after it's finished.
             Returns whether the file was successfully deleted."""
 
@@ -794,15 +794,15 @@ class TaskGroup(ITask):
         ITask.__init__(self)
         self._children = []
 
-    def addChild(self, child):
+    def addChild(self, child: TaskBase) -> None:
         """ Add a child to the list. """
         self._children.append(child)
 
-    def children(self):
+    def children(self) -> list[TaskBase]:
         """ Get the TaskGroup's children. """
         return self._children
 
-    def getLeafTasks(self):
+    def getLeafTasks(self) -> list['Task']:
         """ Get a list of all leaf tasks recursively, i.e. those with no child tasks. """
         leafTasks = []
         for child in self._children:
@@ -818,7 +818,7 @@ class TaskGroup(ITask):
         except NotImplementedError:
             pass
 
-    def progress(self):
+    def progress(self) -> float:
         """ Get the group progress.  Returns a value based on the progress of child tasks. """
         progress = 0.0
         count = len(self._children)
@@ -832,7 +832,7 @@ class TaskPresetBase(ITaskPreset):
     The purpose of a Task Preset is to store and data which must be serialized to file
     and shared between the Task and TaskUI user interface component"""
 
-    def __init__(self, parentType, presetName):
+    def __init__(self, parentType: type, presetName: str) -> None:
         """Initialise Exporter Preset Base Class
 
         @param parentType: Task type to which this preset object corresponds
@@ -852,13 +852,13 @@ class TaskPresetBase(ITaskPreset):
         self._compsToRender = []
         self._compsToSkip = []
 
-    def initialiseCallbacks(self, exportStructure):
+    def initialiseCallbacks(self, exportStructure: 'ExportStructure') -> None:
         """ When parent ExportStructure is opened in the ui, initialise is called
         for each preset. Register any callbacks here.
         """
         pass
 
-    def __eq__(self, other):
+    def __eq__(self, other: object) -> bool:
         """Implement equal operator. This will compare the TaskPreset name
            and it's properties. This method will ignore difference between
            lists an tuples, since the same TaskPreset can be copied and
@@ -899,14 +899,14 @@ class TaskPresetBase(ITaskPreset):
                 return False
         return True
 
-    def __ne__(self, other):
+    def __ne__(self, other: object) -> bool:
         """Implements not equal operator using self.__eq__ """
         return not self.__eq__(other)
 
     def __repr__(self):
         return '%s - %s' % (str(self._name), str(self._properties))
 
-    def __exportTemplate__eq__(self, selfExportTemplate, otherExportTemplate):
+    def __exportTemplate__eq__(self, selfExportTemplate: list[tuple[str, str]] | tuple[tuple[str, str], ...], otherExportTemplate: list[tuple[str, str]] | tuple[tuple[str, str], ...]) -> bool:
         """__eq__ method for the export template property. The export template is
         a list (or tuple) of pairs with format [ path , export template ], and
         these pairs can be a list or a tuple as well. This method compares two
@@ -960,19 +960,19 @@ class TaskPresetBase(ITaskPreset):
 
         return True
 
-    def name(self):
+    def name(self) -> str:
         """Return Preset Name"""
         return self._name
 
-    def setName(self, name):
+    def setName(self, name: str) -> None:
         """Set Preset Name"""
         self._name = name
 
-    def summary(self):
+    def summary(self) -> str:
         """Called by Hiero to get a summary of the preset settings as a string."""
         return ''
 
-    def properties(self):
+    def properties(self) -> dict:
         """properties()
         Return the dictionary which is used to persist data within this preset.
 
@@ -980,7 +980,7 @@ class TaskPresetBase(ITaskPreset):
         """
         return self._properties
 
-    def nonPersistentProperties(self):
+    def nonPersistentProperties(self) -> dict:
         """nonPersistentProperties()
         Return the dictionary which contains properties not persisted within the preset.
         Properties which are only relevant during a single session.
@@ -989,19 +989,19 @@ class TaskPresetBase(ITaskPreset):
         """
         return self._nonPersistentProperties
 
-    def ident(self):
+    def ident(self) -> str:
         """ident(self)
         Returns a string used for identifying the type of task"""
         return classBasename(self._parentType)
 
-    def parentType(self):
+    def parentType(self) -> type:
         """parentType(self)
         Returns a the parent Task type for this TaskPreset.
 
         @return: TaskPreet class type"""
         return self._parentType
 
-    def addDefaultResolveEntries(self, resolver):
+    def addDefaultResolveEntries(self, resolver: 'ResolveTable') -> None:
         """addDefaultResolveEntries(self, resolver)
         Create resolve entries for default resolve tokens shared by all task types.
 
@@ -1047,14 +1047,14 @@ class TaskPresetBase(ITaskPreset):
 
         resolver.addResolver('{user}', 'Current username', lambda keyword, task: getpass.getuser())
 
-    def addCustomResolveEntries(self, resolver):
+    def addCustomResolveEntries(self, resolver: 'ResolveTable') -> None:
         """addCustomResolveEntries(self, resolver)
         Impliment this function on custom export tasks to add resolve entries specific to that class.
 
         @param resolver: ResolveTable object"""
         pass
 
-    def addUserResolveEntries(self, resolver):
+    def addUserResolveEntries(self, resolver: 'ResolveTable') -> None:
         """addUserResolveEntries(self, resolver)
         Override this function to add user specific resolve tokens.
         When adding task specific tokens in derrived classes use TaskBase.addCustomResolveEntries().
@@ -1063,7 +1063,7 @@ class TaskPresetBase(ITaskPreset):
         @param resolver: ResolveTable object"""
         pass
 
-    def createResolver(self):
+    def createResolver(self) -> 'ResolveTable':
         """createResolver(self)
         Instantiate ResolveTable, add default and custom resolve entries
         return ResolveTable object"""
@@ -1073,91 +1073,91 @@ class TaskPresetBase(ITaskPreset):
         self.addUserResolveEntries(resolver)
         return resolver
 
-    def getResolveEntryCount(self):
+    def getResolveEntryCount(self) -> int:
         """getResolveEntryCount(self) (DEPRICATED)
         Return the number of resolve entries in the resolve table"""
         return self.resolveEntryCount()
 
-    def resolveEntryCount(self):
+    def resolveEntryCount(self) -> int:
         """resolveEntryCount(self)
         Return the number of resolve entries in the resolve table"""
 
         resolver = self.createResolver()
         return resolver.entryCount()
 
-    def resolveEntryName(self, index):
+    def resolveEntryName(self, index: int) -> str:
         """resolveEntryName(self, index)
         return ResolveEntry name/token by index"""
         resolver = self.createResolver()
         return resolver.entryName(index)
 
-    def resolveEntryDescription(self, index):
+    def resolveEntryDescription(self, index: int) -> str:
         """resolveEntryDescription(self, index)
         return ResolveEntry description by index"""
         resolver = self.createResolver()
         return resolver.entryDescription(index)
 
-    def setSavePath(self, path):
+    def setSavePath(self, path: str) -> None:
         """setSavePath(self, path)
         Set the save path of the preset in order to ensure it is saved to the path it was loaded from"""
         self._savePath = path
 
-    def savePath(self):
+    def savePath(self) -> str | None:
         """savePath(self)
         Return the path from which this preset was loaded. Will return None if this preset was not loaded from file"""
         return self._savePath
 
-    def setProject(self, project):
+    def setProject(self, project: 'Project') -> None:
         """Set the Project() object which this preset is associated"""
         self._project = project
 
-    def project(self):
+    def project(self) -> 'Project' | None:
         """Return the Project with which this preset is associated. If this is a local preset returns None"""
         if self._project and not self._project.isNull():
             return self._project
         return None
 
-    def setReadOnly(self, readOnly):
+    def setReadOnly(self, readOnly: bool) -> None:
         """Set Read Only flag on preset, not enforced internally"""
         self._readOnly = readOnly
 
-    def readOnly(self):
+    def readOnly(self) -> bool:
         """Return the read only flag for this preset"""
         return self._readOnly
 
-    def markedForDeletion(self):
+    def markedForDeletion(self) -> bool:
         """Return True if this preset is marked for deletion. Delete will be performed at save"""
         return self._delete
 
-    def setMarkedForDeletion(self, markedForDeletion=True):
+    def setMarkedForDeletion(self, markedForDeletion: bool = True) -> None:
         """Set this preset as marked for deletion. Delete will be performed at save"""
         self._delete = markedForDeletion
 
-    def skipOffline(self):
+    def skipOffline(self) -> bool:
         """skipOffline()
         Returns True if flag has been set to skip any offline TrackItems
 
         @return: bool"""
         return self._skipOffline
 
-    def setSkipOffline(self, skip):
+    def setSkipOffline(self, skip: bool) -> None:
         """skipOffline(bool)
         Set flag to skip offline TrackItems during export.
 
         @param bool:"""
         self._skipOffline = skip
 
-    def setCompsToRender(self, comps):
+    def setCompsToRender(self, comps: list[str]) -> None:
         """ Set the list of comps to render. """
         self._compsToRender = comps
         self._compsToSkip = []
 
-    def setCompsToSkip(self, comps):
+    def setCompsToSkip(self, comps: list[str]) -> None:
         """ Set the list of comps to skip. """
         self._compsToRender = []
         self._compsToSkip = comps
 
-    def isDeprecated(self):
+    def isDeprecated(self) -> bool:
         """Determines whether the preset is deprecated. Any configuration that is deprecated
         should be tested here."""
         # Get the properties from the export template.
@@ -1194,7 +1194,7 @@ def GetFramerates():
     return defaultFrameRates()
 
 
-def getMovProperties():
+def getMovProperties() -> dict:
     """ A hardcoded dictionary of all the knobs we are interested in displaying to the
         user for mov exports. This dictionary contains the union of knob names for all mov
         codecs. It is assumed that any knob not relevant to a particular codec will
@@ -1224,7 +1224,7 @@ def getMovProperties():
     ])
 
 
-def getMxfProperties():
+def getMxfProperties() -> dict:
     """ Returns a dictionary of all the knob names for the knobs that should be
         displayed to the user in the export widget. All the values are set to None
         by default. NB the knob names are ordered to match the order within the mxfWriter
@@ -1244,11 +1244,11 @@ class RenderTaskPreset(TaskPresetBase):
     associated with generating Nuke render output. """
 
     @staticmethod
-    def AllViews():
+    def AllViews() -> str:
         """ Get the special cased value for all on the views knob """
         return ['all']
 
-    def __init__(self, taskType, name, properties):
+    def __init__(self, taskType: type, name: str, properties: dict) -> None:
         """Initialise presets to default values"""
         TaskPresetBase.__init__(self, taskType, name)
         defaultFileType = 'dpx'
@@ -1327,12 +1327,12 @@ class RenderTaskPreset(TaskPresetBase):
                 # arbitrarily pick the first key
                 self._properties['file_type'] = defaultFileType
 
-    def _setCodecSettings(self, codecType, extension, fullname, isVideo, properties):
+    def _setCodecSettings(self, codecType: str, extension: str, fullname: str, isVideo: bool, properties: dict) -> None:
         """Build dictionary of format settings.\n"""
         self._codecSettings[codecType] = {
             'extension': extension, 'fullname': fullname, 'properties': properties, 'isVideo': isVideo}
 
-    def _getCodecSettingsDefault(self, codecType, codecKey):
+    def _getCodecSettingsDefault(self, codecType: str, codecKey: str) -> Any:
         """Search codec settings for a matching codecKey and return a default value. \n
         @param codecType - format identifier (mov, dpx, jpeg etc..)\n
         @param codecKey - codec settings key"""
@@ -1355,7 +1355,7 @@ class RenderTaskPreset(TaskPresetBase):
                     return str(value)
         return None
 
-    def addCustomResolveEntries(self, resolver):
+    def addCustomResolveEntries(self, resolver: 'ResolveTable') -> None:
         """addCustomResolveEntries(self, resolver)
         RenderTaskPreset adds specialized tokens specific to this type of export, such as {ext} which returns the output format extension.
 
@@ -1442,7 +1442,7 @@ class FolderTaskPreset(TaskPresetBase):
         self.properties().update(properties)
 
 
-def tagsFromSelection(selection, includeChildren=False, includeParents=False):
+def tagsFromSelection(selection: list, includeChildren: bool = False, includeParents: bool = False) -> list[tuple[str, str]]:
     """Returns a list of tuples for tag/parent type pairs"""
 
     def _items(selection):
@@ -1486,7 +1486,7 @@ def tagsFromSelection(selection, includeChildren=False, includeParents=False):
     return tags
 
 
-def mediaSourceExportReadPath(source, useFirstFrame):
+def mediaSourceExportReadPath(source: object, useFirstFrame: bool) -> str:
     """ Get the path to include in exports from a media source.  If the source is an nk script
         return the comp write path.  If useFirstFrame is True, for file sequences will return e.g.
         clip.0001.dpx rather than clip.%04d.dpx """
@@ -1502,7 +1502,7 @@ def mediaSourceExportReadPath(source, useFirstFrame):
     return path
 
 
-def mediaSourceExportFileHead(source):
+def mediaSourceExportFileHead(source: object) -> str:
     """ Get the filename head from a media source, fixing for use as a keyword. """
     head = source.filenameHead()
 

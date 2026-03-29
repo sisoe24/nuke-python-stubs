@@ -30,7 +30,7 @@ class Message(object):
         self.sender = ''
         self.target = target
 
-    def serialize(self):
+    def serialize(self) -> list:
         """ Get the serialized representation of a message. This is in the form:
         [classname, sender, target, data...].
         """
@@ -41,7 +41,7 @@ class Message(object):
         return data
 
     @classmethod
-    def deserialize(cls, data):
+    def deserialize(cls, data) -> Message:
         """ Factory method for constructing messages from their serialized representation
         """
         msg = cls()
@@ -63,7 +63,7 @@ class Message(object):
                                ','.join(_dataStr(d) for d in data))
 
 
-def defineMessageType(className, *fieldDefs):
+def defineMessageType(className: str, *fieldDefs) -> None:
     """ Define a new message class which will be added to the messages module.
     Fields can be defined with a name and specification of how they should be serialized.
     This can be just a type or conversion function, e.g. ('myField', int) where for
@@ -116,7 +116,7 @@ def defineMessageType(className, *fieldDefs):
     return msgClass
 
 
-def deserializeMessage(data):
+def deserializeMessage(data) -> Message:
     """ Factory function for creating a message instance from its serialized
     representation.
     """
@@ -126,7 +126,7 @@ def deserializeMessage(data):
     return msgType.deserialize(data)
 
 
-def RemoveDuplicateMessagesFilter(msgType, matchAttributes):
+def RemoveDuplicateMessagesFilter(msgType: str, matchAttributes: list) -> Callable[[list], list]:
     """ Create filter where for messages which:
           a) have msgType and
           b) for the given list of attributes, match the values of a message sent later
@@ -161,7 +161,7 @@ def RemoveDuplicateMessagesFilter(msgType, matchAttributes):
 __messageFilters = []
 
 
-def addMessageFilter(filter):
+def addMessageFilter(filter: Callable[[list], list]) -> None:
     """ Add a filter for incoming messages. This should be a callable which takes
     a list of messages and returns the filtered list.
     """
@@ -169,7 +169,7 @@ def addMessageFilter(filter):
     __messageFilters.append(filter)
 
 
-def applyMessageFilters(msgList):
+def applyMessageFilters(msgList: list) -> list:
     """ Filter a set of incoming messages. This can be used to e.g. discard duplicate
     messages when only the most recent one is needed.
     Returns the filtered list.

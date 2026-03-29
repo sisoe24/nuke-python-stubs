@@ -8,7 +8,7 @@ import subprocess
 from hiero.core import log
 
 
-def _linuxNUMALaunchArguments(preferredNode=0):
+def _linuxNUMALaunchArguments(preferredNode: int = 0) -> str:
     '''
     Return the numa arguments for launching a process on a single CPU, specified by preferredNode
     '''
@@ -16,7 +16,7 @@ def _linuxNUMALaunchArguments(preferredNode=0):
     return ('numactl', '--cpunodebind=%s' % preferredNode, '--membind=%s' % preferredNode)
 
 
-def _linuxSocketCount():
+def _linuxSocketCount() -> int:
     '''
     Query how many CPU sockets are available when in Linux.
     '''
@@ -41,7 +41,7 @@ def _linuxSocketCount():
     return socketCount
 
 
-def _windowsSocketCount():
+def _windowsSocketCount() -> int:
     '''
     Query how many CPU sockets are available when in Windows.
     '''
@@ -62,7 +62,7 @@ def _windowsSocketCount():
     return socketCount
 
 
-def _windowsStartAffinityLaunchArguments(coresPerSocket, preferredNode=0):
+def _windowsStartAffinityLaunchArguments(coresPerSocket: int, preferredNode: int = 0) -> str:
     '''
     Return the arguments for launching a process on a single CPU, specified by preferredNode
     '''
@@ -91,7 +91,7 @@ class SystemInfo(object):
     def __init__(self):
         self._platformName = platform.system()
 
-    def socketCount(self):
+    def socketCount(self) -> int:
         '''
         Return how many CPU sockets are available.
         '''
@@ -102,7 +102,7 @@ class SystemInfo(object):
         else:
             return 1
 
-    def singleSocketLaunchArguments(self):
+    def singleSocketLaunchArguments(self) -> str:
         '''
         Return the arguments requried to launch a process that is limited to
         a single CPU. These arguments should be prepended to the command that
@@ -115,7 +115,7 @@ class SystemInfo(object):
         else:
             raise OSError('Launching on a single socket is not supported on this platform')
 
-    def coresPerSocket(self):
+    def coresPerSocket(self) -> int:
         '''
         Return how many cores are available per CPU socket. This assumes that all CPUs on
         a multi CPU system have the same number of cores.
@@ -124,13 +124,13 @@ class SystemInfo(object):
         cores = multiprocessing.cpu_count()
         return cores / self.socketCount()
 
-    def _platformIsWindows(self):
+    def _platformIsWindows(self) -> bool:
         '''
         Return whether we're currently on Windows.
         '''
         return self._platformName == 'Windows'
 
-    def _platformIsLinux(self):
+    def _platformIsLinux(self) -> bool:
         '''
         Return whether we're currently on Linux.
         '''

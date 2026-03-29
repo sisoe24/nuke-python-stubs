@@ -311,7 +311,7 @@ class VertexSelection:
             info.position[2] *= vector[2]
 
 
-def leastSignificantAxis(vector):
+def leastSignificantAxis(vector: _nukemath.Vector3) -> int:
     '''
     Given a Vector3, returns the least significant axis position, being x, y and
     z 0, 1 and 2 respectively.
@@ -323,14 +323,14 @@ def leastSignificantAxis(vector):
     return 2 if vector.z < vector[least] else least
 
 
-def fuzzyIsZero(value):
+def fuzzyIsZero(value: float) -> bool:
     '''
     Returns true if a value is very close to zero.
     '''
     return math.isclose(value, 0.0, abs_tol=0.0001)
 
 
-def fuzzyVector3Add(v1, v2):
+def fuzzyVector3Add(v1: _nukemath.Vector3, v2: _nukemath.Vector3) -> _nukemath.Vector3:
     '''
     Adds two vectors ensuring the coordinates are actually 0.0 if they are 0.0001
     of zero.
@@ -453,7 +453,7 @@ def translateRotateScaleToPointsVerified(nodeToSnap, vertexSelection):
     scaleToPointsVerified(nodeToSnap, vertexSelection)
 
 
-def checkAllPointCollinear(points):
+def checkAllPointCollinear(points: Iterable) -> bool:
     '''
     Iterates through the points the point and checks if all of them are collinear.
     The points must contain more than two points.
@@ -546,7 +546,7 @@ def calcRotationVector(vertexSelection, norm):
 #
 
 
-def calcAveragePosition(vertexSelection):
+def calcAveragePosition(vertexSelection: Iterable[_nukemath.Vector3]) -> _nukemath.Vector3:
     '''
     Calculate the average position of all points.
 
@@ -582,7 +582,7 @@ def calcBounds(vertexSelection):
     return bounds
 
 
-def planeRotation(tri, norm=None):
+def planeRotation(tri: list[_nukemath.Vector3], norm: _nukemath.Vector3 = None) -> _nukemath.Vector3:
     '''
     Calculate the rotations around the X, Y and Z axes that will align a plane
     perpendicular to the Z axis with the given triangle.
@@ -641,7 +641,7 @@ def planeRotation(tri, norm=None):
 #
 # Helper functions
 #
-def averageNormal(vertexSelection):
+def averageNormal(vertexSelection) -> _nukemath.Vector3:
     '''
     averageNormal(selectionThreshold -> _nukemath.Vector3
     Return a _nukemath.Vector3 which is the average of the normals of all selected points
@@ -656,7 +656,7 @@ def averageNormal(vertexSelection):
     return norm
 
 
-def anySelectedPoint(selectionThreshold=0.5):
+def anySelectedPoint(selectionThreshold: float = 0.5) -> _nukemath.Vector3:
     '''
     anySelectedPoint(selectionThreshold) -> _nukemath.Vector3
     Return a selected point from the active viewer or the first viewer with a selection.
@@ -680,7 +680,7 @@ def anySelectedPoint(selectionThreshold=0.5):
     return None
 
 
-def selectedPoints(selectionThreshold=0.5):
+def selectedPoints(selectionThreshold: float = 0.5) -> Iterator[_nukemath.Vector3]:
     '''
     selectedPoints(selectionThreshold) -> iterator
 
@@ -706,7 +706,7 @@ def getSelection(selectionThreshold=0.5):
     return vertexSelection
 
 
-def selectedVertexInfos(selectionThreshold=0.5):
+def selectedVertexInfos(selectionThreshold: float = 0.5) -> Iterator[tuple]:
     '''
     selectedVertexInfos(selectionThreshold) -> iterator
 
@@ -761,7 +761,7 @@ def selectedVertexInfos(selectionThreshold=0.5):
                         yield VertexInfo(o, p, value, _nukemath.Vector3(tPos.x, tPos.y, tPos.z), normal)
 
 
-def anySelectedVertexInfo(selectionThreshold=0.5):
+def anySelectedVertexInfo(selectionThreshold: float = 0.5) -> VertexInfo:
     '''
     anySelectedVertexInfo(selectionThreshold) -> VertexInfo
 
@@ -798,7 +798,7 @@ def anySelectedVertexInfo(selectionThreshold=0.5):
     return None
 
 
-def allNodes(node=nuke.root()):
+def allNodes(node=nuke.root()) -> Iterator[nuke.Node]:
     '''
     allNodes() -> iterator
     Return an iterator which yields all nodes in the current script.
@@ -824,7 +824,7 @@ def allNodesWithGeoSelectKnob():
     return nodes
 
 
-def cameraProjectionMatrix(cameraNode):
+def cameraProjectionMatrix(cameraNode: nuke.Node) -> _nukemath.Matrix4:
     'Calculate the projection matrix for the camera based on its knob values.'
 
     # Matrix to transform points into camera-relative coords.
@@ -870,7 +870,7 @@ def cameraProjectionMatrix(cameraNode):
     return s * t * p * m * camTransform
 
 
-def projectPoints(camera=None, points=None):
+def projectPoints(camera=None, points=None) -> list[nuke.math.Vector2]:
     '''
     projectPoint(camera, points) -> list of nuke.math.Vector2
 
@@ -913,7 +913,7 @@ def projectPoints(camera=None, points=None):
         yield nuke.math.Vector2(tPos.x / tPos.w, tPos.y / tPos.w)
 
 
-def projectPoint(camera=None, point=None):
+def projectPoint(camera=None, point=None) -> nuke.math.Vector2:
     '''
     projectPoint(camera, point) -> nuke.math.Vector2
 
@@ -929,7 +929,7 @@ def projectPoint(camera=None, point=None):
     return next(projectPoints(camera, (point,)))
 
 
-def projectSelectedPoints(cameraName='Camera1'):
+def projectSelectedPoints(cameraName: str = 'Camera1') -> Iterator[nuke.math.Vector2]:
     '''
     projectSelectedPoints(cameraName='Camera1') -> iterator yielding nuke.math.Vector2
 

@@ -14,25 +14,25 @@ class Lut(object):
     Lut
     """
 
-    def __new__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs) -> Lut:
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
         ...
 
-    def __hash__(self, ) -> None:
+    def __hash__(self) -> int:
         """
         Return hash(self).
         """
         ...
 
-    def isLinear(self,) -> bool:
+    def isLinear(self) -> bool:
         """
         self.isLinear() -> True if toByte(x) appears to return x*255, False otherwise.
         """
         ...
 
-    def isZero(self,) -> int:
+    def isZero(self) -> bool:
         """
         self.isZero() -> True if toByte(0) returns a value <= 0, False otherwise.
         """
@@ -54,7 +54,7 @@ class Lut(object):
         """
         ...
 
-    def toByte(self, float) -> float:
+    def toByte(self, float: float) -> int:
         """
         self.toByte(float) -> float.
 
@@ -62,7 +62,7 @@ class Lut(object):
         """
         ...
 
-    def fromByte(self, float) -> float:
+    def fromByte(self, float: int) -> float:
         """
         self.fromByte(float) -> float.
 
@@ -70,7 +70,7 @@ class Lut(object):
         """
         ...
 
-    def toFloat(self, src, alpha) -> list:
+    def toFloat(self, src: list[float], alpha: float = None) -> list[float]:
         """
         toFloat(src, alpha) -> float list.
 
@@ -79,7 +79,7 @@ class Lut(object):
         """
         ...
 
-    def fromFloat(self, src, alpha) -> list:
+    def fromFloat(self, src: list[float], alpha: float = None) -> list[float]:
         """
         fromFloat(src, alpha) -> float list.
 
@@ -88,7 +88,7 @@ class Lut(object):
         """
         ...
 
-    def __init__(self,  *args, **kwargs) -> None:
+    def __init__(self, *args, **kwargs) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """

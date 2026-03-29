@@ -19,7 +19,7 @@ class LayoutBase(object):
     kAlignLeft = 0
     kAlignCenter = 1
 
-    def __init__(self, script, layoutContext):
+    def __init__(self, script: Any, layoutContext: Any) -> None:
         """ Initialise with a script writer and layout context.  Iterates over child contexts
             and creates sub-layouts. """
 
@@ -48,7 +48,7 @@ class LayoutBase(object):
                 childLayout = layoutClass(script, childContext)
                 self.childLayouts.append(childLayout)
 
-    def getLayoutWidth(self):
+    def getLayoutWidth(self) -> int:
         """ Determine the width of the layout.  This can be done without actually determining the position
             of anything, and is required for determining the height of backdrop labels. """
         width = 0
@@ -71,7 +71,7 @@ class LayoutBase(object):
 
         return width
 
-    def getBackdropLabelHeight(self, label, width):
+    def getBackdropLabelHeight(self, label: str, width: int) -> int:
         """ Get the height of the backdrop label for the given width. """
 
         # Creating a QFont with no argument selects a default font family.  This is what the Nuke code
@@ -84,7 +84,7 @@ class LayoutBase(object):
         rect = metrics.boundingRect(0, 0, width, 1, Qt.TextWrapAnywhere, label)
         return rect.height()
 
-    def layoutChildContexts(self, layouts, xpos, ypos, zorder):
+    def layoutChildContexts(self, layouts: list[Any], xpos: int, ypos: int, zorder: int) -> tuple[int, int, int, int]:
         """ Layout child contexts with the given orientation, starting from (xpos, ypos).  Returns the bounding rect. """
         rect = QRect(xpos, ypos, 1, 1)
 
@@ -101,7 +101,7 @@ class LayoutBase(object):
 
         return rect
 
-    def layoutNodes(self, nodes, xpos, ypos, alignment):
+    def layoutNodes(self, nodes: list[Any], xpos: int, ypos: int, alignment: str) -> tuple[int, int, int, int]:
         """ Layout child nodes with the given alignment to the xpos.  Returns the bounding rect."""
         rect = QRect(xpos, ypos, 1, 1)
 
@@ -118,12 +118,12 @@ class LayoutBase(object):
 
         return rect
 
-    def alignmentForNodesLayout(self, left):
+    def alignmentForNodesLayout(self, left: int) -> tuple[int, str]:
         """ Get the position and alignment flag for the horizontal positioning of
         nodes. By default aligns to the left border argument. """
         return left + self.leftMargin, LayoutBase.kAlignLeft
 
-    def layoutNode(self, node, xpos, ypos, alignment, rect):
+    def layoutNode(self, node: Any, xpos: int, ypos: int, alignment: str, rect: Any) -> tuple[int, int, int, int]:
         """ Layout nodes vertically, with the given alignment to the xpos.  Returns the bounding rect.  If the
             node has been set to align to another node, will attempt to align them horizontally. """
         nodeW, nodeH = node.getNodeSize()
@@ -173,7 +173,7 @@ class LayoutBase(object):
 
         return xpos, ypos
 
-    def createBackdrop(self, color, rect, label, zorder):
+    def createBackdrop(self, color: Any, rect: Any, label: str, zorder: int) -> None:
         """ Create a backdrop node, and add it to the script. """
         backdrop = _nuke.BackdropNode(rect.x(), rect.y(), rect.width(), rect.height())
         backdrop.setLabelFontSize(self.backdropLabelFontSize)
@@ -183,7 +183,7 @@ class LayoutBase(object):
         backdrop.setZOrder(zorder)
         self.script.addNode(backdrop)
 
-    def doLayout(self, xpos, ypos, zorder):
+    def doLayout(self, xpos: int, ypos: int, zorder: int) -> tuple[int, int, int, int]:
         """ Perform layout, and return the bounding rect.  This default implementation lays out child layouts horizontally,
             and then arranges nodes below them vertically. """
 
@@ -214,7 +214,7 @@ class LayoutBase(object):
 
         return self.rect
 
-    def getAlignHint(self):
+    def getAlignHint(self) -> tuple[int, int]:
         """ Get x and y positions to align to.  If the layout has nodes, it will return the
             center of the last node, otherwise it will return the align hint of the last child layout. """
         nodes = self.layoutContext.getNodes()
@@ -276,7 +276,7 @@ class TracksLayout(LayoutBase):
         else:
             self.horizontalTrackLayouts = self.childLayouts
 
-    def getLayoutWidth(self):
+    def getLayoutWidth(self) -> int:
         """ Determine the width of the layout.  This can be done without actually determining the position
             of anything, and is required for determining the height of backdrop labels. """
         width = 0
@@ -300,7 +300,7 @@ class TracksLayout(LayoutBase):
 
         return width
 
-    def doLayout(self, xpos, ypos, zorder):
+    def doLayout(self, xpos: int, ypos: int, zorder: int) -> tuple[int, int, int, int]:
         """ Layout the sequence.  Lays out tracks horizontally, except tracks that only have soft effects or annotations, which
             are laid out vertically underneath. """
 
@@ -416,7 +416,7 @@ class SequenceLayout(LayoutBase):
         self.rightMargin = 0
         self.bottomMargin = 0
 
-    def alignmentForNodesLayout(self, left):
+    def alignmentForNodesLayout(self, left: int) -> tuple[int, str]:
         """ Override. Align to the last child layout. """
         return self.childLayouts[-1].getAlignHint()[0], LayoutBase.kAlignCenter
 
@@ -448,7 +448,7 @@ class TrackLayout(LayoutBase):
     def layoutHorizontal(self, xpos, ypos, zorder):
         return self.doLayout(xpos, ypos, zorder)
 
-    def subTrackItemsOnly(self):
+    def subTrackItemsOnly(self) -> bool:
         """ Get if the track being laid out only has sub-track items (i.e. effects and annotations) on it. """
         track = self.layoutContext.getData('track')
 
@@ -463,7 +463,7 @@ class TrackLayout(LayoutBase):
     def getTrackName(self):
         return self.layoutContext.getData('track')
 
-    def doLayout(self, xpos, ypos, zorder):
+    def doLayout(self, xpos: int, ypos: int, zorder: int) -> Any:
         """ Do the track layout.  Reimplemented as the node layout is a bit different to the default. """
 
         self.rect = QRect(xpos, ypos, 1, 1)
@@ -561,7 +561,7 @@ class ClipLayout(LayoutBase):
 
         return width
 
-    def doLayout(self, xpos, ypos, zorder):
+    def doLayout(self, xpos: int, ypos: int, zorder: int) -> tuple[int, int, int, int]:
         """ Perform layout, and return the bounding rect.  Lays out nodes in two columns, with constant nodes
             (for gaps in the timeline) on the left. """
 
@@ -748,12 +748,12 @@ class MergeLayout(LayoutBase):
     def getInputA(self):
         return self.layoutContext.getData('inputA')
 
-    def subTrackItemsOnly(self):
+    def subTrackItemsOnly(self) -> bool:
         """ Merge layouts should act like layouts that only contain sub-track items, with layout vertically
             below the output track. """
         return True
 
-    def getAlignHint(self):
+    def getAlignHint(self) -> tuple[int, int]:
         """ Get x and y positions to align to.  Aligns to the actual merge node and not any dot nodes which
         happen to be in the layout."""
         nodes = self.layoutContext.getNodes()
@@ -814,7 +814,7 @@ class EffectsTrackLayout(TrackLayout):
         # Nothing to layout
         return QRect(xpos, ypos, 0, 0)
 
-    def subTrackItemsOnly(self):
+    def subTrackItemsOnly(self) -> bool:
         """ Merge layouts should act like layouts that only contain sub-track items, with layout vertically
             below the output track. """
         return True
@@ -870,7 +870,7 @@ class MainLayout(LayoutBase):
         return self.rect
 
 
-def scriptLayout(script):
+def scriptLayout(script: Any) -> None:
     """ Layout a script. """
 
     layout = MainLayout(script, script.getMainLayoutContext())

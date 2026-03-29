@@ -14,37 +14,37 @@ class Root(Group):
 
     """
 
-    def __new__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs) -> Root:
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
         ...
 
-    def __repr__(self, ) -> None:
+    def __repr__(self) -> str:
         """
         Return repr(self).
         """
         ...
 
-    def __str__(self, ) -> None:
+    def __str__(self) -> str:
         """
         Return str(self).
         """
         ...
 
-    def __len__(self, ) -> None:
+    def __len__(self) -> int:
         """
         Return len(self).
         """
         ...
 
-    def __getitem__(self, key, ) -> None:
+    def __getitem__(self, key) -> object:
         """
         Return self[key].
         """
         ...
 
-    def clones(self,) -> int | float:
+    def clones(self) -> int:
         """
         self.clones() -> Number of clones.
         @return: Number of clones.
@@ -58,7 +58,7 @@ class Root(Group):
         """
         ...
 
-    def input(self, i: int | float) -> int:
+    def input(self, i: int) -> Node | None:
         """
         self.input(i) -> The i'th input.
         @param i: Input number.
@@ -66,7 +66,7 @@ class Root(Group):
         """
         ...
 
-    def setInput(self, i: int | float, node: Node) -> bool:
+    def setInput(self, i: int, node: Node) -> bool:
         """
         self.setInput(i, node) -> bool
         Connect input i to node if canSetInput() returns true.
@@ -76,35 +76,35 @@ class Root(Group):
         """
         ...
 
-    def optionalInput(self,) -> int | float:
+    def optionalInput(self) -> int:
         """
         self.optionalInput() -> Number of first optional input.
         @return: Number of first optional input.
         """
         ...
 
-    def minimumInputs(self,) -> int | float:
+    def minimumInputs(self) -> int:
         """
         self.minimumInputs() -> Minimum number of inputs this node can have.
         @return: Minimum number of inputs this node can have.
         """
         ...
 
-    def maximumInputs(self,) -> int | float:
+    def maximumInputs(self) -> int:
         """
         self.maximumInputs() -> Maximum number of inputs this node can have.
         @return: Maximum number of inputs this node can have.
         """
         ...
 
-    def maximumOutputs(self,) -> int | float:
+    def maximumOutputs(self) -> int:
         """
         self.maximumOutputs() -> Maximum number of outputs this node can have.
         @return: Maximum number of outputs this node can have.
         """
         ...
 
-    def connectInput(self, i: int | float, node: Node) -> bool:
+    def connectInput(self, i: int, node: Node) -> bool:
         """
         self.connectInput(i, node) -> bool
         Connect the output of 'node' to the i'th input or the next available unconnected input. The requested input is tried first, but if it is already set then subsequent inputs are tried until an unconnected one is found, as when you drop a connection arrow onto a node in the GUI.
@@ -114,7 +114,7 @@ class Root(Group):
         """
         ...
 
-    def canSetInput(self, i: int | float, node: Node) -> bool:
+    def canSetInput(self, i: int, node: Node) -> bool:
         """
         self.canSetInput(i, node) -> bool
         Check whether the output of 'node' can be connected to input i.
@@ -124,7 +124,7 @@ class Root(Group):
         """
         ...
 
-    def modified(self,) -> bool:
+    def modified(self) -> bool:
         """
         self.modified() -> True if modified, False otherwise.
         Get or set the 'modified' flag in a script
@@ -142,7 +142,7 @@ class Root(Group):
         """
         ...
 
-    def proxy(self,) -> bool:
+    def proxy(self) -> bool:
         """
         self.proxy() -> True if proxy is set, False otherwise.
         @return: True if proxy is set, False otherwise.
@@ -158,7 +158,7 @@ class Root(Group):
         """
         ...
 
-    def firstFrame(self,) -> int:
+    def firstFrame(self) -> int:
         """
         self.firstFrame() -> Integer.
         First frame.
@@ -166,7 +166,7 @@ class Root(Group):
         """
         ...
 
-    def lastFrame(self,) -> int:
+    def lastFrame(self) -> int:
         """
         self.lastFrame() -> Integer.
         Last frame.
@@ -174,21 +174,21 @@ class Root(Group):
         """
         ...
 
-    def fps(self,) -> int:
+    def fps(self) -> int:
         """
         self.fps() -> integer
         Return the FPS rounded to an int. This is deprecated. Please use real_fps().
         """
         ...
 
-    def realFps(self,) -> float:
+    def realFps(self) -> float:
         """
         self.realFps() -> float
         The global frames per second setting.
         """
         ...
 
-    def mergeFrameRange(self, a: int | float, b: int | float) -> None:
+    def mergeFrameRange(self, a: int, b: int) -> None:
         """
         self.mergeFrameRange(a, b) -> None.
         Merge frame range.
@@ -198,7 +198,7 @@ class Root(Group):
         """
         ...
 
-    def addView(self, name: str, color: Optional[list] = None) -> None:
+    def addView(self, name: str, color: Optional[str] = None) -> None:
         """
         self.addView(name, color) -> None.
         Add view.
@@ -235,7 +235,7 @@ class Root(Group):
         """
         ...
 
-    def layers(self,) -> list:
+    def layers(self) -> list:
         """
         nuke.Root.layers() -> Layer list.
         Class method.
@@ -243,7 +243,7 @@ class Root(Group):
         """
         ...
 
-    def channels(self,) -> list:
+    def channels(self) -> list:
         """
         nuke.Root.channels() -> Channel list.
         Class method.
@@ -272,7 +272,7 @@ class Root(Group):
         """
         ...
 
-    def __init__(self,  *args, **kwargs) -> None:
+    def __init__(self, *args, **kwargs) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """

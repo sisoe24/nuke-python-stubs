@@ -9,7 +9,7 @@ from . import FnAudioHelper, FnAudioConstants, FnAudioExportTask
 
 
 class AudioExportUI(hiero.ui.TaskUIBase):
-    def __init__(self, preset):
+    def __init__(self, preset: 'AudioExportPreset') -> None:
         """Initialize"""
         hiero.ui.TaskUIBase.__init__(
             self, FnAudioExportTask.AudioExportTask, preset, 'Audio Export')

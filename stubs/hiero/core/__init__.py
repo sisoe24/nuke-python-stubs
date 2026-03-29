@@ -27,7 +27,7 @@ from .FnPostEffectCreation import afterEffectCreated, overrideKnobDefaults
 from .localisation_helpers import *
 
 
-def filenameList(directory, splitSequences=False, returnDirectories=True, returnHiddenFiles=True):
+def filenameList(directory: str, splitSequences: bool = False, returnDirectories: bool = True, returnHiddenFiles: bool = True) -> list[str]:
     """hiero.core.filenameList(directory, splitSequences, returnDirectories, returnHiddenFiles) -> Returns a list of strings representing the items found in the specified directory, putting image sequences together as one element.
 
     @param directory: path to the directory to query
@@ -112,7 +112,7 @@ def filenameList(directory, splitSequences=False, returnDirectories=True, return
 GUI = True
 
 
-def presetProjects():
+def presetProjects() -> tuple[Project, ...]:
     """hiero.core.projects() -> returns a tuple of all of the currently loaded preset projects.\n\n
     @deprecated: Use hiero.core.projects(Project.kStartupProjects) instead\n
     @return: tuple of hiero.core.Project objects"""
@@ -132,7 +132,7 @@ __main_thread_lock = threading.Lock()
 __main_thread_event = threading.Event()
 
 
-def executeInMainThreadWithResult(call, *args, **kwargs):
+def executeInMainThreadWithResult(call: callable, *args: tuple, **kwargs: dict) -> Any:
     """ Execute the callable 'call' with optional arguments 'args' and named arguments 'kwargs' in
         the main thread and wait for the result.
         Note that this method expects a single item for args or a tuple, and a dictionary for kwargs.
@@ -183,7 +183,7 @@ def executeInMainThreadWithResultVariableArgs(call, *args, **kwargs):
   return executeInMainThreadWithResult(call, args, kwargs)'''
 
 
-def executeInMainThread(call, *args, **kwargs):
+def executeInMainThread(call: callable, *args: tuple, **kwargs: dict) -> None:
     """ Execute the callable 'call' with optional arguments 'args' and named arguments 'kwargs' in
         the main thread and return immediately.
         Note that this method expects a single item for args or a tuple, and a dictionary for kwargs.
@@ -238,7 +238,7 @@ NonZeroStartFrameMovieFileExtensions = QuickTimeExtensions + ['.mxf', '.braw']
 VideoFileExtensions = NonZeroStartFrameMovieFileExtensions + ['.r3d']
 
 
-def isQuickTimeFileExtension(fileExtension):
+def isQuickTimeFileExtension(fileExtension: str) -> bool:
     """Returns True if the fileExtension is a recognised QuickTime extension, False otherwise."""
     fileExtension = fileExtension.lower()
     if not fileExtension.startswith('.'):
@@ -246,7 +246,7 @@ def isQuickTimeFileExtension(fileExtension):
     return fileExtension in QuickTimeExtensions
 
 
-def isVideoFileExtension(fileExtension):
+def isVideoFileExtension(fileExtension: str) -> bool:
     """Returns True if the fileExtension is a recognised video format extension, i.e not an image Sequence (QuickTime/MXF/R3D media)"""
     fileExtension = fileExtension.lower()
     if not fileExtension.startswith('.'):
@@ -265,7 +265,7 @@ def _projectSetting(project, func):
         raise e
 
 
-def _Project_extractSettings(self):
+def _Project_extractSettings(self) -> dict:
     """self.extractSettings() -> returns a dict of the project's settings. \
     \
     @return: dict
@@ -335,7 +335,7 @@ def overrideApplicationSettingsSetValue():
 overrideApplicationSettingsSetValue()
 
 
-def defaultFrameRates():
+def defaultFrameRates() -> tuple[float, ...]:
     '''hiero.core.defaultFrameRates() -> returns the list of frame rates displayed in Hiero's user interface.
 
     @return: tuple of floats'''
@@ -488,7 +488,7 @@ _setFindMethods()
 deprecated.markDeprecated()
 
 
-def __TrackItem_unlinkAll(self):
+def __TrackItem_unlinkAll(self) -> None:
     """
     self.unlinkAll() -> Unlink all track items that are linked to this one.
     """
@@ -507,7 +507,7 @@ TrackItem.unlinkAll = __TrackItem_unlinkAll
 # which pass through to the name of the node they own.  This is easier to achieve in Python,
 # so do it here.
 
-def __EffectTrackItem_name(self):
+def __EffectTrackItem_name(self) -> str:
     """
     self.name() -> Get the name of the effect's node.
 
@@ -516,7 +516,7 @@ def __EffectTrackItem_name(self):
     return self.node().name()
 
 
-def __EffectTrackItem_setName(self, name):
+def __EffectTrackItem_setName(self, name: str) -> None:
     """
     self.setName() -> Set the name of the effect's node.
     """
@@ -670,7 +670,7 @@ def LUTGroup(*args: typing.Any, **kwargs: typing.Any) -> None:
     ...
 
 
-def LUTs(*args: typing.Any, **kwargs: typing.Any) -> tuple:
+def LUTs(*args, **kwargs) -> tuple[str, ...]:
     """
     hiero.core.LUTs() -> returns a tuple with the names of all of the available luts.
 
@@ -700,7 +700,7 @@ def ViewerProcessNameFromDisplayTransformName(arg__1: str) -> object:
     ...
 
 
-def addPathRemap(arg__1: str, arg__2: str, arg__3: str) -> None:
+def addPathRemap(windowsPathPrefix: str, osxPathPrefix: str, linuxPathPrefix: str) -> None:
     """
     hiero.core.addPathRemap(windowsPathPrefix, osxPathPrefix, linuxPathPrefix) -> adds to the table of file path remapping prefixes that Hiero maintains. Pairs of path prefixes added to this table will be used to convert paths between Windows, OSX and Linux. When on Windows, Hiero will replace any Linux or OSX prefixes found with the corresponding Windows prefix. On OSX, Hiero will search for the Windows and Linux path prefixes and replace them with the corresponding OSX prefix. The same applies for OSX/Windows prefixes being replaced on Linux. These can also be configured through the user interface in the General tab of the Preferences dialog.
 
@@ -713,7 +713,7 @@ def addPathRemap(arg__1: str, arg__2: str, arg__3: str) -> None:
     ...
 
 
-def addPluginPath(*args: typing.Any, **kwargs: typing.Any) -> list:
+def addPluginPath(pluginPath: str, index: int = -1) -> None:
     """
     hiero.core.addPluginPath(pluginPath) -> adds a new path to the list of plugin paths searched for Python plugins (in Python/Startup and Python/StartupUI folders). The user's .nuke folder will be the first in this list.
     hiero.core.addPluginPath(pluginPath, index) -> the same as above, except that the index specifies which item in the list of paths to place the new one before.
@@ -724,7 +724,7 @@ def addPluginPath(*args: typing.Any, **kwargs: typing.Any) -> list:
     ...
 
 
-def closeAllProjects(*args: typing.Any, **kwargs: typing.Any) -> Any:
+def closeAllProjects(dontSave: bool = True) -> None:
     """
     hiero.core.closeProject() -> closes all of the existing projects without saving.
     hiero.core.closeProject(bool dontSave) -> same as above, but if the parameter is set to false, unsaved projects will cause Hiero to popup a dialog for each unsaved project, asking the user if they'd like to save.
@@ -743,7 +743,7 @@ def conformer() -> Conformer:
     ...
 
 
-def formats() -> object:
+def formats() -> tuple[Format, ...]:
     """
     hiero.core.formats() -> returns a tuple with all of the formats currently available.
 
@@ -752,21 +752,21 @@ def formats() -> object:
     ...
 
 
-def getFilenameList(arg__1: str, arg__2: bool, arg__3: bool, arg__4: bool, arg__5: bool) -> object:
+def getFilenameList(arg__1: str, arg__2: bool, arg__3: bool, arg__4: bool, arg__5: bool) -> list[str]:
     """
     Deprecated. Do not use. Use hiero.core.filenameList() instead
     """
     ...
 
 
-def getLibraryDirectory(arg__1: str) -> object:
+def getLibraryDirectory(arg__1: str) -> str:
     """
     hiero.core.getLibraryDirectory(subdirectory) -> deprecated; use hiero.core.libraryDirectory() instead.
     """
     ...
 
 
-def getPluginPath() -> Any:
+def getPluginPath() -> tuple[str, ...]:
     """
     hiero.core.getPluginPath() -> deprecated; please use hiero.core.pluginPath instead.
     """
@@ -801,7 +801,7 @@ def isNC() -> object:
     ...
 
 
-def libraryDirectory(arg__1: str) -> object:
+def libraryDirectory(arg__1: str) -> str:
     """
     hiero.core.libraryDirectory(subdirectory) -> returns the input appended to the location of the user's .nuke directory.
 
@@ -820,7 +820,7 @@ def newProject(*args: typing.Any, **kwargs: typing.Any) -> Project:
     ...
 
 
-def openProject(path: str, flags: int = 'Hiero.Python.Project.kProjectOpenNoFlags') -> hiero.core.Project:
+def openProject(path: str, flags: int = 0) -> hiero.core.Project:
     """
     hiero.core.openProject(path)
 
@@ -831,7 +831,7 @@ def openProject(path: str, flags: int = 'Hiero.Python.Project.kProjectOpenNoFlag
     ...
 
 
-def pathRemappings() -> object:
+def pathRemappings() -> list[tuple[str, str, str]]:
     """
     hiero.core.pathRemappings() -> returns the path remappings specified in the application preferences, or added through addPathRemap().
 
@@ -840,7 +840,7 @@ def pathRemappings() -> object:
     ...
 
 
-def pluginPath() -> tuple:
+def pluginPath() -> tuple[str, ...]:
     """
     hiero.core.pluginPath() -> Returns a tuple of the search paths used by Hiero to load Python scripts.
 
@@ -849,7 +849,7 @@ def pluginPath() -> tuple:
     ...
 
 
-def project(arg__1: str) -> Project:
+def project(arg__1: str) -> Project | None:
     """
     hiero.core.project(name) -> returns the Project with the specified name, if it can be found, or None.
 
@@ -869,7 +869,7 @@ def projects(*args, **kwargs) -> Tuple[Project, ...]:
     ...
 
 
-def quit(*args: typing.Any, **kwargs: typing.Any) -> int:
+def quit(exitCode: int = 0) -> None:
     """
     hiero.core.quit() -> shuts down Hiero, without saving any existing projects. Safer than calling sys.exit(), which doesn't always clean up properly and can cause Hiero to crash. This version sets the exit code of the Hiero process to 0.
 
@@ -895,7 +895,7 @@ def redoSize() -> object:
     ...
 
 
-def remapPath(arg__1: str) -> object:
+def remapPath(arg__1: str) -> str:
     """
     hiero.core.remapPath(path) -> uses the platform specific path remapping rules from the user's preferences and applies them to the input path.
 

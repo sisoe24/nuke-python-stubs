@@ -18,7 +18,7 @@ class FlipbookManager:
     Object for Flipbook manager
     """
 
-    def __new__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs) -> FlipbookManager:
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
@@ -38,7 +38,7 @@ class FlipbookManager:
         """
         ...
 
-    def createEffectItem(self, effectType: bytes, timelineIn: int, timelineOut: int) -> hiero.core.EffectTrackItem:
+    def createEffectItem(self, effectType: str, timelineIn: int, timelineOut: int) -> hiero.core.EffectTrackItem:
         """
         self.createEffectItem(effectType, timelineIn, timelineOut) -> creates and return a flipbook Soft Effect with defiend effectType,
         covering the specified timeline in and out range.

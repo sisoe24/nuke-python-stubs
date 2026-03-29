@@ -18,13 +18,13 @@ class DataCollection:
     Storage objects for key/value pairs. Generally used to store metadata.
     """
 
-    def __new__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs) -> DataCollection:
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
         ...
 
-    def __repr__(self) -> object:
+    def __repr__(self) -> str:
         """
         Return repr(self).
         """
@@ -36,19 +36,19 @@ class DataCollection:
         """
         ...
 
-    def __getitem__(self, key, ) -> None:
+    def __getitem__(self, key) -> typing.Any:
         """
         Return self[key].
         """
         ...
 
-    def __contains__(self, key, ) -> None:
+    def __contains__(self, key) -> bool:
         """
         Return key in self.
         """
         ...
 
-    def dict(self) -> object:
+    def dict(self) -> dict:
         """
         self.dict() -> returns a dictionary of key/value pairs. Can be used to iterate over the items in this collection.
 
@@ -73,7 +73,7 @@ class DataCollection:
         """
         ...
 
-    def readOnly(self) -> bool:
+    def readOnly(self, key: str) -> bool:
         """
         self.readOnly(key) -> returns True if the collection can be modified.
 
@@ -81,7 +81,7 @@ class DataCollection:
         """
         ...
 
-    def setValue(self, key: str, value: str) -> None:
+    def setValue(self, key: str, value: typing.Any) -> None:
         """
         self.setValue(key) -> sets the value of the key stored in this collection.
 
@@ -98,7 +98,7 @@ class DataCollection:
         """
         ...
 
-    def value(self, key: str) -> str:
+    def value(self, key: str) -> typing.Any:
         """
         self.value(key) -> returns the value of the key stored in this collection. Throws an exception if the key does not exist.
 

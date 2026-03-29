@@ -14,31 +14,31 @@ class FrameRange(object):
     A frame range, with an upper and lower bound and an increment.
     """
 
-    def __new__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs) -> FrameRange:
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
         ...
 
-    def __hash__(self, ) -> None:
+    def __hash__(self) -> int:
         """
         Return hash(self).
         """
         ...
 
-    def __str__(self, ) -> None:
+    def __str__(self) -> str:
         """
         Return str(self).
         """
         ...
 
-    def __iter__(self, ) -> None:
+    def __iter__(self) -> 'FrameRange':
         """
         Implement iter(self).
         """
         ...
 
-    def __next__(self, ) -> None:
+    def __next__(self) -> int:
         """
         Implement next(self).
         """
@@ -74,7 +74,7 @@ class FrameRange(object):
         """
         ...
 
-    def setFirst(self, n) -> None:
+    def setFirst(self, n: int) -> None:
         """
         self.setFirst(n) -> None
 
@@ -82,7 +82,7 @@ class FrameRange(object):
         """
         ...
 
-    def setLast(self, n) -> None:
+    def setLast(self, n: int) -> None:
         """
         self.setLast(n) -> None
 
@@ -90,7 +90,7 @@ class FrameRange(object):
         """
         ...
 
-    def setIncrement(self, n) -> None:
+    def setIncrement(self, n: int) -> None:
         """
         self.setIncrement(n) -> None
 
@@ -106,7 +106,7 @@ class FrameRange(object):
         """
         ...
 
-    def getFrame(self, n) -> int:
+    def getFrame(self, n: int) -> int:
         """
         self.getFrame(n) -> int
 
@@ -114,7 +114,7 @@ class FrameRange(object):
         """
         ...
 
-    def isInRange(self, n) -> int:
+    def isInRange(self, n: int) -> bool:
         """
         self.isInRange(n) -> int
 

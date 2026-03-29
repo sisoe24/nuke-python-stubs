@@ -14,13 +14,13 @@ class OutputContext(object):
     Describes a context in which expressions can be evaluated.
     """
 
-    def __new__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs) -> OutputContext:
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
         ...
 
-    def __hash__(self, ) -> None:
+    def __hash__(self) -> int:
         """
         Return hash(self).
         """
@@ -34,7 +34,7 @@ class OutputContext(object):
         """
         ...
 
-    def setView(self, n) -> True:
+    def setView(self, n: int) -> bool:
         """
         setView(n) -> True
 
@@ -50,7 +50,7 @@ class OutputContext(object):
         """
         ...
 
-    def setFrame(self, f) -> True:
+    def setFrame(self, f: float) -> bool:
         """
         setFrame(f) -> True
 
@@ -58,7 +58,7 @@ class OutputContext(object):
         """
         ...
 
-    def viewname(self, n) -> str:
+    def viewname(self, n: int) -> str:
         """
         viewname(n) -> string
 
@@ -66,7 +66,7 @@ class OutputContext(object):
         """
         ...
 
-    def viewshort(self, n) -> str:
+    def viewshort(self, n: int) -> str:
         """
         viewshort(n) -> string
 
@@ -82,7 +82,7 @@ class OutputContext(object):
         """
         ...
 
-    def viewFromName(self, name) -> int:
+    def viewFromName(self, name: str) -> int:
         """
         viewFromName(name) -> int
 

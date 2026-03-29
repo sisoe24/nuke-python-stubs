@@ -14,13 +14,13 @@ class ViewerWindow(object):
     ViewerWindow
     """
 
-    def __hash__(self, ) -> None:
+    def __hash__(self) -> int:
         """
         Return hash(self).
         """
         ...
 
-    def frameControl(self, i) -> True:
+    def frameControl(self, i: int) -> bool:
         """
         self.frameControl(i) -> True.
 
@@ -56,31 +56,31 @@ class ViewerWindow(object):
         """
         ...
 
-    def view(self,) -> str:
+    def view(self) -> str:
         """
         self.view() -> string name of 'current' multi-view view.
         """
         ...
 
-    def setView(self, s) -> Any:
+    def setView(self, s: str) -> None:
         """
         self.setView(s) -> set 'current' multi-view view to 's'.
         """
         ...
 
-    def nextView(self,) -> list:
+    def nextView(self) -> None:
         """
         self.nextView() -> switch to next view in settings Views list.
         """
         ...
 
-    def previousView(self,) -> list:
+    def previousView(self) -> None:
         """
         self.previousView() -> switch to previous view in settings Views list.
         """
         ...
 
-    def node(self,) -> Node:
+    def node(self) -> Node:
         """
         self.node() -> Node.
         Returns the Viewer node currently associated with this window.
@@ -88,7 +88,7 @@ class ViewerWindow(object):
         """
         ...
 
-    def activateInput(self, input: int, secondary=False) -> None:
+    def activateInput(self, input: int, secondary: bool = False) -> None:
         """
         self.activateInput(input, secondary=False) -> None
         Set the given viewer input to be active - i. e. show its image in the output window.
@@ -100,7 +100,7 @@ class ViewerWindow(object):
         """
         ...
 
-    def activeInput(self, secondary=False) -> int:
+    def activeInput(self, secondary: bool = False) -> Optional[int]:
         """
         self.activeInput(secondary=False) -> int
         Returns the currently active input of the viewer - i. e. the one with its image in the output window.
@@ -110,7 +110,7 @@ class ViewerWindow(object):
         """
         ...
 
-    def getGeometry(self,) -> list:
+    def getGeometry(self) -> List[Node]:
         """
         self.getGeometry() -> None
         Returns the a list of geometry nodes attached with this viewer
@@ -118,7 +118,7 @@ class ViewerWindow(object):
         """
         ...
 
-    def getGLCameraMatrix(self,) -> Any:
+    def getGLCameraMatrix(self) -> Matrix4:
         """
         self.getGLCameraMatrix() -> Matrix4
         Return the world transformations of the current GL viewer camera.

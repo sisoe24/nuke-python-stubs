@@ -20,61 +20,61 @@ class TimeBase:
     Can be initialised with an int, float, or str.  In addition, you can construct a TimeBase using TimeBase.fromRational(numerator, denominator), or use the predefined TimeBase values, for example TimeBase.k30NTSC.
     """
 
-    def __new__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs) -> 'TimeBase':
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
         ...
 
-    def __repr__(self) -> object:
+    def __repr__(self) -> str:
         """
         Return repr(self).
         """
         ...
 
-    def __lt__(self, value, ) -> None:
+    def __lt__(self, value: 'TimeBase') -> bool:
         """
         Return self<value.
         """
         ...
 
-    def __le__(self, value, ) -> None:
+    def __le__(self, value: 'TimeBase') -> bool:
         """
         Return self<=value.
         """
         ...
 
-    def __eq__(self, value, ) -> None:
+    def __eq__(self, value: 'TimeBase') -> bool:
         """
         Return self==value.
         """
         ...
 
-    def __ne__(self, value, ) -> None:
+    def __ne__(self, value: 'TimeBase') -> bool:
         """
         Return self!=value.
         """
         ...
 
-    def __gt__(self, value, ) -> None:
+    def __gt__(self, value: 'TimeBase') -> bool:
         """
         Return self>value.
         """
         ...
 
-    def __ge__(self, value, ) -> None:
+    def __ge__(self, value: 'TimeBase') -> bool:
         """
         Return self>=value.
         """
         ...
 
-    def __init__(self,  *args, **kwargs) -> None:
+    def __init__(self, *args, **kwargs) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """
         ...
 
-    def convert(self, t: int, from_: hiero.core.TimeBase, to: hiero.core.TimeBase) -> int:
+    def convert(t: int, from_: 'TimeBase', to: 'TimeBase') -> int:
         """
         staticmethod(function) -> method
 
@@ -97,7 +97,7 @@ class TimeBase:
         """
         ...
 
-    def convertTime(self, t: int, toRate: hiero.core.TimeBase) -> int:
+    def convertTime(self, t: int, toRate: 'TimeBase') -> int:
         """
         self.convertTime(t, toRate) -> returns the time specified by the first parameter converted from this object's time base into the second parameter's time base.
         If either of the time bases is invalid, this method returns the t parameter unchanged.
@@ -115,7 +115,7 @@ class TimeBase:
         """
         ...
 
-    def fromRational(self, numerator: int, denominator: int) -> hiero.core.TimeBase:
+    def fromRational(numerator: int, denominator: int) -> 'TimeBase':
         """
         staticmethod(function) -> method
 
@@ -138,7 +138,7 @@ class TimeBase:
         """
         ...
 
-    def fromString(self, str: str) -> hiero.core.TimeBase:
+    def fromString(str: str) -> 'TimeBase':
         """
         staticmethod(function) -> method
 
@@ -208,7 +208,7 @@ class TimeBase:
         """
         ...
 
-    def toRational(self) -> typing.Tuple[int, int]:
+    def toRational(self) -> Tuple[int, int]:
         """
         self.toRational() -> returns a tuple of the numerator and the denominator of the time base.
 

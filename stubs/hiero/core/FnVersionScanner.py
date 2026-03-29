@@ -45,7 +45,7 @@ class VersionScanner():
         # tuples of (remapped path, original path)
         self._pathRemaps = set()
 
-    def setVersionScanningIndexDetectionMethod(self, detectionMethod):
+    def setVersionScanningIndexDetectionMethod(self, detectionMethod: int) -> None:
         """ Set the method for detecting additional versions of Clips or TrackItems.
 
         It can be set to either VersionScanner.kDetectVersionDirectoryOnly or VersionScanner.kDetectVersionFullPath, and
@@ -66,14 +66,14 @@ class VersionScanner():
                 VersionScanner.kDetectVersionFullPath)
         self._versionScanningIndexDetectionMethod = detectionMethod
 
-    def getVersionScanningIndexDetectionMethod(self):
+    def getVersionScanningIndexDetectionMethod(self) -> int:
         """ Get the method for detecting additional versions of Clips or TrackItems.
 
         @return: The current method for detecting the version.
         """
         return self._versionScanningIndexDetectionMethod
 
-    def doScan(self, version):
+    def doScan(self, version: Version) -> list[Version]:
         """ Given a Version, scan for additional versions.
 
         @param version: An existing version.
@@ -90,7 +90,7 @@ class VersionScanner():
 
         return newVersions
 
-    def findVersionFiles(self, version):
+    def findVersionFiles(self, version: Version) -> list[str]:
         """ Find additional versions of an existing version
 
         @param version: An existing version.
@@ -117,7 +117,7 @@ class VersionScanner():
 
         return foundVersions
 
-    def findNewVersions(self, version):
+    def findNewVersions(self, version: Version) -> list[str]:
         """ Scan for files matching an existing Version.
 
         @param version: An existing Version.
@@ -126,7 +126,7 @@ class VersionScanner():
         """
         return self.findNewVersionsInPath(self.getFilename(version))
 
-    def findNewVersionsInPath(self, filename):
+    def findNewVersionsInPath(self, filename: str) -> list[str]:
         """ Scan for files matching an existing path.
         Note: This will include the files used by already added versions.
 
@@ -175,7 +175,7 @@ class VersionScanner():
 
         return files
 
-    def getFilename(self, version):
+    def getFilename(self, version) -> str:
         """ Get the file name of a given Version
 
         @param version: A Version.
@@ -206,7 +206,7 @@ class VersionScanner():
                     break
         return remappedFilename
 
-    def getActiveIndexFromPath(self, filepath):
+    def getActiveIndexFromPath(self, filepath: str) -> int:
         """ Get the active version from a file path. This will be affected by the index detection method. See
         setVersionScanningIndexDetectionMethod() for more details.
 
@@ -230,7 +230,7 @@ class VersionScanner():
             versionIndex = int(match.group(2))
         return versionIndex
 
-    def getGlobExpression(self, filename):
+    def getGlobExpression(self, filename: str) -> str:
         """ Find substrings representing sequence padding (_kPaddedSequenceRegex) and version (_kVersionRegex) and replace them with
         suitable token strings in 'glob' format. For example:
 
@@ -283,7 +283,7 @@ class VersionScanner():
 
         return filename
 
-    def checkNewVersion(self, originalFile, newFile):
+    def checkNewVersion(self, originalFile: str, newFile: str) -> bool:
         """ Check that newFile correctly matches a version of originalFile, where newFile is a real filename and originalFile includes
         sequence padding tokens (e.g. "%03d").
 
@@ -355,7 +355,7 @@ class VersionScanner():
             'checkNewVersion: No version found for original file %s, %s', originalFile, newFile)
         return False
 
-    def getMatches(self, originalFile):
+    def getMatches(self, originalFile: str) -> list[str]:
         """ Convenience function. When we get the glob results, we use regex to compare the original filename with the found files.
         Using _regexMatches, we ensure this regex matches are computed only once for each original filename.
 
@@ -372,7 +372,7 @@ class VersionScanner():
 
         return self._regexMatches
 
-    def isVisitedClip(self, filename):
+    def isVisitedClip(self, filename: str) -> bool:
         """ Convenience function for determining whether a given file is part of an already visited sequence.
 
         @param filename: The name of the file.
@@ -385,7 +385,7 @@ class VersionScanner():
 
         return filehead in self._visitedClips
 
-    def markVisitedClip(self, filename):
+    def markVisitedClip(self, filename: str) -> None:
         """ Convenience function that will add a file's path to a list of files already visited.
 
         @param filename: The name of the file.
@@ -395,7 +395,7 @@ class VersionScanner():
         filehead = self.getFileHead(filename)
         self._visitedClips.add(filehead)
 
-    def getFileHead(self, filename):
+    def getFileHead(self, filename: str) -> str:
         """ Extracts "filehead" from "filename", removing sequence numbers.
 
         @param filename: The name of the file.
@@ -418,7 +418,7 @@ class VersionScanner():
         else:
             return filename
 
-    def filterVersion(self, binitem, newVersionFile):
+    def filterVersion(self, binitem: BinItem, newVersionFile: str) -> bool:
         """ Determine whether the file newVersionFile should be included as a new Version of binitem
 
         @param binitem: The BinItem.
@@ -449,7 +449,7 @@ class VersionScanner():
 
         return True
 
-    def sortVersions(self, versionFiles):
+    def sortVersions(self, versionFiles: list[str]) -> list[str]:
         """ Basic bubble sort for versions (we do not expect large numbers of versions).
 
         @param versionFiles: a list of the Version files to be sorted
@@ -469,7 +469,7 @@ class VersionScanner():
                     stop = False
         return versions
 
-    def versionLessThan(self, filename1, filename2):
+    def versionLessThan(self, filename1: str, filename2: str) -> bool:
         """  Compare method for sorting. Compares version filenames according to:
         1st) Version index
         2nd) File extension
@@ -516,7 +516,7 @@ class VersionScanner():
 
         return filename1 < filename2
 
-    def determineVersionIndex(self, binitem, newFilename):
+    def determineVersionIndex(self, binitem: BinItem, newFilename: str) -> int:
         """ Get the index at which to insert new version files into a BinItem.
 
         @param binitem: The BinItem the Version will be inserted into.
@@ -538,7 +538,7 @@ class VersionScanner():
             destinationIndex += 1
         return destinationIndex
 
-    def insertVersions(self, binitem, versionFiles):
+    def insertVersions(self, binitem: BinItem, versionFiles: list[str]) -> list[Version]:
         """ Create Versions for a list of files and insert them into a BinItem.
 
         @param binitem: The BinItem the Versions will be inserted into.
@@ -553,7 +553,7 @@ class VersionScanner():
                 newVersions.append(newVersion)
         return newVersions
 
-    def createAndInsertClipVersion(self, binitem, newFilename):
+    def createAndInsertClipVersion(self, binitem: BinItem, newFilename: str) -> Optional[Version]:
         """ Create a new Version of a clip for a path and insert it.
 
         @param binitem: The BinItem for which a new Version will be created.
@@ -578,7 +578,7 @@ class VersionScanner():
                 "failed to create version index={} file={} '{}'".format(destinationIndex, newFilename, e))
             return None
 
-    def getVersionIndicesForPath(self, path):
+    def getVersionIndicesForPath(self, path: str) -> list[int]:
         """ Scan the given path and return a list of all the version indices which exist there.
 
         @param: The file path to be scanned.
@@ -589,7 +589,7 @@ class VersionScanner():
         versionIndices = sorted([self.getActiveIndexFromPath(path) for path in versionFiles])
         return versionIndices
 
-    def getNewVersionIndexForPath(self, path):
+    def getNewVersionIndexForPath(self, path: str) -> int:
         """ Find the existing versions for the given path, and return a new version index which doesn't
         already exist.
 
@@ -604,7 +604,7 @@ class VersionScanner():
             raise RuntimeError('No versioned files found')
 
     @staticmethod
-    def VersionScanLogger():
+    def VersionScanLogger() -> 'logging.Logger':
         """ Returns a logger for logging messages relevant to the VersionScanner
 
         @return: The VersionScanner logger

@@ -26,20 +26,20 @@ class NodeLayoutContext(object):
         self._nodes = []
         self._data = data
 
-    def addChild(self, child):
+    def addChild(self, child: 'NodeLayoutContext') -> None:
         """ Add a child context. """
         self._children.append(child)
 
-    def getChildren(self):
+    def getChildren(self) -> list['NodeLayoutContext']:
         """ Get the list of child contexts. """
         return self._children
 
-    def __addNode(self, node):
+    def __addNode(self, node: 'Node') -> None:
         """ Internal function for adding a node.  Checks if the object actually is a node. """
         if node.isNode():
             self._nodes.append(node)
 
-    def addNode(self, node):
+    def addNode(self, node: 'Node | list[Node]') -> None:
         """ Add a node or a sequence of nodes. """
         if hasattr(node, '__iter__'):
             for n in node:
@@ -47,26 +47,26 @@ class NodeLayoutContext(object):
         else:
             self.__addNode(node)
 
-    def getNodes(self):
+    def getNodes(self) -> list['Node']:
         """ Get the nodes added to this context. """
         return self._nodes
 
-    def getType(self):
+    def getType(self) -> str:
         """ Get the context type. """
         return self._type
 
-    def getName(self):
+    def getName(self) -> str:
         """ Get the context name. """
         return self._name
 
-    def getLabel(self):
+    def getLabel(self) -> str:
         """ Get the context label.  Returns the 'label' data if it was given, otherwise the name. """
         label = self.getData('label')
         if not label:
             label = self._name
         return label
 
-    def getData(self, key):
+    def getData(self, key: str) -> 'Any':
         """ Try to retrieve extra data given to the context.  Returns the data, or None
             if it was not set. """
         try:
@@ -271,11 +271,11 @@ class ScriptWriter:
         self.serializeRawKnobs(rawKnobs)
         self.endSerializeNode()
 
-    def getMainLayoutContext(self):
+    def getMainLayoutContext(self) -> 'NodeLayoutContext':
         """ Get the main layout context for the script. """
         return self._layoutContextStack[0]
 
-    def pushLayoutContext(self, type, name, **data):
+    def pushLayoutContext(self, type: str, name: str, **data: 'Any') -> None:
         """ Push a layout context to the stack.  Any nodes added to the script will be included in the new
             layout context.  If the current context already has a child with the same type and name, that
             will be used instead of creating a new one. """
@@ -292,7 +292,7 @@ class ScriptWriter:
         currentContext.addChild(newContext)
         self._layoutContextStack.append(newContext)
 
-    def popLayoutContext(self):
+    def popLayoutContext(self) -> None:
         """ Pop the current layout context from the stack. """
         self._layoutContextStack.pop()
 
@@ -315,21 +315,21 @@ def _bundledNukePath():
     return appDirPath
 
 
-def hieroNukePath():
+def hieroNukePath() -> str:
     """hiero.core.hieroNukePath() -> returns the HieroNuke executable path which ships with Hiero. DEPRECATED Use getBundledNukePath() instead.
 
     @return: A string containing the HieroNuke executable path."""
     return getBundledNukePath()
 
 
-def getBundledNukePath():
+def getBundledNukePath() -> str:
     """ hiero.core.getBundledNukePath() -> return the bundled Nuke executable
 
     @return: A string containing the bundled Nuke executable path."""
     return _bundledNukePath()
 
 
-def getBundledPythonPath():
+def getBundledPythonPath() -> str:
     """ hiero.core.getBundledPythonPath() -> return the bundled Python executable
 
     @return: A string containing the bundled Python executable path."""
@@ -406,7 +406,7 @@ def _addNukeLicenseArgs(args):
         args.append('--indie')
 
 
-def nukeThreadsMemoryPreferences():
+def nukeThreadsMemoryPreferences() -> tuple[int, int]:
     """ Get the number of threads and memory in MB to be used for Nuke render processes from the application preferences. """
     settings = hiero.core.ApplicationSettings()
     try:
@@ -450,7 +450,7 @@ def nukeThreadsMemoryPreferences():
     return numThreads, memoryInMBs
 
 
-def openNukeProcess(*args, **kwargs):
+def openNukeProcess(*args, **kwargs) -> subprocess.Popen:
     """ Helper function wrap around a Popen call to run Nuke.  On Macs, there
     seems to be a possibility of some output to stderr between the fork and
     exec calls, which results in an error in CoreFoundation because it's attempting
@@ -511,7 +511,7 @@ def executeNukeScript(path, logfile, executeOnSingleSocket=False):
             "No Nuke executable at \"%s\".\n\nThis path can be configured in the 'Nuke / Export' page within the application preferences." % (nukePath,))
 
 
-def launchNuke(path=None, *extraArgs):
+def launchNuke(path: str | None = None, *extraArgs: 'Any') -> subprocess.Popen:
     """
     Launches a Nuke edition subprocess of this executable, optionally with a Nuke Script specified by 'path'.
 

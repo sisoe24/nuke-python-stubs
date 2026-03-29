@@ -6,7 +6,7 @@ import _nuke
 from hiero.core import Clip, TrackItem, MediaSource, remapPath
 
 
-def isNukeScript(filename):
+def isNukeScript(filename: str) -> bool:
     """Returns True if filename ends with .nk (.nk / .nknc for NC)
        (or .nk / .nkind for Nuke Indie)
     """
@@ -81,7 +81,7 @@ class CompSourceInfo(object):
             traceback.print_exc()
             raise RuntimeError('Error retrieving comp info: %s' % self.compSource)
 
-    def isComp(self):
+    def isComp(self) -> bool:
         """ Get if the source is actually a comp. """
         return self.nkPath is not None
 

@@ -31,7 +31,7 @@ class TextIO(IO):
     __orig_bases__ = (typing.IO[str],)
     __parameters__ = ()
 
-    def __init__(self,  *args, **kwargs):
+    def __init__(self, *args, **kwargs) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """

@@ -14,13 +14,13 @@ class Format(object):
     A format.
     """
 
-    def __new__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs) -> 'Format':
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
         ...
 
-    def __hash__(self, ) -> None:
+    def __hash__(self) -> int:
         """
         Return hash(self).
         """
@@ -40,7 +40,7 @@ class Format(object):
         """
         ...
 
-    def setName(self, name) -> None:
+    def setName(self, name: str) -> None:
         """
         self.setName(name) -> None
 
@@ -56,7 +56,7 @@ class Format(object):
         """
         ...
 
-    def setWidth(self, newWidth) -> None:
+    def setWidth(self, newWidth: int) -> None:
         """
         self.setWidth(newWidth) -> None
 
@@ -72,7 +72,7 @@ class Format(object):
         """
         ...
 
-    def setHeight(self, newHeight) -> None:
+    def setHeight(self, newHeight: int) -> None:
         """
         self.setHeight(newHeight) -> None
 
@@ -88,7 +88,7 @@ class Format(object):
         """
         ...
 
-    def setX(self, newX) -> None:
+    def setX(self, newX: int) -> None:
         """
         self.setX(newX) -> None
 
@@ -104,7 +104,7 @@ class Format(object):
         """
         ...
 
-    def setY(self, newY) -> None:
+    def setY(self, newY: int) -> None:
         """
         self.setY(newY) -> None
 
@@ -120,7 +120,7 @@ class Format(object):
         """
         ...
 
-    def setR(self, newR) -> None:
+    def setR(self, newR: int) -> None:
         """
         self.setR(newR) -> None
 
@@ -136,7 +136,7 @@ class Format(object):
         """
         ...
 
-    def setT(self, newT) -> None:
+    def setT(self, newT: int) -> None:
         """
         self.setT(newT) -> None
 
@@ -152,7 +152,7 @@ class Format(object):
         """
         ...
 
-    def setPixelAspect(self, aspectRatio) -> None:
+    def setPixelAspect(self, aspectRatio: float) -> None:
         """
         self.setPixelAspect(aspectRatio) -> None
 
@@ -160,7 +160,7 @@ class Format(object):
         """
         ...
 
-    def add(self, name) -> None:
+    def add(self, name: str) -> None:
         """
         self.add(name) -> None
 
@@ -168,7 +168,7 @@ class Format(object):
         """
         ...
 
-    def fromUV(self, u: int | float, v: int | float) -> Iterable:
+    def fromUV(self, u: float, v: float) -> list[float]:
         """
         self.fromUV(u, v) -> [x, y]
 
@@ -180,7 +180,7 @@ class Format(object):
         """
         ...
 
-    def toUV(self, x: int | float, y: int | float) -> Iterable:
+    def toUV(self, x: float, y: float) -> list[float]:
         """
         self.toUV(x, y) -> (u, v)
 
@@ -192,7 +192,7 @@ class Format(object):
         """
         ...
 
-    def scaled(self, sx: int | float, sy, tx, ty) -> Format:
+    def scaled(self, sx: float, sy: float, tx: float, ty: float) -> 'Format':
         """
         scaled(sx, sy, tx, ty) -> Format
 

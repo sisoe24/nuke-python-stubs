@@ -14,73 +14,73 @@ class Node(object):
 
     """
 
-    def __new__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs) -> Node:
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
         ...
 
-    def __repr__(self, ) -> None:
+    def __repr__(self) -> str:
         """
         Return repr(self).
         """
         ...
 
-    def __hash__(self, ) -> None:
+    def __hash__(self) -> int:
         """
         Return hash(self).
         """
         ...
 
-    def __str__(self, ) -> None:
+    def __str__(self) -> str:
         """
         Return str(self).
         """
         ...
 
-    def __lt__(self, value, ) -> None:
+    def __lt__(self, value: "Node") -> bool:
         """
         Return self<value.
         """
         ...
 
-    def __le__(self, value, ) -> None:
+    def __le__(self, value: "Node") -> bool:
         """
         Return self<=value.
         """
         ...
 
-    def __eq__(self, value, ) -> None:
+    def __eq__(self, value: "Node") -> bool:
         """
         Return self==value.
         """
         ...
 
-    def __ne__(self, value, ) -> None:
+    def __ne__(self, value: "Node") -> bool:
         """
         Return self!=value.
         """
         ...
 
-    def __gt__(self, value, ) -> None:
+    def __gt__(self, value: "Node") -> bool:
         """
         Return self>value.
         """
         ...
 
-    def __ge__(self, value, ) -> None:
+    def __ge__(self, value: "Node") -> bool:
         """
         Return self>=value.
         """
         ...
 
-    def __len__(self, ) -> None:
+    def __len__(self) -> int:
         """
         Return len(self).
         """
         ...
 
-    def __getitem__(self, key, ) -> None:
+    def __getitem__(self, key) -> Any:
         """
         Return self[key].
         """
@@ -114,7 +114,7 @@ class Node(object):
         """
         ...
 
-    def clones(self,) -> int | float:
+    def clones(self) -> int:
         """
         self.clones() -> Number of clones.
         @return: Number of clones.
@@ -129,7 +129,7 @@ class Node(object):
         """
         ...
 
-    def cloneInstanceNode(self, ) -> int:
+    def cloneInstanceNode(self, i: int) -> Optional[Node]:
         """
         self.cloneInstanceNode() -> The node for a valid clone instance index. If index is 0 this node(the base) is returned.
         @param i: Instance index.
@@ -137,7 +137,7 @@ class Node(object):
         """
         ...
 
-    def cloneInstances(self,) -> list:
+    def cloneInstances(self,) -> list[Node]:
         """
         self.cloneInstances() -> Return a list of all instances for this node.
         @return: List of nodes.
@@ -151,7 +151,7 @@ class Node(object):
         """
         ...
 
-    def input(self, i: int | float) -> int:
+    def input(self, i: int) -> Any:
         """
         self.input(i) -> The i'th input.
         @param i: Input number.
@@ -159,7 +159,7 @@ class Node(object):
         """
         ...
 
-    def setInput(self, i: int | float, node: Node) -> bool:
+    def setInput(self, i: int, node: Node) -> bool:
         """
         self.setInput(i, node) -> bool
         Connect input i to node if canSetInput() returns true.
@@ -176,14 +176,14 @@ class Node(object):
         """
         ...
 
-    def numKnobs(self,) -> int | float:
+    def numKnobs(self,) -> int:
         """
         self.numKnobs() -> The number of knobs.
         @return: The number of knobs.
         """
         ...
 
-    def knob(self, p: Union[str, int], follow_link=None):
+    def knob(self, p: Union[str, int], follow_link: bool = True) -> Knob:
         """
         self.knob(p[, follow_link]) -> The knob named p or the pth knob.
         @param p: A string or an integer.
@@ -192,7 +192,7 @@ class Node(object):
         """
         ...
 
-    def optionalInput(self,) -> int | float:
+    def optionalInput(self) -> int:
         """
         self.optionalInput() -> Number of first optional input.
         @return: Number of first optional input.
@@ -206,7 +206,7 @@ class Node(object):
         """
         ...
 
-    def minimumInputs(self,) -> int | float:
+    def minimumInputs(self,) -> int:
         """
         self.minimumInputs() -> Minimum number of inputs this node can have.
         @return: Minimum number of inputs this node can have.
@@ -220,14 +220,14 @@ class Node(object):
         """
         ...
 
-    def maximumInputs(self,) -> int | float:
+    def maximumInputs(self,) -> int:
         """
         self.maximumInputs() -> Maximum number of inputs this node can have.
         @return: Maximum number of inputs this node can have.
         """
         ...
 
-    def metadata(self, key: Optional[str] = None, time: Optional[int | float] = None, view=None) -> str:
+    def metadata(self, key: Optional[str] = None, time: Optional[int] = None, view=None) -> Union[str, dict, None]:
         """
         self.metadata(key, time, view) -> value or dict
         Return the metadata item for key on this node at current output context, or at optional time and view.
@@ -247,14 +247,14 @@ class Node(object):
         """
         ...
 
-    def maximumOutputs(self,) -> int | float:
+    def maximumOutputs(self,) -> int:
         """
         self.maximumOutputs() -> Maximum number of outputs this node can have.
         @return: Maximum number of outputs this node can have.
         """
         ...
 
-    def connectInput(self, i: int | float, node: Node) -> bool:
+    def connectInput(self, i: int, node: Node) -> bool:
         """
         self.connectInput(i, node) -> bool
         Connect the output of 'node' to the i'th input or the next available unconnected input. The requested input is tried first, but if it is already set then subsequent inputs are tried until an unconnected one is found, as when you drop a connection arrow onto a node in the GUI.
@@ -264,7 +264,7 @@ class Node(object):
         """
         ...
 
-    def canSetInput(self, i: int | float, node: Node) -> bool:
+    def canSetInput(self, i: int, node: Node) -> bool:
         """
         self.canSetInput(i, node) -> bool
         Check whether the output of 'node' can be connected to input i.
@@ -295,7 +295,7 @@ class Node(object):
         """
         ...
 
-    def showControlPanel(self, forceFloat=False) -> None:
+    def showControlPanel(self, forceFloat: bool = False) -> None:
         """
         self.showControlPanel(forceFloat = false) -> None
         @param forceFloat: Optional python object. If it evaluates to True the control panel will always open as a floating panel. Default is False.
@@ -318,7 +318,7 @@ class Node(object):
         """
         ...
 
-    def setName(self, name: str, uncollide=True, updateExpressions=False) -> None:
+    def setName(self, name: str, uncollide: bool = True, updateExpressions: bool = False) -> None:
         """
         self.setName(name, uncollide=True, updateExpressions=False) -> None
         Set name of the node and resolve name collisions if optional named argument 'uncollide' is True.
@@ -337,14 +337,14 @@ class Node(object):
         """
         ...
 
-    def xpos(self,) -> int | float:
+    def xpos(self) -> int:
         """
         self.xpos() -> X position of node in node graph.
         @return: X position of node in node graph.
         """
         ...
 
-    def setXYpos(self, x: int | float, y: int | float) -> None:
+    def setXYpos(self, x: int, y: int) -> None:
         """
         self.setXYpos(x, y) -> None.
         Set the (x, y) position of node in node graph.
@@ -354,7 +354,7 @@ class Node(object):
         """
         ...
 
-    def setXpos(self, x: int | float) -> None:
+    def setXpos(self, x: int) -> None:
         """
         self.setXpos(x) -> None.
         Set the x position of node in node graph.
@@ -363,7 +363,7 @@ class Node(object):
         """
         ...
 
-    def setYpos(self, y: int | float) -> None:
+    def setYpos(self, y: int) -> None:
         """
         self.setYpos(y) -> None.
         Set the y position of node in node graph.
@@ -372,14 +372,14 @@ class Node(object):
         """
         ...
 
-    def ypos(self,) -> int | float:
+    def ypos(self) -> int:
         """
         self.ypos() -> Y position of node in node graph.
         @return: Y position of node in node graph.
         """
         ...
 
-    def setCustomIcon(self, image: str, scale: Optional[int | float] = None, offsetX=None, offsetY=None) -> bool:
+    def setCustomIcon(self, image: str, scale: Optional[int] = None, offsetX: Optional[int] = None, offsetY: Optional[int] = None) -> bool:
         """
         self.setCustomIcon(image, scale, offsetX, offsetY) -> bool.
         Set a custom icon for the node.
@@ -443,7 +443,7 @@ class Node(object):
         """
         ...
 
-    def writeKnobs(self, i) -> str:
+    def writeKnobs(self, i: int) -> str:
         """
         self.writeKnobs(i) -> String in .nk form.
         Return a tcl list. If TO_SCRIPT | TO_VALUE is not on, this is a simple list
@@ -496,7 +496,7 @@ class Node(object):
         """
         ...
 
-    def running(self,) -> Node:
+    def running(self) -> Optional[Node]:
         """
         self.running() -> Node rendering when paralled threads are running or None.
         Class method.
@@ -563,7 +563,7 @@ class Node(object):
         """
         ...
 
-    def channels(self,) -> list:
+    def channels(self) -> list[str]:
         """
         self.channels() -> String list.
         List channels output by this node.
@@ -617,7 +617,7 @@ class Node(object):
         """
         ...
 
-    def frameRange(self,) -> int | float:
+    def frameRange(self) -> FrameRange:
         """
         self.frameRange() -> FrameRange.
         Frame range for this node.
@@ -625,7 +625,7 @@ class Node(object):
         """
         ...
 
-    def upstreamFrameRange(self, i: int | float) -> int | float:
+    def upstreamFrameRange(self, i: int) -> Optional[FrameRange]:
         """
         self.upstreamFrameRange(i) -> FrameRange
         Frame range for the i'th input of this node.
@@ -682,7 +682,7 @@ class Node(object):
         """
         ...
 
-    def bbox(self,) -> list:
+    def bbox(self) -> list[int]:
         """
         self.bbox() -> List of x, y, w, h.
         Bounding box of the node.
@@ -690,7 +690,7 @@ class Node(object):
         """
         ...
 
-    def dependencies(self, what: Any = None) -> list[Node]:
+    def dependencies(self, what: Optional[int] = None) -> list[Node]:
         """
         self.dependencies(what) -> List of nodes.
 
@@ -709,7 +709,7 @@ class Node(object):
         """
         ...
 
-    def dependent(self, what: Any = None, forceEvaluate: bool = None) -> list[Node]:
+    def dependent(self, what: Optional[int] = None, forceEvaluate: Optional[bool] = True) -> list[Node]:
         """
         self.dependent(what, forceEvaluate) -> List of nodes.
 
@@ -732,7 +732,7 @@ class Node(object):
         """
         ...
 
-    def fileDependencies(self, start: int, end: int) -> list:
+    def fileDependencies(self, start: int, end: int) -> list[tuple[Node, list[str]]]:
         """
         self.fileDependencies(start, end) -> List of nodes and filenames.
 
@@ -774,13 +774,13 @@ class Node(object):
         """
         ...
 
-    def __reduce_ex__(self, *args: typing.Any, **kwargs: typing.Any) -> None:
+    def __reduce_ex__(self, *args: typing.Any, **kwargs: typing.Any) -> tuple:
         """
         Helper for pickle.
         """
         ...
 
-    def opHashes(self,) -> list:
+    def opHashes(self) -> list[int]:
         """
         self.opHashes() -> list of int
 
@@ -788,7 +788,7 @@ class Node(object):
         """
         ...
 
-    def linkableKnobs(self, knobType: list) -> list:
+    def linkableKnobs(self, knobType: int) -> list[LinkableKnobInfo]:
         """
         self.linkableKnobs(knobType) -> List
 
@@ -813,7 +813,7 @@ class Node(object):
         """
         ...
 
-    def performanceInfo(self, category) -> dict:
+    def performanceInfo(self, category: Optional[int] = None) -> dict[str, Union[int, float]]:
         """
         self.performanceInfo( category ) -> Returns performance information for this node. Performance timing must be enabled.
         @category: performance category ( optional ).A performance category, must be either nuke.PROFILE_STORE, nuke.PROFILE_VALIDATE, nuke.PROFILE_REQUEST or nuke.PROFILE_ENGINE The default is nuke.PROFILE_ENGINE which gives the performance info of the render engine.
@@ -838,14 +838,14 @@ class Node(object):
         """
         ...
 
-    def localizationProgress(self,) -> int:
+    def localizationProgress(self,) -> float:
         """
         self.localizationProgress() -> Checks and reports on progress of localization of the current node.
         @return: float, between 0.0 (not localized) and 1.0 (localized)
         """
         ...
 
-    def isLocalizationOutdated(self,) -> str:
+    def isLocalizationOutdated(self,) -> bool:
         """
         self.isLocalizationOutdated() -> Returns if there are changes detected in the source file.
         @return: true if the Localization source file has changed
@@ -858,31 +858,31 @@ class Node(object):
         """
         ...
 
-    def parent(self,) -> Any:
+    def parent(self,) -> Optional[Node]:
         """
         self.parent() -> Return the parent group node for this node.
         """
         ...
 
-    def lock(self,) -> Any:
+    def lock(self,) -> None:
         """
         self.lock() -> Sets the node to a locked state where knobs cannot be edited.
         """
         ...
 
-    def unlock(self,) -> Any:
+    def unlock(self,) -> None:
         """
         self.unlock() -> Unlocks the node and makes knobs editable.
         """
         ...
 
-    def locked(self,) -> bool:
+    def locked(self) -> bool:
         """
         self.locked() -> Returns True if the node is locked, False otherwise.
         """
         ...
 
-    def addCallback(self, string, Callable) -> Any:
+    def addCallback(self, string: str, Callable: Callable) -> None:
         """
         self.addCallback(string, Callable) -> Add a callback to a specific event
         Specific callback type can be find in the documentation of the related type or function.
@@ -890,31 +890,31 @@ class Node(object):
         """
         ...
 
-    def removeCallback(self, string) -> str:
+    def removeCallback(self, string: str) -> None:
         """
         self.removeCallback(string) -> Remove a callback to a specific event identified as a string.
         """
         ...
 
-    def clearCallbacks(self,) -> Any:
+    def clearCallbacks(self) -> None:
         """
         self.clearCallbacks() -> Remove all callbacks on the node.
         """
         ...
 
-    def executeCallback(self, string) -> Any:
+    def executeCallback(self, string: str) -> None:
         """
         self.executeCallback(string) -> Executes the callback, if exists related to the specified event.
         """
         ...
 
-    def getStage(self, *args) -> None:
+    def getStage(self, *args) -> Any:
         """
         self.getStage([OutputContext]) -> Runs the graph and returns the composed stage for geometry, Viewer or ScanlineRender nodes (if the latter two have geometry nodes connected, else None). Returns None for other node types.
         """
         ...
 
-    def getUsdStage(self, *args) -> None:
+    def getUsdStage(self, *args) -> Any:
         """
         self.getUsdStage([OutputContext]) -> Runs the graph and returns the composed usd stage for geometry, Viewer or ScanlineRender nodes (if the latter two have geometry nodes connected, else None). Returns None for other node types.
         """

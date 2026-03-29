@@ -14,13 +14,13 @@ class Box(object):
     A 2-dimensional rectangle. Described by left, right, top and bottom coords (width and height are calculated as necessary).
     """
 
-    def __new__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs) -> Box:
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
         ...
 
-    def __hash__(self, ) -> None:
+    def __hash__(self) -> int:
         """
         Return hash(self).
         """
@@ -40,7 +40,7 @@ class Box(object):
         """
         ...
 
-    def setX(self, n) -> None:
+    def setX(self, n: int) -> None:
         """
         self.setX(n) -> None
 
@@ -56,7 +56,7 @@ class Box(object):
         """
         ...
 
-    def setY(self, n) -> None:
+    def setY(self, n: int) -> None:
         """
         self.setY(n) -> None
 
@@ -72,7 +72,7 @@ class Box(object):
         """
         ...
 
-    def setR(self, n) -> None:
+    def setR(self, n: int) -> None:
         """
         self.setR(n) -> None
 
@@ -88,7 +88,7 @@ class Box(object):
         """
         ...
 
-    def setT(self, n) -> None:
+    def setT(self, n: int) -> None:
         """
         self.setT(n) -> None
 
@@ -104,7 +104,7 @@ class Box(object):
         """
         ...
 
-    def setW(self, n) -> None:
+    def setW(self, n: int) -> None:
         """
         self.setW(n) -> None
 
@@ -120,7 +120,7 @@ class Box(object):
         """
         ...
 
-    def setH(self, n) -> None:
+    def setH(self, n: int) -> None:
         """
         self.setH(n) -> None
 
@@ -144,7 +144,7 @@ class Box(object):
         """
         ...
 
-    def set(self, x, y, r, t) -> None:
+    def set(self, x: int, y: int, r: int, t: int) -> None:
         """
         self.set(x, y, r, t) -> None
 
@@ -166,7 +166,7 @@ class Box(object):
         """
         ...
 
-    def move(self, dx, dy) -> None:
+    def move(self, dx: int, dy: int) -> None:
         """
         self.move(dx, dy) -> None.
 
@@ -174,7 +174,7 @@ class Box(object):
         """
         ...
 
-    def pad(self, dx, dy, dr, dt) -> None:
+    def pad(self, dx: int, dy: int, dr: int, dt: int) -> None:
         """
         self.pad(dx, dy, dr, dt) -> None.
 
@@ -182,7 +182,7 @@ class Box(object):
         """
         ...
 
-    def clampX(self, x) -> int:
+    def clampX(self, x: int) -> int:
         """
         self.clampX(x) -> int.
 
@@ -190,7 +190,7 @@ class Box(object):
         """
         ...
 
-    def clampY(self, y) -> int:
+    def clampY(self, y: int) -> int:
         """
         self.clampY(y) -> int.
 
@@ -198,7 +198,7 @@ class Box(object):
         """
         ...
 
-    def merge(self, x, y, r, t) -> None:
+    def merge(self, x: int, y: int, r: int, t: int) -> None:
         """
         self.merge(x, y, r, t) -> None.
 
@@ -206,7 +206,7 @@ class Box(object):
         """
         ...
 
-    def intersect(self, x, y, r, t) -> None:
+    def intersect(self, x: int, y: int, r: int, t: int) -> None:
         """
         self.intersect(x, y, r, t) -> None.
 

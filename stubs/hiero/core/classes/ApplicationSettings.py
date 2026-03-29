@@ -18,7 +18,7 @@ class ApplicationSettings:
     Helper object to set and get application settings.
     """
 
-    def __new__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs) -> ApplicationSettings:
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
@@ -30,7 +30,7 @@ class ApplicationSettings:
         """
         ...
 
-    def boolValue(self, *args: typing.Any, **kwargs: typing.Any) -> str:
+    def boolValue(self, key: str, defaultValue: bool = False) -> str:
         """
         self.boolValue(key, defaultValue) -> returns the previously stored value as True or False, named by the key parameter, or the defaultValue parameter
         self.boolValue(key) ->  returns the previously stored value as True or False, named by the key parameter, or the default value as configured (if configured) by the Hiero code. Use this method if you're looking up a value used by Hiero internally.
@@ -51,7 +51,7 @@ class ApplicationSettings:
         """
         ...
 
-    def setValueOverride(self, name, value) -> None:
+    def setValueOverride(self, name: str, value: typing.Any) -> None:
         """
         self.setValue(key, value) -> saves the value with the application's settings using the key
 
@@ -61,7 +61,7 @@ class ApplicationSettings:
         """
         ...
 
-    def getValueOverride(self, name, defaultValue=None) -> int:
+    def getValueOverride(self, name: str, defaultValue: typing.Any = None) -> typing.Any:
         """
         self.value(key, defaultValue=None) -> returns the previously stored string value named by the key parameter, or the defaultValue parameter
 

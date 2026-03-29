@@ -14,31 +14,31 @@ class BackdropNode(Node):
 
     """
 
-    def __repr__(self, ) -> None:
+    def __repr__(self) -> str:
         """
         Return repr(self).
         """
         ...
 
-    def __str__(self, ) -> None:
+    def __str__(self) -> str:
         """
         Return str(self).
         """
         ...
 
-    def __len__(self, ) -> None:
+    def __len__(self) -> int:
         """
         Return len(self).
         """
         ...
 
-    def __getitem__(self, key, ) -> None:
+    def __getitem__(self, key: Any) -> Any:
         """
         Return self[key].
         """
         ...
 
-    def selectNodes(self, selectNodes) -> None:
+    def selectNodes(self, selectNodes: bool) -> None:
         """
         self.selectNodes(selectNodes) -> None
         Select or deselect all nodes in backdrop node
@@ -50,7 +50,7 @@ class BackdropNode(Node):
         """
         ...
 
-    def getNodes(self,) -> list:
+    def getNodes(self) -> list[nuke.Node]:
         """
         self.getNodes() -> a list of nodes contained inside the backdrop
         Get the nodes contained inside a backdrop node

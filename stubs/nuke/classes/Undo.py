@@ -14,13 +14,13 @@ class Undo(object):
     Undo
     """
 
-    def __new__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs) -> Undo:
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
         ...
 
-    def __hash__(self, ) -> None:
+    def __hash__(self) -> int:
         """
         Return hash(self).
         """
@@ -56,49 +56,49 @@ class Undo(object):
         """
         ...
 
-    def undoSize(self, *args: typing.Any, **kwargs: typing.Any) -> None:
+    def undoSize(self) -> int:
         """
         Number of undo's that can be done.
         """
         ...
 
-    def redoSize(self, *args: typing.Any, **kwargs: typing.Any) -> None:
+    def redoSize(self) -> int:
         """
         Number of redo's that can be done.
         """
         ...
 
-    def undoTruncate(self, *args: typing.Any, **kwargs: typing.Any) -> None:
+    def undoTruncate(self, n: int, *args: typing.Any, **kwargs: typing.Any) -> None:
         """
         Destroy any undo's greater or equal to n.
         """
         ...
 
-    def redoTruncate(self, *args: typing.Any, **kwargs: typing.Any) -> None:
+    def redoTruncate(self, n: int, *args: typing.Any, **kwargs: typing.Any) -> None:
         """
         Destroy any redo's greater or equal to n.
         """
         ...
 
-    def undoDescribe(self, *args: typing.Any, **kwargs: typing.Any) -> None:
+    def undoDescribe(self, n: int) -> str:
         """
         Return short description of undo n.
         """
         ...
 
-    def redoDescribe(self, *args: typing.Any, **kwargs: typing.Any) -> None:
+    def redoDescribe(self, n: int) -> str:
         """
         Return short description of redo n.
         """
         ...
 
-    def undoDescribeFully(self, *args: typing.Any, **kwargs: typing.Any) -> None:
+    def undoDescribeFully(self, n: int) -> str:
         """
         Return long description of undo n.
         """
         ...
 
-    def redoDescribeFully(self, *args: typing.Any, **kwargs: typing.Any) -> None:
+    def redoDescribeFully(self, n: int) -> str:
         """
         Return long description of redo n.
         """
@@ -128,7 +128,7 @@ class Undo(object):
         """
         ...
 
-    def disabled(self, *args: typing.Any, **kwargs: typing.Any) -> None:
+    def disabled(self) -> bool:
         """
         True if disable() has been called
         """

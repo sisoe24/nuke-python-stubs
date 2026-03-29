@@ -14,13 +14,13 @@ class XYZ_Knob(Array_Knob):
     A knob which holds a 3D coordinate.
     """
 
-    def __new__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs) -> 'XYZ_Knob':
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
         ...
 
-    def __hash__(self, ) -> None:
+    def __hash__(self) -> int:
         """
         Return hash(self).
         """
@@ -32,7 +32,7 @@ class XYZ_Knob(Array_Knob):
         """
         ...
 
-    def names(self, n) -> str:
+    def names(self, n: int) -> str:
         """
         names(n) -> string
 
@@ -40,7 +40,7 @@ class XYZ_Knob(Array_Knob):
         """
         ...
 
-    def value(self, n, oc) -> float:
+    def value(self, n: int, oc: Optional['OutputContext'] = None) -> float:
         """
         value(n, oc) -> float
 
@@ -48,7 +48,7 @@ class XYZ_Knob(Array_Knob):
         """
         ...
 
-    def parent(self,) -> XYZ_Knob:
+    def parent(self) -> Optional[XYZ_Knob]:
         """
         parent() -> XYZ_Knob
 
@@ -56,7 +56,7 @@ class XYZ_Knob(Array_Knob):
         """
         ...
 
-    def x(self, oc) -> float:
+    def x(self, oc: Optional['OutputContext'] = None) -> float:
         """
         x(oc) -> float
 
@@ -64,7 +64,7 @@ class XYZ_Knob(Array_Knob):
         """
         ...
 
-    def y(self, oc) -> float:
+    def y(self, oc: Optional['OutputContext'] = None) -> float:
         """
         y(oc) -> float
 
@@ -72,7 +72,7 @@ class XYZ_Knob(Array_Knob):
         """
         ...
 
-    def z(self, oc) -> float:
+    def z(self, oc: Optional['OutputContext'] = None) -> float:
         """
         z(oc) -> float
 

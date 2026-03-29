@@ -14,19 +14,19 @@ class ProgressTask(object):
     ProgressTask
     """
 
-    def __new__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs) -> 'ProgressTask':
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
         ...
 
-    def __hash__(self, ) -> None:
+    def __hash__(self) -> int:
         """
         Return hash(self).
         """
         ...
 
-    def setProgress(self, i) -> None:
+    def setProgress(self, i: int) -> None:
         """
         self.setProgress(i) -> None.
 
@@ -34,7 +34,7 @@ class ProgressTask(object):
         """
         ...
 
-    def setMessage(self, s) -> None:
+    def setMessage(self, s: str) -> None:
         """
         self.setMessage(s) -> None.
 

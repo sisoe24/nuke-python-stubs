@@ -4,7 +4,7 @@ from hiero.core import events
 from PySide2.QtCore import QObject
 
 
-def localCallback(func):
+def localCallback(func: 'Callable[..., Any]') -> 'Callable[..., Any]':
     """ Decorator for a local callback function (handling events/signals from local
     changes). Stops the function from being called if a remote message was being handled
     """
@@ -19,7 +19,7 @@ def localCallback(func):
     return inner
 
 
-def remoteCallback(func):
+def remoteCallback(func: 'Callable[..., Any]') -> 'Callable[..., Any]':
     """ Decorator for a callback for handling remote messages. Sets the
     _handlingRemoteChange flag
     """
@@ -43,12 +43,12 @@ class SyncTool(QObject):
         self._handlingRemoteChange = False
         self._eventCallbacks = []
 
-    def registerEventCallback(self, eventType, callback):
+    def registerEventCallback(self, eventType: str, callback: 'Callable[..., None]') -> None:
         """ Register a callback with hiero.core.events. Will be cleaned up in shutdown() """
         self._eventCallbacks.append((eventType, callback))
         events.registerInterest(eventType, callback)
 
-    def shutdown(self):
+    def shutdown(self) -> None:
         """ Clean up the tool, the default implementation unregisters any event callbacks """
         for eventType, callback in self._eventCallbacks:
             events.unregisterInterest(eventType, callback)

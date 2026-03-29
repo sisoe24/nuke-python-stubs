@@ -18,7 +18,7 @@ class ForwardRef(_Final):
     __slots__ = ('__forward_arg__', '__forward_code__', '__forward_evaluated__', '__forward_value__',
                  '__forward_is_argument__', '__forward_is_class__', '__forward_module__')
 
-    def __init__(self, arg, is_argument=True, module=None, *, is_class=False):
+    def __init__(self, arg: str, is_argument: bool = True, module: str | None = None, *, is_class: bool = False) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """
@@ -30,19 +30,19 @@ class ForwardRef(_Final):
         """
         return None
 
-    def __eq__(self, other):
+    def __eq__(self, other: object) -> bool:
         """
         Return self==value.
         """
         return None
 
-    def __hash__(self):
+    def __hash__(self) -> int:
         """
         Return hash(self).
         """
         return None
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Return repr(self).
         """

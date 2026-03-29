@@ -18,49 +18,49 @@ class AudioTrack(TrackBase):
     Object for manipulating audio tracks.
     """
 
-    def __new__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs) -> AudioTrack:
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
         ...
 
-    def __repr__(self) -> object:
+    def __repr__(self) -> str:
         """
         Return repr(self).
         """
         ...
 
-    def __setattr__(self, name, value, ) -> None:
+    def __setattr__(self, name: str, value: typing.Any) -> None:
         """
         Implement setattr(self, name, value).
         """
         ...
 
-    def __delattr__(self, name, ) -> None:
+    def __delattr__(self, name: str) -> None:
         """
         Implement delattr(self, name).
         """
         ...
 
-    def __init__(self,  *args, **kwargs) -> None:
+    def __init__(self, *args: typing.Any, **kwargs: typing.Any) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """
         ...
 
-    def __bool__(self, ) -> None:
+    def __bool__(self) -> bool:
         """
         True if self else False
         """
         ...
 
-    def __len__(self, ) -> None:
+    def __len__(self) -> int:
         """
         Return len(self).
         """
         ...
 
-    def __getitem__(self, key, ) -> None:
+    def __getitem__(self, key: int) -> hiero.core.TrackItem:
         """
         Return self[key].
         """
@@ -75,7 +75,7 @@ class AudioTrack(TrackBase):
         """
         ...
 
-    def addTrackItem(self, *args: typing.Any, **kwargs: typing.Any) -> TrackItem:
+    def addTrackItem(self, *args: typing.Any, **kwargs: typing.Any) -> hiero.core.TrackItem:
         """
         self.addTrackItem(clip, audioChannel, position) -> if the first parameter is a Clip object, the second and third parameters must be specified and this method creates a new track item with the specified audio channel and adds it to this audio track at the given position.
         If the first parameter is a TrackItem, then this method just adds the track item specified.
@@ -100,7 +100,7 @@ class AudioTrack(TrackBase):
         """
         ...
 
-    def copy(self) -> object:
+    def copy(self) -> AudioTrack:
         """
         self.copy() -> returns a deep copy of this object.
 
@@ -117,7 +117,7 @@ class AudioTrack(TrackBase):
         """
         ...
 
-    def items(self) -> object:
+    def items(self) -> tuple[hiero.core.TrackItem, ...]:
         """
         self.items() -> returns a tuple with all of the track items contained by this track.
 
@@ -125,7 +125,7 @@ class AudioTrack(TrackBase):
         """
         ...
 
-    def parent(self) -> object:
+    def parent(self) -> hiero.core.Sequence:
         """
         self.parent() -> returns the sequence that contains this track.
 

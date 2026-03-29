@@ -44,19 +44,19 @@ class ResolveTable(object):
         """
         ...
 
-    def entryCount(self) -> None:
+    def entryCount(self) -> int:
         """
         self.entryCount() -> returns the number of entries in this resolver.
         """
         ...
 
-    def entryName(self, index) -> None:
+    def entryName(self, index: int) -> str:
         """
         self.entryCount(index) -> returns the name of the entry based on the index.
         """
         ...
 
-    def entryDescription(self, index) -> None:
+    def entryDescription(self, index: int) -> str:
         """
         self.entryDescription(index) -> returns a description of the item, which can be used to populate a dialog to the user when they are picking keywords.
         """
@@ -93,14 +93,14 @@ class ResolveTable(object):
         ...
 
     @property
-    def __dict__(self) -> typing.Any:
+    def __dict__(self) -> typing.Dict[str, typing.Any]:
         """
         dictionary for instance variables (if defined)
         """
         ...
 
     @property
-    def __weakref__(self) -> typing.Any:
+    def __weakref__(self) -> typing.List[typing.Any]:
         """
         list of weak references to the object (if defined)
         """

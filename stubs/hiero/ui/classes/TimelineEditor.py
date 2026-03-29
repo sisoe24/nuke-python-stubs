@@ -18,7 +18,7 @@ class TimelineEditor:
     Object representing the Timeline Editor.
     """
 
-    def __new__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs) -> TimelineEditor:
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
@@ -42,7 +42,7 @@ class TimelineEditor:
         """
         ...
 
-    def getSelection(self) -> object:
+    def getSelection(self) -> tuple[TrackItem, Transition]:
         """
         Deprecated; please use the selection method instead.
 
@@ -66,7 +66,7 @@ class TimelineEditor:
         """
         ...
 
-    def selection(self) -> object:
+    def selection(self) -> tuple[TrackItem, Transition]:
         """
         self.selection() -> returns a tuple with the currently selected items.
 
@@ -74,7 +74,7 @@ class TimelineEditor:
         """
         ...
 
-    def sequence(self) -> object:
+    def sequence(self) -> Sequence:
         """
         self.sequence() -> returns the Sequence currently being edited in the timeline editor.
 
@@ -82,7 +82,7 @@ class TimelineEditor:
         """
         ...
 
-    def setSelection(self, *args: typing.Any, **kwargs: typing.Any) -> None:
+    def setSelection(self, selection: typing.Union[TrackItem, list[TrackItem]]) -> None:
         """
         self.setSelection( hiero.core.TrackItem )
         self.setSelection( [hiero.core.TrackItem] )
@@ -92,7 +92,7 @@ class TimelineEditor:
         """
         ...
 
-    def setTrackSelection(self, *args: typing.Any, **kwargs: typing.Any) -> None:
+    def setTrackSelection(self, selection: typing.Union[TrackBase, list[TrackBase]]) -> None:
         """
         self.setTrackSelection( hiero.core.TrackBase )
         self.setTrackSelection( [hiero.core.TrackBase] )

@@ -35,7 +35,7 @@ class VersionScanner(object):
         """
         ...
 
-    def setVersionScanningIndexDetectionMethod(self, detectionMethod) -> None:
+    def setVersionScanningIndexDetectionMethod(self, detectionMethod: int) -> None:
         """
         Set the method for detecting additional versions of Clips or TrackItems.
 
@@ -55,7 +55,7 @@ class VersionScanner(object):
         """
         ...
 
-    def getVersionScanningIndexDetectionMethod(self) -> None:
+    def getVersionScanningIndexDetectionMethod(self) -> int:
         """
         Get the method for detecting additional versions of Clips or TrackItems.
 
@@ -63,7 +63,7 @@ class VersionScanner(object):
         """
         ...
 
-    def doScan(self, version) -> list:
+    def doScan(self, version: Version) -> list:
         """
         Given a Version, scan for additional versions.
 
@@ -73,7 +73,7 @@ class VersionScanner(object):
         """
         ...
 
-    def findVersionFiles(self, version) -> list:
+    def findVersionFiles(self, version: Version) -> list:
         """
         Find additional versions of an existing version
 
@@ -154,7 +154,7 @@ class VersionScanner(object):
         """
         ...
 
-    def getMatches(self, originalFile: str) -> None:
+    def getMatches(self, originalFile: str) -> list:
         """
         Convenience function. When we get the glob results, we use regex to compare the original filename with the found files.
         Using _regexMatches, we ensure this regex matches are computed only once for each original filename.
@@ -165,7 +165,7 @@ class VersionScanner(object):
         """
         ...
 
-    def isVisitedClip(self, filename: str) -> str:
+    def isVisitedClip(self, filename: str) -> bool:
         """
         Convenience function for determining whether a given file is part of an already visited sequence.
 
@@ -216,7 +216,7 @@ class VersionScanner(object):
         """
         ...
 
-    def versionLessThan(self, filename1: str, filename2: str) -> str:
+    def versionLessThan(self, filename1: str, filename2: str) -> bool:
         """
         Compare method for sorting. Compares version filenames according to:
         1st) Version index
@@ -252,7 +252,7 @@ class VersionScanner(object):
         """
         ...
 
-    def createAndInsertClipVersion(self, binitem: Version, newFilename: str) -> None:
+    def createAndInsertClipVersion(self, binitem: Version, newFilename: str) -> typing.Optional[Version]:
         """
         Create a new Version of a clip for a path and insert it.
 
@@ -263,7 +263,7 @@ class VersionScanner(object):
         """
         ...
 
-    def getVersionIndicesForPath(self, path) -> list:
+    def getVersionIndicesForPath(self, path: str) -> list:
         """
         Scan the given path and return a list of all the version indices which exist there.
 
@@ -284,7 +284,7 @@ class VersionScanner(object):
         """
         ...
 
-    def VersionScanLogger(self,) -> VersionScanner:
+    def VersionScanLogger(self) -> typing.Any:
         """
         Returns a logger for logging messages relevant to the VersionScanner
 
@@ -293,14 +293,14 @@ class VersionScanner(object):
         ...
 
     @property
-    def __dict__(self) -> typing.Any:
+    def __dict__(self) -> dict:
         """
         dictionary for instance variables (if defined)
         """
         ...
 
     @property
-    def __weakref__(self) -> typing.Any:
+    def __weakref__(self) -> list:
         """
         list of weak references to the object (if defined)
         """

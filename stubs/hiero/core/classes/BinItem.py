@@ -18,55 +18,55 @@ class BinItem:
     Generic object wrapper with shared functionality for sequences and clips.
     """
 
-    def __new__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs) -> 'BinItem':
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
         ...
 
-    def __repr__(self) -> object:
+    def __repr__(self) -> str:
         """
         Return repr(self).
         """
         ...
 
-    def __hash__(self, ) -> None:
+    def __hash__(self) -> int:
         """
         Return hash(self).
         """
         ...
 
-    def __lt__(self, value, ) -> None:
+    def __lt__(self, value: typing.Any) -> bool:
         """
         Return self<value.
         """
         ...
 
-    def __le__(self, value, ) -> None:
+    def __le__(self, value: typing.Any) -> bool:
         """
         Return self<=value.
         """
         ...
 
-    def __eq__(self, value, ) -> None:
+    def __eq__(self, value: typing.Any) -> bool:
         """
         Return self==value.
         """
         ...
 
-    def __ne__(self, value, ) -> None:
+    def __ne__(self, value: typing.Any) -> bool:
         """
         Return self!=value.
         """
         ...
 
-    def __gt__(self, value, ) -> None:
+    def __gt__(self, value: typing.Any) -> bool:
         """
         Return self>value.
         """
         ...
 
-    def __ge__(self, value, ) -> None:
+    def __ge__(self, value: typing.Any) -> bool:
         """
         Return self>=value.
         """
@@ -78,25 +78,25 @@ class BinItem:
         """
         ...
 
-    def __bool__(self, ) -> None:
+    def __bool__(self) -> bool:
         """
         True if self else False
         """
         ...
 
-    def __getitem__(self, key, ) -> None:
+    def __getitem__(self, key: typing.Any) -> 'BinItem':
         """
         Return self[key].
         """
         ...
 
-    def __len__(self, ) -> None:
+    def __len__(self) -> int:
         """
         Return len(self).
         """
         ...
 
-    def activeItem(self) -> None:
+    def activeItem(self) -> typing.Optional[typing.Union[hiero.core.Clip, hiero.core.Sequence]]:
         """
         self.activeItem() -> returns the item contained by this bin item.
 
@@ -112,7 +112,7 @@ class BinItem:
         """
         ...
 
-    def addSnapshot(self, *args: typing.Any, **kwargs: typing.Any) -> Snapshot:
+    def addSnapshot(self, *args: typing.Any, **kwargs: typing.Any) -> hiero.core.Snapshot:
         """
         self.addSnapshot(comment) -> adds a new snapshot for the object, with a comment.
         self.addSnapshot(sequence, comment) -> adds a new snapshot for the object, using the sequence as the new snapshot, setting the comment.
@@ -152,7 +152,7 @@ class BinItem:
         """
         ...
 
-    def copy(self) -> object:
+    def copy(self) -> 'BinItem':
         """
         self.copy() -> returns a deep copy of this object.
 
@@ -160,7 +160,7 @@ class BinItem:
         """
         ...
 
-    def createClipVersion(self, *args, **knobs) -> Version:
+    def createClipVersion(self, *args: typing.Any, **knobs: typing.Any) -> hiero.core.Version:
         """
         self.createClipVersion(position, path, **knobs) -> Construct a clip from a path and optional knob values, and add it as a new version. Raises RuntimeError if creating the clip fails or the path already exists as a version.
 
@@ -191,7 +191,7 @@ class BinItem:
         """
         ...
 
-    def hasVersion(self, *args: typing.Any, **kwargs: typing.Any) -> Union[True, False]:
+    def hasVersion(self, *args: typing.Any, **kwargs: typing.Any) -> bool:
         """
         self.hasVersion(index) -> checks if a given version exists and is valid.
 
@@ -217,7 +217,7 @@ class BinItem:
         """
         ...
 
-    def items(self) -> object:
+    def items(self) -> typing.Tuple[hiero.core.Version, ...]:
         """
         self.items() -> returns a tuple containing all of the different versions of this object.
 
@@ -273,7 +273,7 @@ class BinItem:
         """
         ...
 
-    def parentBin(self) -> object:
+    def parentBin(self) -> typing.Optional[hiero.core.Bin]:
         """
         self.parentBin() -> returns the bin object that contains this bin item.
 
@@ -289,7 +289,7 @@ class BinItem:
         """
         ...
 
-    def project(self) -> object:
+    def project(self) -> typing.Optional[hiero.core.Project]:
         """
         self.project() -> returns the Project object that this object is attached to, or None if the object is not attached to a project.
 
@@ -326,7 +326,7 @@ class BinItem:
         """
         ...
 
-    def setActiveVersionIndex(self, *args, **kwargs) -> Version:
+    def setActiveVersionIndex(self, *args: typing.Any, **kwargs: typing.Any) -> hiero.core.Version:
         """
         self.setActiveVersionIndex(version) -> sets the currently active version by index.
 
@@ -352,7 +352,7 @@ class BinItem:
         """
         ...
 
-    def snapshots(self) -> object:
+    def snapshots(self) -> typing.Tuple[hiero.core.Snapshot, ...]:
         """
         self.snapshots() -> returns a tuple of all of the snapshots contained by this object.
 
@@ -374,7 +374,7 @@ class BinItem:
         """
         ...
 
-    def version(self, *args: typing.Any, **kwargs: typing.Any) -> Version:
+    def version(self, *args: typing.Any, **kwargs: typing.Any) -> hiero.core.Version:
         """
         self.version(index) -> gets a Version object for the version of the bin item specified by the index.
 
@@ -383,7 +383,7 @@ class BinItem:
         """
         ...
 
-    def versionDown(self, *args, **kwargs) -> Version:
+    def versionDown(self, *args: typing.Any, **kwargs: typing.Any) -> hiero.core.Version:
         """
         self.versionDown() -> decrements the current/active version and returns the newly active Version object of the bin item.
 
@@ -394,7 +394,7 @@ class BinItem:
         """
         ...
 
-    def versionMaxAvailable(self, *args, **kwargs) -> Version:
+    def versionMaxAvailable(self, *args: typing.Any, **kwargs: typing.Any) -> hiero.core.Version:
         """
         self.versionMaxAvailable() -> finds the highest version that is currently loaded and does not have missing or offline media and sets it as the active version on this bin item.
 
@@ -405,7 +405,7 @@ class BinItem:
         """
         ...
 
-    def versionMinAvailable(self, *args, **kwargs) -> Version:
+    def versionMinAvailable(self, *args: typing.Any, **kwargs: typing.Any) -> hiero.core.Version:
         """
         self.versionMinAvailable() -> finds the lowest version that is currently loaded and does not have missing or offline media and sets it as the active version on this bin item.
 
@@ -416,7 +416,7 @@ class BinItem:
         """
         ...
 
-    def versionNextAvailable(self, *args, **kwargs) -> Version:
+    def versionNextAvailable(self, *args: typing.Any, **kwargs: typing.Any) -> hiero.core.Version:
         """
         self.versionNextAvailable() -> finds the next (higher) version that is currently loaded and does not have missing or offline media and sets it as the active version on this bin item.
 
@@ -427,7 +427,7 @@ class BinItem:
         """
         ...
 
-    def versionPrevAvailable(self, *args, **kwargs) -> Version:
+    def versionPrevAvailable(self, *args: typing.Any, **kwargs: typing.Any) -> hiero.core.Version:
         """
         self.versionPrevAvailable() -> finds the prev (lower) version that is currently loaded and does not have missing or offline media and sets it as the active version on this bin item.
 
@@ -438,7 +438,7 @@ class BinItem:
         """
         ...
 
-    def versionUp(self, *args, **kwargs) -> Version:
+    def versionUp(self, *args, **kwargs) -> hiero.core.Version:
         """
         self.versionUp() -> increments the current/active version and returns the newly active Version object of the bin item.
 

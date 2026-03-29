@@ -11,7 +11,7 @@ from .FnExportKeywords import (KeywordTooltips, kFileBaseKeyword,
 
 class BinProcessor(hiero.core.ProcessorBase):
 
-    def __init__(self, preset, submission=None, synchronous=False):
+    def __init__(self, preset: 'BinProcessorPreset', submission: object = None, synchronous: bool = False) -> None:
         """Initialize"""
         hiero.core.ProcessorBase.__init__(self, preset, submission, synchronous)
 
@@ -165,7 +165,7 @@ class BinProcessorPreset(hiero.core.ProcessorPreset):
         # This remaps the project root if os path remapping has been set up in the preferences
         self.properties()['exportRoot'] = hiero.core.remapPath(self.properties()['exportRoot'])
 
-    def addCustomResolveEntries(self, resolver):
+    def addCustomResolveEntries(self, resolver: 'ResolveTable') -> None:
         """addDefaultResolveEntries(self, resolver)
         Create resolve entries for default resolve tokens shared by all task types.
         @param resolver : ResolveTable object"""

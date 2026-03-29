@@ -14,14 +14,14 @@ class TaskUIRegistry (ui.IExporterUIRegistry):
         self._processorUIs = dict()
         self._instances = []
 
-    def registerTaskUI(self, taskPreset, taskUI):
+    def registerTaskUI(self, taskPreset: ITaskPreset, taskUI: ITaskUI) -> None:
         """Register an ITaskUI class and associate with an ITaskPreset class """
         presetInstance = taskPreset('dummypreset', dict())
         instance = taskUI(presetInstance)
         self._taskUIs[presetInstance.ident()] = instance
         hiero.core.log.debug('Task UI Registered ' + str(taskPreset) + ' ' + str(taskUI))
 
-    def registerProcessorUI(self, processorPreset, processorUI):
+    def registerProcessorUI(self, processorPreset: IProcessorPreset, processorUI: IProcessorUI) -> None:
         """Register IProcessorUI class and associate with IProcessorPreset class """
         hiero.core.log.debug('registerProcessorUI')
         presetInstance = processorPreset('dummypreset', dict())
@@ -30,31 +30,31 @@ class TaskUIRegistry (ui.IExporterUIRegistry):
         hiero.core.log.debug('Processor UI Registered ' +
                              str(processorPreset) + ' ' + str(processorUI))
 
-    def numTaskUIs(self):
+    def numTaskUIs(self) -> int:
         """ Get the number of registered ITaskUI classes. """
         return len(self._taskUIs)
 
-    def numProcessorUIs(self):
+    def numProcessorUIs(self) -> int:
         """ Get the number of registered IProcessorUI classes. """
         return len(self._processorUIs)
 
-    def getTaskUI(self, index):
+    def getTaskUI(self, index: int) -> TaskUI:
         """ Return TaskUI registered at specified index """
         # Note: This is indexing into a dict, which isn't ordered.  Should it be?
         taskUI = list(self._taskUIs.values())[index]
         return taskUI
 
-    def getProcessorUI(self, index):
+    def getProcessorUI(self, index: int) -> ProcessorUI:
         """ Return ProcessorUI registered at specified index """
         # Note: This is indexing into a dict, which isn't ordered.  Should it be?
         return self.processorUIByIndex(index)
 
-    def processorUIByIndex(self, index):
+    def processorUIByIndex(self, index: int) -> ProcessorUI:
         """Return ProcessorUI registered at specified index"""
         processorUI = list(self._processorUIs.values())[index]
         return processorUI
 
-    def getTaskUIForPreset(self, preset):
+    def getTaskUIForPreset(self, preset: ITaskPreset) -> TaskUI:
         """ Return TaskUI object associated with the preset type.  Note that this
         returns a stored instance of the preset, which is suitable for calling
         from C++ code.  For actually constructing UIs, getNewTaskUIForPreset()
@@ -63,14 +63,14 @@ class TaskUIRegistry (ui.IExporterUIRegistry):
             return self._taskUIs[preset.ident()]
         return None
 
-    def getNewTaskUIForPreset(self, preset):
+    def getNewTaskUIForPreset(self, preset: ITaskPreset) -> TaskUI:
         """ Get a new instance of the task UI class for the preset. """
         ui = self.getTaskUIForPreset(preset)
         if ui:
             ui = type(ui)(preset)
         return ui
 
-    def getProcessorUIForPreset(self, preset):
+    def getProcessorUIForPreset(self, preset: IProcessorPreset) -> ProcessorUI:
         """ Return ProcessorUI object associated with the preset type.  Note that
         this returns a stored instance of the preset. """
         if preset.ident() in self._processorUIs:

@@ -24,7 +24,7 @@ postProcessServer.start(nukePath, scriptPath, pathRemaps, errorhandler.Frameserv
 hiero.core.events.registerInterest(hiero.core.events.EventType.kShutdownFinal, stopServer)
 
 
-def postProcessScript(scriptPath):
+def postProcessScript(scriptPath: str) -> str | None:
     """ Send a command to post-process the Nuke script to the post processor. If
     an error occurs, returns a string containing an error message, otherwise
     returns None."""

@@ -42,7 +42,7 @@ class ClientSyncHost(ClientDataProvider):
         super(ClientSyncHost, self).__init__(messageDispatcher)
         self.messageDispatcher._registerCallback(messages.Connect, self._onGuestConnected)
 
-    def addGuest(self, clientId, clientData):
+    def addGuest(self, clientId: str, clientData: dict) -> None:
         """ Adds a new guest to the client data without sending notifications to clients. """
         self.clientData[clientId] = clientData
         self.clientDataChanged.emit()

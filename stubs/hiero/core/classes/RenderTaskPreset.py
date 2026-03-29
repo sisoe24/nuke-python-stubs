@@ -19,25 +19,25 @@ class RenderTaskPreset(TaskPresetBase):
     associated with generating Nuke render output.
     """
 
-    def AllViews(self,) -> None:
+    def AllViews(self) -> str:
         """
         Get the special cased value for all on the views knob
         """
         ...
 
-    def __init__(self, taskType, name, properties) -> None:
+    def __init__(self, taskType: str, name: str, properties: dict) -> None:
         """
         Initialise presets to default values
         """
         ...
 
-    def _setCodecSettings(self, codecType, extension, fullname, isVideo, properties) -> None:
+    def _setCodecSettings(self, codecType: str, extension: str, fullname: str, isVideo: bool, properties: dict) -> None:
         """
         Build dictionary of format settings.
         """
         ...
 
-    def _getCodecSettingsDefault(self, codecType, codecKey) -> None:
+    def _getCodecSettingsDefault(self, codecType: str, codecKey: str) -> Any:
         """
         Search codec settings for a matching codecKey and return a default value.
 
@@ -56,7 +56,7 @@ class RenderTaskPreset(TaskPresetBase):
         """
         ...
 
-    def summary(self) -> None:
+    def summary(self) -> str:
         """
         Called by Hiero to get a summary of the preset settings as a string.
         """

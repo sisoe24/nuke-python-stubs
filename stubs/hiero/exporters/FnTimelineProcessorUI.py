@@ -24,7 +24,7 @@ class TimelineProcessorUI(hiero.ui.ProcessorUIBase, QtCore.QObject):
     def toolTip(self):
         return 'Process as Sequence generates an output for an entire sequence, or subset of a sequence (e.g. EDL, XML, full sequence transcode).'
 
-    def validateSelection(self, exportItems):
+    def validateSelection(self, exportItems: list) -> bool:
         """Validate if any items in the selection are suitible for processing by this processor"""
 
         invalidItems = []
@@ -36,7 +36,7 @@ class TimelineProcessorUI(hiero.ui.ProcessorUIBase, QtCore.QObject):
                              str(len(invalidItems) < len(exportItems)))
         return len(invalidItems) < len(exportItems)
 
-    def validate(self, exportItems):
+    def validate(self, exportItems: list) -> bool:
         """Validate settings in UI. Return False for failure in order to abort export."""
         if not hiero.ui.ProcessorUIBase.validate(self, exportItems):
             return False

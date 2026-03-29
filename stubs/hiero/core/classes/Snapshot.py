@@ -18,13 +18,13 @@ class Snapshot:
     Object representing a snapshot of a sequence or clip. Can be created with a Clip or a Sequence object.
     """
 
-    def __new__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs) -> Snapshot:
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
         ...
 
-    def __repr__(self) -> object:
+    def __repr__(self) -> str:
         """
         Return repr(self).
         """
@@ -36,7 +36,7 @@ class Snapshot:
         """
         ...
 
-    def __bool__(self, ) -> None:
+    def __bool__(self) -> bool:
         """
         True if self else False
         """
@@ -58,7 +58,7 @@ class Snapshot:
         """
         ...
 
-    def item(self) -> None:
+    def item(self) -> object:
         """
         self.item() -> returns the clip or sequence stored with this snapshot.
 
@@ -74,7 +74,7 @@ class Snapshot:
         """
         ...
 
-    def setComment(self, comment: str) -> None:
+    def setComment(self, comment: str) -> str:
         """
         self.setComment(comment) -> sets the comment on this snapshot object.
 

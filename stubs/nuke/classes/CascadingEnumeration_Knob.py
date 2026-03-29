@@ -24,19 +24,19 @@ class CascadingEnumeration_Knob(Enumeration_Knob):
     k = nuke.Enumeration_Knob('MyEnumKnobName', 'MyEnumKnobLabel', ['menu1/label1', 'label2'])
     """
 
-    def __new__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs) -> 'CascadingEnumeration_Knob':
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
         ...
 
-    def __hash__(self, ) -> None:
+    def __hash__(self) -> int:
         """
         Return hash(self).
         """
         ...
 
-    def __init__(self,  *args, **kwargs) -> None:
+    def __init__(self, *args, **kwargs) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """

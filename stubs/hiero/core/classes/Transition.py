@@ -18,25 +18,25 @@ class Transition(TrackItemBase):
     Object representing a transition between two clips.
     """
 
-    def __new__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs) -> 'Transition':
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
         ...
 
-    def __repr__(self) -> object:
+    def __repr__(self) -> str:
         """
         Return repr(self).
         """
         ...
 
-    def __setattr__(self, name, value, ) -> None:
+    def __setattr__(self, name, value) -> None:
         """
         Implement setattr(self, name, value).
         """
         ...
 
-    def __delattr__(self, name, ) -> None:
+    def __delattr__(self, name) -> None:
         """
         Implement delattr(self, name).
         """
@@ -48,7 +48,7 @@ class Transition(TrackItemBase):
         """
         ...
 
-    def __bool__(self, ) -> None:
+    def __bool__(self) -> bool:
         """
         True if self else False
         """
@@ -200,7 +200,7 @@ class Transition(TrackItemBase):
         """
         ...
 
-    def dissolveNode(self) -> object:
+    def dissolveNode(self) -> nuke.Node:
         """
         self.dissolveNode() -> Returns the Dissolve node which controls the transition curve.
 
@@ -230,7 +230,7 @@ class Transition(TrackItemBase):
         """
         ...
 
-    def parent(self) -> object:
+    def parent(self) -> Union[hiero.core.AudioTrack, hiero.core.VideoTrack]:
         """
         self.parent() -> returns the AudioTrack or VideoTrack that contains this transition.
 
@@ -238,7 +238,7 @@ class Transition(TrackItemBase):
         """
         ...
 
-    def project(self) -> object:
+    def project(self) -> Optional[hiero.core.Project]:
         """
         self.project() -> returns the Project object that this is attached to, or None if the object is not attached to a project.
 
@@ -254,7 +254,7 @@ class Transition(TrackItemBase):
         """
         ...
 
-    def setTimelineIn(self, arg__1: int) -> None:
+    def setTimelineIn(self, inTime: int) -> None:
         """
         self.setTimelineIn(inTime) -> sets the in point for this transition. Note that this trims the duration of the transition.
 
@@ -262,7 +262,7 @@ class Transition(TrackItemBase):
         """
         ...
 
-    def setTimelineOut(self, arg__1: int) -> None:
+    def setTimelineOut(self, outTime: int) -> None:
         """
         self.setTimelineOut(outTime) -> sets the out point for this transition. Note that this trims the duration of the transition.
 

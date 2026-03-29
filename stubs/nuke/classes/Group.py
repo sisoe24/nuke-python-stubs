@@ -14,31 +14,31 @@ class Group(Node):
 
     """
 
-    def __repr__(self, ) -> None:
+    def __repr__(self) -> str:
         """
         Return repr(self).
         """
         ...
 
-    def __str__(self, ) -> None:
+    def __str__(self) -> str:
         """
         Return str(self).
         """
         ...
 
-    def __len__(self, ) -> None:
+    def __len__(self) -> int:
         """
         Return len(self).
         """
         ...
 
-    def __getitem__(self, key, ) -> None:
+    def __getitem__(self, key) -> Any:
         """
         Return self[key].
         """
         ...
 
-    def nodes(self,) -> list:
+    def nodes(self) -> List[Node]:
         """
         self.nodes() -> List of nodes
         List of nodes in group.
@@ -46,7 +46,7 @@ class Group(Node):
         """
         ...
 
-    def numNodes(self,) -> int | float:
+    def numNodes(self) -> int:
         """
         self.numNodes() -> Number of nodes
         Number of nodes in group.
@@ -54,7 +54,7 @@ class Group(Node):
         """
         ...
 
-    def node(self, s: str) -> str:
+    def node(self, s: str) -> Optional[Node]:
         """
         self.node(s) -> Node with name s or None.
         Locate a node by name.
@@ -63,7 +63,7 @@ class Group(Node):
         """
         ...
 
-    def findNode(self, name) -> str:
+    def findNode(self, name: str) -> Optional[Node]:
         """
         self.findNode(name) -> Node
         Find the first node who's local name matches string 'name', including any clones.
@@ -72,7 +72,7 @@ class Group(Node):
         """
         ...
 
-    def run(self, callable: Callable) -> Callable:
+    def run(self, callable: Callable) -> Any:
         """
         self.run(callable) -> Result of callable.
         Execute in the context of node. All names are evaluated relative to this object.
@@ -81,7 +81,7 @@ class Group(Node):
         """
         ...
 
-    def begin(self,) -> Group:
+    def begin(self) -> Group:
         """
         self.begin() -> Group.
         All python code that follows will be executed in the context of node. All names are evaluated relative to this object. Must be paired with end.
@@ -89,7 +89,7 @@ class Group(Node):
         """
         ...
 
-    def end(self,) -> None:
+    def end(self) -> None:
         """
         self.end() -> None.
         All python code that follows will no longer be executed in the context of node. Must be paired with begin.
@@ -97,7 +97,7 @@ class Group(Node):
         """
         ...
 
-    def output(self,) -> Union[Node, None]:
+    def output(self) -> Optional[Node]:
         """
         self.output() -> Node or None.
         Return output node of group.
@@ -105,7 +105,7 @@ class Group(Node):
         """
         ...
 
-    def selectedNode(self,) -> Union[Node, None]:
+    def selectedNode(self) -> Optional[Node]:
         """
         self.selectedNode() -> Node or None.
         Returns the node the user is most likely thinking about. This is the last node the user clicked on, if it is selected.  Otherwise it is an 'output' (one with no selected outputs) of the set of selected nodes. If no nodes are selected then None is returned.
@@ -113,7 +113,7 @@ class Group(Node):
         """
         ...
 
-    def selectedNodes(self,) -> Union[Node, None]:
+    def selectedNodes(self) -> List[Node]:
         """
         self.selectedNodes() -> Node or None.
         Selected nodes.
@@ -121,7 +121,7 @@ class Group(Node):
         """
         ...
 
-    def connectSelectedNodes(self, backward, inputA) -> None:
+    def connectSelectedNodes(self, backward: bool, inputA: int) -> None:
         """
         self.connectSelectedNodes(backward, inputA) -> None.
         Connect the selected nodes.
@@ -131,7 +131,7 @@ class Group(Node):
         """
         ...
 
-    def splaySelectedNodes(self, backward, inputA) -> None:
+    def splaySelectedNodes(self, backward: bool, inputA: int) -> None:
         """
         self.splaySelectedNodes(backward, inputA) -> None.
         Splay the selected nodes.
@@ -141,7 +141,7 @@ class Group(Node):
         """
         ...
 
-    def expand(self,) -> None:
+    def expand(self) -> List[Node]:
         """
         self.expand() -> None.
         Moves all nodes from the group node into its parent group, maintaining node input
@@ -163,7 +163,7 @@ class Group(Node):
         """
         ...
 
-    def __reduce_ex__(self, *args: typing.Any, **kwargs: typing.Any) -> None:
+    def __reduce_ex__(self, *args: Any, **kwargs: Any) -> tuple:
         """
         Helper for pickle.
         """
@@ -175,7 +175,7 @@ class Group(Node):
         """
         ...
 
-    def __init__(self,  *args, **kwargs) -> None:
+    def __init__(self, *args: Any, **kwargs: Any) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """

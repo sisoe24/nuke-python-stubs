@@ -22,7 +22,7 @@ class TrackFinderByNameWithDialog(object):
        # Reference back the track builder, for access to the getTimelineRange method
         self.trackBuilder = trackBuilder
 
-    def findOrCreateTrackByName(self, sequence, trackName):
+    def findOrCreateTrackByName(self, sequence: Any, trackName: str) -> Any:
         """ Searches the sequence for a track with the given name.  If none are found,
             creates a new one. """
         # a track always has to have a name
@@ -46,7 +46,7 @@ class TrackFinderByNameWithDialog(object):
             isNewTrack = True
         return track, isNewTrack
 
-    def checkTrackItemCollisionsShowDialog(self, selection, track):
+    def checkTrackItemCollisionsShowDialog(self, selection: Any, track: Any) -> None:
         """ Check for collisions with items on the destination track.  If there are any, shows a TrackItemCollisionDialog. """
         srcCollisions = []
         dstCollisions = set()
@@ -110,7 +110,7 @@ class TrackFinderByNameWithDialog(object):
         else:
             return selection, track
 
-    def findTrack(self, name, selection, sequence):
+    def findTrack(self, name: str, selection: Any, sequence: Any) -> Any:
         """ Find or create a track to build on for the given selection, and with name. """
         track = None
         trackName = name
@@ -154,7 +154,7 @@ class TrackFinderByTag(object):
         self.trackBuilder = trackBuilder
 
     @staticmethod
-    def FindOrCreateTrackFromIndex(startIndex, sequence, tagName):
+    def FindOrCreateTrackFromIndex(self, startIndex: int, sequence: Any, tagName: str) -> tuple:
         ''' Finds the next track in sequence above startIndex which has the tag tagName.
             If no track exists, one will be created.
             Returns the track, whether the track is new and the index of te track. '''
@@ -184,7 +184,7 @@ class TrackFinderByTag(object):
         return track, isNewTrack, currentTrackIndex
 
     @staticmethod
-    def NumberTaggedTracks(sequence, tagName):
+    def NumberTaggedTracks(self, sequence: Any, tagName: str) -> int:
         ''' Find the nuber of Tracks with the tag tagName '''
         numVideoTracks = sequence.numVideoTracks()
         numTaggedTracks = 0
@@ -197,7 +197,7 @@ class TrackFinderByTag(object):
         return numTaggedTracks
 
     @staticmethod
-    def GetTopmostSelectedItem(selection):
+    def GetTopmostSelectedItem(self, selection: Any) -> int:
         ''' find the index fo the topmost seleted track '''
         topmostSelectedTrackIndex = -1
         for originalTrackItem in selection:
@@ -208,7 +208,7 @@ class TrackFinderByTag(object):
                     topmostSelectedTrackIndex = trackIndex
         return topmostSelectedTrackIndex
 
-    def checkTrackItemCollisions(self, selection, track):
+    def checkTrackItemCollisions(self, selection: Any, track: Any) -> bool:
         """ Check for selected track items which collide with those on the destination track.
             Returns true if there were collisions, else returns false. """
         srcCollisions = []
@@ -227,7 +227,7 @@ class TrackFinderByTag(object):
 
         return len(srcCollisions) > 0
 
-    def findTrack(self, name, selection, sequence):
+    def findTrack(self, name: str, selection: Any, sequence: Any) -> Any:
         """ Find or create a track to build on for the given selection, and with tag matching name. """
         # We always want to add the new track above the current selection
         topmostSelecetdItem = TrackFinderByTag.GetTopmostSelectedItem(selection)
@@ -321,7 +321,7 @@ class BuildTrack(QtWidgets.QMenu):
         return bin
 
     @staticmethod
-    def FindOrCreateClip(mediaSource, destBin, project):
+    def FindOrCreateClip(self, mediaSource: Any, destBin: Any, project: Any) -> Any:
         ''' Try to find an existing Clip which uses mediaSource.  If not found, creates a new clip and adds it to destBin.
             Returns the found or created clip. '''
         for clip in project.clips():
@@ -367,7 +367,7 @@ class BuildTrack(QtWidgets.QMenu):
                 collidedTransitions.add(item)
 
     @staticmethod
-    def CopyTimingFrom(toTrackItem, fromTrackItem, expectedHandles=None):
+    def CopyTimingFrom(self, toTrackItem: Any, fromTrackItem: Any, expectedHandles: Any = None) -> None:
         """ Copy timing information between track items.  If expectedHandles are given, tries to use them to
             set the source in/out of the track item, otherwise calculates handles based on the frame range of
             toTrackItem's media source.
@@ -472,7 +472,7 @@ class BuildTrack(QtWidgets.QMenu):
         return (inLength, outLength)
 
     @staticmethod
-    def SetTrackItemReformatState(originalTrackItem, trackItem):
+    def SetTrackItemReformatState(self, originalTrackItem: Any, trackItem: Any) -> None:
         """ Set the reformat state of the created track item based on that of the
         original so they look the same on the timeline.
         """
@@ -484,7 +484,7 @@ class BuildTrack(QtWidgets.QMenu):
         reformatState.setResizeCenter(originalReformatState.resizeCenter())
 
     @staticmethod
-    def GetTagIdentifier(tag):
+    def GetTagIdentifier(self, tag: Any) -> str:
         """ Get an identifier for the tag.  Just tag.name() is not reliable, since
             tasks which are part of the same export can have the same name.  Combine it
             with the output path, if that is present in the tag metadata. """
@@ -600,7 +600,7 @@ class BuildTrackActionBase(QtWidgets.QAction):
         return ''
 
     @staticmethod
-    def updateVersions(trackItem):
+    def updateVersions(self, trackItem: Any) -> None:
         """ Scan for versions on a track item and change to the highest available """
         trackItem.source().rescan()  # First rescan the current clip
         if trackItem.isMediaPresent():
@@ -611,7 +611,7 @@ class BuildTrackActionBase(QtWidgets.QAction):
             trackItem.maxVersion()
             trackItem.source().binItem().maxVersion()
 
-    def trackItemAdded(self, newTrackItem, track, originalTrackItem):
+    def trackItemAdded(self, newTrackItem: Any, track: Any, originalTrackItem: Any) -> None:
         """ Method called when a new TrackItem is called while building a track.  The default implementation
             does nothing but can be implemented by sub-classes which need to customize the behavior. """
         pass
@@ -720,21 +720,21 @@ class BuildTrackActionBase(QtWidgets.QAction):
     def getExternalFilePaths(self, trackItem):
         return ''
 
-    def getExpectedRange(self, trackItem):
+    def getExpectedRange(self, trackItem: Any) -> tuple:
         """ Get range information.  Returns a tuple containing the values: (start, duration, starthandle, endhandle, offset) """
         return 0, 0, None, None, 0
 
-    def getTimelineRange(self, trackItem):
+    def getTimelineRange(self, trackItem: Any) -> tuple:
         """ Get the (timelineIn, timelineOut) for items being built from trackItem.  The default behaviour
             is to return trackItem's timeline range. """
         return (trackItem.timelineIn(), trackItem.timelineOut())
 
-    def buildingFromExternalRender(self):
+    def buildingFromExternalRender(self) -> bool:
         """ Check if the the track is being built from external render tasks.  The behaviour needs to be different in this case because
             the frame range of those renders may not be what is expected. """
         return False
 
-    def getExpectedFormat(self, trackItem):
+    def getExpectedFormat(self, trackItem: Any) -> Any:
         """ Get the expected format from the original track item.  The default implementation
             returns the parent sequence format. """
         return trackItem.parentSequence().format()
@@ -832,7 +832,7 @@ class BuildTrackActionBase(QtWidgets.QAction):
             msgBox.exec_()
             self._errors = []
 
-    def _buildTrack(self, selection, sequence, project):
+    def _buildTrack(self, selection: Any, sequence: Any, project: Any) -> None:
         """ Build the VFX track from the original items.  selection may contain TrackItems and Transitions, which are duplicated to the VFX track. """
 
         # Begin undo group
@@ -1046,7 +1046,7 @@ class BuildTrackFromExportTagAction(BuildTrackActionBase):
     def __init__(self):
         super(BuildTrackFromExportTagAction, self).__init__('From Export Tag')
 
-    def buildTrackFromParams(self, trackItems, tag, trackName, createCompClips):
+    def buildTrackFromParams(self, trackItems: list, tag: Any, trackName: str, createCompClips: bool) -> None:
         """ Perform the action with the parameters configured programatically rather
         than through the UI. This is to facilitate auto-testing.
 
@@ -1087,7 +1087,7 @@ class BuildTrackFromExportTagAction(BuildTrackActionBase):
     def trackName(self):
         return self._trackName
 
-    def _setMetadataValue(self, metadata, name, value):
+    def _setMetadataValue(self, metadata: Any, name: str, value: Any) -> None:
         """ Helper function for setting values on metadata, first checking
             if the value is already set. """
         if metadata.hasKey(name) and (metadata.value(name) == value):
@@ -1101,7 +1101,7 @@ class BuildTrackFromExportTagAction(BuildTrackActionBase):
                 return tag
         return None
 
-    def trackItemAdded(self, newTrackItem, track, originalTrackItem):
+    def trackItemAdded(self, newTrackItem: Any, track: Any, originalTrackItem: Any) -> None:
         """ Reimplementation.  Adds a tag to the new track item, and copies any retime effects if necessary. """
         # Find export tag on the original track item
         tag = self.findTag(originalTrackItem)
@@ -1132,7 +1132,7 @@ class BuildTrackFromExportTagAction(BuildTrackActionBase):
                     effectCopy = track.createEffect(copyFrom=effect, trackItem=newTrackItem)
                     effectCopy.setEnabled(effect.isEnabled())
 
-    def _findTagWithMetadataKeys(self, trackItem, keys):
+    def _findTagWithMetadataKeys(self, trackItem: Any, keys: list) -> Any:
         """ Try to find a tag which has all the given set of metadata keys. """
         for tag in reversed(trackItem.tags()):
             metadata = tag.metadata()
@@ -1144,7 +1144,7 @@ class BuildTrackFromExportTagAction(BuildTrackActionBase):
                 return tag
         return None
 
-    def findShotExporterTag(self, trackItem):
+    def findShotExporterTag(self, trackItem: Any) -> Any:
         """ Try to find a tag added by the Nuke Shot Exporter by checking it has the expected metadata keys. """
         return self._findTagWithMetadataKeys(trackItem, ('tag.presetid', 'tag.path', 'tag.script'))
 
@@ -1191,7 +1191,7 @@ class BuildTrackFromExportTagAction(BuildTrackActionBase):
 
         return start, duration, starthandle, endhandle, offset
 
-    def getTimelineRange(self, trackItem):
+    def getTimelineRange(self, trackItem: Any) -> tuple:
         """ Override.  The created track item is not necessarily the same length as the source, if multiple clips have been exported
             together (particularly with Create Comp).  Use the duration of the new source, minus handles. """
         start, duration, starthandle, endhandle, offset = self.getExpectedRange(trackItem)
@@ -1207,7 +1207,7 @@ class BuildTrackFromExportTagAction(BuildTrackActionBase):
         timelineOut -= (inTransitionLength + outTransitionLength)
         return (timelineIn, timelineOut)
 
-    def getExpectedFormat(self, trackItem):
+    def getExpectedFormat(self, trackItem: Any) -> Any:
         """ Reimplemented.  Tries to get the expected format from the tag metadata.
             If not present, returns the parent sequence format. """
         try:
@@ -1218,7 +1218,7 @@ class BuildTrackFromExportTagAction(BuildTrackActionBase):
         except:
             return trackItem.parentSequence().format()
 
-    def retimesAppliedInExport(self, item):
+    def retimesAppliedInExport(self, item: Any) -> bool:
         """ Look up whether retimes were applied in the export.  Item can either be a Tag or a TrackItem.  In the latter case,
             the tag is looked up using findTag() """
         if isinstance(item, hiero.core.Tag):
@@ -1230,7 +1230,7 @@ class BuildTrackFromExportTagAction(BuildTrackActionBase):
             appliedRetimes = int(tag.metadata().value('appliedretimes'))
         return appliedRetimes
 
-    def _buildTrackItem(self, name, clip, originalTrackItem, expectedStartTime, expectedDuration, expectedStartHandle, expectedEndHandle, expectedOffset):
+    def _buildTrackItem(self, name: str, clip: Any, originalTrackItem: Any, expectedStartTime: int, expectedDuration: int, expectedStartHandle: int, expectedEndHandle: int, expectedOffset: int) -> None:
         """ Create the new track item and set its in/out times.  Reimplemented here as the BuildTrackFromExportTagAction can be a bit cleverer about this,
             since all the relevant information should be stored in the tag metadata. """
 
@@ -1432,7 +1432,7 @@ class BuildExternalMediaTrackAction(BuildTrackActionBase):
         task = hiero.core.taskRegistry.createTaskFromPreset(self._elementPreset, taskData)
         return [task.resolvedExportPath()]
 
-    def getExpectedRange(self, trackItem):
+    def getExpectedRange(self, trackItem: Any) -> tuple:
         """ Override. Get expected range based on the original track item.
             Returns None for handles so that they are calculated based on the duration
             of the new media. """
@@ -1442,7 +1442,7 @@ class BuildExternalMediaTrackAction(BuildTrackActionBase):
         offset = 0
         return (start, duration, starthandle, endhandle, offset)
 
-    def buildingFromExternalRender(self):
+    def buildingFromExternalRender(self) -> bool:
         """ Override.  Check if the selected task preset is an External Render. """
         return self._elementPreset and ('ExternalRenderTask' in self._elementPreset.ident())
 

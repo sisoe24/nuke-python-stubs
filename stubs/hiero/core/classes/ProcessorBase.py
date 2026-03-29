@@ -20,13 +20,13 @@ class ProcessorBase(object):
     Tasks with the appropriate parameters.
     """
 
-    def __init__(self, preset, submission, synchronous=False) -> None:
+    def __init__(self, preset: typing.Any, submission: typing.Any, synchronous: bool = False) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """
         ...
 
-    def startProcessing(self, exportItems, preview=False) -> None:
+    def startProcessing(self, exportItems: typing.List[typing.Any], preview: bool = False) -> typing.Optional[typing.List[typing.Any]]:
         """
         Generate export tasks and add them to the export queue. If preview is
         True, the tasks are created and returned, but not scheduled for execution.
@@ -46,7 +46,7 @@ class ProcessorBase(object):
         """
         ...
 
-    def validItem(self, supportedTypes, item) -> None:
+    def validItem(self, supportedTypes: typing.List[typing.Any], item: typing.Any) -> bool:
         """
         Get if the task is able to run on the item it was initialised with.
         """
@@ -64,7 +64,7 @@ class ProcessorBase(object):
         """
         ...
 
-    def errors(self) -> None:
+    def errors(self) -> typing.Optional[str]:
         """
         Get an error string from the processor.  Iterates over child tasks and
         adds their error messages to the string.  Returns None if there were no errors.
@@ -72,14 +72,14 @@ class ProcessorBase(object):
         ...
 
     @property
-    def __dict__(self) -> typing.Any:
+    def __dict__(self) -> typing.Dict[str, typing.Any]:
         """
         dictionary for instance variables (if defined)
         """
         ...
 
     @property
-    def __weakref__(self) -> typing.Any:
+    def __weakref__(self) -> typing.List[typing.Any]:
         """
         list of weak references to the object (if defined)
         """

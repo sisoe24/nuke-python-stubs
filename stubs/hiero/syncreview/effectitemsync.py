@@ -25,7 +25,7 @@ class SyncEffectItemKnobsTool(SyncTool):
             events.EventType.kEffectItemKnobChanged, self._onLocalKnobChanged)
 
     @remoteCallback
-    def _onRemoteKnobChanged(self, msg):
+    def _onRemoteKnobChanged(self, msg: dict) -> None:
         """ Process a remote knob changed message """
         item = findItemByGuid(msg.itemGuid, filter=[EffectTrackItem])
         if not item:
@@ -40,7 +40,7 @@ class SyncEffectItemKnobsTool(SyncTool):
         knob.fromScript(msg.knobScript)
 
     @localCallback
-    def _onLocalKnobChanged(self, event):
+    def _onLocalKnobChanged(self, event: dict) -> None:
         """ Process a knob changed callback """
         # The event has the knob name, not the object, look it up on the node
         knob = event.item.node().knob(event.knobName)

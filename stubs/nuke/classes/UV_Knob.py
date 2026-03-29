@@ -14,13 +14,13 @@ class UV_Knob(Array_Knob):
     A knob which describes a texture coordinate.
     """
 
-    def __new__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs) -> 'UV_Knob':
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
         ...
 
-    def __hash__(self, ) -> None:
+    def __hash__(self) -> int:
         """
         Return hash(self).
         """
@@ -32,7 +32,7 @@ class UV_Knob(Array_Knob):
         """
         ...
 
-    def names(self, n) -> str:
+    def names(self, n: int) -> str:
         """
         names(n) -> string
 

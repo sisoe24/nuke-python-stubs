@@ -14,85 +14,85 @@ class BBox_Knob(Array_Knob):
     A knob which holds a bounding box.
     """
 
-    def __new__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs) -> 'BBox_Knob':
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
         ...
 
-    def __hash__(self, ) -> None:
+    def __hash__(self) -> int:
         """
         Return hash(self).
         """
         ...
 
-    def __init__(self,  *args, **kwargs) -> None:
+    def __init__(self, *args: typing.Any, **kwargs: typing.Any) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """
         ...
 
-    def names(self, *args: typing.Any, **kwargs: typing.Any) -> None:
+    def names(self, *args: typing.Any, **kwargs: typing.Any) -> str:
         """
         Return name for dimension 'i'
         """
         ...
 
-    def value(self, *args: typing.Any, **kwargs: typing.Any) -> None:
+    def value(self, *args: typing.Any, **kwargs: typing.Any) -> float:
         """
         Return value for dimension 'i'
         """
         ...
 
-    def x(self, *args: typing.Any, **kwargs: typing.Any) -> None:
+    def x(self) -> float:
         """
         Return value for X position.
         """
         ...
 
-    def setX(self, *args: typing.Any, **kwargs: typing.Any) -> None:
+    def setX(self, value: float) -> None:
         """
         Set value for X position.
         """
         ...
 
-    def y(self, *args: typing.Any, **kwargs: typing.Any) -> None:
+    def y(self) -> float:
         """
         Return value for Y position.
         """
         ...
 
-    def setY(self, *args: typing.Any, **kwargs: typing.Any) -> None:
+    def setY(self, value: float) -> None:
         """
         Set value for Y position.
         """
         ...
 
-    def r(self, *args: typing.Any, **kwargs: typing.Any) -> None:
+    def r(self) -> float:
         """
         Return value for R extent.
         """
         ...
 
-    def setR(self, *args: typing.Any, **kwargs: typing.Any) -> None:
+    def setR(self, value: float) -> None:
         """
         Set value for R extent.
         """
         ...
 
-    def t(self, *args: typing.Any, **kwargs: typing.Any) -> None:
+    def t(self) -> float:
         """
         Return value for T extent.
         """
         ...
 
-    def setT(self, *args: typing.Any, **kwargs: typing.Any) -> None:
+    def setT(self, value: float) -> None:
         """
         Set value for T extent.
         """
         ...
 
-    def toDict(self,) -> dict:
+    def toDict(self) -> dict:
         """
         self.toDict() -> dict.
 

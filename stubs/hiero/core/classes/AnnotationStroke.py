@@ -19,31 +19,31 @@ class AnnotationStroke(AnnotationElement):
     within an annotation.
     """
 
-    def __new__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs) -> AnnotationStroke:
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
         ...
 
-    def __setattr__(self, name, value, ) -> None:
+    def __setattr__(self, name: str, value: object) -> None:
         """
         Implement setattr(self, name, value).
         """
         ...
 
-    def __delattr__(self, name, ) -> None:
+    def __delattr__(self, name: str) -> None:
         """
         Implement delattr(self, name).
         """
         ...
 
-    def __init__(self,  *args, **kwargs) -> None:
+    def __init__(self, *args: Any, **kwargs: Any) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """
         ...
 
-    def __bool__(self, ) -> None:
+    def __bool__(self) -> bool:
         """
         True if self else False
         """
@@ -61,7 +61,7 @@ class AnnotationStroke(AnnotationElement):
         """
         ...
 
-    def points(self) -> object:
+    def points(self) -> tuple[tuple[float, float], ...]:
         """
         self.points -> Returns a variable tuple containing the 2d points forming the stroke. Each point is
         represented as a 2 component tuple, with the x and y components of the point as floating point values.
@@ -76,7 +76,7 @@ class AnnotationStroke(AnnotationElement):
         """
         ...
 
-    def setPoints(self, arg__1: object) -> None:
+    def setPoints(self, arg__1: list[tuple[float, float]]) -> None:
         """
         self.setPoints -> Sets the points that make up this stroke, replacing any points the stroke already had.
         The points must be specified as a list (not tuple) of 2d points, each point being a 2 component tuple of

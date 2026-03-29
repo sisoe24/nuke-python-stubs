@@ -1,4 +1,3 @@
-# Event registration and dispatching
 import queue
 import traceback
 
@@ -106,7 +105,7 @@ def _splitType(type, methodName):
 # Public APIs
 
 
-def registerInterest(type, callback, connection=Connection.kAny, *args, **kwargs):
+def registerInterest(type: str, callback: 'Callable[..., None]', connection: 'Connection' = Connection.kAny, *args: 'Any', **kwargs: 'Any') -> None:
     """Register interest in an event type. The callback will be called whenever an event of the given type is dispatched."""
     type = _splitType(type, 'registerInterest')
     if type[0] not in _eventHandlers:
@@ -117,7 +116,7 @@ def registerInterest(type, callback, connection=Connection.kAny, *args, **kwargs
     handlers[type[1]].append(Callback(callback, connection, *args, **kwargs))
 
 
-def unregisterInterest(type, callback):
+def unregisterInterest(type: str, callback: 'Callable[..., None]') -> None:
     """Unregister interest in an event type. The callback will no longer be called whenever an event of the given type is dispatched."""
     type = _splitType(type, 'unregisterInterest')
     if type[0] in _eventHandlers:
@@ -127,19 +126,19 @@ def unregisterInterest(type, callback):
             callbacks[:] = [x for x in callbacks if x.method != callback]
 
 
-def _sendEvent(event):
+def _sendEvent(event: str) -> None:
     """Send an event immediately. The caller will block until the event has been handled.
     This only calls listeners registered with connection = kDirect or connection = kAny."""
     _dispatchEvent(event, Connection.kDirect | Connection.kAny)
 
 
-def sendEvent(type, subtype, **kwargs):
+def sendEvent(type: str, subtype: str, **kwargs: 'Any') -> None:
     """Send an event immediately. The caller will block until the event has been handled.
     This only calls listeners registered with connection = kDirect or connection = kAny."""
     _sendEvent(Event(type, subtype, **kwargs))
 
 
-def registerEventType(name):
+def registerEventType(name: str) -> None:
     """Register a new event type. The type should be a string (suitable as an attribute name) describing the event, e.g. 'kStartup'."""
     if hasattr(EventType, name):
         raise RuntimeError("Event type '%s' already exists" % type)
@@ -147,7 +146,7 @@ def registerEventType(name):
         setattr(EventType, name, name)
 
 
-def unregisterEventType(name):
+def unregisterEventType(name: str) -> None:
     """Unregister an event type."""
     delattr(EventType, name)
 

@@ -23,7 +23,7 @@ from .FnSubmission import Submission
 from .FnReformatHelpers import reformatNodeFromPreset
 
 
-def _findMultiViewTrackItems(views, mainTrackItem):
+def _findMultiViewTrackItems(views: list, mainTrackItem: object) -> tuple[list, list]:
     """ For multi-view projects, if the given track item is on a track which
     outputs to a single view, try to find the corresponding items on other tracks
     so they can be included in the exported script. Returns a list of found views,
@@ -55,7 +55,7 @@ def _findMultiViewTrackItems(views, mainTrackItem):
 
 
 class TranscodeExporter(FnExternalRender.NukeRenderTask):
-    def __init__(self, initDict):
+    def __init__(self, initDict: dict) -> None:
         """Initialize"""
         FnExternalRender.NukeRenderTask.__init__(self, initDict)
 
@@ -114,7 +114,7 @@ class TranscodeExporter(FnExternalRender.NukeRenderTask):
             self._renderTask = self._submission.addJob(
                 Submission.kNukeRender, submissionDict, self._scriptfile)
 
-    def updateItem(self, originalItem, localtime):
+    def updateItem(self, originalItem: object, localtime: float) -> None:
         """updateItem - This is called by the processor prior to taskStart, crucially on the main thread.\n
           This gives the task an opportunity to modify the original item on the main thread, rather than the clone."""
 
@@ -291,7 +291,7 @@ class TranscodeExporter(FnExternalRender.NukeRenderTask):
 
         return nodes
 
-    def createPresetReformatNode(self):
+    def createPresetReformatNode(self) -> 'ReformatNode | None':
         """ If reformat options are selected on the preset, create a ReformatNode.  Otherwise returns None. """
         try:
             seqFormat = self._sequence.format() if self._sequence else None
@@ -312,7 +312,7 @@ class TranscodeExporter(FnExternalRender.NukeRenderTask):
 
         return rootNode
 
-    def writeSequenceToScript(self, script):
+    def writeSequenceToScript(self, script: object) -> None:
         """ When exporting a Sequence, write it to a script.
         """
 
@@ -383,7 +383,7 @@ class TranscodeExporter(FnExternalRender.NukeRenderTask):
         script.addNode(createViewerNode(self._projectSettings))
         script.popLayoutContext()
 
-    def addWriteNodeToScript(self, script, rootNode, framerate):
+    def addWriteNodeToScript(self, script: object, rootNode: object, framerate: int) -> None:
         """ Build Write node from transcode settings and add it to the script. """
         try:
             writeNode = self.nukeWriteNode(framerate, project=self._project)
@@ -413,7 +413,7 @@ class TranscodeExporter(FnExternalRender.NukeRenderTask):
         # on the timeline.  This allows for reading the script as a comp clip
         rootNode.setKnob(nuke.RootNode.kTimelineWriteNodeKnobName, writeNode.knob('name'))
 
-    def writeClipOrTrackItemToScript(self, script):
+    def writeClipOrTrackItemToScript(self, script: object) -> None:
         """ When exporting a Clip or TrackItem, write it to a script.
         """
         isMovieContainerFormat = self._preset.properties(
@@ -567,11 +567,11 @@ class TranscodeExporter(FnExternalRender.NukeRenderTask):
     def writeScript(self):
         self._script.writeToDisk(self._scriptfile)
 
-    def includeEffects(self):
+    def includeEffects(self) -> bool:
         """ Check if soft effects should be included in the export. """
         return self._preset.properties()['includeEffects']
 
-    def includeAnnotations(self):
+    def includeAnnotations(self) -> bool:
         """ Check if annotations should be included in the export. """
         return self._preset.properties()['includeAnnotations']
 
@@ -601,14 +601,14 @@ class TranscodeExporter(FnExternalRender.NukeRenderTask):
         else:
             return 0.0
 
-    def outputHandles(self, ignoreRetimes=True):
+    def outputHandles(self, ignoreRetimes: bool = True) -> None:
         """ Override which does nothing except changing the default value of
         ignoreRetimes from False to True.  This is not good, but the code calling
         this method is currently depending on it.
         """
         return super(TranscodeExporter, self).outputHandles(ignoreRetimes)
 
-    def outputRange(self, ignoreHandles=False, ignoreRetimes=True, clampToSource=True):
+    def outputRange(self, ignoreHandles: bool = False, ignoreRetimes: bool = True, clampToSource: bool = True) -> tuple:
         """outputRange(self)
         Returns the output file range (as tuple) for this task, if applicable"""
         start = 0
@@ -663,7 +663,7 @@ class TranscodeExporter(FnExternalRender.NukeRenderTask):
 
         return (start, end)
 
-    def _addReformatNode(self, script=None, rootNode=None, reformatNode=None):
+    def _addReformatNode(self, script: object = None, rootNode: object = None, reformatNode: object = None) -> None:
         """If the preset has a reformat node, and the knob "format" is set set the root as that knob.
         otherwise default to the clip/sequence format."""
         rootFormat = reformatNode.knob('format')
@@ -679,7 +679,7 @@ class TranscodeExporter(FnExternalRender.NukeRenderTask):
     def viewsFromSource(self):
         return self._sourceViews
 
-    def _determineSourceViews(self):
+    def _determineSourceViews(self) -> list:
         """ Figure out which views should be rendered based on the source
         sequence/clip/trackitem.
         """
@@ -700,7 +700,7 @@ class TranscodeExporter(FnExternalRender.NukeRenderTask):
             views = self._project.views()
         self._sourceViews = views
 
-    def isExportingItem(self, item):
+    def isExportingItem(self, item: object) -> bool:
         """ Prevent duplicates when multiple multi-view track items have been included in a render """
         return item == self._item or item in self._multiViewTrackItems
 
@@ -738,7 +738,7 @@ class TranscodePreset(hiero.core.RenderTaskPreset):
 
         self.properties().update(properties)
 
-    def _defaultReadAllLinesForCodec(self):
+    def _defaultReadAllLinesForCodec(self) -> bool:
         '''
         Return the default value for the read all lines property based on the current file type and codec.
         This will only return True for ProRes 4444 or ProRes 422 formats as read all lines might slow down other
@@ -759,22 +759,22 @@ class TranscodePreset(hiero.core.RenderTaskPreset):
     def supportedItems(self):
         return hiero.core.TaskPresetBase.kAllItems
 
-    def includeAudio(self):
+    def includeAudio(self) -> bool:
         """ Check whether an audio file should be generated for the export. """
         return self.properties()['includeAudio']
 
-    def deleteAudioOnFinished(self):
+    def deleteAudioOnFinished(self) -> bool:
         """ Check whether audio should be deleted when finished. """
         if self.deleteAudioValid():
             return self.properties()['deleteAudio']
         else:
             return False
 
-    def deleteAudioValid(self):
+    def deleteAudioValid(self) -> bool:
         """ Check if the delete audio option is valid for the current configuration. """
         return (self.includeAudio() and self.fileTypeSupportsAudio())
 
-    def fileTypeSupportsAudio(self):
+    def fileTypeSupportsAudio(self) -> bool:
         """ Check if the selected file type supports audio tracks. This currently
         only works for files being written with the the mov writer.
         """

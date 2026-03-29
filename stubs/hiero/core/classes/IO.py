@@ -135,7 +135,7 @@ class IO(Generic):
     __orig_bases__ = (typing.Generic[~AnyStr],)
     __parameters__ = (~AnyStr,)
 
-    def __init__(self,  *args, **kwargs):
+    def __init__(self, *args: object, **kwargs: object) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """

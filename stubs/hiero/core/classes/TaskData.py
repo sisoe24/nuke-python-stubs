@@ -36,21 +36,21 @@ class TaskData(dict):
     kShotNameIndex = 'shotNameIndex'
     kMediaToSkip = 'mediaToSkip'
 
-    def __init__(self, preset, item, exportRoot, shotPath, version, exportTemplate, project, cutHandles=None, resolver=None, retime=False, startFrame=None, startFrameSource=None, submission=None, skipOffline=True, presetId=None, shotNameIndex='', mediaToSkip=[]) -> None:
+    def __init__(self, preset: typing.Any, item: typing.Any, exportRoot: typing.Any, shotPath: typing.Any, version: typing.Any, exportTemplate: typing.Any, project: typing.Any, cutHandles: typing.Optional[typing.Any] = None, resolver: typing.Optional[typing.Any] = None, retime: bool = False, startFrame: typing.Optional[typing.Union[int, str]] = None, startFrameSource: typing.Optional[typing.Any] = None, submission: typing.Optional[typing.Any] = None, skipOffline: bool = True, presetId: typing.Optional[typing.Any] = None, shotNameIndex: str = '', mediaToSkip: typing.List[typing.Any] = []) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """
         ...
 
     @property
-    def __dict__(self) -> typing.Any:
+    def __dict__(self) -> typing.Dict[str, typing.Any]:
         """
         dictionary for instance variables (if defined)
         """
         ...
 
     @property
-    def __weakref__(self) -> typing.Any:
+    def __weakref__(self) -> typing.List[typing.Any]:
         """
         list of weak references to the object (if defined)
         """

@@ -121,7 +121,7 @@ class NukeAnnotationsExporterUI(hiero.ui.TaskUIBase):
         if dialog.exec_():
             self._preset.properties()['additionalNodesData'] = dialog.data()
 
-    def setTags(self, tags):
+    def setTags(self, tags: list[str]) -> None:
         """setTags passes the subset of tags associated with the selection for export"""
         self._tags = tags
 

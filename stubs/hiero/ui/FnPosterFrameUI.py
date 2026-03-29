@@ -18,7 +18,7 @@ event listener and adds entries to it.
 """
 
 
-def findIntersectingFrameRange(ranges):
+def findIntersectingFrameRange(ranges: List[Tuple[int, int]]) -> Tuple[int, int]:
     """ Try to find the intersection of a sequence of frame range tuples. Raises a
     RuntimeError if the ranges did not all intersect.
     """
@@ -150,7 +150,7 @@ def showPosterFrameDialog(clips):
     dialog.exec_()
 
 
-def setPosterFrames(clips, func):
+def setPosterFrames(clips: List[Any], func: Callable[[Any], int]) -> None:
     """ For each clip, set the poster frame, calling func to get the value """
     project = clips[0].project()
     with project.beginUndo('Set Poster Frame'):
@@ -158,7 +158,7 @@ def setPosterFrames(clips, func):
             clip.setPosterFrame(func(clip))
 
 
-def findClipsInBinSelection(selection):
+def findClipsInBinSelection(selection: Any) -> List[Any]:
     """ Find selected clips, recursing through the bin hierarchy. """
     clips = []
     for item in selection:
@@ -169,7 +169,7 @@ def findClipsInBinSelection(selection):
     return clips
 
 
-def isValidClipForPosterFrames(clip):
+def isValidClipForPosterFrames(clip: Any) -> bool:
     """ Check if poster frames can be set on a clip. """
     return clip.duration() > 1 and clip.mediaSource().hasVideo()
 
@@ -181,7 +181,7 @@ ClipPosterFrameFuncs = {
 }
 
 
-def binContextMenuEvent(event):
+def binContextMenuEvent(event: Any) -> None:
     """ Callback when context menu is shown in the project panel. """
 
     # Only want to change the poster frame for clips. Find any selected, and make
@@ -237,7 +237,7 @@ def binContextMenuEvent(event):
         customAction.setIcon(tickIconGrey)
 
 
-def viewerContextMenuEvent(event):
+def viewerContextMenuEvent(event: Any) -> None:
     """ Callback when context menu is shown in a viewer. """
     viewer = event.sender
 
@@ -261,7 +261,7 @@ hiero.core.events.registerInterest(eventFlags,
                                    viewerContextMenuEvent)
 
 
-def onClipAddedToProject(event):
+def onClipAddedToProject(event: Any) -> None:
     """ Callback when a clip is added to a project. Sets the poster frame according
     to the project settings.
     """

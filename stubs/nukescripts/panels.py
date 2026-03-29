@@ -162,7 +162,7 @@ class WidgetKnob():
         return self.widget
 
 
-def registerWidgetAsPanel(widget, name, id, create=False):
+def registerWidgetAsPanel(widget: str, name: str, id: str, create: bool = False) -> 'PythonPanel':
     """registerWidgetAsPanel(widget, name, id, create) -> PythonPanel
 
       Wraps and registers a widget to be used in a Nuke panel.

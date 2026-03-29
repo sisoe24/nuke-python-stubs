@@ -14,19 +14,19 @@ class NodeConstructor(object):
     NodeConstructor
     """
 
-    def __new__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs) -> NodeConstructor:
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
         ...
 
-    def __hash__(self, ) -> None:
+    def __hash__(self) -> int:
         """
         Return hash(self).
         """
         ...
 
-    def __call__(self,  *args, **kwargs) -> None:
+    def __call__(self,  *args, **kwargs) -> object:
         """
         Call self as a function.
         """

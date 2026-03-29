@@ -26,7 +26,7 @@ class ShotProcessorUI(hiero.ui.ProcessorUIBase, QtCore.QObject):
     def toolTip(self):
         return 'Process as Shots generates output on a per shot basis.'
 
-    def validate(self, exportItems):
+    def validate(self, exportItems: list) -> bool:
         """Validate settings in UI. Return False for failure in order to abort export."""
         if not hiero.ui.ProcessorUIBase.validate(self, exportItems):
             return False
@@ -60,7 +60,7 @@ class ShotProcessorUI(hiero.ui.ProcessorUIBase, QtCore.QObject):
 
         return True
 
-    def validateSelection(self, exportItems):
+    def validateSelection(self, exportItems: list) -> bool:
         """Validate if any items in the selection are suitable for processing by this processor"""
 
         invalidItems = []
@@ -337,7 +337,7 @@ class ShotProcessorUI(hiero.ui.ProcessorUIBase, QtCore.QObject):
             trackIcon = QtGui.QIcon('icons:VideoOnly.png')
         return trackIcon
 
-    def _trackHasTrackOrSubTrackItems(self, track):
+    def _trackHasTrackOrSubTrackItems(self, track: object) -> bool:
         """ Test if a track has any items or sub-track items. """
         if (
             len(list(track.items())) > 0 or
@@ -352,7 +352,7 @@ class ShotProcessorUI(hiero.ui.ProcessorUIBase, QtCore.QObject):
         self._preset.properties()['includeTags'] = [tag.name() for tag in include_subset]
         self._preset.properties()['excludeTags'] = [tag.name() for tag in exclude_subset]
 
-    def _checkExistingVersions(self, exportItems):
+    def _checkExistingVersions(self, exportItems: list) -> None:
         """ Iterate over all the track items which are set to be exported, and check if they have previously
             been exported with the same version as the setting in the current preset.  If yes, show a message box
             asking the user if they would like to increment the version, or overwrite it. """
@@ -393,13 +393,13 @@ class ShotProcessorUI(hiero.ui.ProcessorUIBase, QtCore.QObject):
 
         return result
 
-    def _tracksToExport(self, sequence):
+    def _tracksToExport(self, sequence: object) -> list:
         """ Get the tracks on the given sequence which will be included in the export. """
         for track in itertools.chain(sequence.videoTracks(), sequence.audioTracks()):
             if track.isEnabled() and not track.guid() in self._preset._excludedTrackIDs:
                 yield track
 
-    def _trackItemsToExport(self, exportItems):
+    def _trackItemsToExport(self, exportItems: list) -> list:
         """ Get a list of the track items which will be included in the export. """
         trackItems = []
         if exportItems[0].trackItem():

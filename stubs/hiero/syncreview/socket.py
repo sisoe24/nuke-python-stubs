@@ -21,7 +21,7 @@ class Socket(QObject):
         self._readNotifier = None
         self._pollTimer = None
 
-    def close(self):
+    def close(self) -> None:
         """ Close the socket and reset its state """
         if not self._socket:
             return
@@ -33,13 +33,13 @@ class Socket(QObject):
         self._socket.close()
         self._socket = None
 
-    def socketId(self):
+    def socketId(self) -> str:
         """ Get the zmq socket id. If the socket was not yet created returns an
         empty string
         """
         return self._socket.getsockopt(zmq.IDENTITY) if self._socket is not None else ''
 
-    def _createSocket(self, type_):
+    def _createSocket(self, type_: int) -> None:
         """ Create socket with specified type.
         Creates a QSocketNotifier which emits signals when there is data ready to read.
         Unfortunately this is not entirely reliable. When a lot of user interaction
@@ -67,11 +67,11 @@ class Socket(QObject):
         self._pollTimer.timeout.connect(self._pollSocket)
         self._pollTimer.start()
 
-    def _onReadActivated(self):
+    def _onReadActivated(self) -> None:
         """ Callback from socket notifier. """
         self._pollSocket()
 
-    def _pollSocket(self):
+    def _pollSocket(self) -> None:
         """ Polls the socket, and calls self._onDataReceived() with all the data read
         (which will be a list of a list of frames). This should be implemented by sub-classes.
         """
@@ -95,12 +95,12 @@ class Socket(QObject):
         if self._readNotifier:
             self._readNotifier.setEnabled(True)
 
-    def _isReadAvailable(self):
+    def _isReadAvailable(self) -> bool:
         """ Check if there's a message ready to read on the socket.
         """
         return self._socket and (self._socket.getsockopt(zmq.EVENTS) & zmq.POLLIN)
 
-    def _send(self, data):
+    def _send(self, data: list) -> None:
         """ Send a list of data frames to the ZMQ socket.
         """
         self._socket.send_multipart(data)
@@ -118,7 +118,7 @@ class ServerSocket(Socket):
     def __init__(self, parent=None):
         super(ServerSocket, self).__init__(parent)
 
-    def bind(self, url):
+    def bind(self, url: str) -> None:
         """ Create the socket and bind on the specified url.
         """
         self._createSocket(zmq.ROUTER)
@@ -131,7 +131,7 @@ class ServerSocket(Socket):
             payload = msgData[2:]  # Strip the sender and empty frame
             self.dataReceived.emit(sender, payload)
 
-    def send(self, receiver, frames):
+    def send(self, receiver: object, frames: list) -> None:
         """ Send message frames to a given receiver. """
         logDebug('{}.send {}'.format(type(self), frames[0]))
         frames = [asBytes(receiver), b''] + frames

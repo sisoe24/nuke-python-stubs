@@ -18,7 +18,7 @@ class Player:
     Object representing a video player in Hiero. Players are used by Viewer objects, and can be retrieved using the player() method of Viewer objects.
     """
 
-    def __new__(self, *args, **kwargs) -> None:
+    def __new__(self, *args, **kwargs) -> 'Player':
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
@@ -70,7 +70,7 @@ class Player:
         """
         ...
 
-    def guideOverlay(self) -> object:
+    def guideOverlay(self) -> typing.Sequence[foundry.ui.Drawing]:
         """
         self.guideOverlay() -> returns the guide overlays displayed in the player.
 
@@ -86,7 +86,7 @@ class Player:
         """
         ...
 
-    def maskOverlay(self) -> object:
+    def maskOverlay(self) -> hiero.ui.Drawing:
         """
         self.maskOverlay() -> returns the drawing used as the mask overlay in the player.
 
@@ -127,7 +127,7 @@ class Player:
         """
         ...
 
-    def sequence(self, *args: typing.Any, **kwargs: typing.Any) -> Iterable:
+    def sequence(self, *args: typing.Any, **kwargs: typing.Any) -> typing.Union[hiero.core.Clip, hiero.core.Sequence]:
         """
         self.sequence() -> returns the object currently being played.
 
@@ -167,7 +167,7 @@ class Player:
         """
         ...
 
-    def setGuideOverlay(self, arg__1: object) -> object:
+    def setGuideOverlay(self, arg__1: typing.Sequence[foundry.ui.Drawing]) -> None:
         """
         self.setGuideOverlay(guideOverlays) -> sets the guide overlays to display in the player.
 
@@ -191,7 +191,7 @@ class Player:
         """
         ...
 
-    def setMaskOverlay(self, arg__1: object) -> object:
+    def setMaskOverlay(self, arg__1: foundry.ui.Drawing) -> None:
         """
         self.setMaskOverlay(aspect) -> sets the drawing to use for the mask overlay.
 

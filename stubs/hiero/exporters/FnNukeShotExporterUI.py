@@ -14,7 +14,7 @@ from .FnNukeExporterWidgets import (TimelineWriteNodeWidget,
 
 
 class NukeShotExporterUI(hiero.ui.TaskUIBase):
-    def __init__(self, preset):
+    def __init__(self, preset: object) -> None:
         """UI for NukeShotExporter task."""
         hiero.ui.TaskUIBase.__init__(self, preset.parentType(), preset, 'Nuke Project File')
 
@@ -87,7 +87,7 @@ class NukeShotExporterUI(hiero.ui.TaskUIBase):
 
         self.propertiesChanged.emit()
 
-    def reformatChanged(self):
+    def reformatChanged(self) -> None:
         """ Callback when the Reformat combo box selection has changed.  Enable/disable the reformat property widgets
             as appropriate. """
         text = self._reformatCombo.currentText()
@@ -216,13 +216,13 @@ class NukeShotExporterUI(hiero.ui.TaskUIBase):
             additionalNodesLayout.addWidget(additionalNodesButton)
             formLayout.addRow('Additional Nodes:', additionalNodesLayout)
 
-    def _isShotExport(self):
+    def _isShotExport(self) -> bool:
         """ Check if the export task is for shots or whole sequences. The UI should
         be slightly different in these cases.
         """
         return (self._preset.supportedItems() & self._preset.kTrackItem)
 
-    def _addReformatOptions(self, layout):
+    def _addReformatOptions(self, layout: object) -> None:
         """ Add reformat options to the UI. """
 
         # When doing process as sequence, we don't need these options
@@ -321,7 +321,7 @@ class NukeShotExporterUI(hiero.ui.TaskUIBase):
 
         self.reformatChanged()
 
-    def _addCollateOptions(self, layout):
+    def _addCollateOptions(self, layout: object) -> None:
         """ Add collate options to the UI. """
 
         # When doing process as sequence, we don't need these options
@@ -367,7 +367,7 @@ class NukeShotExporterUI(hiero.ui.TaskUIBase):
         if dialog.exec_():
             self._preset.properties()['additionalNodesData'] = dialog.data()
 
-    def setTags(self, tags):
+    def setTags(self, tags: List[str]) -> None:
         """setTags passes the subset of tags associated with the selection for export"""
         self._tags = tags
 

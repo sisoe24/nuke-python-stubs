@@ -362,7 +362,7 @@ DLEDL_ELEMENT.setAction(DLElementSpecifierAction)
 """
 
 
-def flatten(q):
+def flatten(q: list) -> list:
     """
     a recursive function that flattens a nested list q
     """

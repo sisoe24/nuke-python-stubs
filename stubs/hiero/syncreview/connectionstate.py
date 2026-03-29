@@ -36,7 +36,7 @@ class ConnectionState(QObject):
         self._error = ConnectionState.ERROR_NONE
         self._errorText = ''
 
-    def setState(self, state):
+    def setState(self, state: int) -> None:
         """ Set the connection state. Clears any error that was set """
         oldState = self._state
         if state == oldState:
@@ -46,7 +46,7 @@ class ConnectionState(QObject):
         self._errorText = ''
         self.changed.emit(state, oldState)
 
-    def setError(self, error, errorText=''):
+    def setError(self, error: int, errorText: str = '') -> None:
         """ Set the error flag, and reset the main state to DISCONNECTED """
         self.setState(ConnectionState.DISCONNECTED)
         self._error = error
@@ -56,7 +56,7 @@ class ConnectionState(QObject):
     def state(self):
         return self._state
 
-    def __eq__(self, state):
+    def __eq__(self, state: int) -> bool:
         """ Convenience implementation for comparing the object to the state values """
         return self._state == state
 

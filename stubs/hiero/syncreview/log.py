@@ -18,7 +18,7 @@ _logFormatter = logging.Formatter('%(asctime)s.%(msecs)03d: %(message)s', '%H:%M
 _fileLogger = None
 
 
-def initLogger(name):
+def initLogger(name: str) -> 'logging.Logger':
     """ Create the logger instance with the given name """
     global _fileLogger
     global _rootLogger
@@ -31,7 +31,7 @@ def initLogger(name):
     _fileLogger.addHandler(fileHandler)
 
 
-def closeLogger():
+def closeLogger() -> None:
     """ Close the logger instance """
     # Can't destroy the logger object, make sure files are closed etc.
     global _fileLogger
@@ -43,14 +43,14 @@ def closeLogger():
         _fileLogger = None
 
 
-def logMessage(message):
+def logMessage(message: str) -> None:
     """ Write a message to the current log file """
     global _fileLogger
     if _fileLogger:
         _fileLogger.info(message)
 
 
-def logException(msg=None):
+def logException(msg: 'Optional[str]' = None) -> None:
     """ Log the current exception details """
     trace = traceback.format_exc()
     if msg:
@@ -63,7 +63,7 @@ def logException(msg=None):
 LOG_DEBUG_ENABLED = False
 
 
-def logDebug(message):
+def logDebug(message: str) -> None:
     """ Debug log message. These aren't printed unless LOG_DEBUG_ENABLED is set """
     global LOG_DEBUG_ENABLED
     if LOG_DEBUG_ENABLED:

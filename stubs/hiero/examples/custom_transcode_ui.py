@@ -10,7 +10,7 @@ from hiero.ui.FnTaskUIFormLayout import TaskUIFormLayout
 
 
 class CustomTranscodeUI(FnTranscodeExporterUI.TranscodeExporterUI):
-    def __init__(self, preset):
+    def __init__(self, preset: object) -> None:
         """Initialize"""
         FnTranscodeExporterUI.TranscodeExporterUI.__init__(self, preset)
 

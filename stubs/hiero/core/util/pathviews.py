@@ -1,17 +1,17 @@
 import re
 
 
-def isMultiViewPath(path):
+def isMultiViewPath(path: str) -> bool:
     """ Test if a path contains %v placeholders for multiple views """
     return '%v' in path or '%V' in path
 
 
-def formatMultiViewPath(path, view):
+def formatMultiViewPath(path: str, view: str) -> str:
     """ Format a path string with %v/V placeholders with a view name """
     return path.replace('%V', view).replace('%v', view[0])
 
 
-def findViewInPath(path, views):
+def findViewInPath(path: str, views: list[str]) -> list[str] | None:
     """ Try to find a view name in a path from the list of views. If successful,
     returns a list of the matched view name and the path with %v/%V substituted.
     Otherwise returns None.

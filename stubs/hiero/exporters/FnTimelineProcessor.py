@@ -10,7 +10,7 @@ from .FnCompRenderTask import createCompRenderTasks
 
 class TimelineProcessor(hiero.core.ProcessorBase):
 
-    def __init__(self, preset, submission=None, synchronous=False):
+    def __init__(self, preset: 'TimelineProcessorPreset', submission: 'Optional[Any]' = None, synchronous: bool = False) -> None:
         """Initialize"""
         hiero.core.ProcessorBase.__init__(self, preset, submission, synchronous)
         self._exportTemplate = None
@@ -42,7 +42,7 @@ class TimelineProcessor(hiero.core.ProcessorBase):
                     max = track[-1].timelineOut()
         return min, max
 
-    def startFrameOffset(self):
+    def startFrameOffset(self) -> int:
         """ If the export start frame is set to 'Custom', return the custom value.
         Otherwise returns 0.
         """
@@ -51,7 +51,7 @@ class TimelineProcessor(hiero.core.ProcessorBase):
             offset = self._preset.properties()['startFrameIndex']
         return offset
 
-    def createSequenceCopy(self, sequence, excludedTracks, preview, itemFilter=None):
+    def createSequenceCopy(self, sequence: 'Sequence', excludedTracks: 'list[Any]', preview: bool, itemFilter: 'Optional[Callable[[Any], bool]]' = None) -> 'Sequence':
         """ Create a copy of a sequence, not including any tracks which are in the
         excluded list, and filtering track items with the itemFilter function if
         given.
@@ -139,7 +139,7 @@ class TimelineProcessor(hiero.core.ProcessorBase):
 
         return sequenceCopy
 
-    def exportSequenceForTrackItem(self, trackItem, exportItems, excludedTracks, preview):
+    def exportSequenceForTrackItem(self, trackItem: 'Any', exportItems: 'list[Any]', excludedTracks: 'list[Any]', preview: bool) -> 'tuple[Sequence, Sequence, Any]':
         """ Create a copy of the track item's sequence, removing any excluded
         tracks or unselected items from it.
         Return a tuple of the sequence, the copy, and the project
@@ -187,7 +187,7 @@ class TimelineProcessor(hiero.core.ProcessorBase):
 
         return sequence, sequenceCopy, sequence.project()
 
-    def exportSequenceForSequence(self, sequence, excludedTracks, preview):
+    def exportSequenceForSequence(self, sequence: 'Sequence', excludedTracks: 'list[Any]', preview: bool) -> 'tuple[Sequence, Sequence, str]':
         """ Create a copy of the sequence and remove any excluded tracks from it
         Return a tuple of the sequence, the copy, and the project name
         """
@@ -247,7 +247,7 @@ class TimelineProcessor(hiero.core.ProcessorBase):
             sequenceData.append(s)
         return self._createTasks(sequenceData, preview)
 
-    def _createTasks(self, sequences, preview):
+    def _createTasks(self, sequences: 'list[tuple[Sequence, Sequence, Any]]', preview: bool) -> 'list[Any]':
         """ Create export tasks. sequences is a list of tuples with
         (sequence, sequenceClone, project).
         """
@@ -360,7 +360,7 @@ class TimelineProcessorPreset(hiero.core.ProcessorPreset):
         # This remaps the project root if os path remapping has been set up in the preferences
         self.properties()['exportRoot'] = hiero.core.remapPath(self.properties()['exportRoot'])
 
-    def addCustomResolveEntries(self, resolver):
+    def addCustomResolveEntries(self, resolver: 'ResolveTable') -> None:
         """addDefaultResolveEntries(self, resolver)
         Create resolve entries for default resolve tokens shared by all task types.
         @param resolver : ResolveTable object"""

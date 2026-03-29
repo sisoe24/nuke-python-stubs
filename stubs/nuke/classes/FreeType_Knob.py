@@ -14,13 +14,13 @@ class FreeType_Knob(Knob):
     A knob which holds a font family and style name.
     """
 
-    def __new__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs) -> FreeType_Knob:
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
         ...
 
-    def __hash__(self, ) -> None:
+    def __hash__(self) -> int:
         """
         Return hash(self).
         """
@@ -32,7 +32,7 @@ class FreeType_Knob(Knob):
         """
         ...
 
-    def getValue(self,) -> str:
+    def getValue(self) -> list[str]:
         """
         self.getValue() -> [String, String]
 
@@ -42,7 +42,7 @@ class FreeType_Knob(Knob):
         """
         ...
 
-    def setValue(self, family: str, style: str) -> None:
+    def setValue(self, family: str, style: str, filename: str = '', index: int = 0) -> None:
         """
         self.setValue(family,style) -> None.
 

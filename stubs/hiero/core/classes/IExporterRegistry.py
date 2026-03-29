@@ -20,31 +20,31 @@ class IExporterRegistry:
     This class should not be used directly; use hiero.core.TaskRegistry instead.
     """
 
-    def __new__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs) -> IExporterRegistry:
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
         ...
 
-    def __setattr__(self, name, value, ) -> None:
+    def __setattr__(self, name: str, value: typing.Any) -> None:
         """
         Implement setattr(self, name, value).
         """
         ...
 
-    def __delattr__(self, name, ) -> None:
+    def __delattr__(self, name: str) -> None:
         """
         Implement delattr(self, name).
         """
         ...
 
-    def __init__(self,  *args, **kwargs) -> None:
+    def __init__(self, *args: typing.Any, **kwargs: typing.Any) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """
         ...
 
-    def assignPresetToProject(self, preset: hiero.core.ITaskPreset, project: hiero.core.Project) -> None:
+    def assignPresetToProject(self, preset: hiero.core.TaskPreset, project: hiero.core.Project) -> None:
         """
         self.assignPresetToProject(hiero.core.TaskPreset, hiero.core.Project) -> Called by the C++ application to assign a TaskPreset to .
         a null hiero.core.Project will remove the project assignment and revernt the preset to local ownership.
@@ -54,7 +54,7 @@ class IExporterRegistry:
         """
         ...
 
-    def copyAndAddProcessorPreset(self, preset: hiero.core.ITaskPreset) -> hiero.core.ITaskPreset:
+    def copyAndAddProcessorPreset(self, preset: hiero.core.TaskPreset) -> hiero.core.TaskPreset:
         """
         self.copyAndAddProcessorPreset() -> Called by the C++ application to duplicate a preset.
 
@@ -63,7 +63,7 @@ class IExporterRegistry:
         """
         ...
 
-    def copyAndAddProjectPreset(self, preset: hiero.core.ITaskPreset, project: hiero.core.Project) -> hiero.core.ITaskPreset:
+    def copyAndAddProjectPreset(self, preset: hiero.core.TaskPreset, project: hiero.core.Project) -> hiero.core.TaskPreset:
         """
         copyAndAddProjectPreset() -> Called by the C++ application to duplicate a preset and assign it to a new project.
 
@@ -73,7 +73,7 @@ class IExporterRegistry:
         """
         ...
 
-    def createAndAddProcessorPreset(self, preset: str, typetemplate: hiero.core.ITaskPreset) -> hiero.core.ITaskPreset:
+    def createAndAddProcessorPreset(self, preset: str, typetemplate: hiero.core.TaskPreset) -> hiero.core.TaskPreset:
         """
         self.createAndAddProcessorPreset(string, hiero.core.TaskPreset) -> Called by the C++ application to create a new preset, using typetemplate as a template.
 
@@ -82,7 +82,7 @@ class IExporterRegistry:
         """
         ...
 
-    def createAndExecuteProcessor(self, preset: hiero.core.ITaskPreset, items: typing.List[core.ItemWrapper], submissionName: str) -> None:
+    def createAndExecuteProcessor(self, preset: hiero.core.TaskPreset, items: typing.List[hiero.core.ItemWrapper], submissionName: str) -> None:
         """
         self.createAndExecuteProcessor(hiero.core.TaskPreset, [hiero.core.ItemWrapper], string) -> Called by the C++ application to instantiate the Processor associated with specified preset and execute on the selected items.
 
@@ -108,7 +108,7 @@ class IExporterRegistry:
         """
         ...
 
-    def localPresets(self) -> typing.List[core.ITaskPreset]:
+    def localPresets(self) -> typing.List[hiero.core.TaskPreset]:
         """
         self.projectPresets() -> Returns a list of local presets assigned to the specified Project.
 
@@ -124,7 +124,7 @@ class IExporterRegistry:
         """
         ...
 
-    def nukeShotExportPresets(self, project: hiero.core.Project) -> typing.List[core.ITaskPreset]:
+    def nukeShotExportPresets(self, project: hiero.core.Project) -> typing.List[hiero.core.TaskPreset]:
         """
         self.nukeShotExportPresets(hiero.core.Project) -> Get a list of presets which are contain Nuke shot exports.
 
@@ -132,7 +132,7 @@ class IExporterRegistry:
         """
         ...
 
-    def presetFromXml(self, xml: str) -> hiero.core.ITaskPreset:
+    def presetFromXml(self, xml: str) -> hiero.core.TaskPreset:
         """
         self.presetFromXml(string) -> Called by the C++ application to ask the TaskRegistry to deserialize a Task preset from xml.
 
@@ -141,7 +141,7 @@ class IExporterRegistry:
         """
         ...
 
-    def presetToPrettyXml(self, preset: hiero.core.ITaskPreset) -> str:
+    def presetToPrettyXml(self, preset: hiero.core.TaskPreset) -> str:
         """
         self.presetToPrettyXml(hiero.core.TaskPreset) -> Called by the C++ application to ask the TaskRegistry to serialize a Task preset to human friendly formatted xml.
 
@@ -150,7 +150,7 @@ class IExporterRegistry:
         """
         ...
 
-    def presetToXml(self, preset: hiero.core.ITaskPreset) -> str:
+    def presetToXml(self, preset: hiero.core.TaskPreset) -> str:
         """
         self.presetToXml(hiero.core.TaskPreset) -> Called by the C++ application to ask the TaskRegistry to serialize a Task preset to xml.
 
@@ -183,7 +183,7 @@ class IExporterRegistry:
         """
         ...
 
-    def projectPresets(self, project: hiero.core.Project) -> typing.List[core.ITaskPreset]:
+    def projectPresets(self, project: hiero.core.Project) -> typing.List[hiero.core.TaskPreset]:
         """
         self.projectPresets(hiero.core.Project) -> Returns a list of project presets assigned to the specified Project.
 
@@ -214,7 +214,7 @@ class IExporterRegistry:
         """
         ...
 
-    def removeProcessorPreset(self, preset: hiero.core.ITaskPreset) -> None:
+    def removeProcessorPreset(self, preset: hiero.core.TaskPreset) -> None:
         """
         self.removeProcessorPreset(hiero.core.TaskPreset) -> Called by the C++ application to remove a preset from the registry.
 
@@ -222,7 +222,7 @@ class IExporterRegistry:
         """
         ...
 
-    def renameProcessorPreset(self, preset: hiero.core.ITaskPreset, newname: str) -> None:
+    def renameProcessorPreset(self, preset: hiero.core.TaskPreset, newname: str) -> None:
         """
         self.renameProcessorPreset(hiero.core.TaskPreset, string) -> Called by the C++ application to rename a preset in the registry.
 
@@ -279,7 +279,7 @@ class IExporterRegistry:
         """
         ...
 
-    def validateExport(self, preset: hiero.core.ITaskPreset, items: typing.List[core.ItemWrapper]) -> str:
+    def validateExport(self, preset: hiero.core.TaskPreset, items: typing.List[hiero.core.ItemWrapper]) -> str:
         """
         self.validateExport(hiero.core.TaskPreset, [hiero.core.ItemWrapper]) -> Called by the C++ application to determinate if preset and selected items have valid resolution according the application mode.
         A warning message will be shown in case of any invalid output resolution.

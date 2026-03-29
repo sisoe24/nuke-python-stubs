@@ -143,14 +143,14 @@ class ConnectDialog(QDialog):
         self._portWidget.valueChanged.connect(self.onConnectDetailsChanged)
         self._hostnameWidget.textChanged.connect(self.onConnectDetailsChanged)
 
-    def _createDivider(self):
+    def _createDivider(self) -> object:
         """ Convenience function for creating a sunken hirzontal divider """
         divider = QFrame()
         divider.setFrameStyle(QFrame.HLine | QFrame.Sunken)
         divider.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         return divider
 
-    def _connectionInfoFromClipboard(self):
+    def _connectionInfoFromClipboard(self) -> str | None:
         """ Try to paste connection info from the clipboard """
         clipboardContents = QApplication.clipboard().text()
         try:
@@ -169,24 +169,24 @@ class ConnectDialog(QDialog):
             return True
         return False
 
-    def _openColorPicker(self):
+    def _openColorPicker(self) -> object | None:
         """ Open the color picker dialog"""
         colorPickerDialog = hiero.ui.ColorPickerDialog()
         colorPickerDialog.setCurrentColor(self._colorPickerButton.color())
         colorPickerDialog.exec_()
         self._colorPickerButton.setColor(colorPickerDialog.currentColor())
 
-    def getHostAndPort(self):
+    def getHostAndPort(self) -> tuple[str, int] | None:
         """ Get the hostname and port to connect to """
         return self._hostnameWidget.text(), self._portWidget.value()
 
-    def getClientData(self):
+    def getClientData(self) -> dict[str, object] | None:
         """ Get the current client data info from the dialog """
         color = self._colorPickerButton.color()
         clientDataColor = (color.red(), color.green(), color.blue())
         return (self._nameField.text(), clientDataColor)
 
-    def connect(self):
+    def connect(self) -> None:
         """ Try to connect with the current settings """
         host, port = self.getHostAndPort()
         clientData = self.getClientData()
@@ -198,13 +198,13 @@ class ConnectDialog(QDialog):
             settings.setValue(config.PREVIOUS_HOST_KEY, host)
             settings.setValue(config.PREVIOUS_PORT_NUMBER_KEY, port)
 
-    def cancel(self):
+    def cancel(self) -> None:
         """ Close the dialog and cancel any in-progress connections """
         if self._connectionManager.connectionState == ConnectionState.CLIENT_CONNECTING:
             self._connectionManager.disconnectClient()
         self.reject()
 
-    def onConnectDetailsChanged(self):
+    def onConnectDetailsChanged(self) -> None:
         """ Called whenever the hostname or port is edited. If a connection attempt was
         already in progress, it will be cancelled.
         """
@@ -213,7 +213,7 @@ class ConnectDialog(QDialog):
             self.setStatusText(ConnectDialog.CANCELLED_CONNECTION_LABEL)
         self.updateConnectButtonEnabled()
 
-    def updateConnectButtonEnabled(self):
+    def updateConnectButtonEnabled(self) -> None:
         """ Set if the connect button is enabled state based on the connection state
         and the settings. At the moment it just checks if the hostname field has anything
         in it. We could maybe make this check the host is valid before the user tries to
@@ -224,7 +224,7 @@ class ConnectDialog(QDialog):
         button = self._buttonBox.button(QDialogButtonBox.Ok)
         button.setEnabled(enable)
 
-    def onConnectionStateChanged(self, state):
+    def onConnectionStateChanged(self, state: int) -> None:
         """ Connection state change handling """
         if state == ConnectionState.CLIENT_CONNECTING:
             self.setStatusConnecting()
@@ -232,18 +232,18 @@ class ConnectDialog(QDialog):
             self.accept()  # Close the dialog
         self.updateConnectButtonEnabled()
 
-    def onConnectError(self, error, errorText):
+    def onConnectError(self, error: object, errorText: str) -> None:
         """ Connection error handling """
         if not errorText:
             errorText = ConnectDialog.DEFAULT_ERROR_MESSAGE
         self.setStatusText(ConnectDialog.ERROR_LABEL.format(errorText))
 
-    def setStatusText(self, text):
+    def setStatusText(self, text: str) -> None:
         """ Set the status label text """
         self._statusLabel.setMovie(None)
         self._statusLabel.setText(text)
 
-    def setStatusConnecting(self):
+    def setStatusConnecting(self) -> None:
         """ Show the connecting spinner """
         self._statusLabel.setText('')
         self._connectingSpinner.start()

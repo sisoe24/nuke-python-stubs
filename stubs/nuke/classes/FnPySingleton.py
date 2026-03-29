@@ -14,7 +14,7 @@ class FnPySingleton(object):
 
     """
 
-    def __new__(self, type, *args, **kwargs) -> None:
+    def __new__(self, type, *args, **kwargs) -> FnPySingleton:
         """
         staticmethod(function) -> method
 
@@ -38,14 +38,14 @@ class FnPySingleton(object):
         ...
 
     @property
-    def __dict__(self) -> typing.Any:
+    def __dict__(self) -> typing.Dict[str, typing.Any]:
         """
         dictionary for instance variables (if defined)
         """
         ...
 
     @property
-    def __weakref__(self) -> typing.Any:
+    def __weakref__(self) -> typing.List[typing.Any]:
         """
         list of weak references to the object (if defined)
         """

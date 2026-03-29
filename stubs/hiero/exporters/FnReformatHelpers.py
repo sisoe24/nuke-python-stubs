@@ -10,7 +10,7 @@ kReformatDefaults = {
 }
 
 
-def reformatSettingsFromPreset(preset):
+def reformatSettingsFromPreset(preset) -> Union[Format, float]:
     """ Extract the reformat properties from a task preset.  If the reformat type is 'to format', the format returns the format,
         if it's 'scale' returns the scale value. """
     type, format, scale, resize, center, filter = None, None, None, None, None, None
@@ -43,7 +43,7 @@ def reformatSettingsFromPreset(preset):
 __reformatKnobFixedValues = {'pbb': True, 'black_outside': True}
 
 
-def reformatNodeFromPreset(preset, sequenceFormat, trackItem=None):
+def reformatNodeFromPreset(preset, sequenceFormat, trackItem=None) -> Optional[ReformatNode]:
     """ If reformat options are configured in the preset, return a ReformatNode
     created from them. Otherwise returns None.
     @param sequenceFormat: Specifies the sequence format.  Used only when preset

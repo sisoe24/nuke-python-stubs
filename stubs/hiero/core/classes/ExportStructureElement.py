@@ -18,25 +18,25 @@ class ExportStructureElement(IExportStructureElement):
     ExportStructureElement represents a node within the export structure
     """
 
-    def __init__(self, name, isFolder) -> None:
+    def __init__(self, name: str, isFolder: bool) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """
         ...
 
-    def preset(self) -> None:
+    def preset(self) -> Optional[Any]:
         """
         Return the preset assigned to this Element. May be None
         """
         ...
 
-    def setPreset(self, preset) -> None:
+    def setPreset(self, preset: Optional[Any]) -> None:
         """
         Set the preset assigned to this Element. May be None
         """
         ...
 
-    def setPresetType(self, identifier) -> None:
+    def setPresetType(self, identifier: str) -> None:
         """
         setPresetType(self, identifier)
 
@@ -44,50 +44,50 @@ class ExportStructureElement(IExportStructureElement):
         """
         ...
 
-    def path(self) -> None:
+    def path(self) -> str:
         """
         Return the path of this Element
         """
         ...
 
-    def name(self) -> None:
+    def name(self) -> str:
         """
         Return the name of this Element
         """
         ...
 
-    def setName(self, name) -> None:
+    def setName(self, name: str) -> None:
         """
         Set the name of this element.
         """
         ...
 
-    def pathChanged(self, oldPath) -> None:
+    def pathChanged(self, oldPath: str) -> None:
         """
         Notify children and any observers that the element's path has changed.
         """
         ...
 
-    def addPathChangedCallback(self, callback) -> None:
+    def addPathChangedCallback(self, callback: Callable[[str, str], None]) -> None:
         """
         Add a callback to be notified when the path of this element has changed,
         callbacks should take the arguments (oldPath, newPath).
         """
         ...
 
-    def isLeaf(self) -> None:
+    def isLeaf(self) -> bool:
         """
         Returns True if node is flagged as leaf and may not accept children
         """
         ...
 
-    def parent(self) -> None:
+    def parent(self) -> Optional[ExportStructureElement]:
         """
         Return the parent element of this Element
         """
         ...
 
-    def _setParent(self, parent) -> None:
+    def _setParent(self, parent: Optional[ExportStructureElement]) -> None:
         """
         Set the parent element of this Element. Note: this is an internal method
         and should not be called directly. Elements should be added to a parent by
@@ -95,32 +95,32 @@ class ExportStructureElement(IExportStructureElement):
         """
         ...
 
-    def childIndex(self, element) -> None:
+    def childIndex(self, element: ExportStructureElement) -> int:
         """
         Given a child element, identify and return the index of the child within
         the children array. Returns -1 if child not found.
         """
         ...
 
-    def child(self, index) -> None:
+    def child(self, index: int) -> Optional[ExportStructureElement]:
         """
         Return a child by index
         """
         ...
 
-    def children(self) -> None:
+    def children(self) -> List[ExportStructureElement]:
         """
         Return a list of children
         """
         ...
 
-    def childCount(self) -> None:
+    def childCount(self) -> int:
         """
         Return the number of children
         """
         ...
 
-    def __bool__(self) -> None:
+    def __bool__(self) -> bool:
         """
         Implemented because otherwise the __len__ method is used for evaluation
         in boolean contexts. 'if element' should always succeed.
@@ -145,26 +145,26 @@ class ExportStructureElement(IExportStructureElement):
         """
         ...
 
-    def __repr__(self) -> None:
+    def __repr__(self) -> str:
         """
         Return repr(self).
         """
         ...
 
-    def findElementsByPath(self, path) -> None:
+    def findElementsByPath(self, path: str) -> List[ExportStructureElement]:
         """
         Search recursively through the element tree finding elements which
         match path. Returns a list.
         """
         ...
 
-    def addChild(self, child) -> None:
+    def addChild(self, child: ExportStructureElement) -> None:
         """
         Add a child to this Element
         """
         ...
 
-    def _createChildren(self, path, isFolder, preset=None) -> None:
+    def _createChildren(self, path: str, isFolder: bool, preset: Optional[Any] = None) -> ExportStructureElement:
         """
         Create and add a child element. If path has / separators, recursively
         adds children. Returns the final created element.
@@ -183,13 +183,13 @@ class ExportStructureElement(IExportStructureElement):
         """
         ...
 
-    def createChildFromPreset(self, path, preset) -> None:
+    def createChildFromPreset(self, path: str, preset: Optional[Any]) -> None:
         """
         Create a child element from a path and existing preset
         """
         ...
 
-    def removeChild(self, child) -> None:
+    def removeChild(self, child: ExportStructureElement) -> None:
         """
         Remove a child from this Element
         """
@@ -201,7 +201,7 @@ class ExportStructureElement(IExportStructureElement):
         """
         ...
 
-    def toXml(self) -> None:
+    def toXml(self) -> str:
         """
         Serialize Element and children to XML
         """
@@ -213,7 +213,7 @@ class ExportStructureElement(IExportStructureElement):
         """
         ...
 
-    def fromXml(self, xml) -> None:
+    def fromXml(self, xml: str) -> None:
         """
         Build Child Elements from XML data
         """

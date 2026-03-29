@@ -8,7 +8,7 @@ class DisclosureButton(QtWidgets.QCheckBox):
     Button used for showing/hiding widgets in a layout.  This is a Python reimplementation of the class of the same name in the Core/UI library.
     """
 
-    def __init__(self, contentsVisible=True, parent=None):
+    def __init__(self, contentsVisible: bool = True, parent: object = None) -> None:
         """ Initialise the button with the given parent and contents visible flag. """
         QtWidgets.QCheckBox.__init__(self, parent)
         self._contentsVisible = contentsVisible
@@ -17,7 +17,7 @@ class DisclosureButton(QtWidgets.QCheckBox):
         self._widgets = []
         self.clicked.connect(self.showOrHideWidgets)
 
-    def addWidget(self, widget):
+    def addWidget(self, widget: object) -> None:
         """ Add a new widget to the set of those controlled by this
             disclosure button (the widget is not a layout and so the
             new widget should be added to the hierarchy of displayed widgets
@@ -27,26 +27,26 @@ class DisclosureButton(QtWidgets.QCheckBox):
         self._widgets.append(widget)
         widget.setVisible(self.widgetsVisible())
 
-    def removeWidget(self, widget):
+    def removeWidget(self, widget: object) -> None:
         """ Remove a widget from the button's control. """
         self._widgets.remove(widget)
 
-    def setVisible(self, newVisible):
+    def setVisible(self, newVisible: bool) -> None:
         """ Set the visibility of the widget.  Will also change the visibility of any controlled widgets. """
         QtWidgets.QCheckBox.setVisible(self, newVisible)
         self.showOrHideWidgets()
 
-    def widgetsVisible(self):
+    def widgetsVisible(self) -> bool:
         """ Get if controlled widgets should be visible. """
         return self.isChecked() and self.isVisible()
 
-    def showOrHideWidgets(self):
+    def showOrHideWidgets(self) -> None:
         """ Update the visibility of controlled widgets. """
         visible = self.widgetsVisible()
         for widget in self._widgets:
             widget.setVisible(visible)
 
-    def paintEvent(self, event):
+    def paintEvent(self, event: object) -> None:
         """ Paint the widget. """
         style = self.style()
         styleOption = QtWidgets.QStyleOptionButton()

@@ -16,20 +16,20 @@ class ElidedLabel(QtWidgets.QFrame):
         self._text = ''
         self.setSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Preferred)
 
-    def text(self):
+    def text(self) -> str:
         """ Get the text being displayed. """
         return self._text
 
-    def setText(self, text):
+    def setText(self, text: str) -> None:
         """ Set the text to display. """
         self._text = text
         self.update()
 
-    def elideMode(self):
+    def elideMode(self) -> int:
         """ Get the elide mode. """
         return self._elideMode
 
-    def setElideMode(self, mode):
+    def setElideMode(self, mode: int) -> None:
         """ Set the elide mode. """
         self._elideMode = mode
 

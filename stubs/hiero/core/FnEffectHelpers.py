@@ -226,7 +226,7 @@ EffectTransforms = {'Crop': _transformCropEffect,
                     'BurnIn': _transformBurnInEffect}
 
 
-def iterSequenceEffects(sequence):
+def iterSequenceEffects(sequence) -> Iterator[Any]:
     """ Generator for iteration over the EffectTrackItems in a sequence. """
     for track in sequence.videoTracks():
         for subTrackItem in itertools.chain(*track.subTrackItems()):
@@ -234,7 +234,7 @@ def iterSequenceEffects(sequence):
                 yield subTrackItem
 
 
-def _calculateScaleHelper(inFormat, outFormat, resizeType, scale):
+def _calculateScaleHelper(inFormat, outFormat, resizeType, scale) -> None:
     """ Helper function for calculating the scaling between two formats for a
     given resize type. Maths copied from Reformat.cpp
     """
@@ -304,7 +304,7 @@ class FormatChange(object):
     def heightRatio(self):
         return self.newHeight() / self.oldHeight()
 
-    def calculateCenterOffset(self, transform):
+    def calculateCenterOffset(self, transform) -> None:
         """ Add translation required to center the image for the scale in the
         given transform.
         """
@@ -312,7 +312,7 @@ class FormatChange(object):
         transform.setTranslate((self.newWidth() - (self.oldWidth() * scaleX)) / 2.0,
                                (self.newHeight() - (self.oldHeight() * scaleY)) / 2.0)
 
-    def calculateScale(self, resizeType):
+    def calculateScale(self, resizeType) -> float:
         """ Calculate the scaling from the old format to the new format for the given
         resize type.
         """
@@ -324,7 +324,7 @@ class FormatChange(object):
         newScaleX, newScaleY = _calculateScaleHelper(self.clipFormat, self.newFormat, resizeType, 1)
         return (newScaleX / oldScaleX, newScaleY / oldScaleY)
 
-    def getTransformForReformatState(self):
+    def getTransformForReformatState(self) -> Any:
         """ Calculate the transform for a format change, taking into account the
         reformat settings on a track item.
         """
@@ -346,12 +346,12 @@ class FormatChange(object):
 
         return transform
 
-    def getTransformForFormatNoReformatState(self):
+    def getTransformForFormatNoReformatState(self) -> Any:
         """ Calculate the transform for a format change. This just scales by the ratio
         of the width/height of the old to new format. """
         return EffectTransform(self.widthRatio(), self.heightRatio(), 0, 0)
 
-    def getTransformForFormat(self):
+    def getTransformForFormat(self) -> Any:
         """ Get the transform to shift to the new format, taking into account the
         clip reformat state.
         """
@@ -360,7 +360,7 @@ class FormatChange(object):
         else:
             return self.getTransformForFormatNoReformatState()
 
-    def getTransformOffsetUnscaledClip(self):
+    def getTransformOffsetUnscaledClip(self) -> Any:
         """ If clips are not scaled to sequence format, when the format changes
         transforms should just be offset to compensate for the centering of the clip
         in the new format.
@@ -372,7 +372,7 @@ class FormatChange(object):
                                    (nf.height()-cf.height())/2 - (of.height()-cf.height())/2)
         return transform
 
-    def isClipReformatCentered(self):
+    def isClipReformatCentered(self) -> bool:
         """ Check if the clip is centered in the sequence format. This is always
         true if set to 'disabled'.
         """
@@ -383,7 +383,7 @@ class FormatChange(object):
                                         self.reformatStateResizeType() == 'none'))
 
 
-def findLinkedTrackItem(effectItem):
+def findLinkedTrackItem(effectItem) -> Any:
     """ Find the main video track item linked to an effect. """
     track = effectItem.parentTrack()
     for item in effectItem.linkedItems():
@@ -414,7 +414,7 @@ def transformSequenceEffectsToFormat(sequence, format, oldFormat, errorCallback)
         transformEffectToFormat(effectItem, format, oldFormat, errorCallback)
 
 
-def calculateReformat(inFormat, outFormat, resizeType, center, scale):
+def calculateReformat(inFormat, outFormat, resizeType, center, scale) -> tuple[int, int, int, int]:
     """ Converts from inFormat to outFormat using the specified resizeType and
     center to determine how the reformat should happen.  Returns a tuple
     (x, y, w, h) providing the format's coordinates within the new format space.
@@ -439,7 +439,7 @@ def calculateReformat(inFormat, outFormat, resizeType, center, scale):
     return (x, y, w, h)
 
 
-def executeEffectNode(effectNode, frames):
+def executeEffectNode(effectNode, frames) -> None:
     """ Execute a node belonging to a soft effect in the timeline. This is similar
     to the nuke.execute() function.
     @param effectNode: the node to execute
@@ -452,7 +452,7 @@ def executeEffectNode(effectNode, frames):
     effectForNode.executeNode(frames)
 
 
-def effectInputSourceCoods(effectItem):
+def effectInputSourceCoods(effectItem) -> tuple[int, int, int, int]:
     """ Find the track item linked to the given effectItem and return the coordinates of its
     source clip  mapped to the sequence output format space. If there is no linked track item,
     the coordinates of the sequence format is returned.

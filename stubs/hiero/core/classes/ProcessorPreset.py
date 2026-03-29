@@ -20,7 +20,7 @@ class ProcessorPreset(TaskPresetBase):
     and shared between the Processor and ProcessorUI user interface component
     """
 
-    def __init__(self, parentType, presetName: str) -> None:
+    def __init__(self, parentType: 'Processor', presetName: str) -> None:
         """
         Initialise Exporter Preset Base Class
 
@@ -29,7 +29,7 @@ class ProcessorPreset(TaskPresetBase):
         """
         ...
 
-    def __eq__(self, other) -> None:
+    def __eq__(self, other: 'ProcessorPreset') -> bool:
         """
         Override to compare projects.  The TaskRegistry relies on presets which are otherwise identical but with different projects not comparing equal.
         """

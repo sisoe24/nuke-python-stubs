@@ -16,7 +16,7 @@ class ColorspaceLookupError(Exception):
     pass
 
 
-def _attemptColorspaceNameMatch(colorspaceName):
+def _attemptColorspaceNameMatch(colorspaceName: str) -> str | None:
     """ Look through all options in the colorpsace knob, and see if we have an
     exact match to one of the items. """
     node = nuke.thisNode()
@@ -30,7 +30,7 @@ def _attemptColorspaceNameMatch(colorspaceName):
     return colorspaceName in allColorspaces
 
 
-def _lookUpDataTypeDefaultSettings(colorspaceName, dataTypeHint):
+def _lookUpDataTypeDefaultSettings(colorspaceName: str, dataTypeHint: int) -> dict[str, object] | None:
     """
     Nuke's default handling of colorspace lookups.
 
@@ -93,7 +93,7 @@ def _lookUpDataTypeDefaultSettings(colorspaceName, dataTypeHint):
     return retString
 
 
-def _nukeDefaultColorSpaceMapper(colorspaceName, dataTypeHint):
+def _nukeDefaultColorSpaceMapper(colorspaceName: str, dataTypeHint: int) -> str | None:
     """
     Allows colorspaces selections to be altered before use on Readers and Writers
     """
@@ -107,7 +107,7 @@ def _nukeDefaultColorSpaceMapper(colorspaceName, dataTypeHint):
     return retName
 
 
-def addDefaultColorspaceMapper(call, args=(), kwargs={}, nodeClass='*'):
+def addDefaultColorspaceMapper(call: 'typing.Callable', args: tuple = (), kwargs: dict = {}, nodeClass: str = '*') -> None:
     """
     Add a function to modify default colorspaces before Nuke passes them to
     Readers or Writers.
@@ -120,14 +120,14 @@ def addDefaultColorspaceMapper(call, args=(), kwargs={}, nodeClass='*'):
     callbacks._addCallback(defaultLUTMappers, call, args, kwargs, nodeClass)
 
 
-def removeDefaultColorspaceMapper(call, args=(), kwargs={}, nodeClass='*'):
+def removeDefaultColorspaceMapper(call: 'typing.Callable', args: tuple = (), kwargs: dict = {}, nodeClass: str = '*') -> None:
     """
     Remove a previously-added callback with the same arguments.
     """
     callbacks._removeCallback(defaultLUTMappers, call, args, kwargs, nodeClass)
 
 
-def _doColorSpaceCallbacks(colorspace, dataTypeHint, callbacks, errorMsg):
+def _doColorSpaceCallbacks(colorspace: str, dataTypeHint: int, callbacks: list, errorMsg: str) -> str | None:
     """
     Perform the colorspace callbacks
     expects a string or 'None' to be returned.
@@ -144,7 +144,7 @@ def _doColorSpaceCallbacks(colorspace, dataTypeHint, callbacks, errorMsg):
     return colorspace
 
 
-def defaultColorspaceMapper(colorspace, dataTypeHint):
+def defaultColorspaceMapper(colorspace: str, dataTypeHint: int) -> str | None:
     """
     Called by libnuke.
     Calls into Node-level callbacks first, then global callbacks
@@ -179,7 +179,7 @@ def defaultColorspaceMapper(colorspace, dataTypeHint):
     return colorspace
 
 
-def getColorspaceList(colorspaceKnob):
+def getColorspaceList(colorspaceKnob: object) -> list[str]:
     """
     Get a list of all colorspaces listed in an enumeration knob.
     This will strip family names if the knob has the STRIP_CASCADE_PREFIX flag set.

@@ -70,13 +70,13 @@ class AnimationKey(object):
     True if the point is selected in the curve editor.
     """
 
-    def __new__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs) -> AnimationKey:
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
         ...
 
-    def __hash__(self, ) -> None:
+    def __hash__(self) -> int:
         """
         Return hash(self).
         """
@@ -89,63 +89,63 @@ class AnimationKey(object):
         ...
 
     @property
-    def x(self) -> typing.Any:
+    def x(self) -> float:
         """
         The horizontal position of the point
         """
         ...
 
     @property
-    def y(self) -> typing.Any:
+    def y(self) -> float:
         """
         The vertical position of the point
         """
         ...
 
     @property
-    def lslope(self) -> typing.Any:
+    def lslope(self) -> float:
         """
         The derivative to the left of the point
         """
         ...
 
     @property
-    def rslope(self) -> typing.Any:
+    def rslope(self) -> float:
         """
         The derivative to the right of the point
         """
         ...
 
     @property
-    def la(self) -> typing.Any:
+    def la(self) -> float:
         """
         The left 'bicubic' value
         """
         ...
 
     @property
-    def ra(self) -> typing.Any:
+    def ra(self) -> float:
         """
         The right 'bicubic' value
         """
         ...
 
     @property
-    def interpolation(self) -> typing.Any:
+    def interpolation(self) -> int:
         """
         Used to calculate all the slopes except for the left slope of the first key and the right slope of the last key
         """
         ...
 
     @property
-    def extrapolation(self) -> typing.Any:
+    def extrapolation(self) -> int:
         """
         Controls how to set the left slope of the first point and the right slope of the last point
         """
         ...
 
     @property
-    def selected(self) -> typing.Any:
+    def selected(self) -> bool:
         """
         True if the point is selected in the curve editor
         """

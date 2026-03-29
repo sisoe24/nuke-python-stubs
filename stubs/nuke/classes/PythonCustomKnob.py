@@ -14,13 +14,13 @@ class PythonCustomKnob(Script_Knob):
     PythonCustomKnob
     """
 
-    def __new__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs) -> PythonCustomKnob:
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
         ...
 
-    def __hash__(self, ) -> None:
+    def __hash__(self) -> int:
         """
         Return hash(self).
         """
@@ -32,7 +32,7 @@ class PythonCustomKnob(Script_Knob):
         """
         ...
 
-    def getObject(self, *args: typing.Any, **kwargs: typing.Any) -> None:
+    def getObject(self, *args: typing.Any, **kwargs: typing.Any) -> object:
         """
         Returns the custom knob object as created in the by the 'command' argument to the PyCuston_Knob constructor.
         """

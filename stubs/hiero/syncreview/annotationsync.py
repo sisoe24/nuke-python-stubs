@@ -19,7 +19,7 @@ messages.defineMessageType('AnnotationChange', ('sequenceGuid', str),
 messages.defineMessageType('AnnotationRemove', ('sequenceGuid', str), ('annotationGuid', str))
 
 
-def _findAnnotation(sequenceGuid, annotationGuid):
+def _findAnnotation(sequenceGuid: str, annotationGuid: str) -> 'Annotation | None':
     """ Find an annotation on a clip/sequence by guid """
     sequence = hiero.core.findItemByGuid(sequenceGuid, filter=(Clip, Sequence))
     if not sequence:
@@ -52,7 +52,7 @@ class SyncAnnotationsTool(SyncTool):
         self.messageDispatcher._registerCallback(
             messages.AnnotationRemove, self.onRemoteAnnotationRemoved)
 
-    def onLocalAnnotationChange(self, event):
+    def onLocalAnnotationChange(self, event: object) -> None:
         """ Callback when a local annotation is added/removed/edited """
         if event.change == 'added':
             self.onLocalAnnotationAdded(event.annotation)
@@ -63,7 +63,7 @@ class SyncAnnotationsTool(SyncTool):
         else:
             logMessage('Unexpected annotation change {}'.format(event.change))
 
-    def onLocalAnnotationAdded(self, annotation):
+    def onLocalAnnotationAdded(self, annotation: 'Annotation') -> None:
         """ Local annotation added, send message to remotes to create it there """
         msg = messages.AnnotationAdd(
             sequenceGuid=annotation.parentSequence().guid(),
@@ -71,7 +71,7 @@ class SyncAnnotationsTool(SyncTool):
             annotation=asBytes(annotation.serialize()))
         self.messageDispatcher.sendMessage(msg)
 
-    def onLocalAnnotationChanged(self, annotation):
+    def onLocalAnnotationChanged(self, annotation: 'Annotation') -> None:
         """ Local annotation edited, send message to remotes to create it there """
         msg = messages.AnnotationChange(
             sequenceGuid=annotation.parentSequence().guid(),
@@ -79,14 +79,14 @@ class SyncAnnotationsTool(SyncTool):
             annotation=asBytes(annotation.serialize()))
         self.messageDispatcher.sendMessage(msg)
 
-    def onLocalAnnotationRemoved(self, annotation):
+    def onLocalAnnotationRemoved(self, annotation: 'Annotation') -> None:
         """ Local annotation removed, send message to remotes to remove it there """
         msg = messages.AnnotationRemove(
             sequenceGuid=annotation.parentSequence().guid(),
             annotationGuid=annotation.guid())
         self.messageDispatcher.sendMessage(msg)
 
-    def onRemoteAnnotationAdded(self, msg):
+    def onRemoteAnnotationAdded(self, msg: dict) -> None:
         """ Handle message to create an annotation """
         sequence = hiero.core.findItemByGuid(msg.sequenceGuid, filter=(Clip, Sequence))
         if not sequence:
@@ -98,7 +98,7 @@ class SyncAnnotationsTool(SyncTool):
         track.addSubTrackItem(annotation, msg.subTrack)
         hiero.ui.currentViewer().window().update()
 
-    def onRemoteAnnotationChanged(self, msg):
+    def onRemoteAnnotationChanged(self, msg: dict) -> None:
         """ Handle message to change an annotation. Note that right now, the whole
         annotation is being rebuilt. This should be ok, there's not a huge amount
         of data being sent, but if necessary we could just send e.g. individual points
@@ -109,7 +109,7 @@ class SyncAnnotationsTool(SyncTool):
             annotation.deserialize(asUnicode(msg.annotation))
             hiero.ui.currentViewer().window().update()
 
-    def onRemoteAnnotationRemoved(self, msg):
+    def onRemoteAnnotationRemoved(self, msg: dict) -> None:
         """ Handle message to remove an annotation """
         annotation = _findAnnotation(msg.sequenceGuid, msg.annotationGuid)
         if annotation:

@@ -27,14 +27,14 @@ class TaskBase(ITask):
         """
         ...
 
-    def timeStampString(self, localtime) -> None:
+    def timeStampString(self, localtime: tuple | time.struct_time) -> str:
         """
         timeStampString(localtime)
         Convert a tuple or struct_time representing a time as returned by gmtime() or localtime() to a string formated YEAR/MONTH/DAY TIME.
         """
         ...
 
-    def setError(self, desc) -> None:
+    def setError(self, desc: str) -> None:
         """
         setError(self, desc) Call to set the state of this task to error, with a description of the error.
         If the task is synchronous, raise exception
@@ -49,7 +49,7 @@ class TaskBase(ITask):
         """
         ...
 
-    def updateItem(self, originalItem, localtime) -> None:
+    def updateItem(self, originalItem: object, localtime: tuple | time.struct_time) -> None:
         """
         updateItem - This is called by the processor prior to taskStart, crucially on the main thread.
 
@@ -57,91 +57,91 @@ class TaskBase(ITask):
         """
         ...
 
-    def timeStamp(self) -> None:
+    def timeStamp(self) -> datetime:
         """
         timeStamp(self)
         Returns the datetime object from time of task creation
         """
         ...
 
-    def fileName(self) -> None:
+    def fileName(self) -> str:
         """
         filename(self)
         Returns the source items filename if applicable
         """
         ...
 
-    def fileext(self) -> None:
+    def fileext(self) -> str:
         """
         fileext(self)
         Returns the source items file extention if applicable
         """
         ...
 
-    def filebase(self) -> None:
+    def filebase(self) -> str:
         """
         filebase(self)
         Returns the source items file path less extension if applicable
         """
         ...
 
-    def filehead(self) -> None:
+    def filehead(self) -> str:
         """
         filehead(self)
         Returns the source filename excluding image sequence frame padding and extension, if applicable
         """
         ...
 
-    def filepath(self) -> None:
+    def filepath(self) -> str:
         """
         filepath(self)
         Returns the source file path, if applicable
         """
         ...
 
-    def filepadding(self) -> None:
+    def filepadding(self) -> str:
         """
         filepadding(self)
         Returns the padding used in source file if an image sequence, empty string otherwise
         """
         ...
 
-    def shotName(self) -> None:
+    def shotName(self) -> str:
         """
         shotName(self)
         Returns the Tasks track item name
         """
         ...
 
-    def clipName(self) -> None:
+    def clipName(self) -> str:
         """
         clipName(self)
         Returns the name of the clip in the bin
         """
         ...
 
-    def trackName(self) -> None:
+    def trackName(self) -> str:
         """
         trackName(self)
         Returns the name of the parent track
         """
         ...
 
-    def versionString(self) -> None:
+    def versionString(self) -> str:
         """
         versionString(self)
         Returns the version string used to resolve the {version} token
         """
         ...
 
-    def sequenceName(self) -> None:
+    def sequenceName(self) -> str:
         """
         sequenceName(self)
         Returns the name of the sequence or parent sequence (if exporting a track item)
         """
         ...
 
-    def shotNameIndex(self) -> None:
+    def shotNameIndex(self) -> str:
         """
         shotNameIndex(self)
         Returns the index string for the shot, if there are multiple shots with the same name on the sequence.
@@ -154,41 +154,41 @@ class TaskBase(ITask):
         """
         ...
 
-    def projectName(self) -> None:
+    def projectName(self) -> str:
         """
         projectName(self)
         Returns the name of the project, used for resolving the {project} token)
         """
         ...
 
-    def projectRoot(self) -> None:
+    def projectRoot(self) -> str:
         """
         projectRoot(self)
         Returns the project root export path, used for resolving the {projectroot} token
         """
         ...
 
-    def editId(self) -> None:
+    def editId(self) -> str:
         """
         editId(self)
         Returns a str containing the id of this edit.  See hiero.core.TrackItem.eventNumber().
         """
         ...
 
-    def _editIdPadding(self) -> None:
+    def _editIdPadding(self) -> str:
         """
         Get the padding for editId strings, based on the total number of track items in the sequence
         """
         ...
 
-    def edlEditId(self) -> None:
+    def edlEditId(self) -> str:
         """
         edlEditId(self)
         Returns the id taken from the EDL used to create this edit, if there was one.
         """
         ...
 
-    def ident(self) -> None:
+    def ident(self) -> str:
         """
         ident(self)
         Returns a string used for identifying the type of export task
@@ -211,27 +211,27 @@ class TaskBase(ITask):
         """
         ...
 
-    def resolvePath(self, path) -> None:
+    def resolvePath(self, path: str) -> str:
         """
         Replace any recognized tokens in path with their current value.
         """
         ...
 
-    def resolvedExportPath(self) -> None:
+    def resolvedExportPath(self) -> str:
         """
         resolvedExportPath()
         returns the output path with and tokens resolved
         """
         ...
 
-    def _outputHandles(self, ignoreRetimes) -> None:
+    def _outputHandles(self, ignoreRetimes: bool) -> tuple:
         """
         Internal _outputHandles() method.  Should be reimplemented by sub-classes
         rather than outputHandles().
         """
         ...
 
-    def outputHandles(self, ignoreRetimes=False) -> tuple:
+    def outputHandles(self, ignoreRetimes: bool = False) -> tuple:
         """
         outputHandles( ignoreRetimes = False )
         Return a tuple of the in/out handles generated by this task.
@@ -243,14 +243,14 @@ class TaskBase(ITask):
         """
         ...
 
-    def availableOutputHandles(self) -> None:
+    def availableOutputHandles(self) -> tuple:
         """
         Get the available output handles, based on self._cutHandles.
         If outputting to sequence time, the start handle is clamped to prevent going into negative frames.
         """
         ...
 
-    def inputRange(self, ignoreHandles=False, ignoreRetimes=False, clampToSource=True) -> None:
+    def inputRange(self, ignoreHandles: bool = False, ignoreRetimes: bool = False, clampToSource: bool = True) -> tuple:
         """
         inputRange()
         Returns the input frame range (as a tuple) for this task if applicable
@@ -261,7 +261,7 @@ class TaskBase(ITask):
         """
         ...
 
-    def outputSequenceTime(self) -> None:
+    def outputSequenceTime(self) -> bool:
         """
         Test if the output frame range should be in sequence time rather than source. This
         only applies when a TrackItem is being exported.
@@ -271,7 +271,7 @@ class TaskBase(ITask):
         """
         ...
 
-    def outputRange(self, ignoreHandles=False, ignoreRetimes=False, clampToSource=True) -> None:
+    def outputRange(self, ignoreHandles: bool = False, ignoreRetimes: bool = False, clampToSource: bool = True) -> tuple:
         """
         outputRange()
         Returns the output file range (as tuple) for this task, if applicable.
@@ -300,7 +300,7 @@ class TaskBase(ITask):
         """
         ...
 
-    def views(self) -> None:
+    def views(self) -> list[str]:
         """
         Get the view names used by the task. Tasks which support exporting from
         multi-view projects should reimplement this to return a non-empty list.
@@ -314,7 +314,7 @@ class TaskBase(ITask):
         """
         ...
 
-    def taskStep(self) -> None:
+    def taskStep(self) -> bool:
         """
         taskStep()
         Called every frame until task completes.
@@ -324,7 +324,7 @@ class TaskBase(ITask):
         """
         ...
 
-    def progress(self) -> None:
+    def progress(self) -> float:
         """
         progress()
         Returns a float value 0..1 to indicate progress of task.
@@ -345,27 +345,27 @@ class TaskBase(ITask):
         """
         ...
 
-    def hasValidItem(self) -> None:
+    def hasValidItem(self) -> bool:
         """
         Get if the task is able to run on the item it was initialised with.
         """
         ...
 
-    def supportedType(self, item) -> None:
+    def supportedType(self, item: object) -> bool:
         """
         Interface for defining what type of items a Task Supports.
         Return True to indicate item is of supported type
         """
         ...
 
-    def isExportingItem(self, item) -> None:
+    def isExportingItem(self, item: object) -> bool:
         """
         Check if this task is already including an item in its export.
         Used for preventing duplicates when collating shots into a single script.
         """
         ...
 
-    def deleteTemporaryFile(self, filePath) -> None:
+    def deleteTemporaryFile(self, filePath: str) -> bool:
         """
         Delete a file which is an artifact of the export, but should be removed after it's finished.
         Returns whether the file was successfully deleted.

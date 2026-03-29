@@ -11,7 +11,7 @@ from PySide2 import QtCore, QtWidgets
 from hiero.core.deprecated import deprecated
 
 
-def scriptExitReplacementFunc(*args, **kwargs):
+def scriptExitReplacementFunc(forceExit: bool = False) -> None:
     """Exit the Application if 'forceExit' is True, otherwise 'nuke.scriptSaveAndClear' will be called
     @param forceExit: Optional parameter. Forces the Application to close.
     @return: None."""
@@ -104,7 +104,7 @@ if nuke.env['studio']:
     nuke.scriptOpen = scriptOpenReplacementFunc
 
 
-def _getWorkspaceActions(returnSaveActions):
+def _getWorkspaceActions(returnSaveActions: bool) -> list:
     """ Returns a list of actions corresponding to restore/save workspace
     If returnSaveActions is False a list with the restore workspace
     action will be returned, otherwise it will be a list with save
@@ -129,7 +129,7 @@ def _getWorkspaceActions(returnSaveActions):
     return workspaceActions
 
 
-def _triggerWorkspaceAction(actionIndex, saveAction):
+def _triggerWorkspaceAction(actionIndex: int, saveAction: bool) -> None:
     """ Triggers the action (Restore workspace or Save workspace)
     corresponding to actionsIndex."""
 
@@ -145,7 +145,7 @@ def _triggerWorkspaceAction(actionIndex, saveAction):
         workspaceActions[actionIndex].trigger()
 
 
-def restoreWorkspaceFunc(workspaceIndex):
+def restoreWorkspaceFunc(workspaceIndex: int) -> None:
     """ Method to replace the nuke.restoreWindowLayout.
     It receives an integer [ 1 , number of available workspaces ]
     and restore the workspace corresponding with the input parameter."""
@@ -153,7 +153,7 @@ def restoreWorkspaceFunc(workspaceIndex):
     _triggerWorkspaceAction(workspaceIndex, saveAction=False)
 
 
-def saveWorkspaceFunc(workspaceIndex=1):
+def saveWorkspaceFunc(workspaceIndex: int = 1) -> None:
     """ Method to replace the nuke.saveWindowLayout.
     It receives an interger [ 1 , number of available workspaces ]
     and saves the current layout with the name of the workspace name corresponding

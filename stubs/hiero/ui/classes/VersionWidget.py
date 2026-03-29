@@ -38,19 +38,19 @@ class VersionWidget(QSpinBox):
         """
         ...
 
-    def sizeHint(self) -> None:
+    def sizeHint(self) -> PySide2.QtCore.QSize:
         """
         sizeHint(self) -> PySide2.QtCore.QSize
         """
         ...
 
-    def textFromValue(self, value) -> None:
+    def textFromValue(self, val: int) -> str:
         """
         textFromValue(self, val: int) -> str
         """
         ...
 
-    def valueFromText(self, text) -> None:
+    def valueFromText(self, text: str) -> int:
         """
         valueFromText(self, text: str) -> int
         """

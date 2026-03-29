@@ -14,25 +14,25 @@ class EvalString_Knob(String_Knob):
     A string-valued knob which evaluates its value as a TCL expression.
     """
 
-    def __new__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args: Any, **kwargs: Any) -> EvalString_Knob:
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
         ...
 
-    def __hash__(self, ) -> None:
+    def __hash__(self) -> int:
         """
         Return hash(self).
         """
         ...
 
-    def __init__(self,  *args, **kwargs) -> None:
+    def __init__(self, *args: Any, **kwargs: Any) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """
         ...
 
-    def evaluate(self,) -> str:
+    def evaluate(self) -> str:
         """
         self.evaluate() -> String.
         Evaluate the string, performing substitutions.

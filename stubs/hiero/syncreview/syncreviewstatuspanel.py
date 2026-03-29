@@ -236,11 +236,11 @@ class SyncStatusPanel(QWidget):
         self._updateConnectionState(ConnectionState.DISCONNECTED)
         connectionManager.connectionState.changed.connect(self._updateConnectionState)
 
-    def getSortedColumn(self):
+    def getSortedColumn(self) -> int:
         """ Column that is currently being sorted. Holds a negative value if the table is currently not sorted. """
         return self._lastSortedColumn
 
-    def getSortedOrder(self):
+    def getSortedOrder(self) -> int | None:
         """ Current sort order. If getSortedColumn is negative, it will return None. """
         return self._lastSortedOrder
 
@@ -303,7 +303,7 @@ class SyncStatusPanel(QWidget):
         elif state in (ConnectionState.SERVER_RUNNING, ConnectionState.CLIENT_CONNECTED):
             self._model.enterSession(self._connectionManager.session.clientDataProvider())
 
-    def _copyConnectionInfo(self):
+    def _copyConnectionInfo(self) -> None:
         """ Copies the connection info of the server into the clipboard. """
         connectionInfo = self._connectionManager.getConnectionInfo()
         if connectionInfo:
@@ -322,7 +322,7 @@ class SyncStatusPanel(QWidget):
 _statusPanelInstance = None
 
 
-def initialise(connectionManager):
+def initialise(connectionManager: object) -> None:
     """ Initialize the global instance of the sync review status panel. """
     global _statusPanelInstance
     try:
@@ -332,7 +332,7 @@ def initialise(connectionManager):
         print('Initialization of the sync review status panel failed: {}'.format(ex))
 
 
-def openStatusPanelIfClosed():
+def openStatusPanelIfClosed() -> None:
     """ Opens the status panel in a floating window if it's closed and the user preference is to open
     it on session startup"""
     if (not _statusPanelInstance):

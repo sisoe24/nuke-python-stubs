@@ -29,15 +29,15 @@ class SyncViewerSubTool(SyncTool):
         super(SyncViewerSubTool, self).__init__(syncViewerTool.messageDispatcher)
         self._syncViewerTool = syncViewerTool
 
-    def viewerChanged(self, viewer, oldViewer):
+    def viewerChanged(self, viewer: 'nuke.Viewer', oldViewer: 'nuke.Viewer') -> None:
         """ Called when the current viewer changes """
         pass
 
-    def viewer(self):
+    def viewer(self) -> Optional['nuke.Viewer']:
         """ Get the current viewer """
         return self._syncViewerTool.currentViewer
 
-    def pushState(self):
+    def pushState(self) -> None:
         """ Push the tool state to remotes """
         pass
 
@@ -78,7 +78,7 @@ class SyncViewerInOutTool(SyncViewerSubTool):
     def __init__(self, syncViewerTool):
         super(SyncViewerInOutTool, self).__init__(syncViewerTool)
 
-    def pushState(self):
+    def pushState(self) -> None:
         """ Push the 'in' and 'out' points of the current viewer. """
         viewer = self.viewer()
         if viewer:
@@ -290,7 +290,7 @@ class SyncViewerBufferTool(SyncViewerSubTool):
         self.messageDispatcher._registerCallback(
             messages.SyncViewerBuffer, self._onRemoteBufferChanged)
 
-    def viewerChanged(self, viewer, oldViewer):
+    def viewerChanged(self, viewer: 'nuke.Viewer', oldViewer: 'nuke.Viewer') -> None:
         """ Called when the current viewer changes """
         if oldViewer:
             oldViewer.trackSelectionChanged.disconnect(self.pushState)
@@ -298,7 +298,7 @@ class SyncViewerBufferTool(SyncViewerSubTool):
             viewer.trackSelectionChanged.connect(self.pushState)
 
     @localCallback
-    def pushState(self):
+    def pushState(self) -> None:
         """ Push the tool state to remotes """
         viewer = self.viewer()
         if not viewer:
@@ -339,7 +339,7 @@ class SyncViewerWipeTool(SyncViewerSubTool):
         self.messageDispatcher._registerCallback(
             messages.SyncViewerWipeToolState, self._onRemoteWipeStateChanged)
 
-    def viewerChanged(self, viewer, oldViewer):
+    def viewerChanged(self, viewer: 'nuke.Viewer', oldViewer: 'nuke.Viewer') -> None:
         """ Called when the current viewer changes """
         if oldViewer:
             if self._wipeTool:
@@ -452,14 +452,14 @@ class SyncViewerZoomTool(SyncViewerSubTool):
         self.messageDispatcher._registerCallback(
             messages.SyncViewerZoom, self._onRemoteTransformChanged)
 
-    def viewerChanged(self, viewer, oldViewer):
+    def viewerChanged(self, viewer: 'nuke.Viewer', oldViewer: 'nuke.Viewer') -> None:
         """ Called when the current viewer changes. """
         if oldViewer:
             oldViewer.transformChanged.disconnect(self.pushState)
         if viewer:
             viewer.transformChanged.connect(self.pushState)
 
-    def pushState(self):
+    def pushState(self) -> None:
         """ Push the zoom state to remote clients. """
         viewer = self.viewer()
         if not viewer or self._handlingRemoteChange:
@@ -513,14 +513,14 @@ class SyncViewerTimeDisplayFormatTool(SyncViewerSubTool):
         self.messageDispatcher._registerCallback(
             messages.SyncViewerTimeDisplayFormat, self._onRemoteFormatChanged)
 
-    def viewerChanged(self, viewer, oldViewer):
+    def viewerChanged(self, viewer: 'nuke.Viewer', oldViewer: 'nuke.Viewer') -> None:
         """ Called when the current viewer changes. """
         if oldViewer:
             oldViewer.timeDisplayFormatChanged.disconnect(self.pushState)
         if viewer:
             viewer.timeDisplayFormatChanged.connect(self.pushState)
 
-    def pushState(self):
+    def pushState(self) -> None:
         """ Push the zoom state to remote clients. """
         viewer = self.viewer()
         if not viewer or self._handlingRemoteChange:
@@ -704,14 +704,14 @@ class SyncViewerTool(SyncTool):
         # Register for the event emitted when the Viewer changes
         self.registerEventCallback('kCurrentViewerChanged', self._onViewerChanged)
 
-    def stopPlayback(self):
+    def stopPlayback(self) -> None:
         """ Stop the playback on the viewer. This change is not pushed to other participants. """
         if self.currentPlaybackSpeed != 0:
             self.currentPlaybackSpeed = 0
             if self.currentViewer:
                 self.currentViewer.setPlaybackSpeed(0)
 
-    def setProjectLoading(self, loading):
+    def setProjectLoading(self, loading: bool) -> None:
         """
         Block viewer tool messages the while the project is being loaded to avoid extra callbacks.
         Stop the playback until the project has been loaded.
@@ -728,7 +728,7 @@ class SyncViewerTool(SyncTool):
         if self._messageSendBlockCounter == 0:
             self.messageDispatcher.sendMessage(msg)
 
-    def _onSyncSequence(self, msg):
+    def _onSyncSequence(self, msg: object) -> None:
         """ Get the guid of the sequences to sync the current viewer with, find those
         sequences in the current project and open them in the viewer.
         """
@@ -765,7 +765,7 @@ class SyncViewerTool(SyncTool):
             self._currentSequenceGuids = newSequenceGuids
         self._messageSendBlockCounter -= 1
 
-    def _onSyncTime(self, msg):
+    def _onSyncTime(self, msg: object) -> None:
         """ Handle a message to set the current time in the viewer. The time can't
         be changed while the viewer is being stopped, so if in this state we need
         to schedule a time change after recieving notification the viewer has stopped
@@ -777,7 +777,7 @@ class SyncViewerTool(SyncTool):
         elif self.syncState == SyncViewerTool.SYNC_PLAYBACK:
             self.pendingSyncTime = True
 
-    def _onTimeChanged(self, time, forceSync=False):
+    def _onTimeChanged(self, time: float, forceSync: bool = False) -> None:
         """ Callback when the time in the current viewer changes. Send a message
         to sync other participants unless it was caused by a sync.
         """
@@ -790,7 +790,7 @@ class SyncViewerTool(SyncTool):
             self.sendMessage(msg)
         self.syncState = SyncViewerTool.SYNC_NONE
 
-    def _onSyncPlaybackSpeed(self, msg):
+    def _onSyncPlaybackSpeed(self, msg: object) -> None:
         """ Handle a message to set the playback speed in the viewer. Note that this
         happens asynchronously, the viewer won't actually be playing/stopped until
         an _onPlaybackSpeedChanged callback is received.
@@ -800,14 +800,14 @@ class SyncViewerTool(SyncTool):
             self.currentPlaybackSpeed = msg.speed
             self.currentViewer.setPlaybackSpeed(msg.speed)
 
-    def _onSyncTargetFrameRate(self, msg):
+    def _onSyncTargetFrameRate(self, msg: object) -> None:
         """ Handle a message to change the viewer target frame rate. """
         self.currentViewer.syncTargetFrameRate(msg.numerator, msg.denominator)
 
     def _onSyncViewerShuttleTargetFPS(self, msg):
         self.currentViewer.syncShuttleTargetFPS(msg.fps)
 
-    def _onPlaybackSpeedChanged(self, speed, fromPlaybackMode):
+    def _onPlaybackSpeedChanged(self, speed: float, fromPlaybackMode: bool) -> None:
         """ Callback when the playback speed in the current viewer changes. Send a
         message to sync other participants unless it was caused by a sync. If stopping
         also need to sync the time.
@@ -831,7 +831,7 @@ class SyncViewerTool(SyncTool):
                 self.pendingSyncTime = False
                 self.currentViewer.setTime(self.currentTime)
 
-    def _onTargetFrameRateChanged(self, numerator, denominator):
+    def _onTargetFrameRateChanged(self, numerator: int, denominator: int) -> None:
         """ Callback executed when the target frame rate of the current viewer changes. """
         msg = messages.SyncViewerTargetFrameRate(numerator=numerator, denominator=denominator)
         self.sendMessage(msg)
@@ -839,7 +839,7 @@ class SyncViewerTool(SyncTool):
     def _onShuttleTargetFPS(self, fps):
         self.sendMessage(messages.SyncViewerShuttleTargetFPS(fps=fps))
 
-    def updateCurrentSequences(self):
+    def updateCurrentSequences(self) -> None:
         """ Update the current sequence GUIDs cached in the tool.
         """
         sequenceA = self.currentViewer.player(0).sequence()
@@ -850,14 +850,14 @@ class SyncViewerTool(SyncTool):
         self._currentSequenceGuids = newSequenceGuids
         return sequenceGuidsChanged
 
-    def _onSequenceChanged(self):
+    def _onSequenceChanged(self) -> None:
         """ If the new sequences are not the same as the current sequences, broadcast a
         message to all other clients with the new sequence guids
         """
         if self.updateCurrentSequences():
             self.pushViewerState()
 
-    def pushViewerState(self):
+    def pushViewerState(self) -> None:
         """ Send the current state of the viewer to other participants. This should
         sync the current sequences, time, etc
         """
@@ -872,11 +872,11 @@ class SyncViewerTool(SyncTool):
             for t in self.subTools:
                 t.pushState()
 
-    def _onViewerChanged(self, event):
+    def _onViewerChanged(self, event: object) -> None:
         """ Handle callback that the current viewer has changed. """
         self._setViewer(event.viewer)
 
-    def _setViewer(self, viewer):
+    def _setViewer(self, viewer: 'nuke.Viewer') -> None:
         """ Disconnect from old viewer signals, connect to new viewer signals, and
         update the view to desplay the sequence in the new viewer
         """

@@ -12,7 +12,7 @@ from . import FnExternalRender
 
 
 class ExternalRenderTaskUI(hiero.ui.TaskUIBase):
-    def __init__(self, preset):
+    def __init__(self, preset: object) -> None:
         """Initialize"""
         hiero.ui.TaskUIBase.__init__(
             self, FnExternalRender.ExternalRenderTask, preset, 'External Render')
@@ -25,7 +25,7 @@ hiero.ui.taskUIRegistry.registerTaskUI(FnExternalRender.ExternalRenderPreset, Ex
 
 
 class NukeRenderTaskUI(hiero.ui.RenderTaskUIBase):
-    def __init__(self, preset, parenttask=FnExternalRender.NukeRenderTask, displayName='Nuke Write Node'):
+    def __init__(self, preset: object, parenttask: object = FnExternalRender.NukeRenderTask, displayName: str = 'Nuke Write Node') -> None:
         """Initialize"""
         hiero.ui.RenderTaskUIBase.__init__(self, parenttask, preset, displayName)
 
@@ -48,7 +48,7 @@ class NukeRenderTaskUI(hiero.ui.RenderTaskUIBase):
         self.createCreateDirsWidget(formLayout)
         self.createBurnInWidgets(formLayout)
 
-    def createCreateDirsWidget(self, formLayout):
+    def createCreateDirsWidget(self, formLayout: object) -> object:
         """ Create the widget for the create_dirs knob. """
         createDirsTooltip = 'When rendering, create directories if they do not already exist'
         uiProperty = UIPropertyFactory.create(type(True),

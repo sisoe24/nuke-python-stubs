@@ -12,7 +12,7 @@ import hiero.core.FnNukeHelpers as FnNukeHelpers
 import hiero.core.FnNukeHelpersV2 as FnNukeHelpersV2
 
 
-def trackItemTimeCodeNodeStartFrame(scriptStartFrame, trackItem, startHandle, endHandle):
+def trackItemTimeCodeNodeStartFrame(scriptStartFrame: int, trackItem: object, startHandle: int, endHandle: int) -> int:
     """
     Calculate the frame for an AddTimeCode node when exporting a single track item to a Nuke script, adjusting
     for the trim and handles.
@@ -28,7 +28,7 @@ def trackItemTimeCodeNodeStartFrame(scriptStartFrame, trackItem, startHandle, en
     return timeCodeNodeStartFrame
 
 
-def _toNukeViewerLutFormat(hieroViewerLut):
+def _toNukeViewerLutFormat(hieroViewerLut: object) -> str:
     """ Return the specified hiero viewer lut in the nuke format.
     Since hiero formats are specified by 'family/colourspace' while
     nuke formats are expected to be 'colourspace (family)'.
@@ -44,7 +44,7 @@ def _toNukeViewerLutFormat(hieroViewerLut):
     return viewerLut
 
 
-def createViewerNode(projectSettings):
+def createViewerNode(projectSettings: object) -> object:
     """ Create a Viewer node, with the viewerProcess configured based on the
     projectSettings.
     """
@@ -87,28 +87,28 @@ class TrackItemExportScriptWriter(object):
     def setAdditionalNodesCallback(self, callback):
         self._additionalNodesCallback = callback
 
-    def setEffects(self, shouldWrite, sequenceEffects=[]):
+    def setEffects(self, shouldWrite: bool, sequenceEffects: list = []) -> None:
         """ Set whether effects should be written and add any Sequence-level
         effects that should be included.
         """
         self._writeEffects = shouldWrite
         self._sequenceEffects = sequenceEffects
 
-    def setAnnotations(self, shouldWrite, sequenceAnnotations=[]):
+    def setAnnotations(self, shouldWrite: bool, sequenceAnnotations: list = []) -> None:
         """ Set whether annotations should be written and add any Sequence-level
         effects that should be included.
         """
         self._writeAnnotations = shouldWrite
         self._sequenceAnnotations = sequenceAnnotations
 
-    def setOutputHandles(self, startHandle, endHandle):
+    def setOutputHandles(self, startHandle: int, endHandle: int) -> None:
         """ Set the handles to be included around the TrackItem cut times in
         the exported script.
         """
         self._startHandle = startHandle
         self._endHandle = endHandle
 
-    def setOutputClipLength(self):
+    def setOutputClipLength(self) -> None:
         """ Set to output the full clip length.  Calculates the handle values
         accordingly.
         """
@@ -116,18 +116,18 @@ class TrackItemExportScriptWriter(object):
         self._endHandle = int((self._trackItem.source().duration() -
                               self._trackItem.sourceOut()) - 1)
 
-    def setIncludeRetimes(self, includeRetimes, retimeMethod):
+    def setIncludeRetimes(self, includeRetimes: bool, retimeMethod: str) -> None:
         """ Set whether retime nodes should be written and the retime method knob
         value.
         """
         self._includeRetimes = includeRetimes
         self._retimeMethod = retimeMethod
 
-    def setReformat(self, reformatProperties):
+    def setReformat(self, reformatProperties: dict) -> None:
         """ Sets information for reformatting in the Nuke script"""
         self._reformatProperties = reformatProperties
 
-    def setFirstFrame(self, firstFrame):
+    def setFirstFrame(self, firstFrame: int) -> None:
         """ Set the first frame of the script.  This is used to apply appropriate
         offsets to the written nodes.
         """
@@ -166,7 +166,7 @@ class TrackItemExportScriptWriter(object):
                              pendingNodesScript=pendingNodesScript,
                              addTransitions=False)
 
-    def writeToScript_old(self, script):
+    def writeToScript_old(self, script: object) -> None:
         """ Add the nodes for the TrackItem to a script writer.
         """
 
@@ -270,16 +270,7 @@ class TrackItemExportScriptWriter(object):
         script.addNode(metadataNode)
 
 
-def writeSequenceAudioWithHandles(filePath,
-                                  sequence,
-                                  inTime,
-                                  outTime,
-                                  inHandle,
-                                  outHandle,
-                                  numChannels,
-                                  sampleRate,
-                                  bitDepth,
-                                  bitRate):
+def writeSequenceAudioWithHandles(filePath: str, sequence: object, inTime: int, outTime: int, inHandle: int, outHandle: int, numChannels: int, sampleRate: int, bitDepth: int, bitRate: int) -> None:
     """ Helper function for writing audio on a sequence with handles. This will:
     - find audio items which intersect the original time range
     - if they intersect the start or end times, extend those items by the in/out
