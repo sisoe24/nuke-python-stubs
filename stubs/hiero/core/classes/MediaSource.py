@@ -18,55 +18,55 @@ class MediaSource:
     Represents a media source.
     """
 
-    def __new__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs) -> MediaSource:
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
         ...
 
-    def __repr__(self) -> object:
+    def __repr__(self) -> str:
         """
         Return repr(self).
         """
         ...
 
-    def __hash__(self, ) -> None:
+    def __hash__(self) -> int:
         """
         Return hash(self).
         """
         ...
 
-    def __lt__(self, value, ) -> None:
+    def __lt__(self, value: 'MediaSource') -> bool:
         """
         Return self<value.
         """
         ...
 
-    def __le__(self, value, ) -> None:
+    def __le__(self, value: 'MediaSource') -> bool:
         """
         Return self<=value.
         """
         ...
 
-    def __eq__(self, value, ) -> None:
+    def __eq__(self, value: 'MediaSource') -> bool:
         """
         Return self==value.
         """
         ...
 
-    def __ne__(self, value, ) -> None:
+    def __ne__(self, value: 'MediaSource') -> bool:
         """
         Return self!=value.
         """
         ...
 
-    def __gt__(self, value, ) -> None:
+    def __gt__(self, value: 'MediaSource') -> bool:
         """
         Return self>value.
         """
         ...
 
-    def __ge__(self, value, ) -> None:
+    def __ge__(self, value: 'MediaSource') -> bool:
         """
         Return self>=value.
         """
@@ -78,7 +78,7 @@ class MediaSource:
         """
         ...
 
-    def __bool__(self, ) -> None:
+    def __bool__(self) -> bool:
         """
         True if self else False
         """
@@ -92,7 +92,7 @@ class MediaSource:
         """
         ...
 
-    def createOfflineVideoMediaSource(self, path: str, start: int, duration: int, frameRate: hiero.core.TimeBase, startTimecode: int = 0) -> hiero.core.MediaSource:
+    def createOfflineVideoMediaSource(path: str, start: int, duration: int, frameRate: hiero.core.TimeBase, startTimecode: int = 0) -> hiero.core.MediaSource:
         """
         staticmethod(function) -> method
 
@@ -123,7 +123,7 @@ class MediaSource:
         """
         ...
 
-    def fileinfos(self) -> typing.List[core.MediaFileInfo]:
+    def fileinfos(self) -> typing.Tuple[hiero.core.MediaFileInfo, ...]:
         """
         self.fileinfos() -> returns a tuple of hiero.core.MediaFileInfo objects, which can be used to retrieve all of the file fragments that are used by this MediaSource.
 
@@ -234,7 +234,7 @@ class MediaSource:
         """
         ...
 
-    def metadata(self) -> hiero.core.DataCollection:
+    def metadata(self) -> hiero.core.Metadata:
         """
         self.metadata() -> returns a hiero.core.Metadata object with metadata for the MediaSource.
 
@@ -293,7 +293,7 @@ class MediaSource:
         """
         ...
 
-    def toString(self) -> str:
+    def toString(self, includeMetadata: bool = False) -> str:
         """
         self.toString(includeMetadata=False) -> returns a string with info for the MediaSource. str(object) is equivalent to object.toString().
 

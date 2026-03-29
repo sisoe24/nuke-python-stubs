@@ -6,7 +6,7 @@ from .socket import ClientSocket
 from .connectionstate import ConnectionState
 
 
-def allowClientTimeout(clientId):
+def allowClientTimeout(clientId: int) -> bool:
     """ Check if the client should time out, this does not happen for the client
     object used by the host.
     """
@@ -36,15 +36,15 @@ class Client(QObject):
         self._heartbeatSendTimer = None
         self._heartbeatTimeoutTimer = None
 
-    def connectionState(self):
+    def connectionState(self) -> str:
         """ Get the client's connection state """
         return self._connectionState
 
-    def socketId(self):
+    def socketId(self) -> int:
         """ Get the socket Id used by this client. """
         return self._socket.socketId()
 
-    def connectToHost(self, host, port, clientData):
+    def connectToHost(self, host: str, port: int, clientData: object) -> None:
         """ Try to connect on the given host and port. May raise an exception if the
         host isn't valid.
         """
@@ -78,7 +78,7 @@ class Client(QObject):
             self._heartbeatTimeoutTimer.setInterval(config.HEARTBEAT_TIMEOUT)
             self._heartbeatTimeoutTimer.timeout.connect(self._onServerTimeout)
 
-    def disconnectFromHost(self):
+    def disconnectFromHost(self) -> None:
         """ Close the connection. If a connection had been successfully established
         with the host, a disconnect message is sent, otherwise just close the socket
         etc

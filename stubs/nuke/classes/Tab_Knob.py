@@ -14,25 +14,25 @@ class Tab_Knob(Knob):
     Groups subsequent knobs onto a tab.
     """
 
-    def __new__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs) -> 'Tab_Knob':
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
         ...
 
-    def __hash__(self, ) -> None:
+    def __hash__(self) -> int:
         """
         Return hash(self).
         """
         ...
 
-    def value(self, *args: typing.Any, **kwargs: typing.Any) -> None:
+    def value(self, *args: typing.Any, **kwargs: typing.Any) -> typing.Any:
         """
         Return value at the current frame for channel 'c'.
         """
         ...
 
-    def setValue(self, val, chan) -> bool:
+    def setValue(self, val: typing.Any, chan: typing.Any) -> bool:
         """
         self.setValue(val, chan) -> bool
 

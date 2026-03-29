@@ -13,17 +13,17 @@ class FlipbookApplication(object):
     def __init__(self):
         return
 
-    def name(self):
+    def name(self) -> str:
         """ Return the name of the flipbook.
            @return: String"""
         raise NotImplementedError
 
-    def path(self):
+    def path(self) -> str:
         """Return the executable path required to run a flipbook.
            @return: String"""
         raise NotImplementedError
 
-    def cacheDir(self):
+    def cacheDir(self) -> str:
         """Return the preferred directory for rendering.
            @return: String"""
         raise NotImplementedError
@@ -52,7 +52,7 @@ class FlipbookApplication(object):
            @return: None"""
         raise NotImplementedError
 
-    def capabilities(self):
+    def capabilities(self) -> dict:
         """Return the capabilities of the flipbook application in a dict. Currently used are:
            canPreLaunch: bool, whether the flipbook can display a frames that are still being rendered by Nuke.
            maximumViews: int, the number of views supported by this flipbook, should be 1 or higher.
@@ -75,7 +75,7 @@ class FlipbookApplication(object):
            @return: None"""
         raise NotImplementedError
 
-    def getExtraOptions(self, flipbookDialog, nodeToFlipbook):
+    def getExtraOptions(self, flipbookDialog, nodeToFlipbook) -> dict:
         """Called whenever this flipbook is selected to retrieve extra options from the node selected to flipbook
             and the flipbook dialog.
             @param flipbookDialog: the flipbook dialog
@@ -88,7 +88,7 @@ class FlipbookFactory(object):
     def __init__(self):
         self._flipbookApplications = {}
 
-    def isRegistered(self, flipbook):
+    def isRegistered(self, flipbook) -> bool:
         """ Return whether a flipbook app with that name has already been registered.
         @param flipbook: FlipBookApplication object that's tested for.
         @return: bool"""
@@ -104,12 +104,12 @@ class FlipbookFactory(object):
         else:
             raise RuntimeError('Already registered a flipbook application with this name')
 
-    def getNames(self):
+    def getNames(self) -> list:
         """Returns a list of the names of all available flipbook apps.
         @return: list"""
         return sorted(self._flipbookApplications.keys())
 
-    def getApplication(self, name):
+    def getApplication(self, name) -> 'FlipBookApplication':
         """Returns the flipbook app implementation with the given name, raises an exception if none could be found.
         @param name: The name of a flipbook that was registered.
         @return: FlipBookApplication"""
@@ -134,7 +134,7 @@ class FlipbookLUTPathRegistry(object):
             self._luts[flipbook] = {}
         self._luts[flipbook][lut] = path
 
-    def getLUTPathForFlipbook(self, flipbook, lut):
+    def getLUTPathForFlipbook(self, flipbook, lut) -> str:
         """Return the path for the given flipbook and lut. May return an empty string if none registered.
            @param flipbook: The unique name of the flipbook
            @param lut: The unique name for the LUT, e.g. 'sRGB' and 'rec709'"""
@@ -162,7 +162,7 @@ def registerLUTPath(flipbookApplication, lut, path):
     gFlipbookLUTPathRegistry.registerLUTPathForFlipbook(flipbookApplication, lut, path)
 
 
-def getLUTPath(flipbookAppliction, lut):
+def getLUTPath(flipbookAppliction, lut) -> str:
     """Returns a path to a LUT file for the given flipbook. The contents of the file will be different for each flipbook application. Please see the relevant documentation for the specific flipbook applications.
      @param flipbook: The unique name of the flipbook
      @param lut: The unique name for the LUT, e.g. 'sRGB' and 'rec709'"""

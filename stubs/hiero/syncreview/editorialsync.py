@@ -20,7 +20,7 @@ class SyncSequenceEditsTool(SyncTool):
         self._viewerSyncTool = viewerSyncTool
 
     @localCallback
-    def onLocalSequenceEdited(self, event):
+    def onLocalSequenceEdited(self, event: dict) -> None:
         """ Handle event when sequence is edited and send the sequence state to remotes.
         Note the event will also be sent for clips, but that's not being handled here
         """
@@ -37,7 +37,7 @@ class SyncSequenceEditsTool(SyncTool):
             self._viewerSyncTool.pushViewerState()
 
     @remoteCallback
-    def onRemoteSequenceEdited(self, msg):
+    def onRemoteSequenceEdited(self, msg: dict) -> None:
         """ Receive sequence edit data from a remote """
         sequence = findItemByGuid(msg.sequenceGuid, filter=(Sequence,))
         if not sequence:

@@ -51,7 +51,7 @@ def _getFrameRateFromClips(timeline):
     return hiero.core.TimeBase(24)
 
 
-def _getSequenceProperties(timeline):
+def _getSequenceProperties(timeline) -> tuple[str, float]:
     """
     Obtain the Hiero sequence's starting timecode and frame rate from the OpenTimelineIO data.
     :param timeline: OpenTimelineIO sequence

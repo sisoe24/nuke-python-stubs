@@ -89,11 +89,11 @@ class VersionScanner():
 
         return newVersions
 
-    def findNewVersions(self, version):
+    def findNewVersions(self, version: Version) -> list[Version]:
         """ Scan for files matching an existing Version. """
         return self.findNewVersionsInPath(self.getFilename(version))
 
-    def findNewVersionsInPath(self, filename):
+    def findNewVersionsInPath(self, filename: str) -> list[str]:
         """ Scan for files matching an existing path. Returns the matched files.
         Note this will include the files used by already added versions.
         """
@@ -138,7 +138,7 @@ class VersionScanner():
 
         return files
 
-    def getFilename(self, version):
+    def getFilename(self, version: Version) -> str:
         """ Get the filename from a Version """
         assert isinstance(version, Version)
         clip = version.item()
@@ -424,7 +424,7 @@ class VersionScanner():
 
         return filename1 < filename2
 
-    def determineVersionIndex(self, binitem, newFilename):
+    def determineVersionIndex(self, binitem: BinItem, newFilename: str) -> int:
         """ Get the index at which to insert new version files into a BinItem. """
         destinationIndex = 0
         while destinationIndex < binitem.numVersions():
@@ -440,7 +440,7 @@ class VersionScanner():
             destinationIndex += 1
         return destinationIndex
 
-    def insertVersions(self, binitem, versionFiles):
+    def insertVersions(self, binitem: BinItem, versionFiles: list[str]) -> list[Version]:
         """ Create clips for a list of files and insert them as versions to a BinItem.
         @return the created Versions
         """
@@ -451,7 +451,7 @@ class VersionScanner():
                 newVersions.append(newVersion)
         return newVersions
 
-    def createAndInsertClipVersion(self, binitem, newFilename):
+    def createAndInsertClipVersion(self, binitem: BinItem, newFilename: str) -> Optional[Version]:
         """ Create a clip for a path and insert it as a version into a BinItem.
         @return the created Version, or None if it fails
         """
@@ -471,14 +471,14 @@ class VersionScanner():
                 destinationIndex, newFilename, e))
             return None
 
-    def getVersionIndicesForPath(self, path):
+    def getVersionIndicesForPath(self, path: str) -> list[int]:
         """ Scan the given path and return a list of all the version indices which exist there. """
         versionFiles = self.findNewVersionsInPath(path)
         versionIndices = sorted([self.getActiveIndexFromPath(path)
                                 for path in versionFiles])
         return versionIndices
 
-    def getNewVersionIndexForPath(self, path):
+    def getNewVersionIndexForPath(self, path: str) -> int:
         """ Find the existing versions for the given path, and return a new version index which doesn't
             already exist. """
         versionIndices = self.getVersionIndicesForPath(path)

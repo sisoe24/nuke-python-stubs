@@ -14,19 +14,19 @@ class LinkableKnobInfo(object):
     A linkable knob description. Holds a reference to a knob that may be linked to, as well as an indication whether this knob should be used as part of an absolute or relative expression and whether it is enabled.
     """
 
-    def __getattribute__(self, name, ) -> None:
+    def __getattribute__(self, name) -> Any:
         """
         Return getattr(self, name).
         """
         ...
 
-    def __setattr__(self, name, value, ) -> None:
+    def __setattr__(self, name: str, value: object) -> None:
         """
         Implement setattr(self, name, value).
         """
         ...
 
-    def __delattr__(self, name, ) -> None:
+    def __delattr__(self, name: str) -> None:
         """
         Implement delattr(self, name).
         """
@@ -60,14 +60,14 @@ class LinkableKnobInfo(object):
         """
         ...
 
-    def indices(self,) -> List:
+    def indices(self) -> List[int]:
         """
         self.indices() -> List
         Returns a list of the knob channels that should be used with this linkable knob.
         """
         ...
 
-    def __init__(self,  *args, **kwargs) -> None:
+    def __init__(self, *args: object, **kwargs: object) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """

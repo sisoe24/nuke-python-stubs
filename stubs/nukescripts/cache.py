@@ -19,7 +19,7 @@ def clearAllCaches():
         nuke.clearAssetCache()
 
 
-def humanReadable(numBytes):
+def humanReadable(numBytes: int) -> str:
     """
     Returns a string containing the number of bytes and the ISO/IEC units used.
     """

@@ -196,16 +196,16 @@ _gFilmBackPresets = CameraFilmBackPresets()
 #
 
 
-def getLabels():
+def getLabels() -> list:
     """Returns the list of preset labels for display in the knob."""
     return [preset[0] for preset in _gFilmBackPresets.presets]
 
 
-def getFilmBackSize(index):
+def getFilmBackSize(index: int) -> tuple:
     """Returns the film back size for the given index."""
     return [_gFilmBackPresets.presets[index][1], _gFilmBackPresets.presets[index][2]]
 
 
-def addPreset(label, haperture, vaperture):
+def addPreset(label: str, haperture: float, vaperture: float) -> None:
     """Adds a preset to the global list of presets."""
     _gFilmBackPresets.addPreset(label, {'filmBackSize': str(haperture)+' '+str(vaperture)})

@@ -14,13 +14,13 @@ class Path_Knob(EvalString_Knob):
     Stores a Prim path.
     """
 
-    def __new__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs) -> Self:
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
         ...
 
-    def __hash__(self, ) -> None:
+    def __hash__(self) -> int:
         """
         Return hash(self).
         """
@@ -32,7 +32,7 @@ class Path_Knob(EvalString_Knob):
         """
         ...
 
-    def stagePaths(self,) -> list:
+    def stagePaths(self) -> list[str]:
         """
         self.stagePaths() -> list
 

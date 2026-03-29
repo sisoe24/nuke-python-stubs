@@ -8,7 +8,7 @@ from . import FnEDLExportTask
 
 
 class EDLExportUI(hiero.ui.TaskUIBase):
-    def __init__(self, preset):
+    def __init__(self, preset: object) -> None:
         """Initialize"""
         hiero.ui.TaskUIBase.__init__(self, FnEDLExportTask.EDLExportTask, preset, 'EDL Exporter')
         self._fromClipLineEdit = None

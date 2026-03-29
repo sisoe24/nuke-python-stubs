@@ -91,7 +91,7 @@ class ClientConnectUI(QObject):
                 if actionMenu:
                     self._clientsDisabledActions.extend(actionMenu.actions())
 
-    def connectClient(self, autoConnect=False):
+    def connectClient(self, autoConnect: bool = False) -> None:
         """ Connect as a client to a running server, showing UI to get the host and port
         to connect on. If autoConnect is True, will show the dialog and try to connect
         automatically with the previous settings
@@ -105,11 +105,11 @@ class ClientConnectUI(QObject):
         if (dlg.exec_()):
             syncreviewstatuspanel.openStatusPanelIfClosed()
 
-    def disconnectClient(self):
+    def disconnectClient(self) -> None:
         """ Disconnect the client """
         self._connectionManager.disconnectClient()
 
-    def onConnectionError(self, error, errorText):
+    def onConnectionError(self, error: Exception, errorText: str) -> None:
         """ Handle connection errors. If a connection is lost, gives the user the option
         to reconnect.
         """
@@ -162,7 +162,7 @@ class HostUI(QObject):
         super(HostUI, self).__init__()
         self._connectionManager = connectionManager
 
-    def startServer(self):
+    def startServer(self) -> None:
         """ Start the server, getting the port from the user """
         # Get the projects to share, which at the moment is all of them
         projects = hiero.core.projects()
@@ -171,7 +171,7 @@ class HostUI(QObject):
         if (dialog.exec_()):
             syncreviewstatuspanel.openStatusPanelIfClosed()
 
-    def stopServer(self):
+    def stopServer(self) -> None:
         """ Stop the server if it was running """
         projects = self._connectionManager.getProjects()
 
@@ -196,7 +196,7 @@ class MenuBuilder(QObject):
         self._clientUI = ClientConnectUI(connectionManager)
         self._hostUI = HostUI(connectionManager)
 
-    def createMenus(self):
+    def createMenus(self) -> None:
         """ Add entries to the file menu for managing the connection """
         fileMenu = hiero.ui.findMenuAction('foundry.menu.file')
 
@@ -244,7 +244,7 @@ class MenuBuilder(QObject):
 
         self.updateMenuEnabledStates()
 
-    def updateMenuEnabledStates(self):
+    def updateMenuEnabledStates(self) -> None:
         """ Set the enabled states of sync menu actions """
         connectState = self.connectionManager.connectionState
         self.hostSessionAction.setEnabled(connectState == ConnectionState.DISCONNECTED)

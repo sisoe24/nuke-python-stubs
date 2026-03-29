@@ -11,7 +11,7 @@ from hiero.ui.nuke_bridge import FnNsFrameServer as postProcessor
 from hiero.core.FnCompSourceInfo import CompSourceInfo
 
 
-def findTrackItemByUID(sequence, uid):
+def findTrackItemByUID(sequence: object, uid: str) -> object | None:
     """ Try to find an item with the given uid on the sequence. """
     for track in sequence.videoTracks():
         for item in list(track.items()):
@@ -20,7 +20,7 @@ def findTrackItemByUID(sequence, uid):
     return None
 
 
-def findItemReExportTag(item):
+def findItemReExportTag(item: object) -> object | None:
     """ Helper function to find the export tag to be used for re-export.  Returns the most recent tag
         if there is more than one. """
     foundTag = None
@@ -31,7 +31,7 @@ def findItemReExportTag(item):
     return foundTag
 
 
-def findOriginalTrackItemAndTag(trackItem):
+def findOriginalTrackItemAndTag(trackItem: object) -> tuple[object, object] | None:
     """ Given a track item which has been created using 'Build Track', find the tag
         which links back to the original item, and return both the original item and its export tag. """
 
@@ -46,7 +46,7 @@ def findOriginalTrackItemAndTag(trackItem):
     return None, None
 
 
-def findNewVersionIndex(path):
+def findNewVersionIndex(path: str) -> int | None:
     """ Scan for versioned files in the given path and return the first unused version index.  If the path
         contains no versioning, the user is asked if they wish to overwrite the existing files. """
     try:
@@ -63,7 +63,7 @@ def findNewVersionIndex(path):
     return newVersionIndex
 
 
-def setEnabledTasks(preset, enableShots, enableAnnotations):
+def setEnabledTasks(preset: object, enableShots: bool, enableAnnotations: bool) -> None:
     """ Set tasks in the preset enabled or disabled depending on whether shots or annotations
         are being exported. """
 
@@ -77,14 +77,14 @@ def setEnabledTasks(preset, enableShots, enableAnnotations):
             taskPreset.properties()['enable'] = enableShots
 
 
-def setPresetTasksProperty(preset, name, value):
+def setPresetTasksProperty(preset: object, name: str, value: object) -> None:
     """ Iterate over the task presets and if they have the given property, set its value. """
     for path, taskPreset in preset.properties()['exportTemplate']:
         if name in taskPreset.properties():
             taskPreset.properties()[name] = value
 
 
-def findTrackItemsIntersecting(intersectTrackItem, excludeTracks=[]):
+def findTrackItemsIntersecting(intersectTrackItem: object, excludeTracks: list[object] = []) -> list[object]:
     """ Find items intersecting the given track item. """
     intersectingItems = []
 
@@ -110,7 +110,7 @@ def findTrackItemsIntersecting(intersectTrackItem, excludeTracks=[]):
     return intersectingItems
 
 
-def compScriptPath(item):
+def compScriptPath(item: object) -> str | None:
     """ If the item is a comp, return the script path else return None. """
     try:
         compInfo = CompSourceInfo(item)
@@ -180,7 +180,7 @@ class ReExportAction(QAction):
         setEnabledTasks(preset, enableShots=True, enableAnnotations=enableAnnotations)
         hiero.core.taskRegistry.createAndExecuteProcessor(preset, exportItems, synchronous=True)
 
-    def postProcess(self, postProcessScripts):
+    def postProcess(self, postProcessScripts: list[object]) -> None:
         """ After re-exporting tagged track items, finish by performing
             post processing for items that are comps. """
 
@@ -193,7 +193,7 @@ class ReExportAction(QAction):
             while asyncPostProcessThread.is_alive():
                 QtCore.QCoreApplication.processEvents()
 
-    def postProcessScripts(self, nkScriptPaths):
+    def postProcessScripts(self, nkScriptPaths: list[str]) -> None:
         """ Post process each nkScript path. """
         for scriptPath in nkScriptPaths:
             # get the nk script path and find versions in that path
@@ -313,7 +313,7 @@ class ReExportEventListener(object):
         hiero.core.events.registerInterest(
             (hiero.core.events.EventType.kShowContextMenu, hiero.core.events.EventType.kTimeline), self.onContextMenuEvent)
 
-    def onContextMenuEvent(self, event):
+    def onContextMenuEvent(self, event: object) -> None:
         """ Context menu event handler.  Check for items which are valid for re-export and if any are found,
             add entries to the menu. """
         timelineEditor = event.sender

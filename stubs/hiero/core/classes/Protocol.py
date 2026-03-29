@@ -46,7 +46,7 @@ class Protocol(Generic):
     _is_protocol = True
     _is_runtime_protocol = False
 
-    def __init_subclass__(self, *args, **kwargs):
+    def __init_subclass__(self, *args, **kwargs) -> None:
         """
         classmethod(function) -> method
 
@@ -75,7 +75,7 @@ class Protocol(Generic):
     __abstractmethods__ = frozenset()
     _abc_impl: Any = None
 
-    def __init__(self,  *args, **kwargs):
+    def __init__(self, *args, **kwargs) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """

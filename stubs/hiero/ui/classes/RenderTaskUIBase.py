@@ -18,7 +18,7 @@ class RenderTaskUIBase(TaskUIBase):
     RenderTaskUIBase is a specialization of TaskUIBase which reflects the codec properties in RenderTaskPreset into UI
     """
 
-    def __init__(self, taskType, preset, displayName) -> None:
+    def __init__(self, taskType: str, preset: object, displayName: str) -> None:
         """
         A task base that includes functionality for displaying output selection UI.
         """
@@ -79,31 +79,31 @@ class RenderTaskUIBase(TaskUIBase):
         """
         ...
 
-    def deleteFirstChildFromWidget(self, widget) -> None:
+    def deleteFirstChildFromWidget(self, widget: object) -> None:
         """
         Get the first child added to the widget's layout, and delete it, if it exists.
         """
         ...
 
-    def updateCodecPropertiesWidget(self, file_type) -> None:
+    def updateCodecPropertiesWidget(self, file_type: str) -> None:
         """
         Update the codec properties widget. If applicable, also updates the encoder properties (for movs).
         """
         ...
 
-    def _buildCodecWidget(self, file_type) -> None:
+    def _buildCodecWidget(self, file_type: str) -> None:
         """
         Create the codec properties widget.
         """
         ...
 
-    def createCodecPropertyWidgets(self, file_type, propertyDictionaries) -> None:
+    def createCodecPropertyWidgets(self, file_type: str, propertyDictionaries: list[dict]) -> None:
         """
         Create widgets for the given property dictionaries, and add them to the given layout.
         """
         ...
 
-    def buildCodecUI(self, layout, itemTaskType) -> None:
+    def buildCodecUI(self, layout: object, itemTaskType: str) -> None:
         """
         Populate layout with widgets reflected from the RenderPresetBase class
         """

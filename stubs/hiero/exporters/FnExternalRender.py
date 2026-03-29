@@ -26,7 +26,7 @@ class ExternalRenderTask(FnShotExporter.ShotTask):
     """ExternalRenderTask doesn't do anything, it's just a marker to go into the template
     so that other tasks can find the location of external renders."""
 
-    def __init__(self, initDict):
+    def __init__(self, initDict: dict) -> None:
         """Initialize"""
         FnShotExporter.ShotTask.__init__(self, initDict)
 
@@ -35,7 +35,7 @@ class ExternalRenderTask(FnShotExporter.ShotTask):
 
 
 class ExternalRenderPreset(hiero.core.TaskPresetBase):
-    def __init__(self, name, properties):
+    def __init__(self, name: str, properties: dict) -> None:
         """Initialise presets to default values"""
         hiero.core.TaskPresetBase.__init__(self, ExternalRenderTask, name)
 
@@ -48,7 +48,7 @@ class ExternalRenderPreset(hiero.core.TaskPresetBase):
 hiero.core.taskRegistry.registerTask(ExternalRenderPreset, ExternalRenderTask)
 
 
-def createAdditionalNodes(entrypoint, additionalNodeData, item):
+def createAdditionalNodes(entrypoint: str, additionalNodeData: dict, item: dict) -> list[nuke.Node]:
     """Return list of nodes to be added to the script at specified entrypoint based on item tags"""
     """@param entrypoint: kPerShot, kPerTrack, kPerSequence, kUnconnected, kDisabled - entry point within nuke script"""
     """@param item: item being exported"""
@@ -127,7 +127,7 @@ def _mapDefaultColourTransform(preset, projectsettings):
     return None
 
 
-def getRoleFromPropertyWithRole(lutValue):
+def getRoleFromPropertyWithRole(lutValue: str) -> str:
     """Get just the role name from a string containing the colorspace +
     the role in parentheses."""
     if lutValue.endswith(')'):
@@ -136,7 +136,7 @@ def getRoleFromPropertyWithRole(lutValue):
     assert False, ('This function should not be used unless the colorspace contains a role')
 
 
-def getColorspaceFromPropertyWithRole(lutValue):
+def getColorspaceFromPropertyWithRole(lutValue: str) -> str:
     """Get just the colorspace name from a string containing the colorspace +
     the role in parentheses."""
     if lutValue.endswith(')'):
@@ -145,7 +145,7 @@ def getColorspaceFromPropertyWithRole(lutValue):
     assert False, ('This function should not be used unless the colorspace contains a role')
 
 
-def getColorspaceAndRoleSplit(lutValue):
+def getColorspaceAndRoleSplit(lutValue: str) -> tuple[str, str | None]:
     """Returns the colorspace and role if the string contains both, otherwise returns
     the provided lutValue as the colorspace and None as the role"""
     if lutValue.endswith(')'):
@@ -171,7 +171,7 @@ def isColorspaceValid(project, colorspace, role):
     return colorspace in luts
 
 
-def createWriteNode(ctx, path, preset, nodeName=None, inputNode=None, framerate=None, project=None):
+def createWriteNode(ctx: dict, path: str, preset: str, nodeName: str | None = None, inputNode: 'nuke.Node' | None = None, framerate: float | int | None = None, project: str | None = None) -> 'nuke.Node':
     """Return a Nuke Write node based on a path and a preset."""
     properties = preset.properties()
 
@@ -246,7 +246,7 @@ class NukeRenderTask(ExternalRenderTask):
     """NukeRenderTask holds settings for a Nuke Write node so that shot exports can create
     the node set up to write to the requested location."""
 
-    def __init__(self, initDict):
+    def __init__(self, initDict: dict) -> None:
         """Initialize"""
         ExternalRenderTask.__init__(self, initDict)
 
@@ -256,7 +256,7 @@ class NukeRenderTask(ExternalRenderTask):
     def taskStep(self):
         return ExternalRenderTask.taskStep(self)
 
-    def nukeWriteNode(self, framerate=None, project=None):
+    def nukeWriteNode(self, framerate: float | int | None = None, project: str | None = None) -> 'nuke.Node':
         """Return a Nuke Write node for this tasks's export path."""
         nodeName = None
         presetProperties = self._preset.properties()
@@ -264,11 +264,11 @@ class NukeRenderTask(ExternalRenderTask):
             nodeName = self.resolvePath(presetProperties['writeNodeName'])
         return createWriteNode(self, self.resolvedExportPath(), self._preset, nodeName, framerate=framerate, project=project)
 
-    def viewsFromPreset(self):
+    def viewsFromPreset(self) -> list[str]:
         """ Get the views configured on the preset. """
         return self._preset.properties()['views']
 
-    def viewsFromSource(self):
+    def viewsFromSource(self) -> list[str]:
         """ Get the views available from the source sequence/clip/trackitem. By default
         returns all the views in the project.
         """
@@ -298,7 +298,7 @@ class NukeRenderTask(ExternalRenderTask):
                 if not view in sourceViews:
                     raise RuntimeError('Render task has invalid view "{}"'.format(view))
 
-    def addBurninNodes(self, script=None):
+    def addBurninNodes(self, script: str | None = None) -> None:
         """If Burnin enabled in preset, add NukeRenderTask.burninNodeData to the
         script and modify knob values according to preset data"""
 
@@ -340,7 +340,7 @@ class NukeRenderTask(ExternalRenderTask):
 
 
 class NukeRenderPreset(hiero.core.RenderTaskPreset):
-    def __init__(self, name, properties):
+    def __init__(self, name: str, properties: dict) -> None:
         """Initialise presets to default values"""
         hiero.core.RenderTaskPreset.__init__(self, NukeRenderTask, name, properties)
 

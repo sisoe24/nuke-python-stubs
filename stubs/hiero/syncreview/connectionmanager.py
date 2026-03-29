@@ -29,11 +29,11 @@ class Session(QObject):
         self._thread = QThread()
         self._thread.start()
 
-    def clientDataProvider(self):
+    def clientDataProvider(self) -> Any:
         """ Holds data about the current participants of a sync review session. """
         return self._clientDataProvider
 
-    def _stopThread(self):
+    def _stopThread(self) -> None:
         """ Stop the socket communication thread """
         if self._thread:
             self._thread.quit()
@@ -176,7 +176,7 @@ class ConnectionManager(QObject):
         self.session = None
         self._connectionInfo = None
 
-    def startServer(self, port, clientData, project):
+    def startServer(self, port: int, clientData: Any, project: Any) -> None:
         """ Start the server and listen on the given port """
         if self.connectionState != ConnectionState.DISCONNECTED:
             raise RuntimeError('Cannot start server')
@@ -192,7 +192,7 @@ class ConnectionManager(QObject):
             log.logException()
             self.connectionState.setError(ConnectionState.ERROR_BIND_FAILURE)
 
-    def stopServer(self):
+    def stopServer(self) -> None:
         """ Stop the server """
         if self.connectionState.state() != ConnectionState.SERVER_RUNNING:
             raise RuntimeError("Cannot stop server, it's not running")
@@ -200,7 +200,7 @@ class ConnectionManager(QObject):
         self.shutdown()
         self.connectionState.setState(ConnectionState.DISCONNECTED)
 
-    def connectClient(self, hostname, port, clientData):
+    def connectClient(self, hostname: str, port: int, clientData: Any) -> None:
         """ Connect as a client to the given hostname and port """
         if self.connectionState != ConnectionState.DISCONNECTED:
             raise RuntimeError('Cannot connect client')
@@ -215,13 +215,13 @@ class ConnectionManager(QObject):
         except:
             log.logException()
 
-    def disconnectClient(self):
+    def disconnectClient(self) -> None:
         """ Disconnect the client """
         if self.connectionState not in (ConnectionState.CLIENT_CONNECTED, ConnectionState.CLIENT_CONNECTING):
             raise RuntimeError('Cannot disconnect, client not connected')
         self.shutdown()
 
-    def shutdown(self):
+    def shutdown(self) -> None:
         """ Shut down the connection if there was one """
         if self.session:
             # Unset self.session first to avoid recursion.
@@ -232,33 +232,33 @@ class ConnectionManager(QObject):
             session.stop()
             log.closeLogger()
 
-    def sessionMessageHandler(self):
+    def sessionMessageHandler(self) -> Any:
         """ Get the object used for sending and receiving messages in the current session. """
         return self.session.client
 
-    def pushSession(self):
+    def pushSession(self) -> None:
         """ Pushes the project to all other clients. """
         self.session.projectPushTool.pushAllProjects(messages.Message.TARGET_BROADCAST)
 
-    def getProjects(self):
+    def getProjects(self) -> Any:
         """ Get the project used for the sync session """
         return self.session.projectPushTool.projects()
 
-    def onConnectionStateChanged(self, state):
+    def onConnectionStateChanged(self, state: Any) -> None:
         """ Callback when the connection state changes. Resets the session when
         disconnected for any reason
         """
         if state == ConnectionState.DISCONNECTED:
             self.shutdown()
 
-    def setConnectionInfo(self, connectionInfo):
+    def setConnectionInfo(self, connectionInfo: Any) -> None:
         """ Set the current connection info """
         self._connectionInfo = connectionInfo
 
-    def getConnectionInfo(self):
+    def getConnectionInfo(self) -> Any:
         """ Get the current connection info """
         return self._connectionInfo
 
-    def _onNumberOfClientsChanged(self, numberOfClients):
+    def _onNumberOfClientsChanged(self, numberOfClients: int) -> None:
         """Callback when the number of clients changed"""
         self.numberOfClientsChanged.emit(numberOfClients)

@@ -32,7 +32,7 @@ class BinaryIO(IO):
     __orig_bases__ = (typing.IO[bytes],)
     __parameters__ = ()
 
-    def __init__(self,  *args, **kwargs):
+    def __init__(self, *args: tuple, **kwargs: dict) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """

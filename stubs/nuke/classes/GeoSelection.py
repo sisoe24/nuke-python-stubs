@@ -20,7 +20,7 @@ class GeoSelection(pybind11_object):
         """
         ...
 
-    def __getitem__(self: _nuke.GeoSelection, arg0: str) -> GeoSelectionItem:
+    def __getitem__(self: _nuke.GeoSelection, arg0: str) -> Foundry.Python.GeoSelectionItem:
         """
         __getitem__(self: _nuke.GeoSelection, arg0: str) -> Foundry::Python::GeoSelectionItem
         """
@@ -32,7 +32,7 @@ class GeoSelection(pybind11_object):
         """
         ...
 
-    def __iter__(self: _nuke.GeoSelection) -> Any:
+    def __iter__(self: _nuke.GeoSelection) -> Iterator:
         """
         __iter__(self: _nuke.GeoSelection) -> Iterator
         """

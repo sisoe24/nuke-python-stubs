@@ -37,26 +37,26 @@ class DialogState:
     def __init__(self):
         self._state = {}
 
-    def get(self, knob, defaultValue=None):
+    def get(self, knob: str, defaultValue: Any = None) -> Any:
         """Return the given knob's stored last state value.
         If none exists, defaultValue is returned.
         Values are stored in a dict referenced by knob name, so names must be unique!"""
         return self.getValue(knob.name(), defaultValue)
 
-    def save(self, knob):
+    def save(self, knob: str) -> None:
         """Store the knob's current value as the 'last state' for the next time the dialog is opened.
         Values are stored in a dict referenced by knob name, so names must be unique!"""
         self.saveValue(knob.name(), knob.value())
 
-    def setKnob(self, knob, defaultValue=None):
+    def setKnob(self, knob: str, defaultValue: Any = None) -> None:
         """Convenience method for setting a value straight on a knob."""
         knob.setValue(self.get(knob, defaultValue))
 
-    def saveValue(self, id, value):
+    def saveValue(self, id: str, value: Any) -> None:
         """Stores the value with the given id."""
         self._state[id] = value
 
-    def getValue(self, id, defaultValue=None):
+    def getValue(self, id: str, defaultValue: Any = None) -> Any:
         """Recalls the value. If it was not set before, it will return the defaultValue."""
         return self._state.get(id, defaultValue)
 
@@ -336,16 +336,16 @@ class RenderDialog(ExecuteDialog):
             self._useProxy.setVisible(True)
             self._continueOnError.setVisible(True)
 
-    def isBackgrounded(self):
+    def isBackgrounded(self) -> bool:
         """Return whether the background rendering option is enabled."""
         # Deprecated
         return self._bgRender.value() and self.backgroundRenderAvailable()
 
-    def isFrameserverEnabled(self):
+    def isFrameserverEnabled(self) -> bool:
         """Return whether the frame server option is enabled."""
         return self._frameserverRender.value() and self.frameserverRenderAvailable()
 
-    def backgroundRenderAvailable(self):
+    def backgroundRenderAvailable(self) -> bool:
         """Return whether background rendering should be allowed for this render"""
         # If frame server is not available for any reason, show the 'Render in background' option
         return RenderDialog.shouldShowBGRender or not self.frameserverRenderAvailable()
@@ -1138,7 +1138,7 @@ class ViewerCaptureDialog(FlipbookDialog):
     def _getIntermediateFileType(self):
         return 'jpg'
 
-    def captureViewer(self):
+    def captureViewer(self) -> Any:
         """ Return an instance of a CaptureViewer class, which when executed captures the viewer.
         """
         flipbook = flipbooking.gFlipbookFactory.getApplication(self._flipbookEnum.value())
@@ -1167,14 +1167,14 @@ def _showDialog(dialog):
         dialog.run()
 
 
-def showExecuteDialog(nodesToExecute, exceptOnError=True):
+def showExecuteDialog(nodesToExecute: list, exceptOnError: bool = True) -> None:
     """Present a dialog that executes the given list of nodes."""
     groupContext = nuke.root()
     d = ExecuteDialog(_gRenderDialogState, groupContext, nodesToExecute, exceptOnError)
     _showDialog(d)
 
 
-def showRenderDialog(nodesToRender, exceptOnError=True, allowFrameServer=True):
+def showRenderDialog(nodesToRender: list, exceptOnError: bool = True, allowFrameServer: bool = True) -> None:
     """Present a dialog that renders the given list of nodes."""
     groupContext = nuke.root()
     d = RenderDialog(_gRenderDialogState, groupContext,
@@ -1199,7 +1199,7 @@ def _getFlipbookDialog(node, takeNodeSettings=False):
     return e
 
 
-def showFlipbookDialog(node, takeNodeSettings=False):
+def showFlipbookDialog(node: Any, takeNodeSettings: bool = False) -> None:
     """Present a dialog that flipbooks the given node."""
     e = _getFlipbookDialog(node, takeNodeSettings)
     _showDialog(e)
@@ -1239,7 +1239,7 @@ def showViewerCaptureDialog(node):
         thread.start()
 
 
-def showFlipbookDialogForSelected():
+def showFlipbookDialogForSelected() -> None:
     """Present a dialog that flipbooks the currently selected node."""
     try:
         showFlipbookDialog(nuke.selectedNode())
@@ -1247,7 +1247,7 @@ def showFlipbookDialogForSelected():
         raise RuntimeError("Can't launch flipbook, %s." % (ve.args[0]))
 
 
-def bboxToTopLeft(height, roi):
+def bboxToTopLeft(height: int, roi: dict) -> dict:
     """Convert the roi passed from a origin at the bottom left to the top left.
        Also replaces the r and t keys with w and h keys.
        @param height: the height used to determine the top.

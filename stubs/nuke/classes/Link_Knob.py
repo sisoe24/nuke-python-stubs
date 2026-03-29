@@ -14,13 +14,13 @@ class Link_Knob(Knob):
     Link_Knob
     """
 
-    def __new__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs) -> Link_Knob:
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
         ...
 
-    def __hash__(self, ) -> None:
+    def __hash__(self) -> int:
         """
         Return hash(self).
         """
@@ -40,7 +40,7 @@ class Link_Knob(Knob):
         """
         ...
 
-    def setValue(self,) -> None:
+    def setValue(self, value: str) -> None:
         """
         setValue() -> None
 
@@ -48,25 +48,25 @@ class Link_Knob(Knob):
         """
         ...
 
-    def setLink(self, s) -> None:
+    def setLink(self, s: str) -> None:
         """
         setLink(s) -> None
         """
         ...
 
-    def makeLink(self, s, t) -> None:
+    def makeLink(self, s: str, t: str) -> None:
         """
         makeLink(s, t) -> None
         """
         ...
 
-    def getLinkedKnob(self,) -> knob:
+    def getLinkedKnob(self) -> nuke.Knob:
         """
         getLinkedKnob() -> knob
         """
         ...
 
-    def getLink(self,) -> Any:
+    def getLink(self) -> str:
         """
         getLink() -> s
         """

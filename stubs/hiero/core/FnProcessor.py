@@ -5,7 +5,7 @@ from .FnFloatRange import IntRange
 from .FnExporterBase import TaskPresetBase
 
 
-def _expandTaskGroup(group):
+def _expandTaskGroup(group) -> list:
     """ Helper function to flatten a hierarchy of task groups into a list containing child tasks. """
     tasks = []
     if not group.children():
@@ -27,7 +27,7 @@ class ProcessorBase(object):
         self._synchronous = synchronous
         self._skipOffline = preset.skipOffline()
 
-    def startProcessing(self, exportItems, preview=False):
+    def startProcessing(self, exportItems, preview: bool = False) -> list:
         """ Generate export tasks and add them to the export queue. If preview is
         True, the tasks are created and returned, but not scheduled for execution.
         """
@@ -36,7 +36,7 @@ class ProcessorBase(object):
     def skipOffline(self):
         return self._skipOffline
 
-    def processTaskPreQueue(self):
+    def processTaskPreQueue(self) -> None:
         """processTaskPreQueue() Walk Tasks in submission and mark any duplicates.
         """
 
@@ -110,7 +110,7 @@ class ProcessorBase(object):
             # while join(task_ranges):
             #  pass
 
-    def validItem(self, supportedTypes, item):
+    def validItem(self, supportedTypes, item) -> bool:
         """Get if the task is able to run on the item it was initialised with."""
         supported = False
         if supportedTypes & TaskPresetBase.kSequence:
@@ -142,7 +142,7 @@ class ProcessorBase(object):
 
         copy.addTag(tag)
 
-    def errors(self):
+    def errors(self) -> str | None:
         """ Get an error string from the processor.  Iterates over child tasks and
             adds their error messages to the string.  Returns None if there were no errors. """
         errors = []
@@ -162,14 +162,14 @@ class ProcessorPreset (TaskPresetBase):
     The purpose of a Processor Preset is to store and data which must be serialized to file
     and shared between the Processor and ProcessorUI user interface component"""
 
-    def __init__(self, parentType, presetName):
+    def __init__(self, parentType, presetName) -> None:
         """Initialise Exporter Preset Base Class
 
         @param parentType: Processor type to which this preset object corresponds
         @param presetName: Name of preset"""
         TaskPresetBase.__init__(self, parentType, presetName)
 
-    def __eq__(self, other):
+    def __eq__(self, other) -> bool:
         """ Override to compare projects.  The TaskRegistry relies on presets which are otherwise identical but with different projects not comparing equal. """
         if not isinstance(other, ProcessorPreset):
             return False

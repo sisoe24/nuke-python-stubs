@@ -2,7 +2,7 @@ from hiero.core import (Clip, BinItem, Version, Sequence, TrackItem,
                         AudioTrack, VideoTrack, TrackItemBase)
 
 
-def deprecated(f, msg=None, funcName=None, deprecatedWarningMsg=None):
+def deprecated(f: Callable[..., Any], msg: str | None = None, funcName: str | None = None, deprecatedWarningMsg: str | None = None) -> Callable[..., Any]:
     """ defines a new method and prints a message warning that the function is deprecated.
     @param f: method
     @param msg: Optional. Warning message to print.

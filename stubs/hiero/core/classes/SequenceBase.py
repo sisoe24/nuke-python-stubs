@@ -18,61 +18,61 @@ class SequenceBase:
     Base class for Sequence and Clip objects. Has some methods common to both of those objects. Most likely never used directly.
     """
 
-    def __new__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs) -> 'SequenceBase':
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
         ...
 
-    def __hash__(self, ) -> None:
+    def __hash__(self) -> int:
         """
         Return hash(self).
         """
         ...
 
-    def __setattr__(self, name, value, ) -> None:
+    def __setattr__(self, name: str, value: object) -> None:
         """
         Implement setattr(self, name, value).
         """
         ...
 
-    def __delattr__(self, name, ) -> None:
+    def __delattr__(self, name: str) -> None:
         """
         Implement delattr(self, name).
         """
         ...
 
-    def __lt__(self, value, ) -> None:
+    def __lt__(self, value: object) -> bool:
         """
         Return self<value.
         """
         ...
 
-    def __le__(self, value, ) -> None:
+    def __le__(self, value: object) -> bool:
         """
         Return self<=value.
         """
         ...
 
-    def __eq__(self, value, ) -> None:
+    def __eq__(self, value: object) -> bool:
         """
         Return self==value.
         """
         ...
 
-    def __ne__(self, value, ) -> None:
+    def __ne__(self, value: object) -> bool:
         """
         Return self!=value.
         """
         ...
 
-    def __gt__(self, value, ) -> None:
+    def __gt__(self, value: object) -> bool:
         """
         Return self>value.
         """
         ...
 
-    def __ge__(self, value, ) -> None:
+    def __ge__(self, value: object) -> bool:
         """
         Return self>=value.
         """
@@ -84,7 +84,7 @@ class SequenceBase:
         """
         ...
 
-    def __bool__(self, ) -> None:
+    def __bool__(self) -> bool:
         """
         True if self else False
         """
@@ -126,7 +126,7 @@ class SequenceBase:
         """
         ...
 
-    def clearInTime(self) -> None:
+    def clearInTime(self, t: int) -> None:
         """
         self.clearInTime(t) -> clear the 'in' point for the clip to Time t.
 
@@ -134,7 +134,7 @@ class SequenceBase:
         """
         ...
 
-    def clearOutTime(self) -> None:
+    def clearOutTime(self, t: int) -> None:
         """
         self.clearInTime(t) -> clear the 'out' point for the clip to Time t.
 
@@ -172,7 +172,7 @@ class SequenceBase:
         """
         ...
 
-    def editFinished(self, *args: typing.Any, **kwargs: typing.Any) -> list:
+    def editFinished(self, *args: typing.Any, **kwargs: typing.Any) -> None:
         """
         self.editFinished(trackItems) -> this should be called after finishing editing the sequence to ensure that its internal state is updated properly and to send a signal to all objects listening to changes in this object (e.g. UI views).This function optionally takes a list of track items that is used to selectively rebuild only those sections of the timeline.This allows a faster update when the edited track items are known.
 
@@ -265,7 +265,7 @@ class SequenceBase:
         """
         ...
 
-    def project(self) -> object:
+    def project(self) -> typing.Optional[hiero.core.Project]:
         """
         self.project() -> returns the Project object that this is attached to, or None if the object is not attached to a project.
 
@@ -281,7 +281,7 @@ class SequenceBase:
         """
         ...
 
-    def razorAt(self, *args: typing.Any, **kwargs: typing.Any) -> int | float:
+    def razorAt(self, *args: typing.Any, **kwargs: typing.Any) -> int:
         """
         self.razorAt(time) -> Creates razor cuts on all of the unlocked tracks for the parameter time(s).
 
@@ -393,7 +393,7 @@ class SequenceBase:
         """
         ...
 
-    def setTimecodeStart(self, *args: typing.Any, **kwargs: typing.Any) -> int:
+    def setTimecodeStart(self, time: int | str | None = None, timecodeValue: str | None = None, hasDropFrames: bool = False) -> None:
         """
         self.setTimecodeStart(time) -> sets the value of the start timecode by frame. To convert times to frame values, use TimeCode.HMSFToFrames or TimeCode.stringToTime.
         self.setTimecodeStart(timecodeValue, hasDropFrames) -> sets the value of the start timecode by formatted string, using the framerate of the Sequence or Clip as the time base. If just passing in a framerate, pass it in as an integer.
@@ -428,7 +428,7 @@ class SequenceBase:
         """
         ...
 
-    def tags(self) -> object:
+    def tags(self) -> tuple:
         """
         self.tags() -> returns a tuple of all of the tags applied to this object.
 
@@ -436,7 +436,7 @@ class SequenceBase:
         """
         ...
 
-    def thumbnail(self, index: int = 0, layer: str = Default(self, Hiero.Python.String)) -> PySide2.QtGui.QImage:
+    def thumbnail(self, frame: int = 0, layer: str = 'colour') -> PySide2.QtGui.QImage:
         """
         self.thumbnail(frame, layer) -> returns a thumbnail of the frame specified as a QImage object.
 
@@ -470,7 +470,7 @@ class SequenceBase:
         """
         ...
 
-    def writeAudioToFile(self, *args: typing.Any, **kwargs: typing.Any) -> str:
+    def writeAudioToFile(self, filepath: str, inTime: int, outTime: int, numChannels: int, sampleRate: int, bitDepth: int, bitRate: int) -> None:
         """
         self.writeAudioToFile() -> Bounce down audio tracks and write to wav file at specified location. File will be created or overwritten.
 

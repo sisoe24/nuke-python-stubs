@@ -18,31 +18,31 @@ class SubTrackItem(TrackItemBase):
     Base class for items that exist in sub-tracks, e.g. Annotation objects. This class should never be used directly.
     """
 
-    def __new__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs) -> SubTrackItem:
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
         ...
 
-    def __setattr__(self, name, value, ) -> None:
+    def __setattr__(self, name: str, value: Any) -> None:
         """
         Implement setattr(self, name, value).
         """
         ...
 
-    def __delattr__(self, name, ) -> None:
+    def __delattr__(self, name: str) -> None:
         """
         Implement delattr(self, name).
         """
         ...
 
-    def __init__(self,  *args, **kwargs) -> None:
+    def __init__(self, *args: Any, **kwargs: Any) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """
         ...
 
-    def __bool__(self, ) -> None:
+    def __bool__(self) -> bool:
         """
         True if self else False
         """
@@ -54,7 +54,7 @@ class SubTrackItem(TrackItemBase):
         """
         ...
 
-    def setTimelineIn(self, time: int) -> None:
+    def setTimelineIn(self, inTime: int) -> None:
         """
         self.setTimelineIn(inTime) -> sets the in point for this SubTrackItem. Note that this trims the duration of the SubTrackItem.
 
@@ -62,7 +62,7 @@ class SubTrackItem(TrackItemBase):
         """
         ...
 
-    def setTimelineOut(self, time: int) -> None:
+    def setTimelineOut(self, outTime: int) -> None:
         """
         self.setTimelineOut(outTime) -> sets the out point for this SubTrackItem. Note that this trims the duration of the SubTrackItem.
 

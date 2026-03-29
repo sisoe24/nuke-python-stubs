@@ -10,7 +10,7 @@ from . import FnXMLExportTask
 
 
 class XMLExportUI(hiero.ui.TaskUIBase):
-    def __init__(self, preset):
+    def __init__(self, preset: Any):
         """Initialize"""
         hiero.ui.TaskUIBase.__init__(self, FnXMLExportTask.XMLExportTask, preset, 'XML Exporter')
 

@@ -7,6 +7,7 @@ import PySide2
 from PySide2.QtWidgets import *
 
 from . import *
+from json.decoder import NaN
 
 
 class GeoSelectionItem(pybind11_object):
@@ -14,13 +15,13 @@ class GeoSelectionItem(pybind11_object):
 
     """
 
-    def __init__(self,  *args, **kwargs) -> None:
+    def __init__(self, *args, **kwargs) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """
         ...
 
-    def getPath(self: _nuke.GeoSelectionItem) -> str:
+    def getPath(self: _nuke.GeoSelectionItem) -> usg.Path:
         """
         getPath(self: _nuke.GeoSelectionItem) -> usg::Path
         """
@@ -56,13 +57,13 @@ class GeoSelectionItem(pybind11_object):
         """
         ...
 
-    def getWorldPoints(self: _nuke.GeoSelectionItem, stage: usg: : Stage, time: float = nan) -> list:
         """
+    def getWorldPoints(self: _nuke.GeoSelectionItem, stage: usg.Stage, time: float = -1) -> list:
         getWorldPoints(self: _nuke.GeoSelectionItem, stage: usg::Stage, time: float = nan) -> usg::Array<fdk::Vec3<float> >
         """
         ...
 
-    def getWorldNormals(self: _nuke.GeoSelectionItem, stage: usg: : Stage, time: float = nan) -> list:
+    def getWorldNormals(self: _nuke.GeoSelectionItem, stage: usg.Stage, time: float = float('nan')) -> list:
         """
         getWorldNormals(self: _nuke.GeoSelectionItem, stage: usg::Stage, time: float = nan) -> usg::Array<fdk::Vec3<float> >
         """

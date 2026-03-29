@@ -11,7 +11,7 @@ from .log import logMessage
 from .synctool import SyncTool
 
 
-def syncReviewTempDir(name=''):
+def syncReviewTempDir(name: str = '') -> str:
     """ Get the directory for temp files related to the sync functionality, with an
     option sub-directory name, creating if necessary.
     """
@@ -70,7 +70,7 @@ class ProjectPushTool(SyncTool):
         self._receivingProjectsTotal = 0
         self._state = ProjectPushTool.STATE_IDLE
 
-    def addProjects(self, projects, pushNow=False):
+    def addProjects(self, projects: list, pushNow: bool = False) -> None:
         """ Add projects for syncing. This should only be called on the host, clients
         get the project pushed to them.
         The optional pushNow arg can be set to True to have the new project pushed
@@ -82,18 +82,18 @@ class ProjectPushTool(SyncTool):
         if pushNow:
             self._pushProjects(messages.Message.TARGET_BROADCAST, newProjectsData)
 
-    def removeProject(self, project):
+    def removeProject(self, project: object) -> None:
         """ Remove a project from the sync session (this happens when the host closes it or
         uses save as). This sends messages to have it closed on connected clients.
         """
         self._projectsData = [pd for pd in self._projectsData if pd.project != project]
         self.messageDispatcher.sendMessage(messages.ProjectClose(guid=project.guid()))
 
-    def projects(self):
+    def projects(self) -> list:
         """ Get a list of synced projects """
         return [data.project for data in self._projectsData]
 
-    def _saveNewProjectVersion(self, projectData):
+    def _saveNewProjectVersion(self, projectData: object) -> None:
         """ Save a project to a temp file with user, timestamp and version """
         projName = projectData.project.name()
         tempDir = syncReviewTempDir(projName)
@@ -120,11 +120,11 @@ class ProjectPushTool(SyncTool):
             projectData.project.setPath(path)
         projectData.lastTempSavePath = newPath
 
-    def pushAllProjects(self, receiver):
+    def pushAllProjects(self, receiver: object) -> None:
         """ Push all synced projects to the specified recipients """
         self._pushProjects(receiver, self._projectsData)
 
-    def _pushProjects(self, receiver, projectsData):
+    def _pushProjects(self, receiver: object, projectsData: list) -> None:
         """ Push a list of projects (ProjectSyncData objects) to the specified recipients """
         self._state = ProjectPushTool.STATE_PUSHING_PROJECTS
         self.viewerSyncTool.stopPlayback()
@@ -135,7 +135,7 @@ class ProjectPushTool(SyncTool):
         self.messageDispatcher.sendMessage(messages.ProjectPushEnd(target=receiver))
         self._state = ProjectPushTool.STATE_IDLE
 
-    def _pushProject(self, receiver, projectData):
+    def _pushProject(self, receiver: object, projectData: object) -> None:
         """ Push a project. This should only be called by _pushProjects """
         self._saveNewProjectVersion(projectData)
 
@@ -156,7 +156,7 @@ class ProjectPushTool(SyncTool):
         # full state of the viewer to be restored after the project is loaded
         self.viewerSyncTool.pushViewerState()
 
-    def _onProjectPushBeginReceived(self, msg):
+    def _onProjectPushBeginReceived(self, msg: object) -> None:
         """ Prepare to receive pushed projects """
         self._state = ProjectPushTool.STATE_LOADING_PROJECTS
 
@@ -182,14 +182,14 @@ class ProjectPushTool(SyncTool):
                     pd.project.close()
                     pd.project = None
 
-    def _onProjectPushEndReceived(self, msg):
+    def _onProjectPushEndReceived(self, msg: object) -> None:
         """ Finish receiving pushed projects """
         self.viewerSyncTool.setProjectLoading(False)
         self._receivingProjectsCount = 0
         self._receivingProjectsTotal = 0
         self._state = ProjectPushTool.STATE_IDLE
 
-    def _onProjectPushReceived(self, msg):
+    def _onProjectPushReceived(self, msg: object) -> None:
         """ Load a pushed project """
 
         # Write the project xml to a temp file, then load it
@@ -222,7 +222,7 @@ class ProjectPushTool(SyncTool):
         progressMsg = messages.ProjectLoadProgress(progress=progress)
         self.messageDispatcher.sendMessage(progressMsg)
 
-    def _onProjectCloseReceived(self, msg):
+    def _onProjectCloseReceived(self, msg: object) -> None:
         """ Handle message sent when a synced project is closed on the host, and close
         it here.
         """
@@ -233,7 +233,7 @@ class ProjectPushTool(SyncTool):
         self._projectsData.remove(projectData)
         projectData.project.close()
 
-    def state(self):
+    def state(self) -> str:
         """ Get the current state of the tool """
         return self._state
 
@@ -309,14 +309,14 @@ class HostProjectSyncTool(SyncTool):
     def _onClientConnected(self, msg):
         self._pushTool.pushAllProjects(msg.sender)
 
-    def _onProjectLoadOrCreate(self, event):
+    def _onProjectLoadOrCreate(self, event: object) -> None:
         """ When a project is loaded or a new one created, add it to the list of
         synced projects and push to connected clients.
         """
         if self._pushTool.state() == ProjectPushTool.STATE_IDLE:
             self._pushTool.addProjects(event.project, pushNow=True)
 
-    def _onProjectClose(self, event):
+    def _onProjectClose(self, event: object) -> None:
         """ When a project is closed, remove it to the list of synced projects and close
         it on connected clients
         """

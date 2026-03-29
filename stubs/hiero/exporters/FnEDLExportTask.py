@@ -449,7 +449,7 @@ def _fileextFromTrackItem(trackItem):
 
 class EDLExportTask(hiero.core.TaskBase):
 
-    def __init__(self, initDict):
+    def __init__(self, initDict: dict) -> None:
         """Initialize"""
         self._currentTrack = None
         hiero.core.TaskBase.__init__(self, initDict)
@@ -606,7 +606,7 @@ class EDLExportTask(hiero.core.TaskBase):
 
 
 class EDLExportPreset(hiero.core.TaskPresetBase):
-    def __init__(self, name, properties):
+    def __init__(self, name: str, properties: dict) -> None:
         """Initialise presets to default values"""
         hiero.core.TaskPresetBase.__init__(self, EDLExportTask, name)
 

@@ -14,49 +14,49 @@ class Boolean_Knob(Array_Knob):
     A knob which holds a boolean value. This appears in a Node panel as a check box.
     """
 
-    def __new__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs) -> Boolean_Knob:
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
         ...
 
-    def __hash__(self, ) -> None:
+    def __hash__(self) -> int:
         """
         Return hash(self).
         """
         ...
 
-    def __lt__(self, value, ) -> None:
+    def __lt__(self, value: Boolean_Knob) -> bool:
         """
         Return self<value.
         """
         ...
 
-    def __le__(self, value, ) -> None:
+    def __le__(self, value: Boolean_Knob) -> bool:
         """
         Return self<=value.
         """
         ...
 
-    def __eq__(self, value, ) -> None:
+    def __eq__(self, value: Boolean_Knob) -> bool:
         """
         Return self==value.
         """
         ...
 
-    def __ne__(self, value, ) -> None:
+    def __ne__(self, value: Boolean_Knob) -> bool:
         """
         Return self!=value.
         """
         ...
 
-    def __gt__(self, value, ) -> None:
+    def __gt__(self, value: Boolean_Knob) -> bool:
         """
         Return self>value.
         """
         ...
 
-    def __ge__(self, value, ) -> None:
+    def __ge__(self, value: Boolean_Knob) -> bool:
         """
         Return self>=value.
         """
@@ -68,7 +68,7 @@ class Boolean_Knob(Array_Knob):
         """
         ...
 
-    def value(self,) -> Union[True, False]:
+    def value(self) -> bool:
         """
         self.value() -> bool
         Get the boolean value for this knob.
@@ -76,7 +76,7 @@ class Boolean_Knob(Array_Knob):
         """
         ...
 
-    def setValue(self, b: bool) -> bool:
+    def setValue(self, b: object) -> bool:
         """
         self.setValue(b) -> bool
         Set the boolean value of this knob.

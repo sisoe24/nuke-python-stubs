@@ -14,19 +14,19 @@ class ChannelMask_Knob(Channel_Knob):
     ChannelMask_Knob
     """
 
-    def __new__(self, *args, **kwargs) -> None:
+    def __new__(self, *args, **kwargs) -> 'ChannelMask_Knob':
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
         ...
 
-    def __hash__(self, ) -> None:
+    def __hash__(self) -> int:
         """
         Return hash(self).
         """
         ...
 
-    def __init__(self,  *args, **kwargs) -> None:
+    def __init__(self, *args, **kwargs) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """

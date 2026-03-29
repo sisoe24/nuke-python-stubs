@@ -12,7 +12,7 @@ def _overrideTextEffectKnobDefaults(effectItemNode):
 OverrideEffectKnobDefaults = {'Text2': _overrideTextEffectKnobDefaults}
 
 
-def overrideKnobDefaults(effectItem):
+def overrideKnobDefaults(effectItem: object) -> None:
     """ Override timeline specific knob defaults for the given soft effect
     @param effectItem: the effect who's knob will be overriden
     """
@@ -37,7 +37,7 @@ def _afterCornerPinEffectCreated(effectItem):
 AfterEffectCreatedOperations = {'CornerPin2D': _afterCornerPinEffectCreated}
 
 
-def afterEffectCreated(effectItem):
+def afterEffectCreated(effectItem: object) -> None:
     """ Perform timeline specific operation for the given soft effect
     that has just been created.
     @param effectItem: the effect that has just been created

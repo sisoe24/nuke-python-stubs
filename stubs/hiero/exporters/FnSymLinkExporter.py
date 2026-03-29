@@ -11,7 +11,7 @@ from . import FnFrameExporter
 
 
 class SymLinkExporter(FnFrameExporter.FrameExporter):
-    def __init__(self, initDict):
+    def __init__(self, initDict: dict) -> None:
         """Initialize"""
         FnFrameExporter.FrameExporter.__init__(self, initDict)
         if self.nothingToDo():

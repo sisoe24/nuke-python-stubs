@@ -22,7 +22,7 @@ class UndoGroup:
         // Undoable edits
     """
 
-    def __new__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs) -> 'UndoGroup':
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
@@ -34,13 +34,13 @@ class UndoGroup:
         """
         ...
 
-    def __bool__(self, ) -> None:
+    def __bool__(self) -> bool:
         """
         True if self else False
         """
         ...
 
-    def __enter__(self) -> None:
+    def __enter__(self) -> 'UndoGroup':
         """
         self.__enter__() -> Allows usage in a with block to automatically end the undo.
         """

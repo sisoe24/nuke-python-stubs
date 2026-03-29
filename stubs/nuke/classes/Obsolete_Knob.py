@@ -14,25 +14,25 @@ class Obsolete_Knob(Knob):
     For internal use only.
     """
 
-    def __hash__(self, ) -> None:
+    def __hash__(self) -> int:
         """
         Return hash(self).
         """
         ...
 
-    def __init__(self,  *args, **kwargs) -> None:
+    def __init__(self, *args: typing.Any, **kwargs: typing.Any) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """
         ...
 
-    def value(self, *args: typing.Any, **kwargs: typing.Any) -> None:
+    def value(self, *args: typing.Any, **kwargs: typing.Any) -> typing.Any:
         """
         Return value at the current frame for channel 'c'.
         """
         ...
 
-    def setValue(self, val, chan) -> bool:
+    def setValue(self, val: typing.Any, chan: typing.Any) -> bool:
         """
         self.setValue(val, chan) -> bool
 

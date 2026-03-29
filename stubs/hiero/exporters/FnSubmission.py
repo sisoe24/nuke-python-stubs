@@ -17,28 +17,28 @@ class Submission(TaskGroup):
         TaskGroup.__init__(self)
         pass
 
-    def initialise(self):
+    def initialise(self) -> None:
         """
         Called before any jobs are added, can be used to e.g. show a dialog
         to configure the Submission.
         """
         pass
 
-    def addJob(self, jobType, initDict, filePath):
+    def addJob(self, jobType: str, initDict: dict, filePath: str) -> 'Task | None':
         """
         Add a job to the submission.  May return a Task object which should be processed
         by the caller.
         """
         pass
 
-    def startTask(self):
+    def startTask(self) -> None:
         """
         This will be called when the export queue starts processing this submission,
         before any jobs are added.
         """
         pass
 
-    def finishTask(self):
+    def finishTask(self) -> None:
         """
         This will be called after jobs have been added.
         """

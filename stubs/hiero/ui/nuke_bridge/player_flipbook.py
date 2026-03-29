@@ -85,7 +85,7 @@ class PlayerFlipbookApplication(flipbooking.FlipbookApplication):
         paramsJson = json.dumps(params)
         self._openFlipbookProcess(paramsJson)
 
-    def _openFlipbookProcess(self, paramsJson):
+    def _openFlipbookProcess(self, paramsJson: dict) -> None:
         """ Run a Player process with the flipbook data """
         args = [self.path(), '-q', '--player', '--flipbook', paramsJson]
         subprocess.Popen(args, shell=False)
@@ -93,7 +93,7 @@ class PlayerFlipbookApplication(flipbooking.FlipbookApplication):
     def capabilities(self):
         return kNukeFlipbookCapabilities
 
-    def _determineFlipbookNames(self, flipbookDialog, nodeToFlipbook, options):
+    def _determineFlipbookNames(self, flipbookDialog: object, nodeToFlipbook: object, options: dict) -> None:
         """ Get the names of the comp, node, and (if there is one) audio node
         and put them in the options dictionary
         """
@@ -194,14 +194,14 @@ class PlayerFlipbookManager(object):
         hiero.core.events.registerInterest('kBeforeProjectClose',
                                            self._onProjectClosed)
 
-    def _onProjectClosed(self, event):
+    def _onProjectClosed(self, event: Event) -> None:
         """ Callback when a project is closed. Remove it from the list. """
         try:
             self._flipbookProjects.remove(event.project)
         except ValueError:
             pass
 
-    def _configureProjectViews(self, project, views, replace):
+    def _configureProjectViews(self, project: Project, views: list, replace: bool) -> None:
         """ Set the views on a project. If replace is true, the existing views
         will be removed.
         """
@@ -215,7 +215,7 @@ class PlayerFlipbookManager(object):
                 if v not in existingViews:
                     project.addView(v)
 
-    def _getFlipbookProject(self, ocioConfig, views):
+    def _getFlipbookProject(self, ocioConfig: object, views: list) -> Project:
         """ Get a project configured with a given ocio config and views. If a
         suitable project doesn't already exist, will create a new one.
         """
@@ -252,7 +252,7 @@ class PlayerFlipbookManager(object):
             self._flipbookProjects.append(proj)
         return proj
 
-    def _createClip(self, bin, filepath, frameRange, name, colorspace):
+    def _createClip(self, bin: object, filepath: str, frameRange: tuple, name: str, colorspace: str) -> Clip:
         """ Create a clip for flipbooking """
         clip = bin.createClip(filepath)
         if frameRange:
@@ -264,7 +264,7 @@ class PlayerFlipbookManager(object):
             clip.setSourceMediaColourTransform(colorspace)
         return clip
 
-    def _openViewer(self, sequence, viewerLUT, views):
+    def _openViewer(self, sequence: Sequence, viewerLUT: object, views: list) -> None:
         """ Open a clip in a viewer """
         # Use openInNewViewer to avoid a linked timeline view being created
         viewer = hiero.ui.openInNewViewer(sequence)
@@ -292,7 +292,7 @@ class PlayerFlipbookManager(object):
 
         viewer.play()
 
-    def _createFlipbookVideoOnly(self, project, filepath, frameRange, startAt, namer, colorspace):
+    def _createFlipbookVideoOnly(self, project: Project, filepath: str, frameRange: tuple, startAt: int, namer: object, colorspace: str) -> Clip:
         """ Creates a clip for flipbooking. It's given the specified frame range,
         offset by startAt
         """
@@ -302,8 +302,7 @@ class PlayerFlipbookManager(object):
             frameRange.setLast(frameRange.last() - startAt)
         return self._createClip(bin, filepath, frameRange, namer.videoName(), colorspace)
 
-    def _createFlipbookVideoAudio(self, project, filepath, frameRange, startAt, namer, colorspace,
-                                  audioPath):
+    def _createFlipbookVideoAudio(self, project: Project, filepath: str, frameRange: tuple, startAt: int, namer: object, colorspace: str, audioPath: str) -> Sequence:
         """ Creates a flipbook with audio and video. This constructs a clip for
         each then adds them to a sequence which is returned. All the objects are
         placed in a bin folder.
@@ -338,8 +337,7 @@ class PlayerFlipbookManager(object):
             seq.setOutTime(frameRange.last())
         return seq
 
-    def openFlipbook(self, filepath, frameRange, startAt, ocioConfig, viewerLUT,
-                     namer, views, colorspace, audioPath):
+    def openFlipbook(self, filepath: str, frameRange: tuple, startAt: int, ocioConfig: object, viewerLUT: object, namer: object, views: list, colorspace: str, audioPath: str) -> None:
         """ Open a flipbook, creating clips, projects etc as needed """
         proj = self._getFlipbookProject(ocioConfig, views)
         with proj.beginUndo('Flipbook'):
@@ -355,7 +353,7 @@ class PlayerFlipbookManager(object):
 flipbookManager = PlayerFlipbookManager()
 
 
-def _loadJson(data):
+def _loadJson(data: str) -> dict:
     """ Load flipbook json data into a dict """
     # data might be raw json, or a path to a file containing it
     if data[0] == '{':
@@ -371,7 +369,7 @@ def _loadJson(data):
     return data
 
 
-def openFlipbook(data):
+def openFlipbook(data: str) -> None:
     """ Open a flipbook from json data. This can either be raw json, or a path to
     a file containing it
     """

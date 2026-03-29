@@ -32,7 +32,7 @@ class LocalNukeRenderTask(hiero.core.TaskBase):
         self._frame = 0
         self._usingSingleSocket = None
 
-    def startTask(self):
+    def startTask(self) -> None:
         """
         Start the Nuke process.
         """
@@ -42,7 +42,7 @@ class LocalNukeRenderTask(hiero.core.TaskBase):
         self._nukeProcess = nuke.executeNukeScript(
             self._scriptPath, self._logFile, self._usingSingleSocket)
 
-    def taskStep(self):
+    def taskStep(self) -> bool:
         """
         Check the state of the Nuke process.  Returns True while it is running.
         """
@@ -59,7 +59,7 @@ class LocalNukeRenderTask(hiero.core.TaskBase):
 
         return (self._finished == False)
 
-    def finishTask(self):
+    def finishTask(self) -> None:
         """
         Clean up after render.
         """
@@ -75,7 +75,7 @@ class LocalNukeRenderTask(hiero.core.TaskBase):
             self.deleteTemporaryFile(self._scriptPath)
             self.deleteTemporaryFile(self._logFileName)
 
-    def forcedAbort(self):
+    def forcedAbort(self) -> None:
         """
         Abort the Nuke process.
         """
@@ -98,7 +98,7 @@ class LocalNukeRenderTask(hiero.core.TaskBase):
                 if errorString:
                     self.setError(errorString)
 
-    def progress(self):
+    def progress(self) -> float:
         """
         Get the render progress.
         """
@@ -106,7 +106,7 @@ class LocalNukeRenderTask(hiero.core.TaskBase):
             return 1.0
         return float(self._progress)
 
-    def _readLogFile(self):
+    def _readLogFile(self) -> list[str]:
         """
         Read the log file and return the output lines.  Returns an empty list if
         reading the file failed.
@@ -117,7 +117,7 @@ class LocalNukeRenderTask(hiero.core.TaskBase):
         except IOError:
             return []
 
-    def parseProgressOutput(self):
+    def parseProgressOutput(self) -> float:
         """
         Parse progress from the log file.
         """
@@ -132,7 +132,7 @@ class LocalNukeRenderTask(hiero.core.TaskBase):
                     # Once we have established the progress, no need to go any further
                     break
 
-    def parseErrorFromLog(self):
+    def parseErrorFromLog(self) -> str:
         """
         Parse any errors in the log file and return the result.  If no errors were
         found, will return an empty string.
@@ -152,7 +152,7 @@ class LocalNukeRenderTask(hiero.core.TaskBase):
 
         return errorString
 
-    def checkNukeProcessError(self):
+    def checkNukeProcessError(self) -> None:
         """
         Determine if there was a render error, and if so set an appropriate error message
         on the task.

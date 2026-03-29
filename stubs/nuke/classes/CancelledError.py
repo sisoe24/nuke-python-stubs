@@ -14,7 +14,7 @@ class CancelledError(Exception):
     Common base class for all non-exit exceptions.
     """
     @property
-    def __weakref__(self) -> typing.Any:
+    def __weakref__(self) -> typing.List[typing.Any]:
         """
         list of weak references to the object (if defined)
         """

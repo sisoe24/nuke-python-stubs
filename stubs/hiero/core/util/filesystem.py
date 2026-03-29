@@ -12,7 +12,7 @@ import platform
 from hiero.core.util import asUnicode
 
 
-def makeDirs(dirPath):
+def makeDirs(dirPath: str) -> None:
     """ Make the directories for the given path if they don't already
     exist.
     """
@@ -21,32 +21,32 @@ def makeDirs(dirPath):
         os.makedirs(dirPath)
 
 
-def exists(path):
+def exists(path: str) -> bool:
     """ Wrapper around os.path.exists() """
     return os.path.exists(asUnicode(path))
 
 
-def stat(path):
+def stat(path: str) -> os.stat_result:
     """ Wrapper around os.stat() """
     return os.stat(asUnicode(path))
 
 
-def lexists(path):
+def lexists(path: str) -> bool:
     """ Wrapper around os.path.lexists() """
     return os.path.exists(asUnicode(path))
 
 
-def access(path, mode):
+def access(path: str, mode: int) -> bool:
     """ Wrapper around os.access() """
     return os.access(asUnicode(path), mode)
 
 
-def openFile(path, *args, encoding=None):
+def openFile(path: str, *args: object, encoding: str | None = None) -> typing.TextIO:
     """ Wrapper around open. """
     return open(asUnicode(path), *args, encoding=encoding)
 
 
-def remove(path):
+def remove(path: str) -> None:
     """ Wrapper around os.remove. """
     return os.remove(asUnicode(path))
 

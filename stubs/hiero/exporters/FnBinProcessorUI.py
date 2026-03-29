@@ -67,7 +67,7 @@ class BinProcessorUI(hiero.ui.ProcessorUIBase, QtCore.QObject):
 
         return widget
 
-    def validateSelection(self, exportItems):
+    def validateSelection(self, exportItems: list) -> bool:
         """Validate if any items in the selection are suitable for processing by this processor"""
 
         invalidItems = []
@@ -78,7 +78,7 @@ class BinProcessorUI(hiero.ui.ProcessorUIBase, QtCore.QObject):
 
         return len(invalidItems) < len(exportItems)
 
-    def validate(self, exportItems):
+    def validate(self, exportItems: list) -> bool:
         """Validate settings in UI. Return False for failure in order to abort export."""
         if not hiero.ui.ProcessorUIBase.validate(self, exportItems):
             return False

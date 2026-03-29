@@ -7,7 +7,7 @@ from . import FnSymLinkExporter
 
 
 class SymLinkExporterUI(hiero.ui.TaskUIBase):
-    def __init__(self, preset):
+    def __init__(self, preset: 'SymLinkPreset') -> None:
         """Initialize"""
         hiero.ui.TaskUIBase.__init__(
             self, FnSymLinkExporter.SymLinkExporter, preset, 'SymLink Generator')

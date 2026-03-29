@@ -8,7 +8,7 @@ from hiero.exporters import FnTranscodeExporter
 
 
 class CustomTranscode(FnTranscodeExporter.TranscodeExporter):
-    def __init__(self, initDict):
+    def __init__(self, initDict: dict) -> None:
         """Initialize"""
         FnTranscodeExporter.TranscodeExporter.__init__(self, initDict)
 

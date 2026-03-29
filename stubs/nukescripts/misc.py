@@ -40,7 +40,7 @@ def copy_knobs(args):
     nuke.delete(groupCopy)
 
 
-def connect_selected_to_viewer(inputIndex):
+def connect_selected_to_viewer(inputIndex: int) -> None:
     """Connects the selected node to the given viewer input index, ignoring errors if no node is selected."""
 
     selection = None
@@ -66,7 +66,7 @@ def toggle_monitor_out():
         monitorOutEnableKnob.setValue(not enabled)
 
 
-def clear_selection_recursive(group=nuke.root()):
+def clear_selection_recursive(group=nuke.root()) -> None:
     """Sets all nodes to unselected, including in child groups."""
     for n in group.selectedNodes():
         n.setSelected(False)
@@ -75,7 +75,7 @@ def clear_selection_recursive(group=nuke.root()):
         clear_selection_recursive(i)
 
 
-def goofy_title():
+def goofy_title() -> str:
     """Returns a random message for use as an untitled script name.
     Can be assigned to nuke.untitled as a callable.
     Put a goofy_title.txt somewhere in your NUKE_PATH to customise."""
@@ -117,7 +117,7 @@ def declone(node):
     nuke.delete(node)
 
 
-def showname():
+def showname() -> None:
     '''Shows the current script path and, if the selected node is a Read or Write node, the filename from it.'''
 
     # get the nuke script path
@@ -144,7 +144,7 @@ def showname():
         p.show()
 
 
-def swapAB(n):
+def swapAB(n: 'nuke.Node') -> None:
     """Swaps the first two inputs of a node."""
     thisGroup = nuke.thisGroup()
     if thisGroup is not nuke.root() and (thisGroup.locked() or thisGroup.subgraphLocked()):
@@ -157,7 +157,7 @@ def swapAB(n):
         n.setInput(1, a)
 
 
-def print_callback_info(verbose=False, callbackTypes=None):
+def print_callback_info(verbose: bool = False, callbackTypes: list = None) -> list:
     """
     Returns a list of all currently active callbacks, with the following optional
     arguments:

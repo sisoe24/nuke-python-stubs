@@ -14,13 +14,13 @@ class File_Knob(EvalString_Knob):
     A knob which holds a filename. When it appears in a Node panel it provides a text field to show the filename and a button which opens the file chooser dialog.
     """
 
-    def __new__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs) -> 'File_Knob':
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
         ...
 
-    def __hash__(self, ) -> None:
+    def __hash__(self) -> int:
         """
         Return hash(self).
         """
@@ -48,7 +48,7 @@ class File_Knob(EvalString_Knob):
         """
         ...
 
-    def getValue(self, oc) -> str:
+    def getValue(self, oc: object) -> str:
         """
         self.getValue(oc) -> String.
         Returns the string on this knob, will be normalized to technical notation if sequence (%4d). Will also evaluate the string for any tcl expressions

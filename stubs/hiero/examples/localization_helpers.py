@@ -13,7 +13,7 @@ def createMenuAction(title, method, icon=None):
     return action
 
 
-def setlocalizationPolicyOnTrack(track, policy=hiero.core.Clip.kOnLocalize):
+def setlocalizationPolicyOnTrack(track: List[hiero.core.Clip], policy: int = hiero.core.Clip.kOnLocalize) -> None:
     """Localizes all TrackItems in a Track
     setlocalizationPolicyOnTrack( track, policy = hiero.core.Clip.kOnLocalize ):
     @param: track - a list of hiero.core.Clip objects
@@ -26,7 +26,7 @@ def setlocalizationPolicyOnTrack(track, policy=hiero.core.Clip.kOnLocalize):
             ti.source().setLocalizationPolicy(policy)
 
 
-def setlocalizationPolicyOnTrackItem(trackItem, policy=hiero.core.Clip.kOnLocalize):
+def setlocalizationPolicyOnTrackItem(trackItem: List[hiero.core.Clip], policy: int = hiero.core.Clip.kOnLocalize) -> None:
     """Localizes all TrackItems in a Track
     setlocalizationPolicyOnTrackItem( track, policy = hiero.core.Clip.kOnLocalize ):
     @param: track - a list of hiero.core.Clip objects
@@ -38,7 +38,7 @@ def setlocalizationPolicyOnTrackItem(trackItem, policy=hiero.core.Clip.kOnLocali
         trackItem.source().setLocalizationPolicy(policy)
 
 
-def setlocalizationPolicyOnSequence(sequence, policy=hiero.core.Clip.kOnLocalize):
+def setlocalizationPolicyOnSequence(sequence: List[hiero.core.Clip], policy: int = hiero.core.Clip.kOnLocalize) -> None:
     """Localizes all Clips used in a Sequence
     @param: clipList - a list of hiero.core.Clip objects
     @param: policy - the localization policy (kOnLocalize,kAutoLocalize,kOffLocalize)"""
@@ -54,7 +54,7 @@ def setlocalizationPolicyOnSequence(sequence, policy=hiero.core.Clip.kOnLocalize
                         clip.setLocalizationPolicy(policy)
 
 
-def setlocalizationPolicyOnBin(bin, policy=hiero.core.Clip.kOnLocalize, recursive=True):
+def setlocalizationPolicyOnBin(bin: hiero.core.Bin, policy: int = hiero.core.Clip.kOnLocalize, recursive: bool = True) -> None:
     """Localizes all Clips, recursively found in all Sub-Bins
     @param: clipList - a list of hiero.core.Clip objects
     @param: policy - the localization policy (kOnLocalize,kAutoLocalize,kOffLocalize)"""
@@ -77,7 +77,7 @@ def setlocalizationPolicyOnBin(bin, policy=hiero.core.Clip.kOnLocalize, recursiv
             clip.setLocalizationPolicy(policy)
 
 
-def setlocalizationPolicyOnClipWithExtension(clip, extensionList=[None], policy=hiero.core.Clip.kOnLocalize):
+def setlocalizationPolicyOnClipWithExtension(clip: hiero.core.Clip, extensionList: List[str | None] = [None], policy: int = hiero.core.Clip.kOnLocalize) -> None:
     """Localizes Clips in clipList with a given file extension in extensionList
     localizeClipsWithExtension(clipList, extensionList = None, policy = hiero.core.Clip.kOnLocalize ):
     @param: clipList - a list of hiero.core.Clip objects

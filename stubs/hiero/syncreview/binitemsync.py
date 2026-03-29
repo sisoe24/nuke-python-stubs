@@ -12,7 +12,7 @@ messages.defineMessageType('BinItemRenamed', ('guid', str), ('name', str))
 messages.defineMessageType('BinItemMoved', ('guid', str), ('parentGuid', str), ('index', int))
 
 
-def _getItemParent(item):
+def _getItemParent(item: object) -> Optional[nuke.Bin]:
     """ Obtain the parent of a bin item. """
     if isinstance(item, Version):
         parent = item.parent()
@@ -21,7 +21,7 @@ def _getItemParent(item):
     return parent
 
 
-def _findBinItemByGuid(guid):
+def _findBinItemByGuid(guid: str) -> Optional[object]:
     """ Searches for BinItems and Bins first, and if they are not found it also searches for Tags. """
     item = findItemByGuid(guid, filter=(BinItem, Bin, ))
     if not item:
@@ -53,7 +53,7 @@ class SyncBinItemTool(SyncTool):
         self.messageDispatcher._registerCallback(messages.BinItemMoved, self.onRemoteBinItemMoved)
 
     @localCallback
-    def onLocalBinItemAdded(self, event):
+    def onLocalBinItemAdded(self, event: object) -> None:
         """ Handle addition of new bin items. """
         item = event.item
         parent = _getItemParent(item)
@@ -65,13 +65,13 @@ class SyncBinItemTool(SyncTool):
         self.messageDispatcher.sendMessage(msg)
 
     @localCallback
-    def onLocalBinItemRemoved(self, event):
+    def onLocalBinItemRemoved(self, event: object) -> None:
         """ Handle removal of bin items. """
         msg = messages.BinItemRemoved(guid=event.item.guid(),)
         self.messageDispatcher.sendMessage(msg)
 
     @remoteCallback
-    def onRemoteBinItemAdded(self, msg):
+    def onRemoteBinItemAdded(self, msg: object) -> None:
         """ Receive new bin items from a remote participant. """
         parentItem = findItemByGuid(msg.parentGuid, filter=(Bin, BinItem))
         if not parentItem:
@@ -81,7 +81,7 @@ class SyncBinItemTool(SyncTool):
         parentItem.deserializeChildItem(msg.data, msg.index)
 
     @remoteCallback
-    def onRemoteBinItemRemoved(self, msg):
+    def onRemoteBinItemRemoved(self, msg: object) -> None:
         """ Receive removed bin items from a remote participant. """
         item = _findBinItemByGuid(msg.guid)
 
@@ -93,14 +93,14 @@ class SyncBinItemTool(SyncTool):
         parent.removeItem(item)
 
     @localCallback
-    def onLocalBinItemRenamed(self, event):
+    def onLocalBinItemRenamed(self, event: object) -> None:
         """ Handle renaming of new bin items. """
         msg = messages.BinItemRenamed(guid=event.item.guid(),
                                       name=event.name)
         self.messageDispatcher.sendMessage(msg)
 
     @remoteCallback
-    def onRemoteBinItemRenamed(self, msg):
+    def onRemoteBinItemRenamed(self, msg: object) -> None:
         """ Receive new bin item names from a remote participant. """
         item = _findBinItemByGuid(msg.guid)
 
@@ -111,7 +111,7 @@ class SyncBinItemTool(SyncTool):
         item.syncName(msg.name)
 
     @localCallback
-    def onLocalBinItemMoved(self, event):
+    def onLocalBinItemMoved(self, event: object) -> None:
         """ Handle bin items being moved. """
         msg = messages.BinItemMoved(guid=event.item.guid(),
                                     parentGuid=event.parent.guid(),
@@ -119,7 +119,7 @@ class SyncBinItemTool(SyncTool):
         self.messageDispatcher.sendMessage(msg)
 
     @remoteCallback
-    def onRemoteBinItemMoved(self, msg):
+    def onRemoteBinItemMoved(self, msg: object) -> None:
         """ Receive bin item movements from a remote participant. """
         item = _findBinItemByGuid(msg.guid)
 

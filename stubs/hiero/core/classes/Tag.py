@@ -19,49 +19,49 @@ class Tag:
     Can be created with a string name, an optional path to an icon and an optional editable (in gui) boolean parameter
     """
 
-    def __new__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs) -> 'Tag':
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
         ...
 
-    def __repr__(self) -> object:
+    def __repr__(self) -> str:
         """
         Return repr(self).
         """
         ...
 
-    def __lt__(self, value, ) -> None:
+    def __lt__(self, value: object) -> bool:
         """
         Return self<value.
         """
         ...
 
-    def __le__(self, value, ) -> None:
+    def __le__(self, value: object) -> bool:
         """
         Return self<=value.
         """
         ...
 
-    def __eq__(self, value, ) -> None:
+    def __eq__(self, value: object) -> bool:
         """
         Return self==value.
         """
         ...
 
-    def __ne__(self, value, ) -> None:
+    def __ne__(self, value: object) -> bool:
         """
         Return self!=value.
         """
         ...
 
-    def __gt__(self, value, ) -> None:
+    def __gt__(self, value: object) -> bool:
         """
         Return self>value.
         """
         ...
 
-    def __ge__(self, value, ) -> None:
+    def __ge__(self, value: object) -> bool:
         """
         Return self>=value.
         """
@@ -73,7 +73,7 @@ class Tag:
         """
         ...
 
-    def __bool__(self, ) -> None:
+    def __bool__(self) -> bool:
         """
         True if self else False
         """
@@ -156,7 +156,7 @@ class Tag:
         """
         ...
 
-    def project(self) -> object:
+    def project(self) -> 'hiero.core.Project' | None:
         """
         self.project() -> returns the Project object that this is attached to, or None if the object is not attached to a project.
 

@@ -18,85 +18,85 @@ class TrackItemBase:
     Base class for objects which can exist on a timeline track which provides some common methods.  Not to be used directly.
     """
 
-    def __new__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs) -> 'TrackItemBase':
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
         ...
 
-    def __repr__(self) -> object:
+    def __repr__(self) -> str:
         """
         Return repr(self).
         """
         ...
 
-    def __hash__(self, ) -> None:
+    def __hash__(self) -> int:
         """
         Return hash(self).
         """
         ...
 
-    def __setattr__(self, name, value, ) -> None:
+    def __setattr__(self, name: str, value: typing.Any) -> None:
         """
         Implement setattr(self, name, value).
         """
         ...
 
-    def __delattr__(self, name, ) -> None:
+    def __delattr__(self, name: str) -> None:
         """
         Implement delattr(self, name).
         """
         ...
 
-    def __lt__(self, value, ) -> None:
+    def __lt__(self, value: 'TrackItemBase') -> bool:
         """
         Return self<value.
         """
         ...
 
-    def __le__(self, value, ) -> None:
+    def __le__(self, value: 'TrackItemBase') -> bool:
         """
         Return self<=value.
         """
         ...
 
-    def __eq__(self, value, ) -> None:
+    def __eq__(self, value: 'TrackItemBase') -> bool:
         """
         Return self==value.
         """
         ...
 
-    def __ne__(self, value, ) -> None:
+    def __ne__(self, value: 'TrackItemBase') -> bool:
         """
         Return self!=value.
         """
         ...
 
-    def __gt__(self, value, ) -> None:
+    def __gt__(self, value: 'TrackItemBase') -> bool:
         """
         Return self>value.
         """
         ...
 
-    def __ge__(self, value, ) -> None:
+    def __ge__(self, value: 'TrackItemBase') -> bool:
         """
         Return self>=value.
         """
         ...
 
-    def __init__(self,  *args, **kwargs) -> None:
+    def __init__(self, *args: typing.Any, **kwargs: typing.Any) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """
         ...
 
-    def __bool__(self, ) -> None:
+    def __bool__(self) -> bool:
         """
         True if self else False
         """
         ...
 
-    def clone(self, *args, **kwargs) -> None:
+    def clone(self, *args: typing.Any, **kwargs: typing.Any) -> 'TrackItemBase':
         """
         self.clone() -> returns a deep copy of this object.
 
@@ -107,7 +107,7 @@ class TrackItemBase:
         """
         ...
 
-    def copy(self) -> object:
+    def copy(self) -> TrackItemBase:
         """
         self.copy() -> returns a deep copy of this object.
         """
@@ -143,7 +143,7 @@ class TrackItemBase:
         """
         ...
 
-    def linkedItems(self) -> object:
+    def linkedItems(self) -> tuple['TrackItemBase', ...]:
         """
         self.linkedItems() -> returns a tuple of track item objects linked to this one.
 
@@ -159,7 +159,7 @@ class TrackItemBase:
         """
         ...
 
-    def moveTrackItems(self, trackItems: typing.List[core.TrackItemBase], frames: int) -> None:
+    def moveTrackItems(self, trackItems: typing.List['TrackItemBase'], frames: int) -> None:
         """
         staticmethod(function) -> method
 
@@ -202,7 +202,7 @@ class TrackItemBase:
         """
         ...
 
-    def project(self) -> hiero.core.Project:
+    def project(self) -> 'hiero.core.Project' | None:
         """
         self.project() -> returns the Project object that this is attached to, or None if the object is not attached to a project.
 
@@ -210,7 +210,7 @@ class TrackItemBase:
         """
         ...
 
-    def sequence(self) -> hiero.core.Sequence:
+    def sequence(self) -> 'hiero.core.Sequence' | None:
         """
         self.sequence() -> returns the Sequence object that this is attached to, or None if the object is not attached to a project.
 

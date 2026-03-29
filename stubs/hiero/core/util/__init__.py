@@ -12,7 +12,7 @@ _hashre = re.compile(r'(\#+)')
 _percentre = re.compile(r'%(\d+)d')
 
 
-def HashesToPrintf(original):
+def HashesToPrintf(original: str) -> str:
     """Convert hashes in the given string into printf style notation."""
     def replace(match):
         if len(match.group()) < 2:
@@ -22,7 +22,7 @@ def HashesToPrintf(original):
     return _hashre.sub(replace, original)
 
 
-def ResizePadding(path, minimum):
+def ResizePadding(path: str, minimum: int) -> str:
     """Return path with padding width increased to minimum size"""
     path = HashesToPrintf(path)
     matches = _percentre.findall(path)
@@ -34,7 +34,7 @@ def ResizePadding(path, minimum):
     return path
 
 
-def HasFrameIdentifier(path):
+def HasFrameIdentifier(path: str) -> bool:
     """Returns true if the path contains either ### or %4d notation for the frame identifier"""
     return _percentre.findall(path) or _hashre.findall(path)
 
@@ -81,7 +81,7 @@ def SequenceifyFilename(filename, addPadding):
     return filename
 
 
-def uniquify(seq):
+def uniquify(seq: list | tuple) -> list:
     """uniquify(seq)
         Returns a unique, order-preserved list of items in a Python list or tuple.
         Compatible with hashable items such as dicts.
@@ -98,7 +98,7 @@ def uniquify(seq):
     return [uniqueDict.setdefault(repr(e), e) for e in seq if repr(e) not in uniqueDict]
 
 
-def uniqueKey(key, dictionary):
+def uniqueKey(key: str, dictionary: dict) -> str:
     """uniqueKey (key, dictionary)
       If key clashes in dictionary, add/identify trailing number and increment.
       return new key"""
@@ -125,7 +125,7 @@ def uniqueKey(key, dictionary):
     return key
 
 
-def version_get(string, prefix, suffix=None):
+def version_get(string: str, prefix: str, suffix: str | None = None) -> str:
     """Extract version information from filenames
     These are _v# or /v# or .v# where v is a prefix string, in our case
     we use "v" for render version and "c" for camera track version.
@@ -142,7 +142,7 @@ def version_get(string, prefix, suffix=None):
     return (matches[-1:][0][1], re.search('\d+', matches[-1:][0]).group())
 
 
-def version_set(string, prefix, oldintval, newintval):
+def version_set(string: str, prefix: str, oldintval: int, newintval: int) -> str:
     """Changes version information from filenames
     These are _v# or /v# or .v# where v is a prefix string, in our case
     we use "v" for render version and "c" for camera track version.
@@ -165,7 +165,7 @@ def version_set(string, prefix, oldintval, newintval):
     return string
 
 
-def hasMultipleCPUSockets():
+def hasMultipleCPUSockets() -> bool:
     '''
     Return whether this system has multiple CPU sockets.
     '''
@@ -173,7 +173,7 @@ def hasMultipleCPUSockets():
     return systemInfo.socketCount() > 1
 
 
-def singleCPUSocketLaunchArguments():
+def singleCPUSocketLaunchArguments() -> list[str]:
     '''
     Return the arguments required to launch a process that is limited to
     a single CPU. These arguments should be prepended to the command that
@@ -183,7 +183,7 @@ def singleCPUSocketLaunchArguments():
     return systemInfo.singleSocketLaunchArguments()
 
 
-def coresPerCPUSocket():
+def coresPerCPUSocket() -> int:
     '''
     Return how many cores are availble on a single cpu socket. This assumes that all CPUs on
     a multi CPU system have the same number of cores.
@@ -192,7 +192,7 @@ def coresPerCPUSocket():
     return systemInfo.coresPerSocket()
 
 
-def asUnicode(value):
+def asUnicode(value: bytes | str) -> str:
     """ Get value as a unicode string. If the input is bytes, decode it from UTF-8. """
     if isinstance(value, str):
         return value
@@ -203,7 +203,7 @@ def asUnicode(value):
     return str(value)
 
 
-def asBytes(value):
+def asBytes(value: str | bytes) -> bytes:
     """ Get value as bytes, encoded as a UTF-8 string if the input was not bytes """
     if isinstance(value, bytes):
         return value
@@ -211,7 +211,7 @@ def asBytes(value):
         return bytes(str(value), 'UTF-8')
 
 
-def flattenedPathRemappings():
+def flattenedPathRemappings() -> list[tuple[str, str]]:
     """ Get a list of path remappings set in the preferences where each entry is a
     tuple of from/to paths appropriate for the current OS """
 
@@ -242,7 +242,7 @@ def flattenedPathRemappings():
     return mappings
 
 
-def remapPath(path):
+def remapPath(path: str) -> str:
     """ Apply remapping preferences to a path and return the remapped path, or if
     no remaps were found, the original path.
     """

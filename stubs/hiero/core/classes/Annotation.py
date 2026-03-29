@@ -21,31 +21,31 @@ class Annotation(SubTrackItem):
     objects and using addElement().
     """
 
-    def __new__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs) -> "Annotation":
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
         ...
 
-    def __repr__(self) -> object:
+    def __repr__(self) -> str:
         """
         Return repr(self).
         """
         ...
 
-    def __setattr__(self, name, value, ) -> None:
+    def __setattr__(self, name: str, value: object) -> None:
         """
         Implement setattr(self, name, value).
         """
         ...
 
-    def __delattr__(self, name, ) -> None:
+    def __delattr__(self, name: str) -> None:
         """
         Implement delattr(self, name).
         """
         ...
 
-    def __init__(self,  *args, **kwargs) -> None:
+    def __init__(self, *args: object, **kwargs: object) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """
@@ -66,7 +66,7 @@ class Annotation(SubTrackItem):
         """
         ...
 
-    def elements(self) -> object:
+    def elements(self) -> tuple[hiero.core.Element, ...]:
         """
         self.elements() -> returns a tuple with all of the elements contained in this annotation.
 

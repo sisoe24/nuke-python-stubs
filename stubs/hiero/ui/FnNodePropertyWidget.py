@@ -54,7 +54,7 @@ class NodePropertyWidget(QtWidgets.QWidget):
             self.updatePresetValue(knob)
         return widget
 
-    def updatePresetValue(self, knob):
+    def updatePresetValue(self, knob: Knob) -> None:
         """ Sets the knob value in the preset dictionary if the knob is visible. If
         the knob isn't visible then the value is cleared as we don't want to store
         values of hidden knobs in the preset dictionary. This is so that we don't
@@ -85,7 +85,7 @@ class NodePropertyWidget(QtWidgets.QWidget):
                 self.updateProperties()
                 self.updatePresetValue(nuke.thisKnob())
 
-    def updateProperties(self):
+    def updateProperties(self) -> None:
         """ Iterates through the property widgets and updates their state
         to reflect the current value and visibility of their associated knobs."""
         for key, widget in self._knobs:
@@ -97,7 +97,7 @@ class NodePropertyWidget(QtWidgets.QWidget):
             widget.parentWidget().layout().setWidgetVisible(widget, knob.visible())
             widget.setEnabled(knob.enabled())
 
-    def createDisclosureWidget(self, tabKnob):
+    def createDisclosureWidget(self, tabKnob: Knob) -> object:
         """ Creates a DisclosureButton and an associated widget that's visibility
         is toggled by the DisclosureButton. The widget itself has a TaskUIFormLayout
         set on it. Returns the created widget."""
@@ -108,12 +108,12 @@ class NodePropertyWidget(QtWidgets.QWidget):
         disclosureButton.addWidget(disclosureWidget)
         return disclosureButton, disclosureWidget
 
-    def knobOnNewLine(self, knob):
+    def knobOnNewLine(self, knob: Knob) -> bool:
         """ Determines if a knob starts on a new row or is placed next
         to the previous knob."""
         return knob.getFlag(nuke.STARTLINE)
 
-    def addWidgetsToNewRow(self, layout, labels, widgets):
+    def addWidgetsToNewRow(self, layout: object, labels: list[str], widgets: list[object]) -> None:
         """ Adds widgets to the layout as a new row, adding them as
         multi widget rows as necessary, otherwise adding as a normal row
         if a single widget is provided (this is due to layout.setWidgetVisible
@@ -125,7 +125,7 @@ class NodePropertyWidget(QtWidgets.QWidget):
             del labels[:]
             del widgets[:]
 
-    def initializeUI(self, propertyDictionaries):
+    def initializeUI(self, propertyDictionaries: dict[str, object]) -> None:
         """ Iterates through the propertyDictionaries and creates UIProperties
         for each key in the dictionaries, where each key should be the name of a
         desired knob on the Write node. The UIProperties will store their values

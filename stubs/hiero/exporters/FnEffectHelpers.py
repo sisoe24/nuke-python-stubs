@@ -3,7 +3,7 @@ import itertools
 import hiero.core
 
 
-def testTimelineIntersection(item, intersectItems):
+def testTimelineIntersection(item: 'TrackItem', intersectItems: list['TrackItem']) -> bool:
     """ Test if a track item intersects with any of a list of items on the
     timeline. Note that we're using timelineIn() + duration() rather than timelineOut().
     Otherwise the test fails for 1 frame long items, where timelineIn() and
@@ -19,7 +19,7 @@ def testTimelineIntersection(item, intersectItems):
     return False
 
 
-def findEffectsAnnotationsForTrackItems(trackItems):
+def findEffectsAnnotationsForTrackItems(trackItems: list['TrackItem']) -> list['EffectAnnotation']:
     """ Find applicable soft effects and annotations for a list of track items.
     This includes any effects with an intersecting timeline range, and which are
     on tracks above which do not contain any other items. Effects linked to the
@@ -73,7 +73,7 @@ def findEffectsAnnotationsForTrackItems(trackItems):
     return effects, annotations
 
 
-def ensureEffectsNodesCreated(sequence):
+def ensureEffectsNodesCreated(sequence: 'Sequence') -> None:
     """ Find all the EffectTrackItems and Transitions on a sequence or clip, and
     force creation of their nodes. The node creation is done lazily, but it must
     happen on the main thread, so for exports this can be called to force it to be

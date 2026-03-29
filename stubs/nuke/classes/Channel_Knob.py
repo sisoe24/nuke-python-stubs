@@ -19,13 +19,13 @@ class Channel_Knob(Knob):
     @param depth: Optional number of channels with zero being the Nuke default number of channels. Defaults to 0.
     """
 
-    def __new__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs) -> Channel_Knob:
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
         ...
 
-    def __hash__(self, ) -> None:
+    def __hash__(self) -> int:
         """
         Return hash(self).
         """
@@ -106,7 +106,7 @@ class Channel_Knob(Knob):
         """
         ...
 
-    def setInput(self, num: int | float) -> None:
+    def setInput(self, num: int) -> None:
         """
         self.setInput(num) -> None
         Set the input number for this knob.@param num: The number of the new input.

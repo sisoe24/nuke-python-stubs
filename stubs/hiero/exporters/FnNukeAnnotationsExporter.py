@@ -35,7 +35,7 @@ class NukeAnnotationsExporter(NukeShotExporter):
         if existingTag:
             existingTag.metadata().setValue('tag.scriptannotations', self.resolvedExportPath())
 
-    def getAnnotationKeyFramesForTrackItem(self, trackItem, offset, toSequenceTime):
+    def getAnnotationKeyFramesForTrackItem(self, trackItem: Any, offset: float, toSequenceTime: bool) -> List[Any]:
         """ Get the annotation key frames for the track item's clip.  This is modified by offset and
             mapped to sequence time if required. """
         keyFrames = set()
@@ -58,7 +58,7 @@ class NukeAnnotationsExporter(NukeShotExporter):
 
         return keyFrames
 
-    def getSequenceAnnotationsKeyFrames(self):
+    def getSequenceAnnotationsKeyFrames(self) -> List[Any]:
         """ If a sequence is being exported, returns keyframes for annotations on tracks which will be connected. """
         keyFrames = set()
 
@@ -84,7 +84,7 @@ class NukeAnnotationsExporter(NukeShotExporter):
 
         return keyFrames
 
-    def getTrackItemAnnotationsKeyFrames(self):
+    def getTrackItemAnnotationsKeyFrames(self) -> List[Any]:
         """ If a single track item is being exported, returns keyframes for the annotations on the item's clip,
             plus any above it on the sequence which are being included. """
         keyFrames = set()
@@ -125,7 +125,7 @@ class NukeAnnotationsExporter(NukeShotExporter):
 
         return keyFrames
 
-    def getAnnotationsKeyFrames(self):
+    def getAnnotationsKeyFrames(self) -> List[Any]:
         """ Get the list of annotations keyframes for the current export. """
 
         keyFrames = set()
@@ -137,7 +137,7 @@ class NukeAnnotationsExporter(NukeShotExporter):
 
         return sorted(keyFrames)
 
-    def _beforeNukeScriptWrite(self, script):
+    def _beforeNukeScriptWrite(self, script: Any) -> None:
         """ Add a node containing keyframes for the location of the exported annotations.  These are linked from the annotations Precomp in the main script. """
 
         annotationsNoOp = nuke.Node('NoOp', name='AnnotationsKeys')

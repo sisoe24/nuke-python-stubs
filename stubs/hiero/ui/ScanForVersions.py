@@ -20,7 +20,7 @@ class ScanForVersionsTask(object):
     def __init__(self):
         self._task = foundry.ui.ProgressTask('Finding Versions...')
 
-    def scanForVersions(self, versions, postScanFunc, shouldDisplayResults):
+    def scanForVersions(self, versions: list, postScanFunc: callable, shouldDisplayResults: bool) -> bool:
         """ Scan a list of versions for new versions.  If postScanFunc is provided,
         this will be called after the scan.
         Returns True if scanning was completed, or False if the user cancelled or
@@ -93,7 +93,7 @@ class ScanForVersionsTask(object):
         if (shouldDisplayResults):
             self.displayResults(len(newVersions))
 
-    def processEventsAndCheckCancelled(self):
+    def processEventsAndCheckCancelled(self) -> None:
         """ Call QCoreApplication.processEvents() and check if the user has cancelled
         the progress task.  If cancelled, StopIteration will be raised.
         """
@@ -101,7 +101,7 @@ class ScanForVersionsTask(object):
         if self._task.isCancelled():
             raise StopIteration()
 
-    def displayResults(self, numNewVersions):
+    def displayResults(self, numNewVersions: int) -> None:
         """ Display results """
         msgBox = QtWidgets.QMessageBox()
         msgBox.setText('Found ' + str(numNewVersions) + ' new versions')
@@ -109,7 +109,7 @@ class ScanForVersionsTask(object):
         msgBox.setDefaultButton(QtWidgets.QMessageBox.Ok)
         msgBox.exec_()
 
-    def rescanClipRanges(self, activeVersion):
+    def rescanClipRanges(self, activeVersion: object) -> None:
         """ From an active version, iterates through all the siblings inside the BinItem """
         binItem = activeVersion.parent()
         if binItem:
@@ -119,31 +119,31 @@ class ScanForVersionsTask(object):
                     clip.rescan()
 
 
-def ScanAndNextVersion(version):
+def ScanAndNextVersion(version: object) -> None:
     '''Scan then move to next version'''
     binitem = version.parent()
     _DoScanForVersions([version], binitem.nextVersion, False)
 
 
-def ScanAndPrevVersion(version):
+def ScanAndPrevVersion(version: object) -> None:
     ''' Scan then move to prev version'''
     binitem = version.parent()
     _DoScanForVersions([version], binitem.prevVersion, False)
 
 
-def ScanAndMinVersion(version):
+def ScanAndMinVersion(version: object) -> None:
     '''Scan then move to min version'''
     binitem = version.parent()
     _DoScanForVersions([version], binitem.minVersion, False)
 
 
-def ScanAndMaxVersion(version):
+def ScanAndMaxVersion(version: object) -> None:
     '''Scan then move to max version'''
     binitem = version.parent()
     _DoScanForVersions([version], binitem.maxVersion, False)
 
 
-def ScanVersionsAndCallbackTrackItems(trackItems, callback):
+def ScanVersionsAndCallbackTrackItems(trackItems: list, callback: callable) -> None:
     """ Helper function for track items version changes.  Does the scan and
     calls callback on each item.
     """
@@ -167,27 +167,27 @@ def ScanVersionsAndCallbackTrackItems(trackItems, callback):
     return ok
 
 
-def ScanAndNextVersionTrackItems(trackItems):
+def ScanAndNextVersionTrackItems(trackItems: list) -> None:
     '''Scan then move to next version on the track items'''
     return ScanVersionsAndCallbackTrackItems(trackItems, hiero.core.TrackItem.nextVersion)
 
 
-def ScanAndPrevVersionTrackItems(trackItems):
+def ScanAndPrevVersionTrackItems(trackItems: list) -> None:
     '''Scan then move to next version on the track items'''
     return ScanVersionsAndCallbackTrackItems(trackItems, hiero.core.TrackItem.prevVersion)
 
 
-def ScanAndMaxVersionTrackItems(trackItems):
+def ScanAndMaxVersionTrackItems(trackItems: list) -> None:
     '''Scan then move to next version on the track items'''
     return ScanVersionsAndCallbackTrackItems(trackItems, hiero.core.TrackItem.maxVersion)
 
 
-def ScanAndMinVersionTrackItems(trackItems):
+def ScanAndMinVersionTrackItems(trackItems: list) -> None:
     '''Scan then move to next version on the track items'''
     return ScanVersionsAndCallbackTrackItems(trackItems, hiero.core.TrackItem.minVersion)
 
 
-def _DoScanForVersions(versions, postUpdateFunc, shouldDisplayResults):
+def _DoScanForVersions(versions: list, postUpdateFunc: callable, shouldDisplayResults: bool) -> None:
     """ Do the version scan.   Creates a ScanForVersionsTask and executes it on
     the main thread,
     """
@@ -236,7 +236,7 @@ class ScanForVersionsAction(QtWidgets.QAction):
                                 self, a.menu(), before='foundry.project.versionup')
                             break
 
-    def _menuActionsAreEnabled(self, versionMenu):
+    def _menuActionsAreEnabled(self, versionMenu: object) -> bool:
         """Check if actions in versionMenu are enabled to add this action"""
         versionActions = versionMenu.actions()
         enabledActions = [action for action in versionActions if action.isEnabled()]

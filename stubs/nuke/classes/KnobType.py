@@ -104,7 +104,7 @@ class KnobType(object):
     ePathExpressionKnob = 89
     ePathKnob = 90
 
-    def __init__(self,  *args, **kwargs) -> None:
+    def __init__(self, *args, **kwargs) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """

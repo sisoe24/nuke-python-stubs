@@ -28,26 +28,26 @@ class ExportStructure2(IExportStructure):
         """
         ...
 
-    def rootElement(self) -> None:
+    def rootElement(self) -> 'Element':
         """
         Return the root element in this hierarchy.
         The root element is not included in the path generation
         """
         ...
 
-    def findElementsByPath(self, path) -> None:
+    def findElementsByPath(self, path: str) -> list[Element]:
         """
         Find the elements matching path. Returns a list.
         """
         ...
 
-    def exportRootPath(self) -> None:
+    def exportRootPath(self) -> str:
         """
         Returns the exportRootPath, the root of the export into which the export structure is built
         """
         ...
 
-    def setExportRootPath(self, rootPath) -> None:
+    def setExportRootPath(self, rootPath: str) -> None:
         """
         Set the exportRootPath, the root of the export into which the export structure is built
         """
@@ -65,26 +65,26 @@ class ExportStructure2(IExportStructure):
         """
         ...
 
-    def restore(self, sequence) -> None:
+    def restore(self, sequence: list[tuple[str, object]]) -> None:
         """
         Restore the hierarchy from a list of (path, preset) tuples
         """
         ...
 
-    def _traverse(self, element) -> None:
+    def _traverse(self, element: 'Element') -> None:
         """
         Helper for flatten. Recursively traverse the structure, building a list
         of (path, preset) tuples for each element with no children.
         """
         ...
 
-    def flatten(self) -> None:
+    def flatten(self) -> list[tuple[str, object]]:
         """
         Return the hierarchy as a list of (path, preset) tuples
         """
         ...
 
-    def __repr__(self) -> None:
+    def __repr__(self) -> str:
         """
         Return repr(self).
         """

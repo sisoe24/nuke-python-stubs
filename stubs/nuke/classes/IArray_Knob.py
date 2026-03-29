@@ -14,13 +14,13 @@ class IArray_Knob(Array_Knob):
     IArray_Knob
     """
 
-    def __new__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs) -> 'IArray_Knob':
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
         ...
 
-    def __hash__(self, ) -> None:
+    def __hash__(self) -> int:
         """
         Return hash(self).
         """
@@ -32,25 +32,25 @@ class IArray_Knob(Array_Knob):
         """
         ...
 
-    def dimensions(self, *args: typing.Any, **kwargs: typing.Any) -> None:
+    def dimensions(self) -> int:
         """
         Return number of dimensions.
         """
         ...
 
-    def width(self, *args: typing.Any, **kwargs: typing.Any) -> None:
+    def width(self) -> int:
         """
         Return width of the array.
         """
         ...
 
-    def height(self, *args: typing.Any, **kwargs: typing.Any) -> None:
+    def height(self) -> int:
         """
         Return height of the array.
         """
         ...
 
-    def value(self, *args: typing.Any, **kwargs: typing.Any) -> None:
+    def value(self, x: int, y: int) -> typing.Any:
         """
         Return value of the array at position (x, y).
         """

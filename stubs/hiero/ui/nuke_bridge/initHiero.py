@@ -83,7 +83,7 @@ class HieroEventHandler:
         # Instantiate the action to get it to register itself.
         openInNewNukeAction = OpenInNukeAction(self)
 
-    def getNukeScriptPathFromItem(self, item):
+    def getNukeScriptPathFromItem(self, item: object) -> str | None:
         """ Extract the path from the given item, and check if it points to a Nuke script.
             Returns None if no path was found or if it wasn't a Nuke script. """
         filePath = None
@@ -125,7 +125,7 @@ class HieroEventHandler:
         except Exception as e:
             print(traceback.format_exc())
 
-    def openNuke(self, filePath):
+    def openNuke(self, filePath: str) -> None:
         """ Open a script in new Nuke process
             The caller should make sure the filePath is actually a valid Nuke script. """
         if filePath is not None:

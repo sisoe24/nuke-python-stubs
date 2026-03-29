@@ -14,13 +14,13 @@ class XY_Knob(Array_Knob):
     A knob which describes a 2D position.
     """
 
-    def __new__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs) -> 'XY_Knob':
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
         ...
 
-    def __hash__(self, ) -> None:
+    def __hash__(self) -> int:
         """
         Return hash(self).
         """
@@ -32,7 +32,7 @@ class XY_Knob(Array_Knob):
         """
         ...
 
-    def names(self, n) -> str:
+    def names(self, n: int) -> str:
         """
         names(n) -> string
 
@@ -40,7 +40,7 @@ class XY_Knob(Array_Knob):
         """
         ...
 
-    def value(self, n, oc) -> float:
+    def value(self, n: int, oc: 'OutputContext' = None) -> float:
         """
         value(n, oc) -> float
 
@@ -48,7 +48,7 @@ class XY_Knob(Array_Knob):
         """
         ...
 
-    def x(self, oc) -> float:
+    def x(self, oc: 'OutputContext' = None) -> float:
         """
         x(oc) -> float
 
@@ -56,7 +56,7 @@ class XY_Knob(Array_Knob):
         """
         ...
 
-    def y(self, oc) -> float:
+    def y(self, oc: 'OutputContext' = None) -> float:
         """
         y(oc) -> float
 

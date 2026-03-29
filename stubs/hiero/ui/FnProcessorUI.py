@@ -13,7 +13,7 @@ from hiero.ui.FnElidedLabel import ElidedLabel
 from hiero.core.FnCompSourceInfo import CompSourceInfo
 
 
-def isCompItemMissingRenders(compItem):
+def isCompItemMissingRenders(compItem) -> tuple[bool, bool]:
     """ Check if renders for a comp item are missing or out of date. Returns
     (missing, out of date) """
     missing = False
@@ -71,7 +71,7 @@ class ProcessorUIBase(IProcessorUI):
 
         self.setPreset(preset)
 
-    def validate(self, exportItems):
+    def validate(self, exportItems) -> bool:
         """Validate settings in UI. Return False for failure in order to abort export."""
         hiero.core.log.info('ProcessorUIBase validate')
         exportRoot = self._exportTemplate.exportRootPath()
@@ -97,7 +97,7 @@ class ProcessorUIBase(IProcessorUI):
 
         return True
 
-    def isTranscodeExport(self):
+    def isTranscodeExport(self) -> bool:
         """ Check if there are transcode tasks in this export. """
 
         # To avoid importing the hiero.exporters module here, just check
@@ -312,7 +312,7 @@ class ProcessorUIBase(IProcessorUI):
         self._contentScrollArea.setFrameStyle(QtWidgets.QScrollArea.NoFrame)
         self._contentScrollArea.setWidgetResizable(True)
 
-    def setPreset(self, preset):
+    def setPreset(self, preset) -> None:
         """ Set the export preset. """
         self._preset = preset
         oldTemplate = self._exportTemplate
@@ -340,11 +340,11 @@ class ProcessorUIBase(IProcessorUI):
             # change.
             taskPreset.initialiseCallbacks(self._exportTemplate)
 
-    def preset(self):
+    def preset(self) -> Any:
         """ Get the export preset. """
         return self._preset
 
-    def setTaskContent(self, preset):
+    def setTaskContent(self, preset) -> None:
         """ Get the UI for a task preset and add it in the 'Content' tab. """
 
         # First clear the old task UI.  It's important that this doesn't live longer
@@ -388,7 +388,7 @@ class ProcessorUIBase(IProcessorUI):
         # Add the task UI widget to the scroll area
         self._contentScrollArea.setWidget(taskUIWidget)
 
-    def onExportStructureModified(self):
+    def onExportStructureModified(self) -> None:
         """ Callback when the export structure is modified by the user. """
 
         self._preset.properties()['exportTemplate'] = self._exportTemplate.flatten()
@@ -397,7 +397,7 @@ class ProcessorUIBase(IProcessorUI):
             self._exportStructureViewer.refreshContentField(self._contentElement)
         self.updatePathPreview()
 
-    def onExportStructureSelectionChanged(self):
+    def onExportStructureSelectionChanged(self) -> None:
         """ Callback when the selection in the export structure viewer changes. """
         # Grab current selection
         element = self._exportStructureViewer.selection()
@@ -406,7 +406,7 @@ class ProcessorUIBase(IProcessorUI):
             self.setTaskContent(element.preset())
         self.updatePathPreview()
 
-    def onExportStructureViewerDestroyed(self):
+    def onExportStructureViewerDestroyed(self) -> None:
         """ Callback when the export structure viewer is destroyed.  Qt will delete it while we still
             have a reference, so reset to None when the destroyed() signal is emitted. """
         self._exportStructureViewer = None
@@ -415,11 +415,11 @@ class ProcessorUIBase(IProcessorUI):
         """ Create the UI for processor-specific settings.  To be reimplemented by subclasses. """
         raise NotImplementedError()
 
-    def processorSettingsLabel(self):
+    def processorSettingsLabel(self) -> str:
         """ Get the label which is put on the tab for processor-specific settings.  To be reimplemented by subclasses. """
         raise NotImplementedError()
 
-    def savePreset(self):
+    def savePreset(self) -> None:
         """ Save the export template to the preset. """
         self._preset.properties()['exportTemplate'] = self._exportTemplate.flatten()
         self._preset.properties()['exportRoot'] = self._exportTemplate.exportRootPath()
@@ -450,12 +450,12 @@ class ProcessorUIBase(IProcessorUI):
 
         return widget
 
-    def onVersionIndexChanged(self, value):
+    def onVersionIndexChanged(self, value) -> None:
         """ Callback when the version index changes. """
         self._preset.properties()['versionIndex'] = int(value)
         self.updatePathPreview()
 
-    def onVersionPaddingChanged(self, padding):
+    def onVersionPaddingChanged(self, padding) -> None:
         """ Callback when the version padding changes. """
         self._preset.properties()['versionPadding'] = int(padding)
         self.updatePathPreview()
@@ -465,7 +465,7 @@ class ProcessorUIBase(IProcessorUI):
         self._pathPreviewWidget = ElidedLabel()
         return self._pathPreviewWidget
 
-    def updatePathPreview(self):
+    def updatePathPreview(self) -> None:
         """ Update the path preview widget for the currently selected item in the
         tree view.
         """
@@ -505,7 +505,7 @@ class ProcessorUIBase(IProcessorUI):
     def skipOffline(self):
         return self._preset.skipOffline()
 
-    def refreshContent(self):
+    def refreshContent(self) -> None:
         """ Refresh the content area of this ProcessorUI """
         element = self._exportStructureViewer.selection() if self._exportStructureViewer else None
         if element is not None:

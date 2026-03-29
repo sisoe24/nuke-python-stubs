@@ -26,37 +26,37 @@ class TaskRegistry(IExporterRegistry):
         """
         ...
 
-    def registerTask(self, preset, task) -> None:
+    def registerTask(self, preset: TaskPreset, task: Task) -> None:
         """
         Register the association between a Task and TaskPreset
         """
         ...
 
-    def registerProcessor(self, preset, processor) -> None:
+    def registerProcessor(self, preset: ProcessorPreset, processor: Processor) -> None:
         """
         Register the association between a Processor and ProcessorPreset
         """
         ...
 
-    def registerPreset(self, parentType, preset) -> None:
+    def registerPreset(self, parentType: type, preset: TaskPreset) -> None:
         """
         Register a preset instance and association with parentType
         """
         ...
 
-    def projectUnloaded(self, project) -> None:
+    def projectUnloaded(self, project: Project) -> None:
         """
         Called on project unload to remove presets associated with project
         """
         ...
 
-    def projectDuplicated(self, project, newProject) -> None:
+    def projectDuplicated(self, project: Project, newProject: Project) -> None:
         """
         Called on project clone to duplicate the associated project presets
         """
         ...
 
-    def loadPresets(self, path) -> None:
+    def loadPresets(self, path: str) -> None:
         """
         Load all xml presets within specified path and register
         """
@@ -68,7 +68,7 @@ class TaskRegistry(IExporterRegistry):
         """
         ...
 
-    def presetFromXml(self, xml, register=True) -> None:
+    def presetFromXml(self, xml: str, register: bool = True) -> TaskPreset:
         """
         Deserialize preset from xml string.
         Requires derived TaskPreset classes to be registered.
@@ -81,7 +81,7 @@ class TaskRegistry(IExporterRegistry):
         """
         ...
 
-    def savePresets(self, path) -> None:
+    def savePresets(self, path: str) -> None:
         """
         Save all registered presets, as xml, to path specified.
         """
@@ -93,32 +93,32 @@ class TaskRegistry(IExporterRegistry):
         """
         ...
 
-    def presetToXml(self, preset) -> None:
+    def presetToXml(self, preset: TaskPreset) -> str:
         """
         Serialise a TaskPreset to XML and return as string.
         Returns an empty string on failure.
         """
         ...
 
-    def _presetToXml(self, preset) -> None:
+    def _presetToXml(self, preset: TaskPreset) -> object:
         """
         Serialize a preset to XML and return the root element. Throws on failure.
         """
         ...
 
-    def _savePresetElement(self, key, value, parent) -> None:
+    def _savePresetElement(self, key: str, value: object, parent: object) -> None:
         """
         Save a preset key/value as an XML element and append it to the parent.  Called recursively for containers.
         """
         ...
 
-    def presetsSubDirectory(self) -> None:
+    def presetsSubDirectory(self) -> str:
         """
         self.presetsSubDirectory() -> Get the sub-directory in the plugin paths to search for presets.
         """
         ...
 
-    def revertDefaultPresets(self) -> None:
+    def revertDefaultPresets(self, path: str) -> None:
         """
         self.revertDefaultPresets(string) -> Called by the C++ application reconstruct the default presets.
 
@@ -138,7 +138,7 @@ class TaskRegistry(IExporterRegistry):
         """
         ...
 
-    def startPresetChanges(self, project) -> None:
+    def startPresetChanges(self, project: Project) -> None:
         """
         self.startPresetChanges(hiero.core.Project) -> Called when the user might start editing the presets, so the changes can be reverted if necessary.
 
@@ -146,7 +146,7 @@ class TaskRegistry(IExporterRegistry):
         """
         ...
 
-    def discardPresetChanges(self, project) -> None:
+    def discardPresetChanges(self, project: Project) -> None:
         """
         self.startPresetChanges(hiero.core.Project) -> Discard any changes to the presets since startPresetChanges() was called.
 
@@ -154,7 +154,7 @@ class TaskRegistry(IExporterRegistry):
         """
         ...
 
-    def createAndAddProcessorPreset(self, name, typeTemplate) -> TaskPreset:
+    def createAndAddProcessorPreset(self, name: str, typeTemplate: TaskPreset) -> TaskPreset:
         """
         self.createAndAddProcessorPreset(string, hiero.core.TaskPreset) -> Called by the C++ application to create a new preset, using typetemplate as a template.
 
@@ -163,13 +163,13 @@ class TaskRegistry(IExporterRegistry):
         """
         ...
 
-    def copyPreset(self, preset) -> None:
+    def copyPreset(self, preset: TaskPreset) -> None:
         """
         Create a copy of a preset.  The copy is not added to the registry.
         """
         ...
 
-    def copyAndAddProcessorPreset(self, preset) -> TaskPreset:
+    def copyAndAddProcessorPreset(self, preset: TaskPreset) -> TaskPreset:
         """
         self.copyAndAddProcessorPreset() -> Called by the C++ application to duplicate a preset.
 
@@ -178,123 +178,123 @@ class TaskRegistry(IExporterRegistry):
         """
         ...
 
-    def copyAndAddProjectPreset(self, preset, project) -> None:
+    def copyAndAddProjectPreset(self, preset: TaskPreset, project: Project) -> None:
         """
         Duplicate a preset and assign it to a project imediately to prevent name clashes
         """
         ...
 
-    def addProcessorPreset(self, name, preset) -> None:
+    def addProcessorPreset(self, name: str, preset: ProcessorPreset) -> None:
         """
         Register Processor Preset Instance
         """
         ...
 
-    def removeProcessorPreset(self, preset) -> None:
+    def removeProcessorPreset(self, preset: ProcessorPreset) -> None:
         """
         Remove Processor preset from registry
         """
         ...
 
-    def renameProcessorPreset(self, preset, newName) -> None:
+    def renameProcessorPreset(self, preset: ProcessorPreset, newName: str) -> None:
         """
         Validate and update name of Processor Preset
         """
         ...
 
-    def assignPresetToProject(self, preset, project) -> None:
+    def assignPresetToProject(self, preset: TaskPreset, project: Project | None) -> None:
         """
         Assign preset to project and ensure name is unique within project. Project may be None in which case preset will be assigned 'local'
         """
         ...
 
-    def numProcessorPresets(self) -> None:
+    def numProcessorPresets(self) -> int:
         """
         Return the total number of Processor preset instances registered
         """
         ...
 
-    def processorPresetName(self, index) -> None:
+    def processorPresetName(self, index: int) -> str:
         """
         Return the name of Processor preset by index
         """
         ...
 
-    def numTasks(self) -> None:
+    def numTasks(self) -> int:
         """
         Returns the number of Tasks Registered
         """
         ...
 
-    def numProcessors(self) -> None:
+    def numProcessors(self) -> int:
         """
         Return the number or processors in the Registry
         """
         ...
 
-    def taskName(self, index) -> None:
+    def taskName(self, index: int) -> str:
         """
         Returns a Task name by Index
         """
         ...
 
-    def processorName(self, index) -> None:
+    def processorName(self, index: int) -> str:
         """
         Returns a Processor name by index
         """
         ...
 
-    def processorPresetNames(self) -> None:
+    def processorPresetNames(self) -> tuple[str, ...]:
         """
         Returns a tuple of Processor Preset names
         """
         ...
 
-    def processorPresetByName(self, name, project=None) -> None:
+    def processorPresetByName(self, name: str, project: Project | None = None) -> TaskPreset | None:
         """
         Returns the preset with specified name associated with project. If project is None preset will be searched for in local presets
         """
         ...
 
-    def _getPresetsFromList(self, presetsList, projectToFilter) -> None:
+    def _getPresetsFromList(self, presetsList: list[TaskPreset], projectToFilter: Project | None) -> list[str]:
         """
         Returns a list of presets name associated with 'projectToFilter' from the specified 'presetsList'
         """
         ...
 
-    def projectPresets(self, project) -> None:
+    def projectPresets(self, project: Project) -> list[str]:
         """
         Returns a list of preset names associated with the specified project
         """
         ...
 
-    def localPresets(self) -> None:
+    def localPresets(self) -> list[str]:
         """
         Returns a list of preset names NOT associated with the specified project
         """
         ...
 
-    def projectExportHistoryXml(self, project) -> None:
+    def projectExportHistoryXml(self, project: Project) -> list[str]:
         """
         Get the project export history as a list of xml fragments. Use the xml to avoid problems with reference
         counting the preset objects when calling from C++.
         """
         ...
 
-    def restoreProjectExportHistoryXml(self, project, presetsXml) -> None:
+    def restoreProjectExportHistoryXml(self, project: Project, presetsXml: list[str]) -> None:
         """
         Set the project export history as a list of xml fragments. Use the xml to avoid problems with reference
         counting the preset objects when calling from C++.
         """
         ...
 
-    def addPresetToProjectExportHistory(self, project, preset) -> None:
+    def addPresetToProjectExportHistory(self, project: Project, preset: TaskPreset) -> None:
         """
         Add a preset to the export history for a project.
         """
         ...
 
-    def findPresetInProjectExportHistory(self, project, presetId) -> None:
+    def findPresetInProjectExportHistory(self, project: Project, presetId: int) -> TaskPreset | None:
         """
         Attempt to find a preset in a project's export history.
         """
@@ -306,19 +306,19 @@ class TaskRegistry(IExporterRegistry):
         """
         ...
 
-    def getPresetId(self, preset) -> None:
+    def getPresetId(self, preset: TaskPreset) -> int:
         """
         Get the id (hash) of the given preset.
         """
         ...
 
-    def localPresetsChanged(self) -> None:
+    def localPresetsChanged(self) -> bool:
         """
         Check if the local task presets have changed since startPresetChanges() was called.
         """
         ...
 
-    def projectPresetsChanged(self, project) -> None:
+    def projectPresetsChanged(self, project: Project) -> bool:
         """
         Check if the task presets for the given project have changed since startPresetChanges(project) was called.
         """
@@ -330,7 +330,7 @@ class TaskRegistry(IExporterRegistry):
         """
         ...
 
-    def processorByIndex(self, index) -> None:
+    def processorByIndex(self, index: int) -> Processor:
         """
         Returns a processor by index
         """
@@ -342,7 +342,7 @@ class TaskRegistry(IExporterRegistry):
         """
         ...
 
-    def presetTypeFromIdent(self, ident) -> None:
+    def presetTypeFromIdent(self, ident: str) -> type:
         """
         Resolve preset ident string to Preset class type
         """
@@ -360,13 +360,13 @@ class TaskRegistry(IExporterRegistry):
         """
         ...
 
-    def processorFromPreset(self, presetName) -> None:
+    def processorFromPreset(self, presetName: str) -> Processor:
         """
         Return type of task from preset name
         """
         ...
 
-    def _checkPresetToFormat(self, presetName, exportTemplate) -> None:
+    def _checkPresetToFormat(self, presetName: str, exportTemplate: object) -> None:
         """
         Checks if 'exportTemplate' defines a specific output format and if its
         valid by creating a hiero.core.Format.
@@ -374,14 +374,14 @@ class TaskRegistry(IExporterRegistry):
         """
         ...
 
-    def _getToScaleFromPreset(self, exportTemplate) -> None:
+    def _getToScaleFromPreset(self, exportTemplate: object) -> list[str]:
         """
         Returns a list of scale options defined in 'exportTemplate'
 
         """
         ...
 
-    def _checkToScaleForSequence(self, presetName, toScaleOptions, itemName, seqFormat) -> None:
+    def _checkToScaleForSequence(self, presetName: str, toScaleOptions: list[str], itemName: str, seqFormat: object) -> None:
         """
         Checks if the output format for a specific sequence/clip is valid when
         scalled with th 'scale' option defined in the exportTemplate preset.
@@ -389,7 +389,7 @@ class TaskRegistry(IExporterRegistry):
         """
         ...
 
-    def _checkOutputResolution(self, preset, items) -> None:
+    def _checkOutputResolution(self, preset: TaskPreset, items: list[object]) -> None:
         """
         Checks if the output resolution defined in the preset or defined by the
         items to be exported are valid for PLE / Indie variants.
@@ -397,20 +397,20 @@ class TaskRegistry(IExporterRegistry):
         """
         ...
 
-    def validateExport(self, preset, items) -> None:
+    def validateExport(self, preset: TaskPreset, items: list[object]) -> None:
         """
         Implements IExporterRegistry.validateExport
         """
         ...
 
-    def createProcessor(self, preset, submissionName=None, synchronous=False) -> None:
+    def createProcessor(self, preset: 'TaskPreset', submissionName: str | None = None, synchronous: bool = False) -> 'Processor':
         """
         Create the processor for an export and return it. This doesn't start
         the export.
         """
         ...
 
-    def createAndExecuteProcessor(self, preset, items, submissionName=None, synchronous=False) -> None:
+    def createAndExecuteProcessor(self, preset: 'TaskPreset', items: list, submissionName: str | None = None, synchronous: bool = False) -> 'Processor':
         """
         Instantiate the Processor associated with preset and startProcessing items
         """
@@ -422,13 +422,13 @@ class TaskRegistry(IExporterRegistry):
         """
         ...
 
-    def processorPresetByIndex(self, index) -> None:
+    def processorPresetByIndex(self, index: int) -> 'TaskPreset':
         """
         Return instance of TaskPreset Object
         """
         ...
 
-    def submissionNames(self) -> list:
+    def submissionNames(self) -> list[str]:
         """
         self.submissionNames() -> Called by the C++ application to get a list of the available Submission objects. Submission objects are used to manage render farm renders.
 
@@ -448,7 +448,7 @@ class TaskRegistry(IExporterRegistry):
         """
         ...
 
-    def submissionChanged(self, submissionName) -> None:
+    def submissionChanged(self, submissionName: str) -> None:
         """
         self.submissionChanged(string, hiero.core.Project) -> Called by the C++ application when the submission choice changes in the Export Dialog.
 
@@ -456,21 +456,21 @@ class TaskRegistry(IExporterRegistry):
         """
         ...
 
-    def isNukeShotExportPreset(self, preset) -> None:
+    def isNukeShotExportPreset(self, preset: 'TaskPreset') -> bool:
         """
         Check if a preset is valid for Nuke shot export.  To be considered valid, the preset must contain
         a NukeShotExporter and a NukeRenderTask (write node).
         """
         ...
 
-    def nukeShotExportPresets(self, project) -> None:
+    def nukeShotExportPresets(self, project: 'Project') -> list['TaskPreset']:
         """
         Get a list of presets which can export shots as Nuke scripts.
         Includes local presets and those in the project.
         """
         ...
 
-    def isSingleSocketAllowed(self) -> None:
+    def isSingleSocketAllowed(self) -> bool:
         """
         Return whether or not single socket exports are allowed.
         """

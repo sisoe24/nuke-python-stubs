@@ -18,19 +18,19 @@ class Viewer(QObject):
     Object for manipulating viewers in Hiero. Get the currently active viewer by calling hiero.ui.currentViewer().
     """
 
-    def __new__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs) -> Viewer:
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
         ...
 
-    def __setattr__(self, name, value, ) -> None:
+    def __setattr__(self, name: str, value: typing.Any) -> None:
         """
         Implement setattr(self, name, value).
         """
         ...
 
-    def __delattr__(self, name, ) -> None:
+    def __delattr__(self, name: str) -> None:
         """
         Implement delattr(self, name).
         """
@@ -42,7 +42,7 @@ class Viewer(QObject):
         """
         ...
 
-    def availableGuideOverlayNames(self) -> typing.Set[str]:
+    def availableGuideOverlayNames(self) -> typing.List[str]:
         """
         self.availableGuideOverlayNames() -> returns the names of all the guide overlays available in the viewer. Can only be called from the user interface thread. Use hiero.core.executeInMainThread if you need to call it from a non-ui thread.
 
@@ -279,7 +279,7 @@ class Viewer(QObject):
         """
         ...
 
-    def selectedGuideOverlayNames(self) -> typing.Set[str]:
+    def selectedGuideOverlayNames(self) -> typing.List[str]:
         """
         self.selectedGuideOverlayNames() -> returns the names of the current guide overlays in the viewer. Can only be called from the user interface thread. Use hiero.core.executeInMainThread if you need to call it from a non-ui thread.
 
@@ -368,7 +368,7 @@ class Viewer(QObject):
         """
         ...
 
-    def setMaskOverlayFromRemote(self, overlayName: str) -> None:
+    def setMaskOverlayFromRemote(self, remoteOverlayName: str) -> None:
         """
         self.setMaskOverlayFromRemote() -> Sets the guide overlays in the viewer from a remote source. Can only be called from the user interface thread. Use hiero.core.executeInMainThread if you need to call it from a non-ui thread.
 
@@ -567,7 +567,7 @@ class Viewer(QObject):
     transformChanged = Signal()
     staticMetaObject: Any = None
 
-    def _goToTag(self, tag: str) -> None:
+    def _goToTag(self, tag: object) -> None:
         """
         Move playhead to Tag.
         If Tag (Tag Object or Tag name) does not exists on the Viewer's Sequence/Clip

@@ -47,19 +47,19 @@ class CustomSpreadsheetColumns(QtCore.QObject):
         {'name': 'Department', 'cellType': 'readonly'},
     ]
 
-    def numColumns(self):
+    def numColumns(self) -> int:
         """
           Return the number of custom columns in the spreadsheet view
         """
         return len(self.gCustomColumnList)
 
-    def columnName(self, column):
+    def columnName(self, column: int) -> str:
         """
           Return the name of a custom column
         """
         return self.gCustomColumnList[column]['name']
 
-    def getTagsString(self, item):
+    def getTagsString(self, item: Any) -> str:
         """
           Convenience method for returning all the Notes in a Tag as a string
         """
@@ -70,7 +70,7 @@ class CustomSpreadsheetColumns(QtCore.QObject):
         tagNameString = ','.join(tagNames)
         return tagNameString
 
-    def getNotes(self, item):
+    def getNotes(self, item: Any) -> str:
         """
           Convenience method for returning all the Notes in a Tag as a string
         """
@@ -82,7 +82,7 @@ class CustomSpreadsheetColumns(QtCore.QObject):
                 notes += tag.note()+', '
         return notes[:-2]
 
-    def getData(self, row, column, item):
+    def getData(self, row: int, column: int, item: Any) -> Any:
         """
           Return the data in a cell
         """
@@ -151,7 +151,7 @@ class CustomSpreadsheetColumns(QtCore.QObject):
 
         return ''
 
-    def getTooltip(self, row, column, item):
+    def getTooltip(self, row: int, column: int, item: Any) -> str:
         """
           Return the tooltip for a cell
         """
@@ -163,7 +163,7 @@ class CustomSpreadsheetColumns(QtCore.QObject):
             return str(self.getNotes(item))
         return ''
 
-    def getBackground(self, row, column, item):
+    def getBackground(self, row: int, column: int, item: Any) -> Any:
         """
           Return the background colour for a cell
         """
@@ -171,26 +171,26 @@ class CustomSpreadsheetColumns(QtCore.QObject):
             return QtGui.QColor(80, 20, 20)
         return None
 
-    def getForeground(self, row, column, item):
+    def getForeground(self, row: int, column: int, item: Any) -> Any:
         """
           Return the foreground colour for a cell
         """
         return None
 
-    def getFont(self, row, column, item):
+    def getFont(self, row: int, column: int, item: Any) -> Any:
         """
           Return the font for a cell
         """
         return None
 
-    def setData(self, row, column, item, data):
+    def setData(self, row: int, column: int, item: Any, data: Any) -> None:
         """
           Set the data in a cell - unused in this example
         """
 
         return None
 
-    def getIcon(self, row, column, item):
+    def getIcon(self, row: int, column: int, item: Any) -> Any:
         """
           Return the icon for a cell
         """
@@ -217,7 +217,7 @@ class CustomSpreadsheetColumns(QtCore.QObject):
                 return None
         return None
 
-    def getSizeHint(self, row, column, item):
+    def getSizeHint(self, row: int, column: int, item: Any) -> Any:
         """
           Return the size hint for a cell
         """
@@ -228,7 +228,7 @@ class CustomSpreadsheetColumns(QtCore.QObject):
 
         return QtCore.QSize(50, 50)
 
-    def paintCell(self, row, column, item, painter, option):
+    def paintCell(self, row: int, column: int, item: Any, painter: Any, option: Any) -> bool:
         """
           Paint a custom cell. Return True if the cell was painted, or False to continue
           with the default cell painting.
@@ -296,7 +296,7 @@ class CustomSpreadsheetColumns(QtCore.QObject):
 
         return False
 
-    def createEditor(self, row, column, item, view):
+    def createEditor(self, row: int, column: int, item: Any, view: Any) -> Any:
         """
           Create an editing widget for a custom cell
         """
@@ -339,7 +339,7 @@ class CustomSpreadsheetColumns(QtCore.QObject):
     def setModelData(self, row, column, item, editor):
         return False
 
-    def dropMimeData(self, row, column, item, data, items):
+    def dropMimeData(self, row: int, column: int, item: Any, data: Any, items: Any) -> None:
         """
           Handle a drag and drop operation - adds a Dragged Tag to the shot
         """
@@ -348,7 +348,7 @@ class CustomSpreadsheetColumns(QtCore.QObject):
                 item.addTag(thing)
         return None
 
-    def colourspaceChanged(self, index):
+    def colourspaceChanged(self, index: int) -> None:
         """
           This method is called when Colourspace widget changes index.
         """
@@ -362,7 +362,7 @@ class CustomSpreadsheetColumns(QtCore.QObject):
             for trackItem in items:
                 trackItem.setSourceMediaColourTransform(colourspace)
 
-    def statusChanged(self, arg):
+    def statusChanged(self, arg: Any) -> None:
         """
           This method is called when Shot Status widget changes index.
         """
@@ -383,7 +383,7 @@ class CustomSpreadsheetColumns(QtCore.QObject):
                             trackItem.removeTag(tag)
                             break
 
-    def artistNameChanged(self, arg):
+    def artistNameChanged(self, arg: Any) -> None:
         """
           This method is called when Artist widget changes index.
         """
@@ -405,7 +405,7 @@ class CustomSpreadsheetColumns(QtCore.QObject):
                             break
 
 
-def _getArtistFromID(self, artistID):
+def _getArtistFromID(self, artistID: int) -> dict:
     """ getArtistFromID -> returns an artist dictionary, by their given ID"""
     global gArtistList
     artist = [element for element in gArtistList if element['artistID'] == int(artistID)]
@@ -414,7 +414,7 @@ def _getArtistFromID(self, artistID):
     return artist[0]
 
 
-def _getArtistFromName(self, artistName):
+def _getArtistFromName(self, artistName: str) -> dict:
     """ getArtistFromID -> returns an artist dictionary, by their given ID """
     global gArtistList
     artist = [element for element in gArtistList if element['artistName'] == artistName]
@@ -423,7 +423,7 @@ def _getArtistFromName(self, artistName):
     return artist[0]
 
 
-def _artist(self):
+def _artist(self) -> dict:
     """_artist -> Returns the artist dictionary assigned to this shot"""
     artist = None
     tags = self.tags()
@@ -462,7 +462,7 @@ def _updateArtistTag(self, artistDict):
     return
 
 
-def _setArtistByName(self, artistName):
+def _setArtistByName(self, artistName: str) -> None:
     """ setArtistByName(artistName) -> sets the artist tag on a TrackItem by a given artistName string"""
     global gArtistList
 
@@ -475,7 +475,7 @@ def _setArtistByName(self, artistName):
     self.updateArtistTag(artist)
 
 
-def _setArtistByID(self, artistID):
+def _setArtistByID(self, artistID: int) -> None:
     """ setArtistByID(artistID) -> sets the artist tag on a TrackItem by a given artistID integer"""
     global gArtistList
 
@@ -497,7 +497,7 @@ hiero.core.TrackItem.getArtistFromID = _getArtistFromID
 hiero.core.TrackItem.updateArtistTag = _updateArtistTag
 
 
-def _status(self):
+def _status(self) -> str | None:
     """status -> Returns the Shot status. None if no Status is set."""
 
     status = None
@@ -508,7 +508,7 @@ def _status(self):
     return status
 
 
-def _setStatus(self, status):
+def _setStatus(self, status: str) -> None:
     """setShotStatus(status) -> Method to set the Status of a Shot.
     Adds a special kind of status Tag to a TrackItem
     Example: myTrackItem.setStatus('Final')

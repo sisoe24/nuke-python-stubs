@@ -36,7 +36,7 @@ except NotImplementedError:
     pass
 
 
-def MakeTranscodePreset(file_type, properties):
+def MakeTranscodePreset(file_type: str, properties: dict) -> None:
     """ Make a transcode preset for a given file type and
     codec properties dictionary."""
     props = {'file_type': file_type,
@@ -47,7 +47,7 @@ def MakeTranscodePreset(file_type, properties):
     return FnTranscodeExporter.TranscodePreset('', props)
 
 
-def MakeExportProcessorTemplate(processorPreset, path, transcodePreset):
+def MakeExportProcessorTemplate(processorPreset: str, path: str, transcodePreset: dict) -> None:
     """ Make a template for a processor preset, path, and transcode preset. """
     return (
         processorPreset,
@@ -59,7 +59,7 @@ def MakeExportProcessorTemplate(processorPreset, path, transcodePreset):
     )
 
 
-def GetDefaultMovTranscodePresets():
+def GetDefaultMovTranscodePresets() -> dict:
     """ Generate a dict of presets for the default mov transcode presets.
     These will be populated with all the default values for the encoder properties."""
 
@@ -153,7 +153,7 @@ def GetDefaultMxfPreset():
     return mxfPresets
 
 
-def AddDefaultPresets(overwrite):
+def AddDefaultPresets(overwrite: bool = False) -> None:
     """ Configure the default export presets.  If overwrite is true, this will
     replace the existing presets. """
 

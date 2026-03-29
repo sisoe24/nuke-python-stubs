@@ -14,38 +14,38 @@ class View(object):
     A named view.
     """
 
-    def __new__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs) -> 'View':
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
         ...
 
-    def __hash__(self, ) -> None:
+    def __hash__(self) -> int:
         """
         Return hash(self).
         """
         ...
 
-    def __str__(self, ) -> None:
+    def __str__(self) -> str:
         """
         Return str(self).
         """
         ...
 
-    def __init__(self,  *args, **kwargs) -> None:
+    def __init__(self, *args, **kwargs) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """
         ...
 
-    def string(self,) -> str:
+    def string(self) -> str:
         """
         self.string() -> Name of view.
         @return: Name of view.
         """
         ...
 
-    def value(self,) -> Any:
+    def value(self) -> Any:
         """
         self.value() -> Value of view.
         @return: Value of view.

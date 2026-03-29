@@ -11,7 +11,7 @@ import nuke_internal as nuke
 import PyOpenColorIO as OCIO
 
 
-def _node_to_cdltransform(node):
+def _node_to_cdltransform(node) -> 'PyOpenColorIO.CDLTransform':
     """From an OCIOCDLTransform node, returns a PyOpenColorIO
     CDLTransform object, which could be used to write XML
     """
@@ -49,7 +49,7 @@ def _cdltransform_to_node(cdl, node):
     node['cccid'].setValue(cdl.getID())
 
 
-def _file_to_cdl_transform_list(filename):
+def _file_to_cdl_transform_list(filename) -> list:
     """Helper function to generate a list of CDL transforms from an xml file.
     Supported formats include .cc, .cdl and .ccc"""
     try:
@@ -113,7 +113,7 @@ def SelectCCCIDPanel(*args, **kwargs):
     return _SelectCCCIDPanel(*args, **kwargs)
 
 
-def export_as_cc(node=None, filename=None):
+def export_as_cc(node=None, filename=None) -> None:
     """Export a OCIOCDLTransform node as a ColorCorrection XML file
     (.cc)
 
@@ -145,7 +145,7 @@ def export_as_cc(node=None, filename=None):
     group.write('ColorCorrection', ccfilename)
 
 
-def import_cc_from_xml(node=None, filename=None):
+def import_cc_from_xml(node=None, filename=None) -> None:
     """Import a ColorCorrection XML (.cc) into a OCIOCDLTransform node.
 
     If node is None, "nuke.thisNode()" will be used. If filename is
@@ -181,7 +181,7 @@ def import_cc_from_xml(node=None, filename=None):
         return
 
 
-def export_multiple_to_ccc(filename=None):
+def export_multiple_to_ccc(filename=None) -> None:
     """Exported all selected OCIOCDLTransform nodes to a
     ColorCorrectionCollection XML file (.ccc)
     """
@@ -200,7 +200,7 @@ def export_multiple_to_ccc(filename=None):
     group.write('ColorCorrectionCollection', filename)
 
 
-def import_multiple_from_ccc(filename=None):
+def import_multiple_from_ccc(filename=None) -> None:
     """Import a ColorCorrectionCollection file (.ccc) into multiple
     OCIOCDLTransform nodes. Also creates a single node for a .cc file
     """
@@ -225,7 +225,7 @@ def import_multiple_from_ccc(filename=None):
         nuke.message("The supplied file (%r) contained no ColorCorrection's" % filename)
 
 
-def select_cccid_for_filetransform(node=None, fileknob='file', cccidknob='cccid'):
+def select_cccid_for_filetransform(node=None, fileknob='file', cccidknob='cccid') -> None:
     """Select cccid button for the OCIOFileTransform node, also used
     in OCIOCDLTransform. Presents user with list of cccid's within the
     specified .ccc file, and sets the cccid knob to the selected ID.

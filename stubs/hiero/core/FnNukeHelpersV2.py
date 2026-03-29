@@ -23,7 +23,7 @@ from .nuke import ReformatNode
 gJumpCount = 0
 
 
-def makeJumpNameForTrack(track):
+def makeJumpNameForTrack(track: str) -> str:
     """Makes a jump name for the track. This is the name which shall be used to identify the
     'set' and the 'push' nodes which corrispond to each track. This name consists of the Track
     Name (with any non-alphanumeric characters replaced by _) and also a global counter which
@@ -53,13 +53,7 @@ def addSetAndPushNode(script, added_nodes_list):
 class ScriptWriteParameters(object):
     """ Class for specifying parameters when writing to Nuke scripts. """
 
-    def __init__(self,
-                 includeAnnotations=False,
-                 includeEffects=True,
-                 retimeMethod=None,
-                 reformatMethod=None,
-                 additionalNodesCallback=None,
-                 views=None):
+    def __init__(self, includeAnnotations: bool = False, includeEffects: bool = True, retimeMethod: str | None = None, reformatMethod: str | None = None, additionalNodesCallback: Callable | None = None, views: list | None = None) -> None:
         """
         @param includeAnnotations: whether annotations should be written to the script
         @param includeEffects: whether effects should be written to the script
@@ -75,26 +69,26 @@ class ScriptWriteParameters(object):
         self._additionalNodesCallback = additionalNodesCallback
         self._views = views or []
 
-    def includeAnnotations(self):
+    def includeAnnotations(self) -> bool:
         """ Get whether annotations should be included in the script. """
         return self._includeAnnotations
 
-    def includeEffects(self):
+    def includeEffects(self) -> bool:
         """ Get whether effects should be included in the script. """
         return self._includeEffects
 
-    def includeRetimes(self):
+    def includeRetimes(self) -> bool:
         """ Get whether retimes should be included in the script. """
         return self._retimeMethod is not None
 
-    def retimeMethod(self):
+    def retimeMethod(self) -> str | None:
         """ Get the method used for retiming in the created OFlow node. """
         return self._retimeMethod
 
     def views(self):
         return self._views
 
-    def doAdditionalNodesCallback(self, *args):
+    def doAdditionalNodesCallback(self, *args: Any) -> list:
         """ If a callback for additional nodes has been set, call it, otherwise
         returns an empty list.
         """
@@ -124,13 +118,7 @@ class TrackItemScriptWriter(object):
     calculations.
     """
 
-    def __init__(self,
-                 trackItem,
-                 params,
-                 firstFrame=None,
-                 startHandle=0,
-                 endHandle=0,
-                 offset=0):
+    def __init__(self, trackItem: 'TrackItem', params: ScriptWriteParameters, firstFrame: int | None = None, startHandle: int = 0, endHandle: int = 0, offset: int = 0) -> None:
         """
         @param firstFrame: optional frame for the Read node to start at, including
                            handles if there are any
@@ -232,14 +220,14 @@ class TrackItemScriptWriter(object):
         # Floor the first frame value as the knob this sets on the Read node is treated as an int
         self._readNodeFirstFrame = math.floor(self._readNodeFirstFrame)
 
-    def getReadNodeInfo(self):
+    def getReadNodeInfo(self) -> dict:
         """
         Helper function to get usage information about Read Nodes for this track item
         """
         clip = self._trackItem.source()
         return clip.getReadInfo(firstFrame=self._readNodeFirstFrame)
 
-    def addChannelNodeToScript(self, script, added_nodes):
+    def addChannelNodeToScript(self, script: 'nuke.ScriptWriter', added_nodes: list) -> None:
         """ We need an AddChannels node to add full alpha to the track.
         We want this put into a custom channel, so that it doesn't affect
         other parts of the comp - The Merge node will just be told to use
@@ -266,7 +254,7 @@ class TrackItemScriptWriter(object):
         added_nodes.append(addChannelsNode)
         script.addNode(addChannelsNode)
 
-    def getColorspaceFromProperty(self, lutValue):
+    def getColorspaceFromProperty(self, lutValue: str) -> str:
         """Get just the colorspace name (in parentheses if the LUT value is a role)."""
         if lutValue.endswith(')'):
             return lutValue[lutValue.find('(')+1: -1]
@@ -281,16 +269,7 @@ class TrackItemScriptWriter(object):
             return FnNukeHelpers.nukeColourTransformNameFromHiero(colourTransform, projectSettings)
         return None
 
-    def writeToScript(self,
-                      script=nuke.ScriptWriter(),
-                      nodeLabel=None,
-                      additionalEffects=(),
-                      addChannelNode=False,
-                      readNodes={},
-                      addTimeClip=True,
-                      projectSettings=None,
-                      pendingNodesScript=None,
-                      addTransitions=True):
+    def writeToScript(self, script: 'nuke.ScriptWriter', nodeLabel: str | None = None, additionalEffects: tuple = (), addChannelNode: bool = False, readNodes: dict = {}, addTimeClip: bool = True, projectSettings: dict | None = None, pendingNodesScript: Any | None = None, addTransitions: bool = True) -> list:
         """ Writes the TrackItem to a script. Returns the added nodes.
         @param script: the script writer to add nodes to
         @param nodeLabel: label for the Read node
@@ -546,7 +525,7 @@ class TrackItemScriptWriter(object):
             added_nodes.append(fadeOutGroup)
             script.addNode(fadeOutGroup)
 
-    def writeReformatAndEffects(self, script, additionalEffects, pendingNodesScript):
+    def writeReformatAndEffects(self, script: 'nuke.ScriptWriter', additionalEffects: tuple, pendingNodesScript: Any) -> None:
         """ Write the nodes for reformat and effects, if needed. When outputting to
         sequence format, the reformat goes first. In other cases, the effects are
         modified to fit the input clip's format, and the reformat node is added after.
@@ -578,7 +557,7 @@ class TrackItemScriptWriter(object):
             script.addNode(reformatNode)
         return added_nodes
 
-    def findLinkedEffects(self):
+    def findLinkedEffects(self) -> list:
         """ Find effects linked to the track item being written. """
         linkedEffects = [item for item in self._trackItem.linkedItems(
         ) if isinstance(item, hiero.core.EffectTrackItem)]
@@ -592,7 +571,7 @@ class TrackItemScriptWriter(object):
         linkedEffects.sort(key=lambda effect: effect.subTrackIndex())
         return linkedEffects
 
-    def writeEffects(self, script, effectOffset, additionalEffects, transformToClipFormat, pendingNodesScript):
+    def writeEffects(self, script: 'nuke.ScriptWriter', effectOffset: int, additionalEffects: tuple, transformToClipFormat: bool, pendingNodesScript: Any) -> None:
         """ Write the track item's linked effects plus any additional sequence-level
         ones.
         """
@@ -632,7 +611,7 @@ class TrackItemScriptWriter(object):
             added_nodes.extend(effectNodes)
         return added_nodes
 
-    def outputFormat(self):
+    def outputFormat(self) -> dict | None:
         """ Get the output format for the track item. """
         reformatMethod = self._params._reformatMethod
         if reformatMethod['to_type'] == nuke.ReformatNode.kCompReformatToSequence:
@@ -643,7 +622,7 @@ class TrackItemScriptWriter(object):
         else:
             return self._trackItem.source().format()
 
-    def makeOutputReformatNode(self):
+    def makeOutputReformatNode(self) -> 'ReformatNode' | None:
         """ If outputting to a different format from the clip (e.g. to the sequence
         format), create a ReformatNode to do this. If no output format is set, or
         it's the same as that of the clip, returns None.
@@ -967,14 +946,7 @@ class SequenceScriptWriter(object):
         self._trackWriters = []
         self._readNodeUsageCollator = ReadNodeUsageCollator()
 
-    def writeTracks(self,
-                    connectedTracks,
-                    disconnectedTracks,
-                    script,
-                    offset,
-                    skipOffline,
-                    mediaToSkip,
-                    projectSettings=None):
+    def writeTracks(self, connectedTracks: list, disconnectedTracks: list, script: 'nuke.ScriptWriter', offset: int, skipOffline: bool, mediaToSkip: list, projectSettings: dict | None = None) -> str:
         """ Write a set of tracks, some of which may not be connected to any output.
         If there are multiple connected these are connected to a Merge node.
         Returns a jump name for the final output node.
@@ -1348,7 +1320,7 @@ class SequenceScriptWriter(object):
             previousTrack = track
         return outputJumpName
 
-    def needJoinViews(self):
+    def needJoinViews(self) -> bool:
         """ Test if the views need to be written separately and connected to a JoinViews
         node. This is the case if any of the tracks are set to output to a single view """
         if len(self._params.views()) > 1:
@@ -1357,7 +1329,7 @@ class SequenceScriptWriter(object):
                     return True
         return False
 
-    def writeTracksWithJoinViews(self, script, offset, skipOffline, mediaToSkip, disconnected, masterTracks):
+    def writeTracksWithJoinViews(self, script: 'nuke.ScriptWriter', offset: int, skipOffline: bool, mediaToSkip: list, disconnected: list, masterTracks: list) -> None:
         """ Write the tracks for each view separately and then add a JoinViews node """
         jumpNames = {}
         tracks = {}

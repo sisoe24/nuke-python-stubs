@@ -143,7 +143,7 @@ class TrackSelectionWidget(QtWidgets.QWidget):
             self._trackListModel.itemChanged.connect(self.onItemChanged)
             self._inOnItemChanged = False
 
-    def getIconForTrack(self, track):
+    def getIconForTrack(self, track) -> Any:
         """ Get the icon to use for a track. """
         trackIcon = None
         if isinstance(track, hiero.core.AudioTrack):
@@ -152,7 +152,7 @@ class TrackSelectionWidget(QtWidgets.QWidget):
             trackIcon = QtGui.QIcon('icons:VideoOnly.png')
         return trackIcon
 
-    def trackHasTrackOrSubTrackItems(self, track):
+    def trackHasTrackOrSubTrackItems(self, track) -> bool:
         """ Test if a track has any items or sub-track items. """
         if (
             len(list(track.items())) > 0 or
@@ -163,7 +163,7 @@ class TrackSelectionWidget(QtWidgets.QWidget):
         else:
             return False
 
-    def offlineTrackItems(self, track):
+    def offlineTrackItems(self, track) -> list:
         """ Get a list offline track items for a track. """
         offlineMedia = []
         for trackitem in track:
@@ -175,7 +175,7 @@ class TrackSelectionWidget(QtWidgets.QWidget):
                 offlineMedia.append(' : '.join([trackitem.name(), sourcepath]))
         return offlineMedia
 
-    def onItemChanged(self, item):
+    def onItemChanged(self, item: Any) -> None:
         """ Handle the user checking/unchecking an item in the list. """
 
         # Prevent recursion
@@ -215,7 +215,7 @@ class TrackSelectionWidget(QtWidgets.QWidget):
 
         self._inOnItemChanged = False
 
-    def findTrackByGuid(self, guid):
+    def findTrackByGuid(self, guid) -> Any:
         """ Find a track in the list with the given GUID. """
         for track in self._tracks:
             if track.guid() == guid:

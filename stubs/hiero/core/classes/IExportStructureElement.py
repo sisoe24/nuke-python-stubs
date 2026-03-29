@@ -18,25 +18,25 @@ class IExportStructureElement:
 
     """
 
-    def __new__(self, *args, **kwargs) -> None:
+    def __new__(self, *args, **kwargs) -> Self:
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
         ...
 
-    def __setattr__(self, name, value, ) -> None:
+    def __setattr__(self, name, value) -> None:
         """
         Implement setattr(self, name, value).
         """
         ...
 
-    def __delattr__(self, name, ) -> None:
+    def __delattr__(self, name) -> None:
         """
         Implement delattr(self, name).
         """
         ...
 
-    def __init__(self,  *args, **kwargs) -> None:
+    def __init__(self, *args, **kwargs) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """

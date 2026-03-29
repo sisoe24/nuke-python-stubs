@@ -14,13 +14,13 @@ class WH_Knob(Array_Knob):
     A knob which holds width and height values.
     """
 
-    def __new__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs) -> 'WH_Knob':
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
         ...
 
-    def __hash__(self, ) -> None:
+    def __hash__(self) -> int:
         """
         Return hash(self).
         """
@@ -32,31 +32,31 @@ class WH_Knob(Array_Knob):
         """
         ...
 
-    def names(self, *args: typing.Any, **kwargs: typing.Any) -> None:
+    def names(self, i: int) -> str:
         """
         Return name for dimension 'i'.
         """
         ...
 
-    def x(self, *args: typing.Any, **kwargs: typing.Any) -> None:
+    def x(self) -> float:
         """
         Return value for X position.
         """
         ...
 
-    def y(self, *args: typing.Any, **kwargs: typing.Any) -> None:
+    def y(self) -> float:
         """
         Return value for Y position.
         """
         ...
 
-    def x_at(self, *args: typing.Any, **kwargs: typing.Any) -> None:
+    def x_at(self, t: float) -> float:
         """
         Return value for X position at time 't'.
         """
         ...
 
-    def y_at(self, *args: typing.Any, **kwargs: typing.Any) -> None:
+    def y_at(self, t: float) -> float:
         """
         Return value for Y position at time 't'.
         """

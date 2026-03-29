@@ -199,7 +199,7 @@ class FlipbookNuke(flipbooking.FlipbookApplication):
     def cacheDir(self):
         return nuke.value('preferences.DiskCachePath')
 
-    def _updateWorkingSpace(self):
+    def _updateWorkingSpace(self) -> None:
         """Helper to set the Flipbook's working space to match that of the root node."""
         rootNode = nuke.root()
         if rootNode:
@@ -207,7 +207,7 @@ class FlipbookNuke(flipbooking.FlipbookApplication):
             if workingSpaceKnob:
                 self._manager.setWorkingSpace(workingSpaceKnob.value())
 
-    def runFromNode(self, nodeToFlipbook, frameRanges, views, options):
+    def runFromNode(self, nodeToFlipbook, frameRanges, views, options: dict) -> None:
         """ Execute the fipbook on a node.
         If the node is a AppendClip and all the inputs are Read nodes, the flipbook
         will be executed directly with the inputs filenames  instead of rendering
@@ -266,7 +266,7 @@ class FlipbookNuke(flipbooking.FlipbookApplication):
 
         self.flipbook(videoClips, audioClip, first, last, views, options)
 
-    def flipbook(self, videoClips, audioClip, first, last, views, options):
+    def flipbook(self, videoClips: list[tuple], audioClip, first: int, last: int, views, options: dict) -> None:
         """ Flipbook a set of video clips.
         This method creates a sequence with all the video clips and the audio clip and plays it
         from first to last.
@@ -398,7 +398,7 @@ class FlipbookNuke(flipbooking.FlipbookApplication):
             import traceback
             traceback.print_exc()
 
-    def _clipsAreValid(self, videoClips, views, first, last):
+    def _clipsAreValid(self, videoClips: list[tuple], views, first: int, last: int) -> bool:
         """Check if clips' media are valid. If any clip's media isn't present a
         message box will appear asking if the user wants to continue or not"""
 
@@ -420,7 +420,7 @@ class FlipbookNuke(flipbooking.FlipbookApplication):
         else:
             return True
 
-    def _hasSeparateViewFiles(self, path, views, first, last):
+    def _hasSeparateViewFiles(self, path: str, views, first: int, last: int) -> bool:
         """Iterates from first to last and for each frame checks that a file exists
         for each view name by replacing %V and %v occurances in path. Returns True
         if all files exist and False otherwise."""
@@ -436,7 +436,7 @@ class FlipbookNuke(flipbooking.FlipbookApplication):
                     return False
         return True
 
-    def _applyLutCorrectionFromSequence(self, sequence, videoClips):
+    def _applyLutCorrectionFromSequence(self, sequence, videoClips) -> None:
         """Applies the color transform for each clip according
         the input colorspace"""
 
@@ -457,7 +457,7 @@ class FlipbookNuke(flipbooking.FlipbookApplication):
                 clipOut = trackItem.timelineOut()
                 self._applyLutCorrection(videoTrack, clipIn, clipOut, inColorspace)
 
-    def _applyLutCorrection(self, videoTrack, first, last, inColorspace):
+    def _applyLutCorrection(self, videoTrack, first, last, inColorspace) -> None:
         """Apply the Lut color correction to the data if the input colorspace is not linear"""
         # This is a hack to the fact that the sequence can't apply the inverse lut transform
         # without a project.
@@ -467,7 +467,7 @@ class FlipbookNuke(flipbooking.FlipbookApplication):
         lutCorrection = self._createLUTCorrection()
         lutCorrection.applyLUT(videoTrack, first, last, inColorspace)
 
-    def _getAudioClip(self, options):
+    def _getAudioClip(self, options: dict) -> 'AudioClip | None':
         """ Returns the audio clip for the file defined in the options dictionary,
         or None if no file was defined"""
 
@@ -477,7 +477,7 @@ class FlipbookNuke(flipbooking.FlipbookApplication):
             audioClip = self._manager.createClip(audioFile)
         return audioClip
 
-    def _getViewerLUT(self, options):
+    def _getViewerLUT(self, options: dict) -> str:
         """ Returns a string with the viewer LUT"""
 
         # Split on the delimiter for in/viewer LUT
@@ -489,7 +489,7 @@ class FlipbookNuke(flipbooking.FlipbookApplication):
             lut = luts[1]
         return mapViewerLUTString(lut)
 
-    def _getInputColorspace(self, options):
+    def _getInputColorspace(self, options: dict) -> str:
         """Returns the input color space defined in the options dictionary"""
 
         lut = options.get('lut', '')
@@ -504,7 +504,7 @@ class FlipbookNuke(flipbooking.FlipbookApplication):
 
         return inColorspace
 
-    def _addFadeInFadeOutTransitions(self, sequence, fadeInTime, fadeOutTime):
+    def _addFadeInFadeOutTransitions(self, sequence, fadeInTime, fadeOutTime) -> None:
         """Adds FadeIn and FadeOut transitions.
         If fadeInTime/fadeOutTime are bigger than the first/last sub track item durantion
         these values will be trimmed to the corresponding sub track duration"""
@@ -526,7 +526,7 @@ class FlipbookNuke(flipbooking.FlipbookApplication):
                     subTrackOut, fadeOutTime)
                 videoTrack.addTransition(fadeOutTransition)
 
-    def _addDissolveTransition(self, sequence, dissolveTime):
+    def _addDissolveTransition(self, sequence, dissolveTime) -> None:
         """Add dissolve transition. If the video track only has one sub item nothing is done.
         If dissolveTime if bigger than any sub track item duration it will be trimmed to the smallest
         duration of the 2 sub items for that dissolve transition."""
@@ -563,7 +563,7 @@ class FlipbookNuke(flipbooking.FlipbookApplication):
     def capabilities(self):
         return kNukeFlipbookCapabilities
 
-    def getExtraOptions(self, flipbookDialog, nodeToFlipbook):
+    def getExtraOptions(self, flipbookDialog, nodeToFlipbook) -> dict:
         """ Implements FlipbookApplication.getExtraOptions"""
 
         options = {
@@ -665,7 +665,7 @@ flipbooking.register(FlipbookNuke())
 
 # This overrides Nuke's default renderdialog.py, without having to modify the Nuke install.
 
-def _getIntermediatePath(self):
+def _getIntermediatePath(self) -> str:
     """Get the path for the temporary files. May be filled in using printf syntax."""
     flipbooktmp = ''
     if flipbooktmp == '':
@@ -786,7 +786,7 @@ class FlipbookEventHandler:
         hiero.core.events.registerInterest(
             hiero.core.events.EventType.kContextChanged, self.onContextChanged)
 
-    def onContextChanged(self, event):
+    def onContextChanged(self, event) -> None:
         """ Notification that keyboard focus has changed. """
 
         focusInNuke = event.focusInNuke

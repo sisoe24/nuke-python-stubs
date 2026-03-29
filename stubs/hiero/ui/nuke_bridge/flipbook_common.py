@@ -7,7 +7,7 @@ Common functions used by the Nuke and Player flipbook implementations
 """
 
 
-def getColorspaceFromNode(node):
+def getColorspaceFromNode(node) -> str:
     """ If node is Read or Write it returns the colorspace known value,
     for the remaining nodes 'linear' will be returned"""
 
@@ -33,7 +33,7 @@ def getColorspaceFromNode(node):
     return inputColourspace
 
 
-def getIsUsingNukeColorspaces(rootNode):
+def getIsUsingNukeColorspaces(rootNode) -> bool:
     """Helper function that returns True if the the specified root node is using the original Nuke color management
     and False otherwise, i.e. when OCIO color management is being used."""
 
@@ -52,7 +52,7 @@ def getIsUsingNukeColorspaces(rootNode):
 kNukeViewerLUTFormat = '(.*) \((.*)\)'
 
 
-def mapViewerLUTString(lut):
+def mapViewerLUTString(lut: str) -> str:
     """ Map a viewer LUT string into the form expected by the flipbook viewer """
     res = re.match(kNukeViewerLUTFormat, lut)
     if res is not None:
@@ -61,7 +61,7 @@ def mapViewerLUTString(lut):
         return lut
 
 
-def getRawViewerLUT():
+def getRawViewerLUT() -> str:
     """ Helper function to return a 'raw' viewer LUT string compatible with the
     current color management mode, and current OCIO config if OCIO color management
     is being used. In the case of OCIO, other than when using the nuke-default
@@ -110,7 +110,7 @@ def getRawViewerLUT():
     return rawViewerLUT
 
 
-def getOCIOConfigPath():
+def getOCIOConfigPath() -> str:
     """ Returns the OCIO config filepath used in the Nuke project.
         Returns an empty string if using Nuke Root LUTs"""
     OCIOConfigPath = ''

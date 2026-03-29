@@ -18,13 +18,13 @@ class WindowManager:
     Global object to handle window management in Hiero. Use hiero.ui.windowManager() to get the single instance of this object to use.
     """
 
-    def __new__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs) -> WindowManager:
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
         ...
 
-    def addWindow(self, *args: typing.Any, **kwargs: typing.Any) -> Any:
+    def addWindow(self, window: PySide2.QtWidgets.QWidget, section: int | WindowManager.WindowMenuSection, shortcut: str) -> None:
         """
         self.addWindow(window, section, shortcut) -> adds a window to the window manager and insert a menu item for it into the Window menu. This will also make the window dockable with Hiero's other windows.
 
@@ -34,7 +34,7 @@ class WindowManager:
         """
         ...
 
-    def popupWindow(self, w: PySide2.QtWidgets.QWidget) -> None:
+    def popupWindow(self, window: PySide2.QtWidgets.QWidget) -> None:
         """
         self.popupWindow(window) -> Opens the window in a floating dock panel.
 
@@ -42,7 +42,7 @@ class WindowManager:
         """
         ...
 
-    def showWindow(self, w: PySide2.QtWidgets.QWidget) -> None:
+    def showWindow(self, window: PySide2.QtWidgets.QWidget) -> None:
         """
         self.showWindow(window) -> Opens the window in its layout position or if as a floating dock panel
 

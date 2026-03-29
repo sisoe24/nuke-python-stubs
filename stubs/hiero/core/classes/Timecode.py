@@ -18,7 +18,7 @@ class Timecode:
     Helper module to convert back and forth between (frames and time bases) and time code values.
     """
 
-    def __new__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs) -> Timecode:
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
@@ -30,7 +30,7 @@ class Timecode:
         """
         ...
 
-    def HMSFToFrames(self, timeBase: hiero.core.TimeBase, dropFrame: bool, h: int, m: int, s: int, f: int) -> int:
+    def HMSFToFrames(timeBase: hiero.core.TimeBase, dropFrame: bool, h: int, m: int, s: int, f: int) -> int:
         """
         staticmethod(function) -> method
 
@@ -53,7 +53,7 @@ class Timecode:
         """
         ...
 
-    def displayTypeFromString(self, s: str) -> hiero.core.Timecode.DisplayType:
+    def displayTypeFromString(s: str) -> hiero.core.Timecode.DisplayType:
         """
         staticmethod(function) -> method
 
@@ -76,7 +76,7 @@ class Timecode:
         """
         ...
 
-    def framesToHMSF(self, time: int, timeBase: hiero.core.TimeBase, dropFrame: bool) -> typing.Tuple[int, int, int, int]:
+    def framesToHMSF(time: int, timeBase: hiero.core.TimeBase, dropFrame: bool) -> typing.Tuple[int, int, int, int]:
         """
         staticmethod(function) -> method
 
@@ -99,7 +99,7 @@ class Timecode:
         """
         ...
 
-    def stringToTime(self, s: str, timeBase: hiero.core.TimeBase, displayType: hiero.core.Timecode.DisplayType, timecodeOffset: int = 0) -> typing.Tuple[int, int]:
+    def stringToTime(s: str, timeBase: hiero.core.TimeBase, displayType: hiero.core.Timecode.DisplayType, timecodeOffset: int = 0) -> typing.Tuple[int, int]:
         """
         staticmethod(function) -> method
 
@@ -122,7 +122,7 @@ class Timecode:
         """
         ...
 
-    def timeToString(self, time: int, timeBase: hiero.core.TimeBase, displayType: hiero.core.Timecode.DisplayType, includeSign: bool = False, timecodeOffset: int = 0) -> str:
+    def timeToString(time: int, timeBase: hiero.core.TimeBase, displayType: hiero.core.Timecode.DisplayType, includeSign: bool = False, timecodeOffset: int = 0) -> str:
         """
         staticmethod(function) -> method
 

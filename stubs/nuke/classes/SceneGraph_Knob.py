@@ -16,13 +16,13 @@ class SceneGraph_Knob(Unsigned_Knob):
     to specify their level in the tree. Handles multiple selection of items within the tree.
     """
 
-    def __new__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs) -> SceneGraph_Knob:
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
         ...
 
-    def __hash__(self, ) -> None:
+    def __hash__(self) -> int:
         """
         Return hash(self).
         """
@@ -34,7 +34,7 @@ class SceneGraph_Knob(Unsigned_Knob):
         """
         ...
 
-    def getItems(self,) -> tuple:
+    def getItems(self) -> tuple[tuple[str, str], ...]:
         """
         self.getItems() -> tuple of strings (name, type)
 
@@ -42,7 +42,7 @@ class SceneGraph_Knob(Unsigned_Knob):
         """
         ...
 
-    def setItems(self, *args, autoSelect=False) -> None:
+    def setItems(self, items: list[tuple[str, str]], autoSelect: bool = False) -> None:
         """
         self.setItems([(name1, type1), (name2, type2), ...], autoSelect=false) -> None
 
@@ -54,7 +54,7 @@ class SceneGraph_Knob(Unsigned_Knob):
         """
         ...
 
-    def addItems(self, *args, autoSelect=False) -> None:
+    def addItems(self, items: list[tuple[str, str]], autoSelect: bool = False) -> None:
         """
         self.addItems([(name1, type1), (name2, type2), ...], autoSelect=false) -> None\n
 
@@ -66,7 +66,7 @@ class SceneGraph_Knob(Unsigned_Knob):
         """
         ...
 
-    def removeItems(self, *args) -> None:
+    def removeItems(self, names: list[str]) -> None:
         """
         self.removeItems([name1, name2, ...]) -> None
 
@@ -74,7 +74,7 @@ class SceneGraph_Knob(Unsigned_Knob):
         """
         ...
 
-    def getSelectedItems(self,) -> list:
+    def getSelectedItems(self) -> list[str]:
         """
         self.getSelectedItems() -> list
 
@@ -82,7 +82,7 @@ class SceneGraph_Knob(Unsigned_Knob):
         """
         ...
 
-    def setSelectedItems(self, *args) -> None:
+    def setSelectedItems(self, items: list[str]) -> None:
         """
         self.setSelectedItems([name1, name2, ...]) -> None
 

@@ -14,25 +14,25 @@ class Gizmo(Group):
 
     """
 
-    def __repr__(self, ) -> None:
+    def __repr__(self) -> str:
         """
         Return repr(self).
         """
         ...
 
-    def __str__(self, ) -> None:
+    def __str__(self) -> str:
         """
         Return str(self).
         """
         ...
 
-    def __len__(self, ) -> None:
+    def __len__(self) -> int:
         """
         Return len(self).
         """
         ...
 
-    def __getitem__(self, key, ) -> None:
+    def __getitem__(self, key: Any) -> Any:
         """
         Return self[key].
         """

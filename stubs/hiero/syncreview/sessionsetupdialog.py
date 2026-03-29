@@ -17,7 +17,7 @@ __RequiredFlags = QNetworkInterface.IsUp | QNetworkInterface.IsRunning
 __InvalidFlags = QNetworkInterface.IsLoopBack
 
 
-def _GetLocalAddresses():
+def _GetLocalAddresses() -> list[str]:
     """ Get a list of local IP address strings. """
     results = []
     interfaces = QNetworkInterface.allInterfaces()
@@ -159,7 +159,7 @@ class SessionSetupDialog(QDialog):
         self._connectionInfoLayout.addWidget(self._connectionInfo)
         self._connectionInfoLayout.addWidget(self._connectionInfoButton)
 
-    def _onHostNameSelectionChanged(self):
+    def _onHostNameSelectionChanged(self) -> None:
         """ User selected an entry in the host name combo box. If this was 'Other'
         show the line edit for that
         """
@@ -191,7 +191,7 @@ class SessionSetupDialog(QDialog):
         clientDataColor = (color.red(), color.green(), color.blue())
         return (self._nameField.text(), clientDataColor)
 
-    def getPort(self):
+    def getPort(self) -> int:
         """ Get the port number from the dialog """
         return self._port.value()
 
@@ -205,7 +205,7 @@ class SessionSetupDialog(QDialog):
                           self._connectionInfoButton.rect(),
                           3000)
 
-    def _hostNameText(self):
+    def _hostNameText(self) -> str:
         """ Get the currently selected host name text, which will either be an entry
         in the combo box or from the text edit if 'other' was selected
         """

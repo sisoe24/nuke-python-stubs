@@ -6,7 +6,7 @@ from . import FnCopyExporter
 
 
 class CopyExporterUI(hiero.ui.TaskUIBase):
-    def __init__(self, preset):
+    def __init__(self, preset: object) -> None:
         """Initialize"""
         hiero.ui.TaskUIBase.__init__(self, FnCopyExporter.CopyExporter, preset, 'Copy Exporter')
 

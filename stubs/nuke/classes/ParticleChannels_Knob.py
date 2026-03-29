@@ -14,13 +14,13 @@ class ParticleChannels_Knob(Knob):
     ParticleChannels_Knob
     """
 
-    def __new__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs) -> ParticleChannels_Knob:
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
         ...
 
-    def __hash__(self, ) -> None:
+    def __hash__(self) -> int:
         """
         Return hash(self).
         """
@@ -32,7 +32,7 @@ class ParticleChannels_Knob(Knob):
         """
         ...
 
-    def value(self,) -> int:
+    def value(self) -> int:
         """
         self.value() -> int
         Get the ParticleChannels value for this knob.

@@ -18,7 +18,7 @@ class OTIOTimelineBuilder:
         self._sequence = sequence
         self._warnings = []
 
-    def buildTimeline(self):
+    def buildTimeline(self) -> None:
         """ Create the timeline """
         otioTimeline = otio.schema.Timeline(name=self._sequence.name())
         otioTimeline.global_start_time = self._makeTime(self._sequence.timecodeStart())
@@ -32,11 +32,11 @@ class OTIOTimelineBuilder:
             otioTimeline.tracks.append(self._buildTrack(track))
         return otioTimeline
 
-    def warnings(self):
+    def warnings(self) -> List[str]:
         """ Get the list of warnings from building the timeline """
         return self._warnings
 
-    def _addWarning(self, msg):
+    def _addWarning(self, msg: str) -> None:
         """ Add a warning """
         self._warnings.append(msg)
 

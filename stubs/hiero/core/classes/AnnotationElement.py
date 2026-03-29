@@ -19,37 +19,37 @@ class AnnotationElement:
     This class should not be used directly and AnnotationElement objects should not be created.
     """
 
-    def __new__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs) -> AnnotationElement:
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
         ...
 
-    def __setattr__(self, name, value, ) -> None:
+    def __setattr__(self, name: str, value: object) -> None:
         """
         Implement setattr(self, name, value).
         """
         ...
 
-    def __delattr__(self, name, ) -> None:
+    def __delattr__(self, name: str) -> None:
         """
         Implement delattr(self, name).
         """
         ...
 
-    def __init__(self,  *args, **kwargs) -> None:
+    def __init__(self, *args: object, **kwargs: object) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """
         ...
 
-    def __bool__(self, ) -> None:
+    def __bool__(self) -> bool:
         """
         True if self else False
         """
         ...
 
-    def color(self) -> object:
+    def color(self) -> tuple[float, float, float, float]:
         """
         self.color() -> returns a tuple containing the color for this annotation element in the form (red, green, blue, alpha),
         with the components represented as floating point values in the range [0, 1].

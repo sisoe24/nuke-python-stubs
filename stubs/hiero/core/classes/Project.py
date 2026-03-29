@@ -20,19 +20,19 @@ class Project:
     project = hiero.core.projects()[-1]
     """
 
-    def __new__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs) -> Project:
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
         ...
 
-    def __repr__(self) -> object:
+    def __repr__(self) -> str:
         """
         Return repr(self).
         """
         ...
 
-    def __hash__(self, ) -> None:
+    def __hash__(self) -> int:
         """
         Return hash(self).
         """
@@ -50,37 +50,37 @@ class Project:
         """
         ...
 
-    def __lt__(self, value, ) -> None:
+    def __lt__(self, value) -> bool:
         """
         Return self<value.
         """
         ...
 
-    def __le__(self, value, ) -> None:
+    def __le__(self, value) -> bool:
         """
         Return self<=value.
         """
         ...
 
-    def __eq__(self, value, ) -> None:
+    def __eq__(self, value) -> bool:
         """
         Return self==value.
         """
         ...
 
-    def __ne__(self, value, ) -> None:
+    def __ne__(self, value) -> bool:
         """
         Return self!=value.
         """
         ...
 
-    def __gt__(self, value, ) -> None:
+    def __gt__(self, value) -> bool:
         """
         Return self>value.
         """
         ...
 
-    def __ge__(self, value, ) -> None:
+    def __ge__(self, value) -> bool:
         """
         Return self>=value.
         """
@@ -92,13 +92,13 @@ class Project:
         """
         ...
 
-    def __bool__(self, ) -> None:
+    def __bool__(self) -> bool:
         """
         True if self else False
         """
         ...
 
-    def addView(self, name: str, color: str = Default(self, Hiero.Python.String)) -> bool:
+    def addView(self, name: str, color: str | None = None) -> bool:
         """
         addView(name, color) -> Appends a view to this project's list of views. Returns False if name is empty or a view already exists with the same name.
 
@@ -114,7 +114,7 @@ class Project:
         """
         ...
 
-    def beginUndo(self, arg__1: str) -> hiero.core.UndoGroup:
+    def beginUndo(self, name: str) -> hiero.core.UndoGroup:
         """
         self.beginUndo(name) -> starts a new undo action, which will group all other undo actions until self.endUndo() is called. Be aware that this method only works on the main thread, and will throw an exception otherwise.
         Note that for operations inside the undo to work Project.endUndo() must be called.  It is recommended that you use this in a with block to ensure that this happens.  For example:
@@ -372,7 +372,7 @@ class Project:
         """
         ...
 
-    def posterFrameSettings(self) -> typing.Tuple[core.Project.PosterFrameSetting, int]:
+    def posterFrameSettings(self) -> typing.Tuple[object, int]:
         """
         posterFrameSettings() -> Get the poster frame settings used for clips added to the project.
         @return: tuple of poster frame setting and custom frame number
@@ -408,7 +408,7 @@ class Project:
         """
         ...
 
-    def saveAs(self, filename: str, saveFlags: int = 'kProjectSaveNoFlags') -> None:
+    def saveAs(self, filename: str, saveFlags: int = 0) -> None:
         """
         self.saveAs(filename) -> saves the project to the path specified by the filename parameter. Throws an exception if the project couldn't be saved for any reason.
 
@@ -508,7 +508,7 @@ class Project:
         """
         ...
 
-    def setShotPresetName(self, path: str) -> None:
+    def setShotPresetName(self, name: str) -> None:
         """
         self.setShotPresetName() -> set the name of Shot Preset which is usedwhen sending to nuke or creating a comp.
 
@@ -544,7 +544,7 @@ class Project:
         """
         ...
 
-    def setUseCustomExportDirectory(self, arg__1: bool) -> None:
+    def setUseCustomExportDirectory(self, custom: bool) -> None:
         """
         self.setUseCustomExportDirectory() -> Set if the export root directory should be a custom directory, or use the project directory.
 
@@ -552,7 +552,7 @@ class Project:
         """
         ...
 
-    def setViews(self, *args: typing.Any, **kwargs: typing.Any) -> Any:
+    def setViews(self, *args: typing.Any, **kwargs: typing.Any) -> None:
         """
         setViews(views) -> Set the project's views.
         @param views: this can be either a list of view names, or a list of tuples with (name, color)
@@ -637,7 +637,7 @@ class Project:
         """
         ...
 
-    def useOCIOEnvironmentOverride(self,) -> bool:
+    def useOCIOEnvironmentOverride(self) -> bool:
         """
         staticmethod(function) -> method
 

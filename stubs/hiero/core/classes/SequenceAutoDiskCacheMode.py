@@ -18,157 +18,157 @@ class SequenceAutoDiskCacheMode(object):
 
     """
 
-    def __new__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs) -> SequenceAutoDiskCacheMode:
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
         ...
 
-    def __repr__(self, ) -> None:
+    def __repr__(self) -> str:
         """
         Return repr(self).
         """
         ...
 
-    def __hash__(self, ) -> None:
+    def __hash__(self) -> int:
         """
         Return hash(self).
         """
         ...
 
-    def __str__(self, ) -> None:
+    def __str__(self) -> str:
         """
         Return str(self).
         """
         ...
 
-    def __lt__(self, value, ) -> None:
+    def __lt__(self, value) -> bool:
         """
         Return self<value.
         """
         ...
 
-    def __le__(self, value, ) -> None:
+    def __le__(self, value) -> bool:
         """
         Return self<=value.
         """
         ...
 
-    def __eq__(self, value, ) -> None:
+    def __eq__(self, value) -> bool:
         """
         Return self==value.
         """
         ...
 
-    def __ne__(self, value, ) -> None:
+    def __ne__(self, value) -> bool:
         """
         Return self!=value.
         """
         ...
 
-    def __gt__(self, value, ) -> None:
+    def __gt__(self, value) -> bool:
         """
         Return self>value.
         """
         ...
 
-    def __ge__(self, value, ) -> None:
+    def __ge__(self, value) -> bool:
         """
         Return self>=value.
         """
         ...
 
-    def __add__(self, value, ) -> None:
+    def __add__(self, value) -> SequenceAutoDiskCacheMode:
         """
         Return self+value.
         """
         ...
 
-    def __radd__(self, value, ) -> None:
+    def __radd__(self, value) -> SequenceAutoDiskCacheMode:
         """
         Return value+self.
         """
         ...
 
-    def __sub__(self, value, ) -> None:
+    def __sub__(self, value) -> SequenceAutoDiskCacheMode:
         """
         Return self-value.
         """
         ...
 
-    def __rsub__(self, value, ) -> None:
+    def __rsub__(self, value) -> SequenceAutoDiskCacheMode:
         """
         Return value-self.
         """
         ...
 
-    def __mul__(self, value, ) -> None:
+    def __mul__(self, value) -> SequenceAutoDiskCacheMode:
         """
         Return self*value.
         """
         ...
 
-    def __rmul__(self, value, ) -> None:
+    def __rmul__(self, value) -> SequenceAutoDiskCacheMode:
         """
         Return value*self.
         """
         ...
 
-    def __pos__(self, ) -> None:
+    def __pos__(self) -> SequenceAutoDiskCacheMode:
         """
         +self
         """
         ...
 
-    def __bool__(self, ) -> None:
+    def __bool__(self) -> bool:
         """
         True if self else False
         """
         ...
 
-    def __and__(self, value, ) -> None:
+    def __and__(self, value) -> SequenceAutoDiskCacheMode:
         """
         Return self&value.
         """
         ...
 
-    def __rand__(self, value, ) -> None:
+    def __rand__(self, value) -> SequenceAutoDiskCacheMode:
         """
         Return value&self.
         """
         ...
 
-    def __xor__(self, value, ) -> None:
+    def __xor__(self, value) -> SequenceAutoDiskCacheMode:
         """
         Return self^value.
         """
         ...
 
-    def __rxor__(self, value, ) -> None:
+    def __rxor__(self, value) -> SequenceAutoDiskCacheMode:
         """
         Return value^self.
         """
         ...
 
-    def __or__(self, value, ) -> None:
+    def __or__(self, value) -> SequenceAutoDiskCacheMode:
         """
         Return self|value.
         """
         ...
 
-    def __ror__(self, value, ) -> None:
+    def __ror__(self, value) -> SequenceAutoDiskCacheMode:
         """
         Return value|self.
         """
         ...
 
-    def __int__(self, ) -> None:
+    def __int__(self) -> int:
         """
         int(self)
         """
         ...
 
-    def __index__(self, ) -> None:
+    def __index__(self) -> int:
         """
         Return self converted to an integer, if self is suitable for use as an index into a list.
         """

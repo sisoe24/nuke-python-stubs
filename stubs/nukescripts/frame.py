@@ -14,7 +14,7 @@ def goto_frame():
         nuke.frame(int(nuke.expression(p.value('Frame:'))))
 
 
-def replaceHashes(filename):
+def replaceHashes(filename: str) -> str:
     '''replaceHashes(filename) -> string
     Replace any sequences of 1 or more hash marks (#) with a printf-style %0nd specifier.'''
     def _hashRepl(matchobj):

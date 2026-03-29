@@ -18,7 +18,7 @@ class ItemWrapper:
 
     """
 
-    def __new__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs) -> ItemWrapper:
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
@@ -30,7 +30,7 @@ class ItemWrapper:
         """
         ...
 
-    def __bool__(self, ) -> None:
+    def __bool__(self) -> bool:
         """
         True if self else False
         """
@@ -74,7 +74,7 @@ class ItemWrapper:
         """
         ...
 
-    def item(self) -> object:
+    def item(self) -> hiero.core.Sequence | hiero.core.Clip | hiero.core.TrackItemBase | hiero.core.BinItem:
         """
         self.item() -> Return the item contained within this wrapper.
 
@@ -90,7 +90,7 @@ class ItemWrapper:
         """
         ...
 
-    def root(self) -> hiero.core.Bin:
+    def root(self) -> hiero.core.Bin | None:
         """
         self.root() -> the root is the highest level in the bin selected for export, Root may be null.
 
@@ -112,7 +112,7 @@ class ItemWrapper:
         """
         ...
 
-    def trackItem(self) -> hiero.core.TrackItemBase:
+    def trackItem(self) -> hiero.core.TrackItem:
         """
         self.trackItem() -> converts this ItemWrapper to a hiero.core.TrackItemBase object. If the item wrapper isn't wrapping a TrackItem object, it will return a non-functioning (isNull returns True) TrackItem object (meaning that it has all of the methods of a TrackItem object, but the methods don't do anything)
 

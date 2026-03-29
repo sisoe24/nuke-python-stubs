@@ -223,14 +223,14 @@ class R3DLggParamConverter(object):
         return '{%f %f %f}' % (outR, outG, outB)
 
 
-def _isValidElem(elem):
+def _isValidElem(elem: QDomElement) -> bool:
     """ Helper to check for valid QDomElement instances. Qt methods will return null
     QDomElement objects which don't evaluate false in Python so need to check this.
     """
     return isinstance(elem, QDomElement) and not elem.isNull()
 
 
-def _findFirstInElem(elem, path):
+def _findFirstInElem(elem: QDomElement, path: str) -> Optional[QDomElement]:
     """ Find the first child element matching path. """
     for name in path.split('/'):
         childElem = elem.firstChildElement(name)
@@ -242,7 +242,7 @@ def _findFirstInElem(elem, path):
     return elem
 
 
-def _findAllInElem(elem, path):
+def _findAllInElem(elem: QDomElement, path: str) -> List[QDomElement]:
     """ Find all elements matching path. """
     # If the path contains / find the first element matching the path apart from the
     # end
@@ -261,7 +261,7 @@ def _findAllInElem(elem, path):
     return children
 
 
-def _iterElem(elem, recursive, tagName=None):
+def _iterElem(elem: QDomElement, recursive: bool, tagName: Optional[str] = None) -> Iterator[QDomElement]:
     """ Iterate over child elements, with the option to recurse down the tree and
     match only elements with tagName.
     """
@@ -275,7 +275,7 @@ def _iterElem(elem, recursive, tagName=None):
         child = child.nextSiblingElement()
 
 
-def _getElemGuid(elem):
+def _getElemGuid(elem: QDomElement) -> str:
     """ Extract the guid attribute from an element. Raises an exception if it wasn't found.
     """
     guid = elem.attribute('guid')
@@ -284,7 +284,7 @@ def _getElemGuid(elem):
     return guid
 
 
-def _findElemByGuid(guid, path, root):
+def _findElemByGuid(guid: str, path: str, root: QDomElement) -> Optional[QDomElement]:
     """ Search for an element with the path from the root element which matches
     guid.
     """
@@ -294,17 +294,17 @@ def _findElemByGuid(guid, path, root):
     raise RuntimeError('Failed to find element with guid %s in path %s %s' % (guid, root, path))
 
 
-def _findTrackItemByGuid(guid, root):
+def _findTrackItemByGuid(guid: str, root: QDomElement) -> Optional[QDomElement]:
     """ Find a track item by guid from the document root. """
     return _findElemByGuid(guid, 'trackItemCollection/TrackItem', root)
 
 
-def _findMediaSourceByGuid(guid, root):
+def _findMediaSourceByGuid(guid: str, root: QDomElement) -> Optional[QDomElement]:
     """ Find a media source by guid from the document root. """
     return _findElemByGuid(guid, 'Media/Source', root)
 
 
-def _extractLookEffectParams(look):
+def _extractLookEffectParams(look: QDomElement) -> Dict[str, Any]:
     """ Extract the parameters from a Look element. Returns a dict of {name : value} """
     params = OrderedDict()
     for param in [e.firstChildElement() for e in _findAllInElem(look, 'Effect/values/EffectParameter')]:
@@ -314,7 +314,7 @@ def _extractLookEffectParams(look):
     return params
 
 
-def _quote(s):
+def _quote(s: str) -> str:
     """ Wrap a string in quotes """
     return '"' + s + '"'
 
@@ -416,7 +416,7 @@ _kLookParamToKnobDefinitionsArri = _kLookParamToKnobDefinitionsShared + [
 ]
 
 
-def _mapLookParamsToKnobs(params, knobs, definitions):
+def _mapLookParamsToKnobs(params: Dict[str, Any], knobs: List[str], definitions: Any) -> None:
     """ Convert any EffectParameter values to knob form, and add to the list of knobs """
 
     # Iterate over all known params and try to convert them
@@ -446,7 +446,7 @@ def _filterDefaultColorspace(lookParams):
             del lookParams[csname_field]
 
 
-def _cleanupLookElem(look):
+def _cleanupLookElem(look: QDomElement) -> None:
     """ Cleanup the Look element for a TrackItem. TODO This should probably be
     removed completely, but for now we need to remove all the parameters apart from
     'colourspacename' otherwise problems occur in StormEffectProxy.
@@ -461,7 +461,7 @@ def _cleanupLookElem(look):
         effectValues.removeChild(param)
 
 
-def _findClipFirstTrackItem(clip):
+def _findClipFirstTrackItem(clip: QDomElement) -> Tuple[str, bool]:
     """Find the clip's first track item and return the guid and whether it was video """
     try:
         trackItemGuid = _getElemGuid(_findFirstInElem(
@@ -473,7 +473,7 @@ def _findClipFirstTrackItem(clip):
         return trackItemGuid, False
 
 
-def _clipKnobDefinitionsForPath(filePath):
+def _clipKnobDefinitionsForPath(filePath: str) -> Tuple[List[str], Dict[str, Any]]:
     """ Get the knob definitions for the file type in filePath. Returns a tuple
     of (requiredKnobs, lookParamDefinitions)
     """
@@ -492,7 +492,7 @@ def _clipKnobDefinitionsForPath(filePath):
 _kPathFrameRangeRegEx = re.compile(' \\d+-\\d+$')
 
 
-def _stripPathFrameRange(filePath):
+def _stripPathFrameRange(filePath: str) -> str:
     """ File sequence paths are stored in the hrox with the range on the end,
     strip this.
     """
@@ -500,7 +500,7 @@ def _stripPathFrameRange(filePath):
     return _kPathFrameRangeRegEx.sub('', filePath)
 
 
-def _findMetadataValue(root, name):
+def _findMetadataValue(root: QDomElement, name: str) -> Optional[str]:
     """ Search for a value in an element's metadata """
     values = _findFirstInElem(root, 'sets/Set/values')
     for child in _iterElem(values, False):
@@ -509,7 +509,7 @@ def _findMetadataValue(root, name):
     return None
 
 
-def _createReadNodeElem(doc, knobs):
+def _createReadNodeElem(doc: Any, knobs: List[Tuple[str, Any]]) -> QDomElement:
     """ Generate the script for a Read node and create an element from a list of
     knob name/values.
     """
@@ -519,7 +519,7 @@ def _createReadNodeElem(doc, knobs):
     return node
 
 
-def _convertClipXml(clip, root):
+def _convertClipXml(clip: QDomElement, root: QDomElement) -> None:
     """ Convert clip xml to the new format. """
     # Fix the tag
     clip.setTagName('Clip')
@@ -578,7 +578,7 @@ def _convertClipXml(clip, root):
     clip.appendChild(_createReadNodeElem(root.ownerDocument(), readKnobs))
 
 
-def _convertExportPath(root):
+def _convertExportPath(root: QDomElement) -> None:
     """ Converts the legacy per-project export root path setting to use the new
     form of the user choosing between the 'project directory' or setting a custom path.
     """
@@ -634,7 +634,7 @@ def _convertClipsAndLinks(root, clips, links):
             link.setTagName('Clip')
 
 
-def _findAndConvertClips(root):
+def _findAndConvertClips(root: QDomElement) -> None:
     """ Search for clip-related elements in the document and convert them. """
     # Find all clip related elements
     clips = []
@@ -645,7 +645,7 @@ def _findAndConvertClips(root):
     _convertClipsAndLinks(root, clips, links)
 
 
-def _convertProjectXml(root):
+def _convertProjectXml(root: QDomElement) -> None:
     """ Convert the project XML to the new format, modifying the element tree
     structure in place.
     """
@@ -659,7 +659,7 @@ def _convertProjectXml(root):
     _findAndConvertClips(root)
 
 
-def _checkProjectVersion(root):
+def _checkProjectVersion(root: QDomElement) -> None:
     """ Check the project version. If it's not a version that can be converted,
     throws a RuntimeError.
     """
@@ -670,7 +670,7 @@ def _checkProjectVersion(root):
         raise RuntimeError("Don't know how to convert project at version %s" % version)
 
 
-def _setProjectName(root, dstPath):
+def _setProjectName(root: QDomElement, dstPath: str) -> None:
     """ Set the name on the project element. This is expected to be the same as
     hrox file name.
     """
@@ -679,7 +679,7 @@ def _setProjectName(root, dstPath):
     proj.setAttribute('name', name)
 
 
-def _convertLegacyHroxDocument(root, dstPath):
+def _convertLegacyHroxDocument(root: QDomElement, dstPath: str) -> None:
     """ Read hrox XML data from a file object, convert it and write back to a file object.
     dstPath is the path the file will be written to, which is used for putting the
     project's name into the XML
@@ -698,7 +698,7 @@ def _convertLegacyHroxDocument(root, dstPath):
         _setProjectName(root, dstPath)
 
 
-def convertLegacyHroxString(srcStr, dstPath):
+def convertLegacyHroxString(srcStr: str, dstPath: str) -> str:
     """ Convert hrox XML data stored in a string, and return the result as a string.
     dstPath is the path the file will be written to, which is used for putting the
     project's name into the XML
@@ -709,7 +709,7 @@ def convertLegacyHroxString(srcStr, dstPath):
     return doc.toByteArray()
 
 
-def convertLegacyHroxFile(srcPath, dstPath):
+def convertLegacyHroxFile(srcPath: str, dstPath: str) -> None:
     """ Convert an hrox file to the format used by Nuke 11.1 (and later). Throws
     if there are any errors.
     """

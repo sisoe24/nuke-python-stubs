@@ -14,13 +14,13 @@ class Panel(object):
     Panel
     """
 
-    def __new__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs) -> Panel:
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
         ...
 
-    def __hash__(self, ) -> None:
+    def __hash__(self) -> int:
         """
         Return hash(self).
         """
@@ -60,7 +60,7 @@ class Panel(object):
         """
         ...
 
-    def addSingleLineInput(self, name: str, value) -> bool:
+    def addSingleLineInput(self, name: str, value: str) -> bool:
         """
         self.addSingleLineInput(name, value) -> True if successful.
         Add a single-line input knob to the panel.
@@ -70,7 +70,7 @@ class Panel(object):
         """
         ...
 
-    def addPasswordInput(self, name: str, value) -> bool:
+    def addPasswordInput(self, name: str, value: str) -> bool:
         """
         self.addPasswordInput(name, value) -> True if successful.
         Add a password input knob to the panel.
@@ -80,7 +80,7 @@ class Panel(object):
         """
         ...
 
-    def addFilenameSearch(self, name: str, value) -> bool:
+    def addFilenameSearch(self, name: str, value: str) -> bool:
         """
         self.addFilenameSearch(name, value) -> True if successful.
         Add a filename search knob to the panel.
@@ -90,7 +90,7 @@ class Panel(object):
         """
         ...
 
-    def addClipnameSearch(self, name: str, value) -> bool:
+    def addClipnameSearch(self, name: str, value: str) -> bool:
         """
         self.addClipnameSearch(name, value) -> True if successful.
         Add a clipname search knob to the panel.
@@ -100,7 +100,7 @@ class Panel(object):
         """
         ...
 
-    def addMultilineTextInput(self, name: str, value) -> bool:
+    def addMultilineTextInput(self, name: str, value: str) -> bool:
         """
         self.addMultilineTextInput(name, value) -> True if successful.
         Add a multi-line text knob to the panel.
@@ -110,7 +110,7 @@ class Panel(object):
         """
         ...
 
-    def addNotepad(self, name: str, value) -> bool:
+    def addNotepad(self, name: str, value: str) -> bool:
         """
         self.addNotepad(name, value) -> True if successful.
         Add a text edit widget to the panel.
@@ -120,7 +120,7 @@ class Panel(object):
         """
         ...
 
-    def addBooleanCheckBox(self, name: str, value) -> bool:
+    def addBooleanCheckBox(self, name: str, value: bool) -> bool:
         """
         self.addBooleanCheckBox(name, value) -> True if successful.
         Add a boolean check box knob to the panel.
@@ -130,7 +130,7 @@ class Panel(object):
         """
         ...
 
-    def addRGBColorChip(self, name: str, value) -> bool:
+    def addRGBColorChip(self, name: str, value: str) -> bool:
         """
         self.addRGBColorChip(name, value) -> True if successful.
         Add a color chooser to the panel.
@@ -140,7 +140,7 @@ class Panel(object):
         """
         ...
 
-    def addEnumerationPulldown(self, name: str, value) -> bool:
+    def addEnumerationPulldown(self, name: str, value: str) -> bool:
         """
         self.addEnumerationPulldown(name, value) -> True if successful.
         Add a pulldown menu to the panel.
@@ -150,7 +150,7 @@ class Panel(object):
         """
         ...
 
-    def addTextFontPulldown(self, name: str, value) -> bool:
+    def addTextFontPulldown(self, name: str, value: str) -> bool:
         """
         self.addTextFontPulldown(name, value) -> True if successful.
         Add a font chooser to the panel.
@@ -160,7 +160,7 @@ class Panel(object):
         """
         ...
 
-    def addExpressionInput(self, name: str, value) -> bool:
+    def addExpressionInput(self, name: str, value: str) -> bool:
         """
         self.addExpressionInput(name, value) -> True if successful.
         Add an expression evaluator to the panel.
@@ -170,7 +170,7 @@ class Panel(object):
         """
         ...
 
-    def addScriptCommand(self, name: str, value) -> bool:
+    def addScriptCommand(self, name: str, value: str) -> bool:
         """
         self.addScriptCommand(name, value) -> True if successful.
         Add a script command evaluator to the panel.
@@ -180,7 +180,7 @@ class Panel(object):
         """
         ...
 
-    def addButton(self, name: str, value) -> bool:
+    def addButton(self, name: str, value: str) -> bool:
         """
         self.addButton(name, value) -> True if successful.
         Add a button to the panel.
@@ -190,7 +190,7 @@ class Panel(object):
         """
         ...
 
-    def value(self, name: str) -> None:
+    def value(self, name: str) -> str | None:
         """
         self.value(name) -> The value for the field if any, otherwise None.
         Get the value of a particular control in the panel.
@@ -199,7 +199,7 @@ class Panel(object):
         """
         ...
 
-    def execute(self, name: str) -> str:
+    def execute(self, name: str) -> str | None:
         """
         self.execute(name) -> The result of the script as a string, or None if it fails.
         Execute the script command associated with a particular label and return the result as a string.

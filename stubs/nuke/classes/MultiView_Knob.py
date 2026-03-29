@@ -14,13 +14,13 @@ class MultiView_Knob(Knob):
     MultiView_Knob
     """
 
-    def __new__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs) -> MultiView_Knob:
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
         ...
 
-    def __hash__(self, ) -> None:
+    def __hash__(self) -> int:
         """
         Return hash(self).
         """
@@ -40,7 +40,7 @@ class MultiView_Knob(Knob):
         """
         ...
 
-    def fromScript(self, s) -> bool:
+    def fromScript(self, s: str) -> bool:
         """
         fromScript(s) -> True if succeeded, False otherwise.
 
@@ -60,7 +60,7 @@ class MultiView_Knob(Knob):
         """
         ...
 
-    def notDefault(self,) -> bool:
+    def notDefault(self) -> bool:
         """
         notDefault() -> True if set to its default value, False otherwise.
         """
@@ -76,7 +76,7 @@ class MultiView_Knob(Knob):
         """
         ...
 
-    def toScript(self, quote, context=None) -> str:
+    def toScript(self, quote: bool, context=None) -> str:
         """
         toScript(quote, context=current) -> string.
 

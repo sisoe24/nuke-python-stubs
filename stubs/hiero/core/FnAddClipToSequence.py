@@ -1,7 +1,7 @@
 import core
 
 
-def _addClip(self, clip, time, videoTrackIndex=0, audioTrackIndex=-1):
+def _addClip(self, clip: 'hiero.core.Clip', time: float, videoTrackIndex: int = 0, audioTrackIndex: int = -1) -> 'list[hiero.core.TrackItem]':
     """
     Add a clip to a sequence, creating a TrackItem for each video/audio channel in the clip,
     adding them to the appropriate tracks and linking them together.  This has the same effect

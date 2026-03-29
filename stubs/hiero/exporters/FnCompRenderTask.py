@@ -62,7 +62,7 @@ class CompRenderTaskPreset(TaskPresetBase):
         self._properties['keepNukeScript'] = True
 
 
-def createCompRenderTasks(processor, project):
+def createCompRenderTasks(processor: Processor, project: Project) -> List["CompRenderTask"]:
     """ Generate Comp render tasks for the given processor. """
 
     if processor._preset._compsToRender:

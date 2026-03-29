@@ -12,7 +12,7 @@ from . import (FnAudioHelper, FnAudioConstants, FnExternalRenderUI,
 
 
 class TranscodeExporterUI(FnExternalRenderUI.NukeRenderTaskUI):
-    def __init__(self, preset):
+    def __init__(self, preset: object) -> None:
         """Initialize"""
         FnExternalRenderUI.NukeRenderTaskUI.__init__(
             self, preset, FnTranscodeExporter.TranscodeExporter, 'Transcode Images')
@@ -184,7 +184,7 @@ class TranscodeExporterUI(FnExternalRenderUI.NukeRenderTaskUI):
         dialog.cleanup()
         pass
 
-    def setTags(self, tags):
+    def setTags(self, tags: list[str]) -> None:
         """setTags passes the subset of tags associated with the selection for export"""
         self._tags = tags
 

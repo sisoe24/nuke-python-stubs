@@ -14,25 +14,25 @@ class LookupCurves_Knob(Knob):
     Provide a set of user-editable lookup curves.
     """
 
-    def __new__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs) -> LookupCurves_Knob:
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
         ...
 
-    def __hash__(self, ) -> None:
+    def __hash__(self) -> int:
         """
         Return hash(self).
         """
         ...
 
-    def __init__(self,  *args, **kwargs) -> None:
+    def __init__(self, *args, **kwargs) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """
         ...
 
-    def addCurve(self, curve: str, expr=None) -> None:
+    def addCurve(self, curve: str | AnimationCurve, expr: str | None = None) -> None:
         """
         self.addCurve(curve, expr=None) -> None
         Adds a curve.
@@ -42,7 +42,7 @@ class LookupCurves_Knob(Knob):
         """
         ...
 
-    def editCurve(self, curve: str, expr=None) -> None:
+    def editCurve(self, curve: str | AnimationCurve, expr: str | None = None) -> None:
         """
         self.editCurve(curve, expr=None) -> None
         Edits an existing curve.
@@ -52,7 +52,7 @@ class LookupCurves_Knob(Knob):
         """
         ...
 
-    def delCurve(self, curve: str) -> None:
+    def delCurve(self, curve: str | AnimationCurve) -> None:
         """
         self.delCurve(curve) -> None
         Deletes a curve.

@@ -36,37 +36,37 @@ class TaskUIRegistry(IExporterUIRegistry):
         """
         ...
 
-    def numTaskUIs(self) -> None:
+    def numTaskUIs(self) -> int:
         """
         Get the number of registered ITaskUI classes.
         """
         ...
 
-    def numProcessorUIs(self) -> None:
+    def numProcessorUIs(self) -> int:
         """
         Get the number of registered IProcessorUI classes.
         """
         ...
 
-    def getTaskUI(self, index) -> None:
+    def getTaskUI(self, index: int) -> 'TaskUI':
         """
         Return TaskUI registered at specified index
         """
         ...
 
-    def getProcessorUI(self, index) -> None:
+    def getProcessorUI(self, index: int) -> 'ProcessorUI':
         """
         Return ProcessorUI registered at specified index
         """
         ...
 
-    def processorUIByIndex(self, index) -> None:
+    def processorUIByIndex(self, index: int) -> 'ProcessorUI':
         """
         Return ProcessorUI registered at specified index
         """
         ...
 
-    def getTaskUIForPreset(self, preset) -> None:
+    def getTaskUIForPreset(self, preset: 'ITaskPreset') -> 'TaskUI':
         """
         Return TaskUI object associated with the preset type.  Note that this
         returns a stored instance of the preset, which is suitable for calling
@@ -75,13 +75,13 @@ class TaskUIRegistry(IExporterUIRegistry):
         """
         ...
 
-    def getNewTaskUIForPreset(self, preset) -> None:
+    def getNewTaskUIForPreset(self, preset: 'ITaskPreset') -> 'TaskUI':
         """
         Get a new instance of the task UI class for the preset.
         """
         ...
 
-    def getProcessorUIForPreset(self, preset) -> None:
+    def getProcessorUIForPreset(self, preset: 'IProcessorPreset') -> 'ProcessorUI':
         """
         Return ProcessorUI object associated with the preset type.  Note that
         this returns a stored instance of the preset.

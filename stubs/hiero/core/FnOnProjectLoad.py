@@ -13,7 +13,7 @@ from hiero.core.FnEffectHelpers import calculateReformat
 from .events import EventType, registerInterest
 
 
-def shiftLinkedSubTrackItems(trackItem):
+def shiftLinkedSubTrackItems(trackItem: "TrackItem") -> None:
     """ Move a track item's linked sub-track items up to the next sub-track so new
     effects can be inserted at the bottom.
     """
@@ -30,7 +30,7 @@ def shiftLinkedSubTrackItems(trackItem):
         track.addSubTrackItem(subTrackItem, index)
 
 
-def fixDeprecatedReformatStateProperties(project):
+def fixDeprecatedReformatStateProperties(project: "Project") -> None:
     """ Find track items in the project which are set to reformat in a way which
     is now invalid. Creates soft effect items which are equivalent to the old
     behavior.
@@ -214,7 +214,7 @@ def fixDeprecatedReformatStateProperties(project):
         undo.enable()
 
 
-def onProjectLoaded(event):
+def onProjectLoaded(event: "Event") -> None:
     """ Callback after a project is loaded. """
     project = event.sender
     fixDeprecatedReformatStateProperties(project)

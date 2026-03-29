@@ -18,7 +18,7 @@ class MediaFileInfo:
     Object representing a single set of media files on disk.
     """
 
-    def __new__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs) -> MediaFileInfo:
         """
         Create and return a new object.  See help(type) for accurate signature.
         """

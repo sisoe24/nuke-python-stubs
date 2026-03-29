@@ -9,7 +9,7 @@ import nuke_internal as nuke
 from . import config
 
 
-def get_active_views(ocioConfig):
+def get_active_views(ocioConfig) -> list:
     """
     Return a list of all active views across all displays, ordered by user-defined precedence.
     If the active views are not explicitly set through the config or the environment,
@@ -24,7 +24,7 @@ def get_active_views(ocioConfig):
     return active_views
 
 
-def get_display_active_views(ocioConfig, display):
+def get_display_active_views(ocioConfig, display) -> list:
     """
     Return a list of active views of one display, ordered by user-defined precedence.
     """
@@ -33,14 +33,14 @@ def get_display_active_views(ocioConfig, display):
     return [active_view for active_view in active_views if active_view in display_views_set]
 
 
-def get_displays_and_active_views(ocioConfig):
+def get_displays_and_active_views(ocioConfig) -> list[tuple]:
     """
     Return a list of (active display, list of views)-tuples, ordered by user-defined precedence.
     """
     return [(display, get_display_active_views(ocioConfig, display), ) for display in ocioConfig.getDisplays()]
 
 
-def make_ocio_display(display_, view_, **kwargs):
+def make_ocio_display(display_, view_, **kwargs) -> None:
     """
     If we try to create an OCIODisplay trying to pass the display and view
     through Python it will fail for the case of switching to a different display.
@@ -73,7 +73,7 @@ def restoreSelectionAfterReload():
     return nuke.ViewerProcess.restoreSelectionAfterReload()
 
 
-def register_viewers(ocioConfigPath, also_remove='default', isReload=False):
+def register_viewers(ocioConfigPath: str, also_remove: str = 'default', isReload: bool = False) -> None:
     """Registers the a viewer process for each display device/view, and
     sets the default viewer process.
 

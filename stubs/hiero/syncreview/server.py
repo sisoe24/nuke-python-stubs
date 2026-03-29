@@ -107,7 +107,7 @@ class Server(QObject):
         # Notify existing clients of the new connection
         self.sendMessageToAllClients(msg, exclude=msg.sender)
 
-    def _addClientConnection(self, clientSocketId, clientId):
+    def _addClientConnection(self, clientSocketId: int, clientId: int) -> None:
         """ Set up a newly connected client """
         assert (clientId not in self._clients)
 
@@ -117,7 +117,7 @@ class Server(QObject):
             connection.heartbeatTimer.timeout.connect(lambda: self._onClientTimeout(clientId))
             connection.resetHeartbeatTimer()
 
-    def _processInterClientMessage(self, clientId, msg):
+    def _processInterClientMessage(self, clientId: int, msg: str) -> None:
         """ Handle a non-connection related message from a client and forward it on
         to other clients
         """
@@ -126,7 +126,7 @@ class Server(QObject):
         else:
             self._sendMessageToClient(self._clients[msg.target].socketId, msg)
 
-    def sendMessageToAllClients(self, msg, exclude=None):
+    def sendMessageToAllClients(self, msg: str, exclude: int | None = None) -> None:
         """ Send a message to connected clients, optionally excluding one
         """
         for clientId, connection in self._clients.items():
@@ -134,7 +134,7 @@ class Server(QObject):
                 continue
             self._sendMessageToClient(connection.socketId, msg)
 
-    def _sendMessageToClient(self, clientSocketId, msg):
+    def _sendMessageToClient(self, clientSocketId: int, msg: str) -> None:
         """ Send a message to a single client """
         self._socket.send(clientSocketId, msg.serialize())
 
@@ -149,7 +149,7 @@ class Server(QObject):
         msg = messages.Disconnected(disconnected=clientId)
         self.sendMessageToAllClients(msg)
 
-    def _getNumberOfConnectedClients(self):
+    def _getNumberOfConnectedClients(self) -> int:
         """ Return the number of connected clients excluding the host client """
         return len(self._clients)-1
 

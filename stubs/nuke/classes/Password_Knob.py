@@ -14,13 +14,13 @@ class Password_Knob(Knob):
     A knob which holds a password string value. Appears as a password entry field in a Node panel.
     """
 
-    def __new__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs) -> 'Password_Knob':
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
         ...
 
-    def __hash__(self, ) -> None:
+    def __hash__(self) -> int:
         """
         Return hash(self).
         """
@@ -32,7 +32,7 @@ class Password_Knob(Knob):
         """
         ...
 
-    def getText(self,) -> str:
+    def getText(self) -> str:
         """
         self.getText() -> string
 
@@ -40,7 +40,7 @@ class Password_Knob(Knob):
         """
         ...
 
-    def value(self,) -> str:
+    def value(self) -> str:
         """
         self.value() -> str
 
@@ -49,7 +49,7 @@ class Password_Knob(Knob):
         """
         ...
 
-    def setValue(self, val, view='default') -> None:
+    def setValue(self, val: str, view: str = 'default') -> None:
         """
         self.setValue(val, view='default') -> None
 

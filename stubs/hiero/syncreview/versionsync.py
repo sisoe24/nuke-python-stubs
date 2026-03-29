@@ -25,7 +25,7 @@ class SyncVersionsTool(SyncTool):
                                    self._onLocalVersionLinkedChanged)
 
     @localCallback
-    def _onLocalVersionChanged(self, event):
+    def _onLocalVersionChanged(self, event: object) -> None:
         """ Notification that the version is changing on an object. Note that this is
         the object the change was initiated on, linked items will also change as a
         result of that.
@@ -36,14 +36,14 @@ class SyncVersionsTool(SyncTool):
         self.messageDispatcher.sendMessage(msg)
 
     @localCallback
-    def _onLocalVersionLinkedChanged(self, event):
+    def _onLocalVersionLinkedChanged(self, event: object) -> None:
         """ Notification that the linked state has changed on a track item"""
         msg = messages.VersionLinkedChange(itemGuid=event.item.guid(),
                                            linked=int(event.linked))
         self.messageDispatcher.sendMessage(msg)
 
     @remoteCallback
-    def _onRemoteVersionChanged(self, msg):
+    def _onRemoteVersionChanged(self, msg: object) -> None:
         """ Callback for when the version of a track or bin item has changed remotely
             and needs to be synced locally """
         binItem = findItemByGuid(msg.binItemGuid, filter=(BinItem,))
@@ -68,7 +68,7 @@ class SyncVersionsTool(SyncTool):
                 logMessage('onRemoteVersion changed: trackitem {} not found!'.format(msg.itemGuid))
 
     @remoteCallback
-    def _onRemoteVersionLinkedChanged(self, msg):
+    def _onRemoteVersionLinkedChanged(self, msg: object) -> None:
         """ Callback for when the linked state of a track item has changed remotely
             and needs to be synced locally """
         trackItem = findItemByGuid(msg.itemGuid, filter=(TrackItem,))

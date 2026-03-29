@@ -14,61 +14,61 @@ class Disable_Knob(Boolean_Knob):
     A knob which holds a boolean value representing the disabled state of a node. This appears in a Node panel as a check box.
     """
 
-    def __new__(self, *args, **kwargs) -> None:
+    def __new__(cls: type, *args, **kwargs) -> Disable_Knob:
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
         ...
 
-    def __hash__(self, ) -> None:
+    def __hash__(self) -> int:
         """
         Return hash(self).
         """
         ...
 
-    def __lt__(self, value, ) -> None:
+    def __lt__(self, value: 'Disable_Knob') -> bool:
         """
         Return self<value.
         """
         ...
 
-    def __le__(self, value, ) -> None:
+    def __le__(self, value: 'Disable_Knob') -> bool:
         """
         Return self<=value.
         """
         ...
 
-    def __eq__(self, value, ) -> None:
+    def __eq__(self, value: 'Disable_Knob') -> bool:
         """
         Return self==value.
         """
         ...
 
-    def __ne__(self, value, ) -> None:
+    def __ne__(self, value: 'Disable_Knob') -> bool:
         """
         Return self!=value.
         """
         ...
 
-    def __gt__(self, value, ) -> None:
+    def __gt__(self, value: 'Disable_Knob') -> bool:
         """
         Return self>value.
         """
         ...
 
-    def __ge__(self, value, ) -> None:
+    def __ge__(self, value: 'Disable_Knob') -> bool:
         """
         Return self>=value.
         """
         ...
 
-    def __init__(self,  *args, **kwargs) -> None:
+    def __init__(self, *args, **kwargs) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """
         ...
 
-    def value(self,) -> Union[True, False]:
+    def value(self) -> bool:
         """
         self.value() -> bool
         Get the boolean value for this knob.

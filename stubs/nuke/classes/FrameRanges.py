@@ -14,31 +14,31 @@ class FrameRanges(object):
     A sequence of FrameRange objects with convenience functions for iterating over all frames in all ranges.
     """
 
-    def __new__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs) -> FrameRanges:
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
         ...
 
-    def __hash__(self, ) -> None:
+    def __hash__(self) -> int:
         """
         Return hash(self).
         """
         ...
 
-    def __str__(self, ) -> None:
+    def __str__(self) -> str:
         """
         Return str(self).
         """
         ...
 
-    def __iter__(self, ) -> None:
+    def __iter__(self) -> Iterator[int]:
         """
         Implement iter(self).
         """
         ...
 
-    def __next__(self, ) -> None:
+    def __next__(self) -> int:
         """
         Implement next(self).
         """
@@ -50,7 +50,7 @@ class FrameRanges(object):
         """
         ...
 
-    def size(self,) -> int:
+    def size(self) -> int:
         """
         size() -> int
 
@@ -58,7 +58,7 @@ class FrameRanges(object):
         """
         ...
 
-    def add(self, r) -> None:
+    def add(self, r: FrameRange) -> None:
         """
         add(r) -> None
 
@@ -66,7 +66,7 @@ class FrameRanges(object):
         """
         ...
 
-    def minFrame(self,) -> int:
+    def minFrame(self) -> int:
         """
         minFrame() -> int
 
@@ -74,7 +74,7 @@ class FrameRanges(object):
         """
         ...
 
-    def maxFrame(self,) -> int:
+    def maxFrame(self) -> int:
         """
         maxFrame() -> int
 
@@ -82,7 +82,7 @@ class FrameRanges(object):
         """
         ...
 
-    def clear(self,) -> None:
+    def clear(self) -> None:
         """
         clear() -> None
 
@@ -90,7 +90,7 @@ class FrameRanges(object):
         """
         ...
 
-    def compact(self,) -> None:
+    def compact(self) -> None:
         """
         compact() -> None
 
@@ -98,7 +98,7 @@ class FrameRanges(object):
         """
         ...
 
-    def toFrameList(self,) -> [int]:
+    def toFrameList(self) -> List[int]:
         """
         toFrameList() -> [int]
 
@@ -106,7 +106,7 @@ class FrameRanges(object):
         """
         ...
 
-    def getRange(self,) -> FrameRange:
+    def getRange(self) -> FrameRange:
         """
         getRange()-> FrameRange
 

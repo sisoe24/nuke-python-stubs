@@ -14,13 +14,13 @@ class BeginTabGroup_Knob(Knob):
     Begin a group of tabs. Subsequent knobs will all be part of the same tab group, until a matching EndTabGroup knob is found.
     """
 
-    def __new__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs) -> BeginTabGroup_Knob:
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
         ...
 
-    def __hash__(self, ) -> None:
+    def __hash__(self) -> int:
         """
         Return hash(self).
         """

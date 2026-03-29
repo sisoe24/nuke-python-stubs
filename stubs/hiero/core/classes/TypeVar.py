@@ -58,19 +58,19 @@ class TypeVar(_Final):
     __slots__ = ('__name__', '__bound__', '__constraints__',
                  '__covariant__', '__contravariant__', '__dict__')
 
-    def __init__(self, name, *constraints, bound=None, covariant=False, contravariant=False):
+    def __init__(self, name: str, *constraints: 'Type', bound: 'Type | None' = None, covariant: bool = False, contravariant: bool = False) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """
         return None
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Return repr(self).
         """
         return None
 
-    def __reduce__(self):
+    def __reduce__(self) -> tuple:
         """
         Helper for pickle.
         """
@@ -83,7 +83,7 @@ class TypeVar(_Final):
     __name__: Any = None
 
     @property
-    def __dict__(self) -> Any:
+    def __dict__(self) -> dict[str, Any]:
         """
         dictionary for instance variables (if defined)
         """

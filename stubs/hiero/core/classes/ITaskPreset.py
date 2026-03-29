@@ -20,25 +20,25 @@ class ITaskPreset:
     This class should not be used directly; use hiero.core.TaskPresetBase instead.
     """
 
-    def __new__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs) -> ITaskPreset:
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
         ...
 
-    def __setattr__(self, name, value, ) -> None:
+    def __setattr__(self, name: str, value: object) -> None:
         """
         Implement setattr(self, name, value).
         """
         ...
 
-    def __delattr__(self, name, ) -> None:
+    def __delattr__(self, name: str) -> None:
         """
         Implement delattr(self, name).
         """
         ...
 
-    def __init__(self,  *args, **kwargs) -> None:
+    def __init__(self, *args, **kwargs) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """
@@ -76,7 +76,7 @@ class ITaskPreset:
         """
         ...
 
-    def project(self) -> hiero.core.Project:
+    def project(self) -> hiero.core.Project | None:
         """
         self.project() -> called by Hiero to discover which Project (if any), this preset is assigned to
         """

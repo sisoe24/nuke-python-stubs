@@ -18,7 +18,7 @@ class SpreadsheetView:
 
     """
 
-    def __new__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs) -> 'SpreadsheetView':
         """
         Create and return a new object.  See help(type) for accurate signature.
         """

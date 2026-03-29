@@ -23,37 +23,37 @@ class EffectTrackItem(SubTrackItem):
     EffectTrackItem(effectType, timelineIn, timelineOut)
     """
 
-    def __new__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs) -> EffectTrackItem:
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
         ...
 
-    def __setattr__(self, name, value, ) -> None:
+    def __setattr__(self, name: str, value: typing.Any) -> None:
         """
         Implement setattr(self, name, value).
         """
         ...
 
-    def __delattr__(self, name, ) -> None:
+    def __delattr__(self, name: str) -> None:
         """
         Implement delattr(self, name).
         """
         ...
 
-    def __init__(self,  *args, **kwargs) -> None:
+    def __init__(self, *args: typing.Any, **kwargs: typing.Any) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """
         ...
 
-    def clone(self) -> object:
+    def clone(self) -> EffectTrackItem:
         """
         self.clone() -> returns a deep copy of this object but, unlike copy(), this clones the underlying Nuke node so that the knobs are shared.
         """
         ...
 
-    def copy(self) -> object:
+    def copy(self) -> EffectTrackItem:
         """
         self.copy() -> returns a deep copy of this object.
         """
@@ -65,7 +65,7 @@ class EffectTrackItem(SubTrackItem):
         """
         ...
 
-    def executeNode(self, frames: typing.List[int]) -> None:
+    def executeNode(self, frames: typing.Sequence[int]) -> None:
         """
         self.executeNode(frames) -> execute the effect item's node
 
@@ -79,7 +79,7 @@ class EffectTrackItem(SubTrackItem):
         """
         ...
 
-    def node(self) -> object:
+    def node(self) -> Node:
         """
         self.node() -> Node
 
@@ -131,7 +131,7 @@ class EffectTrackItem(SubTrackItem):
         """
         ...
 
-    def setName(self, name: str):
+    def setName(self, name: str) -> None:
         """
         self.setName() -> Set the name of the effect's node.
         """

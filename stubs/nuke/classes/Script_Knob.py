@@ -14,13 +14,13 @@ class Script_Knob(String_Knob):
     A button which executes a TCL script.
     """
 
-    def __new__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs) -> Script_Knob:
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
         ...
 
-    def __hash__(self, ) -> None:
+    def __hash__(self) -> int:
         """
         Return hash(self).
         """
@@ -32,7 +32,7 @@ class Script_Knob(String_Knob):
         """
         ...
 
-    def command(self,) -> str:
+    def command(self) -> str | None:
         """
         self.command() -> str
 
@@ -41,7 +41,7 @@ class Script_Knob(String_Knob):
         """
         ...
 
-    def value(self,) -> str:
+    def value(self) -> str | None:
         """
         self.value() -> str
 
@@ -68,7 +68,7 @@ class Script_Knob(String_Knob):
         """
         ...
 
-    def execute(self,) -> None:
+    def execute(self) -> None:
         """
         self.execute() -> None
         Execute the command.

@@ -46,7 +46,7 @@ class UIPropertyBase(QtWidgets.QWidget):
     # Signal fired whenever properties are updated
     propertyChanged = QtCore.Signal()
 
-    def __init__(self, key=None, value=None, dictionary=None, label=None, tooltip=None, addWidgetHandler=None):
+    def __init__(self, key: str | None = None, value: Any = None, dictionary: dict | None = None, label: str | None = None, tooltip: str | None = None, addWidgetHandler: Callable | None = None) -> None:
         """@param key - Key against which to store value
            @param value - Value, type of which will determine UI widget
            @param dictionary - dictionary in which value will be saved (against key)
@@ -67,13 +67,13 @@ class UIPropertyBase(QtWidgets.QWidget):
         assert self._value is not None
         assert self._dictionary is not None
 
-    def update(self, commit=False):
+    def update(self, commit: bool = False) -> None:
         """ Update the property.  If commit is True, the current UI value is written back to the
             properties dict.  This seems to be mostly useful when the value may not yet exist in
             the dict and should be set to a default. """
         raise NotImplementedError()
 
-    def setAvailableValues(self, value):
+    def setAvailableValues(self, value: Any) -> None:
         """ Update the available values. This is relevant for properties where the value passed in on
             creation is used to create the available options, e.g. a ComboBox, rather than simply
             being used to determine the type of property to create. This is useful when the available
@@ -169,7 +169,7 @@ class ComboProperty(UIPropertyBase):
         self._dictionary[self._key] = str(self._widget.itemData(self._widget.currentIndex()))
         self.propertyChanged.emit()
 
-    def setFloatValue(self, newValue, floatTolerance=0.01):
+    def setFloatValue(self, newValue: float, floatTolerance: float = 0.01) -> None:
         '''sets the combobox value to the newValue, assuming it can find a string item in the list that is within floatTolerance of the newValue'''
         i = 0
         while i < self._widget.count():
@@ -229,19 +229,19 @@ class CascadingEnumerationComboBox(QtWidgets.QComboBox):
             self.addItem(actionName)
             self._actions.append(action)
 
-    def showPopup(self):
+    def showPopup(self) -> None:
         """ Override default showPopup() and show our menu instead """
         QtWidgets.QComboBox.hidePopup(self)
         self._rootMenu.popup(self.mapToGlobal(QtCore.QPoint(0, self.height())))
 
-    def setCurrentIndex(self, index):
+    def setCurrentIndex(self, index: int) -> None:
         """ Set the current index and set the checked state of the menu entries. """
         QtWidgets.QComboBox.setCurrentIndex(self, index)
         text = self.itemText(index)
         for action in self._actions:
             action.setChecked(action.text() == text)
 
-    def onActionTriggered(self, action):
+    def onActionTriggered(self, action: Any) -> None:
         """ Callback from a menu action being triggered, set the index. """
         index = self._actions.index(action)
         self.setCurrentIndex(index)
@@ -296,7 +296,7 @@ class CascadingEnumerationProperty(UIPropertyBase):
         if commit:
             self._dictionary[self._key] = self._widget.currentText()
 
-    def onComboChanged(self, index):
+    def onComboChanged(self, index: int) -> None:
         """ Slot callback when the combo box current item changes. """
         self._dictionary[self._key] = self._widget.currentText()
         self.propertyChanged.emit()
@@ -457,11 +457,11 @@ class SliderProperty(UIPropertyBase):
         if self._addWidgetHandler != None:
             self._addWidgetHandler(self._slider, editLayout, None)
 
-    def isIntRange(self):
+    def isIntRange(self) -> bool:
         """ Check if the slider is representing an int range. """
         return isinstance(self._value, IntRange)
 
-    def valueFromLineEdit(self):
+    def valueFromLineEdit(self) -> int | float:
         """ Get the value from the line edit widget, as either an int or float depending on
             the range type. """
         text = self._lineEdit.text()
@@ -470,7 +470,7 @@ class SliderProperty(UIPropertyBase):
         else:
             return float(text)
 
-    def valueFromSlider(self):
+    def valueFromSlider(self) -> int | float:
         """ Get the value from the line edit widget, as either an int or float depending on the range type. """
         value = self._slider.value()
         # If representing a float range, map the slider value
@@ -478,7 +478,7 @@ class SliderProperty(UIPropertyBase):
             value = self._value.min() + ((float(value) / float(SliderProperty.__floatSliderMax)) * self._value.range())
         return value
 
-    def setSliderValue(self, value):
+    def setSliderValue(self, value: float) -> None:
         """ Set the slider value. """
         # Block the slider's signals so onSliderValueChanged doesn't get called from here
         self._slider.blockSignals(True)
@@ -510,7 +510,7 @@ class SliderProperty(UIPropertyBase):
         if commit:
             self._dictionary[self._key] = self.valueFromLineEdit()
 
-    def onLineEditTextEdited(self, text):
+    def onLineEditTextEdited(self, text: str) -> None:
         """ Callback when line edit text is edited. """
         # Prevent callbacks from changing the text while the user is typing
         self._handlingUserEdit = True
@@ -520,13 +520,13 @@ class SliderProperty(UIPropertyBase):
         self.propertyChanged.emit()
         self._handlingUserEdit = False
 
-    def onSliderReleased(self):
+    def onSliderReleased(self) -> None:
         """ Callback when slider is released, send property changed notifications. """
         value = self._slider.value()
         self.onSliderValueChanged(value)
         self.propertyChanged.emit()
 
-    def onSliderValueChanged(self, value):
+    def onSliderValueChanged(self, value: float) -> None:
         """ Callback when slider value changes. """
         self._lineEdit.setText(str(self.valueFromSlider()))
         self._dictionary[self._key] = self.valueFromLineEdit()
@@ -623,7 +623,7 @@ class ViewsPropertyWidget(UIPropertyBase):
         layout.addWidget(self._button)
         self.update(False)
 
-    def views(self):
+    def views(self) -> list:
         """ List of available views """
         return self._value
 

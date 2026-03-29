@@ -18,7 +18,7 @@ class NamingScheme:
     Utility object for extracting names for clips, versions and objects out of clip objects
     """
 
-    def __new__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs) -> NamingScheme:
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
@@ -30,7 +30,7 @@ class NamingScheme:
         """
         ...
 
-    def clipName(self, clip: hiero.core.Clip) -> str:
+    def clipName(clip: hiero.core.Clip) -> str:
         """
         staticmethod(function) -> method
 
@@ -53,7 +53,7 @@ class NamingScheme:
         """
         ...
 
-    def default_clipName(self, clip: hiero.core.Clip) -> str:
+    def default_clipName(clip: hiero.core.Clip) -> str:
         """
         staticmethod(function) -> method
 
@@ -76,7 +76,7 @@ class NamingScheme:
         """
         ...
 
-    def default_rootName(self, clip: hiero.core.Clip) -> str:
+    def default_rootName(clip: hiero.core.Clip) -> str:
         """
         staticmethod(function) -> method
 
@@ -99,7 +99,7 @@ class NamingScheme:
         """
         ...
 
-    def default_trackItemName(self, clip: hiero.core.Clip) -> str:
+    def default_trackItemName(clip: hiero.core.Clip) -> str:
         """
         staticmethod(function) -> method
 
@@ -122,7 +122,7 @@ class NamingScheme:
         """
         ...
 
-    def default_versionName(self, clip: hiero.core.Clip) -> str:
+    def default_versionName(clip: hiero.core.Clip) -> str:
         """
         staticmethod(function) -> method
 
@@ -145,7 +145,7 @@ class NamingScheme:
         """
         ...
 
-    def rootName(self, clip: hiero.core.Clip) -> str:
+    def rootName(clip: hiero.core.Clip) -> str:
         """
         staticmethod(function) -> method
 
@@ -168,7 +168,7 @@ class NamingScheme:
         """
         ...
 
-    def trackItemName(self, clip: hiero.core.Clip) -> str:
+    def trackItemName(clip: hiero.core.Clip) -> str:
         """
         staticmethod(function) -> method
 
@@ -191,7 +191,7 @@ class NamingScheme:
         """
         ...
 
-    def versionName(self, clip: hiero.core.Clip) -> str:
+    def versionName(clip: hiero.core.Clip) -> str:
         """
         staticmethod(function) -> method
 

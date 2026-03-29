@@ -14,13 +14,13 @@ class Transform2d_Knob(Knob):
     Transform2d_Knob
     """
 
-    def __new__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs) -> 'Transform2d_Knob':
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
         ...
 
-    def __hash__(self, ) -> None:
+    def __hash__(self) -> int:
         """
         Return hash(self).
         """
@@ -32,7 +32,7 @@ class Transform2d_Knob(Knob):
         """
         ...
 
-    def value(self, oc) -> Any:
+    def value(self, oc: 'OutputContext' | None = None) -> 'matrix':
         """
         value(oc) -> matrix
 

@@ -18,7 +18,7 @@ class FrameExporter(FnShotExporter.ShotTask):
     which are only the same thing for clips with frame sequences
     """
 
-    def __init__(self, initDict):
+    def __init__(self, initDict: dict) -> None:
         """Initialize"""
         FnShotExporter.ShotTask.__init__(self, initDict)
 
@@ -33,7 +33,7 @@ class FrameExporter(FnShotExporter.ShotTask):
         else:
             self._buildFileSequencePaths()
 
-    def _buildVideoClipPaths(self):
+    def _buildVideoClipPaths(self) -> list[tuple[str, str]]:
         """ Build the list of src/dst paths for video clips. """
         srcPath = self._source.fileinfos()[0].filename()
 
@@ -52,7 +52,7 @@ class FrameExporter(FnShotExporter.ShotTask):
         else:
             self._paths.append((srcPath, self.resolvedExportPath()))
 
-    def _buildFileSequencePaths(self):
+    def _buildFileSequencePaths(self) -> list[tuple[str, str]]:
         """ Build the list of src/dst paths for each frame in a file sequence """
         start = self._clip.sourceIn()
         end = self._clip.sourceOut()
@@ -106,7 +106,7 @@ class FrameExporter(FnShotExporter.ShotTask):
     def postFrame(self, src, dst):
         pass
 
-    def formatFrameNumbers(self, string, frame, count=None):
+    def formatFrameNumbers(self, string: str, frame: int, count: int | None = None) -> str:
         """Recursively split a string and modify with the % operation to replace the frame index.\n"""
         """@param count is the maximum number of replaces to do"""
         pos = string.rfind('%')

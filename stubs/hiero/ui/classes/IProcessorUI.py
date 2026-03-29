@@ -20,25 +20,25 @@ class IProcessorUI:
     This class should not be used directly; use hiero.ui.ProcessorUIBase instead.
     """
 
-    def __new__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs) -> Self:
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
         ...
 
-    def __setattr__(self, name, value, ) -> None:
+    def __setattr__(self, name: str, value: typing.Any) -> None:
         """
         Implement setattr(self, name, value).
         """
         ...
 
-    def __delattr__(self, name, ) -> None:
+    def __delattr__(self, name: str) -> None:
         """
         Implement delattr(self, name).
         """
         ...
 
-    def __init__(self,  *args, **kwargs) -> None:
+    def __init__(self, *args: typing.Any, **kwargs: typing.Any) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """
@@ -52,7 +52,7 @@ class IProcessorUI:
         """
         ...
 
-    def populateUI(self, processorUIWidget: PySide2.QtWidgets.QWidget, taskUIWidget: PySide2.QtWidgets.QWidget, items: typing.List[core.ItemWrapper]) -> None:
+    def populateUI(self, processorUIWidget: PySide2.QtGui.QWidget, taskUIWidget: PySide2.QtGui.QWidget, items: typing.List[hiero.core.ItemWrapper], editMode: hiero.core.IProcessorUI.EditMode) -> None:
         """
         self.populateUI() -> called by Hiero to allow the IProcessorUI to populate a QWidget with the ui widgets neccessary to reflect the current preset.
         The EditMode is used to instruct the UI generation code to build in ReadOnly mode
@@ -100,7 +100,7 @@ class IProcessorUI:
         """
         ...
 
-    def validate(self, selection: typing.List[core.ItemWrapper]) -> bool:
+    def validate(self, selection: typing.List[hiero.core.ItemWrapper]) -> bool:
         """
         self.validate() -> called by Hiero to get .
 

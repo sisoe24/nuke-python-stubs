@@ -20,7 +20,7 @@ class TaskUILayoutDivider(QtWidgets.QWidget):
         hLayout.addWidget(divider)
         self.setLayout(hLayout)
 
-    def setText(self, text):
+    def setText(self, text: str) -> None:
         """ Set the text shown in the divider. """
         self._label.setText(text)
 
@@ -35,13 +35,13 @@ class TaskUIFormLayout(QtWidgets.QFormLayout):
         self.setContentsMargins(0, 0, 0, 0)
         self._widgetsLabelsMap = {}
 
-    def addDivider(self, text):
+    def addDivider(self, text: str) -> TaskUILayoutDivider:
         """ Add a divider showing the given text, and return it. """
         divider = TaskUILayoutDivider(text)
         self.addRow(divider)
         return divider
 
-    def addMultiWidgetRow(self, labels, widgets):
+    def addMultiWidgetRow(self, labels: list[str], widgets: list[object]) -> None:
         """ Add multiple widgets, each with a label, to a single row. """
         hLayout = QtWidgets.QHBoxLayout()
         hLayout.setContentsMargins(0, 0, 0, 0)
@@ -55,7 +55,7 @@ class TaskUIFormLayout(QtWidgets.QFormLayout):
         # The QLabel for the first widget is the row's label
         self._widgetsLabelsMap[widgets[0]] = self.labelForField(hLayout)
 
-    def setWidgetEnabled(self, widget, enabled):
+    def setWidgetEnabled(self, widget: object, enabled: bool) -> None:
         """ Set the enabled state of a widget in the layout. This will also set the
         state of its label.
         """
@@ -67,7 +67,7 @@ class TaskUIFormLayout(QtWidgets.QFormLayout):
         if label:
             label.setEnabled(enabled)
 
-    def setWidgetVisible(self, widget, visible):
+    def setWidgetVisible(self, widget: object, visible: bool) -> None:
         """ Set the visible state of a widget in the layout. This will also set the
         state of its label.
         """

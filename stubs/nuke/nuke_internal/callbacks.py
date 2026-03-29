@@ -57,12 +57,12 @@ def _doCallbacks(_dict, node=None):
 onUserCreates = {}
 
 
-def addOnUserCreate(call, args=(), kwargs={}, nodeClass='*'):
+def addOnUserCreate(call: Callable, args: tuple = (), kwargs: dict = {}, nodeClass: str = '*') -> None:
     """Add code to execute when user creates a node"""
     _addCallback(onUserCreates, call, args, kwargs, nodeClass)
 
 
-def removeOnUserCreate(call, args=(), kwargs={}, nodeClass='*'):
+def removeOnUserCreate(call: Callable, args: tuple = (), kwargs: dict = {}, nodeClass: str = '*') -> None:
     """Remove a previously-added callback with the same arguments."""
     _removeCallback(onUserCreates, call, args, kwargs, nodeClass)
 
@@ -76,12 +76,12 @@ def onUserCreate():
 onCreates = {}
 
 
-def addOnCreate(call, args=(), kwargs={}, nodeClass='*'):
+def addOnCreate(call: Callable, args: tuple = (), kwargs: dict = {}, nodeClass: str = '*') -> None:
     """Add code to execute when a node is created or undeleted"""
     _addCallback(onCreates, call, args, kwargs, nodeClass)
 
 
-def removeOnCreate(call, args=(), kwargs={}, nodeClass='*'):
+def removeOnCreate(call: Callable, args: tuple = (), kwargs: dict = {}, nodeClass: str = '*') -> None:
     """Remove a previously-added callback with the same arguments."""
     _removeCallback(onCreates, call, args, kwargs, nodeClass)
 
@@ -93,12 +93,12 @@ def onCreate():
 onScriptLoads = {}
 
 
-def addOnScriptLoad(call, args=(), kwargs={}, nodeClass='Root'):
+def addOnScriptLoad(call: Callable, args: tuple = (), kwargs: dict = {}, nodeClass: str = 'Root') -> None:
     """Add code to execute when a script is loaded"""
     _addCallback(onScriptLoads, call, args, kwargs, nodeClass)
 
 
-def removeOnScriptLoad(call, args=(), kwargs={}, nodeClass='Root'):
+def removeOnScriptLoad(call: Callable, args: tuple = (), kwargs: dict = {}, nodeClass: str = 'Root') -> None:
     """Remove a previously-added callback with the same arguments."""
     _removeCallback(onScriptLoads, call, args, kwargs, nodeClass)
 
@@ -110,12 +110,12 @@ def onScriptLoad():
 onScriptSaves = {}
 
 
-def addOnScriptSave(call, args=(), kwargs={}, nodeClass='Root'):
+def addOnScriptSave(call: Callable, args: tuple = (), kwargs: dict = {}, nodeClass: str = 'Root') -> None:
     """Add code to execute before a script is saved"""
     _addCallback(onScriptSaves, call, args, kwargs, nodeClass)
 
 
-def removeOnScriptSave(call, args=(), kwargs={}, nodeClass='Root'):
+def removeOnScriptSave(call: Callable, args: tuple = (), kwargs: dict = {}, nodeClass: str = 'Root') -> None:
     """Remove a previously-added callback with the same arguments."""
     _removeCallback(onScriptSaves, call, args, kwargs, nodeClass)
 
@@ -127,12 +127,12 @@ def onScriptSave():
 onScriptCloses = {}
 
 
-def addOnScriptClose(call, args=(), kwargs={}, nodeClass='Root'):
+def addOnScriptClose(call: Callable, args: tuple = (), kwargs: dict = {}, nodeClass: str = 'Root') -> None:
     """Add code to execute before a script is closed"""
     _addCallback(onScriptCloses, call, args, kwargs, nodeClass)
 
 
-def removeOnScriptClose(call, args=(), kwargs={}, nodeClass='Root'):
+def removeOnScriptClose(call: Callable, args: tuple = (), kwargs: dict = {}, nodeClass: str = 'Root') -> None:
     """Remove a previously-added callback with the same arguments."""
     _removeCallback(onScriptCloses, call, args, kwargs, nodeClass)
 
@@ -144,12 +144,12 @@ def onScriptClose():
 onDestroys = {}
 
 
-def addOnDestroy(call, args=(), kwargs={}, nodeClass='*'):
+def addOnDestroy(call: Callable, args: tuple = (), kwargs: dict = {}, nodeClass: str = '*') -> None:
     """Add code to execute when a node is destroyed"""
     _addCallback(onDestroys, call, args, kwargs, nodeClass)
 
 
-def removeOnDestroy(call, args=(), kwargs={}, nodeClass='*'):
+def removeOnDestroy(call: Callable, args: tuple = (), kwargs: dict = {}, nodeClass: str = '*') -> None:
     """Remove a previously-added callback with the same arguments."""
     _removeCallback(onDestroys, call, args, kwargs, nodeClass)
 
@@ -161,7 +161,7 @@ def onDestroy():
 knobChangeds = {}
 
 
-def addKnobChanged(call, args=(), kwargs={}, nodeClass='*', node=None):
+def addKnobChanged(call: Callable, args: tuple = (), kwargs: dict = {}, nodeClass: str = '*', node: object = None) -> None:
     """Add code to execute when the user changes a knob
     The knob is availble in nuke.thisKnob() and the node in nuke.thisNode().
     This is also called with dummy knobs when the control panel is opened
@@ -171,7 +171,7 @@ def addKnobChanged(call, args=(), kwargs={}, nodeClass='*', node=None):
     _addCallback(knobChangeds, call, args, kwargs, nodeClass, node)
 
 
-def removeKnobChanged(call, args=(), kwargs={}, nodeClass='*', node=None):
+def removeKnobChanged(call: Callable, args: tuple = (), kwargs: dict = {}, nodeClass: str = '*', node: object = None) -> None:
     """Remove a previously-added callback with the same arguments."""
     _removeCallback(knobChangeds, call, args, kwargs, nodeClass, node)
 
@@ -183,14 +183,14 @@ def knobChanged():
 updateUIs = {}
 
 
-def addUpdateUI(call, args=(), kwargs={}, nodeClass='*'):
+def addUpdateUI(call: Callable, args: tuple = (), kwargs: dict = {}, nodeClass: str = '*') -> None:
     """Add code to execute on every node when things change. This is done
     during idle, you cannot rely on it being done before it starts updating
     the viewer"""
     _addCallback(updateUIs, call, args, kwargs, nodeClass)
 
 
-def removeUpdateUI(call, args=(), kwargs={}, nodeClass='*'):
+def removeUpdateUI(call: Callable, args: tuple = (), kwargs: dict = {}, nodeClass: str = '*') -> None:
     """Remove a previously-added callback with the same arguments."""
     _removeCallback(updateUIs, call, args, kwargs, nodeClass)
 
@@ -203,7 +203,7 @@ def updateUI():
 autolabels = {}
 
 
-def addAutolabel(call, args=(), kwargs={}, nodeClass='*'):
+def addAutolabel(call: Callable, args: tuple = (), kwargs: dict = {}, nodeClass: str = '*') -> None:
     """Add code to execute on every node to produce the text to draw on it
     in the DAG. Any value other than None is converted to a string and used
     as the text. None indicates that previously-added functions should
@@ -211,7 +211,7 @@ def addAutolabel(call, args=(), kwargs={}, nodeClass='*'):
     _addCallback(autolabels, call, args, kwargs, nodeClass)
 
 
-def removeAutolabel(call, args=(), kwargs={}, nodeClass='*'):
+def removeAutolabel(call: Callable, args: tuple = (), kwargs: dict = {}, nodeClass: str = '*') -> None:
     """Remove a previously-added callback with the same arguments."""
     _removeCallback(autolabels, call, args, kwargs, nodeClass)
 
@@ -235,12 +235,12 @@ def autolabel():
 beforeRenders = {}
 
 
-def addBeforeRender(call, args=(), kwargs={}, nodeClass='Write'):
+def addBeforeRender(call: Callable, args: tuple = (), kwargs: dict = {}, nodeClass: str = 'Write') -> None:
     """Add code to execute before starting any renders"""
     _addCallback(beforeRenders, call, args, kwargs, nodeClass)
 
 
-def removeBeforeRender(call, args=(), kwargs={}, nodeClass='Write'):
+def removeBeforeRender(call: Callable, args: tuple = (), kwargs: dict = {}, nodeClass: str = 'Write') -> None:
     """Remove a previously-added callback with the same arguments."""
     _removeCallback(beforeRenders, call, args, kwargs, nodeClass)
 
@@ -252,12 +252,12 @@ def beforeRender():
 beforeFrameRenders = {}
 
 
-def addBeforeFrameRender(call, args=(), kwargs={}, nodeClass='Write'):
+def addBeforeFrameRender(call: Callable, args: tuple = (), kwargs: dict = {}, nodeClass: str = 'Write') -> None:
     """Add code to execute before each frame of a render"""
     _addCallback(beforeFrameRenders, call, args, kwargs, nodeClass)
 
 
-def removeBeforeFrameRender(call, args=(), kwargs={}, nodeClass='Write'):
+def removeBeforeFrameRender(call: Callable, args: tuple = (), kwargs: dict = {}, nodeClass: str = 'Write') -> None:
     """Remove a previously-added callback with the same arguments."""
     _removeCallback(beforeFrameRenders, call, args, kwargs, nodeClass)
 
@@ -269,12 +269,12 @@ def beforeFrameRender():
 afterFrameRenders = {}
 
 
-def addAfterFrameRender(call, args=(), kwargs={}, nodeClass='Write'):
+def addAfterFrameRender(call: Callable, args: tuple = (), kwargs: dict = {}, nodeClass: str = 'Write') -> None:
     """Add code to execute after each frame of a render"""
     _addCallback(afterFrameRenders, call, args, kwargs, nodeClass)
 
 
-def removeAfterFrameRender(call, args=(), kwargs={}, nodeClass='Write'):
+def removeAfterFrameRender(call: Callable, args: tuple = (), kwargs: dict = {}, nodeClass: str = 'Write') -> None:
     """Remove a previously-added callback with the same arguments."""
     _removeCallback(afterFrameRenders, call, args, kwargs, nodeClass)
 
@@ -286,12 +286,12 @@ def afterFrameRender():
 afterRenders = {}
 
 
-def addAfterRender(call, args=(), kwargs={}, nodeClass='Write'):
+def addAfterRender(call: Callable, args: tuple = (), kwargs: dict = {}, nodeClass: str = 'Write') -> None:
     """Add code to execute after any renders"""
     _addCallback(afterRenders, call, args, kwargs, nodeClass)
 
 
-def removeAfterRender(call, args=(), kwargs={}, nodeClass='Write'):
+def removeAfterRender(call: Callable, args: tuple = (), kwargs: dict = {}, nodeClass: str = 'Write') -> None:
     """Remove a previously-added callback with the same arguments."""
     _removeCallback(afterRenders, call, args, kwargs, nodeClass)
 
@@ -303,12 +303,12 @@ def afterRender():
 renderProgresses = {}
 
 
-def addRenderProgress(call, args=(), kwargs={}, nodeClass='Write'):
+def addRenderProgress(call: Callable, args: tuple = (), kwargs: dict = {}, nodeClass: str = 'Write') -> None:
     """Add code to execute when the progress bar updates during any renders"""
     _addCallback(renderProgresses, call, args, kwargs, nodeClass)
 
 
-def removeRenderProgress(call, args=(), kwargs={}, nodeClass='Write'):
+def removeRenderProgress(call: Callable, args: tuple = (), kwargs: dict = {}, nodeClass: str = 'Write') -> None:
     """Remove a previously-added callback with the same arguments."""
     _removeCallback(renderProgresses, call, args, kwargs, nodeClass)
 
@@ -321,12 +321,12 @@ def renderProgress():
 _beforeRecordings = {}
 
 
-def addBeforeRecording(call, args=(), kwargs={}, nodeClass='Viewer'):
+def addBeforeRecording(call: Callable, args: tuple = (), kwargs: dict = {}, nodeClass: str = 'Viewer') -> None:
     """Add code to execute before viewer recording"""
     _addCallback(_beforeRecordings, call, args, kwargs, nodeClass)
 
 
-def removeBeforeRecording(call, args=(), kwargs={}, nodeClass='Viewer'):
+def removeBeforeRecording(call: Callable, args: tuple = (), kwargs: dict = {}, nodeClass: str = 'Viewer') -> None:
     """Remove a previously-added callback with the same arguments."""
     _removeCallback(_beforeRecordings, call, args, kwargs, nodeClass)
 
@@ -338,12 +338,12 @@ def beforeRecording():
 _afterRecordings = {}
 
 
-def addAfterRecording(call, args=(), kwargs={}, nodeClass='Viewer'):
+def addAfterRecording(call: Callable, args: tuple = (), kwargs: dict = {}, nodeClass: str = 'Viewer') -> None:
     """Add code to execute after viewer recording"""
     _addCallback(_afterRecordings, call, args, kwargs, nodeClass)
 
 
-def removeAfterRecording(call, args=(), kwargs={}, nodeClass='Viewer'):
+def removeAfterRecording(call: Callable, args: tuple = (), kwargs: dict = {}, nodeClass: str = 'Viewer') -> None:
     """Remove a previously-added callback with the same arguments."""
     _removeCallback(_afterRecordings, call, args, kwargs, nodeClass)
 
@@ -355,12 +355,12 @@ def afterRecording():
 _beforeReplays = {}
 
 
-def addBeforeReplay(call, args=(), kwargs={}, nodeClass='Viewer'):
+def addBeforeReplay(call: Callable, args: tuple = (), kwargs: dict = {}, nodeClass: str = 'Viewer') -> None:
     """Add code to execute before viewer replay"""
     _addCallback(_beforeReplays, call, args, kwargs, nodeClass)
 
 
-def removeBeforeReplay(call, args=(), kwargs={}, nodeClass='Viewer'):
+def removeBeforeReplay(call: Callable, args: tuple = (), kwargs: dict = {}, nodeClass: str = 'Viewer') -> None:
     """Remove a previously-added callback with the same arguments."""
     _removeCallback(_beforeReplays, call, args, kwargs, nodeClass)
 
@@ -372,12 +372,12 @@ def beforeReplay():
 _afterReplays = {}
 
 
-def addAfterReplay(call, args=(), kwargs={}, nodeClass='Viewer'):
+def addAfterReplay(call: Callable, args: tuple = (), kwargs: dict = {}, nodeClass: str = 'Viewer') -> None:
     """Add code to execute after viewer replay"""
     _addCallback(_afterReplays, call, args, kwargs, nodeClass)
 
 
-def removeAfterReplay(call, args=(), kwargs={}, nodeClass='Viewer'):
+def removeAfterReplay(call: Callable, args: tuple = (), kwargs: dict = {}, nodeClass: str = 'Viewer') -> None:
     """Remove a previously-added callback with the same arguments."""
     _removeCallback(_afterReplays, call, args, kwargs, nodeClass)
 
@@ -422,7 +422,7 @@ def _doBackgroundCallbacks(list, context):
 beforeBackgroundRenders = []
 
 
-def addBeforeBackgroundRender(call, args=(), kwargs={}):
+def addBeforeBackgroundRender(call: Callable, args: tuple = (), kwargs: dict = {}) -> None:
     """Add code to execute before starting any background renders.
     The call must be in the form of:
     def foo(context):
@@ -436,7 +436,7 @@ def addBeforeBackgroundRender(call, args=(), kwargs={}):
     _addBackgroundCallback(beforeBackgroundRenders, call, args, kwargs)
 
 
-def removeBeforeBackgroundRender(call, args=(), kwargs={}):
+def removeBeforeBackgroundRender(call: Callable, args: tuple = (), kwargs: dict = {}) -> None:
     """Remove a previously-added callback with the same arguments."""
     _removeBackgroundCallback(beforeBackgroundRenders, call, args, kwargs)
 
@@ -458,7 +458,7 @@ def beforeBackgroundRender(context):
 afterBackgroundFrameRenders = []
 
 
-def addAfterBackgroundFrameRender(call, args=(), kwargs={}):
+def addAfterBackgroundFrameRender(call: Callable, args: tuple = (), kwargs: dict = {}) -> None:
     """Add code to execute after each frame of a background render.
     The call must be in the form of:
     def foo(context):
@@ -475,7 +475,7 @@ def addAfterBackgroundFrameRender(call, args=(), kwargs={}):
     _addBackgroundCallback(afterBackgroundFrameRenders, call, args, kwargs)
 
 
-def removeAfterBackgroundFrameRender(call, args=(), kwargs={}):
+def removeAfterBackgroundFrameRender(call: Callable, args: tuple = (), kwargs: dict = {}) -> None:
     """Remove a previously-added callback with the same arguments."""
     _removeBackgroundCallback(afterBackgroundFrameRenders, call, args, kwargs)
 
@@ -487,7 +487,7 @@ def afterBackgroundFrameRender(context):
 afterBackgroundRenders = []
 
 
-def addAfterBackgroundRender(call, args=(), kwargs={}):
+def addAfterBackgroundRender(call: Callable, args: tuple = (), kwargs: dict = {}) -> None:
     """Add code to execute after any background renders.
     The call must be in the form of:
     def foo(context):
@@ -501,7 +501,7 @@ def addAfterBackgroundRender(call, args=(), kwargs={}):
     _addBackgroundCallback(afterBackgroundRenders, call, args, kwargs)
 
 
-def removeAfterBackgroundRender(call, args=(), kwargs={}):
+def removeAfterBackgroundRender(call: Callable, args: tuple = (), kwargs: dict = {}) -> None:
     """Remove a previously-added callback with the same arguments."""
     _removeBackgroundCallback(afterBackgroundRenders, call, args, kwargs)
 
@@ -514,7 +514,7 @@ def afterBackgroundRender(context):
 filenameFilters = {}
 
 
-def addFilenameFilter(call, args=(), kwargs={}, nodeClass='*'):
+def addFilenameFilter(call: Callable, args: tuple = (), kwargs: dict = {}, nodeClass: str = '*') -> None:
     """Add a function to modify filenames before Nuke passes them to
     the operating system. The first argument to the function is the
     filename, and it should return the new filename. None is the same as
@@ -523,7 +523,7 @@ def addFilenameFilter(call, args=(), kwargs={}, nodeClass='*'):
     _addCallback(filenameFilters, call, args, kwargs, nodeClass)
 
 
-def removeFilenameFilter(call, args=(), kwargs={}, nodeClass='*'):
+def removeFilenameFilter(call: Callable, args: tuple = (), kwargs: dict = {}, nodeClass: str = '*') -> None:
     """Remove a previously-added callback with the same arguments."""
     _removeCallback(filenameFilters, call, args, kwargs, nodeClass)
 
@@ -558,7 +558,7 @@ def filenameFilter(filename):
 validateFilenames = {}
 
 
-def addValidateFilename(call, args=(), kwargs={}, nodeClass='Write'):
+def addValidateFilename(call: Callable, args: tuple = (), kwargs: dict = {}, nodeClass: str = 'Write') -> None:
     """Add a function to validate a filename in Write nodes. The first argument
     is the filename and it should return a Boolean as to whether the filename is valid
     or not. If a callback is provided, it will control whether the Render button of Write nodes
@@ -566,7 +566,7 @@ def addValidateFilename(call, args=(), kwargs={}, nodeClass='Write'):
     _addCallback(validateFilenames, call, args, kwargs, nodeClass)
 
 
-def removeFilenameValidate(call, args=(), kwargs={}, nodeClass='Write'):
+def removeFilenameValidate(call: Callable, args: tuple = (), kwargs: dict = {}, nodeClass: str = 'Write') -> None:
     """Remove a previously-added callback."""
     _removeCallback(validateFilenames, call, args, kwargs, nodeClass)
 
@@ -604,7 +604,7 @@ def _doAutoSaveCallbacks(filters, filename):
 autoSaveFilters = {}
 
 
-def addAutoSaveFilter(filter):
+def addAutoSaveFilter(filter: Callable[[str], str]) -> None:
     """addAutoSaveFilter(filter) -> None
 
     Add a function to modify the autosave filename before Nuke saves the current script on an autosave timeout.
@@ -616,12 +616,12 @@ def addAutoSaveFilter(filter):
     _addCallback(autoSaveFilters, filter, (), {}, 'Root')
 
 
-def removeAutoSaveFilter(filter):
+def removeAutoSaveFilter(filter: Callable[[str], str]) -> None:
     """Remove a previously-added callback with the same arguments."""
     _removeCallback(autoSaveFilters, call, (), {}, 'Root')
 
 
-def autoSaveFilter(filename):
+def autoSaveFilter(filename: str) -> str:
     """Internal function.  Use addAutoSaveFilter to add a callback"""
     return _doAutoSaveCallbacks(autoSaveFilters, filename)
 
@@ -629,7 +629,7 @@ def autoSaveFilter(filename):
 autoSaveRestoreFilters = {}
 
 
-def addAutoSaveRestoreFilter(filter):
+def addAutoSaveRestoreFilter(filter: Callable[[str], Optional[str]]) -> None:
     """addAutoSaveRestoreFilter(filter) -> None
 
     Add a function to modify the autosave restore file before Nuke attempts to restores the autosave file.
@@ -641,12 +641,12 @@ def addAutoSaveRestoreFilter(filter):
     _addCallback(autoSaveRestoreFilters, filter, (), {}, 'Root')
 
 
-def removeAutoSaveRestoreFilter(filter):
+def removeAutoSaveRestoreFilter(filter: callable) -> None:
     """Remove a previously-added callback with the same arguments."""
     _removeCallback(autoSaveRestoreFilters, filter, (), {}, 'Root')
 
 
-def autoSaveRestoreFilter(filename):
+def autoSaveRestoreFilter(filename: str) -> str:
     """Internal function.  Use addAutoSaveRestoreFilter to add a callback"""
     return _doAutoSaveCallbacks(autoSaveRestoreFilters, filename)
 
@@ -654,7 +654,7 @@ def autoSaveRestoreFilter(filename):
 autoSaveDeleteFilters = {}
 
 
-def addAutoSaveDeleteFilter(filter):
+def addAutoSaveDeleteFilter(filter: callable) -> None:
     """addAutoSaveDeleteFilter(filter) -> None
 
     Add a function to modify the autosave filename before Nuke attempts delete the autosave file.
@@ -666,11 +666,11 @@ def addAutoSaveDeleteFilter(filter):
     _addCallback(autoSaveDeleteFilters, filter, (), {}, 'Root')
 
 
-def removeAutoSaveDeleteFilter(filter):
+def removeAutoSaveDeleteFilter(filter: callable) -> None:
     """Remove a previously-added callback with the same arguments."""
     _removeCallback(autoSaveDeleteFilters, filter, (), {}, 'Root')
 
 
-def autoSaveDeleteFilter(filename):
+def autoSaveDeleteFilter(filename: str) -> str | None:
     """Internal function.  Use addAutoSaveDeleteFilter to add a callback"""
     return _doAutoSaveCallbacks(autoSaveDeleteFilters, filename)

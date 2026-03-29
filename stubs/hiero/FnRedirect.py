@@ -45,7 +45,7 @@ class SESysStdErr(SERedirector, FnPySingleton):
         stderrRedirector(out)
 
 
-def nonInteractiveHelp(object=None):
+def nonInteractiveHelp(object: object = None) -> None:
     """
     Non-interactive version of the built-in help function. This prevents the Nuke UI from freezing when Nuke is launched
     from an interactive terminal and help is used in the Script Editor.

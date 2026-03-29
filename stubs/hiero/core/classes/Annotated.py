@@ -44,7 +44,7 @@ class Annotated(object):
     """
     __slots__ = ()
 
-    def __new__(self, *args, **kwargs):
+    def __new__(cls, *args: object, **kwargs: object) -> 'Annotated':
         """
         staticmethod(function) -> method
 
@@ -67,7 +67,7 @@ class Annotated(object):
         """
         return Any
 
-    def __class_getitem__(self, *args, **kwargs):
+    def __class_getitem__(self, *args: object, **kwargs: object) -> type:
         """
         classmethod(function) -> method
 
@@ -92,7 +92,7 @@ class Annotated(object):
         """
         return Any
 
-    def __init_subclass__(self, *args, **kwargs):
+    def __init_subclass__(self, *args: object, **kwargs: object) -> None:
         """
         classmethod(function) -> method
 
@@ -117,7 +117,7 @@ class Annotated(object):
         """
         return Any
 
-    def __init__(self,  *args, **kwargs):
+    def __init__(self, *args: object, **kwargs: object) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """

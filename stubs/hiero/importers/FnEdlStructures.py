@@ -20,7 +20,7 @@ class TimeCode:
         self.__subfield = sf
         self.__dropFrame = dropFrame
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         return string representation of timecode
         """
@@ -31,38 +31,38 @@ class TimeCode:
             tc = tc + '%s%02d' % ('%', self.__subfield)
         return tc
 
-    def hrs(self):
+    def hrs(self) -> int:
         """
         Return Hours component of timecode
         """
         return self.__hrs
 
-    def mins(self):
+    def mins(self) -> int:
         """
         Return Minutes component of timecode
         """
         return self.__mins
 
-    def secs(self):
+    def secs(self) -> int:
         """
         Return Seconds component of timecode
         """
         return self.__secs
 
-    def frames(self):
+    def frames(self) -> int:
         """
         Return Frames component of timecode
         """
         return self.__frames
 
-    def isDropFrame(self):
+    def isDropFrame(self) -> bool:
         """
         Return True if timecode is dropframe
         http://documentation.apple.com/en/finalcutpro/usermanual/index.html#chapter=D%26section=6%26tasks=true
         """
         return self.__dropFrame
 
-    def toFrames(self, fps):
+    def toFrames(self, fps: float) -> int:
         """
         Return timecode as frame index given framerate
         """
@@ -106,13 +106,13 @@ class TimeCode:
 
         self.__dropFrame = dropFrame
 
-    def addFrames(self, time, fps):
+    def addFrames(self, time: int, fps: float) -> 'TimeCode':
         """
         Return a new TimeCode offset by a given number of frames.
         """
         return TimeCode.createFromFrames(self.toFrames(fps) + time, fps, self.__dropFrame)
 
-    def isEqual(self, rhs):
+    def isEqual(self, rhs: 'TimeCode') -> bool:
         """
         Compare two time code objects
         """
@@ -164,7 +164,7 @@ class EffectField:
         if self.__effect != self.CUT and self.__effect != self.DISSOLVE and self.__effect != self.KEY:
             info('Warning : Unsupported effect field (' + self.__effect + ')')
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Returns a string representation of the EffectField.
         """
@@ -200,7 +200,7 @@ class ModeField:
         if self.hasAudio() and self.numAudioChannels() < 1:
             self.__audiochannels.append(1)
 
-    def numAudioChannels(self):
+    def numAudioChannels(self) -> bool:
         """
         Returns True if has one or more audio track
         """
@@ -212,7 +212,7 @@ class ModeField:
     def hasVideo(self):
         return self.__video
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Return string representation of Mode Field
         """
@@ -248,7 +248,7 @@ class EditDecision:
         self.__edlSource = ''
         self.__retime = None
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Return a string representing the Edit Decision
         """
@@ -268,7 +268,7 @@ class EditDecision:
 
         return event
 
-    def addElement(self, element):
+    def addElement(self, element: 'NamedElement') -> None:
         """
         Add NamedElement object to list of key value pairs
         Values are stored in a list if duplicates are added
@@ -280,80 +280,80 @@ class EditDecision:
         else:
             self.__elements.update({element.key(): [element.val()]})
 
-    def removeElement(self, key):
+    def removeElement(self, key: str) -> None:
         """
         Remove all elements with matching key in list of KVPs
         """
         if key in self.__elements:
             del self.__elements[key]
 
-    def getElement(self, key):
+    def getElement(self, key: str) -> list:
         """
         Return list of values with matching key
         """
         return self.__elements[key]
 
-    def hasElement(self, key):
+    def hasElement(self, key: str) -> bool:
         """
         Returns true if list of KVPs contains matching key
         """
         return key in self.__elements
 
-    def setEditId(self, editId):
+    def setEditId(self, editId: int) -> None:
         """
         Set Edit index
         """
         self.__editId = editId
 
-    def editId(self):
+    def editId(self) -> int:
         """
         Return Edit index
         """
         return self.__editId
 
-    def name(self):
+    def name(self) -> str:
         """
         Return tape name
         """
         return self.__name
 
-    def mode(self):
+    def mode(self) -> 'ModeField':
         """
         Return mode field object
         """
         return self.__mode
 
-    def effectfield(self):
+    def effectfield(self) -> 'EffectField':
         """
         Return effect field object
         """
         return self.__effect
 
-    def srcEntry(self):
+    def srcEntry(self) -> 'TimeCode':
         """
         Return source in timecode obj
         """
         return self.__srcEntry
 
-    def srcExit(self):
+    def srcExit(self) -> 'TimeCode':
         """
         Return source out timecode obj
         """
         return self.__srcExit
 
-    def syncEntry(self):
+    def syncEntry(self) -> 'TimeCode':
         """
         Return timeline in timecode obj
         """
         return self.__syncEntry
 
-    def syncExit(self):
+    def syncExit(self) -> 'TimeCode':
         """
         Return timeline out timecode obj
         """
         return self.__syncExit
 
-    def isBlank(self):
+    def isBlank(self) -> bool:
         """
         Return true if tape name is BL or BLANK
         """
@@ -396,31 +396,31 @@ class RetimeElement:
         self.__srcEntry = srcEntry
         self.__edlSource = ''
 
-    def name(self):
+    def name(self) -> str:
         """
         Return reel name for retime
         """
         return self.__name
 
-    def framerate(self):
+    def framerate(self) -> float:
         """
         Return resulting framerate
         """
         return self.__framerate
 
-    def srcEntry(self):
+    def srcEntry(self) -> 'TimeCode | None':
         """
         Return src entry timecode for retime. This can be None if a parsed EDL did not contain it.
         """
         return self.__srcEntry
 
-    def setSrcEntry(self, srcEntry):
+    def setSrcEntry(self, srcEntry: 'TimeCode') -> None:
         """
         Set the src entry timecode value for this retime.
         """
         self.__srcEntry = srcEntry
 
-    def matches(self, rhs):
+    def matches(self, rhs: 'RetimeElement') -> bool:
         """
         Return True if rhs object has same name and timecode
         """

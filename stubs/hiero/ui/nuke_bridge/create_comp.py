@@ -21,7 +21,7 @@ from hiero.ui.BuildExternalMediaTrack import (BuildTrack, TrackFinderByTag,
 from .send_to_nuke import TrackItemCollisionDialog, getProjectShotPreset
 
 
-def getRenderOutputType(preset):
+def getRenderOutputType(preset: Any) -> str:
     """ Get the file type from the preset's Write node. """
 
     kNukeShotTaskName = 'hiero.exporters.FnNukeShotExporter.NukeShotExporter'
@@ -52,7 +52,7 @@ def getRenderOutputType(preset):
     raise RuntimeError('Failed to get render output type')
 
 
-def checkPresetRenderOutput(preset):
+def checkPresetRenderOutput(preset: Any) -> bool:
     """ Check if the render output of the export preset is supported by create comp.  Only rendering to image sequences is allowed at the moment. """
 
     kMovieFileTypes = ('mov', 'mov64', 'ffmpeg', 'mxf')
@@ -192,7 +192,7 @@ class CreateCompForTrackItemsDialog(QtWidgets.QDialog):
         buttonBox.rejected.connect(self.reject)
         mainLayout.addWidget(buttonBox)
 
-    def createLabel(self, text):
+    def createLabel(self, text: str) -> None:
         """ Create a label with the font set to bold """
         label = QtWidgets.QLabel(text)
         font = label.font()
@@ -200,7 +200,7 @@ class CreateCompForTrackItemsDialog(QtWidgets.QDialog):
         label.setFont(font)
         return label
 
-    def createCompTypeButtons(self):
+    def createCompTypeButtons(self) -> None:
         """ Create radio buttons for selecting between single/multi comp """
         buttonGroup = QtWidgets.QButtonGroup(self)
         singleCompButton = QtWidgets.QRadioButton(CreateCompForTrackItemsDialog.kSingleNukeText)
@@ -213,7 +213,7 @@ class CreateCompForTrackItemsDialog(QtWidgets.QDialog):
 
         return singleCompButton, multiCompButton
 
-    def createSelectPresetButton(self):
+    def createSelectPresetButton(self) -> None:
         """ Create the button for showing the Create Comp Special dialog """
         selectPresetButton = QtWidgets.QPushButton()
         selectPresetButton.setFlat(True)
@@ -223,7 +223,7 @@ class CreateCompForTrackItemsDialog(QtWidgets.QDialog):
         selectPresetButton.clicked.connect(self._openCreateCompSpecialDialog)
         return selectPresetButton
 
-    def createShotsTableWidget(self):
+    def createShotsTableWidget(self) -> None:
         """ Create the table for selecting the master track item """
         # Build the model
         model = QtGui.QStandardItemModel(len(self._trackItems), 3)
@@ -294,7 +294,7 @@ class CreateCompForTrackItemsDialog(QtWidgets.QDialog):
         self._multiComp = True
         self._setTableVisibility(False)
 
-    def _setTableVisibility(self, visible):
+    def _setTableVisibility(self, visible: bool) -> None:
         """ Set the visibility of the table, adjusting the dialog size accordingly. """
         if visible == self._tableWidget.isVisible():
             return
@@ -309,23 +309,23 @@ class CreateCompForTrackItemsDialog(QtWidgets.QDialog):
         QtCore.QCoreApplication.processEvents()
         self.resize(self.width(), newHeight)
 
-    def _openCreateCompSpecialDialog(self):
+    def _openCreateCompSpecialDialog(self) -> None:
         """ Open the Create Comp Special dialog allowing the user to configure the preset from here """
         newPreset = showCreateCompSpecialDialog(self._trackItems)
         if newPreset:
             self._preset = newPreset
 
-    def multipleComps(self):
+    def multipleComps(self) -> bool:
         """ Get if creating a comp for each track item was selected """
         return self._multiComp
 
-    def masterTrackItem(self):
+    def masterTrackItem(self) -> Any:
         """ For a single comp, get the selected master track item """
         proxyIndex = self._trackItemTable.selectedIndexes()[0]
         index = self._trackItemTable.model().mapToSource(proxyIndex)
         return self._trackItems[index.row()]
 
-    def preset(self):
+    def preset(self) -> Any:
         """ Get the export preset to use for the comp """
         return self._preset
 
@@ -338,14 +338,14 @@ class CreateCompMessageBoxErrorHandler(object):
 
     kDefaultBriefMessage = 'An error occurred during script export.'
 
-    def error(self, message):
+    def error(self, message: str) -> None:
         """ Handle an error message.  Currently shows a message box with the error text. """
         detail = message
         brief = self.getBriefTextFromMessage(
             message) or CreateCompMessageBoxErrorHandler.kDefaultBriefMessage
         self.showErrorDialog(brief, detail)
 
-    def getBriefTextFromMessage(self, message):
+    def getBriefTextFromMessage(self, message: str) -> str:
         """ Extract the error message from the text.  Due to the way the export system handles errors, the
             message that Create Comp gets is usually in the form of a full stack trace from the original exception.
             Try to find the exception message in that. """
@@ -353,7 +353,7 @@ class CreateCompMessageBoxErrorHandler(object):
             if line.startswith('Exception:'):
                 return line[11:]
 
-    def showErrorDialog(self, brief, detail):
+    def showErrorDialog(self, brief: str, detail: str) -> None:
         """ Show an error message box with the brief and detailed text. """
         msgBox = QtWidgets.QMessageBox(hiero.ui.mainWindow())
         msgBox.setText('Create Comp Error')
@@ -391,11 +391,11 @@ class CreateCompActionBase(BuildTrackFromExportTagAction):
 
         self._errorHandler = CreateCompMessageBoxErrorHandler()
 
-    def findTag(self, trackItem):
+    def findTag(self, trackItem) -> Any:
         """ Override from base class.  Find the Nuke Shot Exporter tag. """
         return self.findShotExporterTag(trackItem)
 
-    def findExistingCreateCompTag(self, trackItem):
+    def findExistingCreateCompTag(self, trackItem) -> Any:
         """ Try to find a tag from a previous 'Create Comp' by checking that it has the expected metadata keys.
             Crucially, it should have the 'tag.trackItem' key indicating the tag had a comp track item created from it. """
         return self._findTagWithMetadataKeys(trackItem, ('tag.presetid', 'tag.path', 'tag.script', 'tag.trackItem'))
@@ -454,7 +454,7 @@ class CreateCompActionBase(BuildTrackFromExportTagAction):
                     if key in taskProperties:
                         taskProperties[key] = value
 
-    def _preProcessTrackItems(self, trackItems, initialVersion):
+    def _preProcessTrackItems(self, trackItems: list, initialVersion: int) -> list[tuple[Any, Any, int]]:
         """ Check tags and versions on the given track items prior to exporting them.  This will return a list of tuples,
             containing (trackItem, tag, version).   If there was no tag already on the item, it will be None. """
 
@@ -495,7 +495,7 @@ class CreateCompActionBase(BuildTrackFromExportTagAction):
 
         return trackItemData
 
-    def _layoutScripts(self, trackItemData):
+    def _layoutScripts(self, trackItemData: list) -> None:
         """ Layout all the scripts we've created from the items in trackItemData.  This will be run on
             a background thread to keep the UI responsive, since this can be slow, especially on Windows. """
 
@@ -525,21 +525,21 @@ class CreateCompActionBase(BuildTrackFromExportTagAction):
             hiero.core.executeInMainThread(self._setProgress, counter / total * 100)
             counter = counter + 1
 
-    def _setProgress(self, progress):
+    def _setProgress(self, progress: int) -> None:
         """ Set the progress in the UI. """
         if self._progressTask:
             self._progressTask.setProgress(int(progress))
 
-    def _isCancelled(self):
+    def _isCancelled(self) -> bool:
         """ Check if the user has cancelled the operation. """
         return self._cancelled or self._progressTask and self._progressTask.isCancelled()
 
-    def _showProgress(self):
+    def _showProgress(self) -> None:
         """ Show the progress window if it's not already visible. """
         if not self._progressTask:
             self._progressTask = foundry.ui.ProgressTask('Creating Comp...')
 
-    def _processExportedTrackItems(self, trackItemData, sequence, project):
+    def _processExportedTrackItems(self, trackItemData: list, sequence: Any, project: Any) -> None:
         """ After writing out the nk scripts, finish processing and build the
             track with the comp clips on. """
 
@@ -587,7 +587,7 @@ class CreateCompActionBase(BuildTrackFromExportTagAction):
         if self._compTrackItems:
             self._success = True
 
-    def findTransitionsToCopy(self, trackItems):
+    def findTransitionsToCopy(self, trackItems: list) -> list[Any]:
         """ Find transitions which should be copied to the VFX track. """
         transitions = []
 
@@ -614,8 +614,8 @@ class CreateCompActionBase(BuildTrackFromExportTagAction):
 
         return transitions
 
-    def _exportSequence(self, trackItems, masterTrackItem, version,
-                        effectItems, annotations, project):
+    def _exportSequence(self, trackItems: list, masterTrackItem: Any, version: int,
+                        effectItems: Any, annotations: Any, project: Any) -> None:
         """ Export a sequence. """
 
         # Copy the preset so we can modify its properties
@@ -674,7 +674,7 @@ class CreateCompActionBase(BuildTrackFromExportTagAction):
 
         self._runExport(preset, exportItems)
 
-    def _warnExistingExport(self):
+    def _warnExistingExport(self) -> None:
         """ If a comp has already been created for a track item, we will create a new version.  Pop up
             a message box in this case so the user can cancel if they want to. """
         title = 'Create Comp'
@@ -688,7 +688,7 @@ class CreateCompActionBase(BuildTrackFromExportTagAction):
         msgBox.exec_()
         return (msgBox.clickedButton() == continueButton)
 
-    def _exportShots(self, trackItemData, effectItems, annotations, project):
+    def _exportShots(self, trackItemData: list, effectItems: Any, annotations: Any, project: Any) -> None:
         """ Export track items as separate clips. """
 
         exportEffectList = [hiero.core.ItemWrapper(effect) for effect in effectItems]
@@ -722,7 +722,7 @@ class CreateCompActionBase(BuildTrackFromExportTagAction):
             exportItems = [trackItemWrapper] + exportEffectList + exportAnnotationList
             self._runExport(preset, exportItems)
 
-    def _runExport(self, preset, exportItems):
+    def _runExport(self, preset: Any, exportItems: list) -> None:
         """ Run the export from a configured preset and list of items """
         # First run the pre-export validation step and throw if it fails
         errorString = hiero.core.taskRegistry.validateExport(preset, exportItems)
@@ -732,7 +732,7 @@ class CreateCompActionBase(BuildTrackFromExportTagAction):
         # Perform the export
         hiero.core.taskRegistry.createAndExecuteProcessor(preset, exportItems, synchronous=True)
 
-    def _findMultiViewTrackItems(self, mainTrackItem):
+    def _findMultiViewTrackItems(self, mainTrackItem: Any) -> Any:
         """ For multi-view projects, if the given track item is on a track which
         outputs to a single view, try to find the corresponding items on other tracks
         so they can be included in the exported script. If this is not the case,
@@ -896,7 +896,7 @@ class CreateCompActionBase(BuildTrackFromExportTagAction):
     def _doit(self):
         self.execute(self)
 
-    def execute(self, singleNukeScript=None, singleNukeScriptMasterTrackItem=None):
+    def execute(self, singleNukeScript: Any = None, singleNukeScriptMasterTrackItem: Any = None) -> None:
         """ This function was created to set the master trackItem in popup dialog
         created in gui when creating comp out of multiple track items
         """
@@ -989,7 +989,7 @@ class CreateCompActionBase(BuildTrackFromExportTagAction):
             finally:
                 self._progressTask = None
 
-    def getExportPreset(self):
+    def getExportPreset(self) -> Any:
         """ Get the export preset to be used as the basis for creating the comp.  To be implemented by sub-classes. """
         raise NotImplementedError
 

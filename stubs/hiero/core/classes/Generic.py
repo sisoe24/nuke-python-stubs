@@ -35,7 +35,7 @@ class Generic(object):
     __slots__ = ()
     _is_protocol = False
 
-    def __class_getitem__(self, *args, **kwargs):
+    def __class_getitem__(self, item) -> type:
         """
         classmethod(function) -> method
 
@@ -60,7 +60,7 @@ class Generic(object):
         """
         return Any
 
-    def __init_subclass__(self, *args, **kwargs):
+    def __init_subclass__(self, *args, **kwargs) -> None:
         """
         classmethod(function) -> method
 
@@ -85,7 +85,7 @@ class Generic(object):
         """
         return Any
 
-    def __init__(self,  *args, **kwargs):
+    def __init__(self, *args, **kwargs) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """

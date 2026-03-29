@@ -13,7 +13,7 @@ from .FnExportUtil import writeSequenceAudioWithHandles
 
 
 class AudioExportTask(TaskBase):
-    def __init__(self, initDict):
+    def __init__(self, initDict: dict) -> None:
         """Initialize"""
         TaskBase.__init__(self, initDict)
 
@@ -22,7 +22,7 @@ class AudioExportTask(TaskBase):
 
         pass
 
-    def sequenceInOutPoints(self, sequence, indefault, outdefault):
+    def sequenceInOutPoints(self, sequence: object, indefault: int, outdefault: int) -> tuple[int, int]:
         """Return tuple (start, end) of in/out points. If either in/out is not set, return in/outdefault in its place."""
         inTime, outTime = indefault, outdefault
         try:

@@ -15,7 +15,7 @@ import nuke_internal as nuke
 #
 
 
-def get_reads(method):
+def get_reads(method: str) -> list[str]:
     """Returns file names from all Read nodes.
 
     Options:

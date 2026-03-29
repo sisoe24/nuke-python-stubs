@@ -122,7 +122,7 @@ def activeViewer() -> ViewerWindow:
     ...
 
 
-def addFavoriteDir(name: str, directory: str, type: Optional[str] = None, icon: Optional[str] = None, tooltip: Optional[str] = None, key: Optional[str] = None) -> None:
+def addFavoriteDir(name: str, directory: str, type: Optional[int] = None, icon: Optional[str] = None, tooltip: Optional[str] = None, key: Optional[str] = None) -> None:
     """
     addFavoriteDir(name, directory, type, icon, tooltip, key) -> None.
 
@@ -139,7 +139,7 @@ def addFavoriteDir(name: str, directory: str, type: Optional[str] = None, icon: 
     ...
 
 
-def addFormat(s: str) -> Union[Format, None]:
+def addFormat(s: str) -> Optional[Format]:
     """
     addFormat(s) -> Format or None.
 
@@ -154,7 +154,7 @@ def addFormat(s: str) -> Union[Format, None]:
     ...
 
 
-def addNodePresetExcludePaths(paths: Iterable) -> None:
+def addNodePresetExcludePaths(paths: Iterable[str]) -> None:
     """
     addNodePresetExcludePaths( paths ) -> None
 
@@ -177,7 +177,7 @@ def addSequenceFileExtension(fileExtension: str) -> None:
     ...
 
 
-def addToolsetExcludePaths(paths: list) -> None:
+def addToolsetExcludePaths(paths: Iterable[str]) -> None:
     """
     addToolsetExcludePaths( paths ) -> None
 
@@ -272,7 +272,7 @@ def animation(object, *commands) -> None:
     ...
 
 
-def animationEnd() -> int:
+def animationEnd() -> float:
     """
     animationEnd() -> float.
 
@@ -294,7 +294,7 @@ def animationIncrement() -> float:
     ...
 
 
-def animationStart() -> int:
+def animationStart() -> float:
     """
     animationStart() -> float
 
@@ -368,7 +368,7 @@ def ask(prompt: str) -> bool:
     ...
 
 
-def askWithCancel(prompt) -> bool:
+def askWithCancel(prompt: str) -> bool:
     """
     askWithCancel(prompt) -> bool
 
@@ -473,7 +473,7 @@ def cancel() -> None:
     ...
 
 
-def center() -> list:
+def center() -> list[float]:
     """
     center() -> array with x, then y
 
@@ -491,7 +491,7 @@ def center() -> list:
     ...
 
 
-def channels(n=None) -> list:
+def channels(n: Optional[Node] = None) -> list[str]:
     """
     channels(n=None) -> (string)
 
@@ -507,7 +507,7 @@ def channels(n=None) -> list:
     ...
 
 
-def choice(title: str, prompt: str, options: list, default=0) -> int:
+def choice(title: str, prompt: str, options: list[str], default: int = 0) -> Optional[int]:
     """
     choice(title, prompt, options, default = 0) -> index
 
@@ -587,7 +587,7 @@ def clearTabMenuWeighting() -> None:
     ...
 
 
-def clone(n: Node, args: Optional[int | float] = None, inpanel: Optional[bool] = None) -> Node:
+def clone(n: Node, args: Optional[int] = None, inpanel: Optional[bool] = None) -> Node:
     """
     clone(n, args, inpanel) -> Node
 
@@ -615,7 +615,7 @@ def cloneSelected(action: Optional[str] = None) -> bool:
     ...
 
 
-def collapseToGroup(show=True) -> Group:
+def collapseToGroup(show: bool = True) -> Group:
     """
     collapseToGroup(show=True) -> Group
 
@@ -627,7 +627,7 @@ def collapseToGroup(show=True) -> Group:
     ...
 
 
-def collapseToLiveGroup(show=True) -> Group:
+def collapseToLiveGroup(show: bool = True) -> Group:
     """
     collapseToLiveGroup(show=True) -> Group
 
@@ -650,7 +650,7 @@ def connectNodes() -> None:
     ...
 
 
-def connectViewer(inputNum: int | float, node: Node) -> None:
+def connectViewer(inputNum: int, node: Node) -> None:
     """
     connectViewer(inputNum, node) -> None
 
@@ -709,7 +709,7 @@ def createScenefileBrowser(fileName: str, nodeName: str) -> None:
     ...
 
 
-def createToolset(filename=None, overwrite=-1, rootPath=None) -> None:
+def createToolset(filename: Optional[str] = None, overwrite: int = -1, rootPath: Optional[str] = None) -> None:
     """
     createToolset(filename=None, overwrite=-1, rootPath = None) -> None
 
@@ -906,7 +906,7 @@ def execute(nameOrNode: Node | str, start: Optional[int] = None, end: Optional[i
     ...
 
 
-def executeBackgroundNuke(exe_path: str, nodes: list[Node], frameRange: list, views: list[View], limits: dict, continueOnError=False, flipbookToRun: str = '', flipbookOptions: dict = {}) -> int:
+def executeBackgroundNuke(exe_path: str, nodes: list[Node], frameRange: list, views: list[View], limits: dict, continueOnError: bool = False, flipbookToRun: str = '', flipbookOptions: dict = {}) -> int:
     """
     executeBackgroundNuke(exe_path, nodes, frameRange, views, limits, continueOnError = False, flipbookToRun = ", flipbookOptions = {}) -> None
 
@@ -924,7 +924,7 @@ def executeBackgroundNuke(exe_path: str, nodes: list[Node], frameRange: list, vi
     ...
 
 
-def executeMultiple(nodes: list[Node], ranges: Optional[int] = None, views: Optional[list[View]] = None, continueOnError=False) -> None:
+def executeMultiple(nodes: list[Node], ranges: Optional[list[list[int]]] = None, views: Optional[list[View]] = None, continueOnError: bool = False) -> None:
     """
     executeMultiple(nodes, ranges, views, continueOnError=False) -> None
 
@@ -1033,7 +1033,7 @@ def extractSelected() -> None:
     ...
 
 
-def filename(node=None, i: Optional[int] = None) -> str:
+def filename(node: Node | None = None, i: Optional[int] = None) -> str | None:
     """
     filename(node, i) -> str
 
@@ -1066,7 +1066,7 @@ def forceClone() -> bool:
     ...
 
 
-def forceLoad(n=None) -> None:
+def forceLoad(n: Node | None = None) -> None:
     """
     forceLoad(n) -> None
 
@@ -1124,7 +1124,7 @@ def fromNode(n: Node) -> str:
     ...
 
 
-def getAllUserPresets() -> list:
+def getAllUserPresets() -> list[tuple]:
     """
     getAllUserPresets() -> None
 
@@ -1135,7 +1135,7 @@ def getAllUserPresets() -> list:
     ...
 
 
-def getClipname(prompt: str, pattern=None, default=None, multiple=False) -> list:
+def getClipname(prompt: str, pattern: Optional[str] = None, default: Optional[str] = None, multiple: bool = False) -> list[str] | str | None:
     """
     getClipname(prompt, pattern=None, default=None, multiple=False) -> list of strings or string
 
@@ -1180,7 +1180,7 @@ def getDeletedPresets() -> dict:
     ...
 
 
-def getFileNameList(dir: Iterable, splitSequences=False, extraInformation=False, returnDirs=True, returnHidden=False) -> list:
+def getFileNameList(dir: Iterable[str], splitSequences: bool = False, extraInformation: bool = False, returnDirs: bool = True, returnHidden: bool = False) -> list[str]:
     """
     getFileNameList( dir, splitSequences = False, extraInformation = False, returnDirs=True, returnHidden=False ) -> str
 
@@ -1196,7 +1196,7 @@ def getFileNameList(dir: Iterable, splitSequences=False, extraInformation=False,
     ...
 
 
-def getFilename(message: str, pattern=None, default=None, favorites=None, type=None, multiple=False) -> list:
+def getFilename(message: str, pattern: Optional[str] = None, default: Optional[str] = None, favorites: Optional[str] = None, type: Optional[str] = None, multiple: bool = False) -> str | list[str] | None:
     """
     getFilename(message, pattern=None, default=None, favorites=None, type=None, multiple=False) -> list of strings or single string
 
@@ -1219,7 +1219,7 @@ def getFilename(message: str, pattern=None, default=None, favorites=None, type=N
     ...
 
 
-def getFonts() -> list:
+def getFonts() -> list[str]:
     """
     getFonts() -> list of font  families and styl.
 
@@ -1230,7 +1230,7 @@ def getFonts() -> list:
     ...
 
 
-def getFramesAndViews(label: str, default=None, maxviews=0) -> list:
+def getFramesAndViews(label: str, default: str | None = None, maxviews: int = 0) -> tuple[list, list]:
     """
     getFramesAndViews(label, default=None, maxviews=0) -> (ranges, views)
 
@@ -1253,7 +1253,7 @@ def getGeoSelection() -> dict:
     ...
 
 
-def getInput(prompt: str, default: str) -> str:
+def getInput(prompt: str, default: str) -> str | None:
     """
     getInput(prompt, default) -> str
 
@@ -1277,7 +1277,7 @@ def getNodeClassName() -> str:
     ...
 
 
-def getNodePresetExcludePaths() -> list:
+def getNodePresetExcludePaths() -> list[str]:
     """
     getNodePresetExcludePaths() -> string list
 
@@ -1299,7 +1299,7 @@ def getNodePresetID() -> str:
     ...
 
 
-def getOcioColorSpaces() -> list:
+def getOcioColorSpaces() -> list[str]:
     """
     getOcioColorSpaces() -> returns the list of OCIO colorspaces.
 
@@ -1308,7 +1308,7 @@ def getOcioColorSpaces() -> list:
     ...
 
 
-def getPaneFor(panelName) -> None:
+def getPaneFor(panelName: str) -> Dock | None:
     """
     getPaneFor( panelName ) -> Dock
 
@@ -1321,7 +1321,7 @@ def getPaneFor(panelName) -> None:
     ...
 
 
-def getPresetKnobValues() -> str:
+def getPresetKnobValues() -> dict:
     """
     getPresetKnobValues() -> None
 
@@ -1334,7 +1334,7 @@ def getPresetKnobValues() -> str:
     ...
 
 
-def getPresets() -> list:
+def getPresets() -> list[tuple[str, str]]:
     """
     getPresets() -> None
 
@@ -1345,7 +1345,7 @@ def getPresets() -> list:
     ...
 
 
-def getPresetsMenu(Node) -> None:
+def getPresetsMenu(Node: Node) -> Menu | None:
     """
     getPresetsMenu(Node) -> Menu or None
 
@@ -1356,7 +1356,7 @@ def getPresetsMenu(Node) -> None:
     ...
 
 
-def getReadFileKnob(node: Node) -> knob:
+def getReadFileKnob(node: Node) -> object | None:
     """
     getReadFileKnob(node) -> knob
 
@@ -1378,7 +1378,7 @@ def getRenderProgress() -> int:
     ...
 
 
-def getToolsetExcludePaths() -> list:
+def getToolsetExcludePaths() -> list[str]:
     """
     getToolsetExcludePaths() -> string list
 
@@ -1389,7 +1389,7 @@ def getToolsetExcludePaths() -> list:
     ...
 
 
-def getUserPresetKnobValues() -> str:
+def getUserPresetKnobValues() -> dict:
     """
     getUserPresetKnobValues() -> None
 
@@ -1402,7 +1402,7 @@ def getUserPresetKnobValues() -> str:
     ...
 
 
-def getUserPresets(Node) -> list:
+def getUserPresets(Node: Node) -> list[tuple[str, str]]:
     """
     getUserPresets(Node) -> None
 
@@ -1424,7 +1424,7 @@ def hotkeys() -> str:
     ...
 
 
-def inputs(n: Node, i: Optional[int | float] = None) -> int | float:
+def inputs(n: Node, i: Optional[int] = None) -> int:
     """
     inputs(n, i) -> int
 
@@ -1452,7 +1452,7 @@ def invertSelection() -> None:
     ...
 
 
-def knob(name: str, value=None, getType: Optional[int] = None, getClass: Optional[str] = None) -> None:
+def knob(name: str, value: Any = None, getType: Optional[bool] = None, getClass: Optional[bool] = None) -> Any:
     """
     knob(name, value, getType, getClass) -> None
 
@@ -1507,7 +1507,7 @@ def knob(name: str, value=None, getType: Optional[int] = None, getClass: Optiona
     ...
 
 
-def knobDefault(classknob: str, value: Optional[str] = None) -> Union[None, str]:
+def knobDefault(classknob: str, value: Optional[str] = None) -> Optional[str]:
     """
     knobDefault(classknob, value) -> str
 
@@ -1592,7 +1592,7 @@ def load(s: str) -> None:
     ...
 
 
-def loadToolset(filename=None, overwrite=-1) -> None:
+def loadToolset(filename: Optional[str] = None, overwrite: int = -1) -> None:
     """
     loadToolset(filename=None, overwrite=-1) -> None
 
@@ -1603,7 +1603,7 @@ def loadToolset(filename=None, overwrite=-1) -> None:
     ...
 
 
-def localiseFiles(readKnobs) -> None:
+def localiseFiles(readKnobs: Any) -> None:
     """
     localiseFiles(readKnobs)
 
@@ -1614,7 +1614,7 @@ def localiseFiles(readKnobs) -> None:
     ...
 
 
-def localizationEnabled(knob) -> bool:
+def localizationEnabled(knob: Any) -> bool:
     """
     localizationEnabled(knob) -> bool
 
@@ -1626,7 +1626,7 @@ def localizationEnabled(knob) -> bool:
     ...
 
 
-def makeGroup(show=True) -> Group:
+def makeGroup(show: bool = True) -> Group:
     """
     makeGroup(show=True) -> Group
 
@@ -1640,7 +1640,7 @@ def makeGroup(show=True) -> Group:
     ...
 
 
-def maxPerformanceInfo(*args: typing.Any, **kwargs: typing.Any) -> int | float:
+def maxPerformanceInfo() -> Optional[dict]:
     """
     maxPerformanceInfo -> Get the max performance info for this session.
 
@@ -1699,7 +1699,7 @@ def modified(status: Optional[bool] = None) -> bool:
     ...
 
 
-def nodeAtPath(path: str, instanceIndex: Optional[int] = None) -> Union[Node, None]:
+def nodeAtPath(path: str, instanceIndex: Optional[int] = None) -> Optional[Node]:
     """
     nodeAtPath(path, instanceIndex) -> Node
 
@@ -1735,7 +1735,7 @@ def nodeCopy(s: str) -> bool:
     ...
 
 
-def nodeDelete(s) -> bool:
+def nodeDelete(s: str) -> bool:
     """
     nodeDelete(s) -> True if any nodes were deleted, False otherwise.
 
@@ -1760,7 +1760,7 @@ def nodePaste(s: str) -> Node:
     ...
 
 
-def nodeTypes(force_plugin_load=False) -> List:
+def nodeTypes(force_plugin_load: bool = False) -> List[str]:
     """
     nodeTypes(force_plugin_load=False) -> List
 
@@ -1779,7 +1779,7 @@ def nodesSelected() -> bool:
     ...
 
 
-def numvalue(knob: Knob, default=None) -> float:
+def numvalue(knob: Knob, default: Optional[float] = None) -> float:
     """
     numvalue(knob, default=infinity) -> float
 
@@ -1808,7 +1808,7 @@ def oculaPresent() -> bool:
     ...
 
 
-def ofxAddPluginAliasExclusion(fullOfxEffectName: list) -> None:
+def ofxAddPluginAliasExclusion(fullOfxEffectName: str) -> None:
     """
     ofxAddPluginAliasExclusion(fullOfxEffectName) -> None
 
@@ -1841,7 +1841,7 @@ def ofxMenu() -> bool:
     ...
 
 
-def ofxPluginPath() -> list:
+def ofxPluginPath() -> list[str]:
     """
     nuke.ofxPluginPath() -> String list
 
@@ -1852,7 +1852,7 @@ def ofxPluginPath() -> list:
     ...
 
 
-def ofxRemovePluginAliasExclusion(fullOfxEffectName: list) -> None:
+def ofxRemovePluginAliasExclusion(fullOfxEffectName: str) -> None:
     """
     ofxRemovePluginAliasExclusion(fullOfxEffectName) -> None
 
@@ -1865,7 +1865,7 @@ def ofxRemovePluginAliasExclusion(fullOfxEffectName: list) -> None:
     ...
 
 
-def nodesSelected() -> list:
+def nodesSelected() -> List[Node]:
     """
     nodesSelected() -> List
 
@@ -1874,7 +1874,7 @@ def nodesSelected() -> list:
     ...
 
 
-def pan() -> list:
+def pan() -> list[float]:
     """
     pan() -> array with x, then y
 
@@ -1889,7 +1889,7 @@ def pan() -> list:
     ...
 
 
-def performanceProfileFilename() -> str:
+def performanceProfileFilename() -> Optional[str]:
     """
     performanceProfileFilename() -> File to write performance profile to for this session.
 
@@ -1914,7 +1914,7 @@ def pluginExists(name: str) -> bool:
     ...
 
 
-def pluginInstallLocation() -> list:
+def pluginInstallLocation() -> list[str]:
     """
     pluginInstallLocation() -> string list
 
@@ -1942,7 +1942,7 @@ def pluginPath() -> list:
     ...
 
 
-def plugins(switches=0, *pattern) -> list:
+def plugins(switches: int = 0, *pattern: str) -> list[str]:
     """
     plugins(switches=0, *pattern)-> list of str
 
@@ -2019,7 +2019,7 @@ def registerFlipbook(s: str) -> None:
     ...
 
 
-def removeFavoriteDir(name: str, type: Optional[str] = None) -> None:
+def removeFavoriteDir(name: str, type: Optional[int] = None) -> None:
     """
     removeFavoriteDir(name, type) -> None.
 
@@ -2032,7 +2032,7 @@ def removeFavoriteDir(name: str, type: Optional[str] = None) -> None:
     ...
 
 
-def execute(nameOrNode: Node | str, start: Optional[int] = None, end: Optional[int] = None, incr: Optional[int] = None, views: Optional[list[View]] = None, continueOnError=False) -> None:
+def execute(nameOrNode: Node | str, start: Optional[int] = None, end: Optional[int] = None, incr: Optional[int] = None, views: Optional[list[View]] = None, continueOnError: bool = False) -> None:
     """
     execute(nameOrNode, start, end, incr, views, continueOnError = False) -> None.
     execute(nameOrNode, frameRangeSet, views, continueOnError = False) -> None.\n
@@ -2103,7 +2103,7 @@ def root() -> Node:
     ...
 
 
-def runIn(object: str, cmd) -> bool:
+def runIn(object: str, cmd: str) -> bool:
     """
     runIn(object, cmd) -> bool
 
@@ -2150,7 +2150,7 @@ def saveEventGraphTimers(filePath: str) -> None:
     ...
 
 
-def saveToScript(filename, fileContent) -> None:
+def saveToScript(filename: str, fileContent: str) -> None:
     """
     saveToScript(filename, fileContent) -> None
 
@@ -2159,7 +2159,7 @@ def saveToScript(filename, fileContent) -> None:
     ...
 
 
-def saveUserPreset(node, presetName: str) -> bool:
+def saveUserPreset(node: Node, presetName: str) -> bool:
     """
     saveUserPreset(node, presetName) -> None
 
@@ -2187,28 +2187,28 @@ def scriptName() -> str:
     ...
 
 
-def scriptNew(*args: typing.Any, **kwargs: typing.Any) -> None:
+def scriptNew(*args: typing.Any, **kwargs: typing.Any) -> bool:
     """
     Start a new script. Returns True if successful.
     """
     ...
 
 
-def scriptReadFile(*args: typing.Any, **kwargs: typing.Any) -> None:
+def scriptReadFile(*args: typing.Any, **kwargs: typing.Any) -> list[Node]:
     """
     Read nodes from a file.
     """
     ...
 
 
-def scriptReadText(*args: typing.Any, **kwargs: typing.Any) -> None:
+def scriptReadText(*args: typing.Any, **kwargs: typing.Any) -> list[Node]:
     """
     Read nodes from a string.
     """
     ...
 
 
-def scriptSave(filename=None) -> str:
+def scriptSave(filename: Optional[str] = None) -> bool:
     """
     scriptSave(filename=None) -> bool
 
@@ -2222,7 +2222,7 @@ def scriptSave(filename=None) -> str:
     ...
 
 
-def scriptSaveAs(filename=None, overwrite=-1) -> None:
+def scriptSaveAs(filename: Optional[str] = None, overwrite: int = -1) -> None:
     """
     scriptSaveAs(filename=None, overwrite=-1) -> None
 
@@ -2239,7 +2239,7 @@ def scriptSaveAs(filename=None, overwrite=-1) -> None:
     ...
 
 
-def scriptSaveToTemp(string) -> str:
+def scriptSaveToTemp(string: str) -> str:
     """
     scriptSaveToTemp(string) -> string
 
@@ -2251,7 +2251,7 @@ def scriptSaveToTemp(string) -> str:
     ...
 
 
-def scriptSource(*args: typing.Any, **kwargs: typing.Any) -> None:
+def scriptSource(*args: typing.Any, **kwargs: typing.Any) -> list[Node]:
     """
     Same as scriptReadFile().
     """
@@ -2283,7 +2283,7 @@ def selectPattern() -> None:
     ...
 
 
-def selectSimilar(matchType) -> None:
+def selectSimilar(matchType: int) -> None:
     """
     selectSimilar(matchType) -> None
 
@@ -2322,7 +2322,7 @@ def selectedNodes(filter: Optional[str] = None) -> list[Node]:
     ...
 
 
-def setGeoSelection(GeoSelection) -> None:
+def setGeoSelection(GeoSelection: GeoSelection) -> None:
     """
     setGeoSelection(GeoSelection) -> None
 
@@ -2345,7 +2345,7 @@ def setPreset(nodeClassName: str, presetName: str, knobValues: dict) -> bool:
     ...
 
 
-def setReadOnlyPresets(readOnly) -> None:
+def setReadOnlyPresets(readOnly: bool) -> None:
     """
     setReadOnlyPresets(readOnly) -> None
 
@@ -2369,7 +2369,7 @@ def setUserPreset(nodeClassName: str, presetName: str, knobValues: dict) -> bool
     ...
 
 
-def show(n=None, forceFloat: Optional[bool] = None) -> None:
+def show(n: Optional[Node] = None, forceFloat: Optional[bool] = None) -> None:
     """
     show(n, forceFloat) -> None
 
@@ -2383,7 +2383,7 @@ def show(n=None, forceFloat: Optional[bool] = None) -> None:
     ...
 
 
-def showBookmarkChooser(n) -> None:
+def showBookmarkChooser(n: Optional[Node]) -> None:
     """
     showBookmarkChooser(n) -> None
 
@@ -2394,7 +2394,7 @@ def showBookmarkChooser(n) -> None:
     ...
 
 
-def pluginPath() -> list:
+def pluginPath() -> list[str]:
     """
     pluginPath() -> string list
 
@@ -2423,7 +2423,7 @@ def showDag(n: Optional[Group] = None) -> None:
     ...
 
 
-def showInfo(n=None) -> str:
+def showInfo(n: Optional[Node] = None) -> str:
     """
     showInfo(n) -> str
 
@@ -2519,21 +2519,21 @@ def suspendPathProcessing() -> None:
     ...
 
 
-def tabClose(*args: typing.Any, **kwargs: typing.Any) -> None:
+def tabClose(*args: typing.Any, **kwargs: typing.Any) -> bool:
     """
     Close the active dock tab. Returns True if successful.
     """
     ...
 
 
-def tabNext(*args: typing.Any, **kwargs: typing.Any) -> None:
+def tabNext(*args: typing.Any, **kwargs: typing.Any) -> bool:
     """
     Make the next tab in this dock active. Returns True if successful.
     """
     ...
 
 
-def tcl(s: str, *args) -> str:
+def tcl(s: str, *args: str) -> str:
     """
     tcl(s, *args) -> str.
 
@@ -2571,7 +2571,7 @@ def thisGroup() -> Group:
     ...
 
 
-def thisKnob() -> Union[Knob, None]:
+def thisKnob() -> Optional[Knob]:
     """
     thisKnob() -> Knob
 
@@ -2637,7 +2637,7 @@ def thisView() -> str:
     ...
 
 
-def toNode(s: str) -> Union[Node, None]:
+def toNode(s: str) -> Optional[Node]:
     """
     toNode(s) -> Node
 
@@ -2671,7 +2671,7 @@ def toggleViewers() -> None:
     ...
 
 
-def toolbar(name: str, create=True) -> bool:
+def toolbar(name: str, create: bool = True) -> Optional[ToolBar]:
     """
     toolbar(name, create=True)-> ToolBar
 
@@ -2688,7 +2688,7 @@ def toolbar(name: str, create=True) -> bool:
     ...
 
 
-def tprint(value, sep=' ', end='\n', file=sys.stdout) -> None:
+def tprint(value: typing.Any, sep: str = ' ', end: str = '\\n', file: typing.TextIO = sys.stdout) -> None:
     """
     tprint(value, ..., sep=' ', end='\', file=sys.stdout) -> None
 
@@ -2732,7 +2732,7 @@ def usingPerformanceTimers() -> bool:
     ...
 
 
-def value(knob, default) -> str:
+def value(knob: str, default: typing.Any) -> str:
     """
     value(knob, default) -> string.
 
@@ -2743,7 +2743,7 @@ def value(knob, default) -> str:
     ...
 
 
-def views() -> list:
+def views() -> list[str]:
     """
     views() -> List.
 
@@ -2754,7 +2754,7 @@ def views() -> list:
     ...
 
 
-def waitForThreadsToFinish() -> Union[True, False]:
+def waitForThreadsToFinish() -> bool:
     """
     waitForThreadsToFinish() -> str
 
@@ -2777,7 +2777,7 @@ def warning(message: str) -> None:
     ...
 
 
-def zoom(scale, center: Optional[tuple] = None, group: Optional[Group] = None) -> None:
+def zoom(scale: float, center: Optional[tuple[float, float]] = None, group: Optional[Group] = None) -> Optional[float]:
     """
     zoom(scale, center, group) -> float
 
@@ -2812,8 +2812,9 @@ def zoomToFitSelected() -> None:
 
 
 @overload
-def execute(nameOrNode: Node | str, frameRangeSet: FrameRange, views: Optional[list[View]] = None, continueOnError=False) -> None:
-
+def execute(nameOrNode: Node | str, frameRangeSet: FrameRange, views: Optional[list[View]] = None, continueOnError=False) -> None: 
+    ...
 
 @overload
-def execute(nameOrNode: Node | str, start: Optional[int] = None, end: Optional[int] = None, incr: Optional[int] = None, views: Optional[list[View]] = None, continueOnError=False) -> None:
+def execute(nameOrNode: Node | str, start: Optional[int] = None, end: Optional[int] = None, incr: Optional[int] = None, views: Optional[list[View]] = None, continueOnError=False) -> None: 
+    ...

@@ -24,19 +24,19 @@ class TaskGroup(ITask):
         """
         ...
 
-    def addChild(self, child) -> None:
+    def addChild(self, child: Task) -> None:
         """
         Add a child to the list.
         """
         ...
 
-    def children(self) -> None:
+    def children(self) -> list[Task]:
         """
         Get the TaskGroup's children.
         """
         ...
 
-    def getLeafTasks(self) -> None:
+    def getLeafTasks(self) -> list[Task]:
         """
         Get a list of all leaf tasks recursively, i.e. those with no child tasks.
         """
@@ -48,7 +48,7 @@ class TaskGroup(ITask):
         """
         ...
 
-    def progress(self) -> None:
+    def progress(self) -> float:
         """
         Get the group progress.  Returns a value based on the progress of child tasks.
         """

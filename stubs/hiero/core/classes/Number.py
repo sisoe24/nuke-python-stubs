@@ -23,7 +23,7 @@ class Number(object):
     __abstractmethods__ = frozenset()
     _abc_impl: Any = None
 
-    def __init__(self,  *args, **kwargs):
+    def __init__(self: Number, *args: object, **kwargs: object) -> None:
         """
         Initialize self.  See help(type(self)) for accurate signature.
         """

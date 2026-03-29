@@ -5,7 +5,7 @@ import ui
 import hiero.core
 
 
-def _goToTag(self, tag):
+def _goToTag(self, tag: 'Tag | str') -> None:
     """
     Move playhead to Tag.
     If Tag (Tag Object or Tag name) does not exists on the Viewer's Sequence/Clip
@@ -33,7 +33,7 @@ def _goToTag(self, tag):
         raise RuntimeError('Viewer does not have a sequence')
 
 
-def _goToInTime(self):
+def _goToInTime(self) -> None:
     """
     Move playhead to In point
     """
@@ -44,7 +44,7 @@ def _goToInTime(self):
         raise RuntimeError('Viewer does not have a sequence')
 
 
-def _goToOutTime(self):
+def _goToOutTime(self) -> None:
     """
     Move playhead to Out point
     """
@@ -55,7 +55,7 @@ def _goToOutTime(self):
         raise RuntimeError('Viewer does not have a sequence')
 
 
-def _goToPosInTrackItem(viewer, trackItem, trackItemTimeMethod):
+def _goToPosInTrackItem(viewer: 'hiero.ui.Viewer', trackItem: 'hiero.core.TrackItem', trackItemTimeMethod: object) -> None:
     """ Helper method to move the playhead to a position of the trackItem
     according to trackItemTimeMethod
     @param viewer: hiero.ui.Viewer object
@@ -82,7 +82,7 @@ def _goToPosInTrackItem(viewer, trackItem, trackItemTimeMethod):
     viewer.setTime(time)
 
 
-def _goToTrackItemStart(self, trackItem):
+def _goToTrackItemStart(self, trackItem: 'hiero.core.TrackItem') -> None:
     """
     Move playhead to start of the trackItem.
 
@@ -93,7 +93,7 @@ def _goToTrackItemStart(self, trackItem):
     _goToPosInTrackItem(self, trackItem, _getTimelineIn)
 
 
-def _goToTrackItemEnd(self, trackItem):
+def _goToTrackItemEnd(self, trackItem: 'hiero.core.TrackItem') -> None:
     """
     Move playhead to end of the trackItem.
 
@@ -104,7 +104,7 @@ def _goToTrackItemEnd(self, trackItem):
     _goToPosInTrackItem(self, trackItem, _getTimelineOut)
 
 
-def _goToTrackItemMiddle(self, trackItem):
+def _goToTrackItemMiddle(self, trackItem: 'hiero.core.TrackItem') -> None:
     """
     Move playhead to middle of the trackItem.
 

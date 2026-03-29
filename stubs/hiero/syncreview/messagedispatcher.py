@@ -22,13 +22,13 @@ class MessageDispatcher(QObject):
         self._handlingIncomingMessages = False
         self._messageCallbacks = {}
 
-    def _registerCallback(self, msgType, callback):
+    def _registerCallback(self, msgType: str, callback: Callable[[object], None]) -> None:
         """ Register a callback for a particular message type """
         if msgType not in self._messageCallbacks:
             self._messageCallbacks[msgType] = list()
         self._messageCallbacks[msgType].append(callback)
 
-    def _onMessageReceived(self, msg):
+    def _onMessageReceived(self, msg: object) -> None:
         """ Slot called when a message is received. Forwards to callbacks if one
         was registered
         """
@@ -51,7 +51,7 @@ class MessageDispatcher(QObject):
                     'MessageDispatcher._onMessageReceived: Error handling message {}'.format(msg))
         self._handlingIncomingMessages = False
 
-    def sendMessage(self, msg):
+    def sendMessage(self, msg: object) -> None:
         """ Send a message back to the connected session """
         logMessage('MessageDispatcher.sendMessage: {}'.format(msg))
         self.messageSend.emit(msg)

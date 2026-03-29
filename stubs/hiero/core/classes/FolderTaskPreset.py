@@ -18,7 +18,7 @@ class FolderTaskPreset(TaskPresetBase):
     Preset which can be used for creating an empty folder.
     """
 
-    def __init__(self, name, properties) -> None:
+    def __init__(self, name: str, properties: object) -> None:
         """
         Initialise Exporter Preset Base Class
 

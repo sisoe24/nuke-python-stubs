@@ -23,13 +23,13 @@ class Enumeration_Knob(Unsigned_Knob):
     k = nuke.Enumeration_Knob('MyEnumKnobName', 'MyEnumKnobLabel', ['label1', 'label2'])
     """
 
-    def __new__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs) -> Enumeration_Knob:
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
         ...
 
-    def __hash__(self, ) -> None:
+    def __hash__(self) -> int:
         """
         Return hash(self).
         """
@@ -49,7 +49,7 @@ class Enumeration_Knob(Unsigned_Knob):
         """
         ...
 
-    def enumName(self, n) -> str:
+    def enumName(self, n: int) -> str:
         """
         self.enumName(n) -> string
 
@@ -57,7 +57,7 @@ class Enumeration_Knob(Unsigned_Knob):
         """
         ...
 
-    def values(self,) -> list:
+    def values(self) -> list[str]:
         """
         self.values() -> List of strings.
         Return list of items.
@@ -95,7 +95,7 @@ class Enumeration_Knob(Unsigned_Knob):
         """
         ...
 
-    def setValues(self, items: list) -> None:
+    def setValues(self, items: list[str]) -> None:
         """
         self.setValues(items) -> None.
         (Re)initialise knob to the supplied list of items.
@@ -108,7 +108,7 @@ class Enumeration_Knob(Unsigned_Knob):
         """
         ...
 
-    def getDisplayStrFromID(self, ) -> str:
+    def getDisplayStrFromID(self, id: str) -> str:
         """
         self.getDisplayStrFromID()
         returns the display text for the associated id

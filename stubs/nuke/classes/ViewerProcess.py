@@ -14,13 +14,13 @@ class ViewerProcess(object):
     ViewerProcess
     """
 
-    def __hash__(self, ) -> None:
+    def __hash__(self) -> int:
         """
         Return hash(self).
         """
         ...
 
-    def register(self, name: str, call: Callable, args, kwargs=None) -> None:
+    def register(self, name: str, call: Callable[..., Node], args: list, kwargs: Optional[dict] = None) -> None:
         """
         nuke.ViewerProcess.register(name, call, args, kwargs) -> None.
 
@@ -57,7 +57,7 @@ class ViewerProcess(object):
         """
         ...
 
-    def registeredNames(self,) -> list:
+    def registeredNames(self) -> List[str]:
         """
         nuke.ViewerProcess.registeredNames() -> List.
 

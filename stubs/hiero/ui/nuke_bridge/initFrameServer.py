@@ -24,7 +24,7 @@ FRAMESERVER_DISABLED_ENV = 'NUKE_DISABLE_FRAMESERVER'
 FRAMESERVER_DISABLED_ENV_DEFAULT = 0
 
 
-def isFrameServerEnabled():
+def isFrameServerEnabled() -> bool:
     """ Check if running the frameserver on startup is enabled. """
     disabledByCommandLine = '--disable-nuke-frameserver' in hiero.core.rawArgs
     disabledByEnvVar = int(os.environ.get(
@@ -32,7 +32,7 @@ def isFrameServerEnabled():
     return not (disabledByCommandLine or disabledByEnvVar)
 
 
-def startServerIfEnabled():
+def startServerIfEnabled() -> None:
     """ Start the Nuke frame server unless it was disabled by the user """
     hiero.core.log.debug('nukestudio.startServerIfEnabled')
 

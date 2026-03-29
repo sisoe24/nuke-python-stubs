@@ -8,7 +8,7 @@ import traceback
 import _nuke
 
 
-def executeInMainThreadWithResult(call, args=(), kwargs={}):
+def executeInMainThreadWithResult(call: 'Callable[..., Any]', args: tuple = (), kwargs: dict = {}) -> 'Any':
     """ Execute the callable 'call' with optional arguments 'args' and named arguments 'kwargs' in
         Nuke's main thread and wait for the result to become available. """
     if type(args) != tuple:
@@ -26,7 +26,7 @@ def executeInMainThreadWithResult(call, args=(), kwargs={}):
     return r
 
 
-def executeInMainThread(call, args=(), kwargs={}):
+def executeInMainThread(call: 'Callable[..., Any]', args: tuple = (), kwargs: dict = {}) -> None:
     """ Execute the callable 'call' with optional arguments 'args' and named
     arguments 'kwargs' i n Nuke's main thread and return immediately. """
     if type(args) != tuple:

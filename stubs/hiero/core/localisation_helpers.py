@@ -12,7 +12,7 @@ __all__ = ['setLocalisationPolicyOnClip',
            'setLocalisationForAllVersionsInProject']
 
 
-def setLocalisationPolicyOnClip(clip, policy, forceUpdate):
+def setLocalisationPolicyOnClip(clip: 'hiero.core.Clip', policy: int, forceUpdate: bool) -> None:
     """ Set the localisation policy on a clip, optionally forcing it to update the localised
     files.
 
@@ -25,7 +25,7 @@ def setLocalisationPolicyOnClip(clip, policy, forceUpdate):
         clip.readNode().forceUpdateLocalization()
 
 
-def setLocalisationPolicyOnTrackItem(trackItem, policy, forceUpdate=False):
+def setLocalisationPolicyOnTrackItem(trackItem: 'hiero.core.TrackItem', policy: int, forceUpdate: bool = False) -> None:
     """Sets localisation policy for the source Clip of a TrackItem
 
       @param: track - a  hiero.core.TrackItem object
@@ -39,7 +39,7 @@ def setLocalisationPolicyOnTrackItem(trackItem, policy, forceUpdate=False):
         setLocalisationPolicyOnClip(clip, policy, forceUpdate)
 
 
-def setLocalisationPolicyOnTrack(track, policy, forceUpdate=False):
+def setLocalisationPolicyOnTrack(track: 'hiero.core.Track', policy: int, forceUpdate: bool = False) -> None:
     """Sets localisation policy for all Clips used by TrackItems in a Track with a given policy.
 
     @param: track - a hiero.core.Track object
@@ -53,7 +53,7 @@ def setLocalisationPolicyOnTrack(track, policy, forceUpdate=False):
             setLocalisationPolicyOnTrackItem(ti, policy, forceUpdate)
 
 
-def setLocalisationPolicyOnSequence(sequence, policy, forceUpdate=False):
+def setLocalisationPolicyOnSequence(sequence: 'hiero.core.Sequence', policy: int, forceUpdate: bool = False) -> None:
     """Sets localisation policy for all Clips used by TrackItems in a Sequence with a given policy.
 
     @param: sequence - a hiero.core.Sequence object
@@ -69,7 +69,7 @@ def setLocalisationPolicyOnSequence(sequence, policy, forceUpdate=False):
                 setLocalisationPolicyOnTrackItem(ti, policy, forceUpdate)
 
 
-def setLocalisationPolicyOnBin(bin, policy, recursive=True, forceUpdate=False):
+def setLocalisationPolicyOnBin(bin: 'hiero.core.Bin', policy: int, recursive: bool = True, forceUpdate: bool = False) -> None:
     """Sets localisation policy for all Clips found in a Bin and recursively found in all Sub-Bins
 
     @param: clipList - a list of hiero.core.Clip objects
@@ -94,7 +94,7 @@ def setLocalisationPolicyOnBin(bin, policy, recursive=True, forceUpdate=False):
         setLocalisationPolicyOnClip(clip, policy, forceUpdate)
 
 
-def setLocalisationForAllVersionsInProject(proj, policy):
+def setLocalisationForAllVersionsInProject(proj: 'hiero.core.Project', policy: int) -> None:
     """Sets localisation policy for all Versions of All Clips in a project
 
     @param proj: hiero.core.Project

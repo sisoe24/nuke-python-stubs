@@ -6,7 +6,7 @@ import hiero.core
 
 
 class ShotTask(hiero.core.TaskBase):
-    def __init__(self, initDict):
+    def __init__(self, initDict: dict) -> None:
         """Initialize"""
         hiero.core.TaskBase.__init__(self, initDict)
 

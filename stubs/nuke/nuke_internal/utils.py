@@ -32,7 +32,7 @@ def script_directory():
     return os.path.dirname(scriptFilePath)
 
 
-def loadModuleFromPath(name, path):
+def loadModuleFromPath(name: str, path: str) -> 'ModuleType':
     """ Load a Python file and return the module object """
     spec = importlib.util.spec_from_file_location(name, path)
     mod = importlib.util.module_from_spec(spec)

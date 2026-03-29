@@ -51,7 +51,7 @@ def normpath(path):
     return path or dot
 
 
-def abspath(path):
+def abspath(path: str) -> str:
     """Return an absolute path."""
     if not isabs(path):
         if isinstance(path, str):
@@ -62,13 +62,13 @@ def abspath(path):
     return normpath(path)
 
 
-def basename(p):
+def basename(p: str) -> str:
     """Returns the final component of a pathname"""
     i = p.rfind('/') + 1
     return p[i:]
 
 
-def dirname(p):
+def dirname(p: str) -> str:
     """Returns the directory component of a pathname"""
     i = p.rfind('/') + 1
     head = p[:i]
@@ -100,7 +100,7 @@ def _iglob(parent, path):
                         yield i
 
 
-def iglob(path, parent=None):
+def iglob(path: str, parent: str | None = None) -> Iterator[str]:
     """ Returns a iterator of all items matching the given path, where the path may contain * and ? wildcards.
     """
     path = normpath(path)
@@ -112,13 +112,13 @@ def iglob(path, parent=None):
     return _iglob(parent, path.split('/'))
 
 
-def glob(path):
+def glob(path: str) -> list[str]:
     """ Returns a list of all items matching the given path, where the path may contain * and ? wildcards.
     """
     return [i for i in iglob(path)]
 
 
-def itemForPath(path):
+def itemForPath(path: str) -> object | None:
     """ Returns the item corresponding to the given path, or None if no item exists at the path.
     """
     for i in iglob(path):
@@ -126,7 +126,7 @@ def itemForPath(path):
     return None
 
 
-def pathForItem(item):
+def pathForItem(item: object) -> str:
     """ Returns the path corresponding to the given item.
     """
     if item is not None:

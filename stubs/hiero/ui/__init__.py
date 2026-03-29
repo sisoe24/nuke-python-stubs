@@ -68,7 +68,7 @@ def _addMenuActionR(path, action, menu, before=None):
     return False
 
 
-def addMenuAction(path, action, before=None):
+def addMenuAction(path: str, action: object, before: typing.Optional[str] = None) -> None:
     """
     Add a QAction to the main menubar. The 'path' parameter specifies the menu to which to add the action as a '/'-separated string.
     The path may contain either internal action names or display names. e.g. 'View/Transform', or (better) 'foundry.menu.view/foundry.view.transform'."
@@ -77,7 +77,7 @@ def addMenuAction(path, action, before=None):
     return _addMenuActionR(path.split('/'), action, menuBar(), before)
 
 
-def createMenuAction(name, method, icon=None, path=None):
+def createMenuAction(name: str, method: object, icon: typing.Optional[str] = None, path: typing.Optional[str] = None) -> object:
     """
     Creates a menu action (QAction) for use in context menus or Main menubar.
     The 'name' parameter specifies the title of the action.
@@ -99,7 +99,7 @@ def createMenuAction(name, method, icon=None, path=None):
     return action
 
 
-def insertMenuAction(action, menu, before=None, after=None):
+def insertMenuAction(action: object, menu: object, before: typing.Optional[str] = None, after: typing.Optional[str] = None) -> None:
     """
     Insert a QAction into the given QMenu. If strings 'before' or 'after' are specified, the action is inserted before or after the action with that name.
     If no such action is found or 'before/after' are not given, the action is appended to the menu.
@@ -130,7 +130,7 @@ def _findMenuActionR(name, menu):
     return None
 
 
-def findMenuAction(name):
+def findMenuAction(name: str) -> typing.Optional[object]:
     """
       Find a QAction in the main menubar. The 'name' parameter specifies the name of the action.
       The name may be either an internal action name or a display name. e.g. 'Cut', or (better) 'foundry.application.cut'."
@@ -164,7 +164,7 @@ def restorePanel(id):
         return None
 
 
-def getProjectRootInteractive(project):
+def getProjectRootInteractive(project: object) -> typing.Optional[str]:
     """ Try to get a valid root path from the project.  If the existing exportRootDirectory()
         is not set or doesn't exist, the user will be prompted to select one.  If no path
         is selected, returns None. """
@@ -208,7 +208,7 @@ def activeSequence() -> hiero.core.Sequence:
     ...
 
 
-def activeView() -> int | float:
+def activeView() -> object:
     """
     hiero.ui.activeView() -> gets the currently active view object.
 
@@ -217,7 +217,7 @@ def activeView() -> int | float:
     ...
 
 
-def browseForApplication(*args: typing.Any, **kwargs: typing.Any) -> str:
+def browseForApplication(message: str, initialPath: str, parentWidget: typing.Optional[object] = None) -> str:
     """
     hiero.ui.browseForApplication (message, initialPath, parentWidget) -> brings up the file browser to allow the user to select an application. Allows the user to select an executable file on Windows and Linux, and to select an application bundle (\*.app) directory on OSX.
 
@@ -256,7 +256,7 @@ def currentWorkspace() -> str:
     ...
 
 
-def findRegisteredAction(name) -> None:
+def findRegisteredAction(name) -> typing.Optional[object]:
     """
     hiero.ui.findRegisteredAction(name) -> Find the action with the given name.
 
@@ -265,7 +265,7 @@ def findRegisteredAction(name) -> None:
     ...
 
 
-def findRegisteredActions(pattern) -> list:
+def findRegisteredActions(pattern) -> typing.Optional[list]:
     """
     hiero.ui.findRegisteredActions(pattern) -> Find the action that starts with the given pattern.
 
@@ -313,7 +313,7 @@ def isInAnyTimeline(arg__1: str) -> object:
     ...
 
 
-def mainWindow() -> Any:
+def mainWindow() -> object:
     """
     hiero.ui.mainWindow() -> used to get Hiero's main window object.
 
@@ -322,7 +322,7 @@ def mainWindow() -> Any:
     ...
 
 
-def menuBar() -> Any:
+def menuBar() -> object:
     """
     hiero.ui.menuBar() -> used to get Hiero's global menu bar.
 
@@ -338,7 +338,7 @@ def monitorOutNode() -> object:
     ...
 
 
-def openFileBrowser(caption='', mode=1, pattern='', initialPath='', forSave=False, canChooseMultiple=False, sequencesEnabled=False, mayNotExist=False, showAllFileTypes=False, confirmOverwrite=True, requiredExtension='') -> list:
+def openFileBrowser(caption: str = '', mode: int = 1, pattern: str = '', initialPath: str = '', forSave: bool = False, canChooseMultiple: bool = False, sequencesEnabled: bool = False, mayNotExist: bool = False, showAllFileTypes: bool = False, confirmOverwrite: bool = True, requiredExtension: str = '') -> list[str]:
     """
     openFileBrowser(caption="", mode=1, pattern="", initialPath="", forSave=False, canChooseMultiple=False, sequencesEnabled=False, mayNotExist=False, showAllFileTypes=False, confirmOverwrite=True, requiredExtension="") -> string list.
 
@@ -360,7 +360,7 @@ def openFileBrowser(caption='', mode=1, pattern='', initialPath='', forSave=Fals
     ...
 
 
-def openInNewViewer(*args: typing.Any, **kwargs: typing.Any) -> Viewer:
+def openInNewViewer(*args: typing.Any, **kwargs: typing.Any) -> object:
     """
     hiero.ui.openInNewViewer( hiero.core.BinItem ) -> Opens a BinItem's activeItem (Clip/Sequence) in a new Viewer.
     hiero.ui.openInNewViewer( hiero.core.Sequence ) -> Opens a Sequence in a new Viewer.
@@ -385,7 +385,7 @@ def openInSpreadsheet(sequence: hiero.core.Sequence) -> hiero.ui.SpreadsheetView
     ...
 
 
-def openInTimeline(*args: typing.Any, **kwargs: typing.Any) -> int | float:
+def openInTimeline(*args: typing.Any, **kwargs: typing.Any) -> object:
     """
     hiero.ui.openInTimeline( hiero.core.BinItem ) -> Opens a BinItem's activeItem (Clip/Sequence) in a Timeline View.
     hiero.ui.openInTimeline( hiero.core.Sequence ) -> Opens a Sequence in a Timeline View.
@@ -397,7 +397,7 @@ def openInTimeline(*args: typing.Any, **kwargs: typing.Any) -> int | float:
     ...
 
 
-def openInViewer(*args: typing.Any, **kwargs: typing.Any) -> Viewer:
+def openInViewer(*args: typing.Any, **kwargs: typing.Any) -> object:
     """
     hiero.ui.openInViewer( hiero.core.BinItem ) -> Opens a BinItem's activeItem (Clip/Sequence) in the Viewer.
     hiero.ui.openInViewer( hiero.core.Sequence ) -> Opens a Sequence in the Viewer.
@@ -414,14 +414,14 @@ def openProject(path: str, flags: int = 'Hiero.Python.Project.kProjectOpenNoFlag
     ...
 
 
-def registerAction(action) -> Any:
+def registerAction(action: object) -> None:
     """
     hiero.ui.registerAction(action) -> Register an action.
     """
     ...
 
 
-def registerBinViewCustomMimeDataType(arg__1: str) -> object:
+def registerBinViewCustomMimeDataType(arg__1: str) -> None:
     """
     hiero.ui.registerBinViewCustomMimeDataType(customMimeType) -> registers a custom mime type so that Hiero passes on drag and drop events through the event system. For an example of how to use this method, see the bin_drop.py example.
     """
@@ -446,7 +446,7 @@ def resetCurrentWorkspace() -> None:
     ...
 
 
-def saveWorkspace(name) -> None:
+def saveWorkspace(name: str) -> None:
     """
     hiero.ui.saveWorkspace(name) -> Save the current Workspace with name.
 
@@ -457,7 +457,7 @@ def saveWorkspace(name) -> None:
     ...
 
 
-def sendToViewerA(*args: typing.Any, **kwargs: typing.Any) -> Iterable:
+def sendToViewerA(*args: typing.Any, **kwargs: typing.Any) -> object:
     """
     hiero.ui.sendToViewerA( hiero.core.BinItem ) -> Sends a BinItem's activeItem (Clip/Sequence) to the Viewer A.
     hiero.ui.sendToViewerA( hiero.core.Sequence ) -> Sends a Sequence to the Viewer A.
@@ -466,7 +466,7 @@ def sendToViewerA(*args: typing.Any, **kwargs: typing.Any) -> Iterable:
     ...
 
 
-def sendToViewerB(*args: typing.Any, **kwargs: typing.Any) -> Iterable:
+def sendToViewerB(*args: typing.Any, **kwargs: typing.Any) -> object:
     """
     hiero.ui.sendToViewerB( hiero.core.BinItem ) -> Sends a BinItem's activeItem (Clip/Sequence) to the Viewer B.
     hiero.ui.sendToViewerB( hiero.core.Sequence ) -> Sends a Sequence to the Viewer B.
@@ -475,7 +475,7 @@ def sendToViewerB(*args: typing.Any, **kwargs: typing.Any) -> Iterable:
     ...
 
 
-def setWorkspace(name) -> None:
+def setWorkspace(name: str) -> None:
     """
     hiero.ui.setWorkspace(name) -> Sets the Workspace with name, as per the name in the Workspace menu.
 
@@ -486,7 +486,7 @@ def setWorkspace(name) -> None:
     ...
 
 
-def unregisterBinViewCustomMimeDataType(arg__1: str) -> object:
+def unregisterBinViewCustomMimeDataType(arg__1: str) -> None:
     """
     hiero.ui.unregisterBinViewCustomMimeDataType(customMimeType) -> unregisters a custom mime type that was previously registered using hiero.ui.registerBinViewCustomMimeDataType().
     """

@@ -8,7 +8,7 @@ import types
 import _nuke
 
 
-def pluginAddPath(args, addToSysPath=True):
+def pluginAddPath(args: list[str] | str, addToSysPath: bool = True) -> None:
     """ Adds all the paths to the beginning of the Nuke plugin path.
         If the path already exists in the list of plugin paths, it is moved
         to the start. If this command is executed inside an init.py then
@@ -40,7 +40,7 @@ def pluginAddPath(args, addToSysPath=True):
                 sys.path.insert(0, path)
 
 
-def pluginAppendPath(args, addToSysPath=True):
+def pluginAppendPath(args: list[str] | str, addToSysPath: bool = True) -> None:
     """ Add a filepath to the end of the Nuke plugin path.  If the path
         already exists in the list of plugin paths, it will remain at its
         current position.
@@ -66,7 +66,7 @@ def pluginAppendPath(args, addToSysPath=True):
                 sys.path.append(path)
 
 
-def dependencies(nodes, what=_nuke.INPUTS | _nuke.HIDDEN_INPUTS | _nuke.EXPRESSIONS | _nuke.LINKINPUTS):
+def dependencies(nodes: list[nuke.Node], what: int = _nuke.INPUTS | _nuke.HIDDEN_INPUTS | _nuke.EXPRESSIONS | _nuke.LINKINPUTS) -> list[nuke.Node]:
     """ List all nodes referred to by the nodes argument. 'what' is an optional integer (see below).
     You can use the following constants or'ed together to select the types of dependencies that are looked for:
     \t nuke.EXPRESSIONS = expressions
@@ -92,7 +92,7 @@ def dependencies(nodes, what=_nuke.INPUTS | _nuke.HIDDEN_INPUTS | _nuke.EXPRESSI
     return deps
 
 
-def dependentNodes(what=_nuke.INPUTS | _nuke.HIDDEN_INPUTS | _nuke.EXPRESSIONS | _nuke.LINKINPUTS, nodes=[], evaluateAll=True):
+def dependentNodes(what: int = _nuke.INPUTS | _nuke.HIDDEN_INPUTS | _nuke.EXPRESSIONS | _nuke.LINKINPUTS, nodes: list[nuke.Node] = [], evaluateAll: bool = True) -> list[nuke.Node]:
     """ List all nodes referred to by the nodes argument. 'what' is an optional integer (see below).
     You can use the following constants or'ed together to select what types of dependent nodes are looked for:
     \t nuke.EXPRESSIONS = expressions
@@ -127,7 +127,7 @@ def dependentNodes(what=_nuke.INPUTS | _nuke.HIDDEN_INPUTS | _nuke.EXPRESSIONS |
     return deps
 
 
-def selectConnectedNodes():
+def selectConnectedNodes() -> None:
     """ Selects all nodes in the tree of the selected node. """
     allDeps = set()
     depsList = [_nuke.selectedNode()]

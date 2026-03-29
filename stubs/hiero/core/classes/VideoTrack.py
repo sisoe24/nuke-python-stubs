@@ -18,25 +18,25 @@ class VideoTrack(TrackBase):
     Object for manipulating video tracks.
     """
 
-    def __new__(self, *args, **kwargs) -> None:
+    def __new__(cls, *args, **kwargs) -> VideoTrack:
         """
         Create and return a new object.  See help(type) for accurate signature.
         """
         ...
 
-    def __repr__(self) -> object:
+    def __repr__(self) -> str:
         """
         Return repr(self).
         """
         ...
 
-    def __setattr__(self, name, value, ) -> None:
+    def __setattr__(self, name, value) -> None:
         """
         Implement setattr(self, name, value).
         """
         ...
 
-    def __delattr__(self, name, ) -> None:
+    def __delattr__(self, name) -> None:
         """
         Implement delattr(self, name).
         """
@@ -48,19 +48,19 @@ class VideoTrack(TrackBase):
         """
         ...
 
-    def __bool__(self, ) -> None:
+    def __bool__(self) -> bool:
         """
         True if self else False
         """
         ...
 
-    def __len__(self, ) -> None:
+    def __len__(self) -> int:
         """
         Return len(self).
         """
         ...
 
-    def __getitem__(self, key, ) -> None:
+    def __getitem__(self, key) -> hiero.core.TrackItem:
         """
         Return self[key].
         """
@@ -77,7 +77,7 @@ class VideoTrack(TrackBase):
         """
         ...
 
-    def addTag(self, tag: hiero.core.Tag) -> hiero.core.Tag:
+    def addTag(self, tag: hiero.core.Tag) -> None:
         """
         self.addTag(tag) -> adds a tag to the video track item.
 
@@ -117,7 +117,7 @@ class VideoTrack(TrackBase):
         """
         ...
 
-    def copy(self) -> object:
+    def copy(self) -> VideoTrack:
         """
         self.copy() -> returns a deep copy of this object.
 
@@ -158,7 +158,7 @@ class VideoTrack(TrackBase):
         """
         ...
 
-    def parent(self) -> object:
+    def parent(self) -> hiero.core.Sequence:
         """
         self.parent() -> returns the sequence that contains this track.
 
@@ -166,7 +166,7 @@ class VideoTrack(TrackBase):
         """
         ...
 
-    def removeSubTrackItem(self, subTrackItem: hiero.core.SubTrackItem, option: int = 'eRemoveLinkedItems') -> None:
+    def removeSubTrackItem(self, subTrackItem: hiero.core.SubTrackItem, option: int = eRemoveLinkedItems) -> None:
         """
         self.removeSubTrackItem(subTrackItem, option=eRemoveLinkedItems) -> removes a sub-track item from this track.
 
@@ -225,7 +225,7 @@ class VideoTrack(TrackBase):
         """
         ...
 
-    def subTrackItems(self) -> object:
+    def subTrackItems(self) -> Tuple[Tuple[hiero.core.SubTrackItem, ...], ...]:
         """
         self.subTrackItems() -> returns a tuple with an entry for each sub track in this track, each entry being a tuple of items
         on the corresponding sub track.
@@ -262,7 +262,7 @@ class VideoTrack(TrackBase):
         """
         ...
 
-    def addToNukeScript(self, script: hiero.core.nuke.ScriptWriter, additionalNodes=list, disconnected=False, includeAnnotations=False, includeEffects=True):
+    def addToNukeScript(self, script: hiero.core.nuke.ScriptWriter, additionalNodes: Optional[list] = None, disconnected: bool = False, includeAnnotations: bool = False, includeEffects: bool = True) -> None:
         """
         Add a Read node for each track item to the script with Merge or Dissolve nodes
         to join them in a sequence. TimeClip nodes are added to pad any gaps between clips.
@@ -281,7 +281,7 @@ class VideoTrack(TrackBase):
         """
         ...
 
-    def createEffect(self, effectType=None, cloneFrom=None, copyFrom=None, trackItem=None, timelineIn=None, timelineOut=None, subTrackIndex=None) -> EffectTrackItem:
+    def createEffect(self, effectType=None, cloneFrom=None, copyFrom=None, trackItem=None, timelineIn=None, timelineOut=None, subTrackIndex=None) -> hiero.core.EffectTrackItem:
         """
         self.createEffect(trackItem=None, timelineIn=None, timelineOut=None, subTrackIndex=None) -> Create an effect item and add it to the track.
 

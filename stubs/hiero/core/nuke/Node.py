@@ -982,7 +982,7 @@ class DotNode(Node):
         """ Construct the node. """
         Node.__init__(self, 'Dot', None, **knobs)
 
-    def align(self, inputNode, outputNode):
+    def align(self, inputNode: 'Node', outputNode: 'Node') -> None:
         """ align the Node vertically below its input and horizontally with its output. """
         inputNodeX, inputNodeY = inputNode.getPosition()
         inputNodeW, inputNodeH = inputNode.getNodeSize()
@@ -997,7 +997,7 @@ class DotNode(Node):
 
         self.setPosition(xPos, yPos)
 
-    def getNodeSize(self):
+    def getNodeSize(self) -> int:
         """ Get the size of the node.  This is an estimate, since in Nuke the size can be affected by
             the font size (and possibly other factors), but it works in most cases for layout of scripts. """
         return 12, 12
@@ -1006,27 +1006,27 @@ class DotNode(Node):
 class BackdropNode(Node):
     """ BackdropNode class. """
 
-    def __init__(self, xpos, ypos, width, height):
+    def __init__(self, xpos: int, ypos: int, width: int, height: int) -> None:
         """ Construct the backdrop with x, y, width, height. """
         Node.__init__(self, 'BackdropNode', xpos=xpos, ypos=ypos, bdwidth=width, bdheight=height)
 
-    def setLabel(self, text):
+    def setLabel(self, text: str) -> None:
         """ Set the node label.  Adds the center tag to it. """
         self.setKnob('label', '<center>%s' % text)
 
-    def setColor(self, color):
+    def setColor(self, color: tuple[float, float, float]) -> None:
         """ Set the backdrop color. """
         self.setKnob('tile_color', color)
 
-    def setZOrder(self, zorder):
+    def setZOrder(self, zorder: int) -> None:
         """ Set the z ordering for the backdrop. """
         self.setKnob('z_order', zorder)
 
-    def setLabelFontSize(self, size):
+    def setLabelFontSize(self, size: int) -> None:
         """ Set the font size of the label. """
         self.setKnob('note_font_size', size)
 
-    def getNodeSize(self):
+    def getNodeSize(self) -> int:
         """ Get the backdrop size. """
         return self.knob('bdwidth'), self.knob('bdheight')
 
@@ -1038,12 +1038,12 @@ class DissolveNode(Node):
         # Initialize with default knob values
         Node.__init__(self, 'Dissolve', inputs=2, mergerange=True)
 
-    def setWhichKeys(self, *keys):
+    def setWhichKeys(self, *keys: tuple[int, float]) -> None:
         """ Set the keys for the which knob as a set of tuples with (frame, value) """
         which = '{{curve L ' + ' '.join(['x%s %s' % (k, v) for k, v in keys]) + '}}'
         self.setKnob('which', which)
 
-    def getNodeSize(self):
+    def getNodeSize(self) -> int:
         """ Get the size of the node.  This is an estimate, since in Nuke the size can be affected by
             the font size (and possibly other factors), but it works in most cases for layout of scripts. """
         return 80, 32

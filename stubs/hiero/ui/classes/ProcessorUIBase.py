@@ -31,25 +31,25 @@ class ProcessorUIBase(IProcessorUI):
         """
         ...
 
-    def validate(self, exportItems) -> None:
+    def validate(self, exportItems: object) -> bool:
         """
         Validate settings in UI. Return False for failure in order to abort export.
         """
         ...
 
-    def isTranscodeExport(self) -> None:
+    def isTranscodeExport(self) -> bool:
         """
         Check if there are transcode tasks in this export.
         """
         ...
 
-    def findCompItems(self, items) -> None:
+    def findCompItems(self, items: object) -> list:
         """
         Search for comp clips and track items in a list of ItemWrappers.
         """
         ...
 
-    def checkUnrenderedComps(self, exportItems) -> None:
+    def checkUnrenderedComps(self, exportItems: object) -> None:
         """
         Check for unrendered comps selected for export and ask the user what to do.
         """
@@ -85,31 +85,31 @@ class ProcessorUIBase(IProcessorUI):
         """
         ...
 
-    def findTagsForItems(self, exportItems) -> None:
+    def findTagsForItems(self, exportItems: object) -> None:
         """
         Find tags for the export items.
         """
         ...
 
-    def populateUI(self, processorUIWidget, taskUIWidget, exportItems) -> None:
+    def populateUI(self, processorUIWidget: object, taskUIWidget: object, exportItems: object) -> None:
         """
         Build the processor UI and add it to widget.
         """
         ...
 
-    def setPreset(self, preset) -> None:
+    def setPreset(self, preset: object) -> None:
         """
         Set the export preset.
         """
         ...
 
-    def preset(self) -> None:
+    def preset(self) -> object:
         """
         Get the export preset.
         """
         ...
 
-    def setTaskContent(self, preset) -> None:
+    def setTaskContent(self, preset: object) -> None:
         """
         Get the UI for a task preset and add it in the 'Content' tab.
         """
@@ -140,7 +140,7 @@ class ProcessorUIBase(IProcessorUI):
         """
         ...
 
-    def processorSettingsLabel(self) -> None:
+    def processorSettingsLabel(self) -> str:
         """
         Get the label which is put on the tab for processor-specific settings.  To be reimplemented by subclasses.
         """
@@ -152,25 +152,25 @@ class ProcessorUIBase(IProcessorUI):
         """
         ...
 
-    def createVersionWidget(self) -> None:
+    def createVersionWidget(self) -> object:
         """
         Create a widget for selecting the version number for export.
         """
         ...
 
-    def onVersionIndexChanged(self, value) -> None:
+    def onVersionIndexChanged(self, value: int) -> None:
         """
         Callback when the version index changes.
         """
         ...
 
-    def onVersionPaddingChanged(self, padding) -> None:
+    def onVersionPaddingChanged(self, padding: int) -> None:
         """
         Callback when the version padding changes.
         """
         ...
 
-    def createPathPreviewWidget(self) -> None:
+    def createPathPreviewWidget(self) -> object:
         """
         Create a widget for showing a preview of the expanded export path.
         """

@@ -42,7 +42,7 @@ addEffectHandler = None
 eventHandler = None
 
 
-def scriptSaveAndReRender():
+def scriptSaveAndReRender() -> None:
     """ Save the current nk script and queue background re-render of its frames. """
     nuke.scriptSave()
     if not autoBackgroundRenderOnScriptSave():
@@ -66,7 +66,7 @@ kAutoBackgroundRenderOnSaveValue = 1
 kAutoBackgroundRenderOnSaveCreateOrVersionValue = 2
 
 
-def autoBackgroundRenderOnScriptSave():
+def autoBackgroundRenderOnScriptSave() -> bool:
     """ Check if a script should be automatically re-rendered when the user saves normally. """
 
     settings = hiero.core.ApplicationSettings()
@@ -312,7 +312,7 @@ def hideNukeMenus():
         setContext(menu.action(), hiero.ui.kContextNone, True)
 
 
-def appendNukeUserMenus():
+def appendNukeUserMenus() -> None:
     """ Get nuke user created menus and add them so they appear at the end of the menu bar
     """
     # Nuke Menus used to filter the list given by nuke.menu('Nuke').items()
@@ -354,7 +354,7 @@ def setContext(action, context, recursive):
                     setContext(subAction, context, True)
 
 
-def updateMenuActionVisibility(action, focusInNuke):
+def updateMenuActionVisibility(action: object, focusInNuke: bool) -> None:
     """ Recursively set the visibility of menu actions based on their context,
     and whether keyboard focus is in a Nuke widget.
     """
@@ -389,7 +389,7 @@ def setMenuVisibility(focusInNuke):
     _switchContextShortcuts(focusInNuke)
 
 
-def _switchContextShortcuts(focusInNuke):
+def _switchContextShortcuts(focusInNuke: bool) -> None:
     """Change some menus shortcuts so they don't clash"""
     # TODO Deal with clashing shortcuts here for now
     if focusInNuke:
@@ -408,7 +408,7 @@ def _switchContextShortcuts(focusInNuke):
             recentAction.setShortcut('')
 
 
-def nodeGraphExists():
+def nodeGraphExists() -> bool:
     """ Returns True if a Node Graph (DAG) exists in the current workspace,
         False otherwise
     """
@@ -417,7 +417,7 @@ def nodeGraphExists():
     return len(windows) > 0
 
 
-def showViewer():
+def showViewer() -> None:
     """ Show Viewer Window of the first Viewer Node from nuke.allNodes("Viewer") """
     viewerNodes = nuke.allNodes('Viewer')
     if len(viewerNodes) > 0:
@@ -485,7 +485,7 @@ class NukeStudioEventHandler:
         openInNewNukeAction = OpenInNodeGraphAction(self, False)
         openInNodeGraphAction = OpenInNodeGraphAction(self, True)
 
-    def _getCurrentNukeScriptName(self):
+    def _getCurrentNukeScriptName(self) -> str:
         """ Try to get the current Nuke script name.  Returns an empty string if not set.
             This is a around nuke.scriptName() to handle the exception which gets raised if there is no current name. """
         try:
@@ -493,7 +493,7 @@ class NukeStudioEventHandler:
         except:
             return ''
 
-    def getNukeScriptPathFromItem(self, item):
+    def getNukeScriptPathFromItem(self, item) -> str | None:
         """ Extract the path from the given item, and check if it points to a Nuke script.
             Returns None if no path was found or if it wasn't a Nuke script. """
         filePath = None
@@ -518,7 +518,7 @@ class NukeStudioEventHandler:
 
         return filePath
 
-    def _checkSaveCurrentNukeScript(self):
+    def _checkSaveCurrentNukeScript(self) -> bool:
         """ Try to save the current script.  Returns False if the user selected Cancel, True otherwise. """
 
         result = True
@@ -564,7 +564,7 @@ class NukeStudioEventHandler:
         except Exception as e:
             print(traceback.format_exc())
 
-    def openDAG(self, filePath, fork=False):
+    def openDAG(self, filePath: str, fork: bool = False) -> None:
         """ Open a script in the DAG, or in a new Nuke process if fork is true.
             The caller should make sure the filePath is actually a valid Nuke script. """
 

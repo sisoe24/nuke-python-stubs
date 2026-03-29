@@ -72,7 +72,7 @@ def loadPluginsFromPluginPath(suffix):
             loadPluginsFromFolder(os.path.join(path, 'Python', suffix))
 
 
-def launchedInSafeMode():
+def launchedInSafeMode() -> bool:
     """Returns whether Hiero was launched in Safe mode (--safe) on the command line"""
     safe = ('--safe' in hiero.core.rawArgs)
     return safe

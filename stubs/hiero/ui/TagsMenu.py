@@ -8,7 +8,7 @@ from hiero.ui import findMenuAction, createMenuAction, insertMenuAction
 from hiero.core import find_items
 
 
-def visibleShotAtTime(sequence, t):
+def visibleShotAtTime(sequence: hiero.core.Sequence, t: int) -> hiero.core.TrackItem:
     """visibleShotAtTime(sequence, t) -> Returns the visible TrackItem in a Sequence (sequence) at a specified frame (time).
     @param: sequence - a core.Sequence
     @param: t - an integer (frame no.) at which to return the current TrackItem

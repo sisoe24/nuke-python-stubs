@@ -27,7 +27,7 @@ except:
 import sys
 
 
-def configureFrameServerFromCommandArgs():
+def configureFrameServerFromCommandArgs() -> None:
     """ Check for the --frameserverloglevel command line argument for setting the
         frame server log level.  Note that this can't be done on module import because
         hiero.core.rawArgs is not available until afterwards. """
@@ -62,7 +62,7 @@ frameServer.addRenderProgressObserver(renderProgressObserver)
 backgroundRenderer = frameServer
 
 
-def startServer():
+def startServer() -> None:
     """ Start the Nuke frame server. """
     hiero.core.log.debug('nukestudio.startServer')
 
@@ -77,7 +77,7 @@ def startServer():
     frameServer.start(nukeWorkerThreads, nukeWorkerMemory, pathRemappings, frameserverErrorHandler)
 
 
-def stopServer(event):
+def stopServer(event: object) -> None:
     """ Handle shutdown event to stop the frame server. """
     global frameServer
 
@@ -143,7 +143,7 @@ def promptFrameServerKill(port):
                 )
 
 
-def onFatalError(exitcode):
+def onFatalError(exitcode: int) -> int:
     """
     A callback which gets called when frameserver encounters a fatal error.
     It returns a known exit code which indicates the reason for the fatal failure.
@@ -167,7 +167,7 @@ def onFatalError(exitcode):
         ))
 
 
-def onError(message):
+def onError(message: str) -> None:
     """
     A callback which gets called when the framserver encounters a non-fatal error.
     """
@@ -203,7 +203,7 @@ def onError(message):
     ))
 
 
-def isServerRunning(timeout=1):
+def isServerRunning(timeout: float = 1.0) -> bool:
     """ Test if the Nuke frame server is running.  This is done by sending a message to it
         and waiting for a response.  Returns false if no reply was received within timeout seconds.
         @param timeout: time in seconds to wait for a response.  Defaults to 1 """
@@ -211,7 +211,7 @@ def isServerRunning(timeout=1):
     return frameServer.isRunning(timeout) and (backgroundRenderer == frameServer or backgroundRenderer.isRunning(timeout))
 
 
-def renderFrames(scriptPath, frameRanges, writeNode, views):
+def renderFrames(scriptPath: str, frameRanges: list[tuple[int, int]], writeNode: object, views: object) -> None:
     """ Queue background render of a range of frames for a script. """
 
     hiero.core.log.debug('nukestudio.renderFrames ' + scriptPath)
@@ -219,14 +219,14 @@ def renderFrames(scriptPath, frameRanges, writeNode, views):
     backgroundRenderer.renderFrames(scriptPath, frameRanges, writeNode, views)
 
 
-def renderScript(scriptName):
+def renderScript(scriptName: str) -> None:
     """ Queue background render of all the frames for a script. """
 
     global backgroundRenderer
     backgroundRenderer.renderScript(scriptName)
 
 
-def cancelFrames(scriptPath, nodeName=''):
+def cancelFrames(scriptPath: str, nodeName: str = '') -> None:
     """ Cancel background render of all the frames for the given script. """
 
     hiero.core.log.debug('nukestudio.cancelFrames ' + scriptPath + ','+nodeName)
@@ -234,7 +234,7 @@ def cancelFrames(scriptPath, nodeName=''):
     backgroundRenderer.cancelFrames(scriptPath, nodeName)
 
 
-def setBackgroundRenderer(renderer):
+def setBackgroundRenderer(renderer: object) -> None:
     """ Set the background renderer instance to be used for rendering. """
 
     assert issubclass(renderer.__class__,
@@ -246,7 +246,7 @@ def setBackgroundRenderer(renderer):
     backgroundRenderer = renderer
 
 
-def postProcessScript(scriptPath):
+def postProcessScript(scriptPath: str) -> None:
     """ Send a command to post-process the Nuke script to the post processor."""
     global backgroundRenderer
     backgroundRenderer.postProcessScript(scriptPath)

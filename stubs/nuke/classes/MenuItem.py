@@ -14,7 +14,7 @@ class MenuItem(object):
     MenuItem
     """
 
-    def __hash__(self, ) -> None:
+    def __hash__(self) -> int:
         """
         Return hash(self).
         """
@@ -44,7 +44,7 @@ class MenuItem(object):
         """
         ...
 
-    def action(self,) -> None:
+    def action(self) -> None:
         """
         self.action() -> None
         Get the action associated with this menu item.
@@ -80,7 +80,7 @@ class MenuItem(object):
         """
         ...
 
-    def setScript(self, script) -> None:
+    def setScript(self, script: str) -> None:
         """
         self.setScript(script) -> None
         Set the script to be executed for this menu item.

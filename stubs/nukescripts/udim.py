@@ -10,7 +10,7 @@ from PySide2 import QtGui, QtCore, QtWidgets
 from nukescripts import panels, execute_panel
 
 
-def parseUdimFile(f):
+def parseUdimFile(f: str) -> int | None:
     """Parsing a filename string in search of the udim number.
        The function returns the udim number, and None if it is not able to decode the udim value.
 
@@ -449,7 +449,7 @@ def udim_group(nodes):
     return group_node
 
 
-def udim_import(udim_parsing_func=parseUdimFile, udim_column_label='UDIM'):
+def udim_import(udim_parsing_func: callable = parseUdimFile, udim_column_label: str = 'UDIM') -> None:
     """ Imports a sequence of UDIM files and creates the node material tree needed.
         This function simplifies the process of importing textures. It generates a tree of nodes which
         adjusts the texture coordinates at rendering time for a model containing multiple texture tiles.
