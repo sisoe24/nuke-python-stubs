@@ -30,6 +30,7 @@ from dataclasses import dataclass, field
 
 STUBS_PATH = pathlib.Path.home() / '.nuke' / 'NukeTools' / 'stubs'
 CHANGE_LOG_PATH = STUBS_PATH.parent / 'ai_fixer_changes.json'
+DEFAULT_MODEL = "gpt-5-mini"
 
 MAX_FUNCTIONS_PER_BATCH = 50
 RATE_LIMIT_DELAY = 1.0
@@ -417,7 +418,6 @@ class OpenAIBatchFixer(BaseAnnotationFixer):
     Not compatible with base-url overrides (Batch API is OpenAI-hosted only).
     """
 
-    DEFAULT_MODEL = 'gpt-5-mini'
     POLL_INTERVAL_START = 10   # seconds between first status checks
     POLL_INTERVAL_MAX = 60     # cap poll interval at 60 s
 
@@ -956,8 +956,8 @@ Examples:
         ),
     )
     fix_parser.add_argument(
-        '--model', default='gpt-5-mini',
-        help='Model name override. Defaults: openai=gpt-5-mini, ollama=llama3.',
+        '--model', default=DEFAULT_MODEL,
+        help=f'Model name override. Defaults: openai={DEFAULT_MODEL}, ollama=llama3.',
     )
     fix_parser.add_argument(
         '--base-url', default=None, metavar='URL',
