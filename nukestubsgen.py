@@ -186,8 +186,8 @@ NUKE_POST_FIXES = {
 
 NUKE_POST_INJECT = {
     '__init__': [
-        '@overload\ndef execute(nameOrNode: Node | str, frameRangeSet: FrameRange, views: Optional[list[View]] = None, continueOnError=False) -> None:',
-        '@overload\ndef execute(nameOrNode: Node | str, start: Optional[int] = None, end: Optional[int] = None, incr: Optional[int] = None, views: Optional[list[View]] = None, continueOnError=False) -> None:',
+        '@overload\ndef execute(nameOrNode: Node | str, frameRangeSet: FrameRange, views: Optional[list[View]] = None, continueOnError=False) -> None:\n    ...',
+        '@overload\ndef execute(nameOrNode: Node | str, start: Optional[int] = None, end: Optional[int] = None, incr: Optional[int] = None, views: Optional[list[View]] = None, continueOnError=False) -> None:\n    ...',
     ]
 }
 
