@@ -23,7 +23,7 @@ testpaths = ["tests"]
 
 [tool.ruff]
 line-length = 100
-extend-exclude = ["stubs", "nukestubsgen.py", "tests/fixtures", "inference", "hosts/*/overrides"]
+extend-exclude = ["stubs", "nukestubsgen.py", "tests/fixtures", "tests/corpus", "inference", "hosts/*/overrides", "build"]
 
 [tool.ruff.lint]
 # Import order belongs to isort (length_sort), run by pre-commit.

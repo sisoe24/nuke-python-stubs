@@ -2,15 +2,15 @@ from __future__ import annotations
 
 import json
 import shlex
-import shutil
 import logging
 import argparse
 from pathlib import Path
 
-from hoststubs.emit import emit
+from hoststubs import ir
+from hoststubs.build import build
 from hoststubs.host import REPO, load_host, dump_arguments
 from hoststubs.infer import infer
-from hoststubs.report import report, load_context, resolve_dump
+from hoststubs.report import report, resolve_dump
 from hoststubs.targets import param_targets, probe_targets
 
 
@@ -35,8 +35,12 @@ def main() -> None:
         command.add_argument('out', type=Path)
         command.add_argument('modules', nargs='+', help='only targets under these modules')
 
-    command = commands.add_parser('build', help='write the stubs for one dumped version')
+    command = commands.add_parser('build', help='write and check the stubs for one dumped version')
     command.add_argument('dump', type=Path)
+    command.add_argument(
+        '--update-snapshot', action='store_true',
+        help='record what pyright reveals for the corpus instead of checking it',
+    )
 
     args = parser.parse_args()
     logging.basicConfig(level=logging.INFO, format='%(levelname)s %(message)s')
@@ -46,12 +50,15 @@ def main() -> None:
     elif args.command == 'infer':
         infer(args.dump, args.search)
     elif args.command == 'build':
-        context = load_context(args.dump)
-        out = REPO / 'build' / f'{context.dump.host}-{context.dump.host_version}'
-        if out.exists():
-            shutil.rmtree(out)
-        written = emit(context, out)
-        logging.info('Wrote %d files under %s.', len(written), out)
+        dump = ir.load(args.dump)
+        out = REPO / 'build' / f'{dump.host}-{dump.host_version}'
+        findings = build(args.dump, out, args.update_snapshot)
+
+        for finding in findings:
+            logging.error(finding)
+        if findings:
+            raise SystemExit(f'Gate failed: {len(findings)} findings.')
+        logging.info('Gate passed.')
     elif args.command == 'report':
         print(report(args.dump))
     elif args.command in ('probe-targets', 'param-targets'):

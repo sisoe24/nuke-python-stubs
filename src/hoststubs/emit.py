@@ -2,12 +2,15 @@
 from __future__ import annotations
 
 import re
+import json
+import shutil
 import textwrap
 from pathlib import Path
 from dataclasses import dataclass
 
 from hoststubs import ir
-from hoststubs.names import Names
+from hoststubs.host import HostConfig
+from hoststubs.names import TYPED_QT_BINDINGS, Names
 from hoststubs.resolve import Param, Signature
 from hoststubs.overrides import Overrides
 from hoststubs.docstrings import VAR_KEYWORD, VAR_POSITIONAL
@@ -308,11 +311,12 @@ class ModuleEmitter:
             return None
 
         module, rest = self._names.split_module(path)
-        if '.' in rest:
-            return None
         if module == self._name:
             return f'{name} = {rest}'
-        return f'from {module} import {rest} as {name}'
+        if rest == name:
+            return f'from {module} import {name} as {name}'
+        # Only `x as x` re-exports from a stub, so another name needs an assignment.
+        return f'{name} = {self._import_module(module)}.{rest}'
 
     # === PUBLIC === #
 
@@ -342,7 +346,8 @@ class ModuleEmitter:
                     reexports.append(line)
             elif isinstance(member, ir.Function):
                 functions += self._function(name, path, member.doc, None, '', frozenset()) + ['']
-            elif isinstance(member, ir.Value):
+            elif isinstance(member, ir.Value) and not member.type.startswith('__future__.'):
+                # `from __future__ import annotations` leaves a module attribute behind.
                 values.append(f'{name}: {self._value_type(member, frozenset())}')
 
         classes: list[str] = []
@@ -371,6 +376,53 @@ def module_file(name: str, modules: dict[str, ir.Module]) -> Path:
     if has_children or len(parts) == 1:
         return Path(*parts) / '__init__.pyi'
     return Path(*parts).with_suffix('.pyi')
+
+
+def normalize_version(raw: str) -> str:
+    """Make a host version valid for PEP 440: `15.2v9` becomes `15.2.9`."""
+    return '.'.join(re.findall(r'\d+', raw))
+
+
+def package(context: Context, host: HostConfig, stubs: Path, out: Path) -> Path:
+    """Lay the stub tree out as a PEP 561 stub-only distribution under `out`."""
+    dump = context.dump
+    if dump.host_version not in host.stub_revisions:
+        raise KeyError(f'No stub revision for {dump.host} {dump.host_version} in the host config')
+
+    packages = []
+    for top in sorted(path for path in stubs.iterdir() if path.is_dir()):
+        target = out / f'{top.name}-stubs'
+        shutil.copytree(top, target)
+        (target / 'py.typed').write_text('', encoding='utf-8')
+        packages.append(target.name)
+
+    qt = dump.qt
+    dependencies = [qt.binding] if qt and qt.binding in TYPED_QT_BINDINGS else []
+    revision = host.stub_revisions[dump.host_version]
+    python = '.'.join(dump.python.split('.')[:2])
+
+    (out / 'pyproject.toml').write_text(f'''[project]
+name = "{host.package_name}"
+version = "{normalize_version(dump.host_version)}.{revision}"
+description = "Type stubs for {dump.host} {dump.host_version}"
+license = "MIT"
+requires-python = ">={python}"
+dependencies = {json.dumps(dependencies)}
+classifiers = ["Typing :: Stubs Only"]
+
+[tool.hoststubs]
+host = "{dump.host}"
+host-version = "{dump.host_version}"
+stub-revision = {revision}
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = {json.dumps(packages)}
+''', encoding='utf-8')
+    return out
 
 
 def emit(context: Context, out: Path) -> list[Path]:

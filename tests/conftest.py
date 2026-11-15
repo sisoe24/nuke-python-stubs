@@ -7,7 +7,8 @@ import pytest
 from hoststubs import ir
 from hoststubs.names import Names
 from hoststubs.resolve import Signature
-from hoststubs.report import resolve_dump
+from hoststubs.emit import emit
+from hoststubs.report import load_context, resolve_dump
 
 REPO = Path(__file__).parents[1]
 FIXTURES = REPO / 'tests' / 'fixtures'
@@ -51,3 +52,11 @@ def nuke15_derived() -> dict[str, tuple[Signature, ...]]:
 def nuke15_probed() -> dict[str, tuple[Signature, ...]]:
     """Derived results with both probes, without overrides."""
     return resolve_dump(REPO / 'dumps' / 'nuke-15.2v9.json', use_overrides=False)[1]
+
+
+@pytest.fixture(scope='session')
+def nuke15_emitted(tmp_path_factory: pytest.TempPathFactory) -> dict[str, str]:
+    """Stub text of every module for Nuke 15.2v9, keyed by path."""
+    out = tmp_path_factory.mktemp('stubs')
+    written = emit(load_context(REPO / 'dumps' / 'nuke-15.2v9.json'), out)
+    return {path.relative_to(out).as_posix(): path.read_text() for path in written}

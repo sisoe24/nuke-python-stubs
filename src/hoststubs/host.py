@@ -14,6 +14,9 @@ DUMP_SCRIPT = REPO / 'inhost' / 'dump.py'
 class HostConfig:
     name: str
 
+    # Name of the stub distribution on PyPI.
+    package_name: str
+
     # Dotted path to the host version string, read inside the host.
     version_attribute: str
 

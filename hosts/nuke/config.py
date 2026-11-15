@@ -4,6 +4,8 @@ from hoststubs.host import HostConfig
 
 HOST = HostConfig(
     name='nuke',
+    # `types-nuke` belongs to an unrelated project.
+    package_name='nuke-stubs',
     version_attribute='nuke.NUKE_VERSION_STRING',
     roots=('nuke', 'nuke_internal', 'nukescripts', 'ocionuke', 'hiero'),
     # Examples are not API: hiero's register UI at import, nukescripts' need sip.
@@ -78,5 +80,5 @@ HOST = HostConfig(
         'nuke.expandSelectedGroup',
         'nuke.makeGroup',
     }),
-    stub_revisions={},
+    stub_revisions={'15.2v9': 0, '17.1v2': 0},
 )
