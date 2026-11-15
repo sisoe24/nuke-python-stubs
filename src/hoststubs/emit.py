@@ -17,6 +17,7 @@ from hoststubs.docstrings import VAR_KEYWORD, VAR_POSITIONAL
 from hoststubs.annotations import NONE
 
 INDENT = '    '
+PYTHON_FUNCTION = 'builtins.function'
 TYPE_NAME = re.compile(r'[A-Za-z_][\w.]*')
 
 POSITIONAL_ONLY = 'POSITIONAL_ONLY'
@@ -172,7 +173,8 @@ class ModuleEmitter:
             if binding in DECORATORS:
                 lines.append(f'{indent}{DECORATORS[binding]}')
 
-            params = self._params(signature.params, binding in ('instance', 'class'), shadowed)
+            has_receiver = binding in ('instance', 'class', 'new')
+            params = self._params(signature.params, has_receiver, shadowed)
             returns = self._type(signature.returns, shadowed)
             header = f'{indent}def {name}({params}) -> {returns}:'
 
@@ -214,6 +216,10 @@ class ModuleEmitter:
 
         bases = self._bases(cls)
         header = f'{indent}class {name}({", ".join(bases)}):' if bases else f'{indent}class {name}:'
+        # C code can derive from a type that refuses Python subclasses, so the
+        # flag alone is not enough: no class in the dump may derive from it.
+        if cls.final and not self._names.has_subclass(path):
+            header = f'{indent}@{self._short("typing", "final", frozenset())}\n{header}'
         body = docstring(cls.doc, inner)
 
         nested: list[str] = []
@@ -238,21 +244,29 @@ class ModuleEmitter:
                 nested += self._class(member_name, member, member_path, inner)
             elif isinstance(member, ir.Function):
                 is_overridden = member_path in self._context.overrides.functions
-                if member_name in SKIPPED_DUNDERS and not is_overridden:
+                is_python_new = member_name == '__new__' and member.descriptor == PYTHON_FUNCTION
+                if member_name in SKIPPED_DUNDERS and not (is_overridden or is_python_new):
                     continue
+                # `__new__` takes the class first and needs no decorator.
+                binding = 'new' if member_name == '__new__' else member.binding
                 functions += self._function(
-                    member_name, member_path, member.doc, member.binding, inner, shadowed,
+                    member_name, member_path, member.doc, binding, inner, shadowed,
                 )
             elif isinstance(member, ir.Property):
                 functions += self._property(member_name, member_path, member, inner, shadowed)
             elif isinstance(member, ir.Value) and not _is_dunder(member_name):
                 values.append(f'{inner}{member_name}: {self._value_type(member, shadowed)}')
 
-        has_constructor = '__init__' in cls.members or '__new__' not in cls.members
-        if not has_constructor:
+        new = cls.members.get('__new__')
+        is_c_new = isinstance(new, ir.Function) and new.descriptor != PYTHON_FUNCTION
+        if is_c_new and '__init__' not in cls.members:
+            # The C constructor says nothing about its arguments; without this
+            # line a checker would allow none at all.
             any_ = self._type('typing.Any', shadowed)
-            arguments = f'self, *args: {any_}, **kwargs: {any_}'
-            functions.append(f'{inner}def __init__({arguments}) -> None: ...')
+            arguments = f'cls, *args: {any_}, **kwargs: {any_}'
+            # Not `Self`: mypy rejects it as the return of `__new__` in a final class.
+            returns = self._type(path, shadowed)
+            functions.append(f'{inner}def __new__({arguments}) -> {returns}: ...')
 
         content = body + nested + values + functions
         if not content:

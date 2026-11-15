@@ -66,6 +66,8 @@ class Class:
     bases: tuple[str, ...]
     doc: str | None
     members: dict[str, Member]
+    # True for a C type that cannot be subclassed.
+    final: bool
 
 
 Member = Class | Function | Property | Value | Alias | Failed
@@ -145,6 +147,7 @@ def _class(raw: dict[str, Any]) -> Class:
         bases=tuple(raw['bases']),
         doc=raw['doc'],
         members=_members(raw['members']),
+        final=raw.get('final', False),
     )
 
 

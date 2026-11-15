@@ -7,6 +7,7 @@
  ],
  "foreign": {
   "PySide6": 183,
+  "_io": 3,
   "autolabel": 1,
   "builtins": 44,
   "collections": 6,
@@ -110,6 +111,7 @@
       "builtins.object"
      ],
      "doc": "RunInMainThread",
+     "final": true,
      "kind": "class",
      "members": {
       "request": {
@@ -16084,6 +16086,7 @@
       "builtins.object"
      ],
      "doc": null,
+     "final": true,
      "kind": "class",
      "members": {
       "__delitem__": {
@@ -55809,6 +55812,7 @@
       "builtins.object"
      ],
      "doc": "ProgressTask",
+     "final": true,
      "kind": "class",
      "members": {
       "__new__": {
@@ -66259,6 +66263,7 @@
       "builtins.object"
      ],
      "doc": null,
+     "final": true,
      "kind": "class",
      "members": {
       "__aiter__": {
@@ -66472,6 +66477,7 @@
       "builtins.object"
      ],
      "doc": null,
+     "final": true,
      "kind": "class",
      "members": {
       "__call__": {
@@ -66759,6 +66765,7 @@
       "builtins.object"
      ],
      "doc": "Create a new cell object.\n\n contents\n   the contents of the cell. If not specified, the cell will be empty,\n   and \nfurther attempts to access its cell_contents attribute will\n   raise a ValueError.",
+     "final": true,
      "kind": "class",
      "members": {
       "__eq__": {
@@ -66991,6 +66998,7 @@
       "builtins.object"
      ],
      "doc": null,
+     "final": true,
      "kind": "class",
      "members": {
       "__call__": {
@@ -67123,6 +67131,7 @@
       "builtins.object"
      ],
      "doc": "Create a code object.  Not for the faint of heart.",
+     "final": true,
      "kind": "class",
      "members": {
       "__eq__": {
@@ -67546,6 +67555,7 @@
       "builtins.object"
      ],
      "doc": null,
+     "final": true,
      "kind": "class",
      "members": {
       "__await__": {
@@ -67780,6 +67790,7 @@
       "builtins.object"
      ],
      "doc": null,
+     "final": true,
      "kind": "class",
      "members": {
       "__getattribute__": {
@@ -67892,6 +67903,7 @@
       "builtins.object"
      ],
      "doc": null,
+     "final": true,
      "kind": "class",
      "members": {
       "__delattr__": {
@@ -68069,6 +68081,7 @@
       "builtins.object"
      ],
      "doc": "Create a function object.\n\ncode\n  a code object\nglobals\n  the globals dictionary\nname\n  a string that overrides the name from the code object\nargdefs\n  a tuple that specifies the default argument values\nclosure\n  a tuple that supplies the bindings for free variables",
+     "final": true,
      "kind": "class",
      "members": {
       "__builtins__": {
@@ -68221,6 +68234,7 @@
       "builtins.object"
      ],
      "doc": null,
+     "final": true,
      "kind": "class",
      "members": {
       "__del__": {
@@ -68397,6 +68411,7 @@
       "builtins.object"
      ],
      "doc": null,
+     "final": true,
      "kind": "class",
      "members": {
       "__delete__": {
@@ -68638,6 +68653,7 @@
       "builtins.object"
      ],
      "doc": null,
+     "final": true,
      "kind": "class",
      "members": {
       "__class_getitem__": {
@@ -69116,6 +69132,7 @@
       "builtins.object"
      ],
      "doc": null,
+     "final": true,
      "kind": "class",
      "members": {
       "__delete__": {
@@ -69277,6 +69294,7 @@
       "builtins.object"
      ],
      "doc": null,
+     "final": true,
      "kind": "class",
      "members": {
       "__call__": {
@@ -69419,6 +69437,7 @@
       "builtins.object"
      ],
      "doc": "Create a bound instance method object.",
+     "final": true,
      "kind": "class",
      "members": {
       "__call__": {
@@ -69771,6 +69790,7 @@
       "builtins.object"
      ],
      "doc": null,
+     "final": true,
      "kind": "class",
      "members": {
       "__call__": {
@@ -70273,6 +70293,7 @@
       "builtins.object"
      ],
      "doc": null,
+     "final": true,
      "kind": "class",
      "members": {
       "__bool__": {
@@ -70346,6 +70367,7 @@
       "builtins.object"
      ],
      "doc": null,
+     "final": true,
      "kind": "class",
      "members": {
       "__bool__": {
@@ -70729,6 +70751,7 @@
       "builtins.object"
      ],
      "doc": null,
+     "final": true,
      "kind": "class",
      "members": {
       "__call__": {
@@ -132696,6 +132719,7 @@
       "builtins.Knob"
      ],
      "doc": "A knob which allows selection of parts of a 3D object.",
+     "final": true,
      "kind": "class",
      "members": {
       "__delattr__": {
@@ -133177,6 +133201,7 @@
       "builtins.object"
      ],
      "doc": "Dictionary-style object holding global Nuke state.\nExample:\nnuke.env['threads'] = 4",
+     "final": true,
      "kind": "class",
      "members": {
       "__contains__": {
@@ -134021,6 +134046,7 @@
       "builtins.object"
      ],
      "doc": "A hash value for any number of objects.\n\nThe append() method is used to add objects to the hash; the value will be recomputed efficiently as each new object is added.",
+     "final": true,
      "kind": "class",
      "members": {
       "__delattr__": {
@@ -135729,6 +135755,7 @@
       "builtins.object"
      ],
      "doc": "Constants for use in parameters which require a knob type.",
+     "final": true,
      "kind": "class",
      "members": {
       "eAColorKnob": {
@@ -136484,6 +136511,7 @@
       "builtins.object"
      ],
      "doc": "A linkable knob description. Holds a reference to a knob that may be linked to, as well as an indication whether this knob should be used as part of an absolute or relative expression and whether it is enabled.",
+     "final": true,
      "kind": "class",
      "members": {
       "__delattr__": {
@@ -137081,6 +137109,7 @@
       "builtins.MenuItem"
      ],
      "doc": "Menu",
+     "final": true,
      "kind": "class",
      "members": {
       "__hash__": {
@@ -137221,6 +137250,7 @@
       "builtins.object"
      ],
      "doc": "MenuBar",
+     "final": true,
      "kind": "class",
      "members": {
       "__hash__": {
@@ -137361,6 +137391,7 @@
       "builtins.object"
      ],
      "doc": "MenuItem",
+     "final": true,
      "kind": "class",
      "members": {
       "__hash__": {
@@ -139522,6 +139553,7 @@
       "builtins.object"
      ],
      "doc": "Panel",
+     "final": true,
      "kind": "class",
      "members": {
       "__hash__": {
@@ -141671,6 +141703,7 @@
       "builtins.object"
      ],
      "doc": "RunInMainThread",
+     "final": true,
      "kind": "class",
      "members": {
       "__hash__": {
@@ -142713,6 +142746,7 @@
       "builtins.object"
      ],
      "doc": "ToolBar",
+     "final": true,
      "kind": "class",
      "members": {
       "__hash__": {
@@ -144292,6 +144326,7 @@
       "builtins.object"
      ],
      "doc": "ViewerProcess",
+     "final": true,
      "kind": "class",
      "members": {
       "__hash__": {
@@ -144392,6 +144427,7 @@
       "builtins.object"
      ],
      "doc": "ViewerWindow",
+     "final": true,
      "kind": "class",
      "members": {
       "__hash__": {
@@ -155038,6 +155074,7 @@
       "builtins.object"
      ],
      "doc": "A collection of named attributes.\n\nEach attribute is represented as a curve, parameterised over time. Convenience methods for managing the curves (adding and removing keys, etc.) are provided, as well as methods for managing the list of available attributes.\n\nAttributes can be accessed by index or by name. This class defines constants for standard names in use by Nuke.",
+     "final": true,
      "kind": "class",
      "members": {
       "__contains__": {
@@ -155577,6 +155614,7 @@
       "builtins.object"
      ],
      "doc": "An animated transform, where each part of the transform is represented as a curve over time.",
+     "final": true,
      "kind": "class",
      "members": {
       "__delattr__": {
@@ -156164,6 +156202,7 @@
       "_curvelib.Flag"
      ],
      "doc": "An animated control point.\n\nThese are used directly by Stroke objects to store the control point locations. Shape objects use a collection of up to 6 of them to represent each control point (see the ShapeControlPoint class for details).\n\nIt is advisable to call changed() on the 'curves' knob after making modifications to curves. This forces the knob to re-cache the state of its curves.\n\nThe 'view' argument to the object's methods can be omitted and the default view 'main' will be used.",
+     "final": true,
      "kind": "class",
      "members": {
       "__delattr__": {
@@ -156441,6 +156480,7 @@
       "_curvelib.BaseCurve"
      ],
      "doc": "An animated curve. The curve is described as a series of key values (instances of the AnimCurveKey class) which say what value it should have a particular time. For any time in between keys, the neighbouring key values are interpolated based on a curve type and interpolation settings specified at each key.\n\nEach curve can only represent a single floating point value over time.",
+     "final": true,
      "kind": "class",
      "members": {
       "__delattr__": {
@@ -156663,6 +156703,7 @@
       "builtins.object"
      ],
      "doc": "A key value in a parametric curve represented as a value at a particular time.",
+     "final": true,
      "kind": "class",
      "members": {
       "__delattr__": {
@@ -156855,6 +156896,7 @@
       "builtins.object"
      ],
      "doc": null,
+     "final": true,
      "kind": "class",
      "members": {
       "__delattr__": {
@@ -157011,6 +157053,7 @@
       "_curvelib.Flag"
      ],
      "doc": "A base class for animated curves.\n\nYou shouldn't be using this class directly, it only exists for other classes in this module to inherit from.",
+     "final": true,
      "kind": "class",
      "members": {
       "__delattr__": {
@@ -157153,6 +157196,7 @@
       "builtins.object"
      ],
      "doc": "A 4x4 matrix with methods for affine transformations.",
+     "final": true,
      "kind": "class",
      "members": {
       "__add__": {
@@ -157835,6 +157879,7 @@
       "builtins.object"
      ],
      "doc": "A transform at a single point in time.\n\nThis is the result of evaluating an AnimTransform for a particular time.",
+     "final": true,
      "kind": "class",
      "members": {
       "__delattr__": {
@@ -158047,6 +158092,7 @@
       "builtins.object"
      ],
      "doc": "A 2-component vector.",
+     "final": true,
      "kind": "class",
      "members": {
       "__add__": {
@@ -158644,6 +158690,7 @@
       "builtins.object"
      ],
      "doc": "A 3-component vector.",
+     "final": true,
      "kind": "class",
      "members": {
       "__add__": {
@@ -159246,6 +159293,7 @@
       "builtins.object"
      ],
      "doc": "A 4-component vector.",
+     "final": true,
      "kind": "class",
      "members": {
       "__add__": {
@@ -159853,6 +159901,7 @@
       "builtins.object"
      ],
      "doc": "A control point at a particular point in time.\n\nThis is the result of evaluating an AnimControlPoint for a particular time value.",
+     "final": true,
      "kind": "class",
      "members": {
       "__delattr__": {
@@ -160005,6 +160054,7 @@
       "builtins.object"
      ],
      "doc": "A baked out curve for a specific frame and view.\n\nUse the getPoint function to get positions along the curve.\n\nNote that some curves, such as the feather curve for a roto shape, are stored as offsets relative to another curve rather than absolute positions.",
+     "final": true,
      "kind": "class",
      "members": {
       "__delattr__": {
@@ -160127,6 +160177,7 @@
       "builtins.Knob"
      ],
      "doc": "The knob which holds the tree of paint elements (Layers, Shapes and Strokes).\n\nMost operations are performed on the tree itself, or its elements, rather than through the knob. You can get the root of the tree through the knob's rootLayer property, or you can get straight to a specific element using the toElement() method.\n\nA common usage scenario is as follows:\n\n>>> knob = nuke.toNode('RotoPaint1')['curves']\n>>> root = knob.rootLayer\n>>> # perform operations on the root layer.\n\nCreating any new shapes, strokes or layers will require you to pass in a reference to the knob, so it's worth storing the reference in a variable.",
+     "final": true,
      "kind": "class",
      "members": {
       "__delattr__": {
@@ -160255,6 +160306,7 @@
       "builtins.object"
      ],
      "doc": "Constants for use in parameters which require a curve type.",
+     "final": true,
      "kind": "class",
      "members": {
       "eBSplineCurveType": {
@@ -160463,6 +160515,7 @@
       "builtins.object"
      ],
      "doc": "Constants for use in parameters which require an extrapolation type.",
+     "final": true,
      "kind": "class",
      "members": {
       "eConstantExtrapolationType": {
@@ -160626,6 +160679,7 @@
       "builtins.object"
      ],
      "doc": "Constants for use in parameters which require a flag type.",
+     "final": true,
      "kind": "class",
      "members": {
       "eActiveFlag": {
@@ -160717,6 +160771,7 @@
       "builtins.object"
      ],
      "doc": "Constants for use in parameters which require an interpolation type.",
+     "final": true,
      "kind": "class",
      "members": {
       "eCubicInterpolationType": {
@@ -160748,6 +160803,7 @@
       "_curveknob.Element"
      ],
      "doc": "A layer, used to group other elements in the paint tree.\n\nLayers can contain shapes, strokes and other layers. They can be transformed, which has the effect of transforming all contained objects by the same amount (in addition to any individual transforms on the contained objects).\n\nLayers are represented as a sequence of Element objects. You can find out how many items the layer contains using the len() function, as for any python sequence. Likewise you can access the contained elements using python's array-style syntax (e.g. layer[0] will return the first element inside the layer, layer[-1] will return the last element, etc.).",
+     "final": true,
      "kind": "class",
      "members": {
       "__delattr__": {
@@ -160993,6 +161049,7 @@
       "builtins.object"
      ],
      "doc": "Constants for use in parameters which require a rotation order.",
+     "final": true,
      "kind": "class",
      "members": {
       "eUndefineRotationOrder": {
@@ -161039,6 +161096,7 @@
       "_curveknob.Element"
      ],
      "doc": "A Roto or SplineWarp shape, which may be animated.\n\nShapes are represented as a sequence of ShapeControlPoint objects, which group together a 'center' control point along with tangent locations and feather offsets. Python's built-in len() function can be used to get the number of shape control points; and array-style access can be used to get individual shape control points (e.g. shape[0] returns the first shape control point, shape[-1] returns the last shape control point, etc.).\nYou can create a new shape as follows:\n\n>>>import _curveknob\n>>>rotoNode = nuke.toNode('RotoPaint1')\n>>>curveKnob = rotoNode['curves']\n>>>emptyShape = _curveknob.Shape( curveKnob )\n>>>twoPointShape = _curveknob.Shape( curveKnob, *((0,0), (10,10)) )\n>>> # perform operations on the shape(s).\n\nNOTE: this object was designed to work for Roto shapes, which have feather\n      curves. Please report any problems with this type to\n      support@thefoundry.co.uk",
+     "final": true,
      "kind": "class",
      "members": {
       "__delattr__": {
@@ -161274,6 +161332,7 @@
       "builtins.object"
      ],
      "doc": "A control point in a roto shape.\n\nThe control point groups together a 'center' location, along with tangents and feather offsets.",
+     "final": true,
      "kind": "class",
      "members": {
       "__delattr__": {
@@ -161416,6 +161475,7 @@
       "_curveknob.Element"
      ],
      "doc": "A paint stroke, which may be animated.\n\nA paint stroke is represented as a sequence of AnimControlPoint objects. You can find out how many control points there are in the stroke using python's built-in len() function; and you can access individual control points using the array-style syntax (e.g. stroke[0] returns the first control point, stroke[-1] returns the last control point, etc.).",
+     "final": true,
      "kind": "class",
      "members": {
       "__delattr__": {
@@ -161651,6 +161711,7 @@
       "builtins.object"
      ],
      "doc": "Constants for use in parameters which require a transform order.",
+     "final": true,
      "kind": "class",
      "members": {
       "eRSTTransformOrder": {
@@ -161895,6 +161956,7 @@
       "builtins.object"
      ],
      "doc": "The available attribute groups. Use these in conjunction with the Attribute and AttribContext methods.",
+     "final": true,
      "kind": "class",
      "members": {
       "Group_Attributes": {
@@ -161946,6 +162008,7 @@
       "builtins.object"
      ],
      "doc": "The available attribute types. Used by the Attribute and AttribContext classes. Note that we don't support pointer attributes in python, although we do report their type.",
+     "final": true,
      "kind": "class",
      "members": {
       "eFloatAttrib": {
@@ -162012,6 +162075,7 @@
       "builtins.object"
      ],
      "doc": "A set of selected items on a single of 3d object.",
+     "final": true,
      "kind": "class",
      "members": {
       "__delattr__": {
@@ -162145,6 +162209,7 @@
       "builtins.object"
      ],
      "doc": "An attribute on a 3d object.",
+     "final": true,
      "kind": "class",
      "members": {
       "__delattr__": {
@@ -162306,6 +162371,7 @@
       "builtins.object"
      ],
      "doc": "A 3D object consisting of vertices and primitives built out of them.",
+     "final": true,
      "kind": "class",
      "members": {
       "__delattr__": {
@@ -162454,6 +162520,7 @@
       "builtins.object"
      ],
      "doc": "A list of GeoInfo objects.",
+     "final": true,
      "kind": "class",
      "members": {
       "__delattr__": {
@@ -162585,6 +162652,7 @@
       "builtins.object"
      ],
      "doc": "A list of points.\n\nEach point is represented as an (x,y,z) tuple of floats.",
+     "final": true,
      "kind": "class",
      "members": {
       "__delattr__": {
@@ -162716,6 +162784,7 @@
       "builtins.object"
      ],
      "doc": "The base class for geometric primitives in Nuke.",
+     "final": true,
      "kind": "class",
      "members": {
       "__delattr__": {
@@ -163844,6 +163913,7 @@
       "_curveknob.CurveKnob"
      ],
      "doc": null,
+     "final": true,
      "kind": "class",
      "members": {
       "__delattr__": {
@@ -164267,381 +164337,8 @@
      "target": "nukescripts.blinkscripteditor.ScriptInputArea"
     },
     "StringIO": {
-     "bases": [
-      "_io._TextIOBase"
-     ],
-     "doc": "Text I/O implementation using an in-memory buffer.\n\nThe initial_value argument sets the value of object.  The newline\nargument is like the one of TextIOWrapper's constructor.",
-     "kind": "class",
-     "members": {
-      "__getstate__": {
-       "binding": "instance",
-       "descriptor": "builtins.method_descriptor",
-       "doc": null,
-       "kind": "function",
-       "origin": null,
-       "qualname": "StringIO.__getstate__",
-       "signature": null,
-       "text_signature": null
-      },
-      "__init__": {
-       "binding": "instance",
-       "descriptor": "builtins.wrapper_descriptor",
-       "doc": "Initialize self.  See help(type(self)) for accurate signature.",
-       "kind": "function",
-       "origin": null,
-       "qualname": "StringIO.__init__",
-       "signature": {
-        "params": [
-         {
-          "annotation": null,
-          "kind": "POSITIONAL_ONLY",
-          "name": "self"
-         },
-         {
-          "annotation": null,
-          "kind": "VAR_POSITIONAL",
-          "name": "args"
-         },
-         {
-          "annotation": null,
-          "kind": "VAR_KEYWORD",
-          "name": "kwargs"
-         }
-        ],
-        "returns": null
-       },
-       "text_signature": "($self, /, *args, **kwargs)"
-      },
-      "__new__": {
-       "binding": "instance",
-       "descriptor": "builtins.builtin_function_or_method",
-       "doc": "Create and return a new object.  See help(type) for accurate signature.",
-       "kind": "function",
-       "origin": null,
-       "qualname": "StringIO.__new__",
-       "signature": {
-        "params": [
-         {
-          "annotation": null,
-          "kind": "VAR_POSITIONAL",
-          "name": "args"
-         },
-         {
-          "annotation": null,
-          "kind": "VAR_KEYWORD",
-          "name": "kwargs"
-         }
-        ],
-        "returns": null
-       },
-       "text_signature": "($type, *args, **kwargs)"
-      },
-      "__next__": {
-       "binding": "instance",
-       "descriptor": "builtins.wrapper_descriptor",
-       "doc": "Implement next(self).",
-       "kind": "function",
-       "origin": null,
-       "qualname": "StringIO.__next__",
-       "signature": {
-        "params": [
-         {
-          "annotation": null,
-          "kind": "POSITIONAL_ONLY",
-          "name": "self"
-         }
-        ],
-        "returns": null
-       },
-       "text_signature": "($self, /)"
-      },
-      "__setstate__": {
-       "binding": "instance",
-       "descriptor": "builtins.method_descriptor",
-       "doc": null,
-       "kind": "function",
-       "origin": null,
-       "qualname": "StringIO.__setstate__",
-       "signature": null,
-       "text_signature": null
-      },
-      "close": {
-       "binding": "instance",
-       "descriptor": "builtins.method_descriptor",
-       "doc": "Close the IO object.\n\nAttempting any further operation after the object is closed\nwill raise a ValueError.\n\nThis method has no effect if the file is already closed.",
-       "kind": "function",
-       "origin": null,
-       "qualname": "StringIO.close",
-       "signature": {
-        "params": [
-         {
-          "annotation": null,
-          "kind": "POSITIONAL_ONLY",
-          "name": "self"
-         }
-        ],
-        "returns": null
-       },
-       "text_signature": "($self, /)"
-      },
-      "closed": {
-       "descriptor": "builtins.getset_descriptor",
-       "doc": null,
-       "kind": "property"
-      },
-      "getvalue": {
-       "binding": "instance",
-       "descriptor": "builtins.method_descriptor",
-       "doc": "Retrieve the entire contents of the object.",
-       "kind": "function",
-       "origin": null,
-       "qualname": "StringIO.getvalue",
-       "signature": {
-        "params": [
-         {
-          "annotation": null,
-          "kind": "POSITIONAL_ONLY",
-          "name": "self"
-         }
-        ],
-        "returns": null
-       },
-       "text_signature": "($self, /)"
-      },
-      "line_buffering": {
-       "descriptor": "builtins.getset_descriptor",
-       "doc": null,
-       "kind": "property"
-      },
-      "newlines": {
-       "descriptor": "builtins.getset_descriptor",
-       "doc": null,
-       "kind": "property"
-      },
-      "read": {
-       "binding": "instance",
-       "descriptor": "builtins.method_descriptor",
-       "doc": "Read at most size characters, returned as a string.\n\nIf the argument is negative or omitted, read until EOF\nis reached. Return an empty string at EOF.",
-       "kind": "function",
-       "origin": null,
-       "qualname": "StringIO.read",
-       "signature": {
-        "params": [
-         {
-          "annotation": null,
-          "kind": "POSITIONAL_ONLY",
-          "name": "self"
-         },
-         {
-          "annotation": null,
-          "default": {
-           "kind": "value",
-           "repr": "-1",
-           "type": "builtins.int"
-          },
-          "kind": "POSITIONAL_ONLY",
-          "name": "size"
-         }
-        ],
-        "returns": null
-       },
-       "text_signature": "($self, size=-1, /)"
-      },
-      "readable": {
-       "binding": "instance",
-       "descriptor": "builtins.method_descriptor",
-       "doc": "Returns True if the IO object can be read.",
-       "kind": "function",
-       "origin": null,
-       "qualname": "StringIO.readable",
-       "signature": {
-        "params": [
-         {
-          "annotation": null,
-          "kind": "POSITIONAL_ONLY",
-          "name": "self"
-         }
-        ],
-        "returns": null
-       },
-       "text_signature": "($self, /)"
-      },
-      "readline": {
-       "binding": "instance",
-       "descriptor": "builtins.method_descriptor",
-       "doc": "Read until newline or EOF.\n\nReturns an empty string if EOF is hit immediately.",
-       "kind": "function",
-       "origin": null,
-       "qualname": "StringIO.readline",
-       "signature": {
-        "params": [
-         {
-          "annotation": null,
-          "kind": "POSITIONAL_ONLY",
-          "name": "self"
-         },
-         {
-          "annotation": null,
-          "default": {
-           "kind": "value",
-           "repr": "-1",
-           "type": "builtins.int"
-          },
-          "kind": "POSITIONAL_ONLY",
-          "name": "size"
-         }
-        ],
-        "returns": null
-       },
-       "text_signature": "($self, size=-1, /)"
-      },
-      "seek": {
-       "binding": "instance",
-       "descriptor": "builtins.method_descriptor",
-       "doc": "Change stream position.\n\nSeek to character offset pos relative to position indicated by whence:\n    0  Start of stream (the default).  pos should be >= 0;\n    1  Current position - pos must be 0;\n    2  End of stream - pos must be 0.\nReturns the new absolute position.",
-       "kind": "function",
-       "origin": null,
-       "qualname": "StringIO.seek",
-       "signature": {
-        "params": [
-         {
-          "annotation": null,
-          "kind": "POSITIONAL_ONLY",
-          "name": "self"
-         },
-         {
-          "annotation": null,
-          "kind": "POSITIONAL_ONLY",
-          "name": "pos"
-         },
-         {
-          "annotation": null,
-          "default": {
-           "kind": "value",
-           "repr": "0",
-           "type": "builtins.int"
-          },
-          "kind": "POSITIONAL_ONLY",
-          "name": "whence"
-         }
-        ],
-        "returns": null
-       },
-       "text_signature": "($self, pos, whence=0, /)"
-      },
-      "seekable": {
-       "binding": "instance",
-       "descriptor": "builtins.method_descriptor",
-       "doc": "Returns True if the IO object can be seeked.",
-       "kind": "function",
-       "origin": null,
-       "qualname": "StringIO.seekable",
-       "signature": {
-        "params": [
-         {
-          "annotation": null,
-          "kind": "POSITIONAL_ONLY",
-          "name": "self"
-         }
-        ],
-        "returns": null
-       },
-       "text_signature": "($self, /)"
-      },
-      "tell": {
-       "binding": "instance",
-       "descriptor": "builtins.method_descriptor",
-       "doc": "Tell the current file position.",
-       "kind": "function",
-       "origin": null,
-       "qualname": "StringIO.tell",
-       "signature": {
-        "params": [
-         {
-          "annotation": null,
-          "kind": "POSITIONAL_ONLY",
-          "name": "self"
-         }
-        ],
-        "returns": null
-       },
-       "text_signature": "($self, /)"
-      },
-      "truncate": {
-       "binding": "instance",
-       "descriptor": "builtins.method_descriptor",
-       "doc": "Truncate size to pos.\n\nThe pos argument defaults to the current file position, as\nreturned by tell().  The current file position is unchanged.\nReturns the new absolute position.",
-       "kind": "function",
-       "origin": null,
-       "qualname": "StringIO.truncate",
-       "signature": {
-        "params": [
-         {
-          "annotation": null,
-          "kind": "POSITIONAL_ONLY",
-          "name": "self"
-         },
-         {
-          "annotation": null,
-          "default": {
-           "kind": "value",
-           "repr": "None",
-           "type": "builtins.NoneType"
-          },
-          "kind": "POSITIONAL_ONLY",
-          "name": "pos"
-         }
-        ],
-        "returns": null
-       },
-       "text_signature": "($self, pos=None, /)"
-      },
-      "writable": {
-       "binding": "instance",
-       "descriptor": "builtins.method_descriptor",
-       "doc": "Returns True if the IO object can be written.",
-       "kind": "function",
-       "origin": null,
-       "qualname": "StringIO.writable",
-       "signature": {
-        "params": [
-         {
-          "annotation": null,
-          "kind": "POSITIONAL_ONLY",
-          "name": "self"
-         }
-        ],
-        "returns": null
-       },
-       "text_signature": "($self, /)"
-      },
-      "write": {
-       "binding": "instance",
-       "descriptor": "builtins.method_descriptor",
-       "doc": "Write string to file.\n\nReturns the number of characters written, which is always equal to\nthe length of the string.",
-       "kind": "function",
-       "origin": null,
-       "qualname": "StringIO.write",
-       "signature": {
-        "params": [
-         {
-          "annotation": null,
-          "kind": "POSITIONAL_ONLY",
-          "name": "self"
-         },
-         {
-          "annotation": null,
-          "kind": "POSITIONAL_ONLY",
-          "name": "s"
-         }
-        ],
-        "returns": null
-       },
-       "text_signature": "($self, s, /)"
-      }
-     },
-     "origin": "_io",
-     "qualname": "StringIO"
+     "kind": "alias",
+     "target": "_io.StringIO"
     },
     "TableDelegate": {
      "kind": "alias",
@@ -164656,6 +164353,7 @@
       "builtins.object"
      ],
      "doc": "TracebackType(tb_next, tb_frame, tb_lasti, tb_lineno)\n--\n\nCreate a new traceback object.",
+     "final": true,
      "kind": "class",
      "members": {
       "__dir__": {
@@ -167406,7 +167104,7 @@
     },
     "StringIO": {
      "kind": "alias",
-     "target": "nukescripts.StringIO"
+     "target": "_io.StringIO"
     },
     "blinkFuncsColour": {
      "kind": "value",
@@ -180952,7 +180650,7 @@
     },
     "StringIO": {
      "kind": "alias",
-     "target": "nukescripts.StringIO"
+     "target": "_io.StringIO"
     },
     "blinkFuncsColour": {
      "kind": "value",

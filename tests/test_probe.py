@@ -130,5 +130,5 @@ def test_in_host_script_is_python37_and_stdlib_only(script: Path) -> None:
         elif isinstance(node, ast.ImportFrom):
             imported.add(node.module.split('.')[0])
 
-    # param_probe.py imports its sibling probe.py.
-    assert imported - {'probe'} <= sys.stdlib_module_names
+    # param_probe.py imports its sibling probe.py; run_stubtest.py imports the mypy it is given.
+    assert imported - {'probe', 'mypy'} <= sys.stdlib_module_names

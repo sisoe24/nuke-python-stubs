@@ -9,6 +9,7 @@ Everything else is rejected, and the caller falls back to `Any`.
 from __future__ import annotations
 
 import sys
+import types
 import typing
 import builtins
 import importlib
@@ -26,6 +27,11 @@ BARE_TYPING_NAMES = frozenset({
 })
 
 MAX_ALIAS_HOPS = 10
+
+INTERPRETER_TYPES = frozenset(
+    value.__name__ for module in (builtins, types) for value in vars(module).values()
+    if isinstance(value, type)
+)
 
 
 def _stdlib_type(qualified: str) -> bool:
@@ -62,7 +68,13 @@ class Names:
             path = f'{prefix}.{name}'
             self._classes[path] = path
             self._bases[path] = member.bases
-            self._classes.setdefault(f'{member.origin}.{member.qualname}', path)
+
+            # Host classes can report `builtins` as their module. A real interpreter
+            # type (`NoneType`, re-exported by `from types import *`) must not be
+            # found under that name, or every None value would get that class.
+            is_host_class = member.origin != 'builtins' or member.qualname not in INTERPRETER_TYPES
+            if is_host_class:
+                self._classes.setdefault(f'{member.origin}.{member.qualname}', path)
             self._index(member.members, path)
 
     def _follow_alias(self, qualified: str) -> str | None:
@@ -145,6 +157,13 @@ class Names:
     def is_class(self, path: str) -> bool:
         return self._classes.get(path) == path
 
+    def has_subclass(self, path: str) -> bool:
+        """True when a class in the dump derives from the class at public `path`."""
+        return any(
+            self._classes.get(base) == path
+            for bases in self._bases.values() for base in bases
+        )
+
     def ancestors(self, path: str) -> list[str]:
         """The class at public `path`, then its base classes in the dump, nearest first."""
         found = [path]
@@ -179,7 +198,8 @@ class Names:
             return qualified if isinstance(getattr(builtins, rest, None), type) else None
         if top == 'typing':
             # The fixed set keeps the answer independent of the Python that runs the build.
-            return qualified if rest in BARE_TYPING_NAMES or hasattr(typing, rest) else None
+            is_public = not rest.startswith('_') and hasattr(typing, rest)
+            return qualified if rest in BARE_TYPING_NAMES or is_public else None
         if top in QT_BINDINGS:
             qt = self._dump.qt
             is_typed = qt is not None and qt.binding == top and top in TYPED_QT_BINDINGS

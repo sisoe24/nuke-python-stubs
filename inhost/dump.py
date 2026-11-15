@@ -34,6 +34,9 @@ QT_BINDINGS = ('PySide6', 'PySide2', 'PyQt6', 'PyQt5')
 CONSTANT_TYPES = (bool, int, float, type(None))
 DEFAULT_TYPES = CONSTANT_TYPES + (str,)
 MAX_REPR = 80
+TPFLAGS_BASETYPE = 1 << 10
+# Python 3.10 and later. Before that, private standard-library origins stay with the host.
+STDLIB_MODULES = frozenset(getattr(sys, 'stdlib_module_names', ()))
 
 CLASS_NOISE = frozenset([
     '__dict__', '__weakref__', '__module__', '__doc__', '__qualname__',
@@ -193,7 +196,9 @@ class Dumper:
         return found is obj
 
     def _is_public_elsewhere(self, obj, origin, qualname):
-        if any(part.startswith('_') for part in origin.split('.')):
+        # `io.StringIO` reports `_io`: private, but the standard library's, not the host's.
+        is_stdlib = origin.split('.')[0] in STDLIB_MODULES
+        if any(part.startswith('_') for part in origin.split('.')) and not is_stdlib:
             return False
         if origin in self.private:
             return False
@@ -241,7 +246,7 @@ class Dumper:
             if name not in CLASS_NOISE:
                 members[name] = self._guarded(self._dump_class_member, raw, here + '.' + name)
 
-        return {
+        entry = {
             'kind': 'class',
             'origin': getattr(cls, '__module__', None),
             'qualname': cls.__qualname__,
@@ -249,6 +254,10 @@ class Dumper:
             'doc': doc_of(cls),
             'members': members,
         }
+        if not cls.__flags__ & TPFLAGS_BASETYPE:
+            # A C type that refuses to be subclassed.
+            entry['final'] = True
+        return entry
 
     def _dump_class_or_alias(self, cls, here):
         target = self._alias_target(cls, here)

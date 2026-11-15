@@ -48,7 +48,7 @@ Each member has a `kind`:
 
 | `kind` | Fields | Meaning |
 |---|---|---|
-| `class` | `origin`, `qualname`, `bases`, `doc`, `members` | `origin` is `__module__`. `members` come from the class `__dict__` only, so inherited members appear on the base. |
+| `class` | `origin`, `qualname`, `bases`, `doc`, `members`, `final` | `final` exists and is true for a C type that cannot be subclassed. `origin` is `__module__`. `members` come from the class `__dict__` only, so inherited members appear on the base. |
 | `function` | `descriptor`, `origin`, `qualname`, `doc`, `signature`, `text_signature`, `binding` | Any callable routine, except Qt signals, which are values. `descriptor` is the runtime type, for example `builtins.method_descriptor`. `binding` exists on class members: `instance`, `static` or `class`. |
 | `property` | `descriptor`, `doc`, `settable`, `getter` | Any data descriptor. `settable` and `getter` (a function entry) exist for Python `property` only. |
 | `value` | `type`, `repr` | Everything else. `repr` exists for `bool`, `int`, `float` and `None`. String values are left out because they can hold paths of the dumping machine. |
@@ -67,8 +67,8 @@ when the parameter has one.
 An object can be visible from many modules. It is recorded in full once:
 
 1. Its `__module__` is under a root: in that module. Other places get an alias.
-2. Its `__module__` is importable, public, and holds the object (Qt, the
-   standard library): alias only. Counted in `foreign`.
+2. Its `__module__` is importable, holds the object, and is public or part
+   of the standard library (Qt, `os`, `_io`): alias only. Counted in `foreign`.
 3. Otherwise: in the first public place that shows
    it, in root order. Later places get an alias to that place. This covers
    a private C module (`_nuke`), a `__module__` that cannot be imported

@@ -135,3 +135,29 @@ The resolver uses it as follows (`Resolver._with_probed_params`):
 Limits: hiero's C functions say `Invalid arguments to core.TrackItem.setTimelineIn`,
 which gives counts but no types. Python functions check nothing and are
 not probed.
+
+## stubtest
+
+mypy's `stubtest` imports the real modules and compares them with the
+stubs: names, kinds, and the signatures of Python functions. It cannot
+check the parameters of C functions; the parameter probe does that.
+
+```bash
+probes/stubtest.sh 17.1v2 /Applications/Nuke17.1v2/Nuke17.1v2.app/Contents/MacOS/Nuke17.1 3.11
+```
+
+Build the stubs first (`python -m hoststubs build dumps/nuke-17.1v2.json`).
+The script installs a mypy without compiled modules for that Python
+version into `probes/work/`, because the compiled build does not load
+inside Nuke, and runs in terminal mode with `--safe`. hiero and the
+GUI-only `nukescripts` panels are not checked.
+
+Findings that stay, by design:
+
+| Finding | Why |
+|---|---|
+| `is a disjoint base`, `metaclass differs` | Not expressible in a stub that current checkers read |
+| `failed to import` | Panels that exist only with the GUI |
+| `nuke_internal.os is not present in stub` and similar | The module's own imports, not API |
+| `nukescripts.pyQtExamples failed to find stubs` | Skipped in the host config: examples, not API |
+| `cannot be subclassed at runtime, but isn't marked with @final` | C code derives from that class, so `@final` would be wrong for its subclasses |
