@@ -32,8 +32,11 @@ PROSE_TYPE = re.compile(
 class _Normalizer:
     """Turn an annotation as written in one module into fully qualified, accepted names."""
 
-    def __init__(self, resolve: Callable[[str], str | None]) -> None:
+    def __init__(self, resolve: Callable[[str], str | None], strict: bool = False) -> None:
         self._resolve = resolve
+        # Strict: an unknown name inside a container rejects the whole type
+        # instead of becoming Any. For hand-written types, where it is a typo.
+        self._strict = strict
 
     # === PRIVATE === #
 
@@ -49,16 +52,21 @@ class _Normalizer:
         return None
 
     def _union(self, members: list[str | None]) -> str | None:
-        if None in members or ANY in members:
+        if None in members or (ANY in members and not self._strict):
             return None
         return ' | '.join(dict.fromkeys(members))
 
-    def _argument(self, node: ast.expr) -> str:
+    def _argument(self, node: ast.expr) -> str | None:
         if isinstance(node, ast.Constant) and node.value is Ellipsis:
             return '...'
         if isinstance(node, ast.List):
-            return '[' + ', '.join(self._argument(item) for item in node.elts) + ']'
-        return self.normalize(node) or ANY
+            items = [self._argument(item) for item in node.elts]
+            return None if None in items else '[' + ', '.join(items) + ']'
+
+        found = self.normalize(node)
+        if found is None and not self._strict:
+            return ANY
+        return found
 
     def _subscript(self, node: ast.Subscript) -> str | None:
         arguments = node.slice.elts if isinstance(node.slice, ast.Tuple) else [node.slice]
@@ -67,9 +75,10 @@ class _Normalizer:
             return self._union([self._literal(argument) for argument in arguments])
 
         container = self.normalize(node.value)
-        if container is None:
+        normalized = [self._argument(argument) for argument in arguments]
+        if container is None or None in normalized:
             return None
-        return f'{container}[{", ".join(self._argument(argument) for argument in arguments)}]'
+        return f'{container}[{", ".join(normalized)}]'
 
     def _union_members(self, node: ast.expr) -> list[ast.expr]:
         if isinstance(node, ast.BinOp) and isinstance(node.op, ast.BitOr):
@@ -112,7 +121,16 @@ def normalize(annotation: str, names: Names, module: str) -> str | None:
     return _normalize(annotation, lambda dotted: names.resolve(dotted, module))
 
 
-def _resolve_documented(dotted: str, names: Names, module: str) -> str | None:
+def normalize_strict(annotation: str, resolve: Callable[[str], str | None]) -> str | None:
+    """Normalize a hand-written annotation. Any unknown name rejects it; `Any` is a valid answer."""
+    try:
+        tree = ast.parse(annotation.strip(), mode='eval')
+    except SyntaxError:
+        return None
+    return _Normalizer(resolve, strict=True).normalize(tree.body)
+
+
+def resolve_documented(dotted: str, names: Names, module: str) -> str | None:
     """Resolve a name written in a docstring.
 
     A docstring addresses the user, so a dotted name is a public path first:
@@ -133,7 +151,7 @@ def _prose_token(token: str, names: Names, module: str, type_names: dict[str, st
     if token[0].islower() and '.' not in token:
         # A lowercase word is prose even when a class has that name.
         return None
-    return _resolve_documented(token, names, module)
+    return resolve_documented(token, names, module)
 
 
 def type_from_text(
@@ -151,7 +169,7 @@ def type_from_text(
 
     if '[' in text or '|' in text:
         return _normalize(
-            text.rstrip('.'), lambda dotted: _resolve_documented(dotted, names, module),
+            text.rstrip('.'), lambda dotted: resolve_documented(dotted, names, module),
         )
 
     match = PROSE_TYPE.match(text)

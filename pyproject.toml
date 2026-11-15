@@ -23,11 +23,15 @@ testpaths = ["tests"]
 
 [tool.ruff]
 line-length = 100
-extend-exclude = ["stubs", "nukestubsgen.py", "tests/fixtures", "inference"]
+extend-exclude = ["stubs", "nukestubsgen.py", "tests/fixtures", "inference", "hosts/*/overrides"]
 
 [tool.ruff.lint]
 # Import order belongs to isort (length_sort), run by pre-commit.
 select = ["E", "F"]
+
+[tool.ruff.lint.per-file-ignores]
+# Tables of expected types read better on one line.
+"tests/*" = ["E501"]
 
 [tool.isort]
 length_sort = true

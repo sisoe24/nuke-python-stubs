@@ -76,6 +76,19 @@ class Names:
             return None
         return None
 
+    def _member(self, path: str) -> ir.Member | None:
+        parts = path.split('.')
+        for split in range(len(parts) - 1, 0, -1):
+            module = self._dump.modules.get('.'.join(parts[:split]))
+            if module is None:
+                continue
+
+            member = module.members.get(parts[split])
+            for name in parts[split + 1:]:
+                member = member.members.get(name) if isinstance(member, ir.Class) else None
+            return member
+        return None
+
     def _in_scope(self, head: str, module: str) -> str | None:
         """Qualified name that `head` means inside `module`, from the runtime namespace."""
         scope = self._dump.modules.get(module)
@@ -95,6 +108,15 @@ class Names:
         return None
 
     # === PUBLIC === #
+
+    def find(self, path: str) -> tuple[str, ir.Member | None]:
+        """Follow aliases from `path` to the place where the object is recorded."""
+        for _ in range(MAX_ALIAS_HOPS):
+            member = self._member(path)
+            if not isinstance(member, ir.Alias) or member.is_module:
+                return path, member
+            path = member.target
+        return path, None
 
     def accept(self, qualified: str) -> str | None:
         """Return the name to emit for a fully qualified type name, or None to reject it."""

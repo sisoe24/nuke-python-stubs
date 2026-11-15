@@ -38,3 +38,9 @@ def nuke15_dump() -> ir.Dump:
 @pytest.fixture(scope='session')
 def nuke15_resolved() -> dict[str, tuple[Signature, ...]]:
     return resolve_dump(REPO / 'dumps' / 'nuke-15.2v9.json')[1]
+
+
+@pytest.fixture(scope='session')
+def nuke15_derived() -> dict[str, tuple[Signature, ...]]:
+    """What the evidence gives before any override is applied."""
+    return resolve_dump(REPO / 'dumps' / 'nuke-15.2v9.json', use_overrides=False)[1]

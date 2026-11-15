@@ -5,22 +5,32 @@ from pathlib import Path
 from collections import Counter
 
 from hoststubs import ir
-from hoststubs.host import load_host
+from hoststubs.host import HOSTS, load_host
 from hoststubs.names import Names
 from hoststubs.infer import inference_dir
 from hoststubs.resolve import Resolver, Signature, resolve_functions
+from hoststubs.overrides import load_overrides
 from hoststubs.inference import load_inference
 from hoststubs.docstrings import VAR_KEYWORD, VAR_POSITIONAL
 
 PYTHON_FUNCTION = 'builtins.function'
 
 
-def resolve_dump(dump_path: Path) -> tuple[ir.Dump, dict[str, tuple[Signature, ...]]]:
+def resolve_dump(
+    dump_path: Path, use_overrides: bool = True,
+) -> tuple[ir.Dump, dict[str, tuple[Signature, ...]]]:
     dump = ir.load(dump_path)
     names = Names(dump)
     host = load_host(dump.host)
     inferred = load_inference(inference_dir(dump), names)
-    return dump, resolve_functions(Resolver(dump, names, host.type_names, inferred), dump)
+    resolver = Resolver(dump, names, host.type_names, inferred)
+
+    if not use_overrides:
+        return dump, resolve_functions(resolver, dump, {}, set())
+
+    overrides = load_overrides(HOSTS / dump.host / 'overrides', dump, names)
+    overridden = {path: override.signatures for path, override in overrides.functions.items()}
+    return dump, resolve_functions(resolver, dump, overridden, set(overrides.deleted))
 
 
 def _groups(dump: ir.Dump) -> dict[str, str]:
@@ -65,7 +75,8 @@ def report(dump_path: Path) -> str:
     params: dict[str, Counter[str]] = {}
 
     for path, signatures in resolved.items():
-        group = groups[path]
+        # A function that an override adds has no dump entry to classify.
+        group = groups.get(path, f'{path.split(".")[0]} added')
         signature = signatures[0]
         returns.setdefault(group, Counter())[signature.returns_source] += 1
 

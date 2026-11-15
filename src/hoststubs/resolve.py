@@ -83,7 +83,7 @@ def _is_dunder(name: str) -> bool:
     return name.startswith('__') and name.endswith('__')
 
 
-def _is_informative(signature: ir.Signature) -> bool:
+def is_informative(signature: ir.Signature) -> bool:
     """False for `(self, /, *args, **kwargs)`, which C slots report and which says nothing."""
     named = [
         param for param in signature.params[1:]
@@ -145,6 +145,10 @@ class Resolver:
         has_default: bool = False,
     ) -> Param:
         default_type = _default_type(default, doc_default)
+        is_instance = default is not None and not default.type.startswith('builtins.')
+        if default_type is None and is_instance:
+            # `script=ScriptWriter()`: an instance of a host class as the default.
+            default_type = self._names.accept(default.type)
         if default_type:
             candidates = candidates + [Candidate(default_type, 'default')]
 
@@ -248,7 +252,7 @@ class Resolver:
             shared.append(Candidate(DUNDER_RETURNS[name], 'dunder'))
 
         runtime = function.signature
-        if runtime and (_is_informative(runtime) or not any(line.params for line in doc_lines)):
+        if runtime and (is_informative(runtime) or not any(line.params for line in doc_lines)):
             first = doc_lines[0] if doc_lines else None
             params = self._runtime_params(runtime, scope, first, doc_fields, inferred)
             variants = [(params, first.returns if first else None, 'signature')]
@@ -272,8 +276,16 @@ class Resolver:
         return tuple(signatures)
 
 
-def resolve_functions(resolver: Resolver, dump: ir.Dump) -> dict[str, tuple[Signature, ...]]:
-    """Resolve every function in the dump, keyed by the path where it is recorded."""
+def resolve_functions(
+    resolver: Resolver,
+    dump: ir.Dump,
+    overridden: dict[str, tuple[Signature, ...]],
+    deleted: set[str],
+) -> dict[str, tuple[Signature, ...]]:
+    """Resolve every function, keyed by the path where the dump records it.
+
+    `overridden` replaces or adds whole functions; `deleted` paths are removed.
+    """
     resolved: dict[str, tuple[Signature, ...]] = {}
 
     def visit(members: dict[str, ir.Member], prefix: str, module: str) -> None:
@@ -288,4 +300,6 @@ def resolve_functions(resolver: Resolver, dump: ir.Dump) -> dict[str, tuple[Sign
 
     for module_name, module in dump.modules.items():
         visit(module.members, module_name, module_name)
-    return resolved
+
+    resolved.update(overridden)
+    return {path: signatures for path, signatures in resolved.items() if path not in deleted}
