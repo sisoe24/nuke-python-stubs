@@ -28,6 +28,11 @@ class HostConfig:
     # Type spellings in the host's docstrings that are not Python names.
     type_names: dict[str, str]
 
+    # The probe calls nothing whose name contains one of these words
+    # (`scriptSaveAs` contains `save`), and none of the listed paths.
+    probe_skip_words: frozenset[str]
+    probe_skip: frozenset[str]
+
     # Raw host version -> stub revision. Bumped by hand when a package is published.
     stub_revisions: dict[str, int]
 

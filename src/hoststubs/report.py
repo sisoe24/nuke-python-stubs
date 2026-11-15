@@ -10,20 +10,24 @@ from hoststubs.names import Names
 from hoststubs.infer import inference_dir
 from hoststubs.resolve import Resolver, Signature, resolve_functions
 from hoststubs.overrides import load_overrides
+from hoststubs.observations import load_observations
 from hoststubs.inference import load_inference
 from hoststubs.docstrings import VAR_KEYWORD, VAR_POSITIONAL
 
 PYTHON_FUNCTION = 'builtins.function'
+PROBES = HOSTS.parent / 'probes'
 
 
 def resolve_dump(
-    dump_path: Path, use_overrides: bool = True,
+    dump_path: Path, use_overrides: bool = True, use_probe: bool = True,
 ) -> tuple[ir.Dump, dict[str, tuple[Signature, ...]]]:
     dump = ir.load(dump_path)
     names = Names(dump)
     host = load_host(dump.host)
     inferred = load_inference(inference_dir(dump), names)
-    resolver = Resolver(dump, names, host.type_names, inferred)
+    probe = PROBES / f'{dump.host}-{dump.host_version}.json'
+    observed = load_observations(probe, names) if use_probe and probe.exists() else {}
+    resolver = Resolver(dump, names, host.type_names, inferred, observed)
 
     if not use_overrides:
         return dump, resolve_functions(resolver, dump, {}, set())
@@ -42,6 +46,10 @@ def _groups(dump: ir.Dump) -> dict[str, str]:
             path = f'{prefix}.{name}'
             if isinstance(member, ir.Class):
                 visit(member.members, path)
+                continue
+
+            if isinstance(member, ir.Property) and member.getter is None:
+                groups[path] = f'{path.split(".")[0]} C property'
                 continue
 
             function = member.getter if isinstance(member, ir.Property) else member

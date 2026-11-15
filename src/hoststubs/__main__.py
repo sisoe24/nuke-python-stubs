@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 import shlex
 import logging
 import argparse
@@ -7,7 +8,8 @@ from pathlib import Path
 
 from hoststubs.host import load_host, dump_arguments
 from hoststubs.infer import infer
-from hoststubs.report import report
+from hoststubs.report import report, resolve_dump
+from hoststubs.targets import probe_targets
 
 
 def main() -> None:
@@ -25,6 +27,11 @@ def main() -> None:
     command = commands.add_parser('report', help='print the share resolved per evidence source')
     command.add_argument('dump', type=Path)
 
+    command = commands.add_parser('probe-targets', help='write the list of calls for probe.py')
+    command.add_argument('dump', type=Path)
+    command.add_argument('out', type=Path)
+    command.add_argument('modules', nargs='+', help='only targets under these modules')
+
     args = parser.parse_args()
     logging.basicConfig(level=logging.INFO, format='%(levelname)s %(message)s')
 
@@ -34,6 +41,15 @@ def main() -> None:
         infer(args.dump, args.search)
     elif args.command == 'report':
         print(report(args.dump))
+    elif args.command == 'probe-targets':
+        # Targets come from the docstrings alone, so a probe run cannot change its own input.
+        dump, resolved = resolve_dump(args.dump, use_probe=False)
+        targets = [
+            target for target in probe_targets(dump, resolved, load_host(dump.host))
+            if target['path'].startswith(tuple(f'{module}.' for module in args.modules))
+        ]
+        args.out.write_text(json.dumps({'targets': targets}, indent=1) + '\n', encoding='utf-8')
+        logging.info('Wrote %s: %d targets.', args.out, len(targets))
 
 
 if __name__ == '__main__':

@@ -47,6 +47,8 @@ class Names:
 
         # Public path of every class, also reachable by its runtime `__module__.__qualname__`.
         self._classes: dict[str, str] = {}
+        # Public path of a class -> its bases as the runtime names them.
+        self._bases: dict[str, tuple[str, ...]] = {}
         for name, module in dump.modules.items():
             self._index(module.members, name)
 
@@ -59,6 +61,7 @@ class Names:
 
             path = f'{prefix}.{name}'
             self._classes[path] = path
+            self._bases[path] = member.bases
             self._classes.setdefault(f'{member.origin}.{member.qualname}', path)
             self._index(member.members, path)
 
@@ -117,6 +120,24 @@ class Names:
                 return path, member
             path = member.target
         return path, None
+
+    def ancestors(self, path: str) -> list[str]:
+        """The class at public `path`, then its base classes in the dump, nearest first."""
+        found = [path]
+        for current in found:
+            for base in self._bases.get(current, ()):
+                public = self._classes.get(base)
+                if public and public not in found:
+                    found.append(public)
+        return found
+
+    def common_base(self, paths: list[str]) -> str | None:
+        """Nearest dump class that every class in `paths` is or derives from."""
+        others = [set(self.ancestors(path)) for path in paths[1:]]
+        for candidate in self.ancestors(paths[0]):
+            if all(candidate in ancestors for ancestors in others):
+                return candidate
+        return None
 
     def accept(self, qualified: str) -> str | None:
         """Return the name to emit for a fully qualified type name, or None to reject it."""

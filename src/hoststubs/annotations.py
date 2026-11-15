@@ -183,3 +183,32 @@ def type_from_text(
     if None in types:
         return None
     return ' | '.join(dict.fromkeys(types))
+
+
+def split_top_level(text: str, separator: str) -> list[str]:
+    """Split a type on `separator`, ignoring separators inside brackets."""
+    pieces = ['']
+    depth = 0
+    index = 0
+    while index < len(text):
+        char = text[index]
+        if char == '[':
+            depth += 1
+        elif char == ']':
+            depth -= 1
+
+        if depth == 0 and text.startswith(separator, index):
+            pieces.append('')
+            index += len(separator)
+        else:
+            pieces[-1] += char
+            index += 1
+    return pieces
+
+
+def split_generic(type_: str) -> tuple[str, list[str]]:
+    """Split `list[nuke.Node]` into ('list', ['nuke.Node']); a plain name has no arguments."""
+    base, bracket, rest = type_.partition('[')
+    if not bracket:
+        return type_, []
+    return base, split_top_level(rest[:-1], ', ')

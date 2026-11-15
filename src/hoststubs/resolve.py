@@ -9,7 +9,8 @@ from hoststubs.names import Names
 from hoststubs.inference import Inferred
 from hoststubs.docstrings import (POSITIONAL, VAR_KEYWORD, VAR_POSITIONAL, DocParam, DocFields,
                                   DocSignature, fields, signature_lines, is_documented_optional)
-from hoststubs.annotations import ANY, NONE, normalize, type_from_text
+from hoststubs.annotations import (ANY, NONE, normalize, split_generic, split_top_level,
+                                   type_from_text)
 
 # Highest priority first. A candidate from an earlier source always wins.
 SOURCES = (
@@ -114,11 +115,13 @@ class Resolver:
         names: Names,
         type_names: dict[str, str],
         inferred: dict[str, Inferred],
+        observed: dict[str, Candidate],
     ) -> None:
         self._dump = dump
         self._names = names
         self._type_names = type_names
         self._inferred = inferred
+        self._observed = observed
 
     # === PRIVATE === #
 
@@ -225,8 +228,57 @@ class Resolver:
 
     # === PUBLIC === #
 
-    def function(self, function: ir.Function, name: str, module: str) -> tuple[Signature, ...]:
-        """Resolve one function recorded as `name` in `module`. Several results are overloads."""
+    def _widen(self, observed: str) -> str:
+        """Replace each observed class by its topmost base in the dump.
+
+        The probe saw `Root` where a function may return any `Node`. The
+        base is always true; the subclass is true for this scene only.
+        """
+        base, arguments = split_generic(observed)
+        if arguments:
+            return f'{base}[{", ".join(self._widen(argument) for argument in arguments)}]'
+        return self._names.ancestors(observed)[-1]
+
+    def _agrees(self, observed: str, documented: str) -> bool:
+        """True when the observed type is one the documented type allows."""
+        observed_base, observed_arguments = split_generic(observed)
+
+        for member in split_top_level(documented, ' | '):
+            base, arguments = split_generic(member)
+            if not arguments and not observed_arguments:
+                if member in self._names.ancestors(observed):
+                    return True
+            elif base == observed_base and len(arguments) == len(observed_arguments):
+                # A bare `list` has no arguments, so `list[str]` refines it instead.
+                if all(map(self._agrees, observed_arguments, arguments)):
+                    return True
+        return False
+
+    def _with_probe(self, documented: Candidate, path: str) -> Candidate:
+        """Combine the best non-probe candidate with what the probe observed.
+
+        The probe outranks a docstring only where they contradict. Where the
+        observation fits the documented type, the docstring is the wider and
+        safer statement: it knows `Node | None`, the probe saw one `Node`.
+        """
+        observed = self._observed.get(path)
+        if observed is None:
+            return documented
+        if observed.source != 'probe':
+            return pick([documented, observed])
+        if documented.source != 'any' and self._agrees(observed.type, documented.type):
+            return documented
+        return Candidate(self._widen(observed.type), 'probe')
+
+    def property(self, path: str) -> Signature:
+        """Resolve a C property. It has no docstring evidence, only what the probe read."""
+        returns = self._with_probe(Candidate(ANY, 'any'), path)
+        return Signature((), returns.type, returns.source, 'property')
+
+    def function(
+        self, function: ir.Function, name: str, module: str, path: str,
+    ) -> tuple[Signature, ...]:
+        """Resolve the function recorded at `path`. Several results are overloads."""
         # A Python function reads names from its own module; a C function has none,
         # so its docstring is read in the public module that shows it.
         scope = function.origin if function.origin in self._dump.modules else module
@@ -271,7 +323,8 @@ class Resolver:
 
         signatures = []
         for params, returns_text, shape_source in variants:
-            returns = pick(shared + self._from_text(returns_text, 'doc_signature', scope))
+            documented = pick(shared + self._from_text(returns_text, 'doc_signature', scope))
+            returns = self._with_probe(documented, path)
             signatures.append(Signature(params, returns.type, returns.source, shape_source))
         return tuple(signatures)
 
@@ -294,9 +347,11 @@ def resolve_functions(
             if isinstance(member, ir.Class):
                 visit(member.members, path, module)
             elif isinstance(member, ir.Function):
-                resolved[path] = resolver.function(member, name, module)
+                resolved[path] = resolver.function(member, name, module, path)
             elif isinstance(member, ir.Property) and member.getter:
-                resolved[path] = resolver.function(member.getter, name, module)
+                resolved[path] = resolver.function(member.getter, name, module, path)
+            elif isinstance(member, ir.Property):
+                resolved[path] = (resolver.property(path),)
 
     for module_name, module in dump.modules.items():
         visit(module.members, module_name, module_name)

@@ -32,6 +32,7 @@ def allNodes(*args, **kwargs):
     :param recurseGroups: Optional. If True, will also return all child nodes within any group nodes. This is done recursively and defaults to False.
     :return: List
     """
+    return [Node(), Node()]
 
 
 @_builtin
@@ -42,6 +43,7 @@ def root(*args, **kwargs):
 
     :return: The root node. This will never be None.
     """
+    return Node()
 
 
 @_builtin
@@ -68,18 +70,20 @@ class Knob:
 
 class Node:
     @_builtin
-    def knob(self, *args, **kwargs):
+    def knob(self, p, follow_link=True):
         """self.knob(p[, follow_link]) -> The knob named p or the pth knob.
         @param p: A string or an integer.
         @param follow_link: Should it follow links to Link_Knob until resolution. Default is True.
         @return: The knob named p or the pth knob.
         """
+        return Knob()
 
     @_builtin
     def name(self, *args, **kwargs):
         """self.name() -> str
         @return: Name of node.
         """
+        return 'Node1'
 
     @_builtin
     def __getitem__(self, *args, **kwargs):
