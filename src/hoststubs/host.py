@@ -25,6 +25,9 @@ class HostConfig:
     # Importable C modules that users reach only through a root.
     private: tuple[str, ...]
 
+    # Type spellings in the host's docstrings that are not Python names.
+    type_names: dict[str, str]
+
     # Raw host version -> stub revision. Bumped by hand when a package is published.
     stub_revisions: dict[str, int]
 

@@ -7,6 +7,7 @@ from pathlib import Path
 
 from hoststubs.host import load_host, dump_arguments
 from hoststubs.infer import infer
+from hoststubs.report import report
 
 
 def main() -> None:
@@ -21,6 +22,9 @@ def main() -> None:
     command.add_argument('dump', type=Path)
     command.add_argument('search', type=Path, nargs='+', help='directory that holds host packages')
 
+    command = commands.add_parser('report', help='print the share resolved per evidence source')
+    command.add_argument('dump', type=Path)
+
     args = parser.parse_args()
     logging.basicConfig(level=logging.INFO, format='%(levelname)s %(message)s')
 
@@ -28,6 +32,8 @@ def main() -> None:
         print(shlex.join(dump_arguments(load_host(args.host), args.out)))
     elif args.command == 'infer':
         infer(args.dump, args.search)
+    elif args.command == 'report':
+        print(report(args.dump))
 
 
 if __name__ == '__main__':

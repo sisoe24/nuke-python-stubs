@@ -5,7 +5,8 @@ from pathlib import Path
 import pytest
 
 from hoststubs.names import Names
-from hoststubs.inference import Inferred, normalize, load_inference
+from hoststubs.inference import Inferred, load_inference
+from hoststubs.annotations import normalize
 
 # Regenerate with: python -m hoststubs infer tests/fixtures/dump.golden.json tests/fixtures/host
 # then move inference/fxhost-1.0v1 to tests/fixtures/inference.
