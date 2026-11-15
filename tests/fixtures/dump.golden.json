@@ -357,9 +357,17 @@
      "kind": "value",
      "type": "__future__._Feature"
     },
+    "find_panel": {
+     "kind": "alias",
+     "target": "fxscripts.misc.find_panel"
+    },
     "fxhost": {
      "kind": "module",
      "target": "fxhost"
+    },
+    "make_node": {
+     "kind": "alias",
+     "target": "fxscripts.misc.make_node"
     },
     "misc": {
      "kind": "module",
@@ -509,6 +517,25 @@
        "kind": "property",
        "settable": false
       },
+      "on_close": {
+       "binding": "instance",
+       "descriptor": "builtins.function",
+       "doc": "Called when the panel closes. Subclasses return False to veto.",
+       "kind": "function",
+       "origin": "fxscripts.misc",
+       "qualname": "Panel.on_close",
+       "signature": {
+        "params": [
+         {
+          "annotation": null,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "name": "self"
+         }
+        ],
+        "returns": null
+       },
+       "text_signature": null
+      },
       "show": {
        "binding": "instance",
        "descriptor": "builtins.function",
@@ -583,13 +610,55 @@
      "kind": "module",
      "target": "PySide2.QtCore"
     },
+    "_panels": {
+     "descriptor": "builtins.function",
+     "doc": null,
+     "kind": "function",
+     "origin": "fxscripts.misc",
+     "qualname": "_panels",
+     "signature": {
+      "params": [],
+      "returns": null
+     },
+     "text_signature": null
+    },
     "annotations": {
      "kind": "value",
      "type": "__future__._Feature"
     },
+    "find_panel": {
+     "descriptor": "builtins.function",
+     "doc": null,
+     "kind": "function",
+     "origin": "fxscripts.misc",
+     "qualname": "find_panel",
+     "signature": {
+      "params": [
+       {
+        "annotation": null,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "name"
+       }
+      ],
+      "returns": null
+     },
+     "text_signature": null
+    },
     "fxhost": {
      "kind": "module",
      "target": "fxhost"
+    },
+    "make_node": {
+     "descriptor": "builtins.function",
+     "doc": null,
+     "kind": "function",
+     "origin": "fxscripts.misc",
+     "qualname": "make_node",
+     "signature": {
+      "params": [],
+      "returns": null
+     },
+     "text_signature": null
     },
     "node_names": {
      "descriptor": "builtins.function",

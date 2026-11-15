@@ -9,7 +9,7 @@ requires-python = ">=3.10"
 dependencies = []
 
 [dependency-groups]
-dev = ["pytest>=8", "ruff>=0.6", "pre-commit>=3.6.2"]
+dev = ["pytest>=8", "ruff>=0.6", "pre-commit>=3.6.2", "pyright==1.1.414"]
 
 [build-system]
 requires = ["hatchling"]
@@ -23,7 +23,7 @@ testpaths = ["tests"]
 
 [tool.ruff]
 line-length = 100
-extend-exclude = ["stubs", "nukestubsgen.py", "tests/fixtures"]
+extend-exclude = ["stubs", "nukestubsgen.py", "tests/fixtures", "inference"]
 
 [tool.ruff.lint]
 # Import order belongs to isort (length_sort), run by pre-commit.

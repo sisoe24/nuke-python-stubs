@@ -18,6 +18,21 @@ def script_directory(path: str | None = None) -> str:
     return os.path.dirname(path or '')
 
 
+def make_node():
+    return fxhost.Node()
+
+
+def find_panel(name):
+    for panel in _panels():
+        if panel.name == name:
+            return panel
+    return None
+
+
+def _panels():
+    return [Panel('main')]
+
+
 select = node_names
 
 
@@ -54,6 +69,10 @@ class Panel(QObject):
 
     def show(self, modal=False):
         return True
+
+    def on_close(self):
+        """Called when the panel closes. Subclasses return False to veto."""
+        pass
 
     class Options:
         compact = False

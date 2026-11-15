@@ -1,0 +1,131 @@
+"""Resolve a type name to the fully qualified name the stubs may use.
+
+Every track writes types as fully qualified names (`list[nuke.Node]`,
+`typing.Any`); the emitter turns them into imports. A name is accepted only
+if it resolves to a class in the dump, a builtin, a `typing` construct, a
+standard-library type, or a Qt binding that ships type information.
+Everything else is rejected, and the caller falls back to `Any`.
+"""
+from __future__ import annotations
+
+import sys
+import typing
+import builtins
+import importlib
+
+from hoststubs import ir
+
+# Qt bindings whose installed package carries type information.
+TYPED_QT_BINDINGS = frozenset({'PySide6'})
+QT_BINDINGS = frozenset({'PySide6', 'PySide2', 'PyQt6', 'PyQt5'})
+
+# Names pyright prints without an import.
+BARE_TYPING_NAMES = frozenset({
+    'Any', 'Callable', 'Generator', 'Iterator', 'Iterable', 'Self', 'NoReturn', 'Never',
+    'Sequence', 'Mapping', 'Coroutine', 'Awaitable', 'AsyncGenerator', 'Literal',
+})
+
+MAX_ALIAS_HOPS = 10
+
+
+def _stdlib_type(qualified: str) -> bool:
+    parts = qualified.split('.')
+    for split in range(len(parts) - 1, 0, -1):
+        try:
+            found = importlib.import_module('.'.join(parts[:split]))
+        except ImportError:
+            continue
+        for attribute in parts[split:]:
+            found = getattr(found, attribute, None)
+        return isinstance(found, type)
+    return False
+
+
+class Names:
+    def __init__(self, dump: ir.Dump) -> None:
+        self._dump = dump
+
+        # Public path of every class, also reachable by its runtime `__module__.__qualname__`.
+        self._classes: dict[str, str] = {}
+        for name, module in dump.modules.items():
+            self._index(module.members, name)
+
+    # === PRIVATE === #
+
+    def _index(self, members: dict[str, ir.Member], prefix: str) -> None:
+        for name, member in members.items():
+            if not isinstance(member, ir.Class):
+                continue
+
+            path = f'{prefix}.{name}'
+            self._classes[path] = path
+            self._classes.setdefault(f'{member.origin}.{member.qualname}', path)
+            self._index(member.members, path)
+
+    def _follow_alias(self, qualified: str) -> str | None:
+        """Rewrite `module.name.rest` to `target.rest` when `name` is an alias in `module`."""
+        parts = qualified.split('.')
+        for split in range(len(parts) - 1, 0, -1):
+            module = self._dump.modules.get('.'.join(parts[:split]))
+            if module is None:
+                continue
+
+            member = module.members.get(parts[split])
+            if isinstance(member, ir.Alias):
+                return '.'.join([member.target, *parts[split + 1:]])
+            return None
+        return None
+
+    def _in_scope(self, head: str, module: str) -> str | None:
+        """Qualified name that `head` means inside `module`, from the runtime namespace."""
+        scope = self._dump.modules.get(module)
+        member = scope.members.get(head) if scope else None
+
+        if isinstance(member, ir.Class):
+            return f'{module}.{head}'
+        if isinstance(member, ir.Alias):
+            return member.target
+        if member is not None:
+            return None
+
+        if isinstance(getattr(builtins, head, None), type):
+            return f'builtins.{head}'
+        if head in BARE_TYPING_NAMES:
+            return f'typing.{head}'
+        return None
+
+    # === PUBLIC === #
+
+    def accept(self, qualified: str) -> str | None:
+        """Return the name to emit for a fully qualified type name, or None to reject it."""
+        for _ in range(MAX_ALIAS_HOPS):
+            if qualified in self._classes:
+                return self._classes[qualified]
+
+            target = self._follow_alias(qualified)
+            if target is None:
+                break
+            qualified = target
+
+        top, _, rest = qualified.partition('.')
+        if top == 'builtins':
+            return qualified if isinstance(getattr(builtins, rest, None), type) else None
+        if top == 'typing':
+            # The fixed set keeps the answer independent of the Python that runs the build.
+            return qualified if rest in BARE_TYPING_NAMES or hasattr(typing, rest) else None
+        if top in QT_BINDINGS:
+            qt = self._dump.qt
+            is_typed = qt is not None and qt.binding == top and top in TYPED_QT_BINDINGS
+            return qualified if is_typed else None
+        if top in sys.stdlib_module_names:
+            return qualified if _stdlib_type(qualified) else None
+        return None
+
+    def resolve(self, dotted: str, module: str) -> str | None:
+        """Return the name to emit for `dotted` as written inside `module`, or None."""
+        head, _, rest = dotted.partition('.')
+
+        base = self._in_scope(head, module)
+        if base is None:
+            return None
+        return self.accept(f'{base}.{rest}' if rest else base)
