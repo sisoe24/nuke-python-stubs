@@ -140,17 +140,29 @@ def _reached_parser(record: dict) -> bool:
     return 'returned' in none or none.get('error') == 'TypeError'
 
 
-def _merge(readings: list[ProbedParams]) -> ProbedParams | None:
-    """Receivers must agree on the counts; a type they disagree on is dropped."""
-    first = readings[0]
-    if any((other.minimum, other.maximum) != (first.minimum, first.maximum) for other in readings):
-        return None
+def _merge(readings: list[ProbedParams]) -> ProbedParams:
+    """Combine what several receivers of one method reported.
 
+    A method of a base class is called on its subclasses, and they can
+    differ: `Knob.setValue` needs one argument on a Channel_Knob and takes up
+    to three on an AColor_Knob. The base method must accept every correct
+    call, so the smallest required count and the largest total win. A type
+    is kept only where all receivers agree.
+    """
+    minimums = [reading.minimum for reading in readings if reading.minimum is not None]
+    maximums = [reading.maximum for reading in readings]
+
+    first = readings[0]
     types = []
     for index, type_ in enumerate(first.types):
         same = all(index < len(other.types) and other.types[index] == type_ for other in readings)
         types.append(type_ if same else None)
-    return ProbedParams(first.minimum, first.maximum, tuple(types))
+
+    return ProbedParams(
+        minimum=min(minimums) if minimums else None,
+        maximum=max(maximums) if None not in maximums else None,
+        types=tuple(types),
+    )
 
 
 def load_params(
@@ -171,7 +183,5 @@ def load_params(
         if not usable:
             continue
         module, _ = names.split_module(function)
-        merged = _merge([reader.read(record, module) for record in usable])
-        if merged:
-            probed[function] = merged
+        probed[function] = _merge([reader.read(record, module) for record in usable])
     return probed

@@ -64,6 +64,11 @@ reveal_type(nuke.Node.setName)
 reveal_type(nuke.Node.metadata)
 reveal_type(nuke.Format.scaled)
 
+# A base-class method probed on subclasses that differ: the common call must be valid.
+node['size'].setValue(10)
+reveal_type(nuke.Knob.setValue)
+reveal_type(nuke.Knob.setValueAt)
+
 # Constants and module-level instances.
 reveal_type(nuke.ADD_VIEWS)
 reveal_type(nuke.nodes)

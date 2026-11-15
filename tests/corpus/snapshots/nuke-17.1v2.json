@@ -67,6 +67,8 @@
    "nuke.ADD_VIEWS": "int",
    "nuke.Format.scaled": "(self: Format, sx: Any = ..., sy: Any = ..., tx: Any = ..., ty: Any = ...) -> Format",
    "nuke.Group.selectedNode": "(self: Group) -> (Node | None)",
+   "nuke.Knob.setValue": "(self: Knob, val: Any, chan: Any = ..., arg3: Any = ...) -> bool",
+   "nuke.Knob.setValueAt": "(self: Knob, val: float, time: float, chan: int = ..., arg4: Any = ...) -> bool",
    "nuke.Menu.addCommand": "(self: Menu, name: str, command: str | ((...) -> Any) = ..., shortcut: str = ..., icon: str = ..., tooltip: str = ..., index: int = ..., readonly: bool = ..., shortcutContext: int = ..., tag: Any = ..., tagTarget: Any = ..., node: str = ...) -> Any",
    "nuke.MenuBar.addCommand": "(self: MenuBar, name: str, command: str | ((...) -> Any) = ..., shortcut: str = ..., icon: str = ..., tooltip: str = ..., index: int = ..., readonly: bool = ..., shortcutContext: int = ..., tag: Any = ..., tagTarget: Any = ..., node: str = ...) -> Any",
    "nuke.Node.allKnobs": "(self: Node) -> list[Knob]",

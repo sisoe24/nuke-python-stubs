@@ -117,9 +117,14 @@ def test_receiver_that_refuses_the_call_is_ignored(nuke_params: dict[str, Probed
     assert (nuke_params['nuke.Node.setInput'].minimum, nuke_params['nuke.Node.setInput'].maximum) == (2, 2)
 
 
-def test_subclasses_that_differ_give_nothing(nuke_params: dict[str, ProbedParams]) -> None:
-    """Knob.setValue takes a str on one knob class and a sequence on another."""
-    assert 'nuke.Knob.setValue' not in nuke_params
+def test_subclasses_that_differ_merge_permissively(nuke_params: dict[str, ProbedParams]) -> None:
+    """Knob.setValue needs one argument on one knob class and takes three on another."""
+    assert nuke_params['nuke.Knob.setValue'] == ProbedParams(1, 3, (None,))
+
+
+def test_base_method_accepts_the_common_call(probed: Resolved) -> None:
+    """`knob.setValue(10)` is the most common Nuke call; `chan` must not be required."""
+    assert _params(probed['nuke.Knob.setValue'][0])[:2] == [('val', ANY, False), ('chan', ANY, True)]
 
 
 @pytest.fixture(scope='module')

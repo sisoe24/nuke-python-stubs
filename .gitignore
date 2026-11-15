@@ -6,3 +6,4 @@ dumps/*.log
 probes/*.journal
 probes/work/
 build/
+playground/
