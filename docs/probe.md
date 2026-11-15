@@ -80,3 +80,58 @@ Add each crashing path to `probe_skip`.
 The last four rows are stricter than "the probe wins". An observation is
 one object in one scene: it showed `Root` for `nuke.thisNode()` and a
 single `Node` where the docstring says `Node | None`.
+
+## Parameter probe
+
+`inhost/param_probe.py` finds out what arguments a C function accepts,
+from the function's own errors. Add `params` to the run command:
+
+```bash
+probes/run.sh 17.1v2 /Applications/Nuke17.1v2/Nuke17.1v2.app/Contents/MacOS/Nuke17.1 nuke params
+```
+
+Outputs: `probes/nuke-<version>.params.json` and
+`probes/nuke-<version>.hiero.params.json`.
+
+A C function checks its arguments before it does any work, left to right,
+and reports the first one it rejects. For each function the script makes:
+
+1. A call with no arguments and one with twelve. The errors give the
+   counts: `takes at least 1 argument`, `takes at most 3 arguments`.
+2. For each position, one candidate value followed by a poison object:
+
+   ```
+   f('text', POISON)   error names the poison  -> position 1 accepts str
+   f(12, POISON)       error names the int     -> position 1 rejects int
+   ```
+
+   The poison stops the call, so the function body does not run.
+3. For the last position, the poison alone. Nothing can follow it, so a
+   candidate there would run the function. Its error text often names the
+   type: `argument 1 must be str, not HostStubsPoison`.
+
+Candidates come from `candidates()` in the scene file. `hoststubs.params`
+reads the outcomes, with tests in `tests/test_param_probe.py`:
+
+| Outcome | Result |
+|---|---|
+| Error text names a type (`must be str`, `cannot be interpreted as an integer`, `expecting a Nuke node type`) | That type. Host phrases are in `probe_messages` in the host config. |
+| No usable text; `int` and `float` got past the position | `float`: the parser converts |
+| Nearly every candidate got past | Nothing: the position takes any object |
+| Two receivers disagree on the counts (`Knob.setValue` on two knob classes) | Nothing |
+| A receiver refuses the call for its own reasons (`Root` has no inputs) | That receiver is ignored |
+
+The resolver uses it as follows (`Resolver._with_probed_params`):
+
+- A type replaces the documented one for that position.
+- Counts only relax. A documented required parameter becomes optional when
+  the parser accepts fewer arguments; it never becomes required. `Node.knob`
+  reports two required arguments and works with one, because it tries
+  several argument formats.
+- A function with no signature in its docstring gets positional-only
+  parameters `arg1`, `arg2` from the counts.
+- A function with documented overloads is left alone.
+
+Limits: hiero's C functions say `Invalid arguments to core.TrackItem.setTimelineIn`,
+which gives counts but no types. Python functions check nothing and are
+not probed.

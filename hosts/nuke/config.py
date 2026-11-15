@@ -25,6 +25,13 @@ HOST = HostConfig(
         'Dict': 'builtins.dict',
         'Tuple': 'builtins.tuple',
     },
+    probe_messages=(
+        (r'expecting a Nuke node type', 'nuke.Node'),
+        (r'expecting a sequence', 'typing.Sequence[typing.Any]'),
+        (r'expecting either a string/integer/view', 'builtins.str | builtins.int | nuke.View'),
+        (r'expecting (?:either )?a string(?:/| or )number', 'builtins.str | builtins.float'),
+        (r'expecting OutputContext or None', 'nuke.OutputContext | None'),
+    ),
     probe_skip_words=frozenset({
         # Seed list: ends the session or the scene.
         'exit', 'quit', 'close', 'delete', 'clear', 'save', 'load', 'execute', 'render',
@@ -58,6 +65,9 @@ HOST = HostConfig(
         'nuke.licenseInfo',
         'nuke.selectPattern',
         'nuke.waitForThreadsToFinish',
+        'nuke.AnimationCurve.changeInterpolation',
+        'nuke.Node.forceValidate',
+        'nuke_internal.geo.bestFitPlane',
         # The same, in a Nuke Studio 15.2v9 GUI session.
         'hiero.core.Project.cancelUndo',
         'hiero.ui.Viewer.toggleFullScreen',

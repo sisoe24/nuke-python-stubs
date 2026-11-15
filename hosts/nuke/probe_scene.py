@@ -81,3 +81,17 @@ def build():
     objects += _attempt('Layer rgba', lambda: nuke.Layer('rgba'))
 
     return objects
+
+
+def candidates():
+    """Values the parameter probe offers to each argument position, most common first."""
+    blur = nuke.toNode('Blur1')
+    return [
+        'hoststubs_probe', 1, 0.5, True, None, [], (), {},
+        blur, blur['size'], nuke.root().format(), nuke.FrameRange('1-10'),
+        _callback,
+    ]
+
+
+def _callback(*args, **kwargs):
+    return None

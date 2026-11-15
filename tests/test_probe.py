@@ -12,7 +12,6 @@ import pytest
 from hoststubs.host import REPO
 
 PROBE_SCRIPT = REPO / 'inhost' / 'probe.py'
-DUMP_SCRIPT = REPO / 'inhost' / 'dump.py'
 FIXTURES = Path(__file__).parent / 'fixtures'
 
 
@@ -118,7 +117,7 @@ def test_resume_skips_journalled_calls_and_reports_the_crash(tmp_path: Path) -> 
     assert 'fxhost.allNodes' in probe['observations']
 
 
-@pytest.mark.parametrize('script', [DUMP_SCRIPT, PROBE_SCRIPT], ids=lambda path: path.name)
+@pytest.mark.parametrize('script', sorted((REPO / 'inhost').glob('*.py')), ids=lambda path: path.name)
 def test_in_host_script_is_python37_and_stdlib_only(script: Path) -> None:
     """Scripts that run inside the host use Python 3.7 syntax and no extra package."""
     source = script.read_text(encoding='utf-8')
@@ -131,4 +130,5 @@ def test_in_host_script_is_python37_and_stdlib_only(script: Path) -> None:
         elif isinstance(node, ast.ImportFrom):
             imported.add(node.module.split('.')[0])
 
-    assert imported <= sys.stdlib_module_names
+    # param_probe.py imports its sibling probe.py.
+    assert imported - {'probe'} <= sys.stdlib_module_names

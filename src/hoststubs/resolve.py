@@ -26,6 +26,8 @@ SOURCES = (
     'any',
 )
 
+PYTHON_FUNCTION = 'builtins.function'
+
 BOOL = 'builtins.bool'
 INT = 'builtins.int'
 STR = 'builtins.str'
@@ -64,6 +66,14 @@ class Observed:
 
 
 @dataclass(frozen=True)
+class ProbedParams:
+    """What the argument parser of one C function accepts. None means not found out."""
+    minimum: int | None
+    maximum: int | None
+    types: tuple[str | None, ...]
+
+
+@dataclass(frozen=True)
 class Param:
     name: str
     kind: str
@@ -77,7 +87,7 @@ class Signature:
     params: tuple[Param, ...]
     returns: str
     returns_source: str
-    # Where the parameter list came from: 'signature', 'doc_signature' or 'any'.
+    # Where the parameter list came from: 'signature', 'doc_signature', 'probe' or 'any'.
     shape_source: str
 
 
@@ -124,12 +134,14 @@ class Resolver:
         type_names: dict[str, str],
         inferred: dict[str, Inferred],
         observed: dict[str, Observed],
+        probed: dict[str, ProbedParams],
     ) -> None:
         self._dump = dump
         self._names = names
         self._type_names = type_names
         self._inferred = inferred
         self._observed = observed
+        self._probed = probed
 
     # === PRIVATE === #
 
@@ -294,6 +306,58 @@ class Resolver:
         members = [member for member in split_top_level(type_, ' | ') if member != NONE]
         return bool(members) and all(self._names.is_class(member) for member in members)
 
+    def _probed_shape(self, receiver: str | None, probed: ProbedParams) -> tuple[Param, ...]:
+        """Parameters for a function with no usable docstring, from the parser alone."""
+        params = [Param(receiver, POSITIONAL, False, ANY, 'any')] if receiver else []
+        for index in range(probed.maximum):
+            type_ = probed.types[index] if index < len(probed.types) else None
+            is_optional = probed.minimum is None or index >= probed.minimum
+            source = 'probe' if type_ else 'any'
+            name = f'arg{index + 1}'
+            params.append(Param(name, 'POSITIONAL_ONLY', is_optional, type_ or ANY, source))
+        return tuple(params)
+
+    def _with_probed_params(
+        self, params: tuple[Param, ...], receiver: str | None, probed: ProbedParams,
+    ) -> tuple[Param, ...]:
+        """Correct documented parameters with what the argument parser accepts.
+
+        The parser states the type of a position outright. For how many are
+        required it is trusted only to relax: some functions try several
+        argument formats and report the count of the last one (`Node.knob`
+        claims two required and works with one), and a parameter wrongly
+        required is an error on correct code.
+        """
+        if any(param.kind in (VAR_POSITIONAL, VAR_KEYWORD) for param in params):
+            return params
+
+        skip = 1 if receiver and params and params[0].name == receiver else 0
+        corrected = list(params[:skip])
+
+        # A parser that demands more than the docstring is reporting another format.
+        required = sum(1 for param in params[skip:] if not param.has_default)
+        counts_fit = probed.minimum is None or probed.minimum <= required
+        minimum = probed.minimum if counts_fit else None
+        maximum = probed.maximum if counts_fit else None
+
+        for index, param in enumerate(params[skip:]):
+            type_ = probed.types[index] if index < len(probed.types) else None
+            is_relaxed = minimum is not None and index >= minimum
+            corrected.append(Param(
+                param.name,
+                param.kind,
+                param.has_default or is_relaxed,
+                type_ or param.type,
+                'probe' if type_ else param.source,
+            ))
+
+        documented = len(params) - skip
+        for index in range(documented, maximum or 0):
+            type_ = probed.types[index] if index < len(probed.types) else None
+            source = 'probe' if type_ else 'any'
+            corrected.append(Param(f'arg{index + 1}', POSITIONAL, True, type_ or ANY, source))
+        return tuple(corrected)
+
     def property(self, path: str) -> Signature:
         """Resolve a C property. It has no docstring evidence, only what the probe read."""
         returns = self._with_probe(Candidate(ANY, 'any'), path)
@@ -344,6 +408,16 @@ class Resolver:
         else:
             first = doc_lines[0] if doc_lines else None
             variants = [(self._unknown_params(receiver), first.returns if first else None, 'any')]
+
+        # One documented signature only: with overloads, which one the parser saw is unknown.
+        probed = self._probed.get(path)
+        if probed and len(variants) == 1 and function.descriptor != PYTHON_FUNCTION:
+            params, returns_text, shape_source = variants[0]
+            if shape_source != 'any':
+                params = self._with_probed_params(params, receiver, probed)
+            elif probed.maximum is not None:
+                params, shape_source = self._probed_shape(receiver, probed), 'probe'
+            variants = [(params, returns_text, shape_source)]
 
         signatures = []
         for params, returns_text, shape_source in variants:

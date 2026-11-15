@@ -28,6 +28,9 @@ class HostConfig:
     # Type spellings in the host's docstrings that are not Python names.
     type_names: dict[str, str]
 
+    # Error texts of the host's own argument checks, as (regex, type).
+    probe_messages: tuple[tuple[str, str], ...]
+
     # The probe calls nothing whose name contains one of these words
     # (`scriptSaveAs` contains `save`), and nothing at or under the listed paths.
     probe_skip_words: frozenset[str]

@@ -4,39 +4,51 @@
 #
 #   probes/run.sh 15.2v9 /Applications/Nuke15.2v9/Nuke15.2v9.app/Contents/MacOS/Nuke15.2 nuke
 #   probes/run.sh 15.2v9 /Applications/Nuke15.2v9/Nuke15.2v9.app/Contents/MacOS/Nuke15.2 hiero
+#   probes/run.sh 15.2v9 /Applications/Nuke15.2v9/Nuke15.2v9.app/Contents/MacOS/Nuke15.2 nuke params
 #
+# The optional last word `params` runs the parameter probe instead of the return probe.
 # `nuke` runs in terminal mode with --safe. `hiero` needs a Nuke Studio GUI
 # session, which loads the plugins in ~/.nuke.
 set -u
 version=$1
 nuke=$2
 kind=$3
+what=${4:-returns}
+
+script=probe
+command=probe-targets
+suffix=""
+if [ "$what" = params ]; then
+    script=param_probe
+    command=param-targets
+    suffix=.params
+fi
 
 work=probes/work
 mkdir -p "$work"
-targets=$PWD/$work/nuke-$version.$kind.targets.json
-log=$work/nuke-$version.$kind.log
+targets=$PWD/$work/nuke-$version.$kind$suffix.targets.json
+log=$work/nuke-$version.$kind$suffix.log
 
 if [ "$kind" = hiero ]; then
-    out=$PWD/probes/nuke-$version.hiero.json
+    out=$PWD/probes/nuke-$version.hiero$suffix.json
     scene=$PWD/hosts/nuke/probe_scene_hiero.py
     modules="hiero"
 else
-    out=$PWD/probes/nuke-$version.json
+    out=$PWD/probes/nuke-$version$suffix.json
     scene=$PWD/hosts/nuke/probe_scene.py
     modules="nuke nuke_internal"
 fi
 
-uv run -q python -m hoststubs probe-targets "dumps/nuke-$version.json" "$targets" $modules
+uv run -q python -m hoststubs $command "dumps/nuke-$version.json" "$targets" $modules
 rm -f "$out" "$out.journal"
 
 run_once() {
     local arguments="$out targets=$targets scene=$scene $1"
     if [ "$kind" = hiero ]; then
         NUKE_PATH="$PWD/hosts/nuke/studio:${NUKE_PATH:-}" HOSTSTUBS_INHOST="$PWD/inhost" \
-            HOSTSTUBS_RUN=probe HOSTSTUBS_ARGS="$arguments" "$nuke" --studio > "$log" 2>&1 &
+            HOSTSTUBS_RUN=$script HOSTSTUBS_ARGS="$arguments" "$nuke" --studio > "$log" 2>&1 &
     else
-        "$nuke" -t -i --safe inhost/probe.py $arguments > "$log" 2>&1 &
+        "$nuke" -t -i --safe inhost/$script.py $arguments > "$log" 2>&1 &
     fi
 
     # The probe ends a stuck call itself; this ends a session that is stuck elsewhere.

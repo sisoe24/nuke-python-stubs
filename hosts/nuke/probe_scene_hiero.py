@@ -90,6 +90,26 @@ def build():
     return objects
 
 
+def candidates():
+    """Values the parameter probe offers to each argument position, most common first."""
+    project = _projects[0]
+    sequence = project.sequences()[0]
+    values = [
+        'hoststubs_probe', 1, 0.5, True, None, [], (), {},
+        project, sequence, sequence.videoTracks()[0], project.clipsBin(),
+        hiero.core.TimeBase(24), sequence.format(), _callback,
+    ]
+    clips = project.clips()
+    if clips:
+        values.append(clips[0])
+        values += list(sequence.videoTracks()[0].items())[:1]
+    return values
+
+
+def _callback(*args, **kwargs):
+    return None
+
+
 def teardown():
     for project in _projects:
         project.close()

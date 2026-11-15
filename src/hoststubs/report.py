@@ -8,7 +8,9 @@ from hoststubs import ir
 from hoststubs.host import HOSTS, load_host
 from hoststubs.names import Names
 from hoststubs.infer import inference_dir
-from hoststubs.resolve import Observed, Resolver, Signature, resolve_functions
+from hoststubs.params import load_params
+from hoststubs.resolve import (Observed, ProbedParams, Resolver, Signature,
+                               resolve_functions)
 from hoststubs.emit import Context
 from hoststubs.overrides import Overrides, load_overrides
 from hoststubs.observations import load_observations
@@ -29,10 +31,14 @@ def load_context(
     inferred = load_inference(inference_dir(dump), names)
     # One file per session kind: `nuke-15.2v9.json`, `nuke-15.2v9.hiero.json`.
     observed: dict[str, Observed] = {}
+    probed: dict[str, ProbedParams] = {}
     probes = sorted(PROBES.glob(f'{dump.host}-{dump.host_version}*.json')) if use_probe else []
     for probe in probes:
-        observed.update(load_observations(probe, names))
-    resolver = Resolver(dump, names, host.type_names, inferred, observed)
+        if probe.name.endswith('.params.json'):
+            probed.update(load_params(probe, names, host.probe_messages))
+        else:
+            observed.update(load_observations(probe, names))
+    resolver = Resolver(dump, names, host.type_names, inferred, observed, probed)
 
     overrides = Overrides({}, {})
     if use_overrides:

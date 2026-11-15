@@ -3,7 +3,7 @@
 hiero's C module and the nukescripts panels exist only with the GUI, so
 terminal mode cannot reach them. Nuke Studio runs this file at startup when
 NUKE_PATH points at the `studio` directory. It does nothing unless
-HOSTSTUBS_RUN is `dump` or `probe`; HOSTSTUBS_ARGS is that script's
+HOSTSTUBS_RUN is `dump`, `probe` or `param_probe`; HOSTSTUBS_ARGS is that script's
 space-separated argument list.
 """
 import os
@@ -37,6 +37,6 @@ def _run():
     os._exit(status)
 
 
-if os.environ.get('HOSTSTUBS_RUN') in ('dump', 'probe'):
+if os.environ.get('HOSTSTUBS_RUN') in ('dump', 'probe', 'param_probe'):
     # Let the startup finish, so every module is in its normal state.
     QtCore.QTimer.singleShot(5000, _run)

@@ -74,3 +74,38 @@ def probe_targets(
 
     # Methods run on the scene as built; module functions may change it.
     return sorted(targets, key=lambda target: (target['on'] == 'owner', target['path']))
+
+
+def param_targets(
+    dump: ir.Dump, resolved: dict[str, tuple[Signature, ...]], host: HostConfig,
+) -> list[dict[str, str | int | None]]:
+    """List every C function the parameter probe may call, with its documented parameter count."""
+    targets: list[dict[str, str | int | None]] = []
+
+    def visit(members: dict[str, ir.Member], owner: str, in_class: bool) -> None:
+        for name, member in sorted(members.items()):
+            path = f'{owner}.{name}'
+            if isinstance(member, ir.Class):
+                visit(member.members, path, in_class=True)
+                continue
+
+            is_dunder = name.startswith('__') and name.endswith('__')
+            is_c_function = isinstance(member, ir.Function) and member.descriptor != PYTHON_FUNCTION
+            if not is_c_function or is_dunder or is_skipped(path, name, host):
+                continue
+
+            signature = resolved[path][0]
+            documented = [
+                param for index, param in enumerate(signature.params)
+                if not (index == 0 and param.name in ('self', 'cls'))
+            ]
+            is_known = signature.shape_source != 'any'
+            on = 'instance' if in_class and member.binding == 'instance' else 'owner'
+            targets.append({
+                **_target(path, owner, name, 'function', on),
+                'count': len(documented) if is_known else None,
+            })
+
+    for module_name, module in dump.modules.items():
+        visit(module.members, module_name, in_class=False)
+    return sorted(targets, key=lambda target: (target['on'] == 'owner', target['path']))

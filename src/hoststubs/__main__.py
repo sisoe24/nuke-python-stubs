@@ -11,7 +11,7 @@ from hoststubs.emit import emit
 from hoststubs.host import REPO, load_host, dump_arguments
 from hoststubs.infer import infer
 from hoststubs.report import report, load_context, resolve_dump
-from hoststubs.targets import probe_targets
+from hoststubs.targets import param_targets, probe_targets
 
 
 def main() -> None:
@@ -29,10 +29,11 @@ def main() -> None:
     command = commands.add_parser('report', help='print the share resolved per evidence source')
     command.add_argument('dump', type=Path)
 
-    command = commands.add_parser('probe-targets', help='write the list of calls for probe.py')
-    command.add_argument('dump', type=Path)
-    command.add_argument('out', type=Path)
-    command.add_argument('modules', nargs='+', help='only targets under these modules')
+    for name, script in (('probe-targets', 'probe.py'), ('param-targets', 'param_probe.py')):
+        command = commands.add_parser(name, help=f'write the list of calls for {script}')
+        command.add_argument('dump', type=Path)
+        command.add_argument('out', type=Path)
+        command.add_argument('modules', nargs='+', help='only targets under these modules')
 
     command = commands.add_parser('build', help='write the stubs for one dumped version')
     command.add_argument('dump', type=Path)
@@ -53,11 +54,12 @@ def main() -> None:
         logging.info('Wrote %d files under %s.', len(written), out)
     elif args.command == 'report':
         print(report(args.dump))
-    elif args.command == 'probe-targets':
+    elif args.command in ('probe-targets', 'param-targets'):
         # Targets come from the docstrings alone, so a probe run cannot change its own input.
-        dump, resolved = resolve_dump(args.dump, use_probe=False)
+        dump, resolved = resolve_dump(args.dump, use_overrides=False, use_probe=False)
+        choose = probe_targets if args.command == 'probe-targets' else param_targets
         targets = [
-            target for target in probe_targets(dump, resolved, load_host(dump.host))
+            target for target in choose(dump, resolved, load_host(dump.host))
             if target['path'].startswith(tuple(f'{module}.' for module in args.modules))
         ]
         args.out.write_text(json.dumps({'targets': targets}, indent=1) + '\n', encoding='utf-8')
