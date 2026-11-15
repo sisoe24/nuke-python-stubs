@@ -183,6 +183,36 @@
      "origin": "_fxhost",
      "qualname": "TimelineEditor"
     },
+    "Track": {
+     "bases": [
+      "builtins.object"
+     ],
+     "doc": null,
+     "kind": "class",
+     "members": {
+      "items": {
+       "binding": "instance",
+       "descriptor": "builtins.function",
+       "doc": "self.items() -> tuple of the items on this track.",
+       "kind": "function",
+       "origin": "fxcore",
+       "qualname": "Track.items",
+       "signature": {
+        "params": [
+         {
+          "annotation": null,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "name": "self"
+         }
+        ],
+        "returns": null
+       },
+       "text_signature": null
+      }
+     },
+     "origin": "fxcore",
+     "qualname": "Track"
+    },
     "VERSION": {
      "kind": "value",
      "type": "builtins.str"

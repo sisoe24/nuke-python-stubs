@@ -2,3 +2,4 @@
 *.zip
 out/
 .envrc
+dumps/*.log

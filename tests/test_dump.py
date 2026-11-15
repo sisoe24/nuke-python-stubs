@@ -14,7 +14,8 @@ GOLDEN = FIXTURES / 'dump.golden.json'
 
 # Regenerate the golden file with the command in docs/dump-schema.md.
 DUMP_ARGS = [
-    'host=fxhost', 'version=fxhost.VERSION', 'skip=fxscripts.examples', 'fxhost', 'fxscripts',
+    'host=fxhost', 'version=fxhost.VERSION', 'skip=fxscripts.examples',
+    'private=fxcore', 'fxhost', 'fxscripts',
 ]
 
 

@@ -22,8 +22,8 @@ class HostConfig:
     roots: tuple[str, ...]
     skip: tuple[str, ...]
 
-    # Command prefix that runs a Python script inside the host, by label.
-    launchers: dict[str, tuple[str, ...]]
+    # Importable C modules that users reach only through a root.
+    private: tuple[str, ...]
 
     # Raw host version -> stub revision. Bumped by hand when a package is published.
     stub_revisions: dict[str, int]
@@ -40,13 +40,13 @@ def load_host(name: str) -> HostConfig:
     return module.HOST
 
 
-def dump_command(host: HostConfig, launcher: str, out: str) -> list[str]:
+def dump_arguments(host: HostConfig, out: str) -> list[str]:
+    """Arguments for inhost/dump.py, after the script path."""
     return [
-        *host.launchers[launcher],
-        str(DUMP_SCRIPT),
         out,
         f'host={host.name}',
         f'version={host.version_attribute}',
         *(f'skip={module}' for module in host.skip),
+        *(f'private={module}' for module in host.private),
         *host.roots,
     ]

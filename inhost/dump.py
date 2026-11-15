@@ -4,7 +4,11 @@ Runs inside the host interpreter: standard library only, Python 3.7 syntax.
 It records what the runtime reports and decides nothing about types.
 
 Usage:
-    <host python> dump.py OUT.json host=NAME version=MODULE.ATTR [skip=MODULE ...] ROOT [ROOT ...]
+    <host python> dump.py OUT.json host=NAME version=MODULE.ATTR
+        [skip=MODULE ...] [private=MODULE ...] ROOT [ROOT ...]
+
+`private` names a C module that is importable but that users reach only through
+a root, such as hiero's `core`. Its objects are recorded under that root.
 
 Arguments have no leading dashes because hosts such as Nuke consume dashed flags.
 From a script editor, call `main([...])` with the same arguments.
@@ -120,7 +124,9 @@ def dump_property(descriptor):
 
 
 def is_function(obj):
-    # Qt signals are method descriptors too, but they are not callable.
+    # A Qt signal in a class body is a callable method descriptor, but an attribute.
+    if str(type(obj).__module__).split('.')[0] in QT_BINDINGS:
+        return False
     return inspect.isroutine(obj) and callable(obj)
 
 
@@ -159,9 +165,10 @@ def resolve(dotted):
 
 
 class Dumper:
-    def __init__(self, roots, skip):
+    def __init__(self, roots, skip, private):
         self.roots = tuple(roots)
         self.skip = tuple(skip)
+        self.private = tuple(private)
 
         self.modules = {}
         self.errors = []
@@ -177,6 +184,8 @@ class Dumper:
 
     def _is_public_elsewhere(self, obj, origin, qualname):
         if any(part.startswith('_') for part in origin.split('.')):
+            return False
+        if self._under(origin, self.private):
             return False
 
         found = sys.modules.get(origin)
@@ -244,7 +253,8 @@ class Dumper:
         if inspect.isclass(raw):
             return self._dump_class_or_alias(raw, here)
         if is_function(raw):
-            return dump_function(raw, 'instance')
+            is_class_method = type(raw).__name__ == 'classmethod_descriptor'
+            return dump_function(raw, 'class' if is_class_method else 'instance')
         if inspect.isdatadescriptor(raw):
             return dump_property(raw)
         return dump_value(raw, CONSTANT_TYPES)
@@ -317,13 +327,13 @@ def detect_qt():
 
 
 def parse_args(argv):
-    options = {'host': None, 'version': None, 'skip': []}
+    options = {'host': None, 'version': None, 'skip': [], 'private': []}
     positional = []
 
     for argument in argv:
         key, separator, value = argument.partition('=')
-        if separator and key == 'skip':
-            options['skip'].append(value)
+        if separator and key in ('skip', 'private'):
+            options[key].append(value)
         elif separator and key in options:
             options[key] = value
         else:
@@ -338,7 +348,7 @@ def parse_args(argv):
 def main(argv):
     out, roots, options = parse_args(argv)
 
-    dumper = Dumper(roots, options['skip'])
+    dumper = Dumper(roots, options['skip'], options['private'])
     dumper.run()
 
     dump = {

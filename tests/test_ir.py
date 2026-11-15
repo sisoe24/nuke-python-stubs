@@ -49,6 +49,13 @@ def test_private_origin_is_owned_by_public_module(dump: ir.Dump) -> None:
     assert members['Sequence'].origin == 'core'
 
 
+def test_declared_private_module_is_owned_by_root(dump: ir.Dump) -> None:
+    """A class from an importable module declared private is recorded under the root."""
+    track = dump.modules['fxhost'].members['Track']
+    assert isinstance(track, ir.Class)
+    assert track.origin == 'fxcore'
+
+
 def test_reexport_is_an_alias(dump: ir.Dump) -> None:
     """A re-exported object points to its defining module instead of being copied."""
     host = dump.modules['fxhost'].members
@@ -67,7 +74,7 @@ def test_constants(dump: ir.Dump) -> None:
 
 
 def test_signal_is_a_value(dump: ir.Dump) -> None:
-    """A Qt signal in a class body is an attribute, not a method."""
+    """A Qt signal in a class body is an attribute, although it is callable."""
     signal = dump.modules['fxhost'].members['TimelineEditor'].members['selectionChanged']
     assert signal == ir.Value('PySide2.QtCore.Signal', None)
 
@@ -107,3 +114,12 @@ def test_wrong_schema_is_rejected(tmp_path: Path) -> None:
 
     with pytest.raises(ValueError, match='schema 0, expected 1'):
         ir.load(path)
+
+
+@pytest.mark.parametrize('path', sorted((GOLDEN.parents[2] / 'dumps').glob('*.json')), ids=str)
+def test_real_dump_loads(path: Path) -> None:
+    """Every committed host dump loads and holds the nuke and hiero C classes."""
+    real = ir.load(path)
+    assert isinstance(real.modules['nuke'].members['Node'], ir.Class)
+    assert isinstance(real.modules['hiero.core'].members['Sequence'], ir.Class)
+    assert isinstance(real.modules['hiero.ui'].members['TimelineEditor'], ir.Class)
