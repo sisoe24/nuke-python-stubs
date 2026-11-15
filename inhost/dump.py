@@ -5,10 +5,10 @@ It records what the runtime reports and decides nothing about types.
 
 Usage:
     <host python> dump.py OUT.json host=NAME version=MODULE.ATTR
-        [skip=MODULE ...] [private=MODULE ...] ROOT [ROOT ...]
+        [skip=MODULE ...] [private=MODULE:OWNER ...] ROOT [ROOT ...]
 
-`private` names a C module that is importable but that users reach only through
-a root, such as hiero's `core`. Its objects are recorded under that root.
+`private` names a C module that users reach only through a public one, such as
+hiero's `core` through `hiero.core`. Its objects are recorded under OWNER.
 
 Arguments have no leading dashes because hosts such as Nuke consume dashed flags.
 From a script editor, call `main([...])` with the same arguments.
@@ -168,7 +168,8 @@ class Dumper:
     def __init__(self, roots, skip, private):
         self.roots = tuple(roots)
         self.skip = tuple(skip)
-        self.private = tuple(private)
+        # Private C module -> the public module that owns its objects.
+        self.private = dict(item.split(':', 1) for item in private)
 
         self.modules = {}
         self.errors = []
@@ -182,13 +183,8 @@ class Dumper:
     def _under(self, name, prefixes):
         return any(name == prefix or name.startswith(prefix + '.') for prefix in prefixes)
 
-    def _is_public_elsewhere(self, obj, origin, qualname):
-        if any(part.startswith('_') for part in origin.split('.')):
-            return False
-        if self._under(origin, self.private):
-            return False
-
-        found = sys.modules.get(origin)
+    def _holds(self, module_name, qualname, obj):
+        found = sys.modules.get(module_name)
         if found is None:
             return False
 
@@ -196,12 +192,27 @@ class Dumper:
             found = getattr(found, attribute, None)
         return found is obj
 
+    def _is_public_elsewhere(self, obj, origin, qualname):
+        if any(part.startswith('_') for part in origin.split('.')):
+            return False
+        if origin in self.private:
+            return False
+        return self._holds(origin, qualname, obj)
+
     def _alias_target(self, obj, here):
         """Return where `obj` is defined, or None when it must be recorded at `here`."""
         origin = getattr(obj, '__module__', None)
         qualname = getattr(obj, '__qualname__', None)
 
         if isinstance(origin, str) and qualname and '<locals>' not in qualname:
+            owner = self.private.get(origin)
+            if owner:
+                target = '{}.{}'.format(owner, qualname)
+                if target == here:
+                    return None
+                if self._holds(owner, qualname, obj):
+                    return target
+
             target = '{}.{}'.format(origin, qualname)
             if target == here:
                 return None

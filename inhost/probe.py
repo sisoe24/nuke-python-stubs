@@ -187,6 +187,9 @@ def main(argv):
             signal.alarm(0)
         journal.finish(path, observations)
 
+    if hasattr(scene, 'teardown'):
+        scene.teardown()
+
     probe = {
         'schema': SCHEMA,
         'scene': scene.DESCRIPTION,

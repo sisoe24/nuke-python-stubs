@@ -1,0 +1,3672 @@
+{
+ "crashed": [
+  "hiero.ui.Viewer.enterFullScreen",
+  "hiero.ui.Viewer.image",
+  "hiero.ui.Viewer.toggleFullScreen",
+  "hiero.ui.Viewer.toggleFullScreen1_1"
+ ],
+ "observations": {
+  "hiero.FnRedirect.RunInMainThread.request": [
+   {
+    "error": "TypeError",
+    "message": "runInMainThread() missing required argument 'call' (pos 1)",
+    "receiver": "builtins.type"
+   }
+  ],
+  "hiero.FnRedirect.RunInMainThread.result": [
+   {
+    "error": "SystemError",
+    "message": "<built-in method result of type object at 0x4b7067f20> returned NULL without setting an exception",
+    "receiver": "builtins.type"
+   }
+  ],
+  "hiero.FnRedirect.TimelineEditorCreationFlag._value_repr_": [],
+  "hiero.FnRedirect.activeSequence": [
+   {
+    "receiver": "builtins.module",
+    "type": "builtins.NoneType"
+   }
+  ],
+  "hiero.FnRedirect.activeView": [
+   {
+    "receiver": "builtins.module",
+    "type": "builtins.NoneType"
+   }
+  ],
+  "hiero.FnRedirect.application": [
+   {
+    "receiver": "builtins.module",
+    "type": "PySide6.QtWidgets.QApplication"
+   }
+  ],
+  "hiero.FnRedirect.currentWorkspace": [
+   {
+    "receiver": "builtins.module",
+    "type": "builtins.str"
+   }
+  ],
+  "hiero.FnRedirect.getActiveView": [
+   {
+    "receiver": "builtins.module",
+    "type": "builtins.NoneType"
+   }
+  ],
+  "hiero.FnRedirect.getApplication": [
+   {
+    "receiver": "builtins.module",
+    "type": "PySide6.QtWidgets.QApplication"
+   }
+  ],
+  "hiero.FnRedirect.getMainWindow": [
+   {
+    "receiver": "builtins.module",
+    "type": "PySide6.QtWidgets.QMainWindow"
+   }
+  ],
+  "hiero.FnRedirect.getMonitorOutStats": [
+   {
+    "elements": [
+     "builtins.int"
+    ],
+    "length": 8,
+    "receiver": "builtins.module",
+    "type": "builtins.tuple"
+   }
+  ],
+  "hiero.FnRedirect.getPluginPath": [
+   {
+    "elements": [
+     "builtins.str"
+    ],
+    "length": 3,
+    "receiver": "builtins.module",
+    "type": "builtins.tuple"
+   }
+  ],
+  "hiero.FnRedirect.getProjectBinView": [
+   {
+    "receiver": "builtins.module",
+    "type": "ui.BinView"
+   }
+  ],
+  "hiero.FnRedirect.getTagsBinView": [
+   {
+    "receiver": "builtins.module",
+    "type": "ui.BinView"
+   }
+  ],
+  "hiero.FnRedirect.mainWindow": [
+   {
+    "receiver": "builtins.module",
+    "type": "PySide6.QtWidgets.QMainWindow"
+   }
+  ],
+  "hiero.FnRedirect.menuBar": [
+   {
+    "receiver": "builtins.module",
+    "type": "PySide6.QtWidgets.QMenuBar"
+   }
+  ],
+  "hiero.FnRedirect.outputRedirector": [
+   {
+    "error": "TypeError",
+    "message": "stdoutRedirector() takes exactly 1 argument (0 given)",
+    "receiver": "builtins.module"
+   }
+  ],
+  "hiero.FnRedirect.pluginPath": [
+   {
+    "elements": [
+     "builtins.str"
+    ],
+    "length": 3,
+    "receiver": "builtins.module",
+    "type": "builtins.tuple"
+   }
+  ],
+  "hiero.FnRedirect.registeredActions": [
+   {
+    "elements": [
+     "PySide6.QtGui.QAction",
+     "hiero.ui.RenameTimelineShots.RenameTimelineShotsAction"
+    ],
+    "length": 368,
+    "receiver": "builtins.module",
+    "type": "builtins.list"
+   }
+  ],
+  "hiero.FnRedirect.stderrRedirector": [
+   {
+    "error": "TypeError",
+    "message": "stderrRedirector() takes exactly 1 argument (0 given)",
+    "receiver": "builtins.module"
+   }
+  ],
+  "hiero.FnRedirect.viewIconForTrack": [
+   {
+    "error": "TypeError",
+    "message": "_fnpython.viewIconForTrack() takes exactly one argument (0 given)",
+    "receiver": "builtins.module"
+   }
+  ],
+  "hiero.core.AnimatedAnnotationStroke.AnimationState._value_repr_": [],
+  "hiero.core.AnimatedAnnotationStroke.animationState": [],
+  "hiero.core.AnimatedAnnotationStroke.easingCurve": [],
+  "hiero.core.AnimatedAnnotationStroke.initialDelay": [],
+  "hiero.core.AnimatedAnnotationStroke.markReadyToAnimate": [],
+  "hiero.core.AnimatedAnnotationStroke.setEasingCurve": [],
+  "hiero.core.AnimatedAnnotationStroke.setInitialDelay": [],
+  "hiero.core.Annotation.addElement": [],
+  "hiero.core.Annotation.comment": [],
+  "hiero.core.Annotation.deserialize": [],
+  "hiero.core.Annotation.elements": [],
+  "hiero.core.Annotation.guid": [],
+  "hiero.core.Annotation.isLocked": [],
+  "hiero.core.Annotation.isNull": [],
+  "hiero.core.Annotation.notes": [],
+  "hiero.core.Annotation.parentSequence": [],
+  "hiero.core.Annotation.serialize": [],
+  "hiero.core.Annotation.setTimeRange": [],
+  "hiero.core.Annotation.timeRange": [],
+  "hiero.core.Annotation.toString": [],
+  "hiero.core.AnnotationArrow.endPoint": [],
+  "hiero.core.AnnotationArrow.isNull": [],
+  "hiero.core.AnnotationArrow.paintProperties": [],
+  "hiero.core.AnnotationArrow.startPoint": [],
+  "hiero.core.AnnotationArrow.toString": [],
+  "hiero.core.AnnotationComment.color": [],
+  "hiero.core.AnnotationComment.createdTime": [],
+  "hiero.core.AnnotationComment.imagePath": [],
+  "hiero.core.AnnotationComment.isNull": [],
+  "hiero.core.AnnotationComment.metadata": [],
+  "hiero.core.AnnotationComment.modifiedTime": [],
+  "hiero.core.AnnotationComment.setColor": [],
+  "hiero.core.AnnotationComment.setCreatedTime": [],
+  "hiero.core.AnnotationComment.setModifiedTime": [],
+  "hiero.core.AnnotationComment.setText": [],
+  "hiero.core.AnnotationComment.text": [],
+  "hiero.core.AnnotationElement.color": [],
+  "hiero.core.AnnotationElement.isNull": [],
+  "hiero.core.AnnotationElement.serialize": [],
+  "hiero.core.AnnotationElement.setColor": [],
+  "hiero.core.AnnotationElement.toString": [],
+  "hiero.core.AnnotationRectangle.isNull": [],
+  "hiero.core.AnnotationRectangle.paintProperties": [],
+  "hiero.core.AnnotationRectangle.rect": [],
+  "hiero.core.AnnotationRectangle.rotation": [],
+  "hiero.core.AnnotationRectangle.toString": [],
+  "hiero.core.AnnotationStroke.isNull": [],
+  "hiero.core.AnnotationStroke.paintProperties": [],
+  "hiero.core.AnnotationStroke.points": [],
+  "hiero.core.AnnotationStroke.setPaintProperties": [],
+  "hiero.core.AnnotationStroke.setPoints": [],
+  "hiero.core.AnnotationStroke.toString": [],
+  "hiero.core.AnnotationStrokePoint.penPressure": [],
+  "hiero.core.AnnotationStrokePoint.x": [],
+  "hiero.core.AnnotationStrokePoint.y": [],
+  "hiero.core.AnnotationText.HorizontalJustification._value_repr_": [],
+  "hiero.core.AnnotationText.VerticalJustification._value_repr_": [],
+  "hiero.core.AnnotationText.backgroundColor": [],
+  "hiero.core.AnnotationText.box": [],
+  "hiero.core.AnnotationText.fontFamily": [],
+  "hiero.core.AnnotationText.fontSize": [],
+  "hiero.core.AnnotationText.horizontalJustification": [],
+  "hiero.core.AnnotationText.isBackgroundEnabled": [],
+  "hiero.core.AnnotationText.isNull": [],
+  "hiero.core.AnnotationText.rect": [],
+  "hiero.core.AnnotationText.rotation": [],
+  "hiero.core.AnnotationText.setFontFamily": [],
+  "hiero.core.AnnotationText.setFontSize": [],
+  "hiero.core.AnnotationText.setHorizontalJustification": [],
+  "hiero.core.AnnotationText.setRotation": [],
+  "hiero.core.AnnotationText.setText": [],
+  "hiero.core.AnnotationText.setVerticalJustification": [],
+  "hiero.core.AnnotationText.text": [],
+  "hiero.core.AnnotationText.toString": [],
+  "hiero.core.AnnotationText.verticalJustification": [],
+  "hiero.core.AnnotationText.wrapText": [],
+  "hiero.core.AudioTrack.Channel._value_repr_": [],
+  "hiero.core.AudioTrack.channel": [
+   {
+    "receiver": "core.AudioTrack",
+    "type": "core.AudioTrack.Channel"
+   }
+  ],
+  "hiero.core.AudioTrack.items": [
+   {
+    "elements": [],
+    "length": 0,
+    "receiver": "core.AudioTrack",
+    "type": "builtins.tuple"
+   }
+  ],
+  "hiero.core.AudioTrack.parent": [
+   {
+    "receiver": "core.AudioTrack",
+    "type": "core.Sequence"
+   }
+  ],
+  "hiero.core.AudioTrack.setChannel": [
+   {
+    "error": "TypeError",
+    "message": "AudioTrack.setChannel() takes exactly one argument (0 given)",
+    "receiver": "core.AudioTrack"
+   }
+  ],
+  "hiero.core.AudioTrack.setVolume": [
+   {
+    "error": "TypeError",
+    "message": "AudioTrack.setVolume() takes exactly one argument (0 given)",
+    "receiver": "core.AudioTrack"
+   }
+  ],
+  "hiero.core.AudioTrack.toString": [
+   {
+    "receiver": "core.AudioTrack",
+    "type": "builtins.str"
+   }
+  ],
+  "hiero.core.AudioTrack.trackIndex": [
+   {
+    "receiver": "core.AudioTrack",
+    "type": "builtins.int"
+   }
+  ],
+  "hiero.core.AudioTrack.volume": [
+   {
+    "receiver": "core.AudioTrack",
+    "type": "builtins.float"
+   }
+  ],
+  "hiero.core.BackgroundRenderObserver.isNull": [],
+  "hiero.core.BackgroundRenderObserver.onFrameRendered": [],
+  "hiero.core.Bin.ItemType._value_repr_": [],
+  "hiero.core.Bin.bins": [
+   {
+    "elements": [],
+    "length": 0,
+    "receiver": "core.Bin",
+    "type": "builtins.tuple"
+   },
+   {
+    "elements": [],
+    "length": 0,
+    "receiver": "core.Bin",
+    "type": "builtins.tuple"
+   }
+  ],
+  "hiero.core.Bin.clips": [
+   {
+    "elements": [
+     "core.BinItem"
+    ],
+    "length": 1,
+    "receiver": "core.Bin",
+    "type": "builtins.tuple"
+   },
+   {
+    "elements": [],
+    "length": 0,
+    "receiver": "core.Bin",
+    "type": "builtins.tuple"
+   }
+  ],
+  "hiero.core.Bin.color": [
+   {
+    "receiver": "core.Bin",
+    "type": "PySide6.QtGui.QColor"
+   },
+   {
+    "receiver": "core.Bin",
+    "type": "PySide6.QtGui.QColor"
+   }
+  ],
+  "hiero.core.Bin.deserializeChildItem": [
+   {
+    "error": "TypeError",
+    "message": "deserializeChildItem expected 2 arguments, got 0",
+    "receiver": "core.Bin"
+   },
+   {
+    "error": "TypeError",
+    "message": "deserializeChildItem expected 2 arguments, got 0",
+    "receiver": "core.Bin"
+   }
+  ],
+  "hiero.core.Bin.displayColor": [
+   {
+    "receiver": "core.Bin",
+    "type": "PySide6.QtGui.QColor"
+   },
+   {
+    "receiver": "core.Bin",
+    "type": "PySide6.QtGui.QColor"
+   }
+  ],
+  "hiero.core.Bin.guid": [
+   {
+    "receiver": "core.Bin",
+    "type": "builtins.str"
+   },
+   {
+    "receiver": "core.Bin",
+    "type": "builtins.str"
+   }
+  ],
+  "hiero.core.Bin.isNull": [
+   {
+    "receiver": "core.Bin",
+    "type": "builtins.bool"
+   },
+   {
+    "receiver": "core.Bin",
+    "type": "builtins.bool"
+   }
+  ],
+  "hiero.core.Bin.moveItem": [
+   {
+    "error": "TypeError",
+    "message": "moveItem expected 2 arguments, got 0",
+    "receiver": "core.Bin"
+   },
+   {
+    "error": "TypeError",
+    "message": "moveItem expected 2 arguments, got 0",
+    "receiver": "core.Bin"
+   }
+  ],
+  "hiero.core.Bin.name": [
+   {
+    "receiver": "core.Bin",
+    "type": "builtins.str"
+   },
+   {
+    "receiver": "core.Bin",
+    "type": "builtins.str"
+   }
+  ],
+  "hiero.core.Bin.numChildren": [
+   {
+    "receiver": "core.Bin",
+    "type": "builtins.int"
+   },
+   {
+    "receiver": "core.Bin",
+    "type": "builtins.int"
+   }
+  ],
+  "hiero.core.Bin.parentBin": [
+   {
+    "receiver": "core.Bin",
+    "type": "core.Project"
+   },
+   {
+    "receiver": "core.Bin",
+    "type": "builtins.NoneType"
+   }
+  ],
+  "hiero.core.Bin.project": [
+   {
+    "receiver": "core.Bin",
+    "type": "core.Project"
+   },
+   {
+    "receiver": "core.Bin",
+    "type": "builtins.NoneType"
+   }
+  ],
+  "hiero.core.Bin.sequences": [
+   {
+    "elements": [
+     "core.BinItem"
+    ],
+    "length": 1,
+    "receiver": "core.Bin",
+    "type": "builtins.tuple"
+   },
+   {
+    "elements": [],
+    "length": 0,
+    "receiver": "core.Bin",
+    "type": "builtins.tuple"
+   }
+  ],
+  "hiero.core.Bin.serialize": [
+   {
+    "receiver": "core.Bin",
+    "type": "builtins.str"
+   },
+   {
+    "error": "RuntimeError",
+    "message": "Bin must belong to a project",
+    "receiver": "core.Bin"
+   }
+  ],
+  "hiero.core.Bin.toString": [
+   {
+    "receiver": "core.Bin",
+    "type": "builtins.str"
+   },
+   {
+    "receiver": "core.Bin",
+    "type": "builtins.str"
+   }
+  ],
+  "hiero.core.BinItem.activeItem": [
+   {
+    "receiver": "core.BinItem",
+    "type": "core.Sequence"
+   },
+   {
+    "receiver": "core.BinItem",
+    "type": "core.Clip"
+   }
+  ],
+  "hiero.core.BinItem.activeVersion": [
+   {
+    "error": "RuntimeError",
+    "message": "Versions are only supported for BinItems holding Clips",
+    "receiver": "core.BinItem"
+   },
+   {
+    "receiver": "core.BinItem",
+    "type": "core.Version"
+   }
+  ],
+  "hiero.core.BinItem.color": [
+   {
+    "receiver": "core.BinItem",
+    "type": "PySide6.QtGui.QColor"
+   },
+   {
+    "receiver": "core.BinItem",
+    "type": "PySide6.QtGui.QColor"
+   }
+  ],
+  "hiero.core.BinItem.deserializeChildItem": [
+   {
+    "error": "TypeError",
+    "message": "deserializeChildItem expected 2 arguments, got 0",
+    "receiver": "core.BinItem"
+   },
+   {
+    "error": "TypeError",
+    "message": "deserializeChildItem expected 2 arguments, got 0",
+    "receiver": "core.BinItem"
+   }
+  ],
+  "hiero.core.BinItem.displayColor": [
+   {
+    "receiver": "core.BinItem",
+    "type": "PySide6.QtGui.QColor"
+   },
+   {
+    "receiver": "core.BinItem",
+    "type": "PySide6.QtGui.QColor"
+   }
+  ],
+  "hiero.core.BinItem.guid": [
+   {
+    "receiver": "core.BinItem",
+    "type": "builtins.str"
+   },
+   {
+    "receiver": "core.BinItem",
+    "type": "builtins.str"
+   }
+  ],
+  "hiero.core.BinItem.isNull": [
+   {
+    "receiver": "core.BinItem",
+    "type": "builtins.bool"
+   },
+   {
+    "receiver": "core.BinItem",
+    "type": "builtins.bool"
+   }
+  ],
+  "hiero.core.BinItem.items": [
+   {
+    "elements": [
+     "core.Version"
+    ],
+    "length": 1,
+    "receiver": "core.BinItem",
+    "type": "builtins.tuple"
+   },
+   {
+    "elements": [
+     "core.Version"
+    ],
+    "length": 1,
+    "receiver": "core.BinItem",
+    "type": "builtins.tuple"
+   }
+  ],
+  "hiero.core.BinItem.maxVersion": [
+   {
+    "error": "RuntimeError",
+    "message": "Versions are only supported for BinItems holding Clips",
+    "receiver": "core.BinItem"
+   },
+   {
+    "receiver": "core.BinItem",
+    "type": "core.Version"
+   }
+  ],
+  "hiero.core.BinItem.minVersion": [
+   {
+    "error": "RuntimeError",
+    "message": "Versions are only supported for BinItems holding Clips",
+    "receiver": "core.BinItem"
+   },
+   {
+    "receiver": "core.BinItem",
+    "type": "core.Version"
+   }
+  ],
+  "hiero.core.BinItem.name": [
+   {
+    "receiver": "core.BinItem",
+    "type": "builtins.str"
+   },
+   {
+    "receiver": "core.BinItem",
+    "type": "builtins.str"
+   }
+  ],
+  "hiero.core.BinItem.nextVersion": [
+   {
+    "error": "RuntimeError",
+    "message": "Versions are only supported for BinItems holding Clips",
+    "receiver": "core.BinItem"
+   },
+   {
+    "receiver": "core.BinItem",
+    "type": "core.Version"
+   }
+  ],
+  "hiero.core.BinItem.numSnapshots": [
+   {
+    "receiver": "core.BinItem",
+    "type": "builtins.int"
+   },
+   {
+    "error": "RuntimeError",
+    "message": "Snapshots are only supported for BinItems holding Sequences",
+    "receiver": "core.BinItem"
+   }
+  ],
+  "hiero.core.BinItem.numVersions": [
+   {
+    "error": "RuntimeError",
+    "message": "Versions are only supported for BinItems holding Clips",
+    "receiver": "core.BinItem"
+   },
+   {
+    "receiver": "core.BinItem",
+    "type": "builtins.int"
+   }
+  ],
+  "hiero.core.BinItem.parentBin": [
+   {
+    "receiver": "core.BinItem",
+    "type": "core.Bin"
+   },
+   {
+    "receiver": "core.BinItem",
+    "type": "core.Bin"
+   }
+  ],
+  "hiero.core.BinItem.prevVersion": [
+   {
+    "error": "RuntimeError",
+    "message": "Versions are only supported for BinItems holding Clips",
+    "receiver": "core.BinItem"
+   },
+   {
+    "receiver": "core.BinItem",
+    "type": "core.Version"
+   }
+  ],
+  "hiero.core.BinItem.project": [
+   {
+    "receiver": "core.BinItem",
+    "type": "core.Project"
+   },
+   {
+    "receiver": "core.BinItem",
+    "type": "core.Project"
+   }
+  ],
+  "hiero.core.BinItem.serialize": [
+   {
+    "receiver": "core.BinItem",
+    "type": "builtins.str"
+   },
+   {
+    "receiver": "core.BinItem",
+    "type": "builtins.str"
+   }
+  ],
+  "hiero.core.BinItem.snapshots": [
+   {
+    "elements": [],
+    "length": 0,
+    "receiver": "core.BinItem",
+    "type": "builtins.tuple"
+   },
+   {
+    "elements": [],
+    "length": 0,
+    "receiver": "core.BinItem",
+    "type": "builtins.tuple"
+   }
+  ],
+  "hiero.core.BinItem.toString": [
+   {
+    "receiver": "core.BinItem",
+    "type": "builtins.str"
+   },
+   {
+    "receiver": "core.BinItem",
+    "type": "builtins.str"
+   }
+  ],
+  "hiero.core.Clip.LocalizationPolicy._value_repr_": [],
+  "hiero.core.Clip.addTag": [
+   {
+    "error": "TypeError",
+    "message": "Clip.addTag() takes exactly one argument (0 given)",
+    "receiver": "core.Clip"
+   }
+  ],
+  "hiero.core.Clip.effects": [
+   {
+    "elements": [],
+    "length": 0,
+    "receiver": "core.Clip",
+    "type": "builtins.list"
+   }
+  ],
+  "hiero.core.Clip.entityReference": [
+   {
+    "receiver": "core.Clip",
+    "type": "builtins.str"
+   }
+  ],
+  "hiero.core.Clip.getAvailableOcioColourTransforms": [
+   {
+    "elements": [
+     "builtins.str"
+    ],
+    "length": 37,
+    "receiver": "core.Clip",
+    "type": "builtins.list"
+   }
+  ],
+  "hiero.core.Clip.getVersionedName": [
+   {
+    "receiver": "core.Clip",
+    "type": "builtins.str"
+   }
+  ],
+  "hiero.core.Clip.guid": [
+   {
+    "receiver": "core.Clip",
+    "type": "builtins.str"
+   }
+  ],
+  "hiero.core.Clip.hasError": [
+   {
+    "receiver": "core.Clip",
+    "type": "builtins.bool"
+   }
+  ],
+  "hiero.core.Clip.hasMultipleViews": [
+   {
+    "receiver": "core.Clip",
+    "type": "builtins.bool"
+   }
+  ],
+  "hiero.core.Clip.isLocalizationOutdated": [
+   {
+    "receiver": "core.Clip",
+    "type": "builtins.bool"
+   }
+  ],
+  "hiero.core.Clip.isLocalized": [
+   {
+    "receiver": "core.Clip",
+    "type": "builtins.bool"
+   }
+  ],
+  "hiero.core.Clip.isNull": [
+   {
+    "receiver": "core.Clip",
+    "type": "builtins.bool"
+   }
+  ],
+  "hiero.core.Clip.localizationPolicy": [
+   {
+    "receiver": "core.Clip",
+    "type": "core.Clip.LocalizationPolicy"
+   }
+  ],
+  "hiero.core.Clip.localizationPriority": [
+   {
+    "receiver": "core.Clip",
+    "type": "builtins.int"
+   }
+  ],
+  "hiero.core.Clip.localizationProgress": [
+   {
+    "receiver": "core.Clip",
+    "type": "builtins.float"
+   }
+  ],
+  "hiero.core.Clip.mediaSource": [
+   {
+    "receiver": "core.Clip",
+    "type": "core.MediaSource"
+   }
+  ],
+  "hiero.core.Clip.metadata": [
+   {
+    "receiver": "core.Clip",
+    "type": "core.DataCollection"
+   }
+  ],
+  "hiero.core.Clip.numAudioTracks": [
+   {
+    "receiver": "core.Clip",
+    "type": "builtins.int"
+   }
+  ],
+  "hiero.core.Clip.numVideoTracks": [
+   {
+    "receiver": "core.Clip",
+    "type": "builtins.int"
+   }
+  ],
+  "hiero.core.Clip.readNode": [
+   {
+    "receiver": "core.Clip",
+    "type": "builtins.Node"
+   }
+  ],
+  "hiero.core.Clip.refresh": [
+   {
+    "receiver": "core.Clip",
+    "type": "builtins.NoneType"
+   }
+  ],
+  "hiero.core.Clip.rescan": [
+   {
+    "receiver": "core.Clip",
+    "type": "builtins.NoneType"
+   }
+  ],
+  "hiero.core.Clip.setFrameRange": [
+   {
+    "error": "TypeError",
+    "message": "setFrameRange expected 2 arguments, got 0",
+    "receiver": "core.Clip"
+   }
+  ],
+  "hiero.core.Clip.sourceIn": [
+   {
+    "receiver": "core.Clip",
+    "type": "builtins.int"
+   }
+  ],
+  "hiero.core.Clip.sourceMediaColourTransform": [
+   {
+    "receiver": "core.Clip",
+    "type": "builtins.str"
+   }
+  ],
+  "hiero.core.Clip.sourceOut": [
+   {
+    "receiver": "core.Clip",
+    "type": "builtins.int"
+   }
+  ],
+  "hiero.core.Clip.subTrackItems": [
+   {
+    "elements": [
+     "builtins.tuple"
+    ],
+    "length": 1,
+    "receiver": "core.Clip",
+    "type": "builtins.tuple"
+   }
+  ],
+  "hiero.core.Clip.views": [
+   {
+    "elements": [],
+    "length": 0,
+    "receiver": "core.Clip",
+    "type": "builtins.list"
+   }
+  ],
+  "hiero.core.ConformRule.Type._value_repr_": [],
+  "hiero.core.ConformRule.activate": [],
+  "hiero.core.ConformRule.appliesToTrackItems": [],
+  "hiero.core.ConformRule.conformType": [],
+  "hiero.core.ConformRule.deactivate": [],
+  "hiero.core.ConformRule.isNull": [],
+  "hiero.core.ConformRule.name": [],
+  "hiero.core.ConformRule.toString": [],
+  "hiero.core.Conformer.excludeNonOverlappingTimecode": [],
+  "hiero.core.Conformer.excludePatterns": [],
+  "hiero.core.Conformer.includeAlreadyMatched": [],
+  "hiero.core.Conformer.includePatterns": [],
+  "hiero.core.Conformer.nativeRuleFiltering": [],
+  "hiero.core.Conformer.nativeRuleNames": [],
+  "hiero.core.Conformer.pythonRuleFiltering": [],
+  "hiero.core.Conformer.pythonRuleNames": [],
+  "hiero.core.Conformer.useBestTimecodeMatch": [],
+  "hiero.core.DataCollection.dict": [],
+  "hiero.core.DataCollection.keys": [],
+  "hiero.core.DataCollection.toString": [],
+  "hiero.core.EffectTrackItem.clone": [],
+  "hiero.core.EffectTrackItem.declone": [],
+  "hiero.core.EffectTrackItem.isValid": [],
+  "hiero.core.EffectTrackItem.node": [],
+  "hiero.core.EffectTrackItem.nodeHasError": [],
+  "hiero.core.EffectTrackItem.toString": [],
+  "hiero.core.Format.aspect": [
+   {
+    "receiver": "core.Format",
+    "type": "builtins.float"
+   },
+   {
+    "receiver": "core.Format",
+    "type": "builtins.float"
+   }
+  ],
+  "hiero.core.Format.cleanAperture": [
+   {
+    "elements": [
+     "builtins.int"
+    ],
+    "length": 4,
+    "receiver": "core.Format",
+    "type": "builtins.tuple"
+   },
+   {
+    "elements": [
+     "builtins.int"
+    ],
+    "length": 4,
+    "receiver": "core.Format",
+    "type": "builtins.tuple"
+   }
+  ],
+  "hiero.core.Format.height": [
+   {
+    "receiver": "core.Format",
+    "type": "builtins.int"
+   },
+   {
+    "receiver": "core.Format",
+    "type": "builtins.int"
+   }
+  ],
+  "hiero.core.Format.isValid": [
+   {
+    "receiver": "core.Format",
+    "type": "builtins.bool"
+   },
+   {
+    "receiver": "core.Format",
+    "type": "builtins.bool"
+   }
+  ],
+  "hiero.core.Format.name": [
+   {
+    "receiver": "core.Format",
+    "type": "builtins.str"
+   },
+   {
+    "receiver": "core.Format",
+    "type": "builtins.str"
+   }
+  ],
+  "hiero.core.Format.pixelAspect": [
+   {
+    "receiver": "core.Format",
+    "type": "builtins.float"
+   },
+   {
+    "receiver": "core.Format",
+    "type": "builtins.float"
+   }
+  ],
+  "hiero.core.Format.productionAperture": [
+   {
+    "elements": [
+     "builtins.int"
+    ],
+    "length": 4,
+    "receiver": "core.Format",
+    "type": "builtins.tuple"
+   },
+   {
+    "elements": [
+     "builtins.int"
+    ],
+    "length": 4,
+    "receiver": "core.Format",
+    "type": "builtins.tuple"
+   }
+  ],
+  "hiero.core.Format.toString": [
+   {
+    "receiver": "core.Format",
+    "type": "builtins.str"
+   },
+   {
+    "receiver": "core.Format",
+    "type": "builtins.str"
+   }
+  ],
+  "hiero.core.Format.width": [
+   {
+    "receiver": "core.Format",
+    "type": "builtins.int"
+   },
+   {
+    "receiver": "core.Format",
+    "type": "builtins.int"
+   }
+  ],
+  "hiero.core.IExportStructure.rootElement": [],
+  "hiero.core.IExportStructureElement.childCount": [],
+  "hiero.core.IExportStructureElement.isLeaf": [],
+  "hiero.core.IExportStructureElement.name": [],
+  "hiero.core.IExportStructureElement.parent": [],
+  "hiero.core.IExportStructureElement.path": [],
+  "hiero.core.IExportStructureElement.preset": [],
+  "hiero.core.IExportStructureElement.toXml": [],
+  "hiero.core.IExporterRegistry.assignPresetToProject": [],
+  "hiero.core.IExporterRegistry.createAndAddProcessorPreset": [],
+  "hiero.core.IExporterRegistry.discardPresetChanges": [],
+  "hiero.core.IExporterRegistry.localPresets": [],
+  "hiero.core.IExporterRegistry.localPresetsChanged": [],
+  "hiero.core.IExporterRegistry.presetToPrettyXml": [],
+  "hiero.core.IExporterRegistry.presetToXml": [],
+  "hiero.core.IExporterRegistry.presetsSubDirectory": [],
+  "hiero.core.IExporterRegistry.projectDuplicated": [],
+  "hiero.core.IExporterRegistry.projectPresets": [],
+  "hiero.core.IExporterRegistry.projectPresetsChanged": [],
+  "hiero.core.IExporterRegistry.projectUnloaded": [],
+  "hiero.core.IExporterRegistry.registerme": [],
+  "hiero.core.IExporterRegistry.renameProcessorPreset": [],
+  "hiero.core.IExporterRegistry.startPresetChanges": [],
+  "hiero.core.IExporterRegistry.submissionChanged": [],
+  "hiero.core.IExporterRegistry.submissionNames": [],
+  "hiero.core.ITask.addToQueue": [],
+  "hiero.core.ITask.children": [],
+  "hiero.core.ITask.destinationDescription": [],
+  "hiero.core.ITask.error": [],
+  "hiero.core.ITask.finishTask": [],
+  "hiero.core.ITask.formatDescription": [],
+  "hiero.core.ITask.ident": [],
+  "hiero.core.ITask.progress": [],
+  "hiero.core.ITask.runOnMainThread": [],
+  "hiero.core.ITask.setDuplicate": [],
+  "hiero.core.ITask.setSynchronous": [],
+  "hiero.core.ITask.startTask": [],
+  "hiero.core.ITask.synchronous": [],
+  "hiero.core.ITask.taskDescription": [],
+  "hiero.core.ITask.taskStep": [],
+  "hiero.core.ITaskPreset.ItemTypes._value_repr_": [],
+  "hiero.core.ITaskPreset.getResolveEntryCount": [],
+  "hiero.core.ITaskPreset.ident": [],
+  "hiero.core.ITaskPreset.isDeprecated": [],
+  "hiero.core.ITaskPreset.markedForDeletion": [],
+  "hiero.core.ITaskPreset.name": [],
+  "hiero.core.ITaskPreset.project": [],
+  "hiero.core.ITaskPreset.readOnly": [],
+  "hiero.core.ITaskPreset.resolveEntryDescription": [],
+  "hiero.core.ITaskPreset.resolveEntryName": [],
+  "hiero.core.ITaskPreset.setMarkedForDeletion": [],
+  "hiero.core.ITaskPreset.setProject": [],
+  "hiero.core.ITaskPreset.setReadOnly": [],
+  "hiero.core.ITaskPreset.summary": [],
+  "hiero.core.ITaskPreset.supportedItems": [],
+  "hiero.core.ITaskPreset.supportsAudio": [],
+  "hiero.core.ItemWrapper._ignore": [],
+  "hiero.core.ItemWrapper.bin": [],
+  "hiero.core.ItemWrapper.binItem": [],
+  "hiero.core.ItemWrapper.clip": [],
+  "hiero.core.ItemWrapper.ignore": [],
+  "hiero.core.ItemWrapper.isNull": [],
+  "hiero.core.ItemWrapper.item": [],
+  "hiero.core.ItemWrapper.name": [],
+  "hiero.core.ItemWrapper.root": [],
+  "hiero.core.ItemWrapper.sequence": [],
+  "hiero.core.ItemWrapper.setTrackItemsForViews": [],
+  "hiero.core.ItemWrapper.trackItem": [],
+  "hiero.core.ItemWrapper.trackItemsForViews": [],
+  "hiero.core.LUTGroup": [
+   {
+    "error": "TypeError",
+    "message": "LUTGroup expected at least 1 argument, got 0",
+    "receiver": "builtins.module"
+   }
+  ],
+  "hiero.core.LUTs": [
+   {
+    "elements": [
+     "builtins.str"
+    ],
+    "length": 37,
+    "receiver": "builtins.module",
+    "type": "builtins.tuple"
+   }
+  ],
+  "hiero.core.MediaFileInfo.endFrame": [],
+  "hiero.core.MediaFileInfo.filename": [],
+  "hiero.core.MediaFileInfo.startFrame": [],
+  "hiero.core.MediaSource.MediaType._value_repr_": [],
+  "hiero.core.MediaSource.associatedFilePaths": [
+   {
+    "elements": [],
+    "length": 0,
+    "receiver": "core.MediaSource",
+    "type": "builtins.list"
+   }
+  ],
+  "hiero.core.MediaSource.createOfflineVideoMediaSource": [
+   {
+    "error": "TypeError",
+    "message": "Invalid arguments to core.MediaSource.createOfflineVideoMediaSource",
+    "receiver": "Shiboken.ObjectType"
+   }
+  ],
+  "hiero.core.MediaSource.duration": [
+   {
+    "receiver": "core.MediaSource",
+    "type": "builtins.int"
+   }
+  ],
+  "hiero.core.MediaSource.fileinfos": [
+   {
+    "elements": [
+     "core.MediaFileInfo"
+    ],
+    "length": 1,
+    "receiver": "core.MediaSource",
+    "type": "builtins.list"
+   }
+  ],
+  "hiero.core.MediaSource.filename": [
+   {
+    "receiver": "core.MediaSource",
+    "type": "builtins.str"
+   }
+  ],
+  "hiero.core.MediaSource.filenameHead": [
+   {
+    "receiver": "core.MediaSource",
+    "type": "builtins.str"
+   }
+  ],
+  "hiero.core.MediaSource.filenamePadding": [
+   {
+    "receiver": "core.MediaSource",
+    "type": "builtins.int"
+   }
+  ],
+  "hiero.core.MediaSource.firstpath": [
+   {
+    "receiver": "core.MediaSource",
+    "type": "builtins.str"
+   }
+  ],
+  "hiero.core.MediaSource.hasAudio": [
+   {
+    "receiver": "core.MediaSource",
+    "type": "builtins.bool"
+   }
+  ],
+  "hiero.core.MediaSource.hasVideo": [
+   {
+    "receiver": "core.MediaSource",
+    "type": "builtins.bool"
+   }
+  ],
+  "hiero.core.MediaSource.height": [
+   {
+    "receiver": "core.MediaSource",
+    "type": "builtins.int"
+   }
+  ],
+  "hiero.core.MediaSource.isMediaPresent": [
+   {
+    "receiver": "core.MediaSource",
+    "type": "builtins.bool"
+   }
+  ],
+  "hiero.core.MediaSource.isNull": [
+   {
+    "receiver": "core.MediaSource",
+    "type": "builtins.bool"
+   }
+  ],
+  "hiero.core.MediaSource.isOffline": [
+   {
+    "receiver": "core.MediaSource",
+    "type": "builtins.bool"
+   }
+  ],
+  "hiero.core.MediaSource.metadata": [
+   {
+    "receiver": "core.MediaSource",
+    "type": "core.DataCollection"
+   }
+  ],
+  "hiero.core.MediaSource.numChannels": [
+   {
+    "error": "TypeError",
+    "message": "MediaSource.numChannels() takes exactly one argument (0 given)",
+    "receiver": "core.MediaSource"
+   }
+  ],
+  "hiero.core.MediaSource.numFragments": [
+   {
+    "receiver": "core.MediaSource",
+    "type": "builtins.int"
+   }
+  ],
+  "hiero.core.MediaSource.pixelAspect": [
+   {
+    "receiver": "core.MediaSource",
+    "type": "builtins.float"
+   }
+  ],
+  "hiero.core.MediaSource.refresh": [
+   {
+    "receiver": "core.MediaSource",
+    "type": "builtins.NoneType"
+   }
+  ],
+  "hiero.core.MediaSource.singleFile": [
+   {
+    "receiver": "core.MediaSource",
+    "type": "builtins.bool"
+   }
+  ],
+  "hiero.core.MediaSource.startTime": [
+   {
+    "receiver": "core.MediaSource",
+    "type": "builtins.int"
+   }
+  ],
+  "hiero.core.MediaSource.timecodeStart": [
+   {
+    "receiver": "core.MediaSource",
+    "type": "builtins.int"
+   }
+  ],
+  "hiero.core.MediaSource.toString": [
+   {
+    "receiver": "core.MediaSource",
+    "type": "builtins.str"
+   }
+  ],
+  "hiero.core.MediaSource.width": [
+   {
+    "receiver": "core.MediaSource",
+    "type": "builtins.int"
+   }
+  ],
+  "hiero.core.PaintBlendMode._value_repr_": [],
+  "hiero.core.PaintBlendModeName": [
+   {
+    "error": "TypeError",
+    "message": "core.PaintBlendModeName() takes exactly one argument (0 given)",
+    "receiver": "builtins.module"
+   }
+  ],
+  "hiero.core.PaintObjectType._value_repr_": [],
+  "hiero.core.PaintProperties.blendMode": [],
+  "hiero.core.PaintProperties.borderEnabled": [],
+  "hiero.core.PaintProperties.color": [],
+  "hiero.core.PaintProperties.fillColor": [],
+  "hiero.core.PaintProperties.fillEnabled": [],
+  "hiero.core.PaintProperties.hash": [],
+  "hiero.core.PaintProperties.lineHardness": [],
+  "hiero.core.PaintProperties.lineOpacity": [],
+  "hiero.core.PaintProperties.lineWidth": [],
+  "hiero.core.PaintProperties.paintObjectType": [],
+  "hiero.core.PaintProperties.pressureAffectsLineHardness": [],
+  "hiero.core.PaintProperties.pressureAffectsLineOpacity": [],
+  "hiero.core.PaintProperties.pressureAffectsLineWidth": [],
+  "hiero.core.PaintProperties.setBorderEnabled": [],
+  "hiero.core.PaintProperties.setFillColor": [],
+  "hiero.core.PaintProperties.setFillEnabled": [],
+  "hiero.core.PaintProperties.setSourceOffset": [],
+  "hiero.core.PaintProperties.source": [],
+  "hiero.core.PaintProperties.sourceOffset": [],
+  "hiero.core.PaintProperty._value_repr_": [],
+  "hiero.core.PaintSource._value_repr_": [],
+  "hiero.core.Project.OpenFlags._value_repr_": [],
+  "hiero.core.Project.PosterFrameSetting._value_repr_": [],
+  "hiero.core.Project.SaveFlags._value_repr_": [],
+  "hiero.core.Project.autosave": [
+   {
+    "receiver": "core.Project",
+    "type": "builtins.NoneType"
+   }
+  ],
+  "hiero.core.Project.buildTrackName": [
+   {
+    "receiver": "core.Project",
+    "type": "builtins.str"
+   }
+  ],
+  "hiero.core.Project.clipsBin": [
+   {
+    "receiver": "core.Project",
+    "type": "core.Bin"
+   }
+  ],
+  "hiero.core.Project.deletable": [
+   {
+    "receiver": "core.Project",
+    "type": "builtins.bool"
+   }
+  ],
+  "hiero.core.Project.editable": [
+   {
+    "receiver": "core.Project",
+    "type": "builtins.bool"
+   }
+  ],
+  "hiero.core.Project.endUndo": [
+   {
+    "error": "RuntimeError",
+    "message": "Internal error in endUndo(), there is no current undo item.",
+    "receiver": "core.Project"
+   }
+  ],
+  "hiero.core.Project.framerate": [
+   {
+    "receiver": "core.Project",
+    "type": "core.TimeBase"
+   }
+  ],
+  "hiero.core.Project.guid": [
+   {
+    "receiver": "core.Project",
+    "type": "builtins.str"
+   }
+  ],
+  "hiero.core.Project.heroView": [
+   {
+    "receiver": "core.Project",
+    "type": "builtins.str"
+   }
+  ],
+  "hiero.core.Project.isLocalisationEnabled": [
+   {
+    "receiver": "core.Project",
+    "type": "builtins.bool"
+   }
+  ],
+  "hiero.core.Project.isNull": [
+   {
+    "receiver": "core.Project",
+    "type": "builtins.bool"
+   }
+  ],
+  "hiero.core.Project.isRestricted": [
+   {
+    "receiver": "core.Project",
+    "type": "builtins.bool"
+   }
+  ],
+  "hiero.core.Project.lutSetting16Bit": [
+   {
+    "receiver": "core.Project",
+    "type": "builtins.str"
+   }
+  ],
+  "hiero.core.Project.lutSetting8Bit": [
+   {
+    "receiver": "core.Project",
+    "type": "builtins.str"
+   }
+  ],
+  "hiero.core.Project.lutSettingFloat": [
+   {
+    "receiver": "core.Project",
+    "type": "builtins.str"
+   }
+  ],
+  "hiero.core.Project.lutSettingLog": [
+   {
+    "receiver": "core.Project",
+    "type": "builtins.str"
+   }
+  ],
+  "hiero.core.Project.lutSettingMonitorOut": [
+   {
+    "receiver": "core.Project",
+    "type": "builtins.str"
+   }
+  ],
+  "hiero.core.Project.lutSettingThumbnail": [
+   {
+    "receiver": "core.Project",
+    "type": "builtins.str"
+   }
+  ],
+  "hiero.core.Project.lutSettingViewer": [
+   {
+    "receiver": "core.Project",
+    "type": "builtins.str"
+   }
+  ],
+  "hiero.core.Project.lutSettingWorkingSpace": [
+   {
+    "receiver": "core.Project",
+    "type": "builtins.str"
+   }
+  ],
+  "hiero.core.Project.name": [
+   {
+    "receiver": "core.Project",
+    "type": "builtins.str"
+   }
+  ],
+  "hiero.core.Project.ocioConfigName": [
+   {
+    "receiver": "core.Project",
+    "type": "builtins.str"
+   }
+  ],
+  "hiero.core.Project.ocioConfigPath": [
+   {
+    "receiver": "core.Project",
+    "type": "builtins.str"
+   }
+  ],
+  "hiero.core.Project.outputFormat": [
+   {
+    "receiver": "core.Project",
+    "type": "core.Format"
+   }
+  ],
+  "hiero.core.Project.path": [
+   {
+    "receiver": "core.Project",
+    "type": "builtins.str"
+   }
+  ],
+  "hiero.core.Project.posterFrameSettings": [
+   {
+    "elements": [
+     "builtins.int",
+     "core.Project.PosterFrameSetting"
+    ],
+    "length": 2,
+    "receiver": "core.Project",
+    "type": "builtins.tuple"
+   }
+  ],
+  "hiero.core.Project.projectDirectory": [
+   {
+    "error": "TypeError",
+    "message": "Project.projectDirectory() takes exactly one argument (0 given)",
+    "receiver": "core.Project"
+   }
+  ],
+  "hiero.core.Project.redo": [
+   {
+    "receiver": "core.Project",
+    "type": "builtins.NoneType"
+   }
+  ],
+  "hiero.core.Project.redoItemText": [
+   {
+    "receiver": "core.Project",
+    "type": "builtins.str"
+   }
+  ],
+  "hiero.core.Project.setHasMigratedSequenceProperties": [
+   {
+    "receiver": "core.Project",
+    "type": "builtins.NoneType"
+   }
+  ],
+  "hiero.core.Project.setLocalisationEnabled": [
+   {
+    "error": "TypeError",
+    "message": "Project.setLocalisationEnabled() takes exactly one argument (0 given)",
+    "receiver": "core.Project"
+   }
+  ],
+  "hiero.core.Project.setModified": [
+   {
+    "receiver": "core.Project",
+    "type": "builtins.NoneType"
+   }
+  ],
+  "hiero.core.Project.setPosterFrameSettings": [
+   {
+    "error": "TypeError",
+    "message": "Invalid arguments to core.Project.setPosterFrameSettings",
+    "receiver": "core.Project"
+   }
+  ],
+  "hiero.core.Project.setShotPresetName": [
+   {
+    "error": "TypeError",
+    "message": "Project.setShotPresetName() takes exactly one argument (0 given)",
+    "receiver": "core.Project"
+   }
+  ],
+  "hiero.core.Project.setTimeDisplayFormat": [
+   {
+    "error": "TypeError",
+    "message": "Project.setTimeDisplayFormat() takes exactly one argument (0 given)",
+    "receiver": "core.Project"
+   }
+  ],
+  "hiero.core.Project.setTrackItemReformatState": [
+   {
+    "error": "TypeError",
+    "message": "Project.setTrackItemReformatState() takes exactly one argument (0 given)",
+    "receiver": "core.Project"
+   }
+  ],
+  "hiero.core.Project.setViewsForStereo": [
+   {
+    "receiver": "core.Project",
+    "type": "builtins.NoneType"
+   }
+  ],
+  "hiero.core.Project.shotPresetName": [
+   {
+    "receiver": "core.Project",
+    "type": "builtins.str"
+   }
+  ],
+  "hiero.core.Project.startTimecode": [
+   {
+    "receiver": "core.Project",
+    "type": "builtins.int"
+   }
+  ],
+  "hiero.core.Project.tagsBin": [
+   {
+    "receiver": "core.Project",
+    "type": "core.Bin"
+   }
+  ],
+  "hiero.core.Project.timeDisplayFormat": [
+   {
+    "receiver": "core.Project",
+    "type": "core.Timecode.DisplayType"
+   }
+  ],
+  "hiero.core.Project.toString": [
+   {
+    "receiver": "core.Project",
+    "type": "builtins.str"
+   }
+  ],
+  "hiero.core.Project.trackItemReformatState": [
+   {
+    "receiver": "core.Project",
+    "type": "core.ReformatState"
+   }
+  ],
+  "hiero.core.Project.trackItemVersionsLinkedToBin": [
+   {
+    "receiver": "core.Project",
+    "type": "builtins.bool"
+   }
+  ],
+  "hiero.core.Project.undo": [
+   {
+    "receiver": "core.Project",
+    "type": "builtins.NoneType"
+   }
+  ],
+  "hiero.core.Project.undoItemText": [
+   {
+    "receiver": "core.Project",
+    "type": "builtins.str"
+   }
+  ],
+  "hiero.core.Project.useOCIOEnvironmentOverride": [
+   {
+    "receiver": "Shiboken.ObjectType",
+    "type": "builtins.bool"
+   }
+  ],
+  "hiero.core.Project.views": [
+   {
+    "elements": [
+     "builtins.str"
+    ],
+    "length": 2,
+    "receiver": "core.Project",
+    "type": "builtins.list"
+   }
+  ],
+  "hiero.core.Project.viewsAndColors": [
+   {
+    "elements": [
+     "builtins.tuple"
+    ],
+    "length": 2,
+    "receiver": "core.Project",
+    "type": "builtins.list"
+   }
+  ],
+  "hiero.core.QIntList.append": [],
+  "hiero.core.QIntList.capacity": [],
+  "hiero.core.QIntList.constData": [],
+  "hiero.core.QIntList.data": [],
+  "hiero.core.QIntList.pop_back": [],
+  "hiero.core.QIntList.pop_front": [],
+  "hiero.core.QIntList.prepend": [],
+  "hiero.core.QIntList.push_back": [],
+  "hiero.core.QIntList.push_front": [],
+  "hiero.core.QIntList.reserve": [],
+  "hiero.core.ReformatState.boxForceShape": [],
+  "hiero.core.ReformatState.boxPAR": [],
+  "hiero.core.ReformatState.boxSize": [],
+  "hiero.core.ReformatState.isNull": [],
+  "hiero.core.ReformatState.originalResizeFlip": [],
+  "hiero.core.ReformatState.originalResizeFlop": [],
+  "hiero.core.ReformatState.originalResizeTurn": [],
+  "hiero.core.ReformatState.originalType": [],
+  "hiero.core.ReformatState.resizeCenter": [],
+  "hiero.core.ReformatState.resizeFlip": [],
+  "hiero.core.ReformatState.resizeFlop": [],
+  "hiero.core.ReformatState.resizeTurn": [],
+  "hiero.core.ReformatState.resizeType": [],
+  "hiero.core.ReformatState.scale": [],
+  "hiero.core.ReformatState.setBoxForceShape": [],
+  "hiero.core.ReformatState.setBoxPAR": [],
+  "hiero.core.ReformatState.setBoxSize": [],
+  "hiero.core.ReformatState.setResizeCenter": [],
+  "hiero.core.ReformatState.setResizeFlip": [],
+  "hiero.core.ReformatState.setResizeFlop": [],
+  "hiero.core.ReformatState.setResizeTurn": [],
+  "hiero.core.ReformatState.setResizeType": [],
+  "hiero.core.ReformatState.setScale": [],
+  "hiero.core.ReformatState.setType": [],
+  "hiero.core.ReformatState.toString": [],
+  "hiero.core.ReformatState.type": [],
+  "hiero.core.RenderProgressObserver.isNull": [],
+  "hiero.core.RenderProgressObserver.updateProgress": [],
+  "hiero.core.Sequence.audioTracks": [
+   {
+    "elements": [
+     "core.AudioTrack"
+    ],
+    "length": 1,
+    "receiver": "core.Sequence",
+    "type": "builtins.tuple"
+   }
+  ],
+  "hiero.core.Sequence.deserialize": [
+   {
+    "error": "TypeError",
+    "message": "deserialize expected 3 arguments, got 0",
+    "receiver": "core.Sequence"
+   }
+  ],
+  "hiero.core.Sequence.guid": [
+   {
+    "receiver": "core.Sequence",
+    "type": "builtins.str"
+   }
+  ],
+  "hiero.core.Sequence.items": [
+   {
+    "elements": [
+     "core.AudioTrack",
+     "core.VideoTrack"
+    ],
+    "length": 2,
+    "receiver": "core.Sequence",
+    "type": "builtins.tuple"
+   }
+  ],
+  "hiero.core.Sequence.numAudioTracks": [
+   {
+    "receiver": "core.Sequence",
+    "type": "builtins.int"
+   }
+  ],
+  "hiero.core.Sequence.numVideoTracks": [
+   {
+    "receiver": "core.Sequence",
+    "type": "builtins.int"
+   }
+  ],
+  "hiero.core.Sequence.serialize": [
+   {
+    "receiver": "core.Sequence",
+    "type": "builtins.str"
+   }
+  ],
+  "hiero.core.Sequence.videoTracks": [
+   {
+    "elements": [
+     "core.VideoTrack"
+    ],
+    "length": 1,
+    "receiver": "core.Sequence",
+    "type": "builtins.tuple"
+   }
+  ],
+  "hiero.core.SequenceAutoDiskCacheMode._value_repr_": [],
+  "hiero.core.SequenceAutoDiskCacheModeFromString": [
+   {
+    "error": "TypeError",
+    "message": "core.SequenceAutoDiskCacheModeFromString() takes exactly one argument (0 given)",
+    "receiver": "builtins.module"
+   }
+  ],
+  "hiero.core.SequenceAutoDiskCacheModeToString": [
+   {
+    "error": "TypeError",
+    "message": "core.SequenceAutoDiskCacheModeToString() takes exactly one argument (0 given)",
+    "receiver": "builtins.module"
+   }
+  ],
+  "hiero.core.SequenceBase.PlayheadState._value_repr_": [],
+  "hiero.core.SequenceBase.activePlayhead": [
+   {
+    "receiver": "core.Sequence",
+    "type": "builtins.int"
+   },
+   {
+    "receiver": "core.Clip",
+    "type": "builtins.int"
+   }
+  ],
+  "hiero.core.SequenceBase.addAnnotation": [
+   {
+    "receiver": "core.Sequence",
+    "type": "core.Annotation"
+   },
+   {
+    "receiver": "core.Clip",
+    "type": "core.Annotation"
+   }
+  ],
+  "hiero.core.SequenceBase.annotations": [
+   {
+    "elements": [
+     "core.Annotation"
+    ],
+    "length": 1,
+    "receiver": "core.Sequence",
+    "type": "builtins.list"
+   },
+   {
+    "elements": [
+     "core.Annotation"
+    ],
+    "length": 1,
+    "receiver": "core.Clip",
+    "type": "builtins.list"
+   }
+  ],
+  "hiero.core.SequenceBase.autoDiskCacheMode": [
+   {
+    "receiver": "core.Sequence",
+    "type": "core.SequenceAutoDiskCacheMode"
+   },
+   {
+    "receiver": "core.Clip",
+    "type": "core.SequenceAutoDiskCacheMode"
+   }
+  ],
+  "hiero.core.SequenceBase.binItem": [
+   {
+    "receiver": "core.Sequence",
+    "type": "core.BinItem"
+   },
+   {
+    "receiver": "core.Clip",
+    "type": "core.BinItem"
+   }
+  ],
+  "hiero.core.SequenceBase.disableSoftTrims": [
+   {
+    "receiver": "core.Sequence",
+    "type": "builtins.NoneType"
+   },
+   {
+    "receiver": "core.Clip",
+    "type": "builtins.NoneType"
+   }
+  ],
+  "hiero.core.SequenceBase.dropFrame": [
+   {
+    "receiver": "core.Sequence",
+    "type": "builtins.bool"
+   },
+   {
+    "receiver": "core.Clip",
+    "type": "builtins.bool"
+   }
+  ],
+  "hiero.core.SequenceBase.duration": [
+   {
+    "receiver": "core.Sequence",
+    "type": "builtins.int"
+   },
+   {
+    "receiver": "core.Clip",
+    "type": "builtins.int"
+   }
+  ],
+  "hiero.core.SequenceBase.editFinished": [
+   {
+    "receiver": "core.Sequence",
+    "type": "builtins.NoneType"
+   },
+   {
+    "receiver": "core.Clip",
+    "type": "builtins.NoneType"
+   }
+  ],
+  "hiero.core.SequenceBase.format": [
+   {
+    "receiver": "core.Sequence",
+    "type": "core.Format"
+   },
+   {
+    "receiver": "core.Clip",
+    "type": "core.Format"
+   }
+  ],
+  "hiero.core.SequenceBase.framerate": [
+   {
+    "receiver": "core.Sequence",
+    "type": "core.TimeBase"
+   },
+   {
+    "receiver": "core.Clip",
+    "type": "core.TimeBase"
+   }
+  ],
+  "hiero.core.SequenceBase.inOutEnabled": [
+   {
+    "receiver": "core.Sequence",
+    "type": "builtins.bool"
+   },
+   {
+    "receiver": "core.Clip",
+    "type": "builtins.bool"
+   }
+  ],
+  "hiero.core.SequenceBase.inTime": [
+   {
+    "error": "RuntimeError",
+    "message": "InTime has not been set",
+    "receiver": "core.Sequence"
+   },
+   {
+    "error": "RuntimeError",
+    "message": "InTime has not been set",
+    "receiver": "core.Clip"
+   }
+  ],
+  "hiero.core.SequenceBase.isNull": [
+   {
+    "receiver": "core.Sequence",
+    "type": "builtins.bool"
+   },
+   {
+    "receiver": "core.Clip",
+    "type": "builtins.bool"
+   }
+  ],
+  "hiero.core.SequenceBase.layers": [
+   {
+    "elements": [
+     "builtins.str"
+    ],
+    "length": 1,
+    "receiver": "core.Sequence",
+    "type": "builtins.list"
+   },
+   {
+    "elements": [
+     "builtins.str"
+    ],
+    "length": 1,
+    "receiver": "core.Clip",
+    "type": "builtins.list"
+   }
+  ],
+  "hiero.core.SequenceBase.metadata": [
+   {
+    "receiver": "core.Sequence",
+    "type": "core.DataCollection"
+   },
+   {
+    "receiver": "core.Clip",
+    "type": "core.DataCollection"
+   }
+  ],
+  "hiero.core.SequenceBase.name": [
+   {
+    "receiver": "core.Sequence",
+    "type": "builtins.str"
+   },
+   {
+    "receiver": "core.Clip",
+    "type": "builtins.str"
+   }
+  ],
+  "hiero.core.SequenceBase.outTime": [
+   {
+    "error": "RuntimeError",
+    "message": "OutTime has not been set",
+    "receiver": "core.Sequence"
+   },
+   {
+    "error": "RuntimeError",
+    "message": "OutTime has not been set",
+    "receiver": "core.Clip"
+   }
+  ],
+  "hiero.core.SequenceBase.posterFrame": [
+   {
+    "receiver": "core.Sequence",
+    "type": "builtins.int"
+   },
+   {
+    "receiver": "core.Clip",
+    "type": "builtins.int"
+   }
+  ],
+  "hiero.core.SequenceBase.project": [
+   {
+    "receiver": "core.Sequence",
+    "type": "core.Project"
+   },
+   {
+    "receiver": "core.Clip",
+    "type": "core.Project"
+   }
+  ],
+  "hiero.core.SequenceBase.rawView": [
+   {
+    "receiver": "core.Sequence",
+    "type": "builtins.str"
+   },
+   {
+    "receiver": "core.Clip",
+    "type": "builtins.str"
+   }
+  ],
+  "hiero.core.SequenceBase.refreshInOutEnabled": [
+   {
+    "receiver": "core.Sequence",
+    "type": "builtins.NoneType"
+   },
+   {
+    "receiver": "core.Clip",
+    "type": "builtins.NoneType"
+   }
+  ],
+  "hiero.core.SequenceBase.setName": [
+   {
+    "error": "TypeError",
+    "message": "Sequence.setName() takes exactly one argument (0 given)",
+    "receiver": "core.Sequence"
+   },
+   {
+    "error": "TypeError",
+    "message": "Clip.setName() takes exactly one argument (0 given)",
+    "receiver": "core.Clip"
+   }
+  ],
+  "hiero.core.SequenceBase.softTrimsEnabled": [
+   {
+    "receiver": "core.Sequence",
+    "type": "builtins.bool"
+   },
+   {
+    "receiver": "core.Clip",
+    "type": "builtins.bool"
+   }
+  ],
+  "hiero.core.SequenceBase.softTrimsInTime": [
+   {
+    "error": "RuntimeError",
+    "message": "Soft trims are disabled.",
+    "receiver": "core.Sequence"
+   },
+   {
+    "error": "RuntimeError",
+    "message": "Soft trims are disabled.",
+    "receiver": "core.Clip"
+   }
+  ],
+  "hiero.core.SequenceBase.softTrimsOutTime": [
+   {
+    "error": "RuntimeError",
+    "message": "Soft trims are disabled.",
+    "receiver": "core.Sequence"
+   },
+   {
+    "error": "RuntimeError",
+    "message": "Soft trims are disabled.",
+    "receiver": "core.Clip"
+   }
+  ],
+  "hiero.core.SequenceBase.tags": [
+   {
+    "elements": [],
+    "length": 0,
+    "receiver": "core.Sequence",
+    "type": "builtins.tuple"
+   },
+   {
+    "elements": [],
+    "length": 0,
+    "receiver": "core.Clip",
+    "type": "builtins.tuple"
+   }
+  ],
+  "hiero.core.SequenceBase.thumbnail": [
+   {
+    "receiver": "core.Sequence",
+    "type": "PySide6.QtGui.QImage"
+   },
+   {
+    "receiver": "core.Clip",
+    "type": "PySide6.QtGui.QImage"
+   }
+  ],
+  "hiero.core.SequenceBase.timecodeStart": [
+   {
+    "receiver": "core.Sequence",
+    "type": "builtins.int"
+   },
+   {
+    "receiver": "core.Clip",
+    "type": "builtins.int"
+   }
+  ],
+  "hiero.core.SequenceBase.timelineOffset": [
+   {
+    "receiver": "core.Sequence",
+    "type": "builtins.int"
+   },
+   {
+    "receiver": "core.Clip",
+    "type": "builtins.int"
+   }
+  ],
+  "hiero.core.SequenceBase.toString": [
+   {
+    "receiver": "core.Sequence",
+    "type": "builtins.str"
+   },
+   {
+    "receiver": "core.Clip",
+    "type": "builtins.str"
+   }
+  ],
+  "hiero.core.Snapshot.comment": [],
+  "hiero.core.Snapshot.isNull": [],
+  "hiero.core.Snapshot.item": [],
+  "hiero.core.Snapshot.name": [],
+  "hiero.core.Snapshot.toString": [],
+  "hiero.core.SubTrackItem.descString": [],
+  "hiero.core.SubTrackItem.subTrackIndex": [],
+  "hiero.core.SubTrackItem.toString": [],
+  "hiero.core.Tag.guid": [
+   {
+    "receiver": "core.Tag",
+    "type": "builtins.str"
+   }
+  ],
+  "hiero.core.Tag.icon": [
+   {
+    "receiver": "core.Tag",
+    "type": "builtins.str"
+   }
+  ],
+  "hiero.core.Tag.inTime": [
+   {
+    "receiver": "core.Tag",
+    "type": "builtins.int"
+   }
+  ],
+  "hiero.core.Tag.isNull": [
+   {
+    "receiver": "core.Tag",
+    "type": "builtins.bool"
+   }
+  ],
+  "hiero.core.Tag.metadata": [
+   {
+    "receiver": "core.Tag",
+    "type": "core.DataCollection"
+   }
+  ],
+  "hiero.core.Tag.name": [
+   {
+    "receiver": "core.Tag",
+    "type": "builtins.str"
+   }
+  ],
+  "hiero.core.Tag.note": [
+   {
+    "receiver": "core.Tag",
+    "type": "builtins.str"
+   }
+  ],
+  "hiero.core.Tag.outTime": [
+   {
+    "receiver": "core.Tag",
+    "type": "builtins.int"
+   }
+  ],
+  "hiero.core.Tag.parentBin": [
+   {
+    "error": "RuntimeError",
+    "message": "Object does not have a parent bin.",
+    "receiver": "core.Tag"
+   }
+  ],
+  "hiero.core.Tag.project": [
+   {
+    "receiver": "core.Tag",
+    "type": "builtins.NoneType"
+   }
+  ],
+  "hiero.core.Tag.serialize": [
+   {
+    "receiver": "core.Tag",
+    "type": "builtins.str"
+   }
+  ],
+  "hiero.core.Tag.setIcon": [
+   {
+    "error": "TypeError",
+    "message": "Tag.setIcon() takes exactly one argument (0 given)",
+    "receiver": "core.Tag"
+   }
+  ],
+  "hiero.core.Tag.setName": [
+   {
+    "error": "TypeError",
+    "message": "Tag.setName() takes exactly one argument (0 given)",
+    "receiver": "core.Tag"
+   }
+  ],
+  "hiero.core.Tag.setNote": [
+   {
+    "error": "TypeError",
+    "message": "Tag.setNote() takes exactly one argument (0 given)",
+    "receiver": "core.Tag"
+   }
+  ],
+  "hiero.core.Tag.setVisible": [
+   {
+    "error": "TypeError",
+    "message": "Tag.setVisible() takes exactly one argument (0 given)",
+    "receiver": "core.Tag"
+   }
+  ],
+  "hiero.core.Tag.toString": [
+   {
+    "receiver": "core.Tag",
+    "type": "builtins.str"
+   }
+  ],
+  "hiero.core.Tag.visible": [
+   {
+    "receiver": "core.Tag",
+    "type": "builtins.bool"
+   }
+  ],
+  "hiero.core.TimeBase.RoundingMode._value_repr_": [],
+  "hiero.core.TimeBase.convert": [
+   {
+    "error": "TypeError",
+    "message": "convert expected 3 arguments, got 0",
+    "receiver": "Shiboken.ObjectType"
+   }
+  ],
+  "hiero.core.TimeBase.denominator": [
+   {
+    "receiver": "core.TimeBase",
+    "type": "builtins.int"
+   }
+  ],
+  "hiero.core.TimeBase.isNTSC": [
+   {
+    "receiver": "core.TimeBase",
+    "type": "builtins.bool"
+   }
+  ],
+  "hiero.core.TimeBase.isValid": [
+   {
+    "receiver": "core.TimeBase",
+    "type": "builtins.bool"
+   }
+  ],
+  "hiero.core.TimeBase.numerator": [
+   {
+    "receiver": "core.TimeBase",
+    "type": "builtins.int"
+   }
+  ],
+  "hiero.core.TimeBase.supportsDropFrames": [
+   {
+    "receiver": "core.TimeBase",
+    "type": "builtins.bool"
+   }
+  ],
+  "hiero.core.TimeBase.toFloat": [
+   {
+    "receiver": "core.TimeBase",
+    "type": "builtins.float"
+   }
+  ],
+  "hiero.core.TimeBase.toInt": [
+   {
+    "receiver": "core.TimeBase",
+    "type": "builtins.int"
+   }
+  ],
+  "hiero.core.TimeBase.toRational": [
+   {
+    "elements": [
+     "builtins.int"
+    ],
+    "length": 2,
+    "receiver": "core.TimeBase",
+    "type": "builtins.tuple"
+   }
+  ],
+  "hiero.core.TimeBase.toRationalString": [
+   {
+    "receiver": "core.TimeBase",
+    "type": "builtins.str"
+   }
+  ],
+  "hiero.core.TimeBase.toString": [
+   {
+    "receiver": "core.TimeBase",
+    "type": "builtins.str"
+   }
+  ],
+  "hiero.core.Timecode.DisplayType._value_repr_": [],
+  "hiero.core.Timecode.framesFromBCD": [
+   {
+    "error": "TypeError",
+    "message": "framesFromBCD expected 2 arguments, got 0",
+    "receiver": "Shiboken.ObjectType"
+   }
+  ],
+  "hiero.core.Timecode.framesFromTimecode": [
+   {
+    "error": "TypeError",
+    "message": "framesFromTimecode expected 2 arguments, got 0",
+    "receiver": "Shiboken.ObjectType"
+   }
+  ],
+  "hiero.core.Timecode.readTimecode": [
+   {
+    "error": "TypeError",
+    "message": "Timecode.readTimecode() takes exactly one argument (0 given)",
+    "receiver": "Shiboken.ObjectType"
+   }
+  ],
+  "hiero.core.Timecode.samplesToString": [
+   {
+    "error": "TypeError",
+    "message": "samplesToString expected 4 arguments, got 0",
+    "receiver": "Shiboken.ObjectType"
+   }
+  ],
+  "hiero.core.TrackBase.RemoveItemOptions._value_repr_": [],
+  "hiero.core.TrackBase.guid": [
+   {
+    "receiver": "core.VideoTrack",
+    "type": "builtins.str"
+   },
+   {
+    "receiver": "core.AudioTrack",
+    "type": "builtins.str"
+   }
+  ],
+  "hiero.core.TrackBase.isEmpty": [
+   {
+    "receiver": "core.VideoTrack",
+    "type": "builtins.bool"
+   },
+   {
+    "receiver": "core.AudioTrack",
+    "type": "builtins.bool"
+   }
+  ],
+  "hiero.core.TrackBase.isEnabled": [
+   {
+    "receiver": "core.VideoTrack",
+    "type": "builtins.bool"
+   },
+   {
+    "receiver": "core.AudioTrack",
+    "type": "builtins.bool"
+   }
+  ],
+  "hiero.core.TrackBase.isLocked": [
+   {
+    "receiver": "core.VideoTrack",
+    "type": "builtins.bool"
+   },
+   {
+    "receiver": "core.AudioTrack",
+    "type": "builtins.bool"
+   }
+  ],
+  "hiero.core.TrackBase.isNull": [
+   {
+    "receiver": "core.VideoTrack",
+    "type": "builtins.bool"
+   },
+   {
+    "receiver": "core.AudioTrack",
+    "type": "builtins.bool"
+   }
+  ],
+  "hiero.core.TrackBase.metadata": [
+   {
+    "receiver": "core.VideoTrack",
+    "type": "core.DataCollection"
+   },
+   {
+    "receiver": "core.AudioTrack",
+    "type": "core.DataCollection"
+   }
+  ],
+  "hiero.core.TrackBase.name": [
+   {
+    "receiver": "core.VideoTrack",
+    "type": "builtins.str"
+   },
+   {
+    "receiver": "core.AudioTrack",
+    "type": "builtins.str"
+   }
+  ],
+  "hiero.core.TrackBase.numItems": [
+   {
+    "receiver": "core.VideoTrack",
+    "type": "builtins.int"
+   },
+   {
+    "receiver": "core.AudioTrack",
+    "type": "builtins.int"
+   }
+  ],
+  "hiero.core.TrackBase.numTransitions": [
+   {
+    "receiver": "core.VideoTrack",
+    "type": "builtins.int"
+   },
+   {
+    "receiver": "core.AudioTrack",
+    "type": "builtins.int"
+   }
+  ],
+  "hiero.core.TrackBase.project": [
+   {
+    "receiver": "core.VideoTrack",
+    "type": "core.Project"
+   },
+   {
+    "receiver": "core.AudioTrack",
+    "type": "core.Project"
+   }
+  ],
+  "hiero.core.TrackBase.setEnabled": [
+   {
+    "error": "TypeError",
+    "message": "VideoTrack.setEnabled() takes exactly one argument (0 given)",
+    "receiver": "core.VideoTrack"
+   },
+   {
+    "error": "TypeError",
+    "message": "AudioTrack.setEnabled() takes exactly one argument (0 given)",
+    "receiver": "core.AudioTrack"
+   }
+  ],
+  "hiero.core.TrackBase.setLocked": [
+   {
+    "error": "TypeError",
+    "message": "VideoTrack.setLocked() takes exactly one argument (0 given)",
+    "receiver": "core.VideoTrack"
+   },
+   {
+    "error": "TypeError",
+    "message": "AudioTrack.setLocked() takes exactly one argument (0 given)",
+    "receiver": "core.AudioTrack"
+   }
+  ],
+  "hiero.core.TrackBase.setName": [
+   {
+    "error": "TypeError",
+    "message": "VideoTrack.setName() takes exactly one argument (0 given)",
+    "receiver": "core.VideoTrack"
+   },
+   {
+    "error": "TypeError",
+    "message": "AudioTrack.setName() takes exactly one argument (0 given)",
+    "receiver": "core.AudioTrack"
+   }
+  ],
+  "hiero.core.TrackBase.tags": [
+   {
+    "elements": [],
+    "length": 0,
+    "receiver": "core.VideoTrack",
+    "type": "builtins.tuple"
+   },
+   {
+    "elements": [],
+    "length": 0,
+    "receiver": "core.AudioTrack",
+    "type": "builtins.tuple"
+   }
+  ],
+  "hiero.core.TrackBase.toString": [
+   {
+    "receiver": "core.VideoTrack",
+    "type": "builtins.str"
+   },
+   {
+    "receiver": "core.AudioTrack",
+    "type": "builtins.str"
+   }
+  ],
+  "hiero.core.TrackBase.trackIndex": [
+   {
+    "receiver": "core.VideoTrack",
+    "type": "builtins.int"
+   },
+   {
+    "receiver": "core.AudioTrack",
+    "type": "builtins.int"
+   }
+  ],
+  "hiero.core.TrackBase.trackName": [
+   {
+    "receiver": "core.VideoTrack",
+    "type": "builtins.str"
+   },
+   {
+    "receiver": "core.AudioTrack",
+    "type": "builtins.str"
+   }
+  ],
+  "hiero.core.TrackBase.transitions": [
+   {
+    "elements": [],
+    "length": 0,
+    "receiver": "core.VideoTrack",
+    "type": "builtins.tuple"
+   },
+   {
+    "elements": [],
+    "length": 0,
+    "receiver": "core.AudioTrack",
+    "type": "builtins.tuple"
+   }
+  ],
+  "hiero.core.TrackItem.MediaType._value_repr_": [],
+  "hiero.core.TrackItem.currentVersion": [
+   {
+    "receiver": "core.TrackItem",
+    "type": "core.Version"
+   }
+  ],
+  "hiero.core.TrackItem.eventNumber": [
+   {
+    "receiver": "core.TrackItem",
+    "type": "builtins.int"
+   }
+  ],
+  "hiero.core.TrackItem.getAvailableOcioColourTransforms": [
+   {
+    "elements": [
+     "builtins.str"
+    ],
+    "length": 37,
+    "receiver": "core.TrackItem",
+    "type": "builtins.list"
+   }
+  ],
+  "hiero.core.TrackItem.handleInLength": [
+   {
+    "receiver": "core.TrackItem",
+    "type": "builtins.int"
+   }
+  ],
+  "hiero.core.TrackItem.handleInTime": [
+   {
+    "receiver": "core.TrackItem",
+    "type": "builtins.int"
+   }
+  ],
+  "hiero.core.TrackItem.handleOutLength": [
+   {
+    "receiver": "core.TrackItem",
+    "type": "builtins.int"
+   }
+  ],
+  "hiero.core.TrackItem.handleOutTime": [
+   {
+    "receiver": "core.TrackItem",
+    "type": "builtins.int"
+   }
+  ],
+  "hiero.core.TrackItem.inTransition": [
+   {
+    "receiver": "core.TrackItem",
+    "type": "core.Transition"
+   }
+  ],
+  "hiero.core.TrackItem.isMediaPresent": [
+   {
+    "receiver": "core.TrackItem",
+    "type": "builtins.bool"
+   }
+  ],
+  "hiero.core.TrackItem.layers": [
+   {
+    "elements": [
+     "builtins.str"
+    ],
+    "length": 1,
+    "receiver": "core.TrackItem",
+    "type": "builtins.list"
+   }
+  ],
+  "hiero.core.TrackItem.mapSourceToTimeline": [
+   {
+    "error": "TypeError",
+    "message": "TrackItem.mapSourceToTimeline() takes exactly one argument (0 given)",
+    "receiver": "core.TrackItem"
+   }
+  ],
+  "hiero.core.TrackItem.maxVersion": [
+   {
+    "receiver": "core.TrackItem",
+    "type": "core.Version"
+   }
+  ],
+  "hiero.core.TrackItem.mediaType": [
+   {
+    "receiver": "core.TrackItem",
+    "type": "core.TrackItem.MediaType"
+   }
+  ],
+  "hiero.core.TrackItem.metadata": [
+   {
+    "receiver": "core.TrackItem",
+    "type": "core.DataCollection"
+   }
+  ],
+  "hiero.core.TrackItem.minVersion": [
+   {
+    "receiver": "core.TrackItem",
+    "type": "core.Version"
+   }
+  ],
+  "hiero.core.TrackItem.name": [
+   {
+    "receiver": "core.TrackItem",
+    "type": "builtins.str"
+   }
+  ],
+  "hiero.core.TrackItem.nextVersion": [
+   {
+    "receiver": "core.TrackItem",
+    "type": "core.Version"
+   }
+  ],
+  "hiero.core.TrackItem.numVersions": [
+   {
+    "receiver": "core.TrackItem",
+    "type": "builtins.int"
+   }
+  ],
+  "hiero.core.TrackItem.outTransition": [
+   {
+    "receiver": "core.TrackItem",
+    "type": "core.Transition"
+   }
+  ],
+  "hiero.core.TrackItem.playbackSpeed": [
+   {
+    "receiver": "core.TrackItem",
+    "type": "builtins.float"
+   }
+  ],
+  "hiero.core.TrackItem.prevVersion": [
+   {
+    "receiver": "core.TrackItem",
+    "type": "core.Version"
+   }
+  ],
+  "hiero.core.TrackItem.reformatState": [
+   {
+    "receiver": "core.TrackItem",
+    "type": "core.ReformatState"
+   }
+  ],
+  "hiero.core.TrackItem.setVolume": [
+   {
+    "error": "TypeError",
+    "message": "TrackItem.setVolume() takes exactly one argument (0 given)",
+    "receiver": "core.TrackItem"
+   }
+  ],
+  "hiero.core.TrackItem.source": [
+   {
+    "receiver": "core.TrackItem",
+    "type": "core.Clip"
+   }
+  ],
+  "hiero.core.TrackItem.sourceDuration": [
+   {
+    "receiver": "core.TrackItem",
+    "type": "builtins.float"
+   }
+  ],
+  "hiero.core.TrackItem.sourceIn": [
+   {
+    "receiver": "core.TrackItem",
+    "type": "builtins.float"
+   }
+  ],
+  "hiero.core.TrackItem.sourceMediaColourTransform": [
+   {
+    "receiver": "core.TrackItem",
+    "type": "builtins.str"
+   }
+  ],
+  "hiero.core.TrackItem.sourceOut": [
+   {
+    "receiver": "core.TrackItem",
+    "type": "builtins.float"
+   }
+  ],
+  "hiero.core.TrackItem.tags": [
+   {
+    "elements": [],
+    "length": 0,
+    "receiver": "core.TrackItem",
+    "type": "builtins.tuple"
+   }
+  ],
+  "hiero.core.TrackItem.thumbnail": [
+   {
+    "receiver": "core.TrackItem",
+    "type": "PySide6.QtGui.QImage"
+   }
+  ],
+  "hiero.core.TrackItem.toString": [
+   {
+    "receiver": "core.TrackItem",
+    "type": "builtins.str"
+   }
+  ],
+  "hiero.core.TrackItem.unlink": [
+   {
+    "error": "RuntimeError",
+    "message": "This track item isn't linked to anything!",
+    "receiver": "core.TrackItem"
+   }
+  ],
+  "hiero.core.TrackItem.versionLinkedToBin": [
+   {
+    "receiver": "core.TrackItem",
+    "type": "builtins.bool"
+   }
+  ],
+  "hiero.core.TrackItem.volume": [
+   {
+    "receiver": "core.TrackItem",
+    "type": "builtins.float"
+   }
+  ],
+  "hiero.core.TrackItemBase.duration": [
+   {
+    "receiver": "core.TrackItem",
+    "type": "builtins.int"
+   }
+  ],
+  "hiero.core.TrackItemBase.guid": [
+   {
+    "receiver": "core.TrackItem",
+    "type": "builtins.str"
+   }
+  ],
+  "hiero.core.TrackItemBase.isEnabled": [
+   {
+    "receiver": "core.TrackItem",
+    "type": "builtins.bool"
+   }
+  ],
+  "hiero.core.TrackItemBase.isNull": [
+   {
+    "receiver": "core.TrackItem",
+    "type": "builtins.bool"
+   }
+  ],
+  "hiero.core.TrackItemBase.linkedItems": [
+   {
+    "elements": [],
+    "length": 0,
+    "receiver": "core.TrackItem",
+    "type": "builtins.tuple"
+   }
+  ],
+  "hiero.core.TrackItemBase.parent": [
+   {
+    "receiver": "core.TrackItem",
+    "type": "core.VideoTrack"
+   }
+  ],
+  "hiero.core.TrackItemBase.parentSequence": [
+   {
+    "receiver": "core.TrackItem",
+    "type": "core.Sequence"
+   }
+  ],
+  "hiero.core.TrackItemBase.parentTrack": [
+   {
+    "receiver": "core.TrackItem",
+    "type": "core.VideoTrack"
+   }
+  ],
+  "hiero.core.TrackItemBase.project": [
+   {
+    "receiver": "core.TrackItem",
+    "type": "core.Project"
+   }
+  ],
+  "hiero.core.TrackItemBase.sequence": [
+   {
+    "receiver": "core.TrackItem",
+    "type": "core.Sequence"
+   }
+  ],
+  "hiero.core.TrackItemBase.timelineIn": [
+   {
+    "receiver": "core.TrackItem",
+    "type": "builtins.int"
+   }
+  ],
+  "hiero.core.TrackItemBase.timelineOut": [
+   {
+    "receiver": "core.TrackItem",
+    "type": "builtins.int"
+   }
+  ],
+  "hiero.core.TrackItemBase.toString": [
+   {
+    "receiver": "core.TrackItem",
+    "type": "builtins.str"
+   }
+  ],
+  "hiero.core.Transition.Alignments._value_repr_": [],
+  "hiero.core.Transition.alignment": [],
+  "hiero.core.Transition.dissolveNode": [],
+  "hiero.core.Transition.guid": [],
+  "hiero.core.Transition.inTrackItem": [],
+  "hiero.core.Transition.multiplyNode": [],
+  "hiero.core.Transition.outTrackItem": [],
+  "hiero.core.Transition.parent": [],
+  "hiero.core.Transition.project": [],
+  "hiero.core.Transition.toString": [],
+  "hiero.core.UndoGroup.beginUndo": [],
+  "hiero.core.UndoGroup.endUndo": [],
+  "hiero.core.UndoGroup.isNull": [],
+  "hiero.core.Version.color": [
+   {
+    "receiver": "core.Version",
+    "type": "PySide6.QtGui.QColor"
+   }
+  ],
+  "hiero.core.Version.guid": [
+   {
+    "receiver": "core.Version",
+    "type": "builtins.str"
+   }
+  ],
+  "hiero.core.Version.isHidden": [
+   {
+    "receiver": "core.Version",
+    "type": "builtins.bool"
+   }
+  ],
+  "hiero.core.Version.isNull": [
+   {
+    "receiver": "core.Version",
+    "type": "builtins.bool"
+   }
+  ],
+  "hiero.core.Version.item": [
+   {
+    "receiver": "core.Version",
+    "type": "core.Clip"
+   }
+  ],
+  "hiero.core.Version.name": [
+   {
+    "receiver": "core.Version",
+    "type": "builtins.str"
+   }
+  ],
+  "hiero.core.Version.parent": [
+   {
+    "receiver": "core.Version",
+    "type": "core.BinItem"
+   }
+  ],
+  "hiero.core.Version.serialize": [
+   {
+    "receiver": "core.Version",
+    "type": "builtins.str"
+   }
+  ],
+  "hiero.core.Version.setHidden": [
+   {
+    "error": "TypeError",
+    "message": "Version.setHidden() takes exactly one argument (0 given)",
+    "receiver": "core.Version"
+   }
+  ],
+  "hiero.core.Version.toString": [
+   {
+    "receiver": "core.Version",
+    "type": "builtins.str"
+   }
+  ],
+  "hiero.core.VideoTrack.blendMode": [
+   {
+    "receiver": "core.VideoTrack",
+    "type": "builtins.str"
+   }
+  ],
+  "hiero.core.VideoTrack.isBlendEnabled": [
+   {
+    "receiver": "core.VideoTrack",
+    "type": "builtins.bool"
+   }
+  ],
+  "hiero.core.VideoTrack.isBlendMaskEnabled": [
+   {
+    "receiver": "core.VideoTrack",
+    "type": "builtins.bool"
+   }
+  ],
+  "hiero.core.VideoTrack.items": [
+   {
+    "elements": [
+     "core.TrackItem"
+    ],
+    "length": 1,
+    "receiver": "core.VideoTrack",
+    "type": "builtins.tuple"
+   }
+  ],
+  "hiero.core.VideoTrack.parent": [
+   {
+    "receiver": "core.VideoTrack",
+    "type": "core.Sequence"
+   }
+  ],
+  "hiero.core.VideoTrack.setAllViews": [
+   {
+    "receiver": "core.VideoTrack",
+    "type": "builtins.NoneType"
+   }
+  ],
+  "hiero.core.VideoTrack.setBlendEnabled": [
+   {
+    "error": "TypeError",
+    "message": "VideoTrack.setBlendEnabled() takes exactly one argument (0 given)",
+    "receiver": "core.VideoTrack"
+   }
+  ],
+  "hiero.core.VideoTrack.setBlendMaskEnabled": [
+   {
+    "error": "TypeError",
+    "message": "VideoTrack.setBlendMaskEnabled() takes exactly one argument (0 given)",
+    "receiver": "core.VideoTrack"
+   }
+  ],
+  "hiero.core.VideoTrack.setBlendMode": [
+   {
+    "error": "TypeError",
+    "message": "VideoTrack.setBlendMode() takes exactly one argument (0 given)",
+    "receiver": "core.VideoTrack"
+   }
+  ],
+  "hiero.core.VideoTrack.setView": [
+   {
+    "error": "TypeError",
+    "message": "VideoTrack.setView() takes exactly one argument (0 given)",
+    "receiver": "core.VideoTrack"
+   }
+  ],
+  "hiero.core.VideoTrack.splitViewsToTracks": [
+   {
+    "receiver": "core.VideoTrack",
+    "type": "builtins.NoneType"
+   }
+  ],
+  "hiero.core.VideoTrack.subTrackItems": [
+   {
+    "elements": [],
+    "length": 0,
+    "receiver": "core.VideoTrack",
+    "type": "builtins.tuple"
+   }
+  ],
+  "hiero.core.VideoTrack.toString": [
+   {
+    "receiver": "core.VideoTrack",
+    "type": "builtins.str"
+   }
+  ],
+  "hiero.core.VideoTrack.trackIndex": [
+   {
+    "receiver": "core.VideoTrack",
+    "type": "builtins.int"
+   }
+  ],
+  "hiero.core.VideoTrack.view": [
+   {
+    "receiver": "core.VideoTrack",
+    "type": "builtins.str"
+   }
+  ],
+  "hiero.core.ViewerProcessNameFromDisplayTransformName": [
+   {
+    "error": "TypeError",
+    "message": "core.ViewerProcessNameFromDisplayTransformName() takes exactly one argument (0 given)",
+    "receiver": "builtins.module"
+   }
+  ],
+  "hiero.core.conformer": [
+   {
+    "receiver": "builtins.module",
+    "type": "core.Conformer"
+   }
+  ],
+  "hiero.core.formats": [
+   {
+    "elements": [
+     "core.Format"
+    ],
+    "length": 15,
+    "receiver": "builtins.module",
+    "type": "builtins.tuple"
+   }
+  ],
+  "hiero.core.getFilenameList": [
+   {
+    "error": "TypeError",
+    "message": "getFilenameList expected 5 arguments, got 0",
+    "receiver": "builtins.module"
+   }
+  ],
+  "hiero.core.getRoleColorspace": [
+   {
+    "error": "TypeError",
+    "message": "getRoleColorspace expected at least 1 argument, got 0",
+    "receiver": "builtins.module"
+   }
+  ],
+  "hiero.core.isHieroPlayer": [
+   {
+    "receiver": "builtins.module",
+    "type": "builtins.bool"
+   }
+  ],
+  "hiero.core.isIndie": [
+   {
+    "receiver": "builtins.module",
+    "type": "builtins.bool"
+   }
+  ],
+  "hiero.core.isNC": [
+   {
+    "receiver": "builtins.module",
+    "type": "builtins.bool"
+   }
+  ],
+  "hiero.core.pathRemappings": [
+   {
+    "elements": [],
+    "length": 0,
+    "receiver": "builtins.module",
+    "type": "builtins.list"
+   }
+  ],
+  "hiero.core.projects": [
+   {
+    "elements": [
+     "core.Project"
+    ],
+    "length": 1,
+    "receiver": "builtins.module",
+    "type": "builtins.tuple"
+   }
+  ],
+  "hiero.core.redo": [
+   {
+    "receiver": "builtins.module",
+    "type": "builtins.NoneType"
+   }
+  ],
+  "hiero.core.redoSize": [
+   {
+    "receiver": "builtins.module",
+    "type": "builtins.int"
+   }
+  ],
+  "hiero.core.undo": [
+   {
+    "receiver": "builtins.module",
+    "type": "builtins.NoneType"
+   }
+  ],
+  "hiero.core.undoSize": [
+   {
+    "receiver": "builtins.module",
+    "type": "builtins.int"
+   }
+  ],
+  "hiero.exporters.FnExportUtil.OutputTransformKnobs._value_repr_": [],
+  "hiero.exporters.FnExportUtil.TransformTypeValues._value_repr_": [],
+  "hiero.exporters.FnNukeAnnotationsExporter.ProgressTask.isCancelled": [],
+  "hiero.importers.FnEdlDefinitions.AsyncGeneratorType.aclose": [],
+  "hiero.importers.FnEdlDefinitions.AsyncGeneratorType.ag_await": [],
+  "hiero.importers.FnEdlDefinitions.AsyncGeneratorType.ag_code": [],
+  "hiero.importers.FnEdlDefinitions.AsyncGeneratorType.ag_frame": [],
+  "hiero.importers.FnEdlDefinitions.AsyncGeneratorType.ag_running": [],
+  "hiero.importers.FnEdlDefinitions.CellType.cell_contents": [],
+  "hiero.importers.FnEdlDefinitions.CodeType._co_code_adaptive": [],
+  "hiero.importers.FnEdlDefinitions.CodeType.co_argcount": [],
+  "hiero.importers.FnEdlDefinitions.CodeType.co_cellvars": [],
+  "hiero.importers.FnEdlDefinitions.CodeType.co_code": [],
+  "hiero.importers.FnEdlDefinitions.CodeType.co_consts": [],
+  "hiero.importers.FnEdlDefinitions.CodeType.co_exceptiontable": [],
+  "hiero.importers.FnEdlDefinitions.CodeType.co_filename": [],
+  "hiero.importers.FnEdlDefinitions.CodeType.co_firstlineno": [],
+  "hiero.importers.FnEdlDefinitions.CodeType.co_flags": [],
+  "hiero.importers.FnEdlDefinitions.CodeType.co_freevars": [],
+  "hiero.importers.FnEdlDefinitions.CodeType.co_kwonlyargcount": [],
+  "hiero.importers.FnEdlDefinitions.CodeType.co_lines": [],
+  "hiero.importers.FnEdlDefinitions.CodeType.co_linetable": [],
+  "hiero.importers.FnEdlDefinitions.CodeType.co_lnotab": [],
+  "hiero.importers.FnEdlDefinitions.CodeType.co_name": [],
+  "hiero.importers.FnEdlDefinitions.CodeType.co_names": [],
+  "hiero.importers.FnEdlDefinitions.CodeType.co_nlocals": [],
+  "hiero.importers.FnEdlDefinitions.CodeType.co_positions": [],
+  "hiero.importers.FnEdlDefinitions.CodeType.co_posonlyargcount": [],
+  "hiero.importers.FnEdlDefinitions.CodeType.co_qualname": [],
+  "hiero.importers.FnEdlDefinitions.CodeType.co_stacksize": [],
+  "hiero.importers.FnEdlDefinitions.CodeType.co_varnames": [],
+  "hiero.importers.FnEdlDefinitions.CodeType.replace": [],
+  "hiero.importers.FnEdlDefinitions.CoroutineType.cr_await": [],
+  "hiero.importers.FnEdlDefinitions.CoroutineType.cr_code": [],
+  "hiero.importers.FnEdlDefinitions.CoroutineType.cr_frame": [],
+  "hiero.importers.FnEdlDefinitions.CoroutineType.cr_origin": [],
+  "hiero.importers.FnEdlDefinitions.CoroutineType.cr_running": [],
+  "hiero.importers.FnEdlDefinitions.CoroutineType.cr_suspended": [],
+  "hiero.importers.FnEdlDefinitions.FrameType.f_back": [],
+  "hiero.importers.FnEdlDefinitions.FrameType.f_builtins": [],
+  "hiero.importers.FnEdlDefinitions.FrameType.f_code": [],
+  "hiero.importers.FnEdlDefinitions.FrameType.f_globals": [],
+  "hiero.importers.FnEdlDefinitions.FrameType.f_lasti": [],
+  "hiero.importers.FnEdlDefinitions.FrameType.f_lineno": [],
+  "hiero.importers.FnEdlDefinitions.FrameType.f_locals": [],
+  "hiero.importers.FnEdlDefinitions.FrameType.f_trace": [],
+  "hiero.importers.FnEdlDefinitions.FrameType.f_trace_lines": [],
+  "hiero.importers.FnEdlDefinitions.FrameType.f_trace_opcodes": [],
+  "hiero.importers.FnEdlDefinitions.GeneratorType.gi_code": [],
+  "hiero.importers.FnEdlDefinitions.GeneratorType.gi_frame": [],
+  "hiero.importers.FnEdlDefinitions.GeneratorType.gi_running": [],
+  "hiero.importers.FnEdlDefinitions.GeneratorType.gi_suspended": [],
+  "hiero.importers.FnEdlDefinitions.GeneratorType.gi_yieldfrom": [],
+  "hiero.importers.FnEdlDefinitions.MappingProxyType.items": [],
+  "hiero.importers.FnEdlDefinitions.MappingProxyType.keys": [],
+  "hiero.importers.FnEdlDefinitions.MappingProxyType.values": [],
+  "hiero.ui.BinView.getSelection": [],
+  "hiero.ui.BinView.selection": [],
+  "hiero.ui.BinView.window": [],
+  "hiero.ui.ColorButton.canBeInvalid": [],
+  "hiero.ui.ColorButton.color": [],
+  "hiero.ui.ColorButton.dragEnterEvent": [],
+  "hiero.ui.ColorButton.dropEvent": [],
+  "hiero.ui.ColorButton.mouseMoveEvent": [],
+  "hiero.ui.ColorButton.mousePressEvent": [],
+  "hiero.ui.ColorButton.paintEvent": [],
+  "hiero.ui.ColorButton.setCanBeInvalid": [],
+  "hiero.ui.ColorButton.setColor": [],
+  "hiero.ui.ColorButton.setValidColor": [],
+  "hiero.ui.ColorButton.sizeHint": [],
+  "hiero.ui.ColorButton.validColor": [],
+  "hiero.ui.ColorPickerDialog.currentColor": [],
+  "hiero.ui.ColorPickerDialog.setCurrentColor": [],
+  "hiero.ui.ContactSheetItem.item": [],
+  "hiero.ui.ContactSheetMode._value_repr_": [],
+  "hiero.ui.ContactSheetModel.addTrackItems": [],
+  "hiero.ui.ContactSheetModel.items": [],
+  "hiero.ui.ContactSheetModel.mode": [],
+  "hiero.ui.ContactSheetModel.setSequence": [],
+  "hiero.ui.ContactSheetModel.setTagsFilters": [],
+  "hiero.ui.ContactSheetModel.setTrackItems": [],
+  "hiero.ui.ContactSheetModel.softEffectMode": [],
+  "hiero.ui.ContactSheetSoftEffectMode._value_repr_": [],
+  "hiero.ui.ContactSheetViewer.getModel": [],
+  "hiero.ui.ContactSheetViewer.getResolution": [],
+  "hiero.ui.ContactSheetViewer.hudFontScale": [],
+  "hiero.ui.ContactSheetViewer.hudTextColor": [],
+  "hiero.ui.ContactSheetViewer.isHUDEnabled": [],
+  "hiero.ui.ContactSheetViewer.maximumColumnCount": [],
+  "hiero.ui.ContactSheetViewer.maximumRowCount": [],
+  "hiero.ui.ContactSheetViewer.page": [],
+  "hiero.ui.ContactSheetViewer.pageCount": [],
+  "hiero.ui.ContactSheetViewer.toggleStackView": [],
+  "hiero.ui.ExportStructureViewer.EditMode._value_repr_": [],
+  "hiero.ui.ExportStructureViewer.addFile": [],
+  "hiero.ui.ExportStructureViewer.addFolder": [],
+  "hiero.ui.ExportStructureViewer.filenameField": [],
+  "hiero.ui.ExportStructureViewer.getWidget": [],
+  "hiero.ui.ExportStructureViewer.handleSelectionChanged": [],
+  "hiero.ui.ExportStructureViewer.initUI": [],
+  "hiero.ui.ExportStructureViewer.itemTypes": [],
+  "hiero.ui.ExportStructureViewer.keyPressEvent": [],
+  "hiero.ui.ExportStructureViewer.refresh": [],
+  "hiero.ui.ExportStructureViewer.refreshContentField": [],
+  "hiero.ui.ExportStructureViewer.selectFileIfOnlyOne": [],
+  "hiero.ui.ExportStructureViewer.selectFirstFile": [],
+  "hiero.ui.ExportStructureViewer.selection": [],
+  "hiero.ui.ExportStructureViewer.selectionAnchor": [],
+  "hiero.ui.ExportStructureViewer.selectionRect": [],
+  "hiero.ui.ExportStructureViewer.setItemTypes": [],
+  "hiero.ui.ExportStructureViewer.setProject": [],
+  "hiero.ui.ExportStructureViewer.setResolveEntry": [],
+  "hiero.ui.FilePathWidget.filePath": [],
+  "hiero.ui.FilePathWidget.setFilePath": [],
+  "hiero.ui.FormatChooser.currentFormat": [],
+  "hiero.ui.FormatChooser.setCurrentFormat": [],
+  "hiero.ui.FormatChooser.setProject": [],
+  "hiero.ui.HUDCorner._value_repr_": [],
+  "hiero.ui.IDirectExportUI.getValues": [],
+  "hiero.ui.IDirectExportUI.populateUI": [],
+  "hiero.ui.IDirectExportUI.validate": [],
+  "hiero.ui.IDirectExportUIFactoryWrapper.createUI": [],
+  "hiero.ui.IDirectExportUIFactoryWrapper.getKey": [],
+  "hiero.ui.IDirectExportUIFactoryWrapper.registerme": [],
+  "hiero.ui.IExporterUIRegistry.aquireProcessorUI": [],
+  "hiero.ui.IExporterUIRegistry.getProcessorUI": [],
+  "hiero.ui.IExporterUIRegistry.getProcessorUIForPreset": [],
+  "hiero.ui.IExporterUIRegistry.getTaskUI": [],
+  "hiero.ui.IExporterUIRegistry.getTaskUIForPreset": [],
+  "hiero.ui.IExporterUIRegistry.numProcessorUIs": [],
+  "hiero.ui.IExporterUIRegistry.numTaskUIs": [],
+  "hiero.ui.IExporterUIRegistry.registerme": [],
+  "hiero.ui.IExporterUIRegistry.releaseProcessorUI": [],
+  "hiero.ui.IProcessorUI.EditMode._value_repr_": [],
+  "hiero.ui.IProcessorUI.displayName": [],
+  "hiero.ui.IProcessorUI.populateUI": [],
+  "hiero.ui.IProcessorUI.preset": [],
+  "hiero.ui.IProcessorUI.refreshContent": [],
+  "hiero.ui.IProcessorUI.setPreset": [],
+  "hiero.ui.IProcessorUI.toolTip": [],
+  "hiero.ui.IProcessorUI.validate": [],
+  "hiero.ui.IProcessorUI.validateSelection": [],
+  "hiero.ui.ITaskUI.displayName": [],
+  "hiero.ui.ITaskUI.ident": [],
+  "hiero.ui.ITaskUI.populateUI": [],
+  "hiero.ui.ITaskUI.preset": [],
+  "hiero.ui.ITaskUI.setPreset": [],
+  "hiero.ui.PaintBlendModeName": [
+   {
+    "error": "TypeError",
+    "message": "ui.PaintBlendModeName() takes exactly one argument (0 given)",
+    "receiver": "builtins.module"
+   }
+  ],
+  "hiero.ui.Player.Channels._value_repr_": [],
+  "hiero.ui.Player.LUT": [],
+  "hiero.ui.Player.MaskOverlayStyle._value_repr_": [],
+  "hiero.ui.Player.ProxyResolution._value_repr_": [],
+  "hiero.ui.Player.WarningOverlay._value_repr_": [],
+  "hiero.ui.Player.alphaIsTransparent": [],
+  "hiero.ui.Player.channels": [],
+  "hiero.ui.Player.displayGain": [],
+  "hiero.ui.Player.displayGamma": [],
+  "hiero.ui.Player.displaySaturation": [],
+  "hiero.ui.Player.guideOverlay": [],
+  "hiero.ui.Player.ignorePixelAspectRatio": [],
+  "hiero.ui.Player.maskOverlay": [],
+  "hiero.ui.Player.maskOverlayStyle": [],
+  "hiero.ui.Player.proxyResolution": [],
+  "hiero.ui.Player.rect": [],
+  "hiero.ui.Player.sequence": [],
+  "hiero.ui.Player.time": [],
+  "hiero.ui.Player.translation": [],
+  "hiero.ui.Player.warningOverlay": [],
+  "hiero.ui.Player.zoom": [],
+  "hiero.ui.Render.ImageRenderFlag._value_repr_": [],
+  "hiero.ui.SpreadsheetView.beginSelectionUpdate": [],
+  "hiero.ui.SpreadsheetView.endSelectionUpdate": [],
+  "hiero.ui.SpreadsheetView.selectAll": [],
+  "hiero.ui.SpreadsheetView.selectNone": [],
+  "hiero.ui.SpreadsheetView.selection": [],
+  "hiero.ui.SpreadsheetView.sequence": [],
+  "hiero.ui.SpreadsheetView.setSelection": [],
+  "hiero.ui.SpreadsheetView.window": [],
+  "hiero.ui.TimelineEditor.beginSelectionUpdate": [],
+  "hiero.ui.TimelineEditor.endSelectionUpdate": [],
+  "hiero.ui.TimelineEditor.getSelection": [],
+  "hiero.ui.TimelineEditor.hasAutoSelection": [],
+  "hiero.ui.TimelineEditor.selectAll": [],
+  "hiero.ui.TimelineEditor.selectNone": [],
+  "hiero.ui.TimelineEditor.selection": [],
+  "hiero.ui.TimelineEditor.sequence": [],
+  "hiero.ui.TimelineEditor.setSelection": [],
+  "hiero.ui.TimelineEditor.setTrackSelection": [],
+  "hiero.ui.TimelineEditor.window": [],
+  "hiero.ui.TracksMask.setTracks": [],
+  "hiero.ui.TracksMask.setVisibleByDefault": [],
+  "hiero.ui.TracksMask.tracks": [],
+  "hiero.ui.TracksMask.visibleByDefault": [],
+  "hiero.ui.Viewer.CompareMode._value_repr_": [],
+  "hiero.ui.Viewer.LayoutMode._value_repr_": [],
+  "hiero.ui.Viewer.PlaybackMode._value_repr_": [],
+  "hiero.ui.Viewer.ROITool": [
+   {
+    "receiver": "ui.Viewer",
+    "type": "ui.ViewerROITool"
+   }
+  ],
+  "hiero.ui.Viewer.ZoomMode._value_repr_": [],
+  "hiero.ui.Viewer.annotationTool": [
+   {
+    "receiver": "ui.Viewer",
+    "type": "ui.ViewerAnnotationTool"
+   }
+  ],
+  "hiero.ui.Viewer.availableGuideOverlayNames": [
+   {
+    "elements": [
+     "builtins.str"
+    ],
+    "length": 4,
+    "receiver": "ui.Viewer",
+    "type": "builtins.list"
+   }
+  ],
+  "hiero.ui.Viewer.cachedFrames": [
+   {
+    "elements": [],
+    "length": 0,
+    "receiver": "ui.Viewer",
+    "type": "builtins.set"
+   }
+  ],
+  "hiero.ui.Viewer.centerImage": [
+   {
+    "receiver": "ui.Viewer",
+    "type": "builtins.NoneType"
+   }
+  ],
+  "hiero.ui.Viewer.channels": [
+   {
+    "receiver": "ui.Viewer",
+    "type": "ui.Player.Channels"
+   }
+  ],
+  "hiero.ui.Viewer.compareMode": [
+   {
+    "receiver": "ui.Viewer",
+    "type": "ui.Viewer.CompareMode"
+   }
+  ],
+  "hiero.ui.Viewer.currentLayerName": [
+   {
+    "receiver": "ui.Viewer",
+    "type": "builtins.str"
+   }
+  ],
+  "hiero.ui.Viewer.cursorTool": [
+   {
+    "receiver": "ui.Viewer",
+    "type": "ui.ViewerCursorTool"
+   }
+  ],
+  "hiero.ui.Viewer.displayDropFrames": [
+   {
+    "receiver": "ui.Viewer",
+    "type": "builtins.bool"
+   }
+  ],
+  "hiero.ui.Viewer.displayTimecode": [
+   {
+    "receiver": "ui.Viewer",
+    "type": "builtins.bool"
+   }
+  ],
+  "hiero.ui.Viewer.frameIncrement": [
+   {
+    "receiver": "ui.Viewer",
+    "type": "builtins.int"
+   }
+  ],
+  "hiero.ui.Viewer.gain": [
+   {
+    "receiver": "ui.Viewer",
+    "type": "builtins.float"
+   }
+  ],
+  "hiero.ui.Viewer.gamma": [
+   {
+    "receiver": "ui.Viewer",
+    "type": "builtins.float"
+   }
+  ],
+  "hiero.ui.Viewer.getAchievedFPS": [
+   {
+    "receiver": "ui.Viewer",
+    "type": "builtins.float"
+   }
+  ],
+  "hiero.ui.Viewer.goToNextEdit": [
+   {
+    "receiver": "ui.Viewer",
+    "type": "builtins.NoneType"
+   }
+  ],
+  "hiero.ui.Viewer.goToNextTag": [
+   {
+    "receiver": "ui.Viewer",
+    "type": "builtins.NoneType"
+   }
+  ],
+  "hiero.ui.Viewer.goToPrevEdit": [
+   {
+    "receiver": "ui.Viewer",
+    "type": "builtins.NoneType"
+   }
+  ],
+  "hiero.ui.Viewer.goToPrevTag": [
+   {
+    "receiver": "ui.Viewer",
+    "type": "builtins.NoneType"
+   }
+  ],
+  "hiero.ui.Viewer.isCachingPaused": [
+   {
+    "receiver": "ui.Viewer",
+    "type": "builtins.bool"
+   }
+  ],
+  "hiero.ui.Viewer.layoutMode": [
+   {
+    "receiver": "ui.Viewer",
+    "type": "ui.Viewer.LayoutMode"
+   }
+  ],
+  "hiero.ui.Viewer.maskOverlayName": [
+   {
+    "receiver": "ui.Viewer",
+    "type": "builtins.str"
+   }
+  ],
+  "hiero.ui.Viewer.maskOverlayStyle": [
+   {
+    "receiver": "ui.Viewer",
+    "type": "ui.Player.MaskOverlayStyle"
+   }
+  ],
+  "hiero.ui.Viewer.overlaysShown": [
+   {
+    "receiver": "ui.Viewer",
+    "type": "builtins.bool"
+   }
+  ],
+  "hiero.ui.Viewer.pauseCaching": [
+   {
+    "receiver": "ui.Viewer",
+    "type": "builtins.NoneType"
+   }
+  ],
+  "hiero.ui.Viewer.play": [
+   {
+    "receiver": "ui.Viewer",
+    "type": "builtins.NoneType"
+   }
+  ],
+  "hiero.ui.Viewer.playBackwards": [
+   {
+    "receiver": "ui.Viewer",
+    "type": "builtins.NoneType"
+   }
+  ],
+  "hiero.ui.Viewer.playForwards": [
+   {
+    "receiver": "ui.Viewer",
+    "type": "builtins.NoneType"
+   }
+  ],
+  "hiero.ui.Viewer.playbackMode": [
+   {
+    "receiver": "ui.Viewer",
+    "type": "ui.Viewer.PlaybackMode"
+   }
+  ],
+  "hiero.ui.Viewer.playbackSpeed": [
+   {
+    "receiver": "ui.Viewer",
+    "type": "builtins.int"
+   }
+  ],
+  "hiero.ui.Viewer.resumeCaching": [
+   {
+    "receiver": "ui.Viewer",
+    "type": "builtins.NoneType"
+   }
+  ],
+  "hiero.ui.Viewer.saturation": [
+   {
+    "receiver": "ui.Viewer",
+    "type": "builtins.float"
+   }
+  ],
+  "hiero.ui.Viewer.selectedGuideOverlayNames": [
+   {
+    "elements": [],
+    "length": 0,
+    "receiver": "ui.Viewer",
+    "type": "builtins.list"
+   }
+  ],
+  "hiero.ui.Viewer.setExpanded": [
+   {
+    "error": "TypeError",
+    "message": "Viewer.setExpanded() takes exactly one argument (0 given)",
+    "receiver": "ui.Viewer"
+   }
+  ],
+  "hiero.ui.Viewer.setGuideOverlayFromRemote": [
+   {
+    "error": "TypeError",
+    "message": "setGuideOverlayFromRemote expected 2 arguments, got 0",
+    "receiver": "ui.Viewer"
+   }
+  ],
+  "hiero.ui.Viewer.setMaskOverlayFromRemote": [
+   {
+    "error": "TypeError",
+    "message": "Viewer.setMaskOverlayFromRemote() takes exactly one argument (0 given)",
+    "receiver": "ui.Viewer"
+   }
+  ],
+  "hiero.ui.Viewer.setMaskOverlayStyle": [
+   {
+    "error": "TypeError",
+    "message": "Viewer.setMaskOverlayStyle() takes exactly one argument (0 given)",
+    "receiver": "ui.Viewer"
+   }
+  ],
+  "hiero.ui.Viewer.setPlaybackMode": [
+   {
+    "error": "TypeError",
+    "message": "Viewer.setPlaybackMode() takes exactly one argument (0 given)",
+    "receiver": "ui.Viewer"
+   }
+  ],
+  "hiero.ui.Viewer.setSequence": [
+   {
+    "error": "TypeError",
+    "message": "setSequence expected 2 arguments, got 0",
+    "receiver": "ui.Viewer"
+   }
+  ],
+  "hiero.ui.Viewer.setTimeDisplayFormat": [
+   {
+    "error": "TypeError",
+    "message": "setTimeDisplayFormat expected 2 arguments, got 0",
+    "receiver": "ui.Viewer"
+   }
+  ],
+  "hiero.ui.Viewer.setTracksMask": [
+   {
+    "error": "TypeError",
+    "message": "setTracksMask expected 2 arguments, got 0",
+    "receiver": "ui.Viewer"
+   }
+  ],
+  "hiero.ui.Viewer.stop": [
+   {
+    "receiver": "ui.Viewer",
+    "type": "builtins.NoneType"
+   }
+  ],
+  "hiero.ui.Viewer.time": [
+   {
+    "receiver": "ui.Viewer",
+    "type": "builtins.int"
+   }
+  ],
+  "hiero.ui.Viewer.tracksMask": [
+   {
+    "error": "TypeError",
+    "message": "Viewer.tracksMask() takes exactly one argument (0 given)",
+    "receiver": "ui.Viewer"
+   }
+  ],
+  "hiero.ui.Viewer.translation": [
+   {
+    "receiver": "ui.Viewer",
+    "type": "PySide6.QtCore.QPointF"
+   }
+  ],
+  "hiero.ui.Viewer.view": [
+   {
+    "receiver": "ui.Viewer",
+    "type": "builtins.str"
+   }
+  ],
+  "hiero.ui.Viewer.window": [
+   {
+    "receiver": "ui.Viewer",
+    "type": "PySide6.QtWidgets.QWidget"
+   }
+  ],
+  "hiero.ui.Viewer.wipeTool": [
+   {
+    "receiver": "ui.Viewer",
+    "type": "ui.ViewerWipeTool"
+   }
+  ],
+  "hiero.ui.Viewer.zoom": [
+   {
+    "receiver": "ui.Viewer",
+    "type": "builtins.float"
+   }
+  ],
+  "hiero.ui.Viewer.zoomCenter": [
+   {
+    "receiver": "ui.Viewer",
+    "type": "PySide6.QtCore.QPointF"
+   }
+  ],
+  "hiero.ui.Viewer.zoomMode": [
+   {
+    "receiver": "ui.Viewer",
+    "type": "ui.Viewer.ZoomMode"
+   }
+  ],
+  "hiero.ui.Viewer.zoomToActualSize": [
+   {
+    "receiver": "ui.Viewer",
+    "type": "builtins.NoneType"
+   }
+  ],
+  "hiero.ui.Viewer.zoomToFill": [
+   {
+    "receiver": "ui.Viewer",
+    "type": "builtins.NoneType"
+   }
+  ],
+  "hiero.ui.Viewer.zoomToFit": [
+   {
+    "receiver": "ui.Viewer",
+    "type": "builtins.NoneType"
+   }
+  ],
+  "hiero.ui.Viewer.zoomToFitHeight": [
+   {
+    "receiver": "ui.Viewer",
+    "type": "builtins.NoneType"
+   }
+  ],
+  "hiero.ui.Viewer.zoomToFitWidth": [
+   {
+    "receiver": "ui.Viewer",
+    "type": "builtins.NoneType"
+   }
+  ],
+  "hiero.ui.Viewer.zoomToHalfSize": [
+   {
+    "receiver": "ui.Viewer",
+    "type": "builtins.NoneType"
+   }
+  ],
+  "hiero.ui.ViewerAnnotationTool.overlayScenePaintObjects": [],
+  "hiero.ui.ViewerCursor.color": [],
+  "hiero.ui.ViewerCursor.label": [],
+  "hiero.ui.ViewerCursor.pos": [],
+  "hiero.ui.ViewerCursorTool.setCursors": [],
+  "hiero.ui.ViewerROITool.ROI": [],
+  "hiero.ui.ViewerROITool.setROI": [],
+  "hiero.ui.ViewerTool.isActive": [],
+  "hiero.ui.ViewerWipeTool.setWipeToolState": [],
+  "hiero.ui.ViewerWipeTool.wipeToolState": [],
+  "hiero.ui.WindowManager.WindowMenuSection._value_repr_": [],
+  "hiero.ui.WindowManager.windows": [
+   {
+    "elements": [
+     "PySide6.QtWidgets.QDialog",
+     "PySide6.QtWidgets.QWidget",
+     "hiero.syncreview.syncreviewstatuspanel.SyncStatusPanel"
+    ],
+    "length": 22,
+    "receiver": "ui.WindowManager",
+    "type": "builtins.list"
+   }
+  ],
+  "hiero.ui.WipeToolState.gauge": [],
+  "hiero.ui.WipeToolState.rotation": [],
+  "hiero.ui.WipeToolState.translateX": [],
+  "hiero.ui.WipeToolState.translateY": [],
+  "hiero.ui.currentContextMenuView": [
+   {
+    "receiver": "builtins.module",
+    "type": "builtins.NoneType"
+   }
+  ],
+  "hiero.ui.currentViewer": [
+   {
+    "receiver": "builtins.module",
+    "type": "ui.Viewer"
+   }
+  ],
+  "hiero.ui.getFlipbook": [
+   {
+    "receiver": "builtins.module",
+    "type": "ui.Viewer"
+   }
+  ],
+  "hiero.ui.isInAnyProject": [
+   {
+    "error": "TypeError",
+    "message": "ui.isInAnyProject() takes exactly one argument (0 given)",
+    "receiver": "builtins.module"
+   }
+  ],
+  "hiero.ui.isInAnyTimeline": [
+   {
+    "error": "TypeError",
+    "message": "ui.isInAnyTimeline() takes exactly one argument (0 given)",
+    "receiver": "builtins.module"
+   }
+  ],
+  "hiero.ui.monitorOutNode": [
+   {
+    "receiver": "builtins.module",
+    "type": "builtins.Node"
+   }
+  ],
+  "hiero.ui.updateViewer": [
+   {
+    "error": "TypeError",
+    "message": "updateViewer expected 2 arguments, got 0",
+    "receiver": "builtins.module"
+   }
+  ],
+  "hiero.ui.windowManager": [
+   {
+    "receiver": "builtins.module",
+    "type": "ui.WindowManager"
+   }
+  ]
+ },
+ "scene": [
+  "new project",
+  "sequence with one video and one audio track",
+  "media source from a generated image",
+  "clip",
+  "clip in bin",
+  "add clip to bin",
+  "track item on the video track",
+  "clip versions",
+  "bin",
+  "tag",
+  "format",
+  "time base",
+  "application settings",
+  "sequence format",
+  "main window",
+  "window manager",
+  "current viewer",
+  "active view"
+ ],
+ "schema": 1
+}

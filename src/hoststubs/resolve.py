@@ -56,6 +56,14 @@ class Candidate:
 
 
 @dataclass(frozen=True)
+class Observed:
+    """What the probe saw for one function."""
+    candidate: Candidate
+    # Each distinct type seen, before they were merged into a common base.
+    seen: tuple[str, ...]
+
+
+@dataclass(frozen=True)
 class Param:
     name: str
     kind: str
@@ -115,7 +123,7 @@ class Resolver:
         names: Names,
         type_names: dict[str, str],
         inferred: dict[str, Inferred],
-        observed: dict[str, Candidate],
+        observed: dict[str, Observed],
     ) -> None:
         self._dump = dump
         self._names = names
@@ -264,11 +272,27 @@ class Resolver:
         observed = self._observed.get(path)
         if observed is None:
             return documented
-        if observed.source != 'probe':
-            return pick([documented, observed])
-        if documented.source != 'any' and self._agrees(observed.type, documented.type):
+
+        candidate = observed.candidate
+        if candidate.source != 'probe':
+            return pick([documented, candidate])
+
+        widened = self._widen(candidate.type)
+        if documented.source == 'any':
+            return Candidate(widened, 'probe')
+        if all(self._agrees(seen, documented.type) for seen in observed.seen):
             return documented
-        return Candidate(self._widen(observed.type), 'probe')
+
+        if self._is_class_type(documented.type) and self._is_class_type(widened):
+            # Two host classes: the function returns one or the other by state
+            # (`Bin.parentBin()` is a Bin, or the Project for a top-level bin).
+            members = split_top_level(documented.type, ' | ') + [widened]
+            return Candidate(' | '.join(dict.fromkeys(members)), 'probe')
+        return Candidate(widened, 'probe')
+
+    def _is_class_type(self, type_: str) -> bool:
+        members = [member for member in split_top_level(type_, ' | ') if member != NONE]
+        return bool(members) and all(self._names.is_class(member) for member in members)
 
     def property(self, path: str) -> Signature:
         """Resolve a C property. It has no docstring evidence, only what the probe read."""

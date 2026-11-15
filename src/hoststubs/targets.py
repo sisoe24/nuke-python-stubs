@@ -18,7 +18,9 @@ def name_words(name: str) -> set[str]:
 
 
 def is_skipped(path: str, name: str, host: HostConfig) -> bool:
-    if path in host.probe_skip or name == '__del__':
+    if name == '__del__':
+        return True
+    if any(path == skipped or path.startswith(f'{skipped}.') for skipped in host.probe_skip):
         return True
     return bool(name_words(name) & host.probe_skip_words)
 

@@ -8,11 +8,11 @@ nothing about types.
 
 Nuke and Hiero are dumped together from a Nuke Studio GUI session. Terminal
 mode (`-t`) has no hiero C module and no `nukescripts` panels. Nuke Studio
-runs `hosts/nuke/studio/Python/StartupUI/run_dump.py` at startup, which
+runs `hosts/nuke/studio/Python/StartupUI/run_inhost.py` at startup, which
 dumps and quits. Run from the repository root, one command per version:
 
 ```bash
-NUKE_PATH="$PWD/hosts/nuke/studio:$NUKE_PATH" HOSTSTUBS_INHOST="$PWD/inhost" HOSTSTUBS_DUMP_ARGS="$(uv run python -m hoststubs dump-arguments nuke "$PWD/dumps/nuke-17.1v2.json")" /Applications/Nuke17.1v2/Nuke17.1v2.app/Contents/MacOS/Nuke17.1 --studio
+NUKE_PATH="$PWD/hosts/nuke/studio:$NUKE_PATH" HOSTSTUBS_INHOST="$PWD/inhost" HOSTSTUBS_RUN=dump HOSTSTUBS_ARGS="$(uv run python -m hoststubs dump-arguments nuke "$PWD/dumps/nuke-17.1v2.json")" /Applications/Nuke17.1v2/Nuke17.1v2.app/Contents/MacOS/Nuke17.1 --studio
 ```
 
 The repository path must not contain spaces. Plugins in `~/.nuke` load as
@@ -21,7 +21,7 @@ usual, so a plugin that adds names to a dumped module shows up in the dump.
 Regenerate the test fixture:
 
 ```bash
-PYTHONPATH=tests/fixtures/host python inhost/dump.py tests/fixtures/dump.golden.json host=fxhost version=fxhost.VERSION skip=fxscripts.examples private=fxcore fxhost fxscripts
+PYTHONPATH=tests/fixtures/host python inhost/dump.py tests/fixtures/dump.golden.json host=fxhost version=fxhost.VERSION skip=fxscripts.examples private=fxcore:fxhost fxhost fxscripts
 ```
 
 ## Top level
@@ -72,8 +72,12 @@ An object can be visible from many modules. It is recorded in full once:
 3. Otherwise: in the first public place that shows
    it, in root order. Later places get an alias to that place. This covers
    a private C module (`_nuke`), a `__module__` that cannot be imported
-   (Nuke classes report `builtins`), and a module the host config declares
-   `private` (hiero's `core` and `ui`, importable in a GUI session).
+   (Nuke classes report `builtins`).
+4. Its `__module__` is declared `private` with an owner (`core:hiero.core`):
+   in the owner, when the owner holds it. hiero's C modules import as
+   top-level `core` and `ui` in a GUI session, and several hiero modules
+   re-export their classes; without the owner, the first of them in
+   alphabetical order would get the class.
 
 Functions in a class `__dict__` are always recorded in full, under the
 attribute name. `qualname` keeps the original name, which is how hiero's

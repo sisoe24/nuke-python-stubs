@@ -6,18 +6,22 @@ each result.
 
 ## Run
 
-One command per version, from the repository root. It needs a licence.
+Two commands per version, from the repository root. Each needs a licence.
 
 ```bash
-probes/run.sh 17.1v2 /Applications/Nuke17.1v2/Nuke17.1v2.app/Contents/MacOS/Nuke17.1
+probes/run.sh 17.1v2 /Applications/Nuke17.1v2/Nuke17.1v2.app/Contents/MacOS/Nuke17.1 nuke
 ```
 
-The script writes the target list, starts Nuke in terminal mode with
-`--safe` (no `~/.nuke` plugins), and restarts with `resume` after each
-crash. Output: `probes/nuke-<version>.json`, which is committed.
+```bash
+probes/run.sh 17.1v2 /Applications/Nuke17.1v2/Nuke17.1v2.app/Contents/MacOS/Nuke17.1 hiero
+```
 
-Only `nuke` and `nuke_internal` are probed. hiero exists only in a GUI
-session and has no probe scene yet.
+`nuke` probes `nuke` and `nuke_internal` in terminal mode with `--safe`
+(no `~/.nuke` plugins). `hiero` probes `hiero` in a Nuke Studio GUI
+session, because hiero exists only there; that session loads `~/.nuke`
+plugins and its window appears on screen. Both restart with `resume` after
+each crash. Outputs, both committed: `probes/nuke-<version>.json` and
+`probes/nuke-<version>.hiero.json`. Work files go to `probes/work/`.
 
 ## What is called
 
@@ -38,9 +42,12 @@ because some of them change the scene.
 
 ## Scene
 
-`hosts/nuke/probe_scene.py` builds it: one node of each common class in a
-chain, an animated knob, one user knob of each knob class, formats, frame
-ranges. The list of what was created is stored in the output as `scene`.
+`hosts/nuke/probe_scene.py` builds the Nuke scene: one node of each common
+class in a chain, an animated knob, one user knob of each knob class,
+formats, frame ranges. `hosts/nuke/probe_scene_hiero.py` builds the hiero
+scene: a project, a sequence with a video and an audio track, a bin, a tag,
+and a clip from a generated image placed on the video track. The list of
+what was created is stored in the output as `scene`.
 
 A method is called on one instance of every type that has it, so a method
 of `Knob` is seen on every knob class before its result counts.
@@ -66,9 +73,10 @@ Add each crashing path to `probe_skip`.
 | Receivers disagree, classes with a common base | The base |
 | Receivers disagree otherwise (`Knob.value`) | Nothing |
 | Agrees with the docstring type (`Root` seen, docstring says `Node`) | The docstring type stays |
-| Contradicts or refines the docstring type | The observed type |
+| Contradicts the docstring type, both are host classes (`Bin`, saw `Project`) | Both: `Bin \| Project` |
+| Contradicts otherwise, or refines a bare container | The observed type |
 | A subclass, with no docstring type | Its topmost base in the dump |
 
-The last three rows are stricter than "the probe wins". An observation is
+The last four rows are stricter than "the probe wins". An observation is
 one object in one scene: it showed `Root` for `nuke.thisNode()` and a
 single `Node` where the docstring says `Node | None`.

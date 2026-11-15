@@ -16,7 +16,8 @@ Resolved = dict[str, tuple[Signature, ...]]
 def _candidate(tmp_path: Path, names: Names, *observations: dict) -> Candidate | None:
     path = tmp_path / 'probe.json'
     path.write_text(json.dumps({'schema': 1, 'observations': {'target': list(observations)}}))
-    return load_observations(path, names).get('target')
+    observed = load_observations(path, names).get('target')
+    return observed.candidate if observed else None
 
 
 def _seen(type_: str, **details: object) -> dict:
@@ -92,7 +93,7 @@ def test_real_probe_knob_value_disagrees(nuke15_names: Names) -> None:
     """Knob.value() returns float, str, bool or a list by knob class: the base method stays Any."""
     observed = load_observations(PROBES / 'nuke-15.2v9.json', nuke15_names)
     assert 'nuke.Knob.value' not in observed
-    assert observed['nuke.Knob.name'] == Candidate('builtins.str', 'probe')
+    assert observed['nuke.Knob.name'].candidate == Candidate('builtins.str', 'probe')
 
 
 @pytest.fixture(scope='module')
@@ -114,6 +115,13 @@ def probed() -> Resolved:
     ('nuke.views', 'builtins.list[builtins.str]', 'probe'),
     ('nuke.allNodes', 'builtins.list[nuke.Node]', 'probe'),
     ('nuke.Node.knobs', 'builtins.dict[builtins.str, nuke.Knob]', 'probe'),
+    # The docstring lists both classes the probe saw: it stays, unmerged.
+    ('hiero.core.BinItem.activeItem', 'hiero.core.Clip | hiero.core.Sequence', 'doc_field'),
+    # Docstring says Bin; a top-level bin returned the Project. Both are real.
+    ('hiero.core.Bin.parentBin', 'hiero.core.Bin | hiero.core.Project', 'probe'),
+    # The docstring names a builtin and the probe saw a host class: the docstring is wrong.
+    ('hiero.core.AudioTrack.channel', 'hiero.core.AudioTrack.Channel', 'probe'),
+    ('hiero.core.Bin.name', 'builtins.str', 'probe'),
 ])
 def test_probe_against_docstring(probed: Resolved, path: str, returns: str, source: str) -> None:
     """The probe replaces a docstring type only where the observation contradicts or refines it."""

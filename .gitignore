@@ -4,5 +4,4 @@ out/
 .envrc
 dumps/*.log
 probes/*.journal
-probes/*.log
-probes/*.targets.json
+probes/work/

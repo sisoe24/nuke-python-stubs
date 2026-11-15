@@ -121,6 +121,9 @@ class Names:
             path = member.target
         return path, None
 
+    def is_class(self, path: str) -> bool:
+        return self._classes.get(path) == path
+
     def ancestors(self, path: str) -> list[str]:
         """The class at public `path`, then its base classes in the dump, nearest first."""
         found = [path]

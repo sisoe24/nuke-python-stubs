@@ -9,7 +9,7 @@ HOST = HostConfig(
     # Examples are not API: hiero's register UI at import, nukescripts' need sip.
     skip=('hiero.examples', 'nukescripts.pyQtExamples'),
     # hiero's C modules are importable as top-level `core` and `ui` in a GUI session.
-    private=('core', 'ui'),
+    private={'core': 'hiero.core', 'ui': 'hiero.ui'},
     type_names={
         'string': 'builtins.str',
         'String': 'builtins.str',
@@ -32,9 +32,19 @@ HOST = HostConfig(
         'remove', 'destroy', 'kill', 'fork', 'crash', 'abort', 'write', 'sync', 'send',
         'connect', 'install', 'uninstall', 'import', 'export', 'open', 'new', 'restore',
         'reload', 'spawn', 'launch', 'flush', 'purge', 'upload', 'download', 'submit',
-        'publish', 'register', 'unregister',
+        'publish', 'register', 'unregister', 'reset', 'revert', 'trash', 'localise', 'localize',
+        'transcode',
+        # Opens a modal dialog in a GUI session, which blocks until someone answers.
+        'show', 'ask', 'choose', 'browse', 'dialog', 'prompt', 'popup', 'message', 'picker',
+        'chooser', 'exec',
+        # Changes the user's clipboard.
+        'copy', 'cut', 'paste',
     }),
     probe_skip=frozenset({
+        # Sync review opens network sessions.
+        'hiero.syncreview',
+        # Sets up the hiero UI; calling it again in a running session is not a query.
+        'hiero.ui.Initialise',
         # Writes a toolset file under ~/.nuke.
         'nuke.createToolset',
         # Found by running: each of these ends a terminal session of Nuke 15.2v9.
@@ -48,7 +58,13 @@ HOST = HostConfig(
         'nuke.licenseInfo',
         'nuke.selectPattern',
         'nuke.waitForThreadsToFinish',
+        # The same, in a Nuke Studio 15.2v9 GUI session.
+        'hiero.core.Project.cancelUndo',
+        'hiero.ui.Viewer.toggleFullScreen',
         # The same, on Nuke 17.1v2.
+        'hiero.ui.Viewer.enterFullScreen',
+        'hiero.ui.Viewer.image',
+        'hiero.ui.Viewer.toggleFullScreen1_1',
         'nuke.expandSelectedGroup',
         'nuke.makeGroup',
     }),

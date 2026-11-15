@@ -22,14 +22,14 @@ class HostConfig:
     roots: tuple[str, ...]
     skip: tuple[str, ...]
 
-    # Importable C modules that users reach only through a root.
-    private: tuple[str, ...]
+    # Private C module -> the public module that owns its objects.
+    private: dict[str, str]
 
     # Type spellings in the host's docstrings that are not Python names.
     type_names: dict[str, str]
 
     # The probe calls nothing whose name contains one of these words
-    # (`scriptSaveAs` contains `save`), and none of the listed paths.
+    # (`scriptSaveAs` contains `save`), and nothing at or under the listed paths.
     probe_skip_words: frozenset[str]
     probe_skip: frozenset[str]
 
@@ -55,6 +55,6 @@ def dump_arguments(host: HostConfig, out: str) -> list[str]:
         f'host={host.name}',
         f'version={host.version_attribute}',
         *(f'skip={module}' for module in host.skip),
-        *(f'private={module}' for module in host.private),
+        *(f'private={module}:{owner}' for module, owner in host.private.items()),
         *host.roots,
     ]
