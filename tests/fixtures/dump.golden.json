@@ -1,0 +1,648 @@
+{
+ "errors": [
+  {
+   "error": "ModuleNotFoundError: No module named 'module_that_does_not_exist'",
+   "where": "fxscripts.broken"
+  }
+ ],
+ "foreign": {
+  "PySide2": 3
+ },
+ "host": {
+  "name": "fxhost",
+  "version": "1.0v1"
+ },
+ "modules": {
+  "fxhost": {
+   "doc": null,
+   "file": "fxhost/__init__.py",
+   "members": {
+    "ADD_VIEWS": {
+     "kind": "value",
+     "repr": "1",
+     "type": "builtins.int"
+    },
+    "EXE_PATH": {
+     "kind": "value",
+     "type": "builtins.str"
+    },
+    "Format": {
+     "bases": [
+      "builtins.object"
+     ],
+     "doc": "Has C-level data descriptors.",
+     "kind": "class",
+     "members": {
+      "__slots__": {
+       "kind": "value",
+       "type": "builtins.tuple"
+      },
+      "height": {
+       "descriptor": "builtins.member_descriptor",
+       "doc": null,
+       "kind": "property"
+      },
+      "width": {
+       "descriptor": "builtins.member_descriptor",
+       "doc": null,
+       "kind": "property"
+      }
+     },
+     "origin": "_fxhost",
+     "qualname": "Format"
+    },
+    "GeoSelectionItem": {
+     "bases": [
+      "builtins.object"
+     ],
+     "doc": null,
+     "kind": "class",
+     "members": {
+      "getWorldPoints": {
+       "binding": "instance",
+       "descriptor": "builtins.function",
+       "doc": "getWorldPoints(self: _nuke.GeoSelectionItem, stage: usg::Stage, time: float = nan) -> usg::Array<fdk::Vec3<float> >\n        ",
+       "kind": "function",
+       "origin": "_fxhost",
+       "qualname": "GeoSelectionItem.getWorldPoints",
+       "signature": null,
+       "text_signature": null
+      }
+     },
+     "origin": "_fxhost",
+     "qualname": "GeoSelectionItem"
+    },
+    "Knob": {
+     "bases": [
+      "builtins.object"
+     ],
+     "doc": null,
+     "kind": "class",
+     "members": {},
+     "origin": "_fxhost",
+     "qualname": "Knob"
+    },
+    "Node": {
+     "bases": [
+      "builtins.object"
+     ],
+     "doc": null,
+     "kind": "class",
+     "members": {
+      "__getitem__": {
+       "binding": "instance",
+       "descriptor": "builtins.function",
+       "doc": "Return self[key].",
+       "kind": "function",
+       "origin": "_fxhost",
+       "qualname": "Node.__getitem__",
+       "signature": null,
+       "text_signature": null
+      },
+      "__len__": {
+       "binding": "instance",
+       "descriptor": "builtins.function",
+       "doc": "Return len(self).",
+       "kind": "function",
+       "origin": "_fxhost",
+       "qualname": "Node.__len__",
+       "signature": null,
+       "text_signature": null
+      },
+      "knob": {
+       "binding": "instance",
+       "descriptor": "builtins.function",
+       "doc": "self.knob(p[, follow_link]) -> The knob named p or the pth knob.\n@param p: A string or an integer.\n@param follow_link: Should it follow links to Link_Knob until resolution. Default is True.\n@return: The knob named p or the pth knob.",
+       "kind": "function",
+       "origin": "_fxhost",
+       "qualname": "Node.knob",
+       "signature": null,
+       "text_signature": null
+      },
+      "name": {
+       "binding": "instance",
+       "descriptor": "builtins.function",
+       "doc": "self.name() -> str\n@return: Name of node.",
+       "kind": "function",
+       "origin": "_fxhost",
+       "qualname": "Node.name",
+       "signature": null,
+       "text_signature": null
+      }
+     },
+     "origin": "_fxhost",
+     "qualname": "Node"
+    },
+    "Sequence": {
+     "bases": [
+      "builtins.object"
+     ],
+     "doc": "Reports a module name that cannot be imported, as hiero classes do.",
+     "kind": "class",
+     "members": {
+      "videoTracks": {
+       "binding": "instance",
+       "descriptor": "builtins.function",
+       "doc": "self.videoTracks() -> returns a tuple of the video tracks in this sequence.",
+       "kind": "function",
+       "origin": "_fxhost",
+       "qualname": "Sequence.videoTracks",
+       "signature": null,
+       "text_signature": null
+      }
+     },
+     "origin": "core",
+     "qualname": "Sequence"
+    },
+    "Signal": {
+     "kind": "alias",
+     "target": "PySide2.QtCore.Signal"
+    },
+    "TimelineEditor": {
+     "bases": [
+      "builtins.object"
+     ],
+     "doc": null,
+     "kind": "class",
+     "members": {
+      "selectionChanged": {
+       "kind": "value",
+       "type": "PySide2.QtCore.Signal"
+      },
+      "sequence": {
+       "binding": "instance",
+       "descriptor": "builtins.function",
+       "doc": "self.sequence() -> returns the sequence that this editor is displaying.",
+       "kind": "function",
+       "origin": "_fxhost",
+       "qualname": "TimelineEditor.sequence",
+       "signature": null,
+       "text_signature": null
+      }
+     },
+     "origin": "_fxhost",
+     "qualname": "TimelineEditor"
+    },
+    "VERSION": {
+     "kind": "value",
+     "type": "builtins.str"
+    },
+    "allNodes": {
+     "descriptor": "builtins.function",
+     "doc": "allNodes(filter, group) -> List.\n\nList of all nodes in a group. If you need to get all the nodes in the script\nfrom a context which has no child nodes, for instance a control panel, use\nnuke.root().nodes().\n\n:param filter: Optional. Only return nodes of the specified class.\n:param group: Optional. If the group is omitted the current group (ie the group the user picked a menu item from the toolbar of) is used.\n:param recurseGroups: Optional. If True, will also return all child nodes within any group nodes. This is done recursively and defaults to False.\n:return: List",
+     "kind": "function",
+     "origin": "_fxhost",
+     "qualname": "allNodes",
+     "signature": null,
+     "text_signature": null
+    },
+    "annotations": {
+     "kind": "value",
+     "type": "__future__._Feature"
+    },
+    "frame_range": {
+     "kind": "alias",
+     "target": "fxhost.utils.frame_range"
+    },
+    "root": {
+     "descriptor": "builtins.function",
+     "doc": "root() -> node\n\nGet the DAG's root node. Always succeeds.\n\n:return: The root node. This will never be None.",
+     "kind": "function",
+     "origin": "_fxhost",
+     "qualname": "root",
+     "signature": null,
+     "text_signature": null
+    },
+    "toNode": {
+     "descriptor": "builtins.function",
+     "doc": "toNode(s) -> Node\n\nSearch for a node in the DAG by name and return it as a Python object.\n\n:param s: Node name.\n:return: Node or None if it does not exist.",
+     "kind": "function",
+     "origin": "_fxhost",
+     "qualname": "toNode",
+     "signature": null,
+     "text_signature": null
+    },
+    "utils": {
+     "kind": "module",
+     "target": "fxhost.utils"
+    },
+    "withTextSignature": {
+     "descriptor": "builtins.function",
+     "doc": "A C function that does declare a signature.",
+     "kind": "function",
+     "origin": "_fxhost",
+     "qualname": "withTextSignature",
+     "signature": {
+      "params": [
+       {
+        "annotation": null,
+        "kind": "POSITIONAL_ONLY",
+        "name": "module"
+       },
+       {
+        "annotation": null,
+        "kind": "POSITIONAL_ONLY",
+        "name": "name"
+       },
+       {
+        "annotation": null,
+        "default": {
+         "kind": "value",
+         "repr": "0",
+         "type": "builtins.int"
+        },
+        "kind": "POSITIONAL_ONLY",
+        "name": "index"
+       }
+      ],
+      "returns": null
+     },
+     "text_signature": "($module, name, index=0, /)"
+    }
+   }
+  },
+  "fxhost.utils": {
+   "all": [
+    "frame_range"
+   ],
+   "doc": null,
+   "file": "fxhost/utils.py",
+   "members": {
+    "annotations": {
+     "kind": "value",
+     "type": "__future__._Feature"
+    },
+    "frame_range": {
+     "descriptor": "builtins.function",
+     "doc": "Frames from first to last, inclusive.",
+     "kind": "function",
+     "origin": "fxhost.utils",
+     "qualname": "frame_range",
+     "signature": {
+      "params": [
+       {
+        "annotation": "int",
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "first"
+       },
+       {
+        "annotation": "int",
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "last"
+       },
+       {
+        "annotation": null,
+        "default": {
+         "kind": "value",
+         "repr": "1",
+         "type": "builtins.int"
+        },
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "step"
+       }
+      ],
+      "returns": "list[int]"
+     },
+     "text_signature": null
+    }
+   }
+  },
+  "fxscripts": {
+   "doc": null,
+   "file": "fxscripts/__init__.py",
+   "members": {
+    "Panel": {
+     "kind": "alias",
+     "target": "fxscripts.misc.Panel"
+    },
+    "QObject": {
+     "kind": "alias",
+     "target": "PySide2.QtCore.QObject"
+    },
+    "QtCore": {
+     "kind": "module",
+     "target": "PySide2.QtCore"
+    },
+    "annotations": {
+     "kind": "value",
+     "type": "__future__._Feature"
+    },
+    "fxhost": {
+     "kind": "module",
+     "target": "fxhost"
+    },
+    "misc": {
+     "kind": "module",
+     "target": "fxscripts.misc"
+    },
+    "node_names": {
+     "kind": "alias",
+     "target": "fxscripts.misc.node_names"
+    },
+    "os": {
+     "kind": "module",
+     "target": "os"
+    },
+    "script_directory": {
+     "kind": "alias",
+     "target": "fxscripts.misc.script_directory"
+    },
+    "select": {
+     "kind": "alias",
+     "target": "fxscripts.misc.node_names"
+    }
+   }
+  },
+  "fxscripts.misc": {
+   "doc": "Pure-Python host scripts: real bodies, few annotations.",
+   "file": "fxscripts/misc.py",
+   "members": {
+    "Panel": {
+     "bases": [
+      "PySide2.QtCore.QObject"
+     ],
+     "doc": "A panel with every member kind.",
+     "kind": "class",
+     "members": {
+      "Options": {
+       "bases": [
+        "builtins.object"
+       ],
+       "doc": null,
+       "kind": "class",
+       "members": {
+        "compact": {
+         "kind": "value",
+         "repr": "False",
+         "type": "builtins.bool"
+        }
+       },
+       "origin": "fxscripts.misc",
+       "qualname": "Panel.Options"
+      },
+      "__init__": {
+       "binding": "instance",
+       "descriptor": "builtins.function",
+       "doc": null,
+       "kind": "function",
+       "origin": "fxscripts.misc",
+       "qualname": "Panel.__init__",
+       "signature": {
+        "params": [
+         {
+          "annotation": null,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "name": "self"
+         },
+         {
+          "annotation": null,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "name": "name"
+         },
+         {
+          "annotation": null,
+          "default": {
+           "kind": "value",
+           "repr": "None",
+           "type": "builtins.NoneType"
+          },
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "name": "parent"
+         }
+        ],
+        "returns": null
+       },
+       "text_signature": null
+      },
+      "closed": {
+       "kind": "value",
+       "type": "PySide2.QtCore.Signal"
+      },
+      "create": {
+       "binding": "class",
+       "descriptor": "builtins.function",
+       "doc": null,
+       "kind": "function",
+       "origin": "fxscripts.misc",
+       "qualname": "Panel.create",
+       "signature": {
+        "params": [
+         {
+          "annotation": null,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "name": "cls"
+         },
+         {
+          "annotation": null,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "name": "name"
+         }
+        ],
+        "returns": null
+       },
+       "text_signature": null
+      },
+      "default_size": {
+       "binding": "static",
+       "descriptor": "builtins.function",
+       "doc": null,
+       "kind": "function",
+       "origin": "fxscripts.misc",
+       "qualname": "Panel.default_size",
+       "signature": {
+        "params": [],
+        "returns": null
+       },
+       "text_signature": null
+      },
+      "name": {
+       "descriptor": "builtins.property",
+       "doc": "The panel name.",
+       "getter": {
+        "descriptor": "builtins.function",
+        "doc": "The panel name.",
+        "kind": "function",
+        "origin": "fxscripts.misc",
+        "qualname": "Panel.name",
+        "signature": {
+         "params": [
+          {
+           "annotation": null,
+           "kind": "POSITIONAL_OR_KEYWORD",
+           "name": "self"
+          }
+         ],
+         "returns": "str"
+        },
+        "text_signature": null
+       },
+       "kind": "property",
+       "settable": false
+      },
+      "show": {
+       "binding": "instance",
+       "descriptor": "builtins.function",
+       "doc": null,
+       "kind": "function",
+       "origin": "fxscripts.misc",
+       "qualname": "Panel.show",
+       "signature": {
+        "params": [
+         {
+          "annotation": null,
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "name": "self"
+         },
+         {
+          "annotation": null,
+          "default": {
+           "kind": "value",
+           "repr": "False",
+           "type": "builtins.bool"
+          },
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "name": "modal"
+         }
+        ],
+        "returns": null
+       },
+       "text_signature": null
+      },
+      "size": {
+       "descriptor": "builtins.property",
+       "doc": null,
+       "getter": {
+        "descriptor": "builtins.function",
+        "doc": null,
+        "kind": "function",
+        "origin": "fxscripts.misc",
+        "qualname": "Panel.size",
+        "signature": {
+         "params": [
+          {
+           "annotation": null,
+           "kind": "POSITIONAL_OR_KEYWORD",
+           "name": "self"
+          }
+         ],
+         "returns": null
+        },
+        "text_signature": null
+       },
+       "kind": "property",
+       "settable": true
+      },
+      "title": {
+       "kind": "value",
+       "type": "builtins.str"
+      },
+      "width": {
+       "kind": "value",
+       "repr": "320",
+       "type": "builtins.int"
+      }
+     },
+     "origin": "fxscripts.misc",
+     "qualname": "Panel"
+    },
+    "QObject": {
+     "kind": "alias",
+     "target": "PySide2.QtCore.QObject"
+    },
+    "QtCore": {
+     "kind": "module",
+     "target": "PySide2.QtCore"
+    },
+    "annotations": {
+     "kind": "value",
+     "type": "__future__._Feature"
+    },
+    "fxhost": {
+     "kind": "module",
+     "target": "fxhost"
+    },
+    "node_names": {
+     "descriptor": "builtins.function",
+     "doc": null,
+     "kind": "function",
+     "origin": "fxscripts.misc",
+     "qualname": "node_names",
+     "signature": {
+      "params": [
+       {
+        "annotation": null,
+        "default": {
+         "kind": "value",
+         "repr": "None",
+         "type": "builtins.NoneType"
+        },
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "nodes"
+       },
+       {
+        "annotation": null,
+        "default": {
+         "kind": "value",
+         "repr": "False",
+         "type": "builtins.bool"
+        },
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "upper"
+       },
+       {
+        "annotation": null,
+        "default": {
+         "kind": "value",
+         "repr": "''",
+         "type": "builtins.str"
+        },
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "prefix"
+       }
+      ],
+      "returns": null
+     },
+     "text_signature": null
+    },
+    "os": {
+     "kind": "module",
+     "target": "os"
+    },
+    "script_directory": {
+     "descriptor": "builtins.function",
+     "doc": null,
+     "kind": "function",
+     "origin": "fxscripts.misc",
+     "qualname": "script_directory",
+     "signature": {
+      "params": [
+       {
+        "annotation": "str | None",
+        "default": {
+         "kind": "value",
+         "repr": "None",
+         "type": "builtins.NoneType"
+        },
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "path"
+       }
+      ],
+      "returns": "str"
+     },
+     "text_signature": null
+    },
+    "select": {
+     "kind": "alias",
+     "target": "fxscripts.misc.node_names"
+    }
+   }
+  }
+ },
+ "platform": "darwin",
+ "python": "3.10.21",
+ "qt": {
+  "binding": "PySide2",
+  "version": "5.15.2"
+ },
+ "schema": 1
+}
