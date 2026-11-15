@@ -121,6 +121,27 @@ class Names:
             path = member.target
         return path, None
 
+    def split_module(self, qualified: str) -> tuple[str, str]:
+        """Split an accepted type name into the module to import and the name inside it."""
+        parts = qualified.split('.')
+        if parts[0] in ('builtins', 'typing'):
+            return parts[0], '.'.join(parts[1:])
+
+        for split in range(len(parts) - 1, 0, -1):
+            if '.'.join(parts[:split]) in self._dump.modules:
+                return '.'.join(parts[:split]), '.'.join(parts[split:])
+
+        if parts[0] in QT_BINDINGS:
+            return '.'.join(parts[:2]), '.'.join(parts[2:])
+
+        for split in range(len(parts) - 1, 0, -1):
+            try:
+                importlib.import_module('.'.join(parts[:split]))
+            except ImportError:
+                continue
+            return '.'.join(parts[:split]), '.'.join(parts[split:])
+        raise ValueError(f'{qualified} is not in a known module')
+
     def is_class(self, path: str) -> bool:
         return self._classes.get(path) == path
 

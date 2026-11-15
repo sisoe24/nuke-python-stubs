@@ -75,6 +75,9 @@ class _Normalizer:
             return self._union([self._literal(argument) for argument in arguments])
 
         container = self.normalize(node.value)
+        if container and not arguments:
+            # `tuple[()]`, the empty tuple.
+            return f'{container}[()]'
         normalized = [self._argument(argument) for argument in arguments]
         if container is None or None in normalized:
             return None

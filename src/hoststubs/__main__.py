@@ -2,13 +2,15 @@ from __future__ import annotations
 
 import json
 import shlex
+import shutil
 import logging
 import argparse
 from pathlib import Path
 
-from hoststubs.host import load_host, dump_arguments
+from hoststubs.emit import emit
+from hoststubs.host import REPO, load_host, dump_arguments
 from hoststubs.infer import infer
-from hoststubs.report import report, resolve_dump
+from hoststubs.report import report, load_context, resolve_dump
 from hoststubs.targets import probe_targets
 
 
@@ -32,6 +34,9 @@ def main() -> None:
     command.add_argument('out', type=Path)
     command.add_argument('modules', nargs='+', help='only targets under these modules')
 
+    command = commands.add_parser('build', help='write the stubs for one dumped version')
+    command.add_argument('dump', type=Path)
+
     args = parser.parse_args()
     logging.basicConfig(level=logging.INFO, format='%(levelname)s %(message)s')
 
@@ -39,6 +44,13 @@ def main() -> None:
         print(shlex.join(dump_arguments(load_host(args.host), args.out)))
     elif args.command == 'infer':
         infer(args.dump, args.search)
+    elif args.command == 'build':
+        context = load_context(args.dump)
+        out = REPO / 'build' / f'{context.dump.host}-{context.dump.host_version}'
+        if out.exists():
+            shutil.rmtree(out)
+        written = emit(context, out)
+        logging.info('Wrote %d files under %s.', len(written), out)
     elif args.command == 'report':
         print(report(args.dump))
     elif args.command == 'probe-targets':
