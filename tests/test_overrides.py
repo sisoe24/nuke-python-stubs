@@ -145,7 +145,7 @@ def test_nuke_overrides_load_on_every_version(names: str, request: pytest.Fixtur
     resolved_names = request.getfixturevalue(names)
 
     overrides = load_overrides(HOSTS / 'nuke' / 'overrides', dump, resolved_names)
-    assert len(overrides.functions) == 48
+    assert len(overrides.functions) == 39
     for path in overrides.functions:
         assert resolved_names.find(path)[1] is not None, path
 
@@ -166,21 +166,12 @@ def test_qt_override_follows_the_binding(nuke15_names: Names, nuke17_names: Name
     ('nuke.root', 'nuke.Root'),
     ('nuke.toNode', 'nuke.Node | None'),
     ('nuke.allNodes', 'builtins.list[nuke.Node]'),
-    ('nuke.selectedNodes', 'builtins.list[nuke.Node]'),
-    ('nuke.formats', 'builtins.list[nuke.Format]'),
-    ('nuke.layers', 'builtins.list[builtins.str]'),
-    ('nuke.recentFile', 'builtins.str'),
-    ('nuke.stripFrameRange', 'builtins.str'),
     ('nuke.tprint', 'None'),
     ('nuke.executeBackgroundNuke', 'builtins.int'),
     ('nuke.executeMultiple', 'None'),
     ('nuke.Node.knob', 'nuke.Knob | None'),
     ('nuke.Node.__getitem__', 'nuke.Knob'),
-    ('nuke.Node.knobs', 'builtins.dict[builtins.str, nuke.Knob]'),
-    ('nuke.Node.allKnobs', 'builtins.list[nuke.Knob]'),
-    ('nuke.Node.dependencies', 'builtins.list[nuke.Node]'),
     ('nuke.Node.dependent', 'builtins.list[nuke.Node]'),
-    ('nuke.Node.rootNode', 'nuke.Node'),
     ('nuke.Menu.addCommand', ANY),
     ('nuke.MenuBar.addCommand', ANY),
     ('hiero.core.project', 'hiero.core.Project | None'),
@@ -261,3 +252,22 @@ def test_default_instance_types_the_parameter(nuke15_derived: Resolved) -> None:
     [signature] = nuke15_derived['hiero.core.TrackItem.addToNukeScript']
     script = signature.params[1]
     assert (script.type, script.source) == ('hiero.core.nuke.Script.ScriptWriter', 'default')
+
+
+# Overrides that were removed once the probes found the same signature.
+@pytest.mark.parametrize(('path', 'returns'), [
+    ('nuke.selectedNodes', 'builtins.list[nuke.Node]'),
+    ('nuke.formats', 'builtins.list[nuke.Format]'),
+    ('nuke.layers', 'builtins.list[builtins.str]'),
+    ('nuke.recentFile', 'builtins.str'),
+    ('nuke.stripFrameRange', 'builtins.str'),
+    ('nuke.Node.knobs', 'builtins.dict[builtins.str, nuke.Knob]'),
+    ('nuke.Node.allKnobs', 'builtins.list[nuke.Knob]'),
+    ('nuke.Node.dependencies', 'builtins.list[nuke.Node]'),
+    ('nuke.Node.rootNode', 'nuke.Node'),
+])
+def test_override_no_longer_needed(nuke15_resolved: Resolved, path: str, returns: str) -> None:
+    """The pipeline derives these on its own; a regression here would bring back Any."""
+    [signature] = nuke15_resolved[path]
+    assert signature.returns == returns
+    assert signature.returns_source != 'override'

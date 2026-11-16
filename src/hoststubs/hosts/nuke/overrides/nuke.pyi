@@ -16,24 +16,6 @@ def toNode(s: str) -> Node | None: ...
 # src: manual
 def allNodes(filter: str = ..., group: Node = ..., recurseGroups: bool = ...) -> list[Node]: ...
 
-# verified
-# src: manual
-def selectedNodes(filter: str = ..., recursive: bool = ...) -> list[Node]: ...
-
-# verified. The old post-fix renamed this function to `format` by mistake.
-# src: manual
-def formats() -> list[Format]: ...
-
-# verified
-# src: manual
-def layers(node: Node = ...) -> list[str]: ...
-
-# src: manual
-def recentFile(index: int) -> str: ...
-
-# src: manual
-def stripFrameRange(clipname: str) -> str: ...
-
 # verified: several values are accepted.
 # src: manual
 def tprint(*value: Any, sep: str = ..., end: str = ..., file: Any = ...) -> None: ...
@@ -91,23 +73,7 @@ class Node:
 
     # verified
     # src: manual
-    def knobs(self) -> dict[str, Knob]: ...
-
-    # verified
-    # src: manual
-    def allKnobs(self) -> list[Knob]: ...
-
-    # verified
-    # src: manual
-    def dependencies(self, what: int = ...) -> list[Node]: ...
-
-    # verified
-    # src: manual
     def dependent(self, what: int = ..., forceEvaluate: bool = ...) -> list[Node]: ...
-
-    # Observed Root for a node at the top level; Node holds for every case.
-    # src: manual
-    def rootNode(self) -> Node: ...
 
 
 class Menu:
