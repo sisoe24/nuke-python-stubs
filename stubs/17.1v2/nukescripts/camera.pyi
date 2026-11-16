@@ -1,0 +1,3 @@
+# Type stubs for nuke 17.1v2. Generated; do not edit.
+
+def create_camera_here(className: str = ...) -> None: ...

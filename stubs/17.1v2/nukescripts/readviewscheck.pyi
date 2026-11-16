@@ -1,0 +1,39 @@
+# Type stubs for nuke 17.1v2. Generated; do not edit.
+
+"""Check for multiple views in files when a read node is created, by
+looking for a VIEW_NAMES entry in the node's metadata.
+Most file types won't specify views but EXR/SXR and potentially other
+files may do.
+Registers for callbacks when a Read node is created, or its 'file' knob
+is changed.  If there are multiple views, and they do not exist on the
+root node, the user is asked if they should be created.
+"""
+
+from typing import Any
+
+UserAlreadySaidNo: bool
+
+def checkReadNodeViews(read: Any) -> None:
+    """Check if a read has multiple views, and if so, ask the user if they
+    want to add them to the root node. 
+    """
+
+def createViews(views: Any) -> None:
+    """Add the views in a list to the root node. """
+
+def getViews(read: Any) -> list[Any]:
+    """Attempt to get the views from a read node's metadata.  Returns an
+    empty list if no views were found or if the node is disabled. 
+    """
+
+def onReadNodeCreated() -> None:
+    """Callback when a Read node is created.  Note that the knob values
+    don't seem to be set when this callback occurs.  Defer the check with
+    a QTimer, which will cause the views check to be done when the Qt event
+    loop next sends events.
+    """
+
+def onReadNodeKnobChanged() -> None:
+    """Callback when a Read node knob changes.  If it's the file knob,
+    check for multi views.
+    """

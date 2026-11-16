@@ -46,9 +46,6 @@ class HostConfig:
     # Raw host version -> stub revision. Bumped by hand when a package is published.
     stub_revisions: dict[str, int]
 
-    # Host version whose stubs are committed in `stubs/`, for editors that read that directory.
-    stub_tree_version: str
-
 
 def load_host(name: str) -> HostConfig:
     if not (HOSTS / name / 'config.py').is_file():

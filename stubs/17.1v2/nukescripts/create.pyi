@@ -1,0 +1,41 @@
+# Type stubs for nuke 17.1v2. Generated; do not edit.
+
+from typing import Any
+import nuke as _nuke
+
+def createNodeLocal(node: str, knobs: str = ..., inpanel: bool = ...) -> _nuke.Node:
+    """Create a node within the context of the last hit group.
+
+    Wrapper method that calls nuke.createNode with the context
+    of the last hit group. This allows users to click into an open group
+    view and create nodes. The default last hit group is the DAG window.
+    Shares the same parameters as nuke.createNode:
+
+    :param node: Name of node class to create (e.g. 'Blur').
+    :type node: str
+    :param knobs: TCL list of knob name value pairs.
+    :type knobs: str, optional
+    :param inpanel: Open the control bin (only applies when the GUI is running), defaults to True.
+    :type inpanel: bool, optional
+    :return: The node created.
+    :rtype: nuke.Node
+    """
+
+def create_curve() -> None: ...
+
+def create_read(defaulttype: str = ...) -> None:
+    """Create a Read node for a file selected from the file browser.
+    If a node is currently selected in the nodegraph and it has a 'file'
+    (or failing that a 'proxy') knob, the value (if any) will be used as the default
+    path for the file browser.
+    """
+
+def create_viewsplitjoin() -> None: ...
+
+def isAudioFilename(filename: Any) -> bool: ...
+
+def isDeepFilename(filename: Any) -> bool: ...
+
+def isSupported3DFilename(filename: Any) -> bool: ...
+
+def isUnsupported3DFilename(filename: Any) -> bool: ...

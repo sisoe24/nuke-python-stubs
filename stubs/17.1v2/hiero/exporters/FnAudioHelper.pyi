@@ -1,0 +1,13 @@
+# Type stubs for nuke 17.1v2. Generated; do not edit.
+
+from typing import Any
+from hiero.exporters import FnAudioConstants as FnAudioConstants
+from hiero.ui.FnUIProperty import UIPropertyFactory as UIPropertyFactory
+
+def createCodecProperty(exportUI: Any, formLayout: Any, callback: Any, tooltip: Any) -> None: ...
+
+def createCodecSpecificProperties(exportUI: Any, formLayout: Any, enabled: Any) -> None: ...
+
+def defineExportPresetProperties(exportPreset: Any) -> None: ...
+
+def setAudioExportSettings(exportTask: Any) -> None: ...

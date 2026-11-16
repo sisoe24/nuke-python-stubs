@@ -61,10 +61,11 @@ def main() -> None:
             raise SystemExit(f'Gate failed: {len(findings)} findings.')
         logging.info('Gate passed.')
 
-        if dump.host_version == load_host(dump.host).stub_tree_version:
-            shutil.rmtree(REPO / 'stubs', ignore_errors=True)
-            shutil.copytree(out / 'stubs', REPO / 'stubs')
-            logging.info('Replaced %s with the built stubs.', REPO / 'stubs')
+        # The committed tree that editors read, one folder per host version.
+        shipped = REPO / 'stubs' / dump.host_version
+        shutil.rmtree(shipped, ignore_errors=True)
+        shutil.copytree(out / 'stubs', shipped)
+        logging.info('Replaced %s with the built stubs.', shipped)
     elif args.command == 'report':
         print(report(args.dump))
     elif args.command in ('probe-targets', 'param-targets'):

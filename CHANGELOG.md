@@ -8,7 +8,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Changed
 - The stubs are `.pyi` files with signatures, types and docstrings.
 - A new generator in `src/hoststubs` replaces `nukestubsgen.py`.
-- `stubs/` is built from Nuke 15.2v9. Nuke 17.1v2 can be built from `data/`.
+- `stubs/` has one folder per Nuke version: `15.2v9` and `17.1v2`.
 - A type that cannot be found is `Any`, not a guess.
 
 ### Added

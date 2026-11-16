@@ -8,15 +8,15 @@ Type stubs for the Nuke and Hiero Python API. They let your editor autocomplete 
 
 With Visual Studio Code, install [NukeTools](https://marketplace.visualstudio.com/items?itemName=virgilsisoe.nuke-tools) and run `Nuke Tools: Add Python Stubs`.
 
-Otherwise, point your editor at the `stubs/` folder of this repository. For VS Code with Pylance, add this to `.vscode/settings.json`:
+Otherwise, point your editor at the folder for your Nuke version: `stubs/15.2v9` or `stubs/17.1v2`. For VS Code with Pylance, add this to `.vscode/settings.json`:
 
 ```json
 {
-    "python.analysis.extraPaths": ["/path/to/nuke-python-stubs/stubs"]
+    "python.analysis.extraPaths": ["/path/to/nuke-python-stubs/stubs/15.2v9"]
 }
 ```
 
-`stubs/` is built from Nuke 15.2v9. You can build Nuke 17.1v2 too, see [Regenerate](#regenerate). The build also lays out a `nuke-stubs` pip package in `build/<version>/package/`. It is not published.
+Use the closest version to your Nuke. The build also lays out a `nuke-stubs` pip package in `build/<version>/package/`. It is not published.
 
 ## What to expect
 
@@ -40,7 +40,7 @@ To rebuild the stubs from the committed data:
 uv run python -m hoststubs build data/nuke/15.2v9/dump.json
 ```
 
-This writes `build/nuke-15.2v9/`, then checks it: every file parses, every name resolves, and the type-check corpus in `tests/corpus` matches its snapshot. For 15.2v9 it also replaces `stubs/`.
+This writes `build/nuke-15.2v9/`, then checks it: every file parses, every name resolves, and the type-check corpus in `tests/corpus` matches its snapshot. It also replaces `stubs/15.2v9/`.
 
 To add a Nuke version, run these steps in order. Each page lists the exact commands:
 

@@ -1,0 +1,23 @@
+# Type stubs for nuke 17.1v2. Generated; do not edit.
+
+from typing import Any
+import hiero.exporters.FnShotExporter as _hiero_exporters_FnShotExporter
+from hiero.exporters import FnShotExporter as FnShotExporter
+import hiero as hiero
+
+class FrameExporter(_hiero_exporters_FnShotExporter.ShotTask):
+    """Base class for exporters which want to process individual files from clips.
+    The name is somewhat misleading because it's used for processing files, not frames,
+    which are only the same thing for clips with frame sequences
+    """
+    def __init__(self, initDict: Any) -> None:
+        """Initialize"""
+    def doFrame(self, src: Any, dst: Any) -> Any: ...
+    def formatFrameNumbers(self, string: Any, frame: Any, count: Any = ...) -> Any:
+        """Recursively split a string and modify with the % operation to replace the frame index."""
+    def nothingToDo(self) -> bool: ...
+    def postFrame(self, src: Any, dst: Any) -> Any: ...
+    def preFrame(self, src: Any, dst: Any) -> Any: ...
+    def progress(self) -> float: ...
+    def startTask(self) -> Any: ...
+    def taskStep(self) -> bool: ...
