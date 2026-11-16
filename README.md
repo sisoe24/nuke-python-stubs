@@ -18,7 +18,7 @@ Otherwise, download the zip for your Nuke version from [Releases](https://github
 }
 ```
 
-There is one zip per Nuke version: 15.2v9 and 17.1v2. Use the closest to your Nuke. The build also lays out a `nuke-stubs` pip package in `build/<version>/package/`.
+There is one zip per Nuke version. Use the closest to your Nuke. The build also lays out a `nuke-stubs` pip package in `build/<version>/package/`.
 
 ## Type guess
 
@@ -54,14 +54,7 @@ uv run python -m hoststubs build data/nuke/15.2v9/dump.json
 
 This writes `build/nuke-15.2v9/`, then checks it: every file parses, every name resolves, and the type-check corpus in `tests/corpus` matches its snapshot. It also writes `build/nuke-python-stubs-15.2v9.zip`, the file attached to a release.
 
-To add a Nuke version, run these steps in order. Each page lists the exact commands:
-
-1. Dump the API: [docs/dump-schema.md](docs/dump-schema.md)
-2. Infer types for the Python modules: [docs/inference.md](docs/inference.md)
-3. Probe return and parameter types: [docs/probe.md](docs/probe.md)
-4. Build, as above.
-
-`uv run python -m hoststubs report data/nuke/17.1v2/dump.json` shows how much of the API each step resolved.
+To add a Nuke version, follow [docs/new-version.md](docs/new-version.md).
 
 ## Fix a wrong type
 
