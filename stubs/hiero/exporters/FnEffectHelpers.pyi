@@ -1,0 +1,27 @@
+# Type stubs for nuke 15.2v9. Generated; do not edit.
+
+from typing import Any
+import hiero as hiero
+
+def ensureEffectsNodesCreated(sequence: Any) -> None:
+    """Find all the EffectTrackItems and Transitions on a sequence or clip, and
+    force creation of their nodes. The node creation is done lazily, but it must
+    happen on the main thread, so for exports this can be called to force it to be
+    done at a point when we know the code is running on the main thread. This also
+    calls isValid() to make sure that the linking of effects and track items is correct.
+    """
+
+def findEffectsAnnotationsForTrackItems(trackItems: Any) -> tuple[list[Any], list[Any]]:
+    """Find applicable soft effects and annotations for a list of track items.
+    This includes any effects with an intersecting timeline range, and which are
+    on tracks above which do not contain any other items. Effects linked to the
+    track items are not included. Assumes that all items are on the  same
+    sequence, which they should be when exporting. 
+    """
+
+def testTimelineIntersection(item: Any, intersectItems: Any) -> bool:
+    """Test if a track item intersects with any of a list of items on the
+    timeline. Note that we're using timelineIn() + duration() rather than timelineOut().
+    Otherwise the test fails for 1 frame long items, where timelineIn() and
+    timelineOut() are the same.
+    """

@@ -1,0 +1,51 @@
+# Type stubs for nuke 15.2v9. Generated; do not edit.
+
+from typing import Any
+import nukescripts as nukescripts
+
+def clear_selection_recursive(group: Any = ...) -> None:
+    """Sets all nodes to unselected, including in child groups."""
+
+def connect_selected_to_viewer(inputIndex: int) -> None:
+    """Connect the selected node to the given input index of the active viewer.
+
+    This method has various outcomes determined by order of fallback:
+
+    1. Attempt to connect the active viewer within the current DAG window
+    (excludes viewers in a group with a closed group view). If no node is
+    selected, only select the active viewer.
+
+    2. If no active viewer is found, connect any viewer in the
+    selected node's parent group. If there are none, create a viewer
+    within the group and connect it.
+
+    3. If no node is selected, select any viewer in nuke.lastHitGroup.
+    If there are none, create a viewer within lastHitGroup and select it.
+
+    :param inputIndex: the input index of the viewer.
+    :type inputIndex: int
+    """
+
+def copy_knobs(args: Any) -> None: ...
+
+def declone(node: Any) -> None: ...
+
+def goofy_title() -> str:
+    """Returns a random message for use as an untitled script name.
+    Can be assigned to nuke.untitled as a callable.
+    Put a goofy_title.txt somewhere in your NUKE_PATH to customise.
+    """
+
+def print_callback_info(verbose: bool = ..., callbackTypes: Any = ...) -> None:
+    """Returns a list of all currently active callbacks, with the following optional
+    arguments:
+        verbose=False      : prints the documentation as well as the callback
+        callbackTypes=None : limit the callback info to a particular callback
+                             type (e.g. ['OnCreates'])
+    """
+
+def showname() -> None:
+    """Shows the current script path and, if the selected node is a Read or Write node, the filename from it."""
+
+def swapAB(n: Any) -> None:
+    """Swaps the first two inputs of a node."""

@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import shlex
+import shutil
 import logging
 import argparse
 from pathlib import Path
@@ -59,6 +60,11 @@ def main() -> None:
         if findings:
             raise SystemExit(f'Gate failed: {len(findings)} findings.')
         logging.info('Gate passed.')
+
+        if dump.host_version == load_host(dump.host).stub_tree_version:
+            shutil.rmtree(REPO / 'stubs', ignore_errors=True)
+            shutil.copytree(out / 'stubs', REPO / 'stubs')
+            logging.info('Replaced %s with the built stubs.', REPO / 'stubs')
     elif args.command == 'report':
         print(report(args.dump))
     elif args.command in ('probe-targets', 'param-targets'):

@@ -58,3 +58,12 @@ def test_missing_error_is_a_finding(monkeypatch: pytest.MonkeyPatch, tmp_path: P
 def test_build_passes_the_gate(dump: Path, tmp_path: Path) -> None:
     """Every dumped version builds: stubs parse, names resolve, the corpus matches its snapshot."""
     assert build(dump, tmp_path / 'build') == []
+
+
+def test_committed_stubs_match_the_generator(nuke15_emitted: dict[str, str]) -> None:
+    """`stubs/` is exactly what emit writes for the stub_tree_version dump."""
+    committed = {
+        path.relative_to(REPO / 'stubs').as_posix(): path.read_text()
+        for path in (REPO / 'stubs').rglob('*') if path.is_file()
+    }
+    assert committed == nuke15_emitted

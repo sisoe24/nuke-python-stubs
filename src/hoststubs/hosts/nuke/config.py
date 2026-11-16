@@ -81,4 +81,5 @@ HOST = HostConfig(
         'nuke.makeGroup',
     }),
     stub_revisions={'15.2v9': 0, '17.1v2': 0},
+    stub_tree_version='15.2v9',
 )
