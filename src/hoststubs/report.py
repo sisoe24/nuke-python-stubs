@@ -5,7 +5,7 @@ from pathlib import Path
 from collections import Counter
 
 from hoststubs import ir
-from hoststubs.host import HOSTS, load_host
+from hoststubs.host import HOSTS, data_dir, load_host
 from hoststubs.names import Names
 from hoststubs.infer import inference_dir
 from hoststubs.params import load_params
@@ -18,7 +18,6 @@ from hoststubs.inference import load_inference
 from hoststubs.docstrings import VAR_KEYWORD, VAR_POSITIONAL
 
 PYTHON_FUNCTION = 'builtins.function'
-PROBES = HOSTS.parent / 'probes'
 
 
 def load_context(
@@ -29,15 +28,15 @@ def load_context(
     names = Names(dump)
     host = load_host(dump.host)
     inferred = load_inference(inference_dir(dump), names)
-    # One file per session kind: `nuke-15.2v9.json`, `nuke-15.2v9.hiero.json`.
+    # One file per session kind: `probe-nuke.json`, `probe-hiero.json`, `params-nuke.json`.
     observed: dict[str, Observed] = {}
     probed: dict[str, ProbedParams] = {}
-    probes = sorted(PROBES.glob(f'{dump.host}-{dump.host_version}*.json')) if use_probe else []
-    for probe in probes:
-        if probe.name.endswith('.params.json'):
-            probed.update(load_params(probe, names, host.probe_messages))
-        else:
+    directory = data_dir(dump.host, dump.host_version)
+    if use_probe:
+        for probe in sorted(directory.glob('probe-*.json')):
             observed.update(load_observations(probe, names))
+        for probe in sorted(directory.glob('params-*.json')):
+            probed.update(load_params(probe, names, host.probe_messages))
     resolver = Resolver(dump, names, host.type_names, inferred, observed, probed)
 
     overrides = Overrides({}, {})

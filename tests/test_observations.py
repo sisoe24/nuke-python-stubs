@@ -7,7 +7,8 @@ import pytest
 
 from hoststubs.names import Names
 from hoststubs.resolve import ANY, Candidate, Signature
-from hoststubs.report import PROBES, resolve_dump
+from hoststubs.host import data_dir
+from hoststubs.report import resolve_dump
 from hoststubs.observations import load_observations
 
 Resolved = dict[str, tuple[Signature, ...]]
@@ -91,7 +92,7 @@ def test_unknown_runtime_type_gives_nothing(tmp_path: Path, nuke15_names: Names)
 
 def test_real_probe_knob_value_disagrees(nuke15_names: Names) -> None:
     """Knob.value() returns float, str, bool or a list by knob class: the base method stays Any."""
-    observed = load_observations(PROBES / 'nuke-15.2v9.json', nuke15_names)
+    observed = load_observations(data_dir('nuke', '15.2v9') / 'probe-nuke.json', nuke15_names)
     assert 'nuke.Knob.value' not in observed
     assert observed['nuke.Knob.name'].candidate == Candidate('builtins.str', 'probe')
 
@@ -99,7 +100,7 @@ def test_real_probe_knob_value_disagrees(nuke15_names: Names) -> None:
 @pytest.fixture(scope='module')
 def probed() -> Resolved:
     """Derived results with the probe, without overrides."""
-    path = PROBES.parent / 'dumps' / 'nuke-15.2v9.json'
+    path = data_dir('nuke', '15.2v9') / 'dump.json'
     return resolve_dump(path, use_overrides=False)[1]
 
 

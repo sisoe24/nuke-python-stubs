@@ -2,8 +2,6 @@
 *.zip
 out/
 .envrc
-dumps/*.log
-probes/*.journal
-probes/work/
+data/**/*.journal
 build/
 playground/

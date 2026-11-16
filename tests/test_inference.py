@@ -9,7 +9,7 @@ from hoststubs.inference import Inferred, load_inference
 from hoststubs.annotations import normalize
 
 # Regenerate with: python -m hoststubs infer tests/fixtures/dump.golden.json tests/fixtures/host
-# then move inference/fxhost-1.0v1 to tests/fixtures/inference.
+# then move data/fxhost/1.0v1/inference to tests/fixtures/inference.
 INFERENCE = Path(__file__).parent / 'fixtures' / 'inference'
 
 

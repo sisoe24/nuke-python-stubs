@@ -1,6 +1,6 @@
 # Dump schema (version 1)
 
-`inhost/dump.py` writes this file inside the host. `src/hoststubs/ir.py`
+`src/hoststubs/inhost/dump.py` writes this file inside the host. `src/hoststubs/ir.py`
 loads it offline. The dump records what the runtime reports. It decides
 nothing about types.
 
@@ -8,11 +8,11 @@ nothing about types.
 
 Nuke and Hiero are dumped together from a Nuke Studio GUI session. Terminal
 mode (`-t`) has no hiero C module and no `nukescripts` panels. Nuke Studio
-runs `hosts/nuke/studio/Python/StartupUI/run_inhost.py` at startup, which
+runs `src/hoststubs/hosts/nuke/studio/Python/StartupUI/run_inhost.py` at startup, which
 dumps and quits. Run from the repository root, one command per version:
 
 ```bash
-NUKE_PATH="$PWD/hosts/nuke/studio:$NUKE_PATH" HOSTSTUBS_INHOST="$PWD/inhost" HOSTSTUBS_RUN=dump HOSTSTUBS_ARGS="$(uv run python -m hoststubs dump-arguments nuke "$PWD/dumps/nuke-17.1v2.json")" /Applications/Nuke17.1v2/Nuke17.1v2.app/Contents/MacOS/Nuke17.1 --studio
+NUKE_PATH="$PWD/src/hoststubs/hosts/nuke/studio:$NUKE_PATH" HOSTSTUBS_INHOST="$PWD/src/hoststubs/inhost" HOSTSTUBS_RUN=dump HOSTSTUBS_ARGS="$(uv run python -m hoststubs dump-arguments nuke "$PWD/data/nuke/17.1v2/dump.json")" /Applications/Nuke17.1v2/Nuke17.1v2.app/Contents/MacOS/Nuke17.1 --studio
 ```
 
 The repository path must not contain spaces. Plugins in `~/.nuke` load as
@@ -21,7 +21,7 @@ usual, so a plugin that adds names to a dumped module shows up in the dump.
 Regenerate the test fixture:
 
 ```bash
-PYTHONPATH=tests/fixtures/host python inhost/dump.py tests/fixtures/dump.golden.json host=fxhost version=fxhost.VERSION skip=fxscripts.examples private=fxcore:fxhost fxhost fxscripts
+PYTHONPATH=tests/fixtures/host python src/hoststubs/inhost/dump.py tests/fixtures/dump.golden.json host=fxhost version=fxhost.VERSION skip=fxscripts.examples private=fxcore:fxhost fxhost fxscripts
 ```
 
 ## Top level

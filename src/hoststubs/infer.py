@@ -17,15 +17,15 @@ import subprocess
 from pathlib import Path
 
 from hoststubs import ir
+from hoststubs.host import data_dir
 
 LOGGER = logging.getLogger(__name__)
 
-INFERENCE = Path(__file__).parents[2] / 'inference'
 EMPTY_BODIES = 'empty_bodies.json'
 
 
 def inference_dir(dump: ir.Dump) -> Path:
-    return INFERENCE / f'{dump.host}-{dump.host_version}'
+    return data_dir(dump.host, dump.host_version) / 'inference'
 
 
 def _source_packages(dump: ir.Dump, search: list[Path]) -> dict[str, Path]:

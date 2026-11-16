@@ -5,7 +5,7 @@ from pathlib import Path
 import pytest
 
 from hoststubs import ir
-from hoststubs.host import HOSTS
+from hoststubs.host import HOSTS, data_dir
 from hoststubs.names import Names
 from hoststubs.resolve import ANY, Signature
 from hoststubs.overrides import OverrideError, Overrides, load_overrides
@@ -141,7 +141,7 @@ def test_file_must_name_a_dumped_module(tmp_path: Path, fixture_names: Names) ->
 def test_nuke_overrides_load_on_every_version(names: str, request: pytest.FixtureRequest) -> None:
     """The shipped overrides resolve against each dumped version and add no symbol."""
     version = {'nuke15_names': '15.2v9', 'nuke17_names': '17.1v2'}[names]
-    dump = ir.load(HOSTS.parent / 'dumps' / f'nuke-{version}.json')
+    dump = ir.load(data_dir('nuke', version) / 'dump.json')
     resolved_names = request.getfixturevalue(names)
 
     overrides = load_overrides(HOSTS / 'nuke' / 'overrides', dump, resolved_names)
@@ -154,7 +154,7 @@ def test_qt_override_follows_the_binding(nuke15_names: Names, nuke17_names: Name
     """TrackItem.thumbnail returns a QImage: Any on PySide2, the class on PySide6."""
     returns = []
     for version, names in (('15.2v9', nuke15_names), ('17.1v2', nuke17_names)):
-        dump = ir.load(HOSTS.parent / 'dumps' / f'nuke-{version}.json')
+        dump = ir.load(data_dir('nuke', version) / 'dump.json')
         overrides = load_overrides(HOSTS / 'nuke' / 'overrides', dump, names)
         returns.append(overrides.functions['hiero.core.TrackItem.thumbnail'].signatures[0].returns)
     assert returns == [ANY, 'PySide6.QtGui.QImage']

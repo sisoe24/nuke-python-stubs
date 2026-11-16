@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Compare the built stubs with the live modules, inside Nuke.
 #
-#   probes/stubtest.sh 15.2v9 /Applications/Nuke15.2v9/Nuke15.2v9.app/Contents/MacOS/Nuke15.2 3.10
+#   scripts/stubtest.sh 15.2v9 /Applications/Nuke15.2v9/Nuke15.2v9.app/Contents/MacOS/Nuke15.2 3.10
 #
 # The third argument is the Python version of that Nuke (see `python` in the dump).
 # An optional fourth is the platform Nuke was built for, as uv names it; the
@@ -13,7 +13,7 @@ nuke=$2
 python=$3
 platform=${4:-aarch64-apple-darwin}
 
-work=$PWD/probes/work
+work=$PWD/build/work
 mypy=$work/mypy-$python
 out=$work/stubtest-$version.txt
 mkdir -p "$work"
@@ -28,7 +28,7 @@ fi
 # The PySide6 inside Nuke has no stubs; the one from PyPI, which users install, has.
 printf '[mypy]\ndisable_error_code = override\nignore_missing_imports = True\n' > "$work/mypy.ini"
 
-MYPYPATH=$PWD/build/nuke-$version/stubs "$nuke" -t -i --safe inhost/run_stubtest.py "$mypy" \
+MYPYPATH=$PWD/build/nuke-$version/stubs "$nuke" -t -i --safe src/hoststubs/inhost/run_stubtest.py "$mypy" \
     nuke nuke_internal nukescripts ocionuke --concise --mypy-config-file "$work/mypy.ini" > "$out" 2>&1
 
 if ! grep -q '^stubtest exit code' "$out"; then

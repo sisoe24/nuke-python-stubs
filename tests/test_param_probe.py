@@ -8,13 +8,12 @@ from pathlib import Path
 
 import pytest
 
-from hoststubs.host import REPO, load_host
+from hoststubs.host import REPO, data_dir, load_host
 from hoststubs.names import Names
 from hoststubs.params import load_params
-from hoststubs.report import PROBES
 from hoststubs.resolve import ANY, ProbedParams, Signature
 
-SCRIPT = REPO / 'inhost' / 'param_probe.py'
+SCRIPT = REPO / 'src' / 'hoststubs' / 'inhost' / 'param_probe.py'
 FIXTURES = Path(__file__).parent / 'fixtures'
 Resolved = dict[str, tuple[Signature, ...]]
 
@@ -88,7 +87,7 @@ def test_reader_types_each_position(probe_file: Path, fixture_names: Names) -> N
 @pytest.fixture(scope='module')
 def nuke_params(nuke15_names: Names) -> dict[str, ProbedParams]:
     host = load_host('nuke')
-    return load_params(PROBES / 'nuke-15.2v9.params.json', nuke15_names, host.probe_messages)
+    return load_params(data_dir('nuke', '15.2v9') / 'params-nuke.json', nuke15_names, host.probe_messages)
 
 
 # Read from the errors Nuke 15.2v9 gave.

@@ -9,19 +9,19 @@ each result.
 Two commands per version, from the repository root. Each needs a licence.
 
 ```bash
-probes/run.sh 17.1v2 /Applications/Nuke17.1v2/Nuke17.1v2.app/Contents/MacOS/Nuke17.1 nuke
+scripts/probe.sh 17.1v2 /Applications/Nuke17.1v2/Nuke17.1v2.app/Contents/MacOS/Nuke17.1 nuke
 ```
 
 ```bash
-probes/run.sh 17.1v2 /Applications/Nuke17.1v2/Nuke17.1v2.app/Contents/MacOS/Nuke17.1 hiero
+scripts/probe.sh 17.1v2 /Applications/Nuke17.1v2/Nuke17.1v2.app/Contents/MacOS/Nuke17.1 hiero
 ```
 
 `nuke` probes `nuke` and `nuke_internal` in terminal mode with `--safe`
 (no `~/.nuke` plugins). `hiero` probes `hiero` in a Nuke Studio GUI
 session, because hiero exists only there; that session loads `~/.nuke`
 plugins and its window appears on screen. Both restart with `resume` after
-each crash. Outputs, both committed: `probes/nuke-<version>.json` and
-`probes/nuke-<version>.hiero.json`. Work files go to `probes/work/`.
+each crash. Outputs, both committed: `data/nuke/<version>/probe-nuke.json` and
+`data/nuke/<version>/probe-hiero.json`. Work files go to `build/work/`.
 
 ## What is called
 
@@ -34,7 +34,7 @@ each crash. Outputs, both committed: `probes/nuke-<version>.json` and
 
 Not called: Python functions, dunders, any name that contains a word in
 `probe_skip_words` (`scriptSaveAs` contains `save`), and the paths in
-`probe_skip`. Both lists are in `hosts/nuke/config.py`. The paths were
+`probe_skip`. Both lists are in `src/hoststubs/hosts/nuke/config.py`. The paths were
 found by running: each one ends the session.
 
 Methods run first, on the scene as built. Module functions run after,
@@ -42,9 +42,9 @@ because some of them change the scene.
 
 ## Scene
 
-`hosts/nuke/probe_scene.py` builds the Nuke scene: one node of each common
+`src/hoststubs/hosts/nuke/probe_scene.py` builds the Nuke scene: one node of each common
 class in a chain, an animated knob, one user knob of each knob class,
-formats, frame ranges. `hosts/nuke/probe_scene_hiero.py` builds the hiero
+formats, frame ranges. `src/hoststubs/hosts/nuke/probe_scene_hiero.py` builds the hiero
 scene: a project, a sequence with a video and an audio track, a bin, a tag,
 and a clip from a generated image placed on the video track. The list of
 what was created is stored in the output as `scene`.
@@ -83,15 +83,15 @@ single `Node` where the docstring says `Node | None`.
 
 ## Parameter probe
 
-`inhost/param_probe.py` finds out what arguments a C function accepts,
+`src/hoststubs/inhost/param_probe.py` finds out what arguments a C function accepts,
 from the function's own errors. Add `params` to the run command:
 
 ```bash
-probes/run.sh 17.1v2 /Applications/Nuke17.1v2/Nuke17.1v2.app/Contents/MacOS/Nuke17.1 nuke params
+scripts/probe.sh 17.1v2 /Applications/Nuke17.1v2/Nuke17.1v2.app/Contents/MacOS/Nuke17.1 nuke params
 ```
 
-Outputs: `probes/nuke-<version>.params.json` and
-`probes/nuke-<version>.hiero.params.json`.
+Outputs: `data/nuke/<version>/params-nuke.json` and
+`data/nuke/<version>/params-hiero.json`.
 
 A C function checks its arguments before it does any work, left to right,
 and reports the first one it rejects. For each function the script makes:
@@ -143,12 +143,12 @@ stubs: names, kinds, and the signatures of Python functions. It cannot
 check the parameters of C functions; the parameter probe does that.
 
 ```bash
-probes/stubtest.sh 17.1v2 /Applications/Nuke17.1v2/Nuke17.1v2.app/Contents/MacOS/Nuke17.1 3.11
+scripts/stubtest.sh 17.1v2 /Applications/Nuke17.1v2/Nuke17.1v2.app/Contents/MacOS/Nuke17.1 3.11
 ```
 
-Build the stubs first (`python -m hoststubs build dumps/nuke-17.1v2.json`).
+Build the stubs first (`python -m hoststubs build data/nuke/17.1v2/dump.json`).
 The script installs a mypy without compiled modules for that Python
-version into `probes/work/`, because the compiled build does not load
+version into `build/work/`, because the compiled build does not load
 inside Nuke, and runs in terminal mode with `--safe`. hiero and the
 GUI-only `nukescripts` panels are not checked.
 

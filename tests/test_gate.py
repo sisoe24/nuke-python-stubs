@@ -54,7 +54,7 @@ def test_missing_error_is_a_finding(monkeypatch: pytest.MonkeyPatch, tmp_path: P
     assert 'node.nope()' in finding
 
 
-@pytest.mark.parametrize('dump', sorted((REPO / 'dumps').glob('*.json')), ids=lambda path: path.stem)
+@pytest.mark.parametrize('dump', sorted((REPO / 'data').glob('*/*/dump.json')), ids=lambda path: path.parent.name)
 def test_build_passes_the_gate(dump: Path, tmp_path: Path) -> None:
     """Every dumped version builds: stubs parse, names resolve, the corpus matches its snapshot."""
     assert build(dump, tmp_path / 'build') == []

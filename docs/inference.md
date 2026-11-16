@@ -9,10 +9,10 @@ Needs the host install on disk (the files, not a licence). Run once per
 host version, from the repository root:
 
 ```bash
-uv run python -m hoststubs infer dumps/nuke-17.1v2.json /Applications/Nuke17.1v2/Nuke17.1v2.app/Contents/MacOS/plugins /Applications/Nuke17.1v2/Nuke17.1v2.app/Contents/Resources/pythonextensions/site-packages
+uv run python -m hoststubs infer data/nuke/17.1v2/dump.json /Applications/Nuke17.1v2/Nuke17.1v2.app/Contents/MacOS/plugins /Applications/Nuke17.1v2/Nuke17.1v2.app/Contents/Resources/pythonextensions/site-packages
 ```
 
-It writes `inference/<host>-<version>/`:
+It writes `data/<host>/<version>/inference/`:
 
 - pyright's draft stubs (`pyright --createstub`, version pinned in
   `pyproject.toml`): signatures, docstrings and inferred return types as

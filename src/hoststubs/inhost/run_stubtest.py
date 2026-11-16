@@ -5,7 +5,7 @@ Usage:
 
 MYPY_DIR holds a mypy installed for the host's Python version, without
 compiled modules: the compiled build does not load inside Nuke.
-probes/stubtest.sh prepares it and calls this script.
+scripts/stubtest.sh prepares it and calls this script.
 """
 import sys
 

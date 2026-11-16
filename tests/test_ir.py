@@ -116,7 +116,7 @@ def test_wrong_schema_is_rejected(tmp_path: Path) -> None:
         ir.load(path)
 
 
-@pytest.mark.parametrize('path', sorted((GOLDEN.parents[2] / 'dumps').glob('*.json')), ids=str)
+@pytest.mark.parametrize('path', sorted((GOLDEN.parents[2] / 'data').glob('*/*/dump.json')), ids=str)
 def test_real_dump_loads(path: Path) -> None:
     """Every committed host dump loads and holds the nuke and hiero C classes."""
     real = ir.load(path)

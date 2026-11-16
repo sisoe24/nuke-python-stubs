@@ -1,13 +1,17 @@
 """Host configuration: everything that differs between host applications."""
 from __future__ import annotations
 
-import importlib.util
+import importlib
 from pathlib import Path
 from dataclasses import dataclass
 
 REPO = Path(__file__).parents[2]
-HOSTS = REPO / 'hosts'
-DUMP_SCRIPT = REPO / 'inhost' / 'dump.py'
+HOSTS = Path(__file__).parent / 'hosts'
+DUMP_SCRIPT = Path(__file__).parent / 'inhost' / 'dump.py'
+
+
+def data_dir(host: str, version: str) -> Path:
+    return REPO / 'data' / host / version
 
 
 @dataclass(frozen=True)
@@ -44,18 +48,14 @@ class HostConfig:
 
 
 def load_host(name: str) -> HostConfig:
-    path = HOSTS / name / 'config.py'
-    if not path.is_file():
-        raise FileNotFoundError(f'No host config at {path}')
+    if not (HOSTS / name / 'config.py').is_file():
+        raise FileNotFoundError(f'No host config at {HOSTS / name / "config.py"}')
 
-    spec = importlib.util.spec_from_file_location(f'hosts.{name}.config', path)
-    module = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(module)
-    return module.HOST
+    return importlib.import_module(f'hoststubs.hosts.{name}.config').HOST
 
 
 def dump_arguments(host: HostConfig, out: str) -> list[str]:
-    """Arguments for inhost/dump.py, after the script path."""
+    """Arguments for hoststubs/inhost/dump.py, after the script path."""
     return [
         out,
         f'host={host.name}',
