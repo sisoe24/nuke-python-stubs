@@ -1,6 +1,8 @@
 # Nuke python stubs
 
-Type stubs for the Nuke and Hiero Python API. They let your editor autocomplete the `nuke`, `nukescripts`, `nuke_internal`, `ocionuke` and `hiero` modules. The `.pyi` files have signatures, types and the original docstrings. They contain no Foundry source code.
+Type stubs for the Nuke and Hiero Python API. They let your editor autocomplete the `nuke`, `nukescripts`, `nuke_internal`, `ocionuke` and `hiero` modules. The `.pyi` files have signatures, types and the original docstrings.
+
+The docstrings of Nuke's C functions are short, sometimes wrong, and often have no types. The generator also runs the functions inside Nuke and records what they return. To find the parameter types, it calls a function with an argument that cannot be valid and reads the error message.
 
 ![Alt text](images/auto_complete.gif)
 
@@ -16,19 +18,29 @@ Otherwise, download the zip for your Nuke version from [Releases](https://github
 }
 ```
 
-There is one zip per Nuke version: 15.2v9 and 17.1v2. Use the closest to your Nuke. The build also lays out a `nuke-stubs` pip package in `build/<version>/package/`. It is not published.
+There is one zip per Nuke version: 15.2v9 and 17.1v2. Use the closest to your Nuke. The build also lays out a `nuke-stubs` pip package in `build/<version>/package/`.
 
-## What to expect
+## Type guess
 
-On Nuke 15.2v9:
+Nuke ships no type information, so the generator guesses. A type comes from one of these places:
 
-- `nuke` C functions: 82% of return types and 65% of parameters are typed.
-- `hiero` C functions: 46% of return types are typed.
-- Python modules: 66 to 80% of return types are typed.
+- The docstring of a function, when it names a type.
+- A call inside Nuke. The return type is what the function returned in a test scene. For the parameters, the function is called with an argument that cannot be valid, and the error message names the type it wanted.
+- Pyright, for `hiero`, `nukescripts`, `nuke_internal` and `ocionuke`, which are Python code.
+- The override files, for a type that is still wrong.
 
-A type the generator cannot find is `Any`. Knob values, like `node['size'].value()`, are `Any`. Qt types are `Any` on Nuke 15, because PySide2 has no type information. On Nuke 17 they are PySide6 types.
+The type `Any` means the generator found no type, not that any type is valid. Knob values, like `node['size'].value()`, are `Any`. Qt types are `Any` on Nuke 15, because PySide2 has no type information. On Nuke 17 they are PySide6 types.
 
-`mypy stubtest`, run inside Nuke, found no wrong signature. I have not tested this on Windows or Linux.
+> [!IMPORTANT]
+> A guess can be wrong. See [Fix a wrong type](#fix-a-wrong-type).
+
+## Not done
+
+- I have not tested this on Windows or Linux.
+- `hiero` C functions get parameter counts but no parameter types. Their error messages do not say.
+- Python functions are not probed for parameters, because they check nothing.
+- `stubtest` does not cover `hiero` or the GUI-only `nukescripts` panels.
+- The `nuke-stubs` pip package is built but not published.
 
 ## Regenerate
 
