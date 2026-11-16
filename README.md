@@ -1,80 +1,91 @@
-# 1. Nuke python stubs file
+# Nuke python stubs
 
-A quick and dirty script to create Nuke Python file stubs to support auto-complete in text editors.
-
-- [1. Nuke python stubs file](#1-nuke-python-stubs-file)
-  - [1.1. Description](#11-description)
-  - [1.2. Usage](#12-usage)
-    - [1.2.1. Generate the stubs](#121-generate-the-stubs)
-    - [1.2.2. Use the stubs](#122-use-the-stubs)
-  - [1.3. Type guess](#13-type-guess)
-  - [1.4. Contributing](#14-contributing)
-  - [1.5. Acknowledgment](#15-acknowledgment)
-  - [1.6 TODO](#16-todo)
-  - [1.6. Screenshot](#16-screenshot)
-
-## 1.1. Description
-
-A stub file generator for Nuke & Hiero Python 3. Besides including the public API, the script will generate stubs for:
-
-- Classes.
-- Built-in methods.
-- Constant.
-- Arguments types.
-- Return statements.
-
-## 1.2. Usage
-
-### 1.2.1. Generate the stubs
-
-You can use the stub files inside the [repository](https://github.com/sisoe24/nuke-python-stubs/releases), but if you want to generate them, copy the `nukestubsgen.py` file inside the Nuke Script Editor and run it.
-
-> When generating the stubs, it is preferable to use Nuke Studio, as doing it inside Nuke will cause the Hiero stubs to be incomplete.
-
-Once done, you can find the stubs inside `~/.nuke/nuke-python-stubs/stubs`.
-
-### 1.2.2. Use the stubs
-
-Using the stubs will vary based on your text editor since most of them have their way of adding stubs to the environment.
-
-Alternatively, you can use Visual Studio Code [NukeTools](https://marketplace.visualstudio.com/items?itemName=virgilsisoe.nuke-tools) and call the `Nuke Tools: Add Python Stubs` command.
-
-## 1.3. Type guess
-
-The script tries to guess the data type by parsing the function signature/documentation. This method is not 100% precise, and some types are unknown or wrong.
-
-- The type `Any` means it could be any we don't know and not any type is valid.
-- The type  `int|float` means it could be a float or an int we don't know and not any number type is valid.
-- No types means that is not possible to guess the type.
-
-The wrong types are likely due to the parser identifying valid keywords inside the documentation, which uses them to make a guess.
-
-Example:
-
-In the return value from the docs: `-> switch to next view in settings Views list`, the parser will guess the type as `list` since it found the word `list` in the documentation and not because it knows the type.
-
-> You can also disable the guess filter by setting `StubsRuntimeSettings.guess` to `False`.
-
-As a workaround, there is a post-fix mechanism which allows you to "manually" point to the wrong value and substitute it with a new one. You can look at the `NUKE_POST_FIXES` dictionary for more information.
-
-## 1.4. Contributing
-
-In order to make the stubs as accurate as possible, feel free to open a new issue if you find any wrong values or missing information. Also, you can contribute by adding post-fixes information to the `*_POST_FIXES` dictionary.
-
-TODO: Add a section on how to contribute to the project.
-
-## 1.5. Acknowledgment
-
-Pycharm Stub generator inspired the creation of this script.
-
-## 1.6 TODO
-
-- [ ] Make pre-commit on a pull request.
-- [ ] Make it available via pip.
-- [ ] Find duplicates
-
-## 1.6. Screenshot
-
-[Nuke Tools](https://marketplace.visualstudio.com/items?itemName=virgilsisoe.nuke-tools) for Visual Studio Code will include the stubs files by default.
+Type stubs for Nuke and Hiero Python. The `.pyi` files carry signatures, types and the original docstrings, so your editor can autocomplete the `nuke`, `nukescripts`, `nuke_internal`, `ocionuke` and `hiero` modules. They contain no Foundry source code.
 
 ![Alt text](images/auto_complete.gif)
+
+## Use the stubs
+
+With Visual Studio Code, install [NukeTools](https://marketplace.visualstudio.com/items?itemName=virgilsisoe.nuke-tools) and run the command `Nuke Tools: Add Python Stubs`.
+
+Manually, point your editor at the `stubs/` directory of this repository. For VS Code with Pylance, add it to `.vscode/settings.json`:
+
+```json
+{
+    "python.analysis.extraPaths": ["/path/to/nuke-python-stubs/stubs"]
+}
+```
+
+The committed `stubs/` tree is built from Nuke 15.2v9. A tree for Nuke 17.1v2 can be built too, see [Regenerate](#regenerate).
+
+A pip-installable package layout named `nuke-stubs` is also produced under `build/<version>/package/`. It is not published yet.
+
+## What to expect
+
+Numbers for Nuke 15.2v9:
+
+- `nuke` C functions: 82% of return types and 65% of parameters are typed.
+- `hiero` C functions: 46% of return types are typed.
+- Python modules (`nukescripts`, `hiero`): 66 to 80% of return types are typed.
+
+Anything unknown is `Any`, never a guess. Knob values (`node['size'].value()`) are `Any`. On Nuke 15 Qt types are `Any`, because PySide2 ships no type information. On Nuke 17 they are PySide6 types.
+
+## How types are found
+
+- A dump of the live API: every module, class, function and constant that Nuke reports.
+- The docstrings: signature lines and fields such as `Returns` and `Parameters`.
+- Pyright inference on the Python modules that ship with Nuke.
+- Runtime probes inside Nuke: the type of what a call returns, and parameter types read from the errors of the argument parser.
+- Hand-written overrides in `src/hoststubs/hosts/nuke/overrides/`.
+
+## Regenerate
+
+You need [`uv`](https://docs.astral.sh/uv/). To dump and probe you also need a Nuke install with a licence. Building from the committed data in `data/` needs neither.
+
+Rebuild the stubs from the committed data:
+
+```bash
+uv run python -m hoststubs build data/nuke/15.2v9/dump.json
+```
+
+This writes `build/nuke-15.2v9/stubs/` (the plain stub tree) and `build/nuke-15.2v9/package/`, then runs a gate: the stubs must parse, every name must resolve, and the type-checking corpus in `tests/corpus` must match its snapshot. Building 15.2v9 also replaces `stubs/`.
+
+To capture a new Nuke version, set `NUKE` to its executable (here Nuke 17.1v2) and run these from the repository root:
+
+```bash
+NUKE=/Applications/Nuke17.1v2/Nuke17.1v2.app/Contents/MacOS/Nuke17.1
+
+# 1. Dump the API (opens Nuke Studio, dumps, quits)
+NUKE_PATH="$PWD/src/hoststubs/hosts/nuke/studio:$NUKE_PATH" HOSTSTUBS_INHOST="$PWD/src/hoststubs/inhost" HOSTSTUBS_RUN=dump HOSTSTUBS_ARGS="$(uv run python -m hoststubs dump-arguments nuke "$PWD/data/nuke/17.1v2/dump.json")" $NUKE --studio
+
+# 2. Infer types for the Python modules (needs the install files only)
+uv run python -m hoststubs infer data/nuke/17.1v2/dump.json /Applications/Nuke17.1v2/Nuke17.1v2.app/Contents/MacOS/plugins /Applications/Nuke17.1v2/Nuke17.1v2.app/Contents/Resources/pythonextensions/site-packages
+
+# 3. Probe return types, then parameter types
+scripts/probe.sh 17.1v2 $NUKE nuke
+scripts/probe.sh 17.1v2 $NUKE hiero
+scripts/probe.sh 17.1v2 $NUKE nuke params
+
+# 4. Build
+uv run python -m hoststubs build data/nuke/17.1v2/dump.json
+```
+
+`uv run python -m hoststubs report data/nuke/17.1v2/dump.json` prints how much of the API each source resolved.
+
+Details: [dump format and how to dump](docs/dump-schema.md), [inference](docs/inference.md), [probes](docs/probe.md).
+
+## Fix a wrong type
+
+Add an entry to the override file of that module, for example `src/hoststubs/hosts/nuke/overrides/nuke.pyi` for `nuke`. Each entry needs a `# src: manual` line above it:
+
+```python
+# verified: returns None for a name that does not exist.
+# src: manual
+def toNode(s: str) -> Node | None: ...
+```
+
+The format is described at the top of `src/hoststubs/overrides.py`. The build fails on a type it cannot resolve. Then run `uv run pytest -q` and the build.
+
+## Acknowledgment
+
+Pycharm Stub generator inspired the creation of this project.
