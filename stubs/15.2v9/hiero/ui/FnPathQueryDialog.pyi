@@ -1,9 +1,0 @@
-# Type stubs for nuke 15.2v9. Generated; do not edit.
-
-from typing import Any
-from hiero.core import util as util
-
-class PathQueryDialog:
-    def __init__(self, message: Any, title: Any, isDirectory: Any, path: Any = ..., parent: Any = ...) -> None: ...
-    def exec_(self) -> Any: ...
-    def path(self) -> None: ...

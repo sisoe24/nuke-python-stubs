@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 # Syncs stubs to NukeTools
-# This script is meant to be run from the root of the repo
+# This script is meant to be run from the root of the repo, after a build:
 #
+#   uv run python -m hoststubs build data/nuke/17.1v2/dump.json
 #   ./sync_stubs.sh 17.1v2      (default: 15.2v9)
 #
 # It will remove the existing stubs directory and replace it with a symlink to the stubs directory in the repo
@@ -17,5 +18,5 @@ echo "Current dir: $CURRENT_DIR"
 (
 	cd $NUKE || exit 1
 	rm -rf $NUKE/stubs
-	ln -s $CURRENT_DIR/stubs/$VERSION $NUKE/stubs
+	ln -s $CURRENT_DIR/build/nuke-$VERSION/stubs $NUKE/stubs
 )

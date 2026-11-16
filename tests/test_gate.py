@@ -6,9 +6,7 @@ import pytest
 
 from hoststubs.gate import check_corpus, check_names, check_syntax, write_snapshot
 from hoststubs.host import REPO
-from hoststubs.emit import emit
 from hoststubs.build import build
-from hoststubs.report import load_context
 
 DUMPS = sorted((REPO / 'data').glob('*/*/dump.json'))
 
@@ -64,15 +62,3 @@ def test_build_passes_the_gate(dump: Path, tmp_path: Path) -> None:
     assert build(dump, tmp_path / 'build') == []
 
 
-def _tree(root: Path) -> dict[str, str]:
-    return {
-        path.relative_to(root).as_posix(): path.read_text()
-        for path in root.rglob('*') if path.is_file()
-    }
-
-
-@pytest.mark.parametrize('dump', DUMPS, ids=lambda path: path.parent.name)
-def test_committed_stubs_match_the_generator(dump: Path, tmp_path: Path) -> None:
-    """`stubs/<version>/` is exactly what emit writes for that version's dump."""
-    emit(load_context(dump), tmp_path)
-    assert _tree(REPO / 'stubs' / dump.parent.name) == _tree(tmp_path)

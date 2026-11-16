@@ -61,11 +61,10 @@ def main() -> None:
             raise SystemExit(f'Gate failed: {len(findings)} findings.')
         logging.info('Gate passed.')
 
-        # The committed tree that editors read, one folder per host version.
-        shipped = REPO / 'stubs' / dump.host_version
-        shutil.rmtree(shipped, ignore_errors=True)
-        shutil.copytree(out / 'stubs', shipped)
-        logging.info('Replaced %s with the built stubs.', shipped)
+        # The release asset: the module folders at the root of the zip, as in earlier releases.
+        name = f'{dump.host}-python-stubs-{dump.host_version}'
+        archive = shutil.make_archive(str(out.parent / name), 'zip', root_dir=out / 'stubs')
+        logging.info('Wrote %s.', archive)
     elif args.command == 'report':
         print(report(args.dump))
     elif args.command in ('probe-targets', 'param-targets'):

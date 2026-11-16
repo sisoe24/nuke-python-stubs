@@ -23,7 +23,7 @@ testpaths = ["tests"]
 
 [tool.ruff]
 line-length = 100
-extend-exclude = ["stubs", "tests/fixtures", "tests/corpus", "data", "src/hoststubs/hosts/*/overrides", "build"]
+extend-exclude = ["tests/fixtures", "tests/corpus", "data", "src/hoststubs/hosts/*/overrides", "build"]
 
 [tool.ruff.lint]
 # Import order belongs to isort (length_sort), run by pre-commit.
