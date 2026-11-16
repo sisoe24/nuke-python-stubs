@@ -1,9 +1,9 @@
-# Track A: inference for pure-Python modules
+# Inference for the Python modules
 
 `hiero`, `nukescripts`, `nuke_internal` and `ocionuke` are Python source
 with real bodies and few annotations. Pyright infers their return types.
 
-## Machine step
+## Run pyright
 
 Needs the host install on disk (the files, not a licence). Run once per
 host version, from the repository root:
@@ -22,7 +22,7 @@ It writes `data/<host>/<version>/inference/`:
 
 Both are committed. Everything after this step runs without the host.
 
-## Offline step
+## Read the result
 
 `hoststubs.inference.load_inference` reads that directory into candidates
 keyed by `module.qualname`, which is the `origin` and `qualname` of a
@@ -42,7 +42,7 @@ Rules, each with a test in `tests/test_inference.py`:
 
 Names are resolved through the dump: the module's runtime namespace says
 what a name means. `hoststubs.names.Names.accept` is the acceptance rule
-every track uses.
+every source of types uses.
 
 ## Limits
 
@@ -53,4 +53,4 @@ every track uses.
   through.
 - Pyright runs without stubs for `nuke`, so a return value that comes from
   a `nuke` call is unknown. Rerunning with the emitted stubs on the path is
-  possible after Phase 6.
+  possible.
