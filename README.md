@@ -53,11 +53,9 @@ To add a Nuke version, run these steps in order. Each page lists the exact comma
 
 ## Fix a wrong type
 
-Add an entry to the override file for the module, for example `src/hoststubs/hosts/nuke/overrides/nuke.pyi`. Put `# src: manual` on the line above it:
+Add an entry to the override file for the module, for example `src/hoststubs/hosts/nuke/overrides/nuke.pyi`. It is a normal stub line:
 
 ```python
-# verified: returns None for a name that does not exist.
-# src: manual
 def toNode(s: str) -> Node | None: ...
 ```
 

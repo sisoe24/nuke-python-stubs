@@ -33,6 +33,12 @@ def test_def_replaces_a_function(tmp_path: Path, fixture_names: Names) -> None:
     assert override.location.endswith('fxhost.pyi:2')
 
 
+def test_entry_without_comment_is_manual(tmp_path: Path, fixture_names: Names) -> None:
+    """An override needs no comment; a plain def is a hand-written entry."""
+    override = _load(tmp_path, 'fxhost', 'def root() -> Node: ...\n', fixture_names)
+    assert override.functions['fxhost.root'].provenance == 'manual'
+
+
 def test_method_and_review_provenance(tmp_path: Path, fixture_names: Names) -> None:
     """A def inside a class block overrides a method; `# src: review` is recorded."""
     text = (
@@ -99,7 +105,6 @@ def test_qt_type_without_typed_binding_is_any(tmp_path: Path, fixture_names: Nam
 
 
 @pytest.mark.parametrize(('text', 'message'), [
-    ('def root() -> Node: ...\n', r'fxhost\.pyi:1: missing "# src: manual"'),
     ('# src: manual\ndef root() -> Nod: ...\n', r"fxhost\.pyi:2: type 'Nod' does not resolve"),
     # A typo inside a container must not turn into Any.
     ('# src: manual\ndef root() -> list[Nod]: ...\n', r"fxhost\.pyi:2: type 'list\[Nod\]'"),

@@ -3,23 +3,20 @@
 One `.pyi` file per module in the host's `overrides` directory, named after
 the module (`nuke.pyi`, `hiero.core.pyi`). Supported, and nothing else:
 
-    # src: manual
     def root() -> Root: ...               replaces nuke.root, or adds it
 
     class Node:
-        # src: manual
         def knob(self, p: str | int, follow_link: bool = ...) -> Knob | None: ...
 
-    # src: manual
     @overload
     def execute(...) -> None: ...         a run of @overload replaces the whole set
     @overload
     def execute(...) -> None: ...
 
-    # src: manual
     # delete: nuke.Foo.bar                removes a symbol
 
-Every entry needs `# src: manual` or `# src: review` on the line above it.
+An entry is hand-written unless the line above it says `# src: review`,
+which marks one that a review tool wrote. No other comment has a meaning.
 Types are written as in a stub of that module. `QtGui.QImage` means the
 host's Qt binding. A type that does not resolve is a build error.
 """
@@ -94,11 +91,9 @@ class _ModuleLoader:
         return OverrideError(f'{self._path}:{line}: {message}')
 
     def _provenance(self, line: int) -> str:
-        """Read the `# src:` comment on the line above `line` (1-based)."""
+        """Who wrote the entry at `line` (1-based): `review` if the line above says so."""
         match = PROVENANCE.match(self._lines[line - 2]) if line >= 2 else None
-        if match is None:
-            raise self._error(line, 'missing "# src: manual" or "# src: review" on the line above')
-        return match.group(1)
+        return match.group(1) if match else 'manual'
 
     def _resolve_name(self, dotted: str) -> str | None:
         if dotted.split('.')[0].startswith('Qt'):
@@ -228,7 +223,6 @@ class _ModuleLoader:
                 continue
 
             path = match.group(1)
-            self._provenance(index)
             if self._names.find(path)[1] is None:
                 raise self._error(index, f'cannot delete {path}: not in the dump')
             self.deleted[path] = f'{self._path}:{index}'
