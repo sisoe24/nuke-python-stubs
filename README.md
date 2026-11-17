@@ -8,9 +8,27 @@ The docstrings of Nuke's C functions are short, sometimes wrong, and often have 
 
 ## Use the stubs
 
-With Visual Studio Code, install [NukeTools](https://marketplace.visualstudio.com/items?itemName=virgilsisoe.nuke-tools) and run `Nuke Tools: Add Python Stubs`.
+Install the `nuke-stubs` package from PyPI into the environment your editor or type checker uses. Without a version, pip installs the stubs for the newest Nuke, now Nuke 17.1:
 
-Otherwise, download the zip for your Nuke version from [Releases](https://github.com/sisoe24/nuke-python-stubs/releases), unzip it, and point your editor at the folder. For VS Code with Pylance, add this to `.vscode/settings.json`:
+```bash
+pip install nuke-stubs
+```
+
+For an older Nuke, pin the version:
+
+```bash
+pip install "nuke-stubs==15.2.*"
+```
+
+The package version is the Nuke version followed by a stub revision: `15.2.9.0` is Nuke 15.2v9, revision 0. With `==15.2.*`, pip installs the newest stubs for Nuke 15.2. If there are no stubs for your Nuke version, use the closest one. For example, `"nuke-stubs>=15,<16"` installs the newest stubs for Nuke 15.
+
+The stubs for Nuke 17 need Python 3.11 or later. In a Python 3.10 environment, `pip install nuke-stubs` installs the stubs for Nuke 15.2.
+
+One environment holds stubs for one Nuke version. Do not install `types-nuke` in the same environment, because both packages write the `nuke-stubs` folder.
+
+With Visual Studio Code, you can also install [NukeTools](https://marketplace.visualstudio.com/items?itemName=virgilsisoe.nuke-tools) and run `Nuke Tools: Add Python Stubs`.
+
+You can also download the zip for your Nuke version from [Releases](https://github.com/sisoe24/nuke-python-stubs/releases), unzip it, and point your editor at the folder. For VS Code with Pylance, add this to `.vscode/settings.json`:
 
 ```json
 {
