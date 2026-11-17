@@ -55,8 +55,19 @@ def resolve_dump(
     return context.dump, context.resolved
 
 
+def is_private(path: str) -> bool:
+    """True when a part of the path starts with `_` and is not a dunder name."""
+    return any(
+        part.startswith('_') and not (part.startswith('__') and part.endswith('__'))
+        for part in path.split('.')
+    )
+
+
 def _groups(dump: ir.Dump) -> dict[str, str]:
-    """Map each function path to a group such as 'nuke C' or 'hiero Python'."""
+    """Map each function path to a group such as 'nuke C' or 'hiero Python private'.
+
+    Users rarely call private functions, so they are counted apart.
+    """
     groups: dict[str, str] = {}
 
     def visit(members: dict[str, ir.Member], prefix: str) -> None:
@@ -80,7 +91,7 @@ def _groups(dump: ir.Dump) -> dict[str, str]:
                 kind = 'C dunder'
             else:
                 kind = 'C'
-            groups[path] = f'{path.split(".")[0]} {kind}'
+            groups[path] = f'{path.split(".")[0]} {kind}' + (' private' if is_private(path) else '')
 
     for module_name, module in dump.modules.items():
         visit(module.members, module_name)

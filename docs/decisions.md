@@ -34,6 +34,5 @@ A name is resolved through the dump: the runtime namespace of the module says wh
 
 - Pyright omits private functions. A function that hiero attaches to a C class under a public name gets no candidate. `Clip.addToNukeScript` is `_Clip_addToNukeScript`.
 - Pyright does not infer parameter types. Only source annotations pass through.
-- Pyright runs without stubs for `nuke`, so a return value that comes from a `nuke` call is unknown. Running it again with the emitted stubs on the path is possible.
-- hiero's C functions report `Invalid arguments to core.TrackItem.setTimelineIn`. The parameter probe gets counts from that text and no types.
+- Pyright runs without stubs for `nuke`, so a return value that comes from a `nuke` call is unknown. Giving Pyright the emitted stubs for `_nuke`, `core` and `ui` was tried on 17.1v2 and removed only 5 `Any` returns. Pyright prints short names such as `Node`, which the module namespace does not hold, and a value that was narrowed before becomes a union with `Any`.- hiero's C functions report `Invalid arguments to core.TrackItem.setTimelineIn`. The parameter probe gets counts from that text and no types.
 - Python functions check no arguments, so the parameter probe does not call them.
