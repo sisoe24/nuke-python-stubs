@@ -18,7 +18,7 @@ Otherwise, download the zip for your Nuke version from [Releases](https://github
 }
 ```
 
-There is one zip per Nuke version. Use the closest to your Nuke. The build also lays out a `nuke-stubs` pip package in `build/<version>/package/`.
+There is one zip per Nuke version. Use the closest to your Nuke.
 
 ## Type guess
 

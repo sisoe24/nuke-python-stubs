@@ -4,21 +4,11 @@
 loads it offline. The dump records what the runtime reports. It decides
 nothing about types.
 
-## Make a dump
+To make a dump, see [new-version.md](new-version.md).
 
-Nuke and Hiero are dumped together from a Nuke Studio GUI session. Terminal
-mode (`-t`) has no hiero C module and no `nukescripts` panels. Nuke Studio
-runs `src/hoststubs/hosts/nuke/studio/Python/StartupUI/run_inhost.py` at startup, which
-dumps and quits. Run from the repository root, one command per version:
+## Test fixture
 
-```bash
-NUKE_PATH="$PWD/src/hoststubs/hosts/nuke/studio:$NUKE_PATH" HOSTSTUBS_INHOST="$PWD/src/hoststubs/inhost" HOSTSTUBS_RUN=dump HOSTSTUBS_ARGS="$(uv run python -m hoststubs dump-arguments nuke "$PWD/data/nuke/17.1v2/dump.json")" /Applications/Nuke17.1v2/Nuke17.1v2.app/Contents/MacOS/Nuke17.1 --studio
-```
-
-The repository path must not contain spaces. Plugins in `~/.nuke` load as
-usual, so a plugin that adds names to a dumped module shows up in the dump.
-
-Regenerate the test fixture:
+Regenerate the test fixture with:
 
 ```bash
 PYTHONPATH=tests/fixtures/host python src/hoststubs/inhost/dump.py tests/fixtures/dump.golden.json host=fxhost version=fxhost.VERSION skip=fxscripts.examples private=fxcore:fxhost fxhost fxscripts
@@ -71,7 +61,7 @@ An object can be visible from many modules. It is recorded in full once:
    of the standard library (Qt, `os`, `_io`): alias only. Counted in `foreign`.
 3. Otherwise: in the first public place that shows
    it, in root order. Later places get an alias to that place. This covers
-   a private C module (`_nuke`), a `__module__` that cannot be imported
+   a private C module (`_nuke`) and a `__module__` that cannot be imported
    (Nuke classes report `builtins`).
 4. Its `__module__` is declared `private` with an owner (`core:hiero.core`):
    in the owner, when the owner holds it. hiero's C modules import as
