@@ -38,6 +38,23 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: gh release create "$GITHUB_REF_NAME" build/nuke-python-stubs-*.zip --notes "See CHANGELOG.md."
 
+  # Users on Windows found #7 and #9. Tests and the build gate only; releases come from `build`.
+  windows:
+    runs-on: windows-latest
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@v7
+      - uses: astral-sh/setup-uv@v10.3.3
+      - run: uv sync
+      - run: uv run pytest -q
+      - name: Build stubs for every dumped Nuke version
+        run: |
+          for dump in data/nuke/*/dump.json; do
+            uv run python -m hoststubs build "$dump"
+          done
+
   # A separate job, so only the upload step holds the PyPI token.
   publish:
     needs: build
