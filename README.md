@@ -18,31 +18,23 @@ Otherwise, download the zip for your Nuke version from [Releases](https://github
 }
 ```
 
-There is one zip per Nuke version. Use the closest to your Nuke.
+There is one zip per Nuke version. Use the closest to your Nuke. The stubs were tested on macOS only.
 
-## Type guess
+## Where types come from
 
-Nuke ships no type information, so the generator guesses. A type comes from one of these places:
+Nuke ships no type information. The generator takes each type from one of these places:
 
 - The docstring of a function, when it names a type.
 - A call inside Nuke. The return type is what the function returned in a test scene. For the parameters, the function is called with an argument that cannot be valid, and the error message names the type it wanted.
 - Pyright, for `hiero`, `nukescripts`, `nuke_internal` and `ocionuke`, which are Python code.
 - The override files, for a type that is still wrong.
 
-The type `Any` means the generator found no type, not that any type is valid. Knob values, like `node['size'].value()`, are `Any`. Qt types are `Any` on Nuke 15, because PySide2 has no type information. On Nuke 17 they are PySide6 types.
+The type `Any` means the generator found no type, not that any type is valid. Knob values, like `node['size'].value()`, are `Any`. Qt types are `Any` on Nuke 15, because PySide2 has no type information. On Nuke 17 they are PySide6 types. Parameters are `Any` more often than return types, most of all in `hiero` and the Python modules.
 
 > [!IMPORTANT]
-> A guess can be wrong. See [Fix a wrong type](#fix-a-wrong-type).
+> A type can be wrong. See [Fix a wrong type](#fix-a-wrong-type).
 
-## Not done
-
-- I have not tested this on Windows or Linux.
-- `hiero` C functions get parameter counts but no parameter types. Their error messages do not say.
-- Python functions are not probed for parameters, because they check nothing.
-- `stubtest` does not cover `hiero` or the GUI-only `nukescripts` panels.
-- The `nuke-stubs` pip package is built but not published.
-
-## Regenerate
+## Build
 
 The generator is in `src/hoststubs/`. It needs [`uv`](https://docs.astral.sh/uv/). Dumping a new Nuke version also needs Nuke with a licence.
 
@@ -65,6 +57,10 @@ def toNode(s: str) -> Node | None: ...
 ```
 
 The format is at the top of `src/hoststubs/overrides.py`. The build fails on a type it cannot resolve. Then run `uv run pytest -q` and build again.
+
+## Older versions
+
+Releases up to [v0.3.1](https://github.com/sisoe24/nuke-python-stubs/releases/tag/v0.3.1) are `.py` stubs from the previous generator, which read the types from the docstrings. Use them if the current stubs do not work for you. All releases are on the [Releases](https://github.com/sisoe24/nuke-python-stubs/releases) page.
 
 ## Acknowledgment
 
