@@ -21,6 +21,9 @@ class HostConfig:
     # Name of the stub distribution on PyPI.
     package_name: str
 
+    # Linked from the package page.
+    repository: str
+
     # Dotted path to the host version string, read inside the host.
     version_attribute: str
 

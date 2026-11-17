@@ -3,6 +3,11 @@
 All notable changes to this project are documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [0.5.1] - 2026-11-17
+
+### Fixed
+- The PyPI page had no description. It now has install notes and a link to the repository, from stub revision 1: `15.2.9.1` and `17.1.2.1`.
+
 ## [0.5.0] - 2026-11-17
 
 ### Added

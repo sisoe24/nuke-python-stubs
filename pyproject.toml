@@ -1,6 +1,6 @@
 [project]
 name = "hoststubs"
-version = "0.5.0"
+version = "0.5.1"
 description = "Generate Python type stubs for Nuke and Hiero"
 authors = [{ name = "virgilsisoe" }]
 license = "MIT"

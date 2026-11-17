@@ -9,7 +9,7 @@ from pathlib import Path
 from dataclasses import dataclass
 
 from hoststubs import ir
-from hoststubs.host import HostConfig
+from hoststubs.host import HOSTS, HostConfig
 from hoststubs.names import TYPED_QT_BINDINGS, Names
 from hoststubs.resolve import Param, Signature
 from hoststubs.overrides import Overrides
@@ -414,15 +414,23 @@ def package(context: Context, host: HostConfig, stubs: Path, out: Path) -> Path:
     dependencies = [qt.binding] if qt and qt.binding in TYPED_QT_BINDINGS else []
     revision = host.stub_revisions[dump.host_version]
     python = '.'.join(dump.python.split('.')[:2])
+    version = f'{normalize_version(dump.host_version)}.{revision}'
+
+    readme = (HOSTS / host.name / 'package_readme.md').read_text(encoding='utf-8')
+    (out / 'README.md').write_text(readme.format(host_version=dump.host_version), encoding='utf-8')
 
     (out / 'pyproject.toml').write_text(f'''[project]
 name = "{host.package_name}"
-version = "{normalize_version(dump.host_version)}.{revision}"
+version = "{version}"
 description = "Type stubs for {dump.host} {dump.host_version}"
+readme = "README.md"
 license = "MIT"
 requires-python = ">={python}"
 dependencies = {json.dumps(dependencies)}
 classifiers = ["Typing :: Stubs Only"]
+
+[project.urls]
+Repository = "{host.repository}"
 
 [tool.hoststubs]
 host = "{dump.host}"
