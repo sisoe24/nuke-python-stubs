@@ -22,8 +22,35 @@ jobs:
           for dump in data/nuke/*/dump.json; do
             uv run python -m hoststubs build "$dump"
           done
+      - name: Build one wheel per Nuke version
+        run: |
+          for package in build/nuke-*/package; do
+            uv build --wheel "$package" --out-dir dist
+          done
+      - uses: actions/upload-artifact@v4
+        with:
+          name: wheels
+          path: dist/*.whl
       - name: Create release
         if: startsWith(github.ref, 'refs/tags/v')
         env:
           GH_TOKEN: ${{ github.token }}
         run: gh release create "$GITHUB_REF_NAME" build/nuke-python-stubs-*.zip --notes "See CHANGELOG.md."
+
+  # A separate job, so only the upload step holds the PyPI token.
+  publish:
+    needs: build
+    if: startsWith(github.ref, 'refs/tags/v')
+    runs-on: ubuntu-latest
+    environment: pypi
+    permissions:
+      id-token: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: wheels
+          path: dist
+      - uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          # A tag can re-release versions already on PyPI; only new wheels upload.
+          skip-existing: true
