@@ -3,6 +3,11 @@
 All notable changes to this project are documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [Unreleased]
+
+### Added
+- The stubs are on PyPI as `nuke-stubs`, one version per Nuke version. Install them with `pip install "nuke-stubs==15.2.*"`.
+
 ## [0.4.0] - 2026-11-16
 
 ### Changed
