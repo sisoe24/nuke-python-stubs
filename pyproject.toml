@@ -1,23 +1,40 @@
-[tool.poetry]
-name = "Nuke Python Stubs Generator"
-version = "0.3.0"
-description = "Create Nuke Python Stubs"
-authors = ["virgilsisoe <sisoe24@gmail.com>"]
+[project]
+name = "hoststubs"
+version = "0.4.0"
+description = "Generate Python type stubs for Nuke and Hiero"
+authors = [{ name = "virgilsisoe" }]
+license = "MIT"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = []
 
-[tool.poetry.group.dev.dependencies]
-pre-commit = "^3.6.2"
+[dependency-groups]
+dev = ["pytest>=8", "ruff>=0.6", "pre-commit>=3.6.2", "pyright==1.1.414"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/hoststubs"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+extend-exclude = ["tests/fixtures", "tests/corpus", "data", "src/hoststubs/hosts/*/overrides", "build"]
+
+[tool.ruff.lint]
+# Import order belongs to isort (length_sort), run by pre-commit.
+select = ["E", "F"]
+
+[tool.ruff.lint.per-file-ignores]
+# Tables of expected types read better on one line.
+"tests/*" = ["E501"]
 
 [tool.isort]
 length_sort = true
 
 [tool.autopep8]
 max_line_length = 100
-
-[tool.poetry.dependencies]
-python = "~3.10"
-
-[tool.poetry.dev-dependencies]
-
-[build-system]
-requires = ["poetry-core>=1.0.0"]
-build-backend = "poetry.core.masonry.api"

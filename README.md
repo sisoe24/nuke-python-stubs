@@ -1,80 +1,67 @@
-# 1. Nuke python stubs file
+# Nuke python stubs
 
-A quick and dirty script to create Nuke Python file stubs to support auto-complete in text editors.
+Type stubs for the Nuke and Hiero Python API. They let your editor autocomplete the `nuke`, `nukescripts`, `nuke_internal`, `ocionuke` and `hiero` modules. The `.pyi` files have signatures, types and the original docstrings.
 
-- [1. Nuke python stubs file](#1-nuke-python-stubs-file)
-  - [1.1. Description](#11-description)
-  - [1.2. Usage](#12-usage)
-    - [1.2.1. Generate the stubs](#121-generate-the-stubs)
-    - [1.2.2. Use the stubs](#122-use-the-stubs)
-  - [1.3. Type guess](#13-type-guess)
-  - [1.4. Contributing](#14-contributing)
-  - [1.5. Acknowledgment](#15-acknowledgment)
-  - [1.6 TODO](#16-todo)
-  - [1.6. Screenshot](#16-screenshot)
-
-## 1.1. Description
-
-A stub file generator for Nuke & Hiero Python 3. Besides including the public API, the script will generate stubs for:
-
-- Classes.
-- Built-in methods.
-- Constant.
-- Arguments types.
-- Return statements.
-
-## 1.2. Usage
-
-### 1.2.1. Generate the stubs
-
-You can use the stub files inside the [repository](https://github.com/sisoe24/nuke-python-stubs/releases), but if you want to generate them, copy the `nukestubsgen.py` file inside the Nuke Script Editor and run it.
-
-> When generating the stubs, it is preferable to use Nuke Studio, as doing it inside Nuke will cause the Hiero stubs to be incomplete.
-
-Once done, you can find the stubs inside `~/.nuke/nuke-python-stubs/stubs`.
-
-### 1.2.2. Use the stubs
-
-Using the stubs will vary based on your text editor since most of them have their way of adding stubs to the environment.
-
-Alternatively, you can use Visual Studio Code [NukeTools](https://marketplace.visualstudio.com/items?itemName=virgilsisoe.nuke-tools) and call the `Nuke Tools: Add Python Stubs` command.
-
-## 1.3. Type guess
-
-The script tries to guess the data type by parsing the function signature/documentation. This method is not 100% precise, and some types are unknown or wrong.
-
-- The type `Any` means it could be any we don't know and not any type is valid.
-- The type  `int|float` means it could be a float or an int we don't know and not any number type is valid.
-- No types means that is not possible to guess the type.
-
-The wrong types are likely due to the parser identifying valid keywords inside the documentation, which uses them to make a guess.
-
-Example:
-
-In the return value from the docs: `-> switch to next view in settings Views list`, the parser will guess the type as `list` since it found the word `list` in the documentation and not because it knows the type.
-
-> You can also disable the guess filter by setting `StubsRuntimeSettings.guess` to `False`.
-
-As a workaround, there is a post-fix mechanism which allows you to "manually" point to the wrong value and substitute it with a new one. You can look at the `NUKE_POST_FIXES` dictionary for more information.
-
-## 1.4. Contributing
-
-In order to make the stubs as accurate as possible, feel free to open a new issue if you find any wrong values or missing information. Also, you can contribute by adding post-fixes information to the `*_POST_FIXES` dictionary.
-
-TODO: Add a section on how to contribute to the project.
-
-## 1.5. Acknowledgment
-
-Pycharm Stub generator inspired the creation of this script.
-
-## 1.6 TODO
-
-- [ ] Make pre-commit on a pull request.
-- [ ] Make it available via pip.
-- [ ] Find duplicates
-
-## 1.6. Screenshot
-
-[Nuke Tools](https://marketplace.visualstudio.com/items?itemName=virgilsisoe.nuke-tools) for Visual Studio Code will include the stubs files by default.
+The docstrings of Nuke's C functions are short, sometimes wrong, and often have no types. The generator also runs the functions inside Nuke and records what they return. To find the parameter types, it calls a function with an argument that cannot be valid and reads the error message.
 
 ![Alt text](images/auto_complete.gif)
+
+## Use the stubs
+
+With Visual Studio Code, install [NukeTools](https://marketplace.visualstudio.com/items?itemName=virgilsisoe.nuke-tools) and run `Nuke Tools: Add Python Stubs`.
+
+Otherwise, download the zip for your Nuke version from [Releases](https://github.com/sisoe24/nuke-python-stubs/releases), unzip it, and point your editor at the folder. For VS Code with Pylance, add this to `.vscode/settings.json`:
+
+```json
+{
+    "python.analysis.extraPaths": ["/path/to/nuke-python-stubs-15.2v9"]
+}
+```
+
+There is one zip per Nuke version. Use the closest to your Nuke. The stubs were tested on macOS only.
+
+## Where types come from
+
+Nuke ships no type information. The generator takes each type from one of these places:
+
+- The docstring of a function, when it names a type.
+- A call inside Nuke. The return type is what the function returned in a test scene. For the parameters, the function is called with an argument that cannot be valid, and the error message names the type it wanted.
+- Pyright, for `hiero`, `nukescripts`, `nuke_internal` and `ocionuke`, which are Python code.
+- The override files, for a type that is still wrong.
+
+The type `Any` means the generator found no type, not that any type is valid. Knob values, like `node['size'].value()`, are `Any`. Qt types are `Any` on Nuke 15, because PySide2 has no type information. On Nuke 17 they are PySide6 types. Parameters are `Any` more often than return types, most of all in `hiero` and the Python modules.
+
+> [!IMPORTANT]
+> A type can be wrong. See [Fix a wrong type](#fix-a-wrong-type).
+
+## Build
+
+The generator is in `src/hoststubs/`. It needs [`uv`](https://docs.astral.sh/uv/). Dumping a new Nuke version also needs Nuke with a licence.
+
+To rebuild the stubs from the committed data:
+
+```bash
+uv run python -m hoststubs build data/nuke/15.2v9/dump.json
+```
+
+This writes `build/nuke-15.2v9/`, then checks it: every file parses, every name resolves, and the type-check corpus in `tests/corpus` matches its snapshot. It also writes `build/nuke-python-stubs-15.2v9.zip`, the file attached to a release.
+
+To add a Nuke version, follow [docs/new-version.md](docs/new-version.md).
+
+## Fix a wrong type
+
+Add an entry to the override file for the module, for example `src/hoststubs/hosts/nuke/overrides/nuke.pyi`. It is a normal stub line:
+
+```python
+def toNode(s: str) -> Node | None: ...
+```
+
+The format is at the top of `src/hoststubs/overrides.py`. The build fails on a type it cannot resolve. Then run `uv run pytest -q` and build again.
+
+## Older versions
+
+Releases up to [v0.3.1](https://github.com/sisoe24/nuke-python-stubs/releases/tag/v0.3.1) are `.py` stubs from the previous generator, which read the types from the docstrings. Use them if the current stubs do not work for you. All releases are on the [Releases](https://github.com/sisoe24/nuke-python-stubs/releases) page.
+
+## Acknowledgment
+
+The PyCharm stub generator inspired this project.

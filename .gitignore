@@ -1,3 +1,7 @@
 .vscode
 *.zip
 out/
+.envrc
+data/**/*.journal
+build/
+playground/
