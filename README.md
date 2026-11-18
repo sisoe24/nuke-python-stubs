@@ -1,34 +1,36 @@
 # Nuke python stubs
 
-Type stubs for the Nuke and Hiero Python API. They let your editor autocomplete the `nuke`, `nukescripts`, `nuke_internal`, `ocionuke` and `hiero` modules. The `.pyi` files have signatures, types and the original docstrings.
-
-The docstrings of Nuke's C functions are short, sometimes wrong, and often have no types. The generator also runs the functions inside Nuke and records what they return. To find the parameter types, it calls a function with an argument that cannot be valid and reads the error message.
+Type stubs for the Nuke and Hiero Python API, so your editor can autocomplete `nuke`, `nukescripts`, `nuke_internal`, `ocionuke` and `hiero`. The `.pyi` files come with signatures, types and the original docstrings.
 
 ![Alt text](images/auto_complete.gif)
 
+Nuke's docstrings rarely say what a function takes or returns, so most of the types here come from running the functions inside Nuke and looking at what comes back.
+
 ## Use the stubs
 
-Install the `nuke-stubs` package from PyPI into the environment your editor or type checker uses. Without a version, pip installs the stubs for the newest Nuke, now Nuke 17.1:
+Install `nuke-stubs` from PyPI in the same environment your editor or type checker uses. Without a version, pip gives you the stubs for the newest Nuke (right now Nuke 17.1):
 
 ```bash
 pip install nuke-stubs
 ```
 
-For an older Nuke, pin the version:
+If you are on an older Nuke, pin the version:
 
 ```bash
 pip install "nuke-stubs==15.2.*"
 ```
 
-The package version is the Nuke version followed by a stub revision: `15.2.9.0` is Nuke 15.2v9, revision 0. With `==15.2.*`, pip installs the newest stubs for Nuke 15.2. If there are no stubs for your Nuke version, use the closest one. For example, `"nuke-stubs>=15,<16"` installs the newest stubs for Nuke 15.
+The package version is the Nuke version plus a stub revision, so `15.2.9.0` means Nuke 15.2v9, revision 0. With `==15.2.*` you get the newest stubs for Nuke 15.2. If there are no stubs for your exact version, the closest one is fine: `"nuke-stubs>=15,<16"` gets you the newest stubs for Nuke 15.
 
-The stubs for Nuke 17 need Python 3.11 or later. In a Python 3.10 environment, `pip install nuke-stubs` installs the stubs for Nuke 15.2.
+A couple of things to keep in mind:
 
-One environment holds stubs for one Nuke version. Do not install `types-nuke` in the same environment, because both packages write the `nuke-stubs` folder.
+- The stubs for Nuke 17 need Python 3.11 or later. On Python 3.10, `pip install nuke-stubs` falls back to the stubs for Nuke 15.2.
+- One environment can hold the stubs of only one Nuke version.
+- Don't install `types-nuke` next to it, since both packages write the same `nuke-stubs` folder.
 
-With Visual Studio Code, you can also install [NukeTools](https://marketplace.visualstudio.com/items?itemName=virgilsisoe.nuke-tools) and run `Nuke Tools: Add Python Stubs`.
+If you use Visual Studio Code, you can also install [NukeTools](https://marketplace.visualstudio.com/items?itemName=virgilsisoe.nuke-tools) and run `Nuke Tools: Add Python Stubs`.
 
-You can also download the zip for your Nuke version from [Releases](https://github.com/sisoe24/nuke-python-stubs/releases), unzip it, and point your editor at the folder. For VS Code with Pylance, add this to `.vscode/settings.json`:
+If you'd rather not use pip, download the zip for your Nuke version (or the closest one) from [Releases](https://github.com/sisoe24/nuke-python-stubs/releases), unzip it somewhere and point your editor at the folder. For VS Code with Pylance, that's `.vscode/settings.json`:
 
 ```json
 {
@@ -36,49 +38,52 @@ You can also download the zip for your Nuke version from [Releases](https://gith
 }
 ```
 
-There is one zip per Nuke version. Use the closest to your Nuke. The stubs were tested on macOS only.
+> [!NOTE]
+> I only tested the stubs on macOS.
 
-## Where types come from
+## Where the types come from
 
-Nuke ships no type information. The generator takes each type from one of these places:
+Nuke doesn't ship any type information, so each type comes from one of these places:
 
-- The docstring of a function, when it names a type.
-- A call inside Nuke. The return type is what the function returned in a test scene. For the parameters, the function is called with an argument that cannot be valid, and the error message names the type it wanted.
-- Pyright, for `hiero`, `nukescripts`, `nuke_internal` and `ocionuke`, which are Python code.
-- The override files, for a type that is still wrong.
+- The docstring, when it actually names a type.
+- A call inside Nuke. The return type is whatever the function returned in a test scene. For the parameters, the generator does something a bit cheeky: it calls the function with an argument that can't be valid and reads the error message, which usually names the type it wanted.
+- Pyright, for `hiero`, `nukescripts`, `nuke_internal` and `ocionuke`, since those are plain Python code.
+- The override files, for the types that are still wrong after all of that.
 
-The type `Any` means the generator found no type, not that any type is valid. Knob values, like `node['size'].value()`, are `Any`. Qt types are `Any` on Nuke 15, because PySide2 has no type information. On Nuke 17 they are PySide6 types. Parameters are `Any` more often than return types, most of all in `hiero` and the Python modules.
+The type `Any` means the generator couldn't find the type, not that any type is valid. Some common cases:
+
+- Knob values, like `node['size'].value()`, are always `Any`.
+- Qt types are `Any` on Nuke 15, because PySide2 has no type information. On Nuke 17 they are proper PySide6 types.
+- Parameters are `Any` more often than return types, especially in `hiero` and the Python modules.
 
 > [!IMPORTANT]
-> A type can be wrong. See [Fix a wrong type](#fix-a-wrong-type).
+> Some types are still wrong: see [Fix a wrong type](#fix-a-wrong-type).
 
-## Build
+## Build the stubs yourself
 
-The generator is in `src/hoststubs/`. It needs [`uv`](https://docs.astral.sh/uv/). Dumping a new Nuke version also needs Nuke with a licence.
-
-To rebuild the stubs from the committed data:
+The generator lives in `src/hoststubs/` and needs [`uv`](https://docs.astral.sh/uv/). You need Nuke (and a licence) only if you want to dump a new Nuke version. Rebuilding from the data in the repository works offline:
 
 ```bash
 uv run python -m hoststubs build data/nuke/15.2v9/dump.json
 ```
 
-This writes `build/nuke-15.2v9/`, then checks it: every file parses, every name resolves, and the type-check corpus in `tests/corpus` matches its snapshot. It also writes `build/nuke-python-stubs-15.2v9.zip`, the file attached to a release.
+This writes the stubs in `build/nuke-15.2v9/` and then checks them: every file must parse, every name must resolve, and the type-check corpus in `tests/corpus` must match its snapshot. It also writes `build/nuke-python-stubs-15.2v9.zip`, which is the file that goes on the release.
 
-To add a Nuke version, follow [docs/new-version.md](docs/new-version.md).
+To add a new Nuke version, follow [docs/new-version.md](docs/new-version.md).
 
 ## Fix a wrong type
 
-Add an entry to the override file for the module, for example `src/hoststubs/hosts/nuke/overrides/nuke.pyi`. It is a normal stub line:
+Add a line to the override file of the module, for example `src/hoststubs/hosts/nuke/overrides/nuke.pyi`. It is a normal stub line:
 
 ```python
 def toNode(s: str) -> Node | None: ...
 ```
 
-The format is at the top of `src/hoststubs/overrides.py`. The build fails on a type it cannot resolve. Then run `uv run pytest -q` and build again.
+The format is described at the top of `src/hoststubs/overrides.py`. If the build can't resolve a type you wrote, it fails, so you'll know right away. Then run `uv run pytest -q` and build again.
 
 ## Older versions
 
-Releases up to [v0.3.1](https://github.com/sisoe24/nuke-python-stubs/releases/tag/v0.3.1) are `.py` stubs from the previous generator, which read the types from the docstrings. Use them if the current stubs do not work for you. All releases are on the [Releases](https://github.com/sisoe24/nuke-python-stubs/releases) page.
+Releases up to [v0.3.1](https://github.com/sisoe24/nuke-python-stubs/releases/tag/v0.3.1) are the `.py` stubs from the old docstring-guessing script. If the new stubs give you trouble, those are still there. Everything is on the [Releases](https://github.com/sisoe24/nuke-python-stubs/releases) page.
 
 ## Acknowledgment
 
