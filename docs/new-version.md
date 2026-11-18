@@ -8,7 +8,8 @@ Run the steps in order, from the repository root. In the commands:
 - `<app>` is the install, for example `/Applications/Nuke17.1v2/Nuke17.1v2.app`.
 - `<nuke>` is the executable, for example `<app>/Contents/MacOS/Nuke17.1`.
 
-The repository path must not contain spaces.
+> [!WARNING]
+> The repository path must not contain spaces.
 
 1. **Prepare `~/.nuke`.** The dump and the hiero probes run in a Nuke Studio window, and plugins in `~/.nuke` load there. A plugin that adds names to `nuke` or `hiero` ends up in the committed data. Move plugins out first.
 
@@ -51,7 +52,10 @@ The repository path must not contain spaces.
    uv run python -m hoststubs build data/nuke/<version>/dump.json --update-snapshot
    ```
 
-   The snapshot records what Pyright reveals for the corpus, so it also records a symbol that is missing in this version, or one that fell back to `Any`. Read it before you commit it. Compare it with the snapshot of the closest version. Never update a snapshot to make a failing build pass.
+   The snapshot records what Pyright reveals for the corpus, so it also records a symbol that is missing in this version, or one that fell back to `Any`. Read it before you commit it. Compare it with the snapshot of the closest version.
+
+   > [!IMPORTANT]
+   > Never update a snapshot to make a failing build pass.
 
 7. **Build.**
 
